@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+#: Validate a workflow artifact. Usage: kein validate <workflow> <args...>
+#
+# Workflows ship their own validator so the skill prose never has to name a
+# filesystem path. CLAUDE_PLUGIN_ROOT is not present in the Bash tool's
+# environment, so a path written into a skill would only resolve by accident.
+set -eu
+
+if [ $# -lt 1 ]; then
+  printf 'usage: kein validate <workflow> <args...>\n' >&2
+  exit 1
+fi
+
+workflow=$1
+shift
+
+script="$KEIN_ROOT/skills/$workflow/scripts/validate_artifacts.py"
+if [ ! -f "$script" ]; then
+  printf "kein validate: no validator for workflow '%s'\n" "$workflow" >&2
+  exit 1
+fi
+
+exec python3 "$script" "$@"

@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+#: Print (and create) the durable run root for a workflow, outside any project.
+#
+# Run state never lands in a target repository's working directory. It lives
+# beside the Claude configuration, so it survives a project being cleaned,
+# reset, or deleted, and follows CLAUDE_CONFIG_DIR when the environment is
+# separated.
+set -eu
+
+workflow=${1:-}
+
+root="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/kein/runs"
+[ -n "$workflow" ] && root="$root/$workflow"
+
+mkdir -p "$root"
+printf '%s\n' "$root"
