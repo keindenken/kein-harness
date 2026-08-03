@@ -94,18 +94,27 @@ Agents: the fourteen already normalized in `~/.codex-orca/foundation/prompts/`.
 
 ## Naming and surfaces
 
-Ecosystem name: **kein**.
+Harness name: **kein**. CLI name: **ocs**. They are deliberately different.
 
 | Surface | Value |
 | :--- | :--- |
 | Claude plugin | `kein` → `/kein:interview`, `kein:executor` |
-| Helper CLI | `kein`, one binary serving both vendors |
+| Helper CLI | `ocs`, one binary serving both vendors |
+| Repository | `dev/kein-harness` |
+| Run state | `${CLAUDE_CONFIG_DIR:-~/.claude}/kein/runs/` |
 | Codex home | `~/.codex-orca`, unchanged |
 | Codex launcher | `orcodex`, unchanged |
 
-`ocs` and `gdr` are both superseded by `kein`. One CLI is a requirement rather than tidying:
-a single resolver for the canonical role prompts is what prevents the two vendors' prompt
-sets from drifting apart.
+`gdr` is superseded. One CLI is a requirement rather than tidying: a single resolver for the
+canonical role prompts is what prevents the two vendors' prompt sets from drifting apart.
+
+Splitting the CLI name from the harness name is a direct response to how OMC read in
+practice, where `omc ask` the command sat beside `ask` the skill under a plugin also called
+`omc`. The rule that follows: **no skill may share a name with an `ocs` subcommand.** The
+plugin name is not the problem; a command and a skill answering to the same word is.
+
+`ocs` was already the Codex-side helper name in `~/.codex-orca`'s decision log, so adopting
+it here leaves that record correct as written instead of requiring a revision.
 
 `~/.codex-orca` keeps its name. It is not a surface anyone types, and renaming it would
 invalidate the paths recorded in its verification documents — worse than an asymmetric
@@ -153,8 +162,8 @@ Development continues past v1. This is the first gate, not the finish.
 ## Order
 
 1. `interview` — port and use it. Durable value, code exists, validated.
-2. `kein` CLI with `ask` — one resolver for canonical prompts; also the eval harness's
-   invocation path.
+2. `ocs ask` — one resolver for canonical prompts; also the eval harness's invocation path.
+   Requirements: `docs/requirements/260803-kein-ask-bridge.md`.
 3. Agents — render the fourteen for Claude from the canonical source.
 4. `plan`, `execute` — port, then check gate integrity.
 5. `ralph`, `autopilot` — port.
@@ -173,6 +182,7 @@ Development continues past v1. This is the first gate, not the finish.
 - **`plan`'s pre-mortem gate.** The Planner is instructed to produce a pre-mortem and
   nothing checks it. Output required, verification absent — a defect regardless of the
   obsolescence argument, since it is an inconsistency rather than a stale rule.
-- **`ocs` retirement.** `~/.codex-orca`'s decision log still specifies `ocs` as the
-  Codex-side helper. The Codex side adopts `kein` when the bridge is implemented; until
-  then this document is the only place the unified name is recorded.
+- **Extracting the canonical prompt library from `~/.codex-orca`.** `ask` runs the provider
+  against the vanilla Codex home while reading prompts from the tuned one, which is the
+  first evidence that a vendor-neutral library living inside a lead-tuned environment is
+  incidental. Gate: when a second consumer needs it without the Codex home present.

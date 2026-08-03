@@ -2,7 +2,7 @@
 #: Report how the harness resolved itself in the current session.
 set -eu
 
-printf 'kein doctor\n\n'
+printf 'ocs doctor\n\n'
 printf '  %-22s %s\n' 'plugin root'  "${KEIN_ROOT:-<unset>}"
 printf '  %-22s %s\n' 'CLAUDE_PLUGIN_ROOT' "${CLAUDE_PLUGIN_ROOT:-<unset — running outside a session>}"
 printf '  %-22s %s\n' 'CLAUDE_CONFIG_DIR'  "${CLAUDE_CONFIG_DIR:-<unset — using ~/.claude>}"

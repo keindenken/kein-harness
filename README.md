@@ -1,6 +1,6 @@
-# kein
+# kein-harness
 
-Personal Claude Code harness. Greenfield scaffold — no content ported yet.
+The `kein` harness for Claude Code, driven by the `ocs` CLI. Greenfield scaffold — no content ported yet.
 
 ## Layout
 
@@ -14,7 +14,7 @@ Personal Claude Code harness. Greenfield scaffold — no content ported yet.
 agents/              subagent markdown files      -> kein:<name>
 skills/              <name>/SKILL.md              -> /kein:<name>
 workflows/           workflow scripts
-bin/                 ON the Bash tool's PATH while enabled. `kein` only.
+bin/                 ON the Bash tool's PATH while enabled. `ocs` only.
 libexec/             kein subcommands, OFF PATH. `kein-<name>` -> `kein <name>`
 ```
 
@@ -72,14 +72,14 @@ in that project's `.claude/settings.json` `enabledPlugins`.
 
 ## The bridge CLI
 
-`bin/kein` is the single entry point on PATH. Subcommands are executables at
-`libexec/kein-<name>`; the first `#:` comment line in each is its summary in
-`kein help`. Keeping them out of `bin/` stops every subcommand from also
+`bin/ocs` is the single entry point on PATH. Subcommands are executables at
+`libexec/ocs-<name>`; the first `#:` comment line in each is its summary in
+`ocs help`. Keeping them out of `bin/` stops every subcommand from also
 becoming a bare shell command.
 
 ```sh
-kein help
-kein doctor
+ocs help
+ocs doctor
 ```
 
 ## Naming rule

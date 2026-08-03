@@ -88,7 +88,7 @@ If documentation and code conflict, cite both facts and ask which behavior shoul
 
 Read [references/ledger-template.md](references/ledger-template.md) completely before creating or finalizing a ledger.
 
-Run `kein run-root interview` to resolve the run root, and store the ledger at `<run-root>/<YYMMDD-HHMMSS>-<slug>/ledger.md`. Run state never lands in the target project.
+Run `ocs run-root interview` to resolve the run root, and store the ledger at `<run-root>/<YYMMDD-HHMMSS>-<slug>/ledger.md`. Run state never lands in the target project.
 
 For a new interview, record the canonical working directory, canonical repository or `none`, resolved output path, original request or prompt-safe summary, confirmed decisions, constraints and non-goals, decision boundaries, repository evidence, open questions, and explicit deferrals.
 
@@ -100,7 +100,7 @@ Show unresolved decisions only when the user asks for status, after resume or co
 
 Do not silently convert an unresolved blocking decision into a deferral. A valid deferral names the boundary that remains fixed and the later decision gate; otherwise keep the artifact Draft or ask the one blocking question.
 
-Run `kein validate interview ledger <path>` before relying on an active ledger and before accepting a terminal receipt as valid.
+Run `ocs validate interview ledger <path>` before relying on an active ledger and before accepting a terminal receipt as valid.
 
 After a validated Approved artifact, replace the active ledger with the compact completed receipt. Preserve an interrupted active ledger. On explicit cancellation, replace it with an aborted receipt and do not create an approved document.
 
@@ -122,7 +122,7 @@ Use `Status: Approved` only after explicit consolidated approval and when no blo
 
 Generate prose only from the approved summary and ledger. Do not introduce a new product decision while writing.
 
-Validate the generated document against the approved summary and active ledger, then run `kein validate interview requirements <path>`. If validation or comparison fails, keep the ledger active, correct the document, and revalidate before reporting completion.
+Validate the generated document against the approved summary and active ledger, then run `ocs validate interview requirements <path>`. If validation or comparison fails, keep the ledger active, correct the document, and revalidate before reporting completion.
 
 </Requirements_Artifact>
 
@@ -147,8 +147,8 @@ Validate the generated document against the approved summary and active ledger, 
 - Pressure was applied only where a high-impact answer needed discrimination.
 - Approved status has explicit consolidated approval and no blocking decision.
 - Draft status exposes every blocking gap and leaves the ledger active.
-- The requirements artifact passes `kein validate interview requirements`.
-- The ledger passes `kein validate interview ledger` and is active or collapsed consistently with artifact status.
+- The requirements artifact passes `ocs validate interview requirements`.
+- The ledger passes `ocs validate interview ledger` and is active or collapsed consistently with artifact status.
 - The final response reports the artifact path and explicit deferrals, then stops without a downstream handoff.
 
 </Final_Checklist>

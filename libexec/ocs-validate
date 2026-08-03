@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-#: Validate a workflow artifact. Usage: kein validate <workflow> <args...>
+#: Validate a workflow artifact. Usage: ocs validate <workflow> <args...>
 #
 # Workflows ship their own validator so the skill prose never has to name a
 # filesystem path. CLAUDE_PLUGIN_ROOT is not present in the Bash tool's
@@ -7,7 +7,7 @@
 set -eu
 
 if [ $# -lt 1 ]; then
-  printf 'usage: kein validate <workflow> <args...>\n' >&2
+  printf 'usage: ocs validate <workflow> <args...>\n' >&2
   exit 1
 fi
 
@@ -16,7 +16,7 @@ shift
 
 script="$KEIN_ROOT/skills/$workflow/scripts/validate_artifacts.py"
 if [ ! -f "$script" ]; then
-  printf "kein validate: no validator for workflow '%s'\n" "$workflow" >&2
+  printf "ocs validate: no validator for workflow '%s'\n" "$workflow" >&2
   exit 1
 fi
 
