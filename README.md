@@ -22,22 +22,53 @@ Default locations Claude Code also auto-discovers, absent until needed:
 `hooks/hooks.json`, `.mcp.json`, `.lsp.json`, `output-styles/`, `monitors/`,
 `settings.json` (only the `agent` and `subagentStatusLine` keys are honored).
 
-## Dev loop
+## How this is loaded
 
-Load without installing — session-scoped, repeatable, survives edits:
+Three modes exist. They differ on one axis that matters during development:
+**does Claude Code read the plugin in place, or copy it into the cache?**
+
+| Mode | Load | Edits live? | Scope |
+| :--- | :--- | :--- | :--- |
+| **skills-dir** (active) | symlink at `~/.claude/skills/gaduri` | **yes, in place** | every session |
+| `--plugin-dir <path>` | CLI flag | yes, in place | one session |
+| marketplace install | `plugin marketplace add` + `install` | **no — copied to cache** | every session |
+
+The active setup is a symlink:
 
 ```sh
-claude --plugin-dir /Users/kein/Documents/workspace/dev/gaduri
+ln -s /Users/kein/Documents/workspace/dev/gaduri ~/.claude/skills/gaduri
 ```
 
-Validate the manifest (`--strict` turns unrecognized-field warnings into errors):
+Any folder under a skills directory holding a `.claude-plugin/plugin.json` is
+loaded as `<name>@skills-dir` on the next session, with no marketplace and no
+install step, **discovered in place rather than copied into the plugin cache**.
+The symlink keeps the repo here while satisfying that rule. Verify with
+`claude plugin list` (expect `gaduri@skills-dir` / `Status: loaded`). Remove by
+deleting the symlink — nothing else is registered anywhere.
+
+`--plugin-dir` is still useful for loading a variant into one session without
+disturbing the symlinked copy.
+
+### The version trap (only in marketplace mode)
+
+Marketplace installs are cache-copied and gated on the version string: with
+`version` set in `plugin.json`, new commits alone do **not** reach an installed
+user — the cached copy is kept until the version is bumped. `version` is
+harmless here because skills-dir loads in place. If this ever ships through a
+marketplace while under active development, either bump it every time or drop
+the field so the git commit SHA is used instead.
+
+### Validate
 
 ```sh
 claude plugin validate /Users/kein/Documents/workspace/dev/gaduri --strict
 ```
 
-Once it earns a permanent slot, add the local marketplace and enable it per
-project via `enabledPlugins` in that project's `.claude/settings.json`.
+### Turning it off for one project
+
+Because skills-dir loads for every session, the harness is live everywhere,
+including alongside omc. Disable it per project with `"gaduri@skills-dir": false`
+in that project's `.claude/settings.json` `enabledPlugins`.
 
 ## The bridge CLI
 
