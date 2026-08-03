@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+#: Render the canonical role prompts into the harness and record their hashes.
+#
+# The canonical prompts are vendor-neutral text that currently lives inside
+# ~/.codex-orca. That home is also a lead-tuned Codex environment, which is an
+# accident of history rather than a property of the library, so the source is
+# overridable and no caller spells the path.
+#
+# The rendered copy lands in prompts/, NOT agents/. Claude Code auto-discovers
+# agents/ and turns its contents into subagents; the Codex role library is not
+# that, and rendering Claude subagents is separate later work.
+set -eu
+
+source_dir=${KEIN_CANONICAL_PROMPTS:-$HOME/.codex-orca/foundation/prompts}
+manifest_src=${KEIN_CANONICAL_MANIFEST:-$HOME/.codex-orca/foundation/manifest.json}
+destination="$KEIN_ROOT/prompts"
+
+if [ ! -d "$source_dir" ]; then
+  printf 'ocs sync-prompts: canonical prompts not found at %s\n' "$source_dir" >&2
+  printf '  set KEIN_CANONICAL_PROMPTS if the library has moved\n' >&2
+  exit 1
+fi
+
+if [ ! -f "$manifest_src" ]; then
+  printf 'ocs sync-prompts: canonical manifest not found at %s\n' "$manifest_src" >&2
+  exit 1
+fi
+
+mkdir -p "$destination"
+
+# Stale roles are removed rather than left behind, so the rendered copy is a
+# faithful mirror and the drift check cannot pass over a deleted role.
+for existing in "$destination"/*.md; do
+  [ -e "$existing" ] || continue
+  role=$(basename "$existing" .md)
+  [ -f "$source_dir/$role.md" ] || rm -f "$existing"
+done
+
+count=0
+for prompt in "$source_dir"/*.md; do
+  [ -e "$prompt" ] || continue
+  cp "$prompt" "$destination/$(basename "$prompt")"
+  count=$((count + 1))
+done
+
+if [ "$count" -eq 0 ]; then
+  printf 'ocs sync-prompts: no prompts found in %s\n' "$source_dir" >&2
+  exit 1
+fi
+
+cp "$manifest_src" "$destination/manifest.json"
+
+# Hashes are taken over the rendered copy. check-prompts recomputes them from
+# canonical, so a divergence in either direction shows up.
+(
+  cd "$destination"
+  # shasum output is "<hash>  <name>"; sorting keeps the file diffable.
+  shasum -a 256 ./*.md | sed 's| \./| |' | sort -k2 > canonical.sha256
+)
+
+printf 'synced %s role prompts\n' "$count"
+printf '  from  %s\n' "$source_dir"
+printf '  to    %s\n' "$destination"

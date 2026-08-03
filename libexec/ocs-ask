@@ -1,0 +1,135 @@
+#!/usr/bin/env sh
+#: Ask another vendor's CLI a question as a canonical role. Advisory only.
+#
+# Usage:
+#   ocs ask <provider> --agent <role> [--trace] <task...>
+#
+# The assembled prompt is exactly the role prompt, a blank line, and the task.
+# Repository instructions are NOT injected: `ask` cannot know whether a
+# repository's conventions bear on a given question, and the caller can. Put
+# them in the task brief.
+set -eu
+
+# Adding a provider is one entry here and no change at any call site.
+PROVIDERS='codex'
+
+usage() {
+  cat >&2 <<EOF
+usage: ocs ask <provider> --agent <role> [--trace] <task...>
+
+  providers: $PROVIDERS
+  roles:     read-only roles only; run with an unknown role to list them
+
+example:
+  ocs ask codex --agent critic "Review docs/plan.md against its requirements"
+EOF
+}
+
+provider=''
+role=''
+trace=0
+task=''
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs ask: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
+    --agent=*) role=${1#--agent=}; shift ;;
+    --trace) trace=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    -*) printf "ocs ask: unknown option '%s'\n" "$1" >&2; usage; exit 1 ;;
+    *)
+      if [ -z "$provider" ]; then provider=$1
+      elif [ -z "$task" ]; then task=$1
+      else task="$task $1"
+      fi
+      shift ;;
+  esac
+done
+
+[ -n "$provider" ] || { printf 'ocs ask: no provider given\n' >&2; usage; exit 1; }
+[ -n "$role" ]     || { printf 'ocs ask: no role given (--agent <role>)\n' >&2; usage; exit 1; }
+[ -n "$task" ]     || { printf 'ocs ask: no task given\n' >&2; usage; exit 1; }
+
+case " $PROVIDERS " in
+  *" $provider "*) ;;
+  *) printf "ocs ask: provider '%s' is not enabled. Enabled: %s\n" "$provider" "$PROVIDERS" >&2
+     exit 1 ;;
+esac
+
+prompts="$KEIN_ROOT/prompts"
+manifest="$prompts/manifest.json"
+
+[ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `ocs sync-prompts`.\n' >&2; exit 1; }
+
+# A stale library would answer as a role that no longer exists as written, so
+# the gate runs before anything is spent on inference.
+"$KEIN_ROOT/libexec/ocs-check-prompts" >/dev/null
+
+# Advisory only: the nine read-only roles. A write-capable role reached through a
+# bare one-shot would let a remote vendor edit the worktree with no workflow
+# around it, which is what `execute` is for.
+readonly_roles=$(
+  python3 -c '
+import json, sys
+manifest = json.load(open(sys.argv[1]))
+print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] == "read-only")))
+' "$manifest"
+)
+
+case " $readonly_roles " in
+  *" $role "*) ;;
+  *)
+    if [ -f "$prompts/$role.md" ]; then
+      printf "ocs ask: role '%s' is write-capable and is not available here.\n" "$role" >&2
+      printf '  `ask` is advisory. Use a workflow skill for work that changes files.\n' >&2
+    else
+      printf "ocs ask: unknown role '%s'\n" "$role" >&2
+    fi
+    printf '  available: %s\n' "$readonly_roles" >&2
+    exit 1 ;;
+esac
+
+prompt=$(printf '%s\n\n%s' "$(cat "$prompts/$role.md")" "$task")
+
+# The vanilla home is pinned, never inherited: a one-shot advisory call must not
+# pick up the lead tuning that lives in ~/.codex-orca.
+codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
+
+work=$(mktemp -d "${TMPDIR:-/tmp}/ocs-ask.XXXXXX")
+cleanup() { rm -rf "$work"; }
+trap cleanup EXIT INT TERM
+
+last="$work/response.txt"
+
+set -- codex exec --ephemeral --skip-git-repo-check --sandbox read-only \
+  -C "$PWD" -o "$last" "$prompt"
+
+status=0
+CODEX_HOME="$codex_home" "$@" >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
+
+if [ "$trace" -eq 1 ]; then
+  dir="$("$KEIN_ROOT/libexec/ocs-run-root" ask)/$(date +%y%m%d-%H%M%S)-$role"
+  mkdir -p "$dir"
+  printf '%s' "$prompt" > "$dir/prompt.txt"
+  {
+    printf 'CODEX_HOME=%s\n' "$codex_home"
+    printf 'cwd=%s\n' "$PWD"
+    for arg in "$@"; do printf '%s\n' "$arg"; done
+  } > "$dir/command.txt"
+  [ -f "$last" ] && cp "$last" "$dir/response.txt"
+  cp "$work/stderr.txt" "$dir/stderr.txt"
+  printf 'trace: %s\n' "$dir" >&2
+fi
+
+if [ "$status" -ne 0 ]; then
+  cat "$work/stderr.txt" >&2
+  exit "$status"
+fi
+
+if [ -s "$last" ]; then
+  cat "$last"
+else
+  printf 'ocs ask: provider returned no final message\n' >&2
+  cat "$work/stderr.txt" >&2
+  exit 1
+fi

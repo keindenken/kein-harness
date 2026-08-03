@@ -1,0 +1,72 @@
+{
+  "analyst": {
+    "description": "Read-only requirements-gap and acceptance-criteria analysis before planning.",
+    "prompt": "prompts/analyst.md",
+    "sandbox_mode": "read-only"
+  },
+  "architect": {
+    "description": "Read-only architecture, diagnosis, and implementation-readiness advice.",
+    "prompt": "prompts/architect.md",
+    "sandbox_mode": "read-only"
+  },
+  "code-reviewer": {
+    "description": "Read-only correctness, quality, conventions, and maintainability review.",
+    "prompt": "prompts/code-reviewer.md",
+    "sandbox_mode": "read-only"
+  },
+  "code-simplifier": {
+    "description": "Behavior-preserving simplification of recently changed code.",
+    "prompt": "prompts/code-simplifier.md",
+    "sandbox_mode": "workspace-write"
+  },
+  "critic": {
+    "description": "Read-only adversarial quality gate for plans or explicitly scoped review.",
+    "prompt": "prompts/critic.md",
+    "sandbox_mode": "read-only"
+  },
+  "debugger": {
+    "description": "Read-only root-cause and regression diagnosis with minimal-fix recommendations.",
+    "prompt": "prompts/debugger.md",
+    "sandbox_mode": "read-only"
+  },
+  "document-specialist": {
+    "description": "Read-only authoritative documentation and version-aware reference research.",
+    "prompt": "prompts/document-specialist.md",
+    "sandbox_mode": "read-only"
+  },
+  "executor": {
+    "description": "Bounded code implementation, correction, and fresh self-verification.",
+    "prompt": "prompts/executor.md",
+    "sandbox_mode": "workspace-write"
+  },
+  "explore": {
+    "description": "Fast read-only repository file, symbol, pattern, and relationship search.",
+    "prompt": "prompts/explore.md",
+    "sandbox_mode": "read-only"
+  },
+  "planner": {
+    "description": "Planning-artifact authoring with risks, sequencing, evidence, and verification.",
+    "prompt": "prompts/planner.md",
+    "sandbox_mode": "workspace-write"
+  },
+  "qa-tester": {
+    "description": "Runtime and interactive behavior verification with captured evidence and cleanup.",
+    "prompt": "prompts/qa-tester.md",
+    "sandbox_mode": "workspace-write"
+  },
+  "test-engineer": {
+    "description": "Test strategy, test implementation, coverage, and flaky-test hardening.",
+    "prompt": "prompts/test-engineer.md",
+    "sandbox_mode": "workspace-write"
+  },
+  "tracer": {
+    "description": "Read-only causal tracing with competing hypotheses and next-probe selection.",
+    "prompt": "prompts/tracer.md",
+    "sandbox_mode": "read-only"
+  },
+  "verifier": {
+    "description": "Read-only evaluation of whether evidence proves completion claims.",
+    "prompt": "prompts/verifier.md",
+    "sandbox_mode": "read-only"
+  }
+}

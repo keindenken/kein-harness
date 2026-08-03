@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+#: Fail when the rendered role prompts have drifted from canonical.
+#
+# The rendered copy exists so the harness is self-contained. That only holds if
+# staleness is loud, so this exits non-zero and names every role that moved.
+set -eu
+
+source_dir=${KEIN_CANONICAL_PROMPTS:-$HOME/.codex-orca/foundation/prompts}
+destination="$KEIN_ROOT/prompts"
+record="$destination/canonical.sha256"
+
+if [ ! -f "$record" ]; then
+  printf 'ocs check-prompts: no rendered copy. Run `ocs sync-prompts` first.\n' >&2
+  exit 1
+fi
+
+drifted=''
+missing=''
+
+# Recorded roles: compare the rendered copy against canonical, so an edit to
+# either side is caught.
+while read -r expected name; do
+  [ -n "$name" ] || continue
+  rendered="$destination/$name"
+  canonical="$source_dir/$name"
+
+  if [ ! -f "$rendered" ]; then
+    missing="$missing $name(rendered)"
+    continue
+  fi
+  if [ ! -f "$canonical" ]; then
+    missing="$missing $name(canonical)"
+    continue
+  fi
+
+  actual_rendered=$(shasum -a 256 "$rendered" | cut -d' ' -f1)
+  actual_canonical=$(shasum -a 256 "$canonical" | cut -d' ' -f1)
+
+  if [ "$actual_rendered" != "$expected" ] || [ "$actual_canonical" != "$expected" ]; then
+    drifted="$drifted $name"
+  fi
+done < "$record"
+
+# Roles added to canonical since the last sync are drift too: the rendered copy
+# is incomplete, and nothing in the recorded hashes would reveal that.
+if [ -d "$source_dir" ]; then
+  for canonical in "$source_dir"/*.md; do
+    [ -e "$canonical" ] || continue
+    name=$(basename "$canonical")
+    grep -q " $name\$" "$record" || drifted="$drifted $name(unrendered)"
+  done
+fi
+
+if [ -n "$drifted" ] || [ -n "$missing" ]; then
+  printf 'ocs check-prompts: rendered prompts are out of date\n' >&2
+  [ -n "$drifted" ] && printf '  drifted:%s\n' "$drifted" >&2
+  [ -n "$missing" ] && printf '  missing:%s\n' "$missing" >&2
+  printf '  run `ocs sync-prompts` and review the diff\n' >&2
+  exit 1
+fi
+
+printf 'prompts match canonical (%s roles)\n' "$(wc -l < "$record" | tr -d ' ')"
