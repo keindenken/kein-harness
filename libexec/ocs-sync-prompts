@@ -61,3 +61,6 @@ cp "$manifest_src" "$destination/manifest.json"
 printf 'synced %s role prompts\n' "$count"
 printf '  from  %s\n' "$source_dir"
 printf '  to    %s\n' "$destination"
+
+# Claude subagents derive from the library, so one command leaves both in step.
+"$KEIN_ROOT/libexec/ocs-render-agents"
