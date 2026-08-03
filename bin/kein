@@ -1,0 +1,66 @@
+#!/usr/bin/env sh
+# kein — personal harness CLI.
+#
+# Every file in bin/ becomes a bare command on the Bash tool's PATH while the
+# plugin is enabled, so `kein` is the ONE entry point that belongs here.
+# Subcommands live in libexec/ (off PATH) and are reached as `kein <name>`.
+set -eu
+
+# CLAUDE_PLUGIN_ROOT is set by Claude Code when the plugin is loaded. The
+# fallback keeps `kein` runnable from a plain shell during development.
+KEIN_ROOT=${CLAUDE_PLUGIN_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)}
+export KEIN_ROOT
+
+KEIN_VERSION=$(
+  sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
+    "$KEIN_ROOT/.claude-plugin/plugin.json" 2>/dev/null | head -1
+)
+KEIN_VERSION=${KEIN_VERSION:-unknown}
+
+usage() {
+  cat <<EOF
+kein — personal harness CLI (v${KEIN_VERSION})
+
+Usage:
+  kein <command> [args...]
+  kein help
+  kein version
+
+Commands:
+$(list_commands)
+EOF
+}
+
+list_commands() {
+  found=0
+  for f in "$KEIN_ROOT"/libexec/kein-*; do
+    [ -x "$f" ] || continue
+    found=1
+    name=${f##*/kein-}
+    # First `#:` comment line in a subcommand is its one-line summary.
+    summary=$(sed -n 's/^#:[[:space:]]*//p' "$f" 2>/dev/null | head -1)
+    printf '  %-12s %s\n' "$name" "$summary"
+  done
+  [ "$found" -eq 1 ] || printf '  (none yet — add an executable at libexec/kein-<name>)\n'
+}
+
+cmd=${1:-help}
+[ $# -gt 0 ] && shift
+
+case "$cmd" in
+  help | -h | --help)
+    usage
+    ;;
+  version | -v | --version)
+    printf '%s\n' "$KEIN_VERSION"
+    ;;
+  *)
+    sub="$KEIN_ROOT/libexec/kein-$cmd"
+    if [ -x "$sub" ]; then
+      exec "$sub" "$@"
+    fi
+    printf 'kein: unknown command '\''%s'\''\n\n' "$cmd" >&2
+    usage >&2
+    exit 1
+    ;;
+esac
