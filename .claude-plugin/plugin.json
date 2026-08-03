@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "gaduri",
+  "displayName": "Gaduri",
+  "version": "0.0.1",
+  "description": "Personal Claude Code harness: agents, skills, and vendor bridges.",
+  "author": {
+    "name": "kein"
+  },
+  "keywords": [
+    "claude-code",
+    "harness",
+    "orchestration"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "gaduri",
+  "description": "Personal Claude Code harness.",
+  "owner": {
+    "name": "kein"
+  },
+  "version": "0.0.1",
+  "plugins": [
+    {
+      "name": "gaduri",
+      "description": "Personal Claude Code harness: agents, skills, and vendor bridges.",
+      "version": "0.0.1",
+      "source": "./",
+      "category": "productivity",
+      "tags": [
+        "harness",
+        "orchestration"
+      ]
+    }
+  ]
+}

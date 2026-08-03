@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+#: Report how the harness resolved itself in the current session.
+set -eu
+
+printf 'gaduri doctor\n\n'
+printf '  %-22s %s\n' 'plugin root'  "${GADURI_ROOT:-<unset>}"
+printf '  %-22s %s\n' 'CLAUDE_PLUGIN_ROOT' "${CLAUDE_PLUGIN_ROOT:-<unset — running outside a session>}"
+printf '  %-22s %s\n' 'CLAUDE_CONFIG_DIR'  "${CLAUDE_CONFIG_DIR:-<unset — using ~/.claude>}"
+printf '  %-22s %s\n' 'CLAUDE_PROJECT_DIR' "${CLAUDE_PROJECT_DIR:-<unset>}"
+printf '  %-22s %s\n' 'cwd' "$(pwd)"
+
+printf '\ncomponents:\n'
+for d in agents skills libexec workflows hooks; do
+  if [ -d "${GADURI_ROOT}/$d" ]; then
+    n=$(find "${GADURI_ROOT}/$d" -mindepth 1 -maxdepth 1 ! -name '.gitkeep' 2>/dev/null | wc -l | tr -d ' ')
+    printf '  %-12s %s\n' "$d/" "$n"
+  else
+    printf '  %-12s %s\n' "$d/" "absent"
+  fi
+done
