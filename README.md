@@ -141,8 +141,26 @@ these roles are required to run diagnostics, tests, and history inspection and t
 that away would break the role rather than bound it. Shell-level read-only is therefore
 prompt-enforced here, not tool-enforced.
 
-No `model:` is emitted. Runtime model selection belongs to the caller; a model pinned
-inside an agent prompt is the layer mismatch the normalization policy exists to remove.
+### Model routing
+
+The canonical manifest carries a vendor-neutral `tier`, which each renderer maps onto its
+own lineup. Tiers follow omc 4.15.7's per-role model choice rather than a fresh judgement.
+
+| tier | roles | Claude | Codex |
+| :--- | ---: | :--- | :--- |
+| `deep` | 6 | `opus` | `gpt-5.6-sol` |
+| `standard` | 7 | `sonnet` | `gpt-5.6-terra` |
+| `fast` | 1 | `haiku` | `gpt-5.6-luna` |
+
+Routing lives in configuration, which is what the normalization policy means by
+"configure runtime model, effort, and sandbox separately". What it excludes is a model
+named inside prompt prose.
+
+The Codex half carries a wrinkle this side does not: those models default to `low`,
+`medium`, and `medium` reasoning effort respectively, so `deep` would arrive at the
+*lowest* effort unless the Codex renderer sets effort explicitly. Claude has no
+per-agent effort field; effort comes from the session. The Codex renderer does not
+consume `tier` yet.
 
 ### Sharing names with omc
 
