@@ -93,6 +93,8 @@ becoming a bare shell command.
 ocs help
 ocs doctor
 ocs state-dir runs/interview   # where this project's run state lives
+ocs validate <workflow> ...    # check an artifact's shape
+ocs state <workflow> ...       # the workflow's durable run state
 ```
 
 ### Where state goes

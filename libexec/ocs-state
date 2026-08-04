@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+#: Run a workflow's state machine. Usage: ocs state <workflow> <args...>
+#
+# Sibling of `ocs validate`: that one checks an artifact's shape, this one owns
+# the durable run state. Both exist so skill prose never has to name a
+# filesystem path, which it could not resolve anyway — CLAUDE_PLUGIN_ROOT is
+# absent from the Bash tool's environment.
+set -eu
+
+if [ $# -lt 1 ]; then
+  printf 'usage: ocs state <workflow> <args...>\n' >&2
+  exit 1
+fi
+
+workflow=$1
+shift
+
+script="$KEIN_ROOT/skills/$workflow/scripts/state.py"
+if [ ! -f "$script" ]; then
+  printf "ocs state: no state machine for workflow '%s'\n" "$workflow" >&2
+  exit 1
+fi
+
+exec python3 "$script" "$@"
