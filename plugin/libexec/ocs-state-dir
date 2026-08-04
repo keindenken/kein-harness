@@ -9,7 +9,15 @@ set -eu
 
 sub=${1:-}
 
-if root=$(git rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ]; then
+# Resolution order matters, and cwd is the wrong first answer.
+# A lead that steps into the plugin's own directory to read a skill reference makes `git rev-parse` name the harness repository, and the run ledger lands there instead of in the project being worked on.
+# That was observed during an evaluation run, but it is a plain bug in ordinary use too.
+# KEIN_STATE_ROOT is the explicit pin a harness can set; CLAUDE_PROJECT_DIR is the session's own answer and beats whatever directory the lead wandered into.
+if [ -n "${KEIN_STATE_ROOT:-}" ]; then
+  base="$KEIN_STATE_ROOT/.agents/kein"
+elif [ -n "${CLAUDE_PROJECT_DIR:-}" ]; then
+  base="$CLAUDE_PROJECT_DIR/.agents/kein"
+elif root=$(git rev-parse --show-toplevel 2>/dev/null) && [ -n "$root" ]; then
   base="$root/.agents/kein"
 else
   # No repository in scope.

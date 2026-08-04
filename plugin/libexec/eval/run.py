@@ -19,8 +19,8 @@ KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
 ARMS = {
-    "with-skill": {"plugin_dir": str(KEIN_ROOT), "invoke": "/kein:ralplan "},
-    "without-skill": {"plugin_dir": None, "invoke": ""},
+    "with-skill": {"inject": True, "invoke": "/kein:ralplan "},
+    "without-skill": {"inject": False, "invoke": ""},
 }
 
 # A probe asks what reached the session instead of doing the task.
@@ -38,9 +38,9 @@ PROBE_PROMPT = (
 )
 
 
-def run(args, cwd=None, timeout=None, check=True):
+def run(args, cwd=None, timeout=None, check=True, env=None):
     result = subprocess.run(
-        args, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout, check=False,
+        args, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout, check=False,
     )
     if check and result.returncode != 0:
         raise SystemExit(
@@ -142,6 +142,29 @@ def plugin_status(worktree):
     return statuses
 
 
+def prepare_plugin(path, model):
+    """Copy the plugin for this run and re-render its agents onto one model.
+
+    `--model` sets the lead only, and a subagent's `model:` frontmatter wins, so the deep-tier roles — planner, architect, critic — arrive as Opus under a Sonnet lead.
+    That is expensive, and worse, it makes the arms differ by model as well as by skill: with-skill gets Opus lanes while the control improvises cheaper ones, and a difference between them can no longer be read as the skill's doing.
+    Copying rather than rendering in place also keeps the installed harness untouched while a run is in flight.
+    """
+    shutil.copytree(KEIN_ROOT, path, symlinks=True)
+    run(
+        [str(path / "libexec" / "ocs-render-agents"), str(path / "agents")],
+        env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model),
+    )
+    models = sorted({
+        line.split(":", 1)[1].strip()
+        for agent in (path / "agents").glob("*.md")
+        for line in agent.read_text().splitlines()[:8]
+        if line.startswith("model:")
+    })
+    if models != [model]:
+        raise SystemExit(f"ocs eval: agent models did not collapse to {model}: {models}")
+    return path
+
+
 def prepare_config_home(path):
     """Build a config home that carries authentication and nothing else.
 
@@ -181,6 +204,19 @@ def discard_credentials(path):
     secret = path / ".credentials.json"
     if secret.exists():
         secret.unlink()
+
+
+def sessions_outside(config_home, allowed):
+    """Name every working directory this run opened a session in, minus the ones it was supposed to.
+
+    Claude Code encodes the working directory into a project directory name under the config home, so a pinned config home records where every lead and lane actually ran.
+    A first run left a directory for the origin fixture repository, meaning a lane had been pointed at live work rather than at its detached copy.
+    """
+    projects = config_home / "projects"
+    if not projects.is_dir():
+        return []
+    permitted = {str(Path(a).resolve()).replace("/", "-").replace(".", "-") for a in allowed}
+    return sorted(d.name for d in projects.iterdir() if d.is_dir() and d.name not in permitted)
 
 
 def summarize_events(path):
@@ -235,7 +271,7 @@ def summarize_events(path):
     }
 
 
-def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home):
+def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns):
     # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
     command = [
         "claude", "--model", model,
@@ -245,16 +281,21 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
         "--strict-mcp-config",
         "-p", prompt,
     ]
-    plugin_dir = ARMS[arm]["plugin_dir"]
-    if plugin_dir:
-        command += ["--plugin-dir", plugin_dir]
+    if ARMS[arm]["inject"]:
+        command += ["--plugin-dir", str(plugin_dir)]
+    if max_turns:
+        # A backstop against a runaway loop, not a round limiter: a run that produced a plan took 135 assistant turns.
+        # It also cannot reach a subagent's own turns, so the real cost lever is the pinned model, not this.
+        command += ["--max-turns", str(max_turns)]
     if not probe:
         # A real task writes files and dispatches lanes, which a headless run cannot stop to ask about.
         command += ["--permission-mode", "bypassPermissions"]
 
     # The config home is pinned rather than inherited, which is the same move `ocs ask` makes for the Codex side.
     # Inheriting it would hand every arm the user's other plugins — superpowers among them, whose planning skills would mask the variable under test far more thoroughly than the fixture's own contamination did.
-    environment = dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home))
+    # KEIN_STATE_ROOT pins the arm's run ledger to its own worktree.
+    # Without it a lead that steps into the plugin directory to read a reference makes `ocs state-dir` resolve to the harness repository, and the ledger escapes the arm entirely.
+    environment = dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home), KEIN_STATE_ROOT=str(worktree))
 
     started = datetime.now(timezone.utc)
     with events_path.open("wb") as sink:
@@ -345,7 +386,7 @@ def check_plumbing(records, probe, contamination):
         inventory = record["run"].get("inventory") or {}
         skills = inventory.get("skills") or []
         plugins = [p.get("name") for p in (inventory.get("plugins") or [])]
-        expected_plugins = ["kein"] if ARMS[arm]["plugin_dir"] else []
+        expected_plugins = ["kein"] if ARMS[arm]["inject"] else []
         checks.append({
             "check": f"plugins loaded are exactly {expected_plugins or 'none'}",
             "arm": arm,
@@ -360,9 +401,9 @@ def check_plumbing(records, probe, contamination):
         })
         has_kein = any(str(s).startswith("kein:") for s in skills)
         checks.append({
-            "check": f"kein skills {'present' if ARMS[arm]['plugin_dir'] else 'absent'}",
+            "check": f"kein skills {'present' if ARMS[arm]['inject'] else 'absent'}",
             "arm": arm,
-            "pass": has_kein == bool(ARMS[arm]["plugin_dir"]),
+            "pass": has_kein == bool(ARMS[arm]["inject"]),
             "detail": f"kein skills={[s for s in skills if str(s).startswith('kein:')]}",
         })
         # A rival planning harness is the failure this whole sanitize exists to prevent, so it is named rather than left to the plugin count.
@@ -398,6 +439,15 @@ def check_plumbing(records, probe, contamination):
                 "pass": bool(record["produced"]),
                 "detail": f"{len(record['produced'])} files",
             })
+            # Claude Code names a project directory after the working directory it ran in, so the config home doubles as a record of everywhere this run went.
+            # A directory for anything other than the two arm worktrees means a lane escaped its isolation — the origin fixture repository being the one that matters, since an arm reaching it can read, and in principle write, live work.
+            strayed = record.get("visited_outside") or []
+            checks.append({
+                "check": "no session ran outside an arm worktree",
+                "arm": arm,
+                "pass": not strayed,
+                "detail": f"strayed={strayed}" if strayed else "none",
+            })
     return checks
 
 
@@ -407,6 +457,7 @@ def main():
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
     parser.add_argument("--keep", action="store_true", help="leave worktrees on disk for inspection")
+    parser.add_argument("--max-turns", type=int, default=300, help="runaway backstop for the lead; not a round limiter")
     options = parser.parse_args()
 
     config, config_path = load_config()
@@ -424,6 +475,7 @@ def main():
 
     # One pinned config home for the whole run, created empty, so no arm inherits the operator's plugins or MCP servers.
     config_home = prepare_config_home(run_dir / "config-home")
+    plugin_dir = prepare_plugin(run_dir / "plugin", model)
 
     try:
         records = {}
@@ -439,7 +491,7 @@ def main():
             loaded = plugin_status(worktree)
             print(f"[{arm}] launching ({model}, {'probe' if options.probe else 'task'})", file=sys.stderr)
             events = run_dir / f"events-{arm}.jsonl"
-            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home)
+            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home, plugin_dir, options.max_turns)
             produced = collect(worktree, run_dir / "artifacts" / arm, exclude=set(touched))
             records[arm] = {
                 "path": str(worktree),
