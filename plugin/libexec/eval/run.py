@@ -19,8 +19,8 @@ KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
 ARMS = {
-    "with-skill": {"plugin_dir": str(KEIN_ROOT)},
-    "without-skill": {"plugin_dir": None},
+    "with-skill": {"plugin_dir": str(KEIN_ROOT), "invoke": "/kein:ralplan "},
+    "without-skill": {"plugin_dir": None, "invoke": ""},
 }
 
 # A probe asks what reached the session instead of doing the task.
@@ -142,8 +142,104 @@ def plugin_status(worktree):
     return statuses
 
 
-def launch(arm, worktree, prompt, model, probe, timeout):
-    command = ["claude", "--model", model, "-p", prompt]
+def prepare_config_home(path):
+    """Build a config home that carries authentication and nothing else.
+
+    Inheriting the operator's config home hands every arm their other plugins, and superpowers alone would put a second planning discipline in front of the control arm.
+    Measured on this machine: inheriting gave 8 plugins, 13 MCP servers, and 54 skills; pinning gives 1 plugin, 0 MCP servers, and only Claude Code's own built-ins.
+
+    Authentication does not survive the pin on its own, so two files are seeded.
+    `.claude.json` gets the account and onboarding keys only — never `projects`, `mcpServers`, or any plugin key, which is what would smuggle the ambient environment back in.
+    `.credentials.json` comes from the macOS Keychain, is written 0600, and is deleted when the run ends.
+    """
+    path.mkdir(parents=True, exist_ok=True)
+
+    source = Path.home() / ".claude.json"
+    if not source.exists():
+        raise SystemExit(f"ocs eval: cannot seed a config home, {source} is missing")
+    original = json.loads(source.read_text())
+    keep = ("oauthAccount", "userID", "hasCompletedOnboarding", "lastOnboardingVersion", "firstStartTime", "installMethod")
+    (path / ".claude.json").write_text(json.dumps({k: original[k] for k in keep if k in original}, indent=2))
+
+    credentials = run(
+        ["security", "find-generic-password", "-s", "Claude Code-credentials", "-w"], check=False,
+    )
+    if credentials.returncode != 0 or not credentials.stdout.strip():
+        raise SystemExit(
+            "ocs eval: no 'Claude Code-credentials' entry in the Keychain.\n"
+            "  A pinned config home has no login of its own, and running without the pin would let the operator's\n"
+            "  other plugins reach every arm, which silently invalidates the comparison."
+        )
+    target = path / ".credentials.json"
+    target.write_bytes(credentials.stdout)
+    target.chmod(0o600)
+    return path
+
+
+def discard_credentials(path):
+    """Remove the copied secret as soon as the run no longer needs it."""
+    secret = path / ".credentials.json"
+    if secret.exists():
+        secret.unlink()
+
+
+def summarize_events(path):
+    """Turn the event stream into what actually happened, rather than what the arm says happened.
+
+    `system/init` is a complete inventory of what reached the session — plugins, skills, agents, tools, MCP servers — and it comes from configuration rather than from the model, so it settles every question about isolation without asking anyone.
+    The tool-use events are the process record: which skill was invoked, which subagents were dispatched, and how many of them.
+    This is also the honest way to read lane freshness, because a dispatch event is an observation while the `fresh` field in run state is a claim the arm writes about itself.
+    """
+    inventory, dispatched, skills_used, writes, turns = {}, [], [], [], 0
+    result_text = ""
+    for line in path.read_text(errors="replace").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        kind, subtype = event.get("type"), event.get("subtype")
+        if kind == "system" and subtype == "init":
+            inventory = {
+                key: event.get(key) for key in
+                ("model", "permissionMode", "plugins", "skills", "agents", "mcp_servers", "tools", "plugin_errors")
+            }
+        elif kind == "assistant":
+            turns += 1
+            for block in (event.get("message") or {}).get("content") or []:
+                if not isinstance(block, dict) or block.get("type") != "tool_use":
+                    continue
+                name, params = block.get("name"), block.get("input") or {}
+                if name == "Task":
+                    dispatched.append({"agent": params.get("subagent_type"), "description": params.get("description")})
+                elif name == "Skill":
+                    skills_used.append(params.get("skill"))
+                elif name in ("Write", "Edit", "NotebookEdit"):
+                    writes.append(params.get("file_path"))
+        elif kind == "result":
+            result_text = event.get("result") or ""
+    return {
+        "inventory": inventory,
+        "subagents_dispatched": dispatched,
+        "skills_invoked": skills_used,
+        "files_written": writes,
+        "assistant_turns": turns,
+        "result": result_text,
+    }
+
+
+def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home):
+    # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
+    command = [
+        "claude", "--model", model,
+        "--output-format", "stream-json", "--verbose",
+        # Seeding the credential brings the account's own connectors with it — ten of them here, Gmail and Drive and Notion among them.
+        # They are constant across arms and so do not break attribution, but a planning task should not have data connectors it never had in the original run.
+        "--strict-mcp-config",
+        "-p", prompt,
+    ]
     plugin_dir = ARMS[arm]["plugin_dir"]
     if plugin_dir:
         command += ["--plugin-dir", plugin_dir]
@@ -151,24 +247,35 @@ def launch(arm, worktree, prompt, model, probe, timeout):
         # A real task writes files and dispatches lanes, which a headless run cannot stop to ask about.
         command += ["--permission-mode", "bypassPermissions"]
 
+    # The config home is pinned rather than inherited, which is the same move `ocs ask` makes for the Codex side.
+    # Inheriting it would hand every arm the user's other plugins — superpowers among them, whose planning skills would mask the variable under test far more thoroughly than the fixture's own contamination did.
+    environment = dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home))
+
     started = datetime.now(timezone.utc)
-    try:
-        result = run(command, cwd=worktree, timeout=timeout, check=False)
-        timed_out = False
-    except subprocess.TimeoutExpired:
-        return {
-            "command": command, "exit_code": None, "timed_out": True,
-            "stdout": "", "stderr": f"timed out after {timeout}s",
-            "seconds": timeout,
-        }
-    return {
+    with events_path.open("wb") as sink:
+        process = subprocess.Popen(
+            command, cwd=worktree, env=environment,
+            stdin=subprocess.DEVNULL, stdout=sink, stderr=subprocess.PIPE,
+        )
+        try:
+            _, errors = process.communicate(timeout=timeout)
+            timed_out = False
+        except subprocess.TimeoutExpired:
+            process.kill()
+            _, errors = process.communicate()
+            timed_out = True
+
+    outcome = {
         "command": command,
-        "exit_code": result.returncode,
+        "config_home": str(config_home),
+        "prompt": prompt,
+        "exit_code": process.returncode,
         "timed_out": timed_out,
-        "stdout": result.stdout.decode("utf-8", "replace"),
-        "stderr": result.stderr.decode("utf-8", "replace"),
+        "stderr": (errors or b"").decode("utf-8", "replace")[-4000:],
         "seconds": round((datetime.now(timezone.utc) - started).total_seconds(), 1),
     }
+    outcome.update(summarize_events(events_path))
+    return outcome
 
 
 def collect(worktree, destination, exclude=()):
@@ -229,21 +336,44 @@ def check_plumbing(records, probe, contamination):
                 "pass": bool(seen) and all(state == "disabled" for state in seen),
                 "detail": f"status={seen or 'not listed'}",
             })
-        if probe:
-            answer = record["run"]["stdout"].strip().splitlines()
-            line = answer[-1] if answer else ""
-            expect_kein = "yes" if ARMS[arm]["plugin_dir"] else "no"
+        # Everything below reads the session's own init inventory, which comes from configuration rather than from the model.
+        inventory = record["run"].get("inventory") or {}
+        skills = inventory.get("skills") or []
+        plugins = [p.get("name") for p in (inventory.get("plugins") or [])]
+        expected_plugins = ["kein"] if ARMS[arm]["plugin_dir"] else []
+        checks.append({
+            "check": f"plugins loaded are exactly {expected_plugins or 'none'}",
+            "arm": arm,
+            "pass": sorted(plugins) == sorted(expected_plugins),
+            "detail": f"plugins={plugins}",
+        })
+        checks.append({
+            "check": "no inherited MCP servers",
+            "arm": arm,
+            "pass": not (inventory.get("mcp_servers") or []),
+            "detail": f"count={len(inventory.get('mcp_servers') or [])}",
+        })
+        has_kein = any(str(s).startswith("kein:") for s in skills)
+        checks.append({
+            "check": f"kein skills {'present' if ARMS[arm]['plugin_dir'] else 'absent'}",
+            "arm": arm,
+            "pass": has_kein == bool(ARMS[arm]["plugin_dir"]),
+            "detail": f"kein skills={[s for s in skills if str(s).startswith('kein:')]}",
+        })
+        # A rival planning harness is the failure this whole sanitize exists to prevent, so it is named rather than left to the plugin count.
+        foreign = [s for s in skills if any(mark in str(s).lower() for mark in ("superpower", "omc", "oh-my-claudecode", "ralph-loop"))]
+        checks.append({
+            "check": "no foreign planning harness in scope",
+            "arm": arm,
+            "pass": not foreign,
+            "detail": f"found={foreign}" if foreign else "none",
+        })
+        if not probe:
             checks.append({
-                "check": f"kein presence is {expect_kein}",
+                "check": "the skill was actually invoked" if ARMS[arm]["invoke"] else "no skill invoked (control)",
                 "arm": arm,
-                "pass": f"KEIN={expect_kein}" in line,
-                "detail": line,
-            })
-            checks.append({
-                "check": "omc absent",
-                "arm": arm,
-                "pass": "OMC=no" in line,
-                "detail": line,
+                "pass": bool(record["run"].get("skills_invoked")) == bool(ARMS[arm]["invoke"]),
+                "detail": f"skills_invoked={record['run'].get('skills_invoked')}, subagents={len(record['run'].get('subagents_dispatched') or [])}",
             })
     return checks
 
@@ -269,57 +399,66 @@ def main():
     run_dir = state_dir("runs/eval") / f"{stamp}-{options.fixture}-{kind}"
     run_dir.mkdir(parents=True)
 
-    prompt = PROBE_PROMPT if options.probe else fixture["task"]
-    records = {}
+    # One pinned config home for the whole run, created empty, so no arm inherits the operator's plugins or MCP servers.
+    config_home = prepare_config_home(run_dir / "config-home")
 
-    for arm in ARMS:
-        worktree = run_dir / "worktrees" / arm
-        print(f"[{arm}] preparing worktree at {fixture['commit'][:12]}", file=sys.stderr)
-        wt = prepare_worktree(fixture["repo"], fixture["commit"], worktree)
-        sanitized, touched = sanitize(worktree, contamination)
-        loaded = plugin_status(worktree)
-        print(f"[{arm}] launching ({model}, {'probe' if options.probe else 'task'})", file=sys.stderr)
-        outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout)
-        produced = collect(worktree, run_dir / "artifacts" / arm, exclude=set(touched))
-        records[arm] = {
-            "path": str(worktree),
-            "expected_commit": fixture["commit"],
-            "worktree": wt,
-            "sanitized": sanitized,
-            "sanitized_paths": touched,
-            "plugins": loaded,
-            "run": outcome,
-            "produced": produced,
+    try:
+        records = {}
+
+        for arm in ARMS:
+            # The control arm receives the same task text without the invocation, so the only thing that differs is whether the workflow is entered.
+            # Leaving the invocation out of both would measure whether the model reaches for the skill unprompted, which is a different question than whether the skill's process changes the result.
+            prompt = PROBE_PROMPT if options.probe else ARMS[arm]["invoke"] + fixture["task"]
+            worktree = run_dir / "worktrees" / arm
+            print(f"[{arm}] preparing worktree at {fixture['commit'][:12]}", file=sys.stderr)
+            wt = prepare_worktree(fixture["repo"], fixture["commit"], worktree)
+            sanitized, touched = sanitize(worktree, contamination)
+            loaded = plugin_status(worktree)
+            print(f"[{arm}] launching ({model}, {'probe' if options.probe else 'task'})", file=sys.stderr)
+            events = run_dir / f"events-{arm}.jsonl"
+            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home)
+            produced = collect(worktree, run_dir / "artifacts" / arm, exclude=set(touched))
+            records[arm] = {
+                "path": str(worktree),
+                "expected_commit": fixture["commit"],
+                "worktree": wt,
+                "sanitized": sanitized,
+                "sanitized_paths": touched,
+                "plugins": loaded,
+                "run": outcome,
+                "produced": produced,
+            }
+            print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s, {outcome['assistant_turns']} turns, {len(produced)} files", file=sys.stderr)
+
+        checks = check_plumbing(records, options.probe, contamination)
+        manifest = {
+            "fixture": options.fixture,
+            "fixture_config": fixture,
+            "config_path": str(config_path),
+            "mode": kind,
+            "model": model,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "arms": records,
+            "plumbing_checks": checks,
         }
-        print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s, {len(produced)} files", file=sys.stderr)
+        (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
 
-    checks = check_plumbing(records, options.probe, contamination)
-    manifest = {
-        "fixture": options.fixture,
-        "fixture_config": fixture,
-        "config_path": str(config_path),
-        "mode": kind,
-        "model": model,
-        "prompt": prompt,
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "arms": records,
-        "plumbing_checks": checks,
-    }
-    (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+        print(f"\nrun: {run_dir}")
+        failed = 0
+        for check in checks:
+            mark = "ok  " if check["pass"] else "FAIL"
+            failed += 0 if check["pass"] else 1
+            print(f"  {mark} [{check['arm']}] {check['check']} — {check['detail']}")
 
-    print(f"\nrun: {run_dir}")
-    failed = 0
-    for check in checks:
-        mark = "ok  " if check["pass"] else "FAIL"
-        failed += 0 if check["pass"] else 1
-        print(f"  {mark} [{check['arm']}] {check['check']} — {check['detail']}")
+        if not options.keep:
+            for arm in records:
+                run(["git", "worktree", "remove", "--force", records[arm]["path"]], cwd=fixture["repo"], check=False)
+            print("  worktrees removed (pass --keep to inspect them)")
 
-    if not options.keep:
-        for arm in records:
-            run(["git", "worktree", "remove", "--force", records[arm]["path"]], cwd=fixture["repo"], check=False)
-        print("  worktrees removed (pass --keep to inspect them)")
-
-    return 1 if failed else 0
+        return 1 if failed else 0
+    finally:
+        # The copied secret goes away whether the run succeeded, failed, or was interrupted.
+        discard_credentials(config_home)
 
 
 if __name__ == "__main__":
