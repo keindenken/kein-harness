@@ -1,14 +1,12 @@
 #!/usr/bin/env sh
 #: Render the role library into Claude subagent definitions.
 #
-# prompts/ holds vendor-neutral role text. agents/ holds what Claude Code
-# auto-discovers as subagents: the same body under Claude's frontmatter. The
-# render is deterministic, so check-prompts can re-run it and diff.
+# prompts/ holds vendor-neutral role text.
+# agents/ holds what Claude Code auto-discovers as subagents: the same body under Claude's frontmatter.
+# The render is deterministic, so check-prompts can re-run it and diff.
 #
-# The canonical manifest carries a vendor-neutral `tier`; this renderer maps it
-# onto Claude's lineup. Routing belongs in configuration, which is what the
-# normalization policy means by "configure runtime model, effort, and sandbox
-# separately" — the rule it excludes is a model named inside prompt prose.
+# The canonical manifest carries a vendor-neutral `tier`; this renderer maps it onto Claude's lineup.
+# Routing belongs in configuration, which is what the normalization policy means by "configure runtime model, effort, and sandbox separately" — the rule it excludes is a model named inside prompt prose.
 set -eu
 
 prompts="$KEIN_ROOT/prompts"
@@ -36,18 +34,15 @@ prompts = pathlib.Path(sys.argv[1])
 destination = pathlib.Path(sys.argv[2])
 manifest = json.loads((prompts / "manifest.json").read_text())
 
-# Codex enforces read-only in its sandbox. Claude has no subagent equivalent, so
-# the closest honest translation is removing the mutating tools. Bash is left in
-# place: these roles are required to run diagnostics, tests, and history
-# inspection, and taking that away would break the role rather than bound it.
+# Codex enforces read-only in its sandbox.
+# Claude has no subagent equivalent, so the closest honest translation is removing the mutating tools.
+# Bash is left in place: these roles are required to run diagnostics, tests, and history inspection, and taking that away would break the role rather than bound it.
 # Shell-level read-only therefore remains prompt-enforced, not tool-enforced.
 NO_MUTATION = "Write, Edit, NotebookEdit"
 
-# Claude's half of the tier mapping. The Codex half is gpt-5.6-sol / -terra /
-# -luna, and carries a wrinkle this side does not: their default reasoning
-# effort is low / medium / medium, so `deep` would arrive at the *lowest*
-# effort unless the Codex renderer sets it explicitly. Claude has no per-agent
-# effort field; effort comes from the session.
+# Claude's half of the tier mapping.
+# The Codex half is gpt-5.6-sol / -terra / -luna, and carries a wrinkle this side does not: their default reasoning effort is low / medium / medium, so `deep` would arrive at the *lowest* effort unless the Codex renderer sets it explicitly.
+# Claude has no per-agent effort field; effort comes from the session.
 TIER_MODEL = {"deep": "opus", "standard": "sonnet", "fast": "haiku"}
 
 rendered = 0

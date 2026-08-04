@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+#: Run an A/B evaluation of skill variants against a pinned fixture.
+#
+# Arms run headless rather than through Orca terminals.
+# Orca's model is to spawn an agent in a terminal and read its output back, and `terminal read` is bounded, so a long run can be truncated into a corrupted record.
+# A headless run returns an exit code and complete stdout with no terminal layer at all, which is what a measurement needs.
+#
+# The implementation is Python under libexec/eval/ rather than a sibling `ocs-*` file, because `ocs help` lists everything matching `ocs-*` and a helper is not a subcommand.
+set -eu
+
+exec python3 "$KEIN_ROOT/libexec/eval/run.py" "$@"

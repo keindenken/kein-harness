@@ -1,10 +1,8 @@
 #!/usr/bin/env sh
 #: Run a workflow's state machine. Usage: ocs state <workflow> <args...>
 #
-# Sibling of `ocs validate`: that one checks an artifact's shape, this one owns
-# the durable run state. Both exist so skill prose never has to name a
-# filesystem path, which it could not resolve anyway — CLAUDE_PLUGIN_ROOT is
-# absent from the Bash tool's environment.
+# Sibling of `ocs validate`: that one checks an artifact's shape, this one owns the durable run state.
+# Both exist so skill prose never has to name a filesystem path, which it could not resolve anyway — CLAUDE_PLUGIN_ROOT is absent from the Bash tool's environment.
 set -eu
 
 if [ $# -lt 1 ]; then

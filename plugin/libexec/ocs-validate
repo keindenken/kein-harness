@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
 #: Validate a workflow artifact. Usage: ocs validate <workflow> <args...>
 #
-# Workflows ship their own validator so the skill prose never has to name a
-# filesystem path. CLAUDE_PLUGIN_ROOT is not present in the Bash tool's
-# environment, so a path written into a skill would only resolve by accident.
+# Workflows ship their own validator so the skill prose never has to name a filesystem path.
+# CLAUDE_PLUGIN_ROOT is not present in the Bash tool's environment, so a path written into a skill would only resolve by accident.
 set -eu
 
 if [ $# -lt 1 ]; then

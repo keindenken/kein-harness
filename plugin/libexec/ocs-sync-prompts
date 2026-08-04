@@ -1,14 +1,11 @@
 #!/usr/bin/env sh
 #: Render the canonical role prompts into the harness and record their hashes.
 #
-# The canonical prompts are vendor-neutral text that currently lives inside
-# ~/.codex-orca. That home is also a lead-tuned Codex environment, which is an
-# accident of history rather than a property of the library, so the source is
-# overridable and no caller spells the path.
+# The canonical prompts are vendor-neutral text that currently lives inside ~/.codex-orca.
+# That home is also a lead-tuned Codex environment, which is an accident of history rather than a property of the library, so the source is overridable and no caller spells the path.
 #
-# The rendered copy lands in prompts/, NOT agents/. Claude Code auto-discovers
-# agents/ and turns its contents into subagents; the Codex role library is not
-# that, and rendering Claude subagents is separate later work.
+# The rendered copy lands in prompts/, NOT agents/.
+# Claude Code auto-discovers agents/ and turns its contents into subagents; the Codex role library is not that, and rendering Claude subagents is separate later work.
 set -eu
 
 source_dir=${KEIN_CANONICAL_PROMPTS:-$HOME/.codex-orca/foundation/prompts}
@@ -28,8 +25,7 @@ fi
 
 mkdir -p "$destination"
 
-# Stale roles are removed rather than left behind, so the rendered copy is a
-# faithful mirror and the drift check cannot pass over a deleted role.
+# Stale roles are removed rather than left behind, so the rendered copy is a faithful mirror and the drift check cannot pass over a deleted role.
 for existing in "$destination"/*.md; do
   [ -e "$existing" ] || continue
   role=$(basename "$existing" .md)
@@ -50,8 +46,8 @@ fi
 
 cp "$manifest_src" "$destination/manifest.json"
 
-# Hashes are taken over the rendered copy. check-prompts recomputes them from
-# canonical, so a divergence in either direction shows up.
+# Hashes are taken over the rendered copy.
+# check-prompts recomputes them from canonical, so a divergence in either direction shows up.
 (
   cd "$destination"
   # shasum output is "<hash>  <name>"; sorting keeps the file diffable.

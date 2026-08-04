@@ -1,13 +1,12 @@
 #!/usr/bin/env sh
 # ocs — personal harness CLI.
 #
-# Every file in bin/ becomes a bare command on the Bash tool's PATH while the
-# plugin is enabled, so `ocs` is the ONE entry point that belongs here.
+# Every file in bin/ becomes a bare command on the Bash tool's PATH while the plugin is enabled, so `ocs` is the ONE entry point that belongs here.
 # Subcommands live in libexec/ (off PATH) and are reached as `kein <name>`.
 set -eu
 
-# CLAUDE_PLUGIN_ROOT is set by Claude Code when the plugin is loaded. The
-# fallback keeps `ocs` runnable from a plain shell during development.
+# CLAUDE_PLUGIN_ROOT is set by Claude Code when the plugin is loaded.
+# The fallback keeps `ocs` runnable from a plain shell during development.
 KEIN_ROOT=${CLAUDE_PLUGIN_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)}
 export KEIN_ROOT
 

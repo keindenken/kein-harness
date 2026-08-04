@@ -5,9 +5,8 @@
 #   ocs ask <provider> --agent <role> [--trace] <task...>
 #
 # The assembled prompt is exactly the role prompt, a blank line, and the task.
-# Repository instructions are NOT injected: `ask` cannot know whether a
-# repository's conventions bear on a given question, and the caller can. Put
-# them in the task brief.
+# Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
+# Put them in the task brief.
 set -eu
 
 # Adding a provider is one entry here and no change at any call site.
@@ -61,13 +60,11 @@ manifest="$prompts/manifest.json"
 
 [ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `ocs sync-prompts`.\n' >&2; exit 1; }
 
-# A stale library would answer as a role that no longer exists as written, so
-# the gate runs before anything is spent on inference.
+# A stale library would answer as a role that no longer exists as written, so the gate runs before anything is spent on inference.
 "$KEIN_ROOT/libexec/ocs-check-prompts" >/dev/null
 
-# Advisory only: the nine read-only roles. A write-capable role reached through a
-# bare one-shot would let a remote vendor edit the worktree with no workflow
-# around it, which is what `execute` is for.
+# Advisory only: the nine read-only roles.
+# A write-capable role reached through a bare one-shot would let a remote vendor edit the worktree with no workflow around it, which is what `execute` is for.
 readonly_roles=$(
   python3 -c '
 import json, sys
@@ -91,8 +88,7 @@ esac
 
 prompt=$(printf '%s\n\n%s' "$(cat "$prompts/$role.md")" "$task")
 
-# The vanilla home is pinned, never inherited: a one-shot advisory call must not
-# pick up the lead tuning that lives in ~/.codex-orca.
+# The vanilla home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
 
 work=$(mktemp -d "${TMPDIR:-/tmp}/ocs-ask.XXXXXX")
