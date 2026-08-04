@@ -177,9 +177,9 @@ Development continues past v1. This is the first gate, not the finish.
    Requirements: `.agents/kein/requirements/260803-kein-ask-bridge.md`.
 3. Agents — render the fourteen for Claude from the canonical source. Done: `ocs
    render-agents`, gated by `ocs check-prompts`.
-4. `plan` — port, then check gate integrity.
-5. `execute` — port. This is the implementation loop, and may also carry parallel
-   dispatch the way `team` does.
+4. `ralplan` — done. Consensus planning, one skill.
+5. `execute` — done. The implementation loop; may later carry parallel dispatch the
+   way `team` does.
 6. `team` — either an orchestration-only wrapper, or Orca orchestration folded into
    `plan` and `execute` directly. Undecided.
 7. `ralph` — the general-purpose loop. Needs 6 first.
