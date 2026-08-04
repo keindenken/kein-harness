@@ -18,6 +18,8 @@ It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or
 - Read [review-contract.md](references/review-contract.md) before review, closure check, or final audit.
 - Run `ocs state execute --help` for checkpoint and reconciliation commands.
 
+Pass `run_in_background: false` on every Executor and reviewer dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead waiting on all selected lanes waits forever. Reviewers deliver verdicts, so for them this is what makes the round observable. Complementary read-only lanes still run concurrently when their dispatches share one message.
+
 ## Entry and Resume
 
 1. Resolve the canonical Git worktree and run root, the latter from `ocs state-dir runs/execute`. Resume or explicitly stop any occupying nonterminal run. Distinct worktrees host only genuinely distinct runs: every normalized task remains in this run's serial ledger through acceptance and cannot be extracted to another worktree for concurrency.

@@ -23,6 +23,8 @@ Use `ocs state ralplan --help` for validation, reconciliation, and atomic checkp
 
 Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete stage-specific package. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
 
+Pass `run_in_background: false` on every lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the two blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
+
 ## Workflow
 
 1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts. Preserve the original requirements by path and hash when possible; otherwise store a prompt-safe summary and its hash.
