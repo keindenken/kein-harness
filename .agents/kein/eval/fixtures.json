@@ -1,0 +1,38 @@
+{
+  "_comment": "Fixture definitions for `ocs eval`. Machine-specific paths live here rather than in the plugin, so the plugin stays portable.",
+  "fixtures": {
+    "smoke": {
+      "description": "Plumbing check only. A small spec-to-plan pair that reached consensus in two critic iterations, so it is cheap. It does NOT validate instrument sensitivity, which is fixture-dependent.",
+      "repo": "/Users/kein/Documents/workspace/dev/descvi/repo",
+      "commit": "073e96db94a0551f52f0645a8595b47471082fbc",
+      "spec_path": ".omc/specs/deep-interview-e3-v18-unified-editor.md",
+      "reference_commit": "538b2d9",
+      "task": "Read .omc/specs/deep-interview-e3-v18-unified-editor.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/."
+    },
+    "primary": {
+      "description": "The calibration and ablation fixture. Planning here never reached consensus and was resolved during implementation instead, so the reference commit is a record of where planning stopped, NOT a scoring target.",
+      "repo": "/Users/kein/Documents/workspace/dev/descvi/repo",
+      "commit": "c60be285ee12f43e4298b90220c1faafd2b190c2",
+      "spec_path": ".omc/specs/deep-interview-e3-v21-insert-undo.md",
+      "reference_commit": "717edcb",
+      "task": "Read .omc/specs/deep-interview-e3-v21-insert-undo.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/."
+    }
+  },
+  "contamination": {
+    "_comment": "Applied to every worktree of every arm, identically, so the sanitized state is still byte-identical across arms. A second harness's planning guidance in the same session can mask the ablated rule and manufacture a false null.",
+    "disable_plugins": ["oh-my-claudecode@omc"],
+    "remove_paths": [".claude/skills/omc-reference"],
+    "strip_blocks": [
+      {
+        "_comment": "The OMC block in CLAUDE.md restates the invariants kein's ralplan enforces — separate authoring and review passes, never self-approve in the same context, verify before claiming. A control arm that keeps this is not skill-absent, and the calibration's expected difference collapses. The markers are explicit, so the project's own instructions below them survive intact.",
+        "path": ".claude/CLAUDE.md",
+        "start": "<!-- OMC:START -->",
+        "end": "<!-- OMC:END -->"
+      }
+    ]
+  },
+  "models": {
+    "arm": "sonnet",
+    "judge": "opus"
+  }
+}
