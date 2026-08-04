@@ -212,8 +212,13 @@ def summarize_events(path):
                 if not isinstance(block, dict) or block.get("type") != "tool_use":
                     continue
                 name, params = block.get("name"), block.get("input") or {}
-                if name == "Task":
-                    dispatched.append({"agent": params.get("subagent_type"), "description": params.get("description")})
+                # The dispatch tool is `Agent`; `Task` is accepted too so a rename upstream does not silently zero this out.
+                if name in ("Agent", "Task"):
+                    dispatched.append({
+                        "agent": params.get("subagent_type"),
+                        "description": params.get("description"),
+                        "background": params.get("run_in_background"),
+                    })
                 elif name == "Skill":
                     skills_used.append(params.get("skill"))
                 elif name in ("Write", "Edit", "NotebookEdit"):
@@ -369,11 +374,29 @@ def check_plumbing(records, probe, contamination):
             "detail": f"found={foreign}" if foreign else "none",
         })
         if not probe:
+            # A slash invocation does not emit a Skill tool_use — the CLI expands it directly — so entry is read from the lanes it dispatches instead.
+            # Dispatching a kein: role is specific to this workflow and cannot happen by accident in the control arm.
+            dispatched = record["run"].get("subagents_dispatched") or []
+            lanes = [d.get("agent") for d in dispatched if str(d.get("agent") or "").startswith("kein:")]
             checks.append({
-                "check": "the skill was actually invoked" if ARMS[arm]["invoke"] else "no skill invoked (control)",
+                "check": "the workflow dispatched its own lanes" if ARMS[arm]["invoke"] else "no kein lane dispatched (control)",
                 "arm": arm,
-                "pass": bool(record["run"].get("skills_invoked")) == bool(ARMS[arm]["invoke"]),
-                "detail": f"skills_invoked={record['run'].get('skills_invoked')}, subagents={len(record['run'].get('subagents_dispatched') or [])}",
+                "pass": bool(lanes) == bool(ARMS[arm]["invoke"]),
+                "detail": f"kein lanes={lanes}, all subagents={[d.get('agent') for d in dispatched]}",
+            })
+            # An arm that dispatches into the background and then waits is the known way for a lane's report to be lost.
+            backgrounded = [d.get("agent") for d in dispatched if d.get("background") is not False]
+            checks.append({
+                "check": "no lane left to report through a background notification",
+                "arm": arm,
+                "pass": not backgrounded,
+                "detail": f"backgrounded={backgrounded}" if backgrounded else "all synchronous",
+            })
+            checks.append({
+                "check": "produced at least one file",
+                "arm": arm,
+                "pass": bool(record["produced"]),
+                "detail": f"{len(record['produced'])} files",
             })
     return checks
 
