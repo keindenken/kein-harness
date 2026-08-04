@@ -134,6 +134,22 @@ These extend the approved requirements rather than revising them. Where one narr
 - **A shared worker brief was considered and declined for now.** The `descvi` project keeps one, and sending it with every lane would suppress lead-to-lead variation. It does not exist at either pinned commit, so including it would be a treatment decision rather than a fixture property, and it is planning-process guidance of exactly the kind already stripped from the worktree. The decisive objection is that a worker brief is partial skill: giving it to the control arm hands the control part of what the treatment provides, shrinking the very difference the calibration exists to establish. Revisit once replicates show how much lead-side variance there actually is.
 - **Replicate count is set by the calibration, not before it.** The approved default of three per arm is suspended until the calibration reports real cost and duration on this fixture.
 
+## Where this stands, 2026-08-05
+
+The instrument works and is paused on cost, not on doubt.
+
+A task run on the cheap fixture passed 22 of 23 plumbing checks. The workflow entered through its slash invocation, dispatched five `kein:` lanes, all synchronous, kept its ledger inside its own worktree, and opened no session outside it. The one failure was a mis-scoped check, since the control has no rule requiring synchronous dispatch; it now reads as an observation for that arm, and an interesting one, because a bare lead does the risky thing the rule exists to prevent.
+
+Cost is the blocker. Each arm ran 35 to 40 minutes on the *cheap* fixture with every model pinned to Sonnet — `with-skill` was killed at a 2400-second timeout after 238 turns, and the control finished at 2090 seconds after 225. The original work behind that fixture reached consensus in two critic iterations and shipped a 68-line plan; the arms produced 193 and 144 lines. The `primary` fixture represents more than twenty planning iterations, so it is not viable under this design, and the calibration that was to set the replicate count is itself now in question.
+
+Three findings worth keeping regardless of when this resumes.
+
+- **The control reconstructed the workflow from artifacts.** Without any skill present it ran Explore, drafted a plan itself, and moved toward Architect — apparently by imitating the process recorded in the status lines of existing plans. That is a real property of the repository, not a leak, and it speaks directly to the obsolescence question `docs/purpose.md` raises. `.omc/plans` and `.omc/archive` are now excluded from every worktree so a calibration can still establish a known-large difference, and the task no longer directs an arm to follow existing plan conventions — that sentence handed the control a template, and the template is part of the treatment.
+- **The state ledger is a weak process observable for `ralplan`.** Its verdict fields are cleared on a block by contract and never filled when a run stops mid-round, so every file in a completed run held nulls. The event stream and the per-subagent transcripts under the pinned config home are the strong record, and they showed each lane's role, model, and synchronicity directly.
+- **Reviewer lanes do not need a full run to compare.** `agent-prompt-evals.md` already establishes why: a Critic is a leaf whose contract is a pure function of task, artifact, and review contract. Comparing Architect and Critic against another harness's equivalents is therefore cheap and needs no orchestration; what is expensive, and what needs the whole workflow, is the orchestration itself.
+
+When this resumes, the environment should exclude anything an arm could use as a reference implementation of the process, so that a run is genuinely skill against no-skill, skill against skill, or skill against another vendor's skill. A planner-only comparison is available and is worth separating out: dropping the review lanes measures authoring rather than verification, which `docs/purpose.md` classifies as the durable half, so it is a different experiment rather than a cheaper one.
+
 ## Deferred items
 
 - **The Claude-side launcher (`orclaude` / `kclaude`).** Fixed boundary: the evaluation must not require it, and must not absorb its responsibilities. Gate: taken up once the evaluation has settled which spawn flags actually matter in practice. Independent motivation unchanged — replacing the session-start `kickoff` skill invocation with `--append-system-prompt-file`, symmetric to the `orcodex` entry already recorded in `docs/purpose.md`.

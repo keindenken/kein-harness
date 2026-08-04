@@ -7,7 +7,7 @@
       "commit": "073e96db94a0551f52f0645a8595b47471082fbc",
       "spec_path": ".omc/specs/deep-interview-e3-v18-unified-editor.md",
       "reference_commit": "538b2d9",
-      "task": "Read .omc/specs/deep-interview-e3-v18-unified-editor.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
+      "task": "Read .omc/specs/deep-interview-e3-v18-unified-editor.md and produce a consensus implementation plan for it under .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
     },
     "primary": {
       "description": "The calibration and ablation fixture. Planning here never reached consensus and was resolved during implementation instead, so the reference commit is a record of where planning stopped, NOT a scoring target.",
@@ -15,7 +15,7 @@
       "commit": "c60be285ee12f43e4298b90220c1faafd2b190c2",
       "spec_path": ".omc/specs/deep-interview-e3-v21-insert-undo.md",
       "reference_commit": "717edcb",
-      "task": "Read .omc/specs/deep-interview-e3-v21-insert-undo.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
+      "task": "Read .omc/specs/deep-interview-e3-v21-insert-undo.md and produce a consensus implementation plan for it under .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
     }
   },
   "contamination": {
@@ -24,7 +24,9 @@
       "oh-my-claudecode@omc"
     ],
     "remove_paths": [
-      ".claude/skills/omc-reference"
+      ".claude/skills/omc-reference",
+      ".omc/plans",
+      ".omc/archive"
     ],
     "strip_blocks": [
       {
@@ -33,7 +35,8 @@
         "start": "<!-- OMC:START -->",
         "end": "<!-- OMC:END -->"
       }
-    ]
+    ],
+    "_remove_paths_note": "`.omc/plans` and `.omc/archive` go with the harness, not just alongside it. Their files carry the producing process in their own status lines \u2014 'Planner -> Architect[Claude] ... Critic[Claude] APPROVE, 2 iterations' \u2014 so a control arm asked to follow existing plan conventions can reconstruct the workflow from artifacts without any skill being present. That is a real property of the repository rather than a leak we introduced, and it is worth recording as a finding; but for a calibration whose whole job is to establish a known-large difference, it removes the very thing being measured. Excluding them also keeps a later omc comparison clean."
   },
   "models": {
     "arm": "sonnet",

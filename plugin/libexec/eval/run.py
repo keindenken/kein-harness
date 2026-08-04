@@ -425,12 +425,14 @@ def check_plumbing(records, probe, contamination):
                 "pass": bool(lanes) == bool(ARMS[arm]["invoke"]),
                 "detail": f"kein lanes={lanes}, all subagents={[d.get('agent') for d in dispatched]}",
             })
-            # An arm that dispatches into the background and then waits is the known way for a lane's report to be lost.
+            # Dispatching into the background and then waiting is the known way for a lane's report to be lost.
+            # Only the workflow promises to avoid it, so only the workflow can fail here; for the control this is an observation, and an interesting one, since a bare lead does the risky thing the rule exists to prevent.
             backgrounded = [d.get("agent") for d in dispatched if d.get("background") is not False]
             checks.append({
-                "check": "no lane left to report through a background notification",
+                "check": "no lane left to report through a background notification"
+                         if ARMS[arm]["invoke"] else "background dispatch by a lead with no such rule (observation)",
                 "arm": arm,
-                "pass": not backgrounded,
+                "pass": (not backgrounded) or not ARMS[arm]["invoke"],
                 "detail": f"backgrounded={backgrounded}" if backgrounded else "all synchronous",
             })
             checks.append({
