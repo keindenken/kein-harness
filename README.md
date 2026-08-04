@@ -110,8 +110,8 @@ the vendor-neutral namespace at both the project and home level.
 Not `docs/`: that tree is for reference documentation, not the output of a work session.
 
 The harness writes nothing the user did not ask for. `runs/` is transient and worth
-adding to a project's `.gitignore`; `requirements/` and other deliverables are records
-and worth keeping.
+adding to a project's `.gitignore`; `requirements/`, `plans/`, `handoff/` and other
+deliverables are records and worth keeping.
 
 ### Asking another vendor
 

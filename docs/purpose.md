@@ -76,7 +76,7 @@ interview pattern in `~/Documents/wiki/context-engineering/unknown-discovery-pat
 
 Skills, capped at what is actually used:
 
-`interview` · `plan` · `execute` · `ralph` · `autopilot` · orca orchestration
+`interview` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
 
 Not in v1: `self-improve`, `autoresearch`. Both are wanted, but how to use them is
 unresolved, and an unresolved use is a signal that the need has not arrived.
@@ -180,8 +180,9 @@ Development continues past v1. This is the first gate, not the finish.
 4. `ralplan` — done. Consensus planning, one skill.
 5. `execute` — done. The implementation loop; may later carry parallel dispatch the
    way `team` does.
-6. `team` — either an orchestration-only wrapper, or Orca orchestration folded into
-   `plan` and `execute` directly. Undecided.
+6. `team` — no separate skill. Orca orchestration goes into `ralplan` and `execute` as
+   guidance or a shared reference, and is reconsidered only if that fails in use. Orca
+   already ships `orca-cli` and `orchestration`; a wrapper would duplicate them.
 7. `ralph` — the general-purpose loop. Needs 6 first.
 
 `autopilot` wraps `interview -> plan -> execute`, resuming at whichever stage has not
