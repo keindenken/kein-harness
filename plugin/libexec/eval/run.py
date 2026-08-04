@@ -284,7 +284,7 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
     if ARMS[arm]["inject"]:
         command += ["--plugin-dir", str(plugin_dir)]
     if max_turns:
-        # A backstop against a runaway loop, not a round limiter: a run that produced a plan took 135 assistant turns.
+        # A backstop against a runaway loop, not a round limiter: a run that produced a plan took 135 assistant turns, so the ceiling is set far above any honest run.
         # It also cannot reach a subagent's own turns, so the real cost lever is the pinned model, not this.
         command += ["--max-turns", str(max_turns)]
     if not probe:
@@ -457,7 +457,7 @@ def main():
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
     parser.add_argument("--keep", action="store_true", help="leave worktrees on disk for inspection")
-    parser.add_argument("--max-turns", type=int, default=300, help="runaway backstop for the lead; not a round limiter")
+    parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
     options = parser.parse_args()
 
     config, config_path = load_config()

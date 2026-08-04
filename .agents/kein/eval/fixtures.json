@@ -7,7 +7,7 @@
       "commit": "073e96db94a0551f52f0645a8595b47471082fbc",
       "spec_path": ".omc/specs/deep-interview-e3-v18-unified-editor.md",
       "reference_commit": "538b2d9",
-      "task": "Read .omc/specs/deep-interview-e3-v18-unified-editor.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/."
+      "task": "Read .omc/specs/deep-interview-e3-v18-unified-editor.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
     },
     "primary": {
       "description": "The calibration and ablation fixture. Planning here never reached consensus and was resolved during implementation instead, so the reference commit is a record of where planning stopped, NOT a scoring target.",
@@ -15,16 +15,20 @@
       "commit": "c60be285ee12f43e4298b90220c1faafd2b190c2",
       "spec_path": ".omc/specs/deep-interview-e3-v21-insert-undo.md",
       "reference_commit": "717edcb",
-      "task": "Read .omc/specs/deep-interview-e3-v21-insert-undo.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/."
+      "task": "Read .omc/specs/deep-interview-e3-v21-insert-undo.md and produce a consensus implementation plan for it under .omc/plans/. Follow the plan conventions already used by the other files in .omc/plans/. Stop after at most two rounds of review and revision, then report where it stands."
     }
   },
   "contamination": {
     "_comment": "Applied to every worktree of every arm, identically, so the sanitized state is still byte-identical across arms. A second harness's planning guidance in the same session can mask the ablated rule and manufacture a false null.",
-    "disable_plugins": ["oh-my-claudecode@omc"],
-    "remove_paths": [".claude/skills/omc-reference"],
+    "disable_plugins": [
+      "oh-my-claudecode@omc"
+    ],
+    "remove_paths": [
+      ".claude/skills/omc-reference"
+    ],
     "strip_blocks": [
       {
-        "_comment": "The OMC block in CLAUDE.md restates the invariants kein's ralplan enforces — separate authoring and review passes, never self-approve in the same context, verify before claiming. A control arm that keeps this is not skill-absent, and the calibration's expected difference collapses. The markers are explicit, so the project's own instructions below them survive intact.",
+        "_comment": "The OMC block in CLAUDE.md restates the invariants kein's ralplan enforces \u2014 separate authoring and review passes, never self-approve in the same context, verify before claiming. A control arm that keeps this is not skill-absent, and the calibration's expected difference collapses. The markers are explicit, so the project's own instructions below them survive intact.",
         "path": ".claude/CLAUDE.md",
         "start": "<!-- OMC:START -->",
         "end": "<!-- OMC:END -->"
@@ -34,5 +38,6 @@
   "models": {
     "arm": "sonnet",
     "judge": "opus"
-  }
+  },
+  "_round_limit_note": "The round limit lives in the shared task text, so both arms receive it identically and only the invocation differs. It is an instruction, not an enforcement \u2014 nothing in the CLI can hold a lead to it. That is acceptable because the actual round count is recorded from run state, so non-compliance becomes an observation rather than a spoiled run."
 }
