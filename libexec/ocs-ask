@@ -108,7 +108,7 @@ status=0
 CODEX_HOME="$codex_home" "$@" >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
 
 if [ "$trace" -eq 1 ]; then
-  dir="$("$KEIN_ROOT/libexec/ocs-run-root" ask)/$(date +%y%m%d-%H%M%S)-$role"
+  dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/ask)/$(date +%y%m%d-%H%M%S)-$role"
   mkdir -p "$dir"
   printf '%s' "$prompt" > "$dir/prompt.txt"
   {

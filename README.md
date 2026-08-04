@@ -92,7 +92,24 @@ becoming a bare shell command.
 ```sh
 ocs help
 ocs doctor
+ocs state-dir runs/interview   # where this project's run state lives
 ```
+
+### Where state goes
+
+`ocs state-dir [<sub>]` resolves `<repo>/.agents/kein/<sub>`, falling back to the config
+home when no repository is in scope.
+
+In the repository rather than a vendor's config home, because a run started from Claude
+should be resumable from Codex — a ledger parked under `~/.claude` is invisible to half
+the harness. Under `.agents/` rather than a `.kein/` of its own, because that is already
+the vendor-neutral namespace at both the project and home level.
+
+Not `docs/`: that tree is for reference documentation, not the output of a work session.
+
+The harness writes nothing the user did not ask for. `runs/` is transient and worth
+adding to a project's `.gitignore`; `requirements/` and other deliverables are records
+and worth keeping.
 
 ### Asking another vendor
 
@@ -115,10 +132,10 @@ prompts happen to live inside that home, but the library and the environment are
 concerns. `KEIN_CANONICAL_PROMPTS` and `KEIN_CODEX_HOME` override each independently.
 
 `--trace` writes the assembled prompt, the invocation, and the response under
-`$(ocs run-root ask)/`. It exists so a test can assert the two-layer guarantee, not as a
+`$(ocs state-dir runs/ask)/`. It exists so a test can assert the two-layer guarantee, not as a
 debug feature; without it nothing is written anywhere, so there is nothing to clean up.
 
-Requirements: [docs/requirements/260803-kein-ask-bridge.md](docs/requirements/260803-kein-ask-bridge.md)
+Requirements: [.agents/kein/requirements/260803-kein-ask-bridge.md](.agents/kein/requirements/260803-kein-ask-bridge.md)
 
 ## Claude subagents
 

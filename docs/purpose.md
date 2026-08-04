@@ -101,7 +101,7 @@ Harness name: **kein**. CLI name: **ocs**. They are deliberately different.
 | Claude plugin | `kein` → `/kein:interview`, `kein:executor` |
 | Helper CLI | `ocs`, one binary serving both vendors |
 | Repository | `dev/kein-harness` |
-| Run state | `${CLAUDE_CONFIG_DIR:-~/.claude}/kein/runs/` |
+| Project state | `<repo>/.agents/kein/`, or the config home with no repository in scope |
 | Codex home | `~/.codex-orca`, unchanged |
 | Codex launcher | `orcodex`, unchanged |
 
@@ -135,8 +135,19 @@ result on one applies to the other.
 
 ## Operating rules
 
-1. **No project artifacts.** Nothing is written into the target repository's working
-   directory. Run state lives in the plugin home, as `~/.codex-orca/runs/` already does.
+1. **No automatic state in the project; work products belong in it.** The objection to
+   `.omc` was always the hook-generated `.omc/state/`, not artifacts the user asked for —
+   `repo/.omc/` holding `plans/` and `research/` is the preferred shape, not the problem.
+   So: write nothing the user did not ask for, and put what they did ask for under
+   `<repo>/.agents/kein/`, resolved by `ocs state-dir`.
+
+   Not `docs/`. That tree is reserved for reference documentation — how things work and
+   how to use them — rather than the output of a work session.
+
+   `.agents/` rather than `.kein/`: it is already the vendor-neutral namespace at both the
+   project and home level, which is what a harness serving two vendors should sit under.
+   Keeping state in the repository rather than a vendor's config home is also what lets a
+   run started from Claude be resumed from Codex.
 2. **Progressive disclosure.** `SKILL.md` stays thin and defers to `references/` read at
    the stage that needs them. `execute/SKILL.md` is 64 lines in front of three references
    and an 808-line script. This is the prescription for the diagnosis that large single
@@ -163,7 +174,7 @@ Development continues past v1. This is the first gate, not the finish.
 
 1. `interview` — port and use it. Durable value, code exists, validated. Done.
 2. `ocs ask` — done. One resolver for canonical prompts; also the eval harness's invocation path.
-   Requirements: `docs/requirements/260803-kein-ask-bridge.md`.
+   Requirements: `.agents/kein/requirements/260803-kein-ask-bridge.md`.
 3. Agents — render the fourteen for Claude from the canonical source. Done: `ocs
    render-agents`, gated by `ocs check-prompts`.
 4. `plan` — port, then check gate integrity.

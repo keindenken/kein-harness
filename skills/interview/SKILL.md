@@ -88,7 +88,7 @@ If documentation and code conflict, cite both facts and ask which behavior shoul
 
 Read [references/ledger-template.md](references/ledger-template.md) completely before creating or finalizing a ledger.
 
-Run `ocs run-root interview` to resolve the run root, and store the ledger at `<run-root>/<YYMMDD-HHMMSS>-<slug>/ledger.md`. Run state never lands in the target project.
+Run `ocs state-dir runs/interview` to resolve the run root, and store the ledger at `<run-root>/<YYMMDD-HHMMSS>-<slug>/ledger.md`. The run root sits inside the repository so an interrupted interview can be resumed by any vendor working there, not only the one that started it.
 
 For a new interview, record the canonical working directory, canonical repository or `none`, resolved output path, original request or prompt-safe summary, confirmed decisions, constraints and non-goals, decision boundaries, repository evidence, open questions, and explicit deferrals.
 
@@ -110,7 +110,7 @@ After a validated Approved artifact, replace the active ledger with the compact 
 
 Read [references/requirements-template.md](references/requirements-template.md) completely before writing the artifact.
 
-Write to `docs/requirements/YYMMDD-<slug>.md` by default, follow the target project's existing documentation convention when one exists, and use `<run-root>/requirements/YYMMDD-<slug>.md` when no repository is in scope.
+Run `ocs state-dir requirements` and write to `<that path>/YYMMDD-<slug>.md`. Follow the target project's own convention instead when it already has one for requirements documents specifically; a general `docs/` tree is not that convention, and this artifact does not belong there.
 
 Continue an existing artifact only when it belongs to the active interview. Refuse to overwrite a differing artifact from another interview; use a short numeric suffix when provenance remains ambiguous.
 

@@ -157,12 +157,13 @@ prompts has fallen behind the source.
   reference `AGENTS.md`, `CLAUDE.md`, or any repository instruction file.
 - `~/.codex-orca/skills/execute/SKILL.md:30`: the workflow already supplies repository
   instructions inside the Executor's brief.
-- `kein-harness bin/ocs`: subcommand dispatch to `libexec/<cli>-<name>`, with `run-root` and
-  `validate` already present.
+- `kein-harness bin/ocs`: subcommand dispatch to `libexec/<cli>-<name>`, with `run-root` (since renamed
+  `state-dir`) and `validate` already present.
 - `ocs doctor` under a live session: `CLAUDE_PLUGIN_ROOT` is unset in the Bash tool
   environment; the plugin root resolves through the `$0` fallback.
 - `kein-harness skills/interview`, ported 2026-08-03: exactly six lines diverged from the Codex
-  original, four of which the `run-root` and `validate` subcommands absorbed.
+  original, four of which the `run-root` (since renamed `state-dir`) and `validate` subcommands
+  absorbed.
 
 ## Assumptions and risks
 
