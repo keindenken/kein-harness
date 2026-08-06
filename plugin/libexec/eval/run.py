@@ -511,10 +511,15 @@ def check_plumbing(records, probe, contamination):
                     "pass": bool(homes) and all(home.endswith("/.codex") for home in homes),
                     "detail": f"homes={sorted(set(homes))}" if homes else "no CODEX_HOME recorded",
                 })
+                # A brief satisfies this by quoting the instructions or by naming the file that holds them.
+                # The first observed run did the second — a digest of the conventions plus "also read .claude/CLAUDE.md" — and the lane is sandboxed with the worktree as its cwd, so the pointer resolves.
+                # Requiring verbatim lines would have failed a brief that was better than the one the check imagined.
                 instructions = repository_instruction_lines(record["path"])
+                names = ("CLAUDE.md", "AGENTS.md")
                 briefed = [
                     trace for trace in review_traces
                     if any(line in trace["prompt"] for line in instructions)
+                    or any(name in trace["prompt"] for name in names)
                 ]
                 checks.append({
                     "check": "the brief carried repository instructions",
