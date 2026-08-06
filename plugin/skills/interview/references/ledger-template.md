@@ -6,8 +6,6 @@
 ---
 status: active
 run_id: "<YYMMDD-HHMMSS>-<slug>"
-created_at: "<ISO-8601 timestamp>"
-updated_at: "<ISO-8601 timestamp>"
 working_directory: "<canonical path>"
 repository: "<canonical repository path or none>"
 output_path: "<resolved requirements path>"

@@ -33,11 +33,13 @@ ACTIVE_LEDGER_HEADINGS = (
     "## Explicit deferrals",
 )
 
+# No `created_at` or `updated_at`.
+# The resume path matches on repository and topic and asks the user to disambiguate, so nothing here ever branches on a time.
+# `run_id` already carries the start to the second and is also the directory name, and the file's mtime is the last write.
+# A model has no clock, so the field was either a tool call per update or a fabricated value; one shipped receipt claimed a completion nine hours before its own run started.
 ACTIVE_LEDGER_KEYS = {
     "status",
     "run_id",
-    "created_at",
-    "updated_at",
     "working_directory",
     "repository",
     "output_path",

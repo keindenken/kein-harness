@@ -12,8 +12,6 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
   "workflow": "ralplan",
   "run_id": "260802-120000-boundary",
   "lifecycle": "active",
-  "created_at": "2026-08-02T12:00:00+09:00",
-  "updated_at": "2026-08-02T12:05:00+09:00",
   "working_directory": "/absolute/target",
   "repository": "/absolute/repository",
   "input": {
@@ -34,6 +32,8 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
   "next_action": "dispatch round 1 fresh reviewers"
 }
 ```
+
+Nonterminal state carries no timestamp. `reconcile` decides continuation and reads no time, `run_id` already carries the start to the second, and the file's own mtime is the last write. Do not reintroduce one without a reader that branches on it.
 
 Each verdict contains only `lane`, `verdict`, `plan_sha256`, and `reviewed_at`. Each persisted finding contains only `lane`, `claim`, `evidence`, `impact`, and `required_correction`.
 

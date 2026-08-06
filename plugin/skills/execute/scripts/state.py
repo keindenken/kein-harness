@@ -40,8 +40,11 @@ TASK_TRANSITIONS = {
 }
 HEX_64 = "0123456789abcdef"
 
+# No `created_at` or `updated_at`.
+# `reconcile` is the only authority on continuation and it reads no time, so a nonterminal timestamp had no consumer.
+# `revision` already orders checkpoints, `run_id` carries the start to the second, and the file's mtime is the last write.
 NONTERMINAL_FIELDS = frozenset({
-    "schema_version", "revision", "workflow", "run_id", "lifecycle", "created_at", "updated_at",
+    "schema_version", "revision", "workflow", "run_id", "lifecycle",
     "input", "worktree", "phase", "tasks", "current_task_id", "current_round",
     "latest_verification", "unresolved_findings", "final_audit", "next_action",
 })
@@ -318,9 +321,6 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
         if set(payload) != NONTERMINAL_FIELDS:
             errors.append("Nonterminal state must use the exact resumable field set")
             return errors
-        for key in ("created_at", "updated_at"):
-            if not _valid_time(payload.get(key)):
-                errors.append(f"Nonterminal state requires timezone-aware {key}")
         if payload.get("phase") not in PHASES:
             errors.append("Nonterminal phase is invalid")
         if lifecycle == "blocked" and payload.get("phase") != "blocked":

@@ -27,13 +27,14 @@ PHASES = frozenset({
     "blocked",
     "interrupted",
 })
+# No `created_at` or `updated_at`.
+# `reconcile` is the only authority on continuation and it reads no time, so a nonterminal timestamp had no consumer.
+# `run_id` already carries the start to the second and is also the directory name; the file's mtime is the last write, and is more accurate than a value a model has to remember to refresh.
 NONTERMINAL_FIELDS = frozenset({
     "schema_version",
     "workflow",
     "run_id",
     "lifecycle",
-    "created_at",
-    "updated_at",
     "working_directory",
     "repository",
     "input",
@@ -260,9 +261,6 @@ def validate_state(payload: Any) -> List[str]:
         if set(payload) != NONTERMINAL_FIELDS:
             errors.append("Nonterminal state must use the exact resumable field set")
             return errors
-        for key in ("created_at", "updated_at"):
-            if not _valid_timestamp(payload.get(key)):
-                errors.append(f"Nonterminal state requires timezone-aware {key}")
         for key in ("working_directory", "repository", "next_action"):
             if not isinstance(payload.get(key), str) or not payload[key]:
                 errors.append(f"Nonterminal state requires non-empty {key}")
