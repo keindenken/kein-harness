@@ -2,7 +2,7 @@
 #: Ask another vendor's CLI a question as a canonical role. Advisory only.
 #
 # Usage:
-#   ocs ask <provider> --agent <role> [--trace] <task...>
+#   ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] <task...>
 #
 # The assembled prompt is exactly the role prompt, a blank line, and the task.
 # Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
@@ -12,12 +12,26 @@ set -eu
 # Adding a provider is one entry here and no change at any call site.
 PROVIDERS='codex'
 
+# The canonical manifest states a vendor-neutral tier, never a model, so each side maps it.
+# `ocs render-agents` is the Claude half of this; the lines below are the Codex half, and without them a lane inherits whatever model the operator happens to have set in their own config.
+# That makes a lane's model a property of the machine rather than of the harness, which the first cross-vendor conformance run demonstrated: the reply came back as the operator's default and only looked correct because the default happened to match.
+TIER_DEEP_MODEL='gpt-5.6-sol'
+TIER_STANDARD_MODEL='gpt-5.6-terra'
+TIER_FAST_MODEL='gpt-5.6-luna'
+
+# One effort for every tier.
+# Codex defaults to low for sol and medium for terra and luna, so a `deep` role would arrive at the *lowest* effort of the three — the opposite of what the tier asks for.
+# Pinning medium everywhere corrects that and leaves the tier to mean model capability, which is the one thing it can mean on both sides.
+DEFAULT_EFFORT='medium'
+
 usage() {
   cat >&2 <<EOF
-usage: ocs ask <provider> --agent <role> [--trace] <task...>
+usage: ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] <task...>
 
   providers: $PROVIDERS
   roles:     read-only roles only; run with an unknown role to list them
+  --model:   override the model the role's tier resolves to
+  --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
 
 example:
   ocs ask codex --agent critic "Review docs/plan.md against its requirements"
@@ -28,12 +42,18 @@ provider=''
 role=''
 trace=0
 task=''
+model=''
+effort=''
 
 while [ $# -gt 0 ]; do
   case "$1" in
     --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs ask: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
     --agent=*) role=${1#--agent=}; shift ;;
     --trace) trace=1; shift ;;
+    --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs ask: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
+    --model=*) model=${1#--model=}; shift ;;
+    --effort) effort=${2:-}; [ -n "$effort" ] || { printf 'ocs ask: missing value after --effort\n' >&2; exit 1; }; shift 2 ;;
+    --effort=*) effort=${1#--effort=}; shift ;;
     -h|--help) usage; exit 0 ;;
     -*) printf "ocs ask: unknown option '%s'\n" "$1" >&2; usage; exit 1 ;;
     *)
@@ -86,6 +106,20 @@ case " $readonly_roles " in
     exit 1 ;;
 esac
 
+if [ -z "$model" ]; then
+  tier=$(python3 -c '
+import json, sys
+print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
+' "$manifest" "$role")
+  case "$tier" in
+    deep)     model=$TIER_DEEP_MODEL ;;
+    standard) model=$TIER_STANDARD_MODEL ;;
+    fast)     model=$TIER_FAST_MODEL ;;
+    *) printf "ocs ask: role '%s' has unknown tier '%s'\n" "$role" "$tier" >&2; exit 1 ;;
+  esac
+fi
+[ -n "$effort" ] || effort=$DEFAULT_EFFORT
+
 prompt=$(printf '%s\n\n%s' "$(cat "$prompts/$role.md")" "$task")
 
 # The vanilla home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca.
@@ -98,6 +132,7 @@ trap cleanup EXIT INT TERM
 last="$work/response.txt"
 
 set -- codex exec --ephemeral --skip-git-repo-check --sandbox read-only \
+  -m "$model" -c model_reasoning_effort="$effort" \
   -C "$PWD" -o "$last" "$prompt"
 
 status=0

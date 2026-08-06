@@ -271,6 +271,15 @@ def summarize_events(path):
     }
 
 
+def _argv_value(command, flag):
+    """The value that followed `flag` in a recorded argv, one token per line."""
+    lines = command.splitlines()
+    for index, line in enumerate(lines[:-1]):
+        if line == flag:
+            return lines[index + 1]
+    return ""
+
+
 def ask_traces(worktree):
     """Every `ocs ask` call the lead made, read from the traces it left rather than from the event stream.
 
@@ -526,6 +535,15 @@ def check_plumbing(records, probe, contamination):
                     "arm": arm,
                     "pass": bool(review_traces) and len(briefed) == len(review_traces),
                     "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines",
+                })
+                # The lane's model must come from the role's tier, not from whatever the operator has set in their own Codex config.
+                # This was invisible until an operator noticed the reported model matched their personal default, which it did by coincidence.
+                pinned = [_argv_value(trace["command"], "-m") for trace in review_traces]
+                checks.append({
+                    "check": "the lane pinned its tier's model rather than inheriting a default",
+                    "arm": arm,
+                    "pass": bool(pinned) and all(model for model in pinned),
+                    "detail": f"models={sorted(set(pinned))}" if any(pinned) else "no -m on the command line",
                 })
                 lanes = record.get("ralplan_lanes") or []
                 checks.append({
