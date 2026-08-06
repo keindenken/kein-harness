@@ -271,6 +271,56 @@ def summarize_events(path):
     }
 
 
+def ask_traces(worktree):
+    """Every `ocs ask` call the lead made, read from the traces it left rather than from the event stream.
+
+    A bridge lane is a shell call, so nothing about it appears as a tool the parser can recognize.
+    `--trace` is what makes the lane observable at all, which is why the lane reference requires it.
+    """
+    root = Path(worktree) / ".agents" / "kein" / "runs" / "ask"
+    traces = []
+    for directory in sorted(root.glob("*")) if root.is_dir() else []:
+        prompt = directory / "prompt.txt"
+        command = directory / "command.txt"
+        traces.append({
+            "dir": directory.name,
+            "role": directory.name.split("-", 3)[-1],
+            "prompt": prompt.read_text(errors="replace") if prompt.is_file() else "",
+            "command": command.read_text(errors="replace") if command.is_file() else "",
+            "answered": (directory / "response.txt").is_file(),
+        })
+    return traces
+
+
+def ralplan_lanes(worktree):
+    """The verdict keys the workflow actually wrote, which is where a lane roster becomes visible."""
+    root = Path(worktree) / ".agents" / "kein" / "runs" / "ralplan"
+    lanes = []
+    for state in sorted(root.rglob("state.json")) if root.is_dir() else []:
+        try:
+            payload = json.loads(state.read_text())
+        except (OSError, ValueError):
+            continue
+        for key in payload.get("verdicts", {}) or payload.get("approvals", {}) or {}:
+            if key not in lanes:
+                lanes.append(key)
+    return lanes
+
+
+def repository_instruction_lines(worktree):
+    """Long lines from the repository's own instruction files, used to tell whether a brief carried them.
+
+    `ocs ask` deliberately injects no repository instructions, so a bridge lane that received none was briefed incompletely.
+    Matching on the longest lines keeps a coincidental one-word overlap from counting as a match.
+    """
+    lines = []
+    for name in (".claude/CLAUDE.md", "CLAUDE.md", "AGENTS.md"):
+        path = Path(worktree) / name
+        if path.is_file():
+            lines += [line.strip() for line in path.read_text(errors="replace").splitlines()]
+    return sorted({line for line in lines if len(line) > 60}, key=len, reverse=True)[:40]
+
+
 def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns):
     # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
     command = [
@@ -435,6 +485,50 @@ def check_plumbing(records, probe, contamination):
                 "pass": (not backgrounded) or not ARMS[arm]["invoke"],
                 "detail": f"backgrounded={backgrounded}" if backgrounded else "all synchronous",
             })
+            # A cross-vendor lane is a shell call, so none of the event-stream checks above can see it.
+            # These run only when the invocation asked for one; a native run has nothing here to assert.
+            if "codex" in record.get("invoke", ""):
+                traces = record.get("ask_traces") or []
+                review_traces = [trace for trace in traces if trace["role"] in ("architect", "critic")]
+                checks.append({
+                    "check": "the codex lane actually ran",
+                    "arm": arm,
+                    "pass": bool(review_traces),
+                    "detail": f"traces={[trace['dir'] for trace in traces]}" if traces else "no ocs ask trace",
+                })
+                checks.append({
+                    "check": "the lane carried the canonical role prompt",
+                    "arm": arm,
+                    "pass": bool(review_traces) and all("<Agent_Prompt>" in trace["prompt"] for trace in review_traces),
+                    "detail": f"{sum('<Agent_Prompt>' in trace['prompt'] for trace in review_traces)}/{len(review_traces)} carried it",
+                })
+                # The bridge runs against the pristine Codex home on purpose, so the plugin's role prompt is what shapes the reply.
+                # A lane that picked up ~/.codex-orca would be answering as the operator's tuned lead as well.
+                homes = [line for trace in review_traces for line in trace["command"].splitlines() if line.startswith("CODEX_HOME=")]
+                checks.append({
+                    "check": "the lane ran against the vanilla codex home",
+                    "arm": arm,
+                    "pass": bool(homes) and all(home.endswith("/.codex") for home in homes),
+                    "detail": f"homes={sorted(set(homes))}" if homes else "no CODEX_HOME recorded",
+                })
+                instructions = repository_instruction_lines(record["path"])
+                briefed = [
+                    trace for trace in review_traces
+                    if any(line in trace["prompt"] for line in instructions)
+                ]
+                checks.append({
+                    "check": "the brief carried repository instructions",
+                    "arm": arm,
+                    "pass": bool(review_traces) and len(briefed) == len(review_traces),
+                    "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines",
+                })
+                lanes = record.get("ralplan_lanes") or []
+                checks.append({
+                    "check": "verdicts are keyed by lane, including the codex lane",
+                    "arm": arm,
+                    "pass": any(lane.startswith(("architect@codex", "critic@codex")) for lane in lanes),
+                    "detail": f"lanes={lanes}" if lanes else "no ralplan state written",
+                })
             checks.append({
                 "check": "produced at least one file",
                 "arm": arm,
@@ -459,6 +553,8 @@ def main():
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
     parser.add_argument("--keep", action="store_true", help="leave worktrees on disk for inspection")
+    parser.add_argument("--arm", action="append", choices=sorted(ARMS), help="run only these arms; repeatable. A conformance run needs one arm, not a comparison.")
+    parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --critic claude,codex '. The trailing space matters.")
     parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
     options = parser.parse_args()
 
@@ -482,10 +578,14 @@ def main():
     try:
         records = {}
 
-        for arm in ARMS:
+        selected = options.arm or list(ARMS)
+        for arm in selected:
             # The control arm receives the same task text without the invocation, so the only thing that differs is whether the workflow is entered.
             # Leaving the invocation out of both would measure whether the model reaches for the skill unprompted, which is a different question than whether the skill's process changes the result.
-            prompt = PROBE_PROMPT if options.probe else ARMS[arm]["invoke"] + fixture["task"]
+            invoke = ARMS[arm]["invoke"]
+            if options.invoke is not None and ARMS[arm]["inject"]:
+                invoke = options.invoke
+            prompt = PROBE_PROMPT if options.probe else invoke + fixture["task"]
             worktree = run_dir / "worktrees" / arm
             print(f"[{arm}] preparing worktree at {fixture['commit'][:12]}", file=sys.stderr)
             wt = prepare_worktree(fixture["repo"], fixture["commit"], worktree)
@@ -504,6 +604,9 @@ def main():
                 "plugins": loaded,
                 "run": outcome,
                 "produced": produced,
+                "invoke": invoke,
+                "ask_traces": ask_traces(worktree),
+                "ralplan_lanes": ralplan_lanes(worktree),
             }
             print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s, {outcome['assistant_turns']} turns, {len(produced)} files", file=sys.stderr)
 
