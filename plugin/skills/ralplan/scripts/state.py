@@ -10,7 +10,7 @@ from pathlib import Path
 import re
 import sys
 import tempfile
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 
 SCHEMA_VERSION = 1
@@ -65,6 +65,8 @@ ABORTED_FIELDS = frozenset({
 PLAN_FIELDS = frozenset({"path", "artifact_sha256", "review_sha256", "status"})
 COMPLETED_PLAN_FIELDS = frozenset({"path", "artifact_sha256", "review_sha256"})
 VERDICT_FIELDS = frozenset({"lane", "verdict", "plan_sha256", "reviewed_at"})
+LANE_ROLES = ("architect", "critic")
+LANE_PATTERN = re.compile(r"(architect|critic)@([a-z][a-z0-9-]*)(:advisory)?")
 FINDING_FIELDS = frozenset({
     "lane",
     "claim",
@@ -186,14 +188,52 @@ def _validate_verdict(value: Any, lane: str, expected_hash: str) -> List[str]:
     return errors
 
 
-def _both_pass(verdicts: Any, digest: str) -> bool:
-    if not isinstance(verdicts, dict) or set(verdicts) != {"architect", "critic"}:
+def _parse_lane(key: Any) -> Optional[Tuple[str, str, bool]]:
+    # A lane names its role, the vendor that ran it, and whether it gates approval.
+    # `--critic claude,codex:advisory` becomes the keys `critic@claude` and `critic@codex:advisory`, so the roster reads straight off the state instead of being remembered.
+    if not isinstance(key, str):
+        return None
+    match = LANE_PATTERN.fullmatch(key)
+    if match is None:
+        return None
+    return match.group(1), match.group(2), match.group(3) is not None
+
+
+def _validate_roster(verdicts: Any) -> List[str]:
+    if not isinstance(verdicts, dict) or not verdicts:
+        return ["Verdicts must be a non-empty lane roster"]
+    errors: List[str] = []
+    parsed: Dict[str, Tuple[str, str, bool]] = {}
+    for key in verdicts:
+        lane = _parse_lane(key)
+        if lane is None:
+            errors.append(f"Lane '{key}' is not <role>@<vendor> with an optional :advisory suffix")
+            continue
+        parsed[key] = lane
+    for role in LANE_ROLES:
+        lanes = [lane for lane in parsed.values() if lane[0] == role]
+        if not lanes:
+            errors.append(f"The roster requires at least one {role} lane")
+        elif all(lane[2] for lane in lanes):
+            # A role served only by advisory lanes cannot block anything, which silently removes half the consensus gate.
+            errors.append(f"Every {role} lane is advisory, so nothing can block on {role} grounds")
+    return errors
+
+
+def _empty_roster(verdicts: Any) -> bool:
+    return not _validate_roster(verdicts) and all(value is None for value in verdicts.values())
+
+
+def _blocking_pass(verdicts: Any, digest: str) -> bool:
+    # Advisory lanes are skipped here and nowhere else: their findings still reach Planner, and only the approval decision ignores them.
+    if _validate_roster(verdicts):
         return False
-    for lane in ("architect", "critic"):
-        value = verdicts.get(lane)
+    for key, value in verdicts.items():
+        if _parse_lane(key)[2]:
+            continue
         if not isinstance(value, dict):
             return False
-        if value.get("lane") != lane or value.get("verdict") != "PASS":
+        if value.get("lane") != key or value.get("verdict") != "PASS":
             return False
         if value.get("plan_sha256") != digest:
             return False
@@ -238,7 +278,7 @@ def _validate_findings(value: Any) -> List[str]:
         if not isinstance(finding, dict) or set(finding) != FINDING_FIELDS:
             errors.append(f"Finding {index} must use the exact finding field set")
             continue
-        if finding.get("lane") not in {"architect", "critic"}:
+        if _parse_lane(finding.get("lane")) is None:
             errors.append(f"Finding {index} has an invalid lane")
         for key in FINDING_FIELDS - {"lane"}:
             if not isinstance(finding.get(key), str) or not finding[key].strip():
@@ -273,15 +313,15 @@ def validate_state(payload: Any) -> List[str]:
         plan = payload.get("plan") if isinstance(payload.get("plan"), dict) else {}
         digest = plan.get("review_sha256", "")
         verdicts = payload.get("verdicts")
-        if not isinstance(verdicts, dict) or set(verdicts) != {"architect", "critic"}:
-            errors.append("Verdicts must contain exactly architect and critic")
-        else:
-            for lane in ("architect", "critic"):
+        roster_errors = _validate_roster(verdicts)
+        errors.extend(roster_errors)
+        if not roster_errors:
+            for lane in verdicts:
                 errors.extend(_validate_verdict(verdicts[lane], lane, digest))
         errors.extend(_validate_findings(payload.get("findings")))
         if plan.get("status") == "Approved":
-            if not _both_pass(verdicts, digest):
-                errors.append("Approved requires fresh PASS verdicts from both lanes")
+            if not _blocking_pass(verdicts, digest):
+                errors.append("Approved requires a fresh PASS from every blocking lane")
             if payload.get("findings"):
                 errors.append("Approved state cannot retain unresolved findings")
     elif lifecycle == "completed":
@@ -294,10 +334,10 @@ def validate_state(payload: Any) -> List[str]:
         plan = payload.get("plan") if isinstance(payload.get("plan"), dict) else {}
         digest = plan.get("review_sha256", "")
         approvals = payload.get("approvals")
-        if not _both_pass(approvals, digest):
-            errors.append("Completed receipt requires exact-hash PASS approvals from both lanes")
+        if not _blocking_pass(approvals, digest):
+            errors.append("Completed receipt requires an exact-hash PASS from every blocking lane")
         elif isinstance(approvals, dict):
-            for lane in ("architect", "critic"):
+            for lane in approvals:
                 errors.extend(_validate_verdict(approvals[lane], lane, digest))
     elif lifecycle == "aborted":
         if set(payload) != ABORTED_FIELDS:
@@ -320,7 +360,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             and candidate.get("phase") == "drafted"
             and candidate.get("round") == 0
             and candidate.get("plan", {}).get("status") == "Draft"
-            and candidate.get("verdicts") == {"architect": None, "critic": None}
+            and _empty_roster(candidate.get("verdicts"))
             and candidate.get("findings") == []
         )
         if not is_initial:
@@ -350,10 +390,14 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         candidate_status = candidate_plan.get("status")
         previous_verdicts = previous.get("verdicts", {})
         previous_has_must_fix = isinstance(previous_verdicts, dict) and any(
-            isinstance(previous_verdicts.get(lane), dict)
-            and previous_verdicts[lane].get("verdict") == "MUST_FIX"
-            for lane in ("architect", "critic")
+            isinstance(value, dict) and value.get("verdict") == "MUST_FIX"
+            for value in previous_verdicts.values()
         )
+        candidate_verdicts = candidate.get("verdicts")
+        if isinstance(previous_verdicts, dict) and isinstance(candidate_verdicts, dict):
+            if set(previous_verdicts) != set(candidate_verdicts):
+                # Otherwise a lane that returned MUST_FIX could simply be removed from the roster and the plan approved without it.
+                errors.append("The lane roster is fixed for the run and cannot change between checkpoints")
         previous_has_blocker = previous_has_must_fix or bool(previous.get("findings"))
         if previous_has_blocker and candidate_status != "Draft":
             errors.append(
@@ -372,8 +416,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 candidate.get("phase") == "reviewing"
                 and isinstance(previous.get("round"), int)
                 and candidate.get("round") == previous.get("round") + 1
-                and candidate.get("verdicts")
-                == {"architect": None, "critic": None}
+                and _empty_roster(candidate.get("verdicts"))
                 and candidate.get("findings") == []
             )
             if not opens_fresh_round:
@@ -407,8 +450,8 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 errors.append("Round must remain stable or advance by one")
         if previous_plan.get("review_sha256") != candidate_plan.get("review_sha256"):
             verdicts = candidate.get("verdicts", {})
-            if isinstance(verdicts, dict) and any(verdicts.get(lane) is not None for lane in ("architect", "critic")):
-                errors.append("A changed plan hash must clear both previous verdicts")
+            if isinstance(verdicts, dict) and any(value is not None for value in verdicts.values()):
+                errors.append("A changed plan hash must clear every previous verdict")
             if candidate_plan.get("status") == "Approved":
                 errors.append("A changed plan hash cannot retain Approved status")
     if candidate.get("lifecycle") == "completed":

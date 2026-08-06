@@ -27,11 +27,13 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
   },
   "phase": "drafted",
   "round": 0,
-  "verdicts": {"architect": null, "critic": null},
+  "verdicts": {"architect@claude": null, "critic@claude": null},
   "findings": [],
   "next_action": "dispatch round 1 fresh reviewers"
 }
 ```
+
+The keys of `verdicts` are the run's lane roster, written once and fixed for the run: a lane that returned `MUST_FIX` cannot be dropped and the plan approved without it. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
 
 Nonterminal state carries no timestamp. `reconcile` decides continuation and reads no time, `run_id` already carries the start to the second, and the file's own mtime is the last write. Do not reintroduce one without a reader that branches on it.
 
@@ -56,8 +58,8 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
     "review_sha256": "<fresh dual-approved review hash>"
   },
   "approvals": {
-    "architect": {"lane": "architect", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:28:00+09:00"},
-    "critic": {"lane": "critic", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:29:00+09:00"}
+    "architect@claude": {"lane": "architect@claude", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:28:00+09:00"},
+    "critic@claude": {"lane": "critic@claude", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:29:00+09:00"}
   }
 }
 ```

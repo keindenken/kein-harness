@@ -86,7 +86,7 @@ If documentation and code conflict, cite both facts and ask which behavior shoul
 
 <Ledger>
 
-Read [references/ledger-template.md](references/ledger-template.md) completely before creating or finalizing a ledger.
+Read [ledger-template.md](references/ledger-template.md) completely before creating or finalizing a ledger.
 
 Run `ocs state-dir runs/interview` to resolve the run root, and store the ledger at `<run-root>/<YYMMDD-HHMMSS>-<slug>/ledger.md`. The run root sits inside the repository so an interrupted interview can be resumed by any vendor working there, not only the one that started it.
 
@@ -108,7 +108,7 @@ After a validated Approved artifact, replace the active ledger with the compact 
 
 <Requirements_Artifact>
 
-Read [references/requirements-template.md](references/requirements-template.md) completely before writing the artifact.
+Read [requirements-template.md](references/requirements-template.md) completely before writing the artifact.
 
 Run `ocs state-dir requirements` and write to `<that path>/YYMMDD-<slug>.md`. Follow the target project's own convention instead when it already has one for requirements documents specifically; a general `docs/` tree is not that convention, and this artifact does not belong there.
 

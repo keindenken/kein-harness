@@ -15,16 +15,16 @@ This skill ends with an approved plan or an explicit unapproved state. It grants
 
 Read these when their stage begins:
 
-- [references/state-schema.md](references/state-schema.md) before creating or resuming a run.
-- [references/plan-template.md](references/plan-template.md) before assigning the canonical artifact to Planner.
-- [references/review-contract.md](references/review-contract.md) before assembling each official review package.
-- [references/lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
+- [state-schema.md](references/state-schema.md) before creating or resuming a run.
+- [plan-template.md](references/plan-template.md) before assigning the canonical artifact to Planner.
+- [review-contract.md](references/review-contract.md) before assembling each official review package.
+- [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
 
 Use `ocs state ralplan --help` for validation, reconciliation, and atomic checkpoint commands.
 
 Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete stage-specific package. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
 
-An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [references/lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
+An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
 
 Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
 

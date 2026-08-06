@@ -61,4 +61,5 @@ An advisory verdict is stored and its findings are consolidated for Planner like
 It is excluded from the approval decision and from nothing else.
 
 A nonzero exit from `ocs ask` is not a lane result.
-Report the lane as unavailable and treat the round as incomplete: a lane that failed to run has not passed.
+A blocking lane that failed to run has not passed, so the round is incomplete until it runs.
+An unavailable advisory lane is reported and nothing more: a lane that cannot block by returning `MUST_FIX` must not be able to block by failing either.
