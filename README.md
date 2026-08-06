@@ -147,6 +147,32 @@ given question, and the caller can, so put them in the brief.
 Only the nine read-only roles are available. A write-capable role reached through a bare
 one-shot would let a remote vendor edit the worktree with no workflow around it.
 
+### Adding a teammate from another vendor
+
+```sh
+ocs team codex --agent executor --trace "<task>"   # supervised, write-capable
+```
+
+`team` is the other half of the same bridge, and covers exactly the five write-capable
+roles `ask` refuses. It composes a vendor terminal carrying the harness's own launch
+arguments, hands it to Orca as a supervised worker, and blocks until Orca's completion
+signal arrives. Orca owns the run, task, dispatch, completion, and recovery; none of that
+is reimplemented.
+
+What the command owns is the execution environment, because Orca's own agent launch takes
+one global command per vendor and so cannot vary it per lane: the model comes from the
+role's tier, the vendor home is the pinned vanilla one, and the sandbox is the narrowest
+setting that can both write in the worktree and reach Orca to report. It refuses before
+creating anything when the project has no trust record in that home, since an untrusted
+directory stops the agent at a prompt the brief would be typed into.
+
+The worker writes its report to a file and the command prints that path. That file is the
+deliverable — this launch path gets no transcript hook, so a report the worker wrote on
+purpose replaces one the tooling would have scraped.
+
+One invocation is one worker, and it blocks. Several lanes come from backgrounding several
+invocations; `--trace` persists everything, so nothing is lost when no one is waiting.
+
 The provider runs with `CODEX_HOME` pinned to the vanilla Codex home, never inherited: a
 one-shot advisory call must not pick up the lead tuning in `~/.codex-orca`. The canonical
 prompts happen to live inside that home, but the library and the environment are separate

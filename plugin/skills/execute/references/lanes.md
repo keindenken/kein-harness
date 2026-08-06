@@ -1,11 +1,11 @@
 # Execute Cross-Vendor Lanes
 
-Read this only when the invocation names a vendor for review lanes.
+Read this only when the invocation names a vendor for a lane.
 A run without such a flag uses the native lanes described in the skill body and needs nothing here.
 
 ## Roster
 
-`--reviewer <vendors>` takes a comma-separated vendor list and defaults to `claude`.
+`--reviewer <vendors>` and `--executor <vendor>` take a comma-separated vendor list and default to `claude`.
 
 | Flag | Effect |
 | :--- | :--- |
@@ -13,12 +13,27 @@ A run without such a flag uses the native lanes described in the skill body and 
 | `--reviewer codex` | each selected reviewer role runs as codex instead |
 | `--reviewer claude,codex` | each selected reviewer role runs in both, both blocking |
 | `--reviewer claude,codex:advisory` | the codex lanes report but cannot block |
+| `--executor codex` | the round's Executor runs as codex |
 
 The flag names vendors rather than roles, which is where this differs from RALPLAN. RALPLAN has a fixed Architect and Critic to name; here the reviewer roles are chosen per round from the evidence question, so the roster applies to whichever roles that selection produces.
 
 A vendor suffixed `:advisory` records a verdict and contributes findings without gating acceptance. Every unsuffixed lane blocks, which is the rule the review contract already states.
 
-Executor takes no vendor. `ocs ask` serves read-only roles only, and a remote vendor writing to the worktree needs supervision this skill does not have. Refuse `--executor <vendor>` and say so rather than silently implementing natively.
+`--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent.
+
+## The write-capable lane
+
+```sh
+ocs team codex --agent executor --trace "<the task package>"
+```
+
+`ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
+
+The command is what enforces the environment, so there is nothing here for the lead to arrange. It resolves the model from the role's tier, pins the pristine vendor home, sets a sandbox that can both write in the worktree and report completion, and refuses before creating anything if the project is untrusted in that home.
+
+Two things do fall to the lead. The task package must carry the repository instructions, for the same reason a review lane's does — the bridge assembles the role prompt and nothing else. And the worker's report arrives as a file whose path the command prints; treat that file as the Executor's self-verification evidence, exactly as you would a native Executor's returned account, and hold it to the same standard. Self-verification is still not approval.
+
+A vendor Executor is otherwise an ordinary Executor. It takes one task, its scope, completion condition, repository instructions, and verification path; its work is reviewed by the round's reviewer lanes; and a `MUST_FIX` returns to a correction round in the usual way. A correction may go to a fresh vendor Executor or a native one, whichever the evidence favours.
 
 ## Mechanism
 
@@ -48,6 +63,8 @@ A codex lane may run in the background. The skill body forbids backgrounding an 
 
 A verdict's `reviewer_role` becomes `<role>@<vendor>` — `code-reviewer@claude`, `critic@codex`, `critic@codex:advisory`. Findings carry the same identifier as the verdict they came from. No schema change is needed: verdicts are already a list and the role is already free text.
 
+A task's records name the Executor the same way when it was a vendor lane. The worktree fingerprint still binds verification to the round, and a vendor Executor changes nothing about that: it wrote to the same canonical worktree.
+
 Acceptance counts blocking lanes only. An advisory lane that has not reported does not hold up acceptance, and an advisory `MUST_FIX` does not stop it, but its findings are consolidated into the correction brief like any other.
 
-A nonzero exit from `ocs ask` is not a lane result. A blocking lane that failed to run has not passed, so the round is incomplete until it runs. An unavailable advisory lane is reported and nothing more: a lane that cannot block by returning `MUST_FIX` must not be able to block by failing either.
+A nonzero exit from `ocs ask` or `ocs team` is not a lane result. A blocking lane that failed to run has not passed, so the round is incomplete until it runs. A vendor Executor that exits nonzero has not implemented the task, whatever the worktree looks like: re-read the fingerprint before deciding what happened. An unavailable advisory lane is reported and nothing more: a lane that cannot block by returning `MUST_FIX` must not be able to block by failing either.

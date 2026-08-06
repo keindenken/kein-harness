@@ -1,0 +1,266 @@
+#!/usr/bin/env sh
+#: Add one supervised teammate from another vendor's CLI as a canonical role.
+#
+# Usage:
+#   ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+#
+# This is the write-capable half of the bridge; `ocs ask` is the read-only half.
+# Orca owns the Run, Task, Dispatch, completion signal, and recovery, and none of that is reimplemented here.
+# What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
+# Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
+set -eu
+
+# Adding a provider is one entry here and no change at any call site.
+PROVIDERS='codex'
+
+# The Codex half of the canonical tier, identical to the table in `ocs ask`.
+TIER_DEEP_MODEL='gpt-5.6-sol'
+TIER_STANDARD_MODEL='gpt-5.6-terra'
+TIER_FAST_MODEL='gpt-5.6-luna'
+DEFAULT_EFFORT='medium'
+
+# A worker reports by calling Orca from inside its own sandbox.
+# Under `read-only`, and under a plain `workspace-write`, that call fails with the app unreachable while the binary itself runs fine, so the lane completes its work and its verdict is never delivered.
+# Enabling network access for workspace-write is the narrowest setting measured to let the report through; Orca's own agent launch bypasses the sandbox entirely instead.
+SANDBOX='workspace-write'
+SANDBOX_CONFIG='sandbox_workspace_write.network_access=true'
+
+# `workspace-write` does not cover dot-directories under the workspace, which is where the state root lives.
+# Measured: `touch .agents/...` exits 10 under the sandbox while a file at the repository root exits 0, so a worker completes its work and then cannot write the report it was asked for.
+# Naming the state root as a writable root is narrower than widening the sandbox mode, and it is the only extra path the worker is granted.
+STATE_DIRNAME='.agents'
+
+usage() {
+  cat >&2 <<EOF
+usage: ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+
+  providers: $PROVIDERS
+  roles:     write-capable roles only; run with an unknown role to list them
+  --model:   override the model the role's tier resolves to
+  --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
+  --timeout: seconds to wait for the worker (default: 3600)
+  --keep:    leave the worker terminal open after it completes
+
+One invocation is one worker, and it blocks. Run several in the background for
+several lanes: the trace persists every artifact, so nothing is lost when the
+caller is not waiting.
+
+example:
+  ocs team codex --agent executor --trace "Implement the bounded change in src/foo.ts"
+EOF
+}
+
+provider=''
+role=''
+trace=0
+model=''
+effort=''
+timeout=3600
+keep=0
+task=''
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs team: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
+    --agent=*) role=${1#--agent=}; shift ;;
+    --trace) trace=1; shift ;;
+    --keep) keep=1; shift ;;
+    --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs team: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
+    --model=*) model=${1#--model=}; shift ;;
+    --effort) effort=${2:-}; [ -n "$effort" ] || { printf 'ocs team: missing value after --effort\n' >&2; exit 1; }; shift 2 ;;
+    --effort=*) effort=${1#--effort=}; shift ;;
+    --timeout) timeout=${2:-}; shift 2 ;;
+    --timeout=*) timeout=${1#--timeout=}; shift ;;
+    -h|--help) usage; exit 0 ;;
+    -*) printf "ocs team: unknown option '%s'\n" "$1" >&2; usage; exit 1 ;;
+    *)
+      if [ -z "$provider" ]; then provider=$1
+      elif [ -z "$task" ]; then task=$1
+      else task="$task $1"
+      fi
+      shift ;;
+  esac
+done
+
+[ -n "$provider" ] || { printf 'ocs team: no provider given\n' >&2; usage; exit 1; }
+[ -n "$role" ]     || { printf 'ocs team: no role given (--agent <role>)\n' >&2; usage; exit 1; }
+[ -n "$task" ]     || { printf 'ocs team: no task given\n' >&2; usage; exit 1; }
+
+case " $PROVIDERS " in
+  *" $provider "*) ;;
+  *) printf "ocs team: provider '%s' is not enabled. Enabled: %s\n" "$provider" "$PROVIDERS" >&2
+     exit 1 ;;
+esac
+
+prompts="$KEIN_ROOT/prompts"
+manifest="$prompts/manifest.json"
+
+[ -f "$manifest" ] || { printf 'ocs team: no rendered prompts. Run `ocs sync-prompts`.\n' >&2; exit 1; }
+
+# A stale library would work as a role that no longer exists as written, so the gate runs before anything is spent on inference.
+"$KEIN_ROOT/libexec/ocs-check-prompts" >/dev/null
+
+# The five write-capable roles, and the exact complement of what `ocs ask` serves.
+# A read-only role reached through here would spend a supervised session and a worktree on work a one-shot already does more cheaply and with guaranteed freshness.
+write_roles=$(
+  python3 -c '
+import json, sys
+manifest = json.load(open(sys.argv[1]))
+print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] != "read-only")))
+' "$manifest"
+)
+
+case " $write_roles " in
+  *" $role "*) ;;
+  *)
+    if [ -f "$prompts/$role.md" ]; then
+      printf 'ocs team: role %s is read-only. Use `ocs ask %s --agent %s` instead.\n' "$role" "$provider" "$role" >&2
+      printf '  A supervised session buys nothing for a lane that only reads.\n' >&2
+    else
+      printf "ocs team: unknown role '%s'\n" "$role" >&2
+    fi
+    printf '  available: %s\n' "$write_roles" >&2
+    exit 1 ;;
+esac
+
+if [ -z "$model" ]; then
+  tier=$(python3 -c '
+import json, sys
+print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
+' "$manifest" "$role")
+  case "$tier" in
+    deep)     model=$TIER_DEEP_MODEL ;;
+    standard) model=$TIER_STANDARD_MODEL ;;
+    fast)     model=$TIER_FAST_MODEL ;;
+    *) printf "ocs team: role '%s' has unknown tier '%s'\n" "$role" "$tier" >&2; exit 1 ;;
+  esac
+fi
+[ -n "$effort" ] || effort=$DEFAULT_EFFORT
+
+# The vanilla home is pinned, never inherited, exactly as `ocs ask` does it.
+# Orca launches whatever command its client is configured with, which on this machine was a launcher pointing at the tuned home; a lane answering as the operator's own tuned lead is not the canonical role.
+codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
+
+worktree=$PWD
+
+# Codex keeps its project trust records per home, so a directory trusted in one is not trusted in the other.
+# An untrusted directory stops the interactive agent at a prompt. Orca catches that for its own launch path and reports `codex-interactive-prompt`, but a terminal we created ourselves gets no such check: the brief would be typed into the trust prompt and the lane would hang with no timeout of its own.
+# Refuse before creating anything, and do not write the operator's config to make the problem go away.
+trusted=$(
+  python3 - "$codex_home/config.toml" "$worktree" <<'PY'
+import re, sys
+path, root = sys.argv[1], sys.argv[2]
+try:
+    lines = open(path, encoding="utf-8").read().splitlines()
+except OSError:
+    print("no")
+    raise SystemExit
+want = f'[projects."{root}"]'
+inside = False
+for line in lines:
+    stripped = line.strip()
+    if stripped.startswith("["):
+        inside = stripped == want
+        continue
+    if inside and re.match(r'trust_level\s*=\s*"trusted"', stripped):
+        print("yes")
+        raise SystemExit
+print("no")
+PY
+)
+if [ "$trusted" != "yes" ]; then
+  printf 'ocs team: %s is not trusted in %s\n' "$worktree" "$codex_home" >&2
+  printf '  A worker launched there would stall at the trust prompt with no brief delivered.\n' >&2
+  printf '  Open the provider once in that directory and accept, or add to %s/config.toml:\n' "$codex_home" >&2
+  printf '    [projects."%s"]\n    trust_level = "trusted"\n' "$worktree" >&2
+  exit 1
+fi
+
+command -v orca >/dev/null 2>&1 || { printf 'ocs team: `orca` is not on PATH.\n' >&2; exit 1; }
+orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not reachable. Start it with `orca open`.\n' >&2; exit 1; }
+
+stamp=$(date +%y%m%d-%H%M%S)
+dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
+mkdir -p "$dir"
+report="$dir/report.md"
+
+# The role prompt supplies who the worker is; the task supplies what to do.
+# The output contract is the third piece: Orca's preamble already offers `--report-path`, and requiring it is what replaces the transcript this launch path cannot produce.
+prompt=$(
+  printf '%s\n\n%s\n\n## Output contract\n\nWrite your full report to `%s` before finishing: what you changed, what you verified and how, and what remains.\nThen report completion with `--report-path %s`.\nThe file is the deliverable; the completion body is a summary of it.\n' \
+    "$(cat "$prompts/$role.md")" "$task" "$report" "$report"
+)
+
+json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
+for k in sys.argv[1].split("."):
+    v = (v or {}).get(k) if isinstance(v, dict) else None
+print(v or "")' "$1"; }
+
+fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
+
+# One Run per invocation, so two backgrounded lanes never share a coordinator inbox.
+# Completion is read from the dispatch and the report file rather than from that inbox, which is what keeps concurrent invocations from consuming each other's mail.
+run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
+[ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
+
+task_id=$(printf '%s' "$prompt" | orca orchestration task-create --spec "$prompt" --json 2>/dev/null | json_field task.id)
+[ -n "$task_id" ] || fail 'could not create the Orca task'
+
+# KEIN_STATE_ROOT pins the worker's own ledger to this worktree instead of wherever it wanders.
+# The writable-roots value is single-quoted because the terminal runs this through a shell, and `[` opens a glob pattern there.
+# Unquoted, zsh fails the whole line with `no matches found` before codex ever starts.
+launch="KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'"
+handle=$(orca terminal create --worktree current --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
+[ -n "$handle" ] || fail 'could not create the worker terminal'
+
+orca terminal wait --terminal "$handle" --for tui-idle --timeout-ms 120000 --json >/dev/null 2>&1 || true
+
+dispatch=$(orca orchestration worker-start --task "$task_id" --terminal "$handle" --json 2>/dev/null | json_field dispatchId)
+if [ -z "$dispatch" ]; then
+  printf 'ocs team: the worker started but could not be attached to a dispatch.\n' >&2
+  printf '  terminal=%s left open for inspection.\n' "$handle" >&2
+  exit 1
+fi
+
+if [ "$trace" -eq 1 ]; then
+  printf '%s' "$prompt" > "$dir/prompt.txt"
+  {
+    printf 'CODEX_HOME=%s\n' "$codex_home"
+    printf 'cwd=%s\n' "$worktree"
+    printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$dispatch" "$handle"
+    printf '%s\n' "$launch"
+  } > "$dir/command.txt"
+fi
+
+# Poll the dispatch rather than wait on the Run mailbox.
+# `worker-show` takes the dispatch id directly, so nothing here depends on which Run this terminal happens to be bound to.
+elapsed=0
+status=''
+while [ "$elapsed" -lt "$timeout" ]; do
+  status=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null | json_field dispatch.status)
+  case "$status" in
+    completed|failed) break ;;
+  esac
+  sleep 10
+  elapsed=$((elapsed + 10))
+done
+
+if [ "$status" != "completed" ]; then
+  [ -n "$status" ] || status='unknown'
+  printf 'ocs team: worker did not complete (status=%s after %ss)\n' "$status" "$elapsed" >&2
+  printf '  dispatch=%s terminal=%s left open for inspection.\n' "$dispatch" "$handle" >&2
+  printf '  inspect: orca orchestration worker-read --dispatch %s --json\n' "$dispatch" >&2
+  exit 1
+fi
+
+[ "$keep" -eq 1 ] || orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+
+if [ ! -s "$report" ]; then
+  printf 'ocs team: the worker completed without writing %s\n' "$report" >&2
+  printf '  The completion signal arrived, so the work may be done, but the deliverable is missing.\n' >&2
+  exit 1
+fi
+
+printf 'report: %s\n' "$report"
+[ "$trace" -eq 1 ] && printf 'trace: %s\n' "$dir" >&2
+cat "$report"

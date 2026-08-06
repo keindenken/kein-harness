@@ -90,7 +90,9 @@ Agents: the fourteen already normalized in `~/.codex-orca/foundation/prompts/`.
 - Hooks. Start at zero, matching `~/.codex-orca`. Adding one requires naming the failure
   it prevents and how its misfire would be detected.
 - Restoring prompt material because an upstream harness had it. See the operating rules.
-- Replacing Orca's command namespace or reimplementing its orchestration runtime.
+- Reimplementing Orca's orchestration runtime, or shadowing the `orca` executable to add
+  subcommands to its namespace. Composing its commands from `ocs` is not that, and is how
+  the cross-vendor bridge reaches a supervised worker.
 
 ## Naming and surfaces
 
@@ -107,6 +109,14 @@ Harness name: **kein**. CLI name: **ocs**. They are deliberately different.
 
 `gdr` is superseded. One CLI is a requirement rather than tidying: a single resolver for the
 canonical role prompts is what prevents the two vendors' prompt sets from drifting apart.
+
+That requirement is also why `ocs` carries more than the bridge commands. `~/.codex-orca`'s
+decision log introduced it for "role-aware one-shot calls and external CLI orchestration",
+and it has since taken on `sync-prompts`, `render-agents`, `check-prompts`, `state`,
+`validate`, `doctor`, and `eval` — the commands that build and gate the prompt library now
+sit in the same binary as the ones that consume it, which is what makes the gate reachable
+from every consumer. Read `ocs` as the harness CLI's name, not as an abbreviation of any of
+its subcommands.
 
 Splitting the CLI name from the harness name is a direct response to how OMC read in
 practice, where `omc ask` the command sat beside `ask` the skill under a plugin also called
@@ -180,9 +190,16 @@ Development continues past v1. This is the first gate, not the finish.
 4. `ralplan` — done. Consensus planning, one skill.
 5. `execute` — done. The implementation loop; may later carry parallel dispatch the
    way `team` does.
-6. `team` — no separate skill. Orca orchestration goes into `ralplan` and `execute` as
-   guidance or a shared reference, and is reconsidered only if that fails in use. Orca
-   already ships `orca-cli` and `orchestration`; a wrapper would duplicate them.
+6. `team` — no separate skill, and that still holds: Orca orchestration lives in
+   `ralplan` and `execute` as a conditional reference, and `orca-cli` and `orchestration`
+   remain the skills for orchestration outside a kein workflow. There is an `ocs team`
+   command, which the earlier wording here argued against as duplication. What that
+   wording did not know is that Orca's agent launch takes one global command for a
+   vendor, so it cannot give a lane the model its role's tier calls for, nor a sandbox
+   that can both write and report, nor the pristine vendor home. Composing the terminal
+   ourselves is the only place those can be set, and Orca still owns every part of the
+   lifecycle. Measured 2026-08-06; requirements in
+   `.agents/kein/requirements/260806-ocs-team-bridge.md`.
 7. `ralph` — the general-purpose loop. Needs 6 first.
 
 `autopilot` wraps `interview -> plan -> execute`, resuming at whichever stage has not
