@@ -16,9 +16,12 @@ It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or
 - Read [state-schema.md](references/state-schema.md) before creating or resuming state.
 - Read [task-ledger-template.md](references/task-ledger-template.md) before normalizing input.
 - Read [review-contract.md](references/review-contract.md) before review, closure check, or final audit.
+- Read [lanes.md](references/lanes.md) only when the invocation names a vendor for review lanes.
 - Run `ocs state execute --help` for checkpoint and reconciliation commands.
 
-Pass `run_in_background: false` on every Executor and reviewer dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead waiting on all selected lanes waits forever. Reviewers deliver verdicts, so for them this is what makes the round observable. Complementary read-only lanes still run concurrently when their dispatches share one message.
+An invocation may name another vendor for the review lanes — `--reviewer codex`, `--reviewer claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
+
+Pass `run_in_background: false` on every Agent tool Executor and reviewer dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead waiting on all selected lanes waits forever. Reviewers deliver verdicts, so for them this is what makes the round observable. Complementary read-only lanes still run concurrently when their dispatches share one message.
 
 ## Entry and Resume
 
