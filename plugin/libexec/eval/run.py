@@ -177,6 +177,10 @@ def prepare_config_home(path):
     Authentication does not survive the pin on its own, so two files are seeded.
     `.claude.json` gets the account and onboarding keys only — never `projects`, `mcpServers`, or any plugin key, which is what would smuggle the ambient environment back in.
     `.credentials.json` comes from the macOS Keychain, is written 0600, and is deleted when the run ends.
+
+    The pin covers plugins and MCP servers, not `~/.claude/CLAUDE.md`, which reaches every Claude agent by design and is why lead-only guidance has to arrive some other way.
+    Confirmed for this config home rather than assumed: a run under it still quoted that file back.
+    Attribution survives, since every arm gets the same file, but a planning rule added there reaches the control arm too and would move the comparison without the fixture or the skill moving.
     """
     path.mkdir(parents=True, exist_ok=True)
 
@@ -360,18 +364,31 @@ def ralplan_lanes(worktree):
     return lanes
 
 
-def repository_instruction_lines(worktree):
-    """Long lines from the repository's own instruction files, used to tell whether a brief carried them.
+WORKTREE_INSTRUCTION_NAMES = (".claude/CLAUDE.md", "CLAUDE.md", "AGENTS.md")
 
-    `ocs ask` deliberately injects no repository instructions, so a bridge lane that received none was briefed incompletely.
+
+def binding_instruction_lines(worktree):
+    """Long lines from the worktree's own instruction files, used to tell whether a brief carried them.
+
+    `ocs ask` and `ocs team` inject no instructions by design, so a bridge lane that received none was briefed incompletely.
     Matching on the longest lines keeps a coincidental one-word overlap from counting as a match.
+
+    The operator's `~/.claude/CLAUDE.md` is deliberately out of scope, and it is the more interesting omission.
+    It reaches the lead and every native lane automatically while reaching no Codex lane at all, so a cross-vendor brief does have to carry it by hand, and the first observed team run carried it faithfully.
+    It was carried as a paraphrase, which is what a lead should do, and neither escape this check offers survives that: substring matching reads a paraphrase as an omission, and naming the file instead points a worktree-sandboxed lane at something it cannot open.
+    Including it therefore converts a correct pass into a false failure. Whether the standing conventions reached a lane is not a thing this instrument can measure; pretending otherwise costs more than the silence does.
     """
     lines = []
-    for name in (".claude/CLAUDE.md", "CLAUDE.md", "AGENTS.md"):
+    for name in WORKTREE_INSTRUCTION_NAMES:
         path = Path(worktree) / name
         if path.is_file():
             lines += [line.strip() for line in path.read_text(errors="replace").splitlines()]
     return sorted({line for line in lines if len(line) > 60}, key=len, reverse=True)[:40]
+
+
+def worktree_instruction_names(worktree):
+    """The instruction files a lane could open for itself, which is what makes naming one an acceptable substitute for quoting it."""
+    return [Path(name).name for name in WORKTREE_INSTRUCTION_NAMES if (Path(worktree) / name).is_file()]
 
 
 def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns):
@@ -491,18 +508,18 @@ def lane_checks(record, arm):
         # A brief satisfies this by quoting the instructions or by naming the file that holds them.
         # The first observed run did the second — a digest of the conventions plus "also read .claude/CLAUDE.md" — and the lane is sandboxed with the worktree as its cwd, so the pointer resolves.
         # Requiring verbatim lines would have failed a brief that was better than the one the check imagined.
-        instructions = repository_instruction_lines(record["path"])
-        names = ("CLAUDE.md", "AGENTS.md")
+        instructions = binding_instruction_lines(record["path"])
+        names = worktree_instruction_names(record["path"])
         briefed = [
             trace for trace in review_traces
             if any(line in trace["prompt"] for line in instructions)
             or any(name in trace["prompt"] for name in names)
         ]
         checks.append({
-            "check": "the brief carried repository instructions",
+            "check": "the brief carried the instructions that bind here",
             "arm": arm,
             "pass": bool(review_traces) and (len(briefed) == len(review_traces) or not instructions),
-            "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines" if instructions else "the repository has none to carry",
+            "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines" if instructions else "nothing binds here to carry",
         })
         # The lane's model must come from the role's tier, not from whatever the operator has set in their own Codex config.
         # This was invisible until an operator noticed the reported model matched their personal default, which it did by coincidence.
@@ -581,18 +598,21 @@ def lane_checks(record, arm):
             "detail": f"cwd={trace['header'].get('cwd') or 'unrecorded'}",
         })
         # `ocs team` assembles the role and nothing else, exactly as `ocs ask` does.
-        # A repository with no instruction files has nothing to carry, and failing that case would be
-        # the check asking for something that does not exist — the same false negative the ask lane's
-        # version of this already produced once, by demanding verbatim lines from a brief that named the file instead.
-        instructions = repository_instruction_lines(record["path"])
+        # Nothing to carry is a pass rather than a failure, because the check would otherwise be asking for
+        # something that does not exist — the same false negative the ask lane's version produced once, by
+        # demanding verbatim lines from a brief that named the file instead.
+        # "Nothing to carry" can also mean the check is looking in too few places: the first observed team run
+        # passed that way while the lead had in fact carried the operator's standing conventions, which no file
+        # in the worktree holds. See `binding_instruction_lines` for why widening it made the check worse.
+        instructions = binding_instruction_lines(record["path"])
         briefed = any(line in trace["spec"] for line in instructions) or any(
-            name in trace["spec"] for name in ("CLAUDE.md", "AGENTS.md")
+            name in trace["spec"] for name in worktree_instruction_names(record["path"])
         )
         checks.append({
-            "check": "the task package carried repository instructions",
+            "check": "the task package carried the instructions that bind here",
             "arm": label,
             "pass": briefed or not instructions,
-            "detail": f"against {len(instructions)} candidate lines" if instructions else "the repository has none to carry",
+            "detail": f"against {len(instructions)} candidate lines" if instructions else "nothing binds here to carry",
         })
         # This launch path cannot produce a hook transcript. The report is what was accepted in exchange,
         # so an empty one means the run bought control and paid for it with nothing.
