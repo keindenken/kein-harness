@@ -301,6 +301,47 @@ def ask_traces(worktree):
     return traces
 
 
+def team_traces(worktree):
+    """Every `ocs team` worker the lead started, read from its trace directory.
+
+    A team lane leaves more behind than an ask lane because it has to: the launch path that gives
+    the worker a per-lane model and sandbox is the one Orca cannot produce a hook transcript for,
+    so the trace and the worker's own report are the entire record of what ran.
+    """
+    root = Path(worktree) / ".agents" / "kein" / "runs" / "team"
+    traces = []
+    for directory in sorted(root.glob("*")) if root.is_dir() else []:
+        def read(name):
+            path = directory / name
+            return path.read_text(errors="replace") if path.is_file() else ""
+
+        # The trace records one `key=value` header line per fact and then the launch as its last line,
+        # because a launch is a single shell string rather than the one-token-per-line argv an ask lane records.
+        # Splitting on the last line rather than on whitespace keeps a path containing a space from being read as a launch.
+        lines = read("command.txt").splitlines()
+        launch = lines[-1] if lines else ""
+        header = dict(line.partition("=")[::2] for line in lines[:-1] if "=" in line)
+        traces.append({
+            "dir": directory.name,
+            "role": directory.name.split("-", 2)[-1],
+            "role_prompt": read("role.md"),
+            "spec": read("spec.txt"),
+            "report": read("report.md"),
+            "header": header,
+            "launch": launch,
+        })
+    return traces
+
+
+def _launch_value(launch, flag):
+    """The token that followed `flag` in a recorded shell launch string."""
+    tokens = launch.split()
+    for index, token in enumerate(tokens[:-1]):
+        if token == flag:
+            return tokens[index + 1]
+    return ""
+
+
 def ralplan_lanes(worktree):
     """The verdict keys the workflow actually wrote, which is where a lane roster becomes visible."""
     root = Path(worktree) / ".agents" / "kein" / "runs" / "ralplan"
@@ -407,6 +448,160 @@ def collect(worktree, destination, exclude=()):
     return produced
 
 
+def lane_checks(record, arm):
+    """Checks for lanes that ran as a separate process rather than as an Agent-tool subagent.
+
+    A cross-vendor lane leaves nothing in the event stream, so every assertion here reads the trace
+    the lane was required to write. That is also why `--trace` is mandatory in both lane references
+    rather than merely recommended: without it there is no evidence the lane ran at all.
+
+    Split out of `check_plumbing` so a live run can be verified with `--verify`. The eval harness
+    builds a throwaway git worktree, which Orca does not know and Codex does not trust, so a
+    write-capable lane cannot run inside it and has to be checked where it actually ran.
+    """
+    checks = []
+    # A read-only cross-vendor lane runs only when the invocation asked for one; a native run has nothing here to assert.
+    if "codex" in record.get("invoke", ""):
+        traces = record.get("ask_traces") or []
+        review_traces = [trace for trace in traces if trace["role"] in ("architect", "critic")]
+        checks.append({
+            "check": "the codex lane actually ran",
+            "arm": arm,
+            "pass": bool(review_traces),
+            "detail": f"traces={[trace['dir'] for trace in traces]}" if traces else "no ocs ask trace",
+        })
+        checks.append({
+            "check": "the lane carried the canonical role prompt",
+            "arm": arm,
+            "pass": bool(review_traces) and all("<Agent_Prompt>" in trace["prompt"] for trace in review_traces),
+            "detail": f"{sum('<Agent_Prompt>' in trace['prompt'] for trace in review_traces)}/{len(review_traces)} carried it",
+        })
+        # The bridge runs against the pristine Codex home on purpose, so the plugin's role prompt is what shapes the reply.
+        # A lane that picked up ~/.codex-orca would be answering as the operator's tuned lead as well.
+        homes = [line for trace in review_traces for line in trace["command"].splitlines() if line.startswith("CODEX_HOME=")]
+        checks.append({
+            "check": "the lane ran against the vanilla codex home",
+            "arm": arm,
+            "pass": bool(homes) and all(home.endswith("/.codex") for home in homes),
+            "detail": f"homes={sorted(set(homes))}" if homes else "no CODEX_HOME recorded",
+        })
+        # A brief satisfies this by quoting the instructions or by naming the file that holds them.
+        # The first observed run did the second — a digest of the conventions plus "also read .claude/CLAUDE.md" — and the lane is sandboxed with the worktree as its cwd, so the pointer resolves.
+        # Requiring verbatim lines would have failed a brief that was better than the one the check imagined.
+        instructions = repository_instruction_lines(record["path"])
+        names = ("CLAUDE.md", "AGENTS.md")
+        briefed = [
+            trace for trace in review_traces
+            if any(line in trace["prompt"] for line in instructions)
+            or any(name in trace["prompt"] for name in names)
+        ]
+        checks.append({
+            "check": "the brief carried repository instructions",
+            "arm": arm,
+            "pass": bool(review_traces) and (len(briefed) == len(review_traces) or not instructions),
+            "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines" if instructions else "the repository has none to carry",
+        })
+        # The lane's model must come from the role's tier, not from whatever the operator has set in their own Codex config.
+        # This was invisible until an operator noticed the reported model matched their personal default, which it did by coincidence.
+        pinned = [_argv_value(trace["command"], "-m") for trace in review_traces]
+        checks.append({
+            "check": "the lane pinned its tier's model rather than inheriting a default",
+            "arm": arm,
+            "pass": bool(pinned) and all(model for model in pinned),
+            "detail": f"models={sorted(set(pinned))}" if any(pinned) else "no -m on the command line",
+        })
+        lanes = record.get("ralplan_lanes") or []
+        checks.append({
+            "check": "verdicts are keyed by lane, including the codex lane",
+            "arm": arm,
+            "pass": any(lane.startswith(("architect@codex", "critic@codex")) for lane in lanes),
+            "detail": f"lanes={lanes}" if lanes else "no ralplan state written",
+        })
+    # A write-capable lane is gated on its traces rather than on the invocation, because `ocs team`
+    # can be reached from more than one flag and an execute run that used one must be checked wherever it came from.
+    for trace in record.get("team_traces") or []:
+        label = f"{arm}:{trace['dir']}"
+        # The single most regressible thing here. The role belongs in the launch, not in the task
+        # spec, and putting it back in the spec would still produce a working worker — one that reads
+        # its own identity as part of the job it was handed. Only the absence proves the layering held.
+        checks.append({
+            "check": "the role prompt reached the worker as a launch field, not as part of its task",
+            "arm": label,
+            "pass": "<Agent_Prompt>" in trace["role_prompt"] and "<Agent_Prompt>" not in trace["spec"],
+            "detail": f"role.md={'yes' if '<Agent_Prompt>' in trace['role_prompt'] else 'NO'}, spec={'LEAKED' if '<Agent_Prompt>' in trace['spec'] else 'clean'}",
+        })
+        # An unrecognized Codex config field is ignored rather than refused, so a build that stopped
+        # honouring this would run roleless workers and report nothing. `ocs team` pre-flights it; this
+        # asserts the pre-flight's subject is still on the command that actually ran.
+        checks.append({
+            "check": "the launch carried the role through developer_instructions",
+            "arm": label,
+            "pass": "developer_instructions=" in trace["launch"],
+            "detail": "present" if "developer_instructions=" in trace["launch"] else "absent from the launch",
+        })
+        # The home must travel with the worker, not merely with the trust pre-flight that resolved it.
+        # It read correctly for a whole session while being inherited, because the tuned home is reached
+        # through a shell function rather than an exported variable.
+        launched = trace["launch"].startswith("CODEX_HOME=")
+        home = trace["launch"].split(" ", 1)[0].partition("=")[2] if launched else ""
+        checks.append({
+            "check": "the worker's launch pinned the vanilla codex home",
+            "arm": label,
+            "pass": launched and home.endswith("/.codex"),
+            "detail": f"launch home={home}" if launched else "CODEX_HOME recorded in the trace but absent from the launch",
+        })
+        model = _launch_value(trace["launch"], "-m")
+        checks.append({
+            "check": "the worker pinned its tier's model rather than inheriting a default",
+            "arm": label,
+            "pass": bool(model),
+            "detail": f"model={model}" if model else "no -m on the launch",
+        })
+        # Measured 2026-08-06: a plain workspace-write worker can write files but cannot reach the Orca
+        # app to report completion, and one without writable_roots cannot write its own ledger.
+        # Both failures look like a worker that simply did not finish.
+        sandbox = _launch_value(trace["launch"], "-s")
+        reachable = "network_access=true" in trace["launch"]
+        writable = "writable_roots=" in trace["launch"]
+        checks.append({
+            "check": "the sandbox let the worker both write and report completion",
+            "arm": label,
+            "pass": sandbox == "workspace-write" and reachable and writable,
+            "detail": f"sandbox={sandbox or 'none'}, network={reachable}, writable_roots={writable}",
+        })
+        # The terminal is created by worktree selector while the sandbox roots are built from the caller's
+        # cwd, so a mismatch would sandbox one directory and run the worker in another.
+        checks.append({
+            "check": "the worker ran in the worktree its sandbox describes",
+            "arm": label,
+            "pass": bool(trace["header"].get("cwd")) and f'"{trace["header"]["cwd"]}/.agents"' in trace["launch"],
+            "detail": f"cwd={trace['header'].get('cwd') or 'unrecorded'}",
+        })
+        # `ocs team` assembles the role and nothing else, exactly as `ocs ask` does.
+        # A repository with no instruction files has nothing to carry, and failing that case would be
+        # the check asking for something that does not exist — the same false negative the ask lane's
+        # version of this already produced once, by demanding verbatim lines from a brief that named the file instead.
+        instructions = repository_instruction_lines(record["path"])
+        briefed = any(line in trace["spec"] for line in instructions) or any(
+            name in trace["spec"] for name in ("CLAUDE.md", "AGENTS.md")
+        )
+        checks.append({
+            "check": "the task package carried repository instructions",
+            "arm": label,
+            "pass": briefed or not instructions,
+            "detail": f"against {len(instructions)} candidate lines" if instructions else "the repository has none to carry",
+        })
+        # This launch path cannot produce a hook transcript. The report is what was accepted in exchange,
+        # so an empty one means the run bought control and paid for it with nothing.
+        checks.append({
+            "check": "the worker wrote the report that replaces its missing transcript",
+            "arm": label,
+            "pass": bool(trace["report"].strip()),
+            "detail": f"{len(trace['report'])} bytes",
+        })
+    return checks
+
+
 def check_plumbing(records, probe, contamination):
     """Report the plumbing assertions rather than assuming them.
 
@@ -494,64 +689,7 @@ def check_plumbing(records, probe, contamination):
                 "pass": (not backgrounded) or not ARMS[arm]["invoke"],
                 "detail": f"backgrounded={backgrounded}" if backgrounded else "all synchronous",
             })
-            # A cross-vendor lane is a shell call, so none of the event-stream checks above can see it.
-            # These run only when the invocation asked for one; a native run has nothing here to assert.
-            if "codex" in record.get("invoke", ""):
-                traces = record.get("ask_traces") or []
-                review_traces = [trace for trace in traces if trace["role"] in ("architect", "critic")]
-                checks.append({
-                    "check": "the codex lane actually ran",
-                    "arm": arm,
-                    "pass": bool(review_traces),
-                    "detail": f"traces={[trace['dir'] for trace in traces]}" if traces else "no ocs ask trace",
-                })
-                checks.append({
-                    "check": "the lane carried the canonical role prompt",
-                    "arm": arm,
-                    "pass": bool(review_traces) and all("<Agent_Prompt>" in trace["prompt"] for trace in review_traces),
-                    "detail": f"{sum('<Agent_Prompt>' in trace['prompt'] for trace in review_traces)}/{len(review_traces)} carried it",
-                })
-                # The bridge runs against the pristine Codex home on purpose, so the plugin's role prompt is what shapes the reply.
-                # A lane that picked up ~/.codex-orca would be answering as the operator's tuned lead as well.
-                homes = [line for trace in review_traces for line in trace["command"].splitlines() if line.startswith("CODEX_HOME=")]
-                checks.append({
-                    "check": "the lane ran against the vanilla codex home",
-                    "arm": arm,
-                    "pass": bool(homes) and all(home.endswith("/.codex") for home in homes),
-                    "detail": f"homes={sorted(set(homes))}" if homes else "no CODEX_HOME recorded",
-                })
-                # A brief satisfies this by quoting the instructions or by naming the file that holds them.
-                # The first observed run did the second — a digest of the conventions plus "also read .claude/CLAUDE.md" — and the lane is sandboxed with the worktree as its cwd, so the pointer resolves.
-                # Requiring verbatim lines would have failed a brief that was better than the one the check imagined.
-                instructions = repository_instruction_lines(record["path"])
-                names = ("CLAUDE.md", "AGENTS.md")
-                briefed = [
-                    trace for trace in review_traces
-                    if any(line in trace["prompt"] for line in instructions)
-                    or any(name in trace["prompt"] for name in names)
-                ]
-                checks.append({
-                    "check": "the brief carried repository instructions",
-                    "arm": arm,
-                    "pass": bool(review_traces) and len(briefed) == len(review_traces),
-                    "detail": f"{len(briefed)}/{len(review_traces)} briefed against {len(instructions)} candidate lines",
-                })
-                # The lane's model must come from the role's tier, not from whatever the operator has set in their own Codex config.
-                # This was invisible until an operator noticed the reported model matched their personal default, which it did by coincidence.
-                pinned = [_argv_value(trace["command"], "-m") for trace in review_traces]
-                checks.append({
-                    "check": "the lane pinned its tier's model rather than inheriting a default",
-                    "arm": arm,
-                    "pass": bool(pinned) and all(model for model in pinned),
-                    "detail": f"models={sorted(set(pinned))}" if any(pinned) else "no -m on the command line",
-                })
-                lanes = record.get("ralplan_lanes") or []
-                checks.append({
-                    "check": "verdicts are keyed by lane, including the codex lane",
-                    "arm": arm,
-                    "pass": any(lane.startswith(("architect@codex", "critic@codex")) for lane in lanes),
-                    "detail": f"lanes={lanes}" if lanes else "no ralplan state written",
-                })
+            checks += lane_checks(record, arm)
             checks.append({
                 "check": "produced at least one file",
                 "arm": arm,
@@ -572,7 +710,8 @@ def check_plumbing(records, probe, contamination):
 
 def main():
     parser = argparse.ArgumentParser(prog="ocs eval")
-    parser.add_argument("fixture", help="fixture name defined in .agents/kein/eval/fixtures.json")
+    parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
+    parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
     parser.add_argument("--keep", action="store_true", help="leave worktrees on disk for inspection")
@@ -580,6 +719,40 @@ def main():
     parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --critic claude,codex '. The trailing space matters.")
     parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
     options = parser.parse_args()
+
+    if options.verify:
+        target = Path(options.verify).resolve()
+        if not target.is_dir():
+            raise SystemExit(f"ocs eval: {target} is not a directory")
+        # A worktree accumulates every lane it has ever run, and a trace written before a fix stays wrong
+        # forever, so checking the whole worktree reports history rather than the state of the build.
+        # Pointing at one trace directory is how a single run is gated; pointing at the worktree is how the history is read.
+        # A trace lives at <worktree>/.agents/kein/runs/<kind>/<stamp>-<role>, so the worktree is four levels up.
+        single = (target / "command.txt").is_file()
+        worktree = target.parents[4] if single else target
+        traces = {"ask_traces": ask_traces(worktree), "team_traces": team_traces(worktree)}
+        if single:
+            for kind in traces:
+                traces[kind] = [trace for trace in traces[kind] if trace["dir"] == target.name]
+        # The ask checks are gated on the invocation because a run's own transcript is what says a vendor
+        # lane was asked for. Verifying after the fact there is no such transcript, so presence stands in.
+        record = {
+            "path": str(worktree),
+            "invoke": "codex" if traces["ask_traces"] else "",
+            "ralplan_lanes": ralplan_lanes(worktree),
+            **traces,
+        }
+        checks = lane_checks(record, worktree.name)
+        if not checks:
+            raise SystemExit(f"ocs eval: no lane traces under {worktree}/.agents/kein/runs. A lane must be run with --trace to be checkable.")
+        failed = sum(not check["pass"] for check in checks)
+        for check in checks:
+            print(f"  {'ok  ' if check['pass'] else 'FAIL'} [{check['arm']}] {check['check']} — {check['detail']}")
+        print(f"\n{len(checks) - failed}/{len(checks)} checks passed")
+        raise SystemExit(1 if failed else 0)
+
+    if not options.fixture:
+        raise SystemExit("ocs eval: a fixture name is required unless --verify is given")
 
     config, config_path = load_config()
     fixtures = config["fixtures"]
@@ -629,6 +802,7 @@ def main():
                 "produced": produced,
                 "invoke": invoke,
                 "ask_traces": ask_traces(worktree),
+                "team_traces": team_traces(worktree),
                 "ralplan_lanes": ralplan_lanes(worktree),
             }
             print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s, {outcome['assistant_turns']} turns, {len(produced)} files", file=sys.stderr)
