@@ -62,7 +62,8 @@ Component classification that follows:
 | Component | Kind | Status |
 | :--- | :--- | :--- |
 | `interview` | planning harness | permanent — the one class the argument keeps |
-| `plan` (consensus gate) | verification | conditional on a gate that can fail |
+| `plan` | planning harness | permanent — the artifact is what survives if the gate is retired |
+| `ralplan` (`plan` + consensus gate) | verification | conditional on a gate that can fail |
 | `execute` | execution harness | most exposed; carry fewer verification rounds over time |
 | `ralph` | execution loop | port as a general-purpose loop |
 | orca orchestration | cross-vendor | outside the argument's scope |
@@ -76,7 +77,7 @@ interview pattern in `~/Documents/wiki/context-engineering/unknown-discovery-pat
 
 Skills, capped at what is actually used:
 
-`interview` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
+`interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
 
 Not in v1: `self-improve`, `autoresearch`. Both are wanted, but how to use them is
 unresolved, and an unresolved use is a signal that the need has not arrived.
