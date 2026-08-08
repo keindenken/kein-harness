@@ -12,12 +12,11 @@ A run without such a flag uses the native lanes described in the skill body and 
 | `--reviewer claude` | native lanes, identical to passing nothing |
 | `--reviewer codex` | each selected reviewer role runs as codex instead |
 | `--reviewer claude,codex` | each selected reviewer role runs in both, both blocking |
-| `--reviewer claude,codex:advisory` | the codex lanes report but cannot block |
 | `--executor codex` | the round's Executor runs as codex |
 
 The flag names vendors rather than roles, which is where this differs from RALPLAN. RALPLAN has a fixed Architect and Critic to name; here the reviewer roles are chosen per round from the evidence question, so the roster applies to whichever roles that selection produces.
 
-A vendor suffixed `:advisory` records a verdict and contributes findings without gating acceptance. Every unsuffixed lane blocks, which is the rule the review contract already states.
+Every lane blocks. RALPLAN offers an `:advisory` suffix and this does not, because there the roster is fixed for the run and the state can hold it — verdicts are keyed by lane, so a silent lane is visible and an advisory one can be skipped by name. With the roles varying per round there is no roster to fix and nothing for a suffix to be enforced against. The rule is the one the review contract already states: a current `MUST_FIX` stops acceptance, whichever lane returned it.
 
 `--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent.
 
@@ -61,10 +60,8 @@ A codex lane may run in the background. The skill body forbids backgrounding an 
 
 ## Recording
 
-A verdict's `reviewer_role` becomes `<role>@<vendor>` — `code-reviewer@claude`, `critic@codex`, `critic@codex:advisory`. Findings carry the same identifier as the verdict they came from. No schema change is needed: verdicts are already a list and the role is already free text.
+A verdict's `reviewer_role` becomes `<role>@<vendor>` — `code-reviewer@claude`, `critic@codex`. Findings carry the same identifier as the verdict they came from. No schema change is needed: verdicts are already a list and the role is already free text. Nothing in the workflow reads the vendor half, and it is worth the two characters only because a native lane leaves no trace of its own: the ledger is the sole record of which vendor judged.
 
-A task's records name the Executor the same way when it was a vendor lane. The worktree fingerprint still binds verification to the round, and a vendor Executor changes nothing about that: it wrote to the same canonical worktree.
+The Executor's vendor is not recorded, and putting it in the state would be a fact with no reader. `reconcile` resolves continuation without it, acceptance judges the worktree rather than its author, and a correction round may switch vendors either way. `ocs team --trace` already holds the vendor, the model, and the home, written by the mechanism instead of by a lead who can forget — which is how the first observed run recorded none of it. The worktree fingerprint binds verification to the round exactly as before: a vendor Executor wrote to the same canonical worktree.
 
-Acceptance counts blocking lanes only. An advisory lane that has not reported does not hold up acceptance, and an advisory `MUST_FIX` does not stop it, but its findings are consolidated into the correction brief like any other.
-
-A nonzero exit from `ocs ask` or `ocs team` is not a lane result. A blocking lane that failed to run has not passed, so the round is incomplete until it runs. A vendor Executor that exits nonzero has not implemented the task, whatever the worktree looks like: re-read the fingerprint before deciding what happened. An unavailable advisory lane is reported and nothing more: a lane that cannot block by returning `MUST_FIX` must not be able to block by failing either.
+A nonzero exit from `ocs ask` or `ocs team` is not a lane result. A lane that failed to run has not passed, so the round is incomplete until it runs, and this one is the lead's to hold rather than the state's: verdicts are a list rather than a roster, so a lane that never reported leaves nothing behind to notice. A vendor Executor that exits nonzero has not implemented the task, whatever the worktree looks like: re-read the fingerprint before deciding what happened.
