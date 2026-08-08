@@ -14,7 +14,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
+try:
+    KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
+except KeyError:
+    raise SystemExit("ocs eval: KEIN_ROOT environment variable is not set; run this command through 'ocs eval', which sets KEIN_ROOT")
 
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
