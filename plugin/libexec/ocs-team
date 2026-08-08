@@ -5,6 +5,10 @@
 #   ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
+#
+# The role prompt goes in as `developer_instructions`, not into the task text.
+# Orca's `--inject` has exactly one slot, and everything put there lands under its `=== TASK ===` heading — so a role prompt sent that way tells the worker that its identity is part of the job.
+# `developer_instructions` appends to the developer message instead, which leaves identity, reporting rules, and the task each in their own layer.
 # Orca owns the Run, Task, Dispatch, completion signal, and recovery, and none of that is reimplemented here.
 # What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
 # Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
@@ -184,11 +188,25 @@ dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
 mkdir -p "$dir"
 report="$dir/report.md"
 
-# The role prompt supplies who the worker is; the task supplies what to do.
-# The output contract is the third piece: Orca's preamble already offers `--report-path`, and requiring it is what replaces the transcript this launch path cannot produce.
-prompt=$(
-  printf '%s\n\n%s\n\n## Output contract\n\nWrite your full report to `%s` before finishing: what you changed, what you verified and how, and what remains.\nThen report completion with `--report-path %s`.\nThe file is the deliverable; the completion body is a summary of it.\n' \
-    "$(cat "$prompts/$role.md")" "$task" "$report" "$report"
+# The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
+role_file="$dir/role.md"
+cp "$prompts/$role.md" "$role_file"
+
+# `developer_instructions` is a Codex configuration field, and an unrecognized field is ignored rather than refused.
+# A version that dropped it would leave a worker running with no role at all and nothing in the output to say so, so prove the injection lands before spending a session on it.
+# `debug prompt-input` renders the model-visible prompt without calling the model, which makes this about a second and free.
+if ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
+  printf 'ocs team: this provider build no longer accepts `developer_instructions`.\n' >&2
+  printf '  A worker would start with no role prompt and nothing would report the omission.\n' >&2
+  printf '  Re-check which field carries developer instructions before using this command.\n' >&2
+  exit 1
+fi
+
+# The spec carries the task and what to produce, and nothing about identity.
+# The output contract is here because Orca's preamble already offers `--report-path`, and requiring it is what replaces the transcript this launch path cannot produce.
+spec=$(
+  printf '%s\n\n## Output contract\n\nWrite your full report to `%s` before finishing: what you changed, what you verified and how, and what remains.\nThen report completion with `--report-path %s`.\nThe file is the deliverable; the completion body is a summary of it.\n' \
+    "$task" "$report" "$report"
 )
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
@@ -203,13 +221,16 @@ fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
 run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
 [ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
 
-task_id=$(printf '%s' "$prompt" | orca orchestration task-create --spec "$prompt" --json 2>/dev/null | json_field task.id)
+task_id=$(orca orchestration task-create --spec "$spec" --json 2>/dev/null | json_field task.id)
 [ -n "$task_id" ] || fail 'could not create the Orca task'
 
 # KEIN_STATE_ROOT pins the worker's own ledger to this worktree instead of wherever it wanders.
 # The writable-roots value is single-quoted because the terminal runs this through a shell, and `[` opens a glob pattern there.
 # Unquoted, zsh fails the whole line with `no matches found` before codex ever starts.
-launch="KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'"
+# The role is substituted by the shell that launches the worker, so the command line stays short and the prompt's own quoting never reaches a tokenizer.
+# CODEX_HOME travels with the worker, not just with the trust check.
+# Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
 handle=$(orca terminal create --worktree current --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
 [ -n "$handle" ] || fail 'could not create the worker terminal'
 
@@ -223,7 +244,7 @@ if [ -z "$dispatch" ]; then
 fi
 
 if [ "$trace" -eq 1 ]; then
-  printf '%s' "$prompt" > "$dir/prompt.txt"
+  printf '%s' "$spec" > "$dir/spec.txt"
   {
     printf 'CODEX_HOME=%s\n' "$codex_home"
     printf 'cwd=%s\n' "$worktree"
