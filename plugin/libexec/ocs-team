@@ -231,8 +231,16 @@ task_id=$(orca orchestration task-create --spec "$spec" --json 2>/dev/null | jso
 # CODEX_HOME travels with the worker, not just with the trust check.
 # Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
 launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
-handle=$(orca terminal create --worktree current --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
-[ -n "$handle" ] || fail 'could not create the worker terminal'
+# The terminal must land where the caller is, not where the operator's Orca window happens to be focused.
+# `--worktree current` reads Orca's own selection, so a lead working in one checkout could dispatch a worker into another: the sandbox roots and KEIN_STATE_ROOT above are built from $PWD and would then describe a directory the worker is not in.
+# That is the same defect shape as the model and CODEX_HOME ones — a value that looks pinned and is actually inherited from the environment.
+handle=$(orca terminal create --worktree "path:$worktree" --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
+if [ -z "$handle" ]; then
+  printf 'ocs team: could not create a worker terminal in %s\n' "$worktree" >&2
+  printf '  Orca addresses terminals by worktree; this path must be one Orca knows.\n' >&2
+  printf '  Check `orca worktree list`, and open the directory in Orca once if it is absent.\n' >&2
+  exit 1
+fi
 
 orca terminal wait --terminal "$handle" --for tui-idle --timeout-ms 120000 --json >/dev/null 2>&1 || true
 
