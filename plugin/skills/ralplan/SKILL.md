@@ -7,16 +7,18 @@ description: Use when an implementation plan needs evidence-grounded architectur
 
 ## Overview
 
-RALPLAN turns one canonical implementation plan into a reviewable decision artifact. Planner owns plan prose; the lead owns workflow state; a fresh Architect and fresh Critic independently decide whether the complete current plan is safe and specific enough to approve.
+RALPLAN is the `plan` skill under a consensus gate. Planner owns plan prose; the lead owns workflow state; a fresh Architect and fresh Critic independently decide whether the complete current plan is safe and specific enough to approve.
 
-This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority and does not route to another skill.
+Use it when that gate could actually return `MUST_FIX` — the architecture is contested, an independent reader would plausibly disagree, or a wrong plan is expensive to discover later. A gate that cannot fail is ceremony, and its rounds are the expensive part; `plan` alone produces the same artifact without them.
+
+This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority, and the only skill it runs is `plan`.
 
 ## Required Files
 
 Read these when their stage begins:
 
 - [state-schema.md](references/state-schema.md) before creating or resuming a run.
-- [plan-template.md](references/plan-template.md) before assigning the canonical artifact to Planner.
+- [plan-gate.md](references/plan-gate.md) before setting a status or computing a hash. The artifact's own contract arrives with the `plan` invocation; this covers only what the gate adds to it.
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
 - [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
 
@@ -32,7 +34,7 @@ Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounde
 
 1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts. Preserve the original requirements by path and hash when possible; otherwise store a prompt-safe summary and its hash.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
-3. For a new artifact, Planner is the first writer: do not create a scaffold. Assign Planner the canonical path, template contract, requirements, repository root, and current consolidated findings, with writes limited to that planning artifact and source, test, configuration, generated-file, and Git changes prohibited. Planner creates or revises the artifact directly; the lead does not copy plan prose from a message. Checkpoint only after Planner has produced a valid Draft artifact and the lead has computed both hashes.
+3. For a new artifact, run the `plan` skill. It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen in step 6, not by running `plan` again.
 4. Validate the artifact. The lead may edit only workflow-owned `Status` and `Status reason` metadata. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
 5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. Any lane's `MUST_FIX` blocks approval.
 6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
