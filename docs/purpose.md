@@ -86,8 +86,6 @@ Agents: the fourteen already normalized in `~/.codex-orca/foundation/prompts/`.
 
 ### Non-goals
 
-- Growing the skill count. Six is the working ceiling. Adding a seventh means removing one
-  or arguing why the ceiling was wrong.
 - Hooks. Start at zero, matching `~/.codex-orca`. Adding one requires naming the failure
   it prevents and how its misfire would be detected.
 - Restoring prompt material because an upstream harness had it. See the operating rules.
