@@ -1,0 +1,18 @@
+{
+ "note": "Aggregates from files.json, index.json and triage.json, which are gitignored because harvest.py and triage.py regenerate them. Every count cited in findings.md that comes from those three files is here.",
+ "repos_searched": 579,
+ "repos_with_skills": 434,
+ "skill_md_total": 61889,
+ "skills_per_repo": {
+  "median": 9,
+  "max": 23793,
+  "at_or_under_50": 350
+ },
+ "fetched": 4659,
+ "after_dedupe": 4336,
+ "largest_dup_cluster": 11,
+ "specificity": {
+  "median": 15
+ },
+ "words_per_skill_median": 872
+}
