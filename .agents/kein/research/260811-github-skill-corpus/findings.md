@@ -30,7 +30,7 @@ The sharper result is about recovery. 218 commits claim a cut or a simplificatio
 
 The real cuts have three shapes and only one of them is a removal:
 
-- **A budget enforced by a re-run process.** `refactor: trim oversized SKILL.md files to the <=520-line discipline` is −579 in one commit. This is the one dilution control in the corpus with a large effect behind it, and it matches what `docs/prompt-revision.md` says about budgets: it held because a line count is checkable, not because anyone argued.
+- **A budget enforced by a re-run process.** `czlonkowski/n8n-skills`' `refactor: trim oversized SKILL.md files to the <=520-line discipline` is +49/−628 in one commit. It is the largest single cut in the corpus, and it matches what `docs/prompt-revision.md` says about budgets holding when a count is checkable rather than argued. **The same discipline mostly does not produce cuts, though.** `ljagiello/ctf-skills` carries "split oversized files" in twelve commit subjects and every one of them is net positive — `+38/−9`, `+21/−4`, `+18/−5` — because the split runs alongside an addition of new techniques. A line budget reliably triggers relocation; whether it reduces anything depends on whether growth is arriving in the same commit.
 - **Relocation, not deletion.** `extract content to reference files` (−142), `move check and health mode bodies into references` (−118). The obligation moves down a level; the run still reads it.
 - **An external surface authorising the removal.** `remove ALL non-standard fields from SKILL.md - match Anthropic official format` (−111). Someone else's spec changed and made the deletion not the author's decision.
 
@@ -46,22 +46,46 @@ Those last two are exactly the two escapes from "testing whether a rule is neede
 
 ## One repository measures its own prompts
 
-Of 4,659 skills, 58 mention an eval or benchmark artifact, 43 mention a repeat count, and 14 make a first-person measurement claim. Of those 14, one measures the skill rather than the skill's subject matter.
+Of 4,659 skills, 58 mention an eval or benchmark artifact, 43 mention a repeat count, and 14 make a first-person measurement claim. Of those 14, one measures the skill rather than the skill's subject matter: **`trailofbits/skills`**, 40 plugins, read in full on 2026-08-11 at `.cache/full/tob` (`--depth 400`, not committed).
 
-**`trailofbits/skills`** carries per-plugin `evals/<case>/{case.yaml, fixture/, graders/*.md}` and a runner at `plugins/variant-analysis/tests/eval.sh` with `workflow` and `baseline` arms. Its `spec-to-code-compliance/SKILL.md` states its own result inline:
+### The instrument is not theirs, and it is not ours either
 
-> Measured on the `routes-not-inline` eval: with this plugin installed the work is dispatched every run, without it never — Δ +1.00. Deleting this section while leaving the workflow in place changes nothing, because the workflow is a real commitment.
+Their `evals/<case>/{case.yaml, fixture/, graders/*.md}` layout is not a house invention. `AGENTS.md` names it: `` evals/ # Optional: `claude plugin eval` cases + graders ``. **`claude plugin eval` is a Claude Code command**, and `--help` on the installed CLI reports that it already implements most of what `.agents/kein/requirements/260810-skill-measurement-program.md` specifies as work to be done:
 
-That second sentence is a removal warrant written by the author, in place, addressed to whoever later considers the deletion. It is `docs/prompt-revision.md`'s "unnecessary by construction, because a mechanism now holds it" as a standing annotation rather than as an argument.
+| Requirement in the program | Flag |
+| :--- | :--- |
+| paired skill-present / skill-absent arms | `--ablation with-without`, which reports the score delta |
+| more than one run per configuration | `--runs <n>`, default `case.runs ?? 3` |
+| expectations graded per run | `graders/*.md` |
+| a pinned input the stage does not inherit | `context.add_dirs` in `case.yaml` |
+| the reason the 2026-08-04 program paused | `--max-cost-usd`, with overrun bounded to one agent run |
 
-Four things from it bear directly on `.agents/kein/requirements/260810-skill-measurement-program.md`:
+It also carries `--judge-model` (haiku by default), `--case`/`--tag` filters, `--threshold`, `--json` with per-run scores, an HTML report, and `claude plugin eval init`, which authors a suite through an interview and designs the graders.
 
-- **A turn budget is not neutral between arms.** From `audit-context-building/evals/dispatches-not-inlines/case.yaml`: *"The skill reads three reference files before it starts, so it needs roughly twice the turns a bare agent does on this prompt. At max_turns 20 the plugin arm was truncated before it answered, which scored as a routing failure."* The 2026-08-04 program recorded `with-skill` killed at a 2400-second timeout after 238 turns and read it as cost. It may have been this confound. A cap calibrated on the control scores the treatment as a failure, and the failure looks like the skill not working.
-- **A grader fixes its target defect and rules out other true findings.** `name-is-not-evidence/graders/senior-branch-unenforced.md` enumerates four near-miss responses as failures, then: *"Other true findings — the operator zeroing a balance in `reassign` against §4, the external call to `feeSink.record` before the event … — are fine but do not by themselves satisfy this grader."* This is the answer to the constraint recorded in `kein-open-threads`: variance in *which* defect a run happens to find measures the model, so a grader that admits any true finding measures the model too. Fixing the target removes that variance from the score without scoring severity.
-- **A grader pre-authorises the reasonable objection.** The same file allows a specific competing reading of the spec and states it does not fail the grader provided the divergence is still reported. An assertion that has not decided this in advance gets it decided per run.
+**Only the help text has been read — nothing here has been run.** Whether `--json` exposes per-assertion results per arm, which is what the five-way classification needs, is unknown and is the first thing to check. If it does, the program's remaining scope is the classification and the fixtures, not the harness.
+
+### What their cases know that a first attempt would not
+
+- **A turn budget is not neutral between arms.** From `audit-context-building/evals/dispatches-not-inlines/case.yaml`: *"The skill reads three reference files before it starts, so it needs roughly twice the turns a bare agent does on this prompt. At max_turns 20 the plugin arm was truncated before it answered, which scored as a routing failure. This case is meant to measure whether it routes, not how fast."* The 2026-08-04 program recorded `with-skill` killed at a 2400-second timeout after 238 turns and read it as cost. It may have been this confound instead: a cap calibrated on the control scores the treatment as a failure, and the failure looks like the skill not working.
+- **A grader fixes its target defect and rules out other true findings.** `name-is-not-evidence/graders/senior-branch-unenforced.md` enumerates four near-miss responses as failures, then: *"Other true findings — the operator zeroing a balance in `reassign` against §4, the external call to `feeSink.record` before the event … — are fine but do not by themselves satisfy this grader."* This answers the constraint in `kein-open-threads`: variance in *which* defect a run happens to find measures the model, so a grader that accepts any true finding measures the model too. Fixing the target removes that variance without scoring severity.
+- **A grader pre-authorises the reasonable objection.** The same file allows a specific competing reading of the spec and states it does not fail the grader provided the divergence is still reported. An assertion that has not settled this in advance settles it per run.
 - **An expensive eval is named to escape the CI glob on purpose,** and a failing run keeps its work directory while a passing one deletes it. Retention keyed to outcome, because a failure is when the transcript is worth reading.
 
-`evals/` sits inside the plugin there, which independently arrives at the placement decision `260810-skill-measurement-program.md` argued for and expected to be argued against.
+### A fifth move for removing
+
+`spec-to-code-compliance/SKILL.md` states its own measurement inline, and then does something the four moves in `docs/prompt-revision.md` do not cover:
+
+> Measured on the `routes-not-inline` eval: with this plugin installed the work is dispatched every run, without it never — Δ +1.00. Deleting this section while leaving the workflow in place changes nothing, because the workflow is a real command that gets found and dispatched on its own. Read that as the mechanism carrying the behavior rather than this text: **the section is here so a human knows what runs and why, not because the routing depends on it.**
+
+The prose is kept, its audience reassigned, and the reassignment written down. Demote, condition, mechanise and narrow are all changes to what the text does; this one changes only who it is for, and it is the move available once a mechanism has been shown to carry the behaviour and the text is still worth reading.
+
+### Three house rules worth taking
+
+- **A checker that inspects zero items must fail, not pass.** `AGENTS.md` calls this "the single most expensive class of bug in a repo like this one, because it is invisible on every read and in every review," and gives three instances that were all green for months. The second is a direct warning for this program: *"an eval grader that judged the response text rather than the artifact, so a run that skipped the actual work still scored a pass."* Their fix closes the recursion — the validator's `--self-test` builds a known-bad plugin and asserts each checker rejects it, *and fails if it runs fewer assertions than it should, because the self-test is itself a checker.* `AGENTS.md` here already requires a gate to be able to go RED; this is that rule with its failure mode named.
+- **Do not add verification scaffolding to prompts.** *"'Double-check your answer', 'add a final verification step', and similar make output worse on current models rather than better — they cause over-verification, and removing them costs no capability. This inverts older advice, so it is worth stating explicitly. Put the check in `make check` or the validator, where it runs deterministically and cannot be talked out of firing."* That is `docs/purpose.md`'s open question about how far to cut `execute`'s verification rounds, answered by another house in the direction the obsolescence argument predicts. The same bullet carries a removal policy that needs no sweep: *"existing skills carrying the pattern are not a cleanup backlog, so strip it when you are already in the file."*
+- **Do not tell a reviewer to pre-filter.** *"'Only report high-severity issues' is followed literally: the model investigates just as thoroughly, finds the bugs, and then declines to report what it judges below the bar. Precision rises, recall appears to collapse, and the regression looks like a capability problem when it is a prompt problem. Ask for everything with a severity attached and filter in a separate pass."* This is a mechanism for the null result on the Critic's severity floor: if the effect lands on what is reported rather than on what is investigated, an arm scored on defects found returns nothing, and only an arm scored on the report shows it. It is the same conclusion the design constraint in `kein-open-threads` reached from the other direction.
+
+One smaller thing, from `second-opinion/SKILL.md`, which is the counterpart of `ocs ask`: it invokes `codex exec --sandbox read-only --ephemeral --output-schema codex-review-schema.json`. A schema-constrained review returns parseable findings rather than prose, which is what makes comparing two arms cheap. `ocs ask` does not do this.
 
 ## What the deeply-revised files answer
 

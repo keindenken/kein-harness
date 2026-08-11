@@ -10,3 +10,4 @@ triage.json
 *.log
 explorer.html
 explorer-data.json
+.cache/full/
