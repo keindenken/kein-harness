@@ -14,9 +14,9 @@ Four houses, plus the incumbent:
 
 Findings are sorted by the transmission path they need. A rule in `SKILL.md` reaches the lead, which reads it and writes a brief; the sub-agent gets it second-hand if at all. A rule in `planner.md` reaches the sub-agent directly and the lead never sees it. So `SKILL.md` is for judgement that varies by case and for anything both must know; `planner.md` is for what the lead would otherwise re-brief every single time.
 
-## The thing every house has and this one does not
+## A plan written for a reader with no memory of the rest of it
 
-**A plan is written for a reader with no memory of the rest of it.** `writing-plans` says it outright — "assume the engineer has zero context for our codebase" — and then carries three separate devices that exist only because of it:
+`writing-plans` says it outright — "assume the engineer has zero context for our codebase" — and then carries three separate devices that exist only because of it:
 
 - `## Global Constraints`, values copied verbatim from the spec, because "every task's requirements implicitly include this section";
 - `**Interfaces:** Consumes / Produces` with exact signatures, because "a task's implementer sees only their own task; this block is how they learn the names and types neighboring tasks use";
@@ -24,7 +24,11 @@ Findings are sorted by the transmission path they need. A rule in `SKILL.md` rea
 
 `to-tickets` reaches the same place from the other end: each ticket declares its **blocking edges**, and a session works the **frontier** — any ticket whose blockers are all done.
 
-`execute` dispatches a fresh executor per unit of work. `plan-template.md` carries no constraint block, no interface contract between units, and no dependency structure at all. The architecture that makes those three devices necessary is the one this harness already runs.
+`plan-template.md` carries none of this: no constraint block, no interface contract between units, no dependency structure.
+
+**This was first written up here as a defect, and it is not one.** `execute` dispatches a fresh executor per unit, but strictly one at a time — "keep later tasks pending; no second write-capable task may run elsewhere as a deadline workaround" — and against a real repository. So when task 2 needs the signature task 1 created, that code is already on disk and its executor can read it. The contract is recoverable without being written down. Superpowers' block earns its place where tasks run in parallel, or where the plan is executed somewhere the earlier code is not; neither describes this harness.
+
+What survives is smaller and worth stating precisely. An executor with no interface block pays a search on every dispatch, which is cost rather than correctness. And nothing checks the plan against itself, so `clearLayers()` in task 3 can become `clearFullLayers()` in task 7 — superpowers catches that in its own self-review, and it is a defect in the plan rather than in the execution. Both are real; neither is the structural gap the first version of this document claimed.
 
 ## The disagreement this harness has not noticed it is in
 
@@ -36,7 +40,11 @@ Both give reasons and the reasons are compatible: the implementer has no context
 
 ## For `SKILL.md` — the lead's judgement
 
-**Planning has a completion criterion, and it is not the reviewer's approval.** `wayfinder`: the map is done "when the way is clear — nothing left to decide before someone goes and does the thing", and "the pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off". This is the direct answer to the failure that produced the Evidence Gate — an omc `ralplan` that ran past twenty rounds without an APPROVE and was resolved by going to look at the code. That loop had a gate but no completion criterion, so nothing but the reviewer could end it. `plan` currently stops because it was told to stop, which works only because it has no loop; `ralplan` inherits the same gap.
+**A completion criterion stated positively.** `wayfinder`: the map is done "when the way is clear — nothing left to decide before someone goes and does the thing", and "the pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off".
+
+This was first written up here as something `ralplan` lacks. It is not. `ralplan/SKILL.md` already carries "around five unsuccessful official rounds is a diagnostic trigger, not a maximum", with four named remedies — user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff — and "do not manufacture approval from repetition". The last of those four is exactly the escape the twenty-round omc failure took.
+
+The difference that remains is one of kind rather than of presence. `ralplan`'s trigger is negative and counted: after enough failures, stop and reassess. `wayfinder`'s is positive and about content: you are finished when nothing is left to decide. A negative trigger tells you when to worry that you are not finished; it never tells you that you are. Whether that is worth adding is a smaller question than it looked, and it belongs to `ralplan` rather than to `plan`.
 
 **An unknown has three moves, and the skill names one.** `plan/SKILL.md` says resolve it now, or record a bounded gate. The 2026-08-11 measurement surfaced a third that a blind judge preferred — **eliminate it**, by vendoring the dependency so nothing is left to branch on. `wayfinder` supplies a fourth — **leave it as fog**, named in a "Not yet specified" section, to graduate when the frontier reaches it. Choosing among four is exactly the case-by-case judgement that belongs with the lead.
 
@@ -69,6 +77,15 @@ Both are interface constraints rather than enumerations, which is what `docs/pur
 
 **`planning-with-files`' three-file scheme.** `task_plan.md`, `findings.md`, `progress.md` maintained continuously. Eighty revisions and fourteen authors say it works for its authors, but it is a state discipline for a long-running agent rather than a planning discipline, and `.agents/kein/` already resolves where state lives.
 
-## One observation to check before relying on it
+## What reading someone else's skill gets wrong
 
-Both `mattpocock` planning skills carry `disable-model-invocation: true` in their frontmatter, which would mean a skill only a human can trigger. If that field is real, it is directly relevant: `plan` is invoked by `ralplan` and by the user, and never wants to fire on its own. Confirm against the official documentation before using it — it appears in this corpus and nowhere in this repository.
+Two claims in the first version of this document were corrected the same day, and both failed the same way: a device another house carries was read as a gap here, without checking why this harness does not need it.
+
+- The interface block looked structural because `execute` isolates its executors. It does not need one, because those executors run one at a time against a repository that already holds the previous task's code.
+- The completion criterion looked missing because `wayfinder` states one and `plan` does not. `ralplan` states one already, in a different form, three sections further down its own file than the reading went.
+
+The general lesson is worth more than either correction. **A rule's absence is only a gap if the condition that made it necessary elsewhere also holds here**, and that condition is usually in the other house's architecture rather than in its prose. Read for the mechanism the rule protects, then check whether this harness has that mechanism, before reading the rule as missing.
+
+`docs/prompt-revision.md` already says the same thing from the other direction, under Adding: *name the mechanism*. It did not occur to me that the test applies just as much to importing a rule as to inventing one.
+
+The `disable-model-invocation: true` field both `mattpocock` planning skills carry is dropped rather than checked: it would require the user to open with `/plan`, and that is not how this workflow gets entered.
