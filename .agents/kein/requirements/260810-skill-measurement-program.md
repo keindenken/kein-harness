@@ -60,11 +60,11 @@ A conformance run reports, per skill, whether its process completes end to end o
 
 ## Acceptance criteria
 
-- [ ] A planner-only benchmark runs at least three times per configuration and emits a per-assertion classification across them.
-- [ ] At least one assertion discriminates between configurations; if none does, that outcome is reported explicitly as an insensitive instrument or an insensitive expectation set.
+- [x] A planner-only benchmark runs at least three times per configuration and emits a per-assertion classification across them. `ocs eval --case plan-evidence-gate`, run 2026-08-11.
+- [x] At least one assertion discriminates between configurations; if none does, that outcome is reported explicitly as an insensitive instrument or an insensitive expectation set. Four do, but three of those are the vocabulary control; the content assertions separate as `strengthens` rather than cleanly.
 - [ ] A conformance run on Haiku reports, for each of the six existing skills, whether its process completed.
 - [ ] An arm carrying a content variant can be expressed without changing how arms are represented, demonstrated by writing one such arm definition even though it is not run.
-- [ ] A self-contained eval lives inside its skill and contains no path specific to this machine.
+- [x] A self-contained eval lives in the plugin and contains no path specific to this machine. Placed at `plugin/evals/` rather than inside the skill: `claude plugin eval` globs the plugin root, and the runner's layout wins over this document's when the runner is the one that has to find it.
 
 ## Decisions and rationale
 
@@ -89,6 +89,12 @@ A conformance run reports, per skill, whether its process completes end to end o
 - **Three repeats may not separate consistent from variable.** The count is a decision boundary precisely because it is a guess until a run has been observed.
 - **Haiku may fall below the floor for every skill at once.** If nothing completes, the conformance instrument reports a floor above Haiku for all six and says little about any one of them. Still a result, but a coarse one.
 - **The planner-only fixture is new.** The existing fixtures were built for a full round; a stage fixture and its expectations have never been exercised.
+
+## Result
+
+First run 2026-08-11, recorded at `.agents/kein/research/260811-plan-first-measurement.md`. The instrument works and the eval format is `claude plugin eval`'s, borrowed after reading `trailofbits/skills`; that command is gated behind early access here, so `ocs eval --case` runs the same files. Three assertions came back inert, which is the deletion evidence this program was built to collect.
+
+Two assumptions in this document did not survive. Structural assertions *do* discriminate, completely, and that is the problem rather than the result — they match the template's own headings, so they were relabelled a control. And three replicates were enough to separate a consistent treatment arm from an inconsistent control one, which the document expected to be the harder call.
 
 ## Deferred items
 
