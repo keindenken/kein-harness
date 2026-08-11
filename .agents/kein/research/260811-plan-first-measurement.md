@@ -56,6 +56,24 @@ That is a real argument about the Evidence Gate doctrine, surfaced by the measur
 
 One observation survives from the first comparison. The Haiku grader passed the baseline on `gate-decides-both-paths` in one run of three, and both comparison runs found something to prefer in baseline plans. A binary criterion has a floor and a comparison does not, so the two instruments answer different questions and neither substitutes for the other.
 
+## The gate is optional in practice
+
+`plan-no-unknown` is the companion case, and it exists because the first one proves nothing about the word "optional" in the template: it put an unresolved fact in front of the skill and got a gate every time, which is what a gate is for. The second fixture leaves nothing unsettled — a small, fully specified CLI feature, with the tool's own source beside the requirements so the current error text, exit code and output format are readable rather than described.
+
+| Assertion | with | without | |
+| :--- | :--- | :--- | :--- |
+| `vocabulary-status-metadata` | 3/3 | 0/3 | discriminates |
+| `no-evidence-gate` | 3/3 | 3/3 | inert |
+| `no-manufactured-unknown` | 3/3 | 3/3 | inert |
+| `covers-the-error-path` | 3/3 | 3/3 | inert |
+| `plan-file-written` | 3/3 | 3/3 | inert |
+
+**No run in either arm produced a gate.** The owner's criterion for keeping the field was that it act as an optional carrier for what genuinely cannot be settled, rather than as a slot that gets filled; on this evidence it does. Both branches of the skill's own instruction fired correctly — a gate on the fixture with an unresolved fact, and on this one three plans whose headings are `Current structure of tally.py (evidence)` and `Evidence gathered from the repository`, which is the doctrine's other half: resolve the fact, then record what was found.
+
+It took a broken fixture to get there. The first version of `plan-no-unknown` described `tally` without shipping `tally.py`, which left the exact stderr text, the exit code and the byte-for-byte output genuinely unestablished. The skill's arm gated on them, `no-evidence-gate` came back 1/3, and that number measured the fixture rather than the gate. A case asserting that nothing is unknown has to be checked, not labelled.
+
+What the second case does establish about cost is unambiguous. On a task with nothing unresolved the skill produced no measured difference on any content assertion, and charged 21–23 turns against 8–10, about 220 seconds against 50–70, and roughly two and a half times the words. Four of five assertions inert. The skill's value in this pair of cases is concentrated entirely in the fixture that had something to decide.
+
 ## What the run cost, and the confound it confirms
 
 | | turns | seconds |
