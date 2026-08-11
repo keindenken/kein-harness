@@ -348,16 +348,20 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
     return "\n".join(lines), {j: dict(t) for j, t in by_judge.items()}
 
 
-def self_test(case_dir, run_cmd):
+def self_test(case_dir, run_cmd, judge_model=None):
     """Prove the deterministic graders still detect their target before spending a run on them.
 
     Three assertions, and the count of them is itself asserted, because a self-test that
     silently ran nothing would be the exact failure it exists to catch: a checker that
     inspects zero items and reports success.
 
-    `llm` graders are out of scope here — checking them costs a judge call each and their
-    behaviour is not deterministic, so what this establishes is that everything which
-    *can* be settled without a model is settled correctly.
+    `llm` graders are covered too when `judge_model` is given, against the same known-good
+    and known-bad artifacts. That is not redundant with the deterministic checks: a judge
+    that fails an artifact satisfying its own criterion is a false negative, and a false
+    negative is indistinguishable from a real regression once a run is under way. Two of
+    them landed in the 2026-08-12 before/after comparison and were read as a regression
+    until the artifacts were opened. A handful of judge calls is nothing beside the agent
+    runs they precede.
     """
     case, graders = load_case(case_dir)
     free = [g for g in graders if g.get("type") != "llm"]
@@ -366,8 +370,11 @@ def self_test(case_dir, run_cmd):
 
     checks, failures = 0, []
 
-    def probe(artifacts, record):
-        return {g["name"]: grade(g, artifacts, record, None, run_cmd)[0] for g in free}
+    judged = [g for g in graders if g.get("type") == "llm"] if judge_model else []
+
+    def probe(artifacts, record, include_judged=False):
+        pool = free + (judged if include_judged else [])
+        return {g["name"]: grade(g, artifacts, record, judge_model, run_cmd)[0] for g in pool}
 
     # 1. Every file-judging grader fails when the run produced nothing. A grader that
     #    passes an absent artifact makes a skipped run look like a successful one.
@@ -386,10 +393,13 @@ def self_test(case_dir, run_cmd):
             continue
         record_path = root / "_record.json"
         record = json.loads(record_path.read_text()) if record_path.is_file() else {}
-        results = probe(root, record)
+        results = probe(root, record, include_judged=True)
         checks += len(results)
         if expectation == "pass":
-            failures += [f"{n} failed against the known-good artifact" for n, ok in results.items() if not ok]
+            failures += [f"{n} failed against the known-good artifact"
+                         + (" (a judge that fails its own criterion is a false negative)"
+                            if n in {g["name"] for g in judged} else "")
+                         for n, ok in results.items() if not ok]
         elif all(results.values()):
             failures.append("every grader passed the known-bad artifact, so none of them discriminates")
 
@@ -413,8 +423,9 @@ def self_test(case_dir, run_cmd):
 
     for line in failures:
         print(f"  FAIL {line}")
-    print(f"\n{checks - len(failures)}/{checks} self-test assertions passed"
-          f" ({len(free)} deterministic grader(s), {len(graders) - len(free)} llm grader(s) not covered)")
+    covered = f"{len(free)} deterministic" + (f" + {len(judged)} llm" if judged else "")
+    uncovered = "" if judged else f", {len(graders) - len(free)} llm grader(s) NOT covered — pass --judge-model to include them"
+    print(f"\n{checks - len(failures)}/{checks} self-test assertions passed ({covered} grader(s){uncovered})")
     return 1 if failures else 0
 
 

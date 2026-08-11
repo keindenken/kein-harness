@@ -877,6 +877,7 @@ def main():
     parser.add_argument("--case", help="run a graded case from plugin/evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders and for --compare. The deterministic grader types do not use it. Graders are many and cheap, so this defaults to haiku; a comparison is a handful of calls on a harder question and wants --judge-model opus.")
+    parser.add_argument("--judge", action="store_true", help="with --self-test: also check the llm graders against the case's known-good and known-bad artifacts. Costs one judge call per grader per fixture, and catches a judge that fails its own criterion.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
     parser.add_argument("--variant", action="append", metavar="NAME=GITREF", help="define an arm as the harness at a commit; repeatable. `--variant before=HEAD~1 --variant after=HEAD` compares two versions of a prompt instead of comparing presence against absence. Replaces the built-in arm pair for this run.")
     parser.add_argument("--jobs", type=int, default=3, help="replicates to run concurrently with --case. Each gets its own worktree and config home, so the ceiling is the account's tolerance for concurrent sessions rather than anything in the harness.")
@@ -948,7 +949,7 @@ def main():
             target = Path(options.case)
             if not (target / "case.yaml").is_file():
                 target = KEIN_ROOT / "evals" / options.case
-            return case_runner.self_test(target, run)
+            return case_runner.self_test(target, run, options.judge_model if options.judge else None)
         config, _ = load_config()
         return run_case_mode(options, config.get("models", {}).get("arm", "sonnet"), None)
 
