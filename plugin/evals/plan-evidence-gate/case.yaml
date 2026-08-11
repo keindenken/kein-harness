@@ -1,0 +1,49 @@
+schema_version: "1.1"
+name: plan-evidence-gate
+description: >
+  The `plan` skill's distinctive contract is the Evidence Gate: when a load-bearing empirical fact is
+  unresolved but every expected result already maps to an in-scope branch, the plan records the fact as a
+  bounded obligation with both paths decided now, plus a stop boundary for a result that fits neither. The
+  requirements fixture is built around exactly one such fact — whether the bundled SQLite has FTS5 compiled in
+  — chosen because both outcomes are plannable, the check is one cheap command, and building against the wrong
+  answer is expensive. A competent planner without the skill is expected to name the unknown and say "check
+  this first"; naming it, pre-deciding both branches, and bounding the unexpected result is the behaviour under
+  measurement.
+
+  The fixture also carries an irreversibility hazard (an in-place index build beside the notes table it must
+  not corrupt) and one genuinely non-blocking question (recency versus relevance in ranking), so that
+  sequencing and the Open Questions section have something to be right or wrong about.
+
+  Not yet run. `claude plugin eval` is gated behind early access on this account, so no arm, delta, or turn
+  count is recorded here and this description must not be read as though one were. The graders are written to
+  be checkable by whichever runner gets to them.
+
+  Two design notes for whoever runs it first. `tool_used` on `Skill` is deliberately absent: other plugins are
+  installed globally on this machine, so the no-plugin arm can fire an unrelated skill and the signal says
+  nothing about routing to `plan`. And every grader below judges the written artifact rather than the reply,
+  because a grader that reads response text passes a run that described a plan without writing one — the
+  failure trailofbits/skills records as having been green for months.
+tags: [plan, evidence-gate, artifact-discipline]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    REQUIREMENTS.md in the fixture directory is an approved requirements document for a feature we are about
+    to build.
+
+    I need an implementation plan for it before anyone starts. Write it to PLAN.md in the working directory.
+  # The skill reads its template before dispatching, and dispatches one Planner that writes the artifact
+  # itself, so the arm carrying the skill needs materially more turns than a bare agent answering the same
+  # prompt. Calibrating this cap on the baseline would truncate the treatment arm and score it as a failure.
+  max_turns: 40
+  timeout_seconds: 1200
+  allowed_tools: [Read, Glob, Grep, Write, Edit, Skill, Task]
+
+runs: 3
+
+expected_outcome: >
+  PLAN.md exists and records the FTS5 availability question as a bounded gate — the claim, the cheap
+  observation that settles it, an already-decided path for each expected result, and a stop boundary for a
+  result that fits no planned path — rather than deferring the decision to whoever executes the plan.
