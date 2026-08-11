@@ -18,11 +18,26 @@ description: >
   count is recorded here and this description must not be read as though one were. The graders are written to
   be checkable by whichever runner gets to them.
 
-  Two design notes for whoever runs it first. `tool_used` on `Skill` is deliberately absent: other plugins are
-  installed globally on this machine, so the no-plugin arm can fire an unrelated skill and the signal says
-  nothing about routing to `plan`. And every grader below judges the written artifact rather than the reply,
-  because a grader that reads response text passes a run that described a plan without writing one — the
-  failure trailofbits/skills records as having been green for months.
+  Three notes for whoever runs it first.
+
+  **Every grader judges the written artifact or a tool call, never the reply.** A grader that reads response
+  text passes a run that described a plan without writing one, which is the failure trailofbits/skills records
+  as having been green for months.
+
+  **The three `vocabulary-*` graders are a control, not evidence.** `Status: Draft`, `## Evidence Gates` and
+  `## Open Questions` are this template's own headings, so the arm without the skill will essentially never
+  produce them and those graders should separate the arms almost perfectly. That result means the skill taught
+  a vocabulary and nothing more. They earn their place by sitting beside the four content graders: if the
+  content graders separate the arms by as much as the vocabulary graders do, the skill is changing the plan;
+  if they separate them by less, it is changing the headings. Reporting a delta driven by the vocabulary
+  graders as a benefit of `plan` would be the misreading this case exists to prevent.
+
+  **`routed-to-a-skill` requires a clean plugin environment.** It is a free deterministic signal that the
+  no-plugin arm cannot fake — but only if no other skill-bearing plugin is loaded. This machine has
+  superpowers, skill-creator and ralph-loop enabled in `~/.claude/settings.json`, any of which can fire a
+  skill in the baseline arm and make the grader pass for the wrong reason. Set those to `false` for the run.
+  That is also the right baseline for this stage of the program: the arm being compared against is the absence
+  of `plan`, not the presence of another harness, which is a separate arm and a later one.
 tags: [plan, evidence-gate, artifact-discipline]
 
 context:
