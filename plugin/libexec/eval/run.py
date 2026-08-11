@@ -731,9 +731,89 @@ def check_plumbing(records, probe, contamination):
     return checks
 
 
+def run_case_mode(options, model, config_home_root):
+    """Run a graded case: every arm, every replicate, then one label per assertion.
+
+    The case prompt goes to both arms verbatim, with no invocation prefixed to either.
+    That is the opposite of the fixture path above, and deliberately: a fixture run pins
+    entry so that only the workflow's effect varies, while a case asks the prior question
+    of whether the skill is reached at all. Both are worth measuring; conflating them
+    would leave a null result unattributable between routing and content.
+    """
+    import cases as case_runner
+
+    case_dir = Path(options.case)
+    if not case_dir.is_dir():
+        case_dir = KEIN_ROOT / "evals" / options.case
+    if not (case_dir / "case.yaml").is_file():
+        known = sorted(p.parent.name for p in (KEIN_ROOT / "evals").glob("*/case.yaml"))
+        raise SystemExit(f"ocs eval: no case.yaml under {case_dir}. Known: {', '.join(known) or 'none'}")
+
+    case, graders = case_runner.load_case(case_dir)
+    execution = case.get("execution") or {}
+    prompt = execution.get("prompt")
+    if not prompt:
+        raise SystemExit(f"ocs eval: {case_dir}/case.yaml has no execution.prompt")
+    replicates = options.runs or case.get("runs", 3)
+    timeout = options.timeout if options.timeout != 1800 else execution.get("timeout_seconds", 1800)
+    max_turns = options.max_turns if options.max_turns != 500 else execution.get("max_turns", 500)
+
+    stamp = datetime.now().strftime("%y%m%d-%H%M%S")
+    run_dir = state_dir("runs/eval") / f"{stamp}-case-{case['name']}"
+    run_dir.mkdir(parents=True)
+    config_home = prepare_config_home(run_dir / "config-home")
+    plugin_dir = prepare_plugin(run_dir / "plugin", model)
+
+    try:
+        records = {}
+        for arm in options.arm or list(ARMS):
+            records[arm] = []
+            for index in range(replicates):
+                worktree = run_dir / "worktrees" / arm / str(index)
+                case_runner.prepare_case_worktree(case_dir, worktree, run)
+                events = run_dir / f"events-{arm}-{index}.jsonl"
+                print(f"[{arm}] run {index + 1}/{replicates} ({model})", file=sys.stderr)
+                outcome = launch(arm, worktree, prompt, model, False, timeout, events,
+                                 config_home, plugin_dir, max_turns)
+                artifacts = run_dir / "artifacts" / arm / str(index)
+                produced = collect(worktree, artifacts)
+                graded = {}
+                for grader in graders:
+                    passed, detail = case_runner.grade(grader, artifacts, outcome, options.judge_model, run)
+                    graded[grader["name"]] = {"passed": bool(passed), "detail": detail}
+                records[arm].append({"run": outcome, "produced": produced, "graders": graded,
+                                     "artifacts": str(artifacts)})
+                marks = "".join("." if g["passed"] else "x" for g in graded.values())
+                print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s "
+                      f"{outcome['assistant_turns']} turns  graders {marks}", file=sys.stderr)
+                shutil.rmtree(worktree, ignore_errors=True)
+
+        text, tally = case_runner.report(case, graders, records)
+        (run_dir / "manifest.json").write_text(json.dumps({
+            "case": case["name"], "case_dir": str(case_dir), "model": model,
+            "judge_model": options.judge_model, "runs_per_arm": replicates,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "arms": records, "classification": tally,
+        }, indent=2) + "\n")
+
+        print(f"\nrun: {run_dir}")
+        print(text)
+        # Both arms' artifacts are kept whatever the outcome. A blind pairwise reading of
+        # the two plans answers what a per-assertion grader cannot — whether the artifact
+        # is better, rather than whether it carried the fields — and it needs them on disk.
+        print(f"\nartifacts kept at {run_dir / 'artifacts'}")
+        return 0 if tally.get(case_runner.DISCRIMINATES) else 1
+    finally:
+        discard_credentials(config_home)
+
+
 def main():
     parser = argparse.ArgumentParser(prog="ocs eval")
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
+    parser.add_argument("--case", help="run a graded case from plugin/evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
+    parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
+    parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders. The deterministic grader types do not use it.")
+    parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
@@ -774,8 +854,18 @@ def main():
         print(f"\n{len(checks) - failed}/{len(checks)} checks passed")
         raise SystemExit(1 if failed else 0)
 
+    if options.case:
+        if options.self_test:
+            import cases as case_runner
+            target = Path(options.case)
+            if not (target / "case.yaml").is_file():
+                target = KEIN_ROOT / "evals" / options.case
+            return case_runner.self_test(target, run)
+        config, _ = load_config()
+        return run_case_mode(options, config.get("models", {}).get("arm", "sonnet"), None)
+
     if not options.fixture:
-        raise SystemExit("ocs eval: a fixture name is required unless --verify is given")
+        raise SystemExit("ocs eval: a fixture name is required unless --case or --verify is given")
 
     config, config_path = load_config()
     fixtures = config["fixtures"]
