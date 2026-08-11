@@ -1,0 +1,17 @@
+corpus/garrytan_gstack__office-hours_SKILL.md   # garrytan/gstack/office-hours — 13421w, 86 revisions
+corpus/microsoft_power-platform-skills__plugins_power-pages_skills_create-site_SKILL.md   # microsoft/power-platform-skills/create-site — 7636w, 20 revisions
+corpus/OthmanAdi_planning-with-files__.continue_skills_planning-with-files_SKILL.md   # OthmanAdi/planning-with-files/planning-with-files — 1456w, 11 revisions
+corpus/addyosmani_agent-skills__skills_planning-and-task-breakdown_SKILL.md   # addyosmani/agent-skills/planning-and-task-breakdown — 1260w, 7 revisions
+corpus/coreyhaines31_marketingskills__skills_directory-submissions_SKILL.md   # coreyhaines31/marketingskills/directory-submissions — 3582w, 3 revisions
+corpus/melandlabs_openloomi__benchmark_continual-learning-bench_skills_create-task_SKILL.md   # melandlabs/openloomi/create-task — 2565w, 1 revisions
+corpus/obra_superpowers__skills_subagent-driven-development_SKILL.md   # obra/superpowers/subagent-driven-development — 4072w, 0 revisions
+corpus/garrytan_gstack__document-release_SKILL.md   # garrytan/gstack/document-release — 7288w, 0 revisions
+corpus/prisma_prisma__skills-contrib_create-pr_SKILL.md   # prisma/prisma/create-pr — 2739w, 0 revisions
+corpus/Donchitos_Claude-Code-Game-Studios__.claude_skills_skill-test_SKILL.md   # Donchitos/Claude-Code-Game-Studios/skill-test — 1925w, 0 revisions
+corpus/AgriciDaniel_claude-seo__skills_seo-plan_SKILL.md   # AgriciDaniel/claude-seo/seo-plan — 614w, 0 revisions
+corpus/breaking-brake_cc-wf-studio__.claude_skills_jira-driven-planning_SKILL.md   # breaking-brake/cc-wf-studio/jira-driven-planning — 54w, 0 revisions
+corpus/KhazP_vibe-coding-prompt-template__.claude_skills_vibe-techdesign_SKILL.md   # KhazP/vibe-coding-prompt-template/vibe-techdesign — 667w, 0 revisions
+corpus/rohitg00_skillkit__packages_core_src_methodology_packs_planning_task-decomposition_SKILL.md   # rohitg00/skillkit/task-decomposition — 689w, 0 revisions
+corpus/oliver-kriska_claude-elixir-phoenix__targets_codex_skills_phx-brief_SKILL.md   # oliver-kriska/claude-elixir-phoenix/phx-brief — 713w, 0 revisions
+corpus/LMDHQ-0420_ResearchPilot-Skills__skills_ResearchPilot-Skills-en_research[G.0]-plan_SKILL.md   # LMDHQ-0420/ResearchPilot-Skills/research[G.0]-plan — 408w, 0 revisions
+corpus/az9713_addyosmani-agent-skills__skills_planning-and-task-breakdown_SKILL.md   # az9713/addyosmani-agent-skills/planning-and-task-breakdown — 1167w, 0 revisions

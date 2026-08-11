@@ -1,0 +1,17 @@
+corpus/OthmanAdi_planning-with-files__skills_planning-with-files_SKILL.md   # OthmanAdi/planning-with-files/planning-with-files — 4602w, 80 revisions
+corpus/yzhao062_anywhere-agents__packages_pypi_anywhere_agents_composer_skills_implement-review_SKILL.md   # yzhao062/anywhere-agents/implement-review — 15134w, 19 revisions
+corpus/earthtojake_text-to-cad__skills_sendcutsend_SKILL.md   # earthtojake/text-to-cad/sendcutsend — 1855w, 8 revisions
+corpus/Donchitos_Claude-Code-Game-Studios__.claude_skills_adopt_SKILL.md   # Donchitos/Claude-Code-Game-Studios/adopt — 2675w, 5 revisions
+corpus/Moonlit-Pages_AIGC-Detector-Rewriter-Skill__SKILL.md   # Moonlit-Pages/AIGC-Detector-Rewriter-Skill/aigc-detector-rewriter — 34923w, 3 revisions
+corpus/AlpacaLabsLLC_skills-for-architects__skills_workplan_SKILL.md   # AlpacaLabsLLC/skills-for-architects/workplan — 1926w, 1 revisions
+corpus/obra_superpowers__skills_executing-plans_SKILL.md   # obra/superpowers/executing-plans — 344w, 0 revisions
+corpus/garrytan_gstack__ios-sync_SKILL.md   # garrytan/gstack/ios-sync — 6668w, 0 revisions
+corpus/coreyhaines31_marketingskills__skills_programmatic-seo_SKILL.md   # coreyhaines31/marketingskills/programmatic-seo — 1070w, 0 revisions
+corpus/slopus_happy__.agents_skills_office-hours_SKILL.md   # slopus/happy/office-hours — 5983w, 0 revisions
+corpus/mcp-use_mcp-use__skills_openapi-to-mcp_SKILL.md   # mcp-use/mcp-use/openapi-to-mcp — 3159w, 0 revisions
+corpus/elementalsouls_Claude-BugHunter__skills_apk-redteam-pipeline_SKILL.md   # elementalsouls/Claude-BugHunter/apk-redteam-pipeline — 2185w, 0 revisions
+corpus/jeremylongshore_claude-code-plugins-plus-skills__skills_.curated_figma-advanced-troubleshooting_SKILL.md   # jeremylongshore/claude-code-plugins-plus-skills/figma-advanced-troubleshooting — 990w, 0 revisions
+corpus/lishix520_academic-paper-skills__composer_SKILL.md   # lishix520/academic-paper-skills/academic-paper-composer — 3394w, 0 revisions
+corpus/Spark-To-Paper-Skills_spark-to-paper-skills__skills_ts-paper-plan_SKILL.md   # Spark-To-Paper-Skills/spark-to-paper-skills/ts-paper-plan — 1288w, 0 revisions
+corpus/Infrasity-Labs_dev-gtm-claude-skills__.claude_skills_lead-magnets_SKILL.md   # Infrasity-Labs/dev-gtm-claude-skills/lead-magnets — 1797w, 0 revisions
+corpus/panda850819_product-management-skill__SKILL.md   # panda850819/product-management-skill/product-management — 965w, 0 revisions

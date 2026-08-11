@@ -1,0 +1,17 @@
+corpus/garrytan_gstack__design-review_SKILL.md   # garrytan/gstack/design-review — 14437w, 79 revisions
+corpus/coreyhaines31_marketingskills__skills_ad-creative_SKILL.md   # coreyhaines31/marketingskills/ad-creative — 2979w, 16 revisions
+corpus/nowork-studio_NotFair__seo_seo-analysis_SKILL.md   # nowork-studio/NotFair/seo-analysis — 8895w, 8 revisions
+corpus/borghei_Claude-Skills__product-team_product-strategist_SKILL.md   # borghei/Claude-Skills/product-strategist — 2936w, 5 revisions
+corpus/luongnv89_claude-howto__03-skills_refactor_SKILL.md   # luongnv89/claude-howto/refactor — 1741w, 2 revisions
+corpus/get-zeked_pm-super-skill__SKILL.md   # get-zeked/pm-super-skill/pm-super-skill — 12174w, 1 revisions
+corpus/mattpocock_skills__skills_engineering_to-tickets_SKILL.md   # mattpocock/skills/to-tickets — 909w, 0 revisions
+corpus/garrytan_gstack__SKILL.md   # garrytan/gstack/gstack — 4022w, 0 revisions
+corpus/Yeachan-Heo_oh-my-claudecode__skills_plan_SKILL.md   # Yeachan-Heo/oh-my-claudecode/omc-plan — 3030w, 0 revisions
+corpus/google_skills__skills_cloud_google-cloud-solution-agentic-ai-borderless-data-lakehouse_SKILL.md   # google/skills/google-cloud-solution-agentic-ai-borderless-data-lakehouse — 1200w, 0 revisions
+corpus/zubair-trabzada_geo-seo-claude__skills_geo-proposal_SKILL.md   # zubair-trabzada/geo-seo-claude/geo-proposal — 1719w, 0 revisions
+corpus/nowork-studio_NotFair__seo_programmatic-seo_SKILL.md   # nowork-studio/NotFair/programmatic-seo — 579w, 0 revisions
+corpus/antonbabenko_terraform-skill__skills_terraform-skill_SKILL.md   # antonbabenko/terraform-skill/terraform-skill — 2551w, 0 revisions
+corpus/luwill_research-skills__research-proposal_SKILL.md   # luwill/research-skills/research-proposal — 2053w, 0 revisions
+corpus/tzachbon_smart-ralph__plugins_ralph-speckit_skills_speckit-workflow_SKILL.md   # tzachbon/smart-ralph/speckit-workflow — 975w, 0 revisions
+corpus/existential-birds_beagle__plugins_beagle-analysis_skills_web-research_SKILL.md   # existential-birds/beagle/web-research — 2025w, 0 revisions
+corpus/itechmeat_llm-code__skills_vibekanban_SKILL.md   # itechmeat/llm-code/vibekanban — 1386w, 0 revisions

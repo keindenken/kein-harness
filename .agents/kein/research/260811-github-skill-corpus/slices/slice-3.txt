@@ -1,0 +1,17 @@
+corpus/garrytan_gstack__browse_SKILL.md   # garrytan/gstack/browse — 7300w, 81 revisions
+corpus/code-yeongyu_oh-my-openagent__packages_omo-senpi_skills_ultrawork_SKILL.md   # code-yeongyu/oh-my-openagent/ultrawork — 4778w, 19 revisions
+corpus/czlonkowski_n8n-skills__skills_n8n-workflow-patterns_SKILL.md   # czlonkowski/n8n-skills/n8n-workflow-patterns — 3053w, 11 revisions
+corpus/coreyhaines31_marketingskills__skills_marketing-plan_SKILL.md   # coreyhaines31/marketingskills/marketing-plan — 3121w, 5 revisions
+corpus/wanshuiyin_Auto-claude-code-research-in-sleep__skills_skills-codex-gemini-review_paper-write_SKILL.md   # wanshuiyin/Auto-claude-code-research-in-sleep/paper-write — 2149w, 3 revisions
+corpus/Light0305_Light-skills__skills_light-project-structure_SKILL.md   # Light0305/Light-skills/light-project-structure — 1563w, 1 revisions
+corpus/obra_superpowers__skills_writing-plans_SKILL.md   # obra/superpowers/writing-plans — 1034w, 0 revisions
+corpus/garrytan_gstack__context-restore_SKILL.md   # garrytan/gstack/context-restore — 6994w, 0 revisions
+corpus/coreyhaines31_marketingskills__skills_image_SKILL.md   # coreyhaines31/marketingskills/image — 2359w, 0 revisions
+corpus/Donchitos_Claude-Code-Game-Studios__.claude_skills_reverse-document_SKILL.md   # Donchitos/Claude-Code-Game-Studios/reverse-document — 1191w, 0 revisions
+corpus/Jeffallan_claude-skills__skills_fullstack-guardian_SKILL.md   # Jeffallan/claude-skills/fullstack-guardian — 696w, 0 revisions
+corpus/tech-leads-club_agent-skills__packages_skills-catalog_skills_(development)_tlc-spec-driven_SKILL.md   # tech-leads-club/agent-skills/tlc-spec-driven — 2276w, 0 revisions
+corpus/rpamis_comet__eval_local_skills_benchmarks_dependency_superpowers_executing-plans_SKILL.md   # rpamis/comet/executing-plans — 377w, 0 revisions
+corpus/dyoshikawa_rulesync__.rulesync_skills_draft-issue-to-external-repository_SKILL.md   # dyoshikawa/rulesync/draft-issue-to-external-repository — 1177w, 0 revisions
+corpus/nexscope-ai_Amazon-Skills__amazon-ppc-campaign_SKILL.md   # nexscope-ai/Amazon-Skills/amazon-ppc-campaign — 3510w, 0 revisions
+corpus/ShZhao27208_Aut_Sci_Write__skills_sci-extract_SKILL.md   # ShZhao27208/Aut_Sci_Write/sci-extract — 2808w, 0 revisions
+corpus/echoVic_spec-flow__SKILL.md   # echoVic/spec-flow/spec-flow — 643w, 0 revisions
