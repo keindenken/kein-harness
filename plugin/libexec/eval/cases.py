@@ -421,7 +421,10 @@ def self_test(case_dir, run_cmd):
 def report(case, graders, records, roles=None):
     """`records` is {arm: [ {grader_name: bool} per replicate ]}."""
     named = roles or {"treatment": "with-skill", "control": "without-skill"}
-    lines = [f"case: {case['name']}  ({case.get('runs', 1)} run(s) per arm; "
+    # The replicate count comes from what ran, not from what the case file asks for:
+    # --runs overrides it, and a header that reports the intention misdescribes the run.
+    replicates = min((len(runs) for runs in records.values()), default=0)
+    lines = [f"case: {case['name']}  ({replicates} run(s) per arm; "
              f"treatment={named['treatment']}, control={named['control']})"]
     tally = Counter()
     rows = []
