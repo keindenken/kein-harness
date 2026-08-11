@@ -1,0 +1,49 @@
+schema_version: "1.1"
+name: plan-no-unknown
+description: >
+  The companion to `plan-evidence-gate`, and the case that decides whether the Evidence Gate is a device or a
+  slot. `plan-template.md` calls the gate "this exact optional shape", used "when the plan carries a bounded
+  execution-time empirical obligation". The first case put an unresolved fact in front of it and every run
+  produced a gate, which says nothing about the word optional.
+
+  This fixture has no unresolved fact. Every input is stated, the counts are the ones the tool already
+  computes, the formatter is already a separate function, and the people who asked for the feature were asked
+  what shape they wanted. `tally.py` itself is in the fixture, so the current error message, exit code and
+  output format are all readable rather than described. A plan for it can be written end to end without
+  observing anything that is not already on disk.
+
+  The source being present is a correction, not a detail. The first version of this fixture described `tally`
+  without shipping it, which left the exact stderr text, the exit code and the byte-for-byte output genuinely
+  unestablished — and the skill's arm correctly gated on them. That run measured a defect in the fixture and
+  said nothing about whether the gate is optional. A case that claims nothing is unknown has to make sure of
+  it.
+
+  So a gate here is a slot being filled. The owner's criterion for keeping the field is that it acts as an
+  optional carrier for what genuinely cannot be settled; if it appears where nothing is unsettled, the field
+  is not optional in practice and is better gone. That is what `no-evidence-gate` reads.
+
+  `no-manufactured-unknown` is the same question one level up, because a plan can invent a blocking unknown
+  without using the gate's heading — "confirm the team wants this shape", "verify the formatter is separable"
+  — and the requirements already settle both.
+
+  `covers-the-error-path` is here so the case is not only measuring absence. A skill that scores well by
+  producing less is not the result anyone wants.
+tags: [plan, gate-optionality, ablation]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    REQUIREMENTS.md in the fixture directory is an approved requirements document for a small feature.
+
+    I need an implementation plan for it before anyone starts. Write it to PLAN.md in the working directory.
+  max_turns: 40
+  timeout_seconds: 1200
+  allowed_tools: [Read, Glob, Grep, Write, Edit, Skill, Task]
+
+runs: 3
+
+expected_outcome: >
+  PLAN.md exists, covers the requirements including the error path, and carries no Evidence Gate and no
+  invented blocking unknown, because the requirements leave nothing to establish.
