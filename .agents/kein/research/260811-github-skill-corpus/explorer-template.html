@@ -1,0 +1,372 @@
+<title>Public skill corpus — 640 files read</title>
+<style>
+  :root {
+    --ground: #edeff2;
+    --surface: #f8f9fb;
+    --raise: #ffffff;
+    --ink: #141821;
+    --muted: #5a6472;
+    --faint: #8b95a3;
+    --rule: #d3d8e0;
+    --rule-soft: #e3e7ec;
+    --accent: #a85f2a;
+    --accent-soft: #e8d5c3;
+    --add: #3d7a4c;
+    --rem: #a03a3a;
+    --serif: "Iowan Old Style", "Hoefler Text", Palatino, "Palatino Linotype", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #11141a;
+      --surface: #171b22;
+      --raise: #1d222b;
+      --ink: #e3e7ed;
+      --muted: #8a94a2;
+      --faint: #6b7683;
+      --rule: #252b34;
+      --rule-soft: #1f242c;
+      --accent: #d2894c;
+      --accent-soft: #4a3524;
+      --add: #69ac79;
+      --rem: #d2716d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #11141a;
+    --surface: #171b22;
+    --raise: #1d222b;
+    --ink: #e3e7ed;
+    --muted: #8a94a2;
+    --faint: #6b7683;
+    --rule: #252b34;
+    --rule-soft: #1f242c;
+    --accent: #d2894c;
+    --accent-soft: #4a3524;
+    --add: #69ac79;
+    --rem: #d2716d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px 96px; }
+
+  /* ---------- masthead ---------- */
+  .masthead { padding: 56px 0 28px; border-bottom: 1px solid var(--rule); }
+  .eyebrow {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 14px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 4.4vw, 46px);
+    line-height: 1.1; letter-spacing: -.01em; margin: 0 0 16px; text-wrap: balance;
+  }
+  .standfirst {
+    max-width: 62ch; color: var(--muted); font-size: 16px; margin: 0;
+  }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- headline findings ---------- */
+  .findings {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(196px, 1fr));
+    gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+    margin: 32px 0 0;
+  }
+  .finding { background: var(--surface); padding: 18px 18px 20px; }
+  .finding .num {
+    font-family: var(--mono); font-size: 27px; line-height: 1.15;
+    font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  }
+  .finding .num em { font-style: normal; color: var(--faint); font-size: 17px; }
+  .finding .label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint); margin: 2px 0 7px;
+  }
+  .finding p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); }
+  .finding.flag .num { color: var(--accent); }
+
+  /* ---------- controls ---------- */
+  .controls {
+    position: sticky; top: 0; z-index: 10; background: var(--ground);
+    border-bottom: 1px solid var(--rule); padding: 14px 0 12px; margin-top: 40px;
+  }
+  .ctrl-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  input[type="search"] {
+    flex: 1 1 260px; min-width: 0; font-family: var(--mono); font-size: 13px;
+    padding: 9px 12px; color: var(--ink); background: var(--raise);
+    border: 1px solid var(--rule); border-radius: 0;
+  }
+  input[type="search"]::placeholder { color: var(--faint); }
+  select {
+    font-family: var(--mono); font-size: 12px; padding: 9px 10px;
+    color: var(--ink); background: var(--raise); border: 1px solid var(--rule);
+    border-radius: 0;
+  }
+  input:focus-visible, select:focus-visible, button:focus-visible, .row:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 1px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    padding: 4px 10px; border: 1px solid var(--rule); background: transparent;
+    color: var(--muted); cursor: pointer; border-radius: 0;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: var(--ground);
+  }
+  .chip .n { color: inherit; opacity: .6; margin-left: 5px; }
+  .count {
+    font-family: var(--mono); font-size: 11.5px; color: var(--faint);
+    letter-spacing: .04em; margin-top: 10px;
+  }
+
+  /* ---------- ledger ---------- */
+  .ledger { border-top: 1px solid var(--rule); }
+  .row {
+    display: grid; grid-template-columns: 74px minmax(0, 1fr);
+    gap: 18px; padding: 15px 4px 15px 0;
+    border-bottom: 1px solid var(--rule-soft); cursor: pointer;
+  }
+  .row:hover { background: var(--surface); }
+  .row[aria-expanded="true"] { background: var(--surface); }
+
+  .gauge { padding-top: 3px; }
+  .gauge .c {
+    font-family: var(--mono); font-size: 16px; font-variant-numeric: tabular-nums;
+    line-height: 1; color: var(--ink);
+  }
+  .gauge .c.zero { color: var(--faint); }
+  .gauge .u {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint); display: block; margin-top: 3px;
+  }
+  .bar { height: 3px; background: var(--rule); margin-top: 7px; }
+  .bar > i { display: block; height: 100%; background: var(--accent); }
+
+  .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+  .name { font-family: var(--mono); font-size: 14px; color: var(--ink); }
+  .repo { font-family: var(--mono); font-size: 11.5px; color: var(--faint); }
+  .stars { font-family: var(--mono); font-size: 11px; color: var(--faint); font-variant-numeric: tabular-nums; }
+  .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--muted);
+    border: 1px solid var(--rule); padding: 1px 6px;
+  }
+  .tag.ctrl { border-color: var(--accent-soft); color: var(--accent); }
+  .claim { margin: 6px 0 0; max-width: 74ch; }
+  .claim.none { color: var(--faint); font-style: italic; }
+
+  .detail { display: none; padding: 4px 0 6px; }
+  .row[aria-expanded="true"] .detail { display: block; }
+  .detail dl {
+    display: grid; grid-template-columns: 96px minmax(0, 1fr);
+    gap: 4px 16px; margin: 12px 0 0; padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+  .detail dt {
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint); padding-top: 3px;
+  }
+  .detail dd { margin: 0; font-size: 14px; max-width: 72ch; }
+  .detail dd.mono { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .detail a { color: var(--accent); }
+
+  .empty { padding: 60px 0; text-align: center; color: var(--faint); font-family: var(--mono); font-size: 13px; }
+
+  .colophon {
+    margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule);
+    color: var(--muted); font-size: 13.5px; max-width: 70ch;
+  }
+  .colophon code { font-family: var(--mono); font-size: 12px; color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media (max-width: 620px) {
+    .row { grid-template-columns: 58px minmax(0, 1fr); gap: 12px; }
+    .wrap { padding: 0 16px 64px; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">Harvested 2026-08-11 · 579 repositories · 61,889 skill files</p>
+    <h1>What people actually put in a standing prompt</h1>
+    <p class="standfirst">
+      4,659 <code>SKILL.md</code> files were pulled from public GitHub repositories and a stratified
+      shortlist of <strong>640</strong> was read in full, one question each: does this file assert
+      anything about its domain that could not have been derived from knowing the domain exists?
+      Rows are ranked by how many times the file has been revised, because
+      <strong>a file corrected twenty times was corrected by something</strong>.
+    </p>
+
+    <div class="findings">
+      <div class="finding flag">
+        <div class="num">0 <em>/ 64</em></div>
+        <div class="label">Files that shrank</div>
+        <p>Across 1,786 commits that changed a prompt line, not one file ended smaller than it started.</p>
+      </div>
+      <div class="finding">
+        <div class="num">45<em>%</em></div>
+        <div class="label">Removal rate</div>
+        <p>25,718 lines removed against 57,462 added. Deletion is routine — it just never outpaces addition.</p>
+      </div>
+      <div class="finding flag">
+        <div class="num">41<em>%</em></div>
+        <div class="label">Honest cut claims</div>
+        <p>Of 218 commits whose subject claims a cut, only 90 are net negative. 61 are net positive.</p>
+      </div>
+      <div class="finding">
+        <div class="num">1 <em>/ 4,659</em></div>
+        <div class="label">Measure themselves</div>
+        <p>Only <code>trailofbits/skills</code> reports an arm-versus-arm result for its own prompt.</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="ctrl-row">
+      <input type="search" id="q" placeholder="search claims, skill names, repositories…" aria-label="Search" />
+      <select id="sort" aria-label="Sort by">
+        <option value="c">Sort · revisions</option>
+        <option value="sp">Sort · specificity</option>
+        <option value="s">Sort · stars</option>
+        <option value="w">Sort · length</option>
+        <option value="d">Sort · lifespan</option>
+      </select>
+      <select id="minc" aria-label="Minimum revisions">
+        <option value="0">All revision depths</option>
+        <option value="3">3+ revisions</option>
+        <option value="10">10+ revisions</option>
+        <option value="20">20+ revisions</option>
+      </select>
+      <select id="claimed" aria-label="Claim filter">
+        <option value="all">With and without a claim</option>
+        <option value="yes">Has a claim</option>
+        <option value="no">No claim found</option>
+      </select>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="count" id="count"></div>
+  </div>
+
+  <div class="ledger" id="ledger"></div>
+
+  <p class="colophon">
+    The stratum chips are the sampling frame, not a judgement — 70 files were taken from each
+    domain bucket by specificity score, plus 80 <span class="tag ctrl">control</span> files drawn from
+    below the median so the score could be checked against the model's own reading. It did not survive
+    that check: the top band and the control band scored almost identically, so the model's numeric
+    rating was discarded and only its <em>claim</em> is shown here. Revision counts come from blobless
+    clones of 244 repositories. Full method and the rest of the results are in
+    <code>.agents/kein/research/260811-github-skill-corpus/findings.md</code>.
+  </p>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+const STRATA = ["process", "meta", "research", "writing", "documentation", "product", "code", "(none)", "control"];
+const ACTIVE = new Set();
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const maxC = Math.max(...DATA.map((d) => d.c)) || 1;
+const gauge = (c) => (c <= 0 ? 0 : Math.max(3, Math.round(100 * Math.log1p(c) / Math.log1p(maxC))));
+const num = (n) => n.toLocaleString("en-US");
+
+function chips() {
+  const counts = {};
+  DATA.forEach((d) => { counts[d.st] = (counts[d.st] || 0) + 1; });
+  $("chips").innerHTML = STRATA.filter((s) => counts[s]).map((s) =>
+    `<button class="chip" type="button" data-s="${esc(s)}" aria-pressed="false">${esc(s)}<span class="n">${counts[s]}</span></button>`
+  ).join("");
+  $("chips").addEventListener("click", (e) => {
+    const b = e.target.closest(".chip");
+    if (!b) return;
+    const s = b.dataset.s;
+    ACTIVE.has(s) ? ACTIVE.delete(s) : ACTIVE.add(s);
+    b.setAttribute("aria-pressed", ACTIVE.has(s) ? "true" : "false");
+    render();
+  });
+}
+
+function matches(d, q) {
+  if (ACTIVE.size && !ACTIVE.has(d.st)) return false;
+  const minc = +$("minc").value;
+  if (d.c < minc) return false;
+  const cl = $("claimed").value;
+  if (cl === "yes" && !d.cl) return false;
+  if (cl === "no" && d.cl) return false;
+  if (!q) return true;
+  return (d.n + " " + d.r + " " + d.cl + " " + d.nt + " " + d.dm + " " + d.wy).toLowerCase().includes(q);
+}
+
+function row(d, i) {
+  const markers = Object.keys(d.mk || {}).join(" · ");
+  return `<article class="row" tabindex="0" role="button" aria-expanded="false" data-i="${i}">
+    <div class="gauge">
+      <div class="c${d.c ? "" : " zero"}">${d.c}</div>
+      <span class="u">revisions</span>
+      <div class="bar"><i style="width:${gauge(d.c)}%"></i></div>
+    </div>
+    <div>
+      <div class="head">
+        <span class="name">${esc(d.n || "—")}</span>
+        <span class="repo">${esc(d.r)}</span>
+        <span class="stars">${num(d.s)}★</span>
+        <span class="tag${d.st === "control" ? " ctrl" : ""}">${esc(d.st)}</span>
+      </div>
+      <p class="claim${d.cl ? "" : " none"}">${d.cl ? esc(d.cl) : "No non-derivable claim found."}</p>
+      <div class="detail">
+        <dl>
+          ${d.wy ? `<dt>Why</dt><dd>${esc(d.wy)}</dd>` : ""}
+          ${d.nt ? `<dt>Note</dt><dd>${esc(d.nt)}</dd>` : ""}
+          <dt>Subject</dt><dd>${esc(d.dm) || "—"}</dd>
+          <dt>History</dt><dd class="mono">${d.c} commits · ${d.a} author${d.a === 1 ? "" : "s"} · ${d.d} days</dd>
+          <dt>Shape</dt><dd class="mono">${esc(d.sh)} · ${num(d.w)} words · specificity ${d.sp}${d.cs > 1 ? ` · ${d.cs} near-copies` : ""}</dd>
+          <dt>Signals</dt><dd class="mono">${esc(markers) || "none"}</dd>
+          <dt>Source</dt><dd class="mono"><a href="https://github.com/${esc(d.r)}/blob/HEAD/${esc(d.p)}" target="_blank" rel="noopener">${esc(d.p)}</a></dd>
+        </dl>
+      </div>
+    </div>
+  </article>`;
+}
+
+function render() {
+  const q = $("q").value.trim().toLowerCase();
+  const key = $("sort").value;
+  const hits = DATA.map((d, i) => ({ d, i })).filter((x) => matches(x.d, q));
+  hits.sort((a, b) => (b.d[key] - a.d[key]) || (b.d.sp - a.d.sp));
+  const withClaim = hits.filter((x) => x.d.cl).length;
+  $("count").textContent = `${hits.length} of ${DATA.length} files · ${withClaim} carrying a claim`;
+  $("ledger").innerHTML = hits.length
+    ? hits.map((x) => row(x.d, x.i)).join("")
+    : `<p class="empty">Nothing matches that.</p>`;
+}
+
+$("ledger").addEventListener("click", (e) => {
+  const r = e.target.closest(".row");
+  if (!r || e.target.tagName === "A") return;
+  r.setAttribute("aria-expanded", r.getAttribute("aria-expanded") === "true" ? "false" : "true");
+});
+$("ledger").addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const r = e.target.closest(".row");
+  if (!r) return;
+  e.preventDefault();
+  r.setAttribute("aria-expanded", r.getAttribute("aria-expanded") === "true" ? "false" : "true");
+});
+["q", "sort", "minc", "claimed"].forEach((id) => $(id).addEventListener("input", render));
+
+chips();
+render();
+</script>

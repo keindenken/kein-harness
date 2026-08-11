@@ -8,3 +8,5 @@ files.json
 index.json
 triage.json
 *.log
+explorer.html
+explorer-data.json
