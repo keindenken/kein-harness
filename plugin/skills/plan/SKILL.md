@@ -16,9 +16,10 @@ Read [plan-template.md](references/plan-template.md) before dispatching Planner.
 ## Workflow
 
 1. Resolve the task, the repository, and the canonical plan path. Default to `<ocs state-dir plans>/<slug>.md`; follow the project's own convention instead when it has one for plan artifacts. Preserve the requirements by path and hash when possible; otherwise keep a prompt-safe summary and its hash.
-2. Dispatch one fresh `kein:planner` with the Agent tool and `run_in_background: false`, supplying the canonical path, the template contract, the requirements, and the repository root. Limit its writes to that artifact; prohibit source, test, configuration, generated-file, and Git changes.
-3. Planner is the first writer. Do not create a scaffold, and do not copy plan prose out of its message — it writes the file itself.
-4. Validate the artifact against the template, then report its path.
+2. Size the planning effort to the work, and say in the brief which size you chose. Work whose approach is already settled wants the artifact and its evidence, not a survey of alternatives; contested work wants the alternatives resolved before anything is written. Size governs how far Planner investigates and how much the body carries. It does not govern what the artifact contains — the template contract holds at every size.
+3. Dispatch one fresh `kein:planner` with the Agent tool and `run_in_background: false`, supplying the canonical path, the template contract, the requirements, and the repository root. Limit its writes to that artifact; prohibit source, test, configuration, generated-file, and Git changes.
+4. Planner is the first writer. Do not create a scaffold, and do not copy plan prose out of its message — it writes the file itself.
+5. Validate the artifact against the template, then report its path. A plan that comes back carrying several unresolved material decisions was sized too small, and a plan that surveys alternatives nobody was choosing between was sized too large; either way the size was the lead's call and correcting it is too.
 
 ## Evidence and Decisions
 
