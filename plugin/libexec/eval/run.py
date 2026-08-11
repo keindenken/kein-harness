@@ -814,6 +814,7 @@ def main():
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders and for --compare. The deterministic grader types do not use it. Graders are many and cheap, so this defaults to haiku; a comparison is a handful of calls on a harder question and wants --judge-model opus.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
+    parser.add_argument("--reclassify", metavar="RUN_DIR", help="re-read a finished case run's stored grader results under the current classifier, without launching anything. The labels are a reading of the data, so they change when the reading does.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
@@ -854,6 +855,15 @@ def main():
             print(f"  {'ok  ' if check['pass'] else 'FAIL'} [{check['arm']}] {check['check']} — {check['detail']}")
         print(f"\n{len(checks) - failed}/{len(checks)} checks passed")
         raise SystemExit(1 if failed else 0)
+
+    if options.reclassify:
+        import cases as case_runner
+        target = Path(options.reclassify)
+        manifest = json.loads((target / "manifest.json").read_text())
+        case, graders = case_runner.load_case(manifest["case_dir"])
+        text, tally = case_runner.report(case, graders, manifest["arms"])
+        print(text)
+        return 0 if (tally.get(case_runner.DISCRIMINATES) or tally.get(case_runner.STRENGTHENS)) else 1
 
     if options.compare:
         import cases as case_runner

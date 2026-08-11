@@ -31,11 +31,12 @@ import yaml
 
 # Read across arms, per assertion. The first is the finding; the second is the deletion
 # evidence; the rest say the instrument or the expectation needs work before either.
-DISCRIMINATES = "discriminates"        # passes with the skill, fails without it
-INERT = "inert"                        # passes in both arms: this instruction does nothing here
-HARMFUL = "harmful"                    # passes without the skill, fails with it
-UNREACHED = "unreached"                # fails in both arms: too hard, or the assertion is wrong
-FLAKY = "flaky"                        # inconsistent inside at least one arm
+DISCRIMINATES = "discriminates"        # every run with the skill, no run without it
+STRENGTHENS = "strengthens"            # every run with the skill, some runs without it
+INERT = "inert"                        # every run in both arms: this instruction does nothing here
+HARMFUL = "harmful"                    # no run with the skill, at least one without it
+UNREACHED = "unreached"                # no run in either arm: too hard, or the assertion is wrong
+UNRELIABLE = "unreliable"              # the arm carrying the skill did it only sometimes
 
 
 def load_case(directory):
@@ -161,22 +162,31 @@ def grade(grader, artifacts, record, judge_model, run_cmd):
 
 
 def classify(per_arm):
-    """One label per assertion, from its pass pattern across arms and replicates."""
-    consistent = {}
-    for arm, results in per_arm.items():
-        values = set(results)
-        if len(values) != 1:
-            return FLAKY, {arm: Counter(results) for arm in per_arm}
-        consistent[arm] = values.pop()
-    treatment = consistent.get("with-skill")
-    control = consistent.get("without-skill")
-    if treatment and not control:
-        return DISCRIMINATES, consistent
-    if treatment and control:
-        return INERT, consistent
-    if control and not treatment:
-        return HARMFUL, consistent
-    return UNREACHED, consistent
+    """One label per assertion, from its pass pattern across arms and replicates.
+
+    Inconsistency is read asymmetrically, and deliberately. An inconsistent *treatment*
+    arm means the skill does not reliably produce the behaviour, which is a defect in the
+    skill or in the assertion. An inconsistent *control* arm is not a defect at all — it
+    is the measurement, because a baseline that produces the behaviour one run in three is
+    exactly what a skill that produces it three in three is worth. Collapsing both into one
+    "flaky" label hid the most informative cell in the first real run of this instrument.
+    """
+    rates = {arm: (sum(results), len(results)) for arm, results in per_arm.items()}
+    passed, total = rates.get("with-skill", (0, 0))
+    treatment = passed / total if total else 0.0
+    passed, total = rates.get("without-skill", (0, 0))
+    control = passed / total if total else 0.0
+    detail = {arm: f"{p}/{n}" for arm, (p, n) in rates.items()}
+
+    if 0 < treatment < 1:
+        return UNRELIABLE, detail
+    if treatment == 1:
+        if control == 0:
+            return DISCRIMINATES, detail
+        if control < 1:
+            return STRENGTHENS, detail
+        return INERT, detail
+    return (HARMFUL if control > 0 else UNREACHED), detail
 
 
 JUDGE = (
@@ -313,14 +323,15 @@ def self_test(case_dir, run_cmd):
         ({"with-skill": [True] * 3, "without-skill": [True] * 3}, INERT),
         ({"with-skill": [False] * 3, "without-skill": [True] * 3}, HARMFUL),
         ({"with-skill": [False] * 3, "without-skill": [False] * 3}, UNREACHED),
-        ({"with-skill": [True, False, True], "without-skill": [False] * 3}, FLAKY),
+        ({"with-skill": [True, False, True], "without-skill": [False] * 3}, UNRELIABLE),
+        ({"with-skill": [True] * 3, "without-skill": [True, False, False]}, STRENGTHENS),
     ):
         checks += 1
         got, _ = classify(per_arm)
         if got != want:
             failures.append(f"classify returned {got} where {want} was expected")
 
-    minimum = len(free) + 5
+    minimum = len(free) + 6
     if checks < minimum:
         failures.append(f"self-test ran {checks} assertions, fewer than the {minimum} it must run")
 
@@ -347,11 +358,12 @@ def report(case, graders, records):
         rows.append((label, name, grader.get("type"), grader.get("weight", 1), scores))
 
     width = max(len(r[1]) for r in rows)
-    for label, name, kind, weight, scores in sorted(rows, key=lambda r: (r[0] != DISCRIMINATES, r[1])):
+    order = [DISCRIMINATES, STRENGTHENS, UNRELIABLE, INERT, HARMFUL, UNREACHED]
+    for label, name, kind, weight, scores in sorted(rows, key=lambda r: (order.index(r[0]), r[1])):
         lines.append(f"  {label:14} {name:{width}}  {kind:11} w{weight}  {scores}")
 
     lines.append("")
-    if not tally[DISCRIMINATES]:
+    if not tally[DISCRIMINATES] and not tally[STRENGTHENS]:
         lines.append(
             "  No assertion discriminated. Report this as an insensitive instrument or an insensitive\n"
             "  expectation set, not as a successful measurement."
@@ -361,6 +373,13 @@ def report(case, graders, records):
             f"  {tally[INERT]} assertion(s) passed in both arms. That part of the skill is doing nothing here,\n"
             "  which is deletion evidence rather than a pass."
         )
-    if tally[FLAKY]:
-        lines.append(f"  {tally[FLAKY]} assertion(s) were inconsistent within an arm; more replicates before reading them.")
+    if tally[STRENGTHENS]:
+        lines.append(
+            f"  {tally[STRENGTHENS]} assertion(s) the control produced sometimes and the skill produced every\n"
+            "  time. This is a real effect and the replicate count is what bounds it, so read the ratio rather\n"
+            "  than the label.")
+    if tally[UNRELIABLE]:
+        lines.append(
+            f"  {tally[UNRELIABLE]} assertion(s) the skill itself produced only sometimes. That is the skill or\n"
+            "  the assertion being unreliable, not the baseline, and it needs more replicates before it is read.")
     return "\n".join(lines), dict(tally)
