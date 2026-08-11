@@ -11,6 +11,7 @@ import os
 import shutil
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -761,37 +762,47 @@ def run_case_mode(options, model, config_home_root):
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     run_dir = state_dir("runs/eval") / f"{stamp}-case-{case['name']}"
     run_dir.mkdir(parents=True)
-    config_home = prepare_config_home(run_dir / "config-home")
     plugin_dir = prepare_plugin(run_dir / "plugin", model)
 
+    # A replicate is independent of every other one by construction — its own worktree, its
+    # own event stream, its own artifacts — so the only thing forcing them into a queue was
+    # a single shared config home. Each gets its own instead, which costs two small files
+    # and a keychain read, and the wall clock becomes the slowest replicate rather than the
+    # sum of all of them.
+    jobs = [(arm, index) for arm in (options.arm or list(ARMS)) for index in range(replicates)]
+    homes = {job: prepare_config_home(run_dir / "config-homes" / f"{job[0]}-{job[1]}") for job in jobs}
+
+    def one(job):
+        arm, index = job
+        worktree = run_dir / "worktrees" / arm / str(index)
+        case_runner.prepare_case_worktree(case_dir, worktree, run)
+        events = run_dir / f"events-{arm}-{index}.jsonl"
+        print(f"[{arm}] run {index + 1}/{replicates} started ({model})", file=sys.stderr)
+        outcome = launch(arm, worktree, prompt, model, False, timeout, events,
+                         homes[job], plugin_dir, max_turns)
+        artifacts = run_dir / "artifacts" / arm / str(index)
+        produced = collect(worktree, artifacts)
+        with ThreadPoolExecutor(max_workers=len(graders)) as pool:
+            results = pool.map(
+                lambda g: (g["name"], case_runner.grade(g, artifacts, outcome, options.judge_model, run)),
+                graders)
+            graded = {name: {"passed": bool(passed), "detail": detail} for name, (passed, detail) in results}
+        marks = "".join("." if graded[g["name"]]["passed"] else "x" for g in graders)
+        print(f"[{arm}] run {index + 1}/{replicates} exit={outcome['exit_code']} {outcome['seconds']}s "
+              f"{outcome['assistant_turns']} turns  graders {marks}", file=sys.stderr)
+        shutil.rmtree(worktree, ignore_errors=True)
+        return job, {"run": outcome, "produced": produced, "graders": graded, "artifacts": str(artifacts)}
+
     try:
-        records = {}
-        for arm in options.arm or list(ARMS):
-            records[arm] = []
-            for index in range(replicates):
-                worktree = run_dir / "worktrees" / arm / str(index)
-                case_runner.prepare_case_worktree(case_dir, worktree, run)
-                events = run_dir / f"events-{arm}-{index}.jsonl"
-                print(f"[{arm}] run {index + 1}/{replicates} ({model})", file=sys.stderr)
-                outcome = launch(arm, worktree, prompt, model, False, timeout, events,
-                                 config_home, plugin_dir, max_turns)
-                artifacts = run_dir / "artifacts" / arm / str(index)
-                produced = collect(worktree, artifacts)
-                graded = {}
-                for grader in graders:
-                    passed, detail = case_runner.grade(grader, artifacts, outcome, options.judge_model, run)
-                    graded[grader["name"]] = {"passed": bool(passed), "detail": detail}
-                records[arm].append({"run": outcome, "produced": produced, "graders": graded,
-                                     "artifacts": str(artifacts)})
-                marks = "".join("." if g["passed"] else "x" for g in graded.values())
-                print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s "
-                      f"{outcome['assistant_turns']} turns  graders {marks}", file=sys.stderr)
-                shutil.rmtree(worktree, ignore_errors=True)
+        records = {arm: [None] * replicates for arm, _ in jobs}
+        with ThreadPoolExecutor(max_workers=max(1, options.jobs)) as pool:
+            for (arm, index), record in pool.map(one, jobs):
+                records[arm][index] = record
 
         text, tally = case_runner.report(case, graders, records)
         (run_dir / "manifest.json").write_text(json.dumps({
             "case": case["name"], "case_dir": str(case_dir), "model": model,
-            "judge_model": options.judge_model, "runs_per_arm": replicates,
+            "judge_model": options.judge_model, "runs_per_arm": replicates, "jobs": options.jobs,
             "created_at": datetime.now(timezone.utc).isoformat(),
             "arms": records, "classification": tally,
         }, indent=2) + "\n")
@@ -804,7 +815,8 @@ def run_case_mode(options, model, config_home_root):
         print(f"\nartifacts kept at {run_dir / 'artifacts'}")
         return 0 if tally.get(case_runner.DISCRIMINATES) else 1
     finally:
-        discard_credentials(config_home)
+        for home in homes.values():
+            discard_credentials(home)
 
 
 def main():
@@ -814,7 +826,9 @@ def main():
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders and for --compare. The deterministic grader types do not use it. Graders are many and cheap, so this defaults to haiku; a comparison is a handful of calls on a harder question and wants --judge-model opus.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
+    parser.add_argument("--jobs", type=int, default=3, help="replicates to run concurrently with --case. Each gets its own worktree and config home, so the ceiling is the account's tolerance for concurrent sessions rather than anything in the harness.")
     parser.add_argument("--reclassify", metavar="RUN_DIR", help="re-read a finished case run's stored grader results under the current classifier, without launching anything. The labels are a reading of the data, so they change when the reading does.")
+    parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --compare; repeatable. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
@@ -869,7 +883,8 @@ def main():
         import cases as case_runner
         target = Path(options.compare)
         manifest = json.loads((target / "manifest.json").read_text())
-        text, tally = case_runner.compare(target, manifest["case_dir"], options.judge_model, run)
+        judges = options.compare_judge or [options.judge_model]
+        text, tally = case_runner.compare(target, manifest["case_dir"], judges, run)
         print(text)
         return 0
 

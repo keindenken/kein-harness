@@ -25,6 +25,7 @@ import re
 import shutil
 import subprocess
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import yaml
@@ -207,7 +208,47 @@ JUDGE = (
 )
 
 
-def compare(run_dir, case_dir, model, run_cmd):
+CODEX_SCHEMA = {
+    "type": "object",
+    "properties": {"winner": {"type": "string", "enum": ["A", "B", "TIE"]}, "why": {"type": "string"}},
+    "required": ["winner", "why"],
+    "additionalProperties": False,
+}
+
+
+def _ask_judge(spec, prompt, run_cmd, scratch):
+    """One judge, one verdict. `spec` is a Claude model, or `codex` / `codex:<model>`.
+
+    A second vendor is not redundancy here. The skill's plans run about two and a half
+    times the length of the control's, and a judge that prefers the longer document would
+    produce this result without reading either. Two vendors share the task but not their
+    error correlations, so agreement between them is the cheapest available control on
+    that, and disagreement is itself the finding.
+    """
+    if spec.startswith("codex"):
+        schema = scratch / "judge-schema.json"
+        schema.write_text(json.dumps(CODEX_SCHEMA))
+        command = ["codex", "exec", "--sandbox", "read-only", "--skip-git-repo-check",
+                   "--ephemeral", "--output-schema", str(schema)]
+        _, _, chosen = spec.partition(":")
+        if chosen:
+            command += ["-m", chosen]
+        result = run_cmd(command + [prompt], check=False).stdout.decode("utf-8", "replace")
+        # codex prints its hook and token lines around the answer, so the last JSON object wins.
+        objects = re.findall(r'\{[^{}]*"winner"[^{}]*\}', result)
+        if not objects:
+            return "TIE", "unreadable codex output"
+        parsed = json.loads(objects[-1])
+        return parsed.get("winner", "TIE").upper(), parsed.get("why", "")
+
+    out = run_cmd(["claude", "--model", spec, "--strict-mcp-config", "-p", prompt],
+                  check=False).stdout.decode("utf-8", "replace")
+    winner = re.search(r"^WINNER:\s*(A|B|TIE)", out, re.M | re.I)
+    why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
+    return (winner.group(1).upper() if winner else "TIE"), (why.group(1).strip() if why else "")
+
+
+def compare(run_dir, case_dir, judges, run_cmd):
     """Blind pairwise reading of the two arms' artifacts.
 
     A per-assertion grader answers whether a plan carried a field. It cannot answer whether
@@ -238,38 +279,67 @@ def compare(run_dir, case_dir, model, run_cmd):
     if not treatment or not control:
         raise SystemExit(f"ocs eval: need artifacts from both arms under {run_dir / 'artifacts'}")
 
-    tally = Counter()
-    reasons = []
-    for index in range(min(len(treatment), len(control))):
-        t_name, t_text = treatment[index]
-        c_name, c_text = control[index]
-        # Both orders. A judge that answers "A" to both is expressing a position preference,
-        # not a verdict, and that pair is recorded as a tie rather than as one win each.
-        verdicts = []
-        for first, second, treatment_is in ((t_text, c_text, "A"), (c_text, t_text, "B")):
-            out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p",
-                           JUDGE.format(requirements=requirements, a=first, b=second)],
-                          check=False).stdout.decode("utf-8", "replace")
-            winner = re.search(r"^WINNER:\s*(A|B|TIE)", out, re.M | re.I)
-            why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
-            choice = (winner.group(1).upper() if winner else "TIE")
-            verdicts.append(("with-skill" if choice == treatment_is else
-                             "tie" if choice == "TIE" else "without-skill"))
-            reasons.append((f"{t_name}v{c_name}", verdicts[-1], (why.group(1).strip() if why else "")[:220]))
-        result = verdicts[0] if verdicts[0] == verdicts[1] else "tie"
-        tally[result] += 1
+    scratch = Path(run_dir) / "compare"
+    scratch.mkdir(exist_ok=True)
+    pairs = list(range(min(len(treatment), len(control))))
 
-    lines = [f"blind pairwise, {model} judge, both orders per pair:"]
-    for arm in ("with-skill", "without-skill", "tie"):
-        lines.append(f"  {arm:15} {tally[arm]}")
+    # Every (judge, pair, order) is an independent call, so they all go out at once.
+    calls = [(judge, index, order)
+             for judge in judges for index in pairs for order in ("treatment-first", "control-first")]
+
+    def one(call):
+        judge, index, order = call
+        t_text, c_text = treatment[index][1], control[index][1]
+        first, second, treatment_is = ((t_text, c_text, "A") if order == "treatment-first"
+                                       else (c_text, t_text, "B"))
+        choice, why = _ask_judge(judge, JUDGE.format(requirements=requirements, a=first, b=second),
+                                 run_cmd, scratch)
+        winner = ("with-skill" if choice == treatment_is else
+                  "tie" if choice == "TIE" else "without-skill")
+        return call, winner, why
+
+    with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
+        verdicts = list(pool.map(one, calls))
+
+    by_judge, reasons, per_pair = {}, [], {}
+    for (judge, index, order), winner, why in verdicts:
+        per_pair.setdefault((judge, index), {})[order] = winner
+        reasons.append((judge, index, order, winner, why[:200]))
+    def verdict(judge, index):
+        """One judge's reading of one pair, after both orders are reconciled.
+
+        A judge that names the same position in both orders is stating a position
+        preference rather than a verdict, so that pair is a tie rather than one win each.
+        """
+        orders = per_pair.get((judge, index), {})
+        return orders.get("treatment-first") if len(set(orders.values())) == 1 else "tie"
+
+    for judge in judges:
+        by_judge[judge] = Counter(verdict(judge, index) for index in pairs)
+
+    lines = ["blind pairwise, both orders per pair, arm labels withheld from every judge:"]
+    for judge, tally in by_judge.items():
+        lines.append(f"  {judge:22} with-skill={tally['with-skill']}  "
+                     f"without-skill={tally['without-skill']}  tie={tally['tie']}")
+
+    if len(judges) > 1:
+        agreed = sum(1 for index in pairs if len({verdict(j, index) for j in judges}) == 1)
+        lines.append("")
+        lines.append(f"  judges agreed on {agreed}/{len(pairs)} pairs. Agreement across vendors is the control "
+                     "on\n  a judge simply preferring the longer document; disagreement is a finding of its own.")
+
     lines.append("")
-    lines.append("  reasons given (one per judged order):")
-    for pair, winner, why in reasons:
-        lines.append(f"    {pair}  {winner:14} {why}")
-    if tally["with-skill"] == tally["without-skill"]:
-        lines.append("\n  No preference. Read this beside the assertion classification: if the graders "
-                     "separated the arms and this did not, the skill moved the form and not the plan.")
-    return "\n".join(lines), dict(tally)
+    lines.append("  reasons given:")
+    for judge, index, order, winner, why in reasons:
+        lines.append(f"    [{judge}] pair{index} {order:15} {winner:14} {why}")
+
+    flat = Counter()
+    for tally in by_judge.values():
+        flat.update(tally)
+    if flat["with-skill"] == flat["without-skill"]:
+        lines.append("\n  No preference overall. Read this beside the assertion classification: if the graders "
+                     "separated\n  the arms and this did not, the skill moved the form and not the plan.")
+    return "\n".join(lines), {j: dict(t) for j, t in by_judge.items()}
 
 
 def self_test(case_dir, run_cmd):
