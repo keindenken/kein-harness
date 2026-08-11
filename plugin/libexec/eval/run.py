@@ -467,7 +467,8 @@ def resolve_arms(options, run_dir, model):
     if not options.variant:
         plugin = prepare_plugin(run_dir / "plugin", model)
         return {
-            name: {**spec, "plugin": plugin if spec["inject"] else None}
+            name: {**spec, "plugin": plugin if spec["inject"] else None,
+                   "role": "treatment" if spec["inject"] else "control"}
             for name, spec in ARMS.items()
             if not options.arm or name in options.arm
         }
@@ -486,6 +487,7 @@ def resolve_arms(options, run_dir, model):
         prepare_worktree(repo, commit, checkout)
         arms[name] = {
             "inject": True, "invoke": "", "ref": ref, "commit": commit,
+            "role": "control" if not arms else "treatment",
             "plugin": prepare_plugin(run_dir / "plugins" / name, model, source=checkout / "plugin"),
         }
         print(f"[{name}] harness at {ref} ({commit[:12]})", file=sys.stderr)
@@ -846,11 +848,13 @@ def run_case_mode(options, model, config_home_root):
             for (arm, index), record in pool.map(one, jobs):
                 records[arm][index] = record
 
-        text, tally = case_runner.report(case, graders, records)
+        roles = {spec.get("role", "treatment"): name for name, spec in arms.items()}
+        text, tally = case_runner.report(case, graders, records, roles)
         (run_dir / "manifest.json").write_text(json.dumps({
             "case": case["name"], "case_dir": str(case_dir), "model": model,
             "judge_model": options.judge_model, "runs_per_arm": replicates, "jobs": options.jobs,
             "arms_spec": {a: {k: str(v) for k, v in spec.items()} for a, spec in arms.items()},
+            "roles": {spec.get("role", "treatment"): name for name, spec in arms.items()},
             "created_at": datetime.now(timezone.utc).isoformat(),
             "arms": records, "classification": tally,
         }, indent=2) + "\n")
@@ -925,7 +929,7 @@ def main():
         target = Path(options.reclassify)
         manifest = json.loads((target / "manifest.json").read_text())
         case, graders = case_runner.load_case(manifest["case_dir"])
-        text, tally = case_runner.report(case, graders, manifest["arms"])
+        text, tally = case_runner.report(case, graders, manifest["arms"], manifest.get("roles"))
         print(text)
         return 0 if (tally.get(case_runner.DISCRIMINATES) or tally.get(case_runner.STRENGTHENS)) else 1
 

@@ -162,7 +162,7 @@ def grade(grader, artifacts, record, judge_model, run_cmd):
     return False, f"unknown grader type: {kind!r}"
 
 
-def classify(per_arm):
+def classify(per_arm, roles=None):
     """One label per assertion, from its pass pattern across arms and replicates.
 
     Inconsistency is read asymmetrically, and deliberately. An inconsistent *treatment*
@@ -172,10 +172,11 @@ def classify(per_arm):
     exactly what a skill that produces it three in three is worth. Collapsing both into one
     "flaky" label hid the most informative cell in the first real run of this instrument.
     """
+    roles = roles or {"treatment": "with-skill", "control": "without-skill"}
     rates = {arm: (sum(results), len(results)) for arm, results in per_arm.items()}
-    passed, total = rates.get("with-skill", (0, 0))
+    passed, total = rates.get(roles["treatment"], (0, 0))
     treatment = passed / total if total else 0.0
-    passed, total = rates.get("without-skill", (0, 0))
+    passed, total = rates.get(roles["control"], (0, 0))
     control = passed / total if total else 0.0
     detail = {arm: f"{p}/{n}" for arm, (p, n) in rates.items()}
 
@@ -417,15 +418,17 @@ def self_test(case_dir, run_cmd):
     return 1 if failures else 0
 
 
-def report(case, graders, records):
+def report(case, graders, records, roles=None):
     """`records` is {arm: [ {grader_name: bool} per replicate ]}."""
-    lines = [f"case: {case['name']}  ({case.get('runs', 1)} run(s) per arm)"]
+    named = roles or {"treatment": "with-skill", "control": "without-skill"}
+    lines = [f"case: {case['name']}  ({case.get('runs', 1)} run(s) per arm; "
+             f"treatment={named['treatment']}, control={named['control']})"]
     tally = Counter()
     rows = []
     for grader in graders:
         name = grader["name"]
         per_arm = {arm: [r["graders"][name]["passed"] for r in runs] for arm, runs in records.items()}
-        label, detail = classify(per_arm)
+        label, detail = classify(per_arm, roles)
         tally[label] += 1
         scores = "  ".join(
             f"{arm}={sum(v for v in vals)}/{len(vals)}" for arm, vals in sorted(per_arm.items())
