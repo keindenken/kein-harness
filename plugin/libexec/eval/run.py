@@ -146,14 +146,18 @@ def plugin_status(worktree):
     return statuses
 
 
-def prepare_plugin(path, model):
+def prepare_plugin(path, model, source=None):
     """Copy the plugin for this run and re-render its agents onto one model.
+
+    `source` defaults to the installed harness. A variant arm passes the `plugin/`
+    directory of a worktree checked out at some other commit, which is what makes
+    "this prompt against that prompt" an arm rather than a separate experiment.
 
     `--model` sets the lead only, and a subagent's `model:` frontmatter wins, so the deep-tier roles — planner, architect, critic — arrive as Opus under a Sonnet lead.
     That is expensive, and worse, it makes the arms differ by model as well as by skill: with-skill gets Opus lanes while the control improvises cheaper ones, and a difference between them can no longer be read as the skill's doing.
     Copying rather than rendering in place also keeps the installed harness untouched while a run is in flight.
     """
-    shutil.copytree(KEIN_ROOT, path, symlinks=True)
+    shutil.copytree(source or KEIN_ROOT, path, symlinks=True)
     run(
         [str(path / "libexec" / "ocs-render-agents"), str(path / "agents")],
         env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model),
@@ -393,6 +397,7 @@ def worktree_instruction_names(worktree):
 
 
 def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns):
+    """`plugin_dir` is None for an arm that runs without the harness."""
     # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
     command = [
         "claude", "--model", model,
@@ -402,7 +407,7 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
         "--strict-mcp-config",
         "-p", prompt,
     ]
-    if ARMS[arm]["inject"]:
+    if plugin_dir is not None:
         command += ["--plugin-dir", str(plugin_dir)]
     if max_turns:
         # A backstop against a runaway loop, not a round limiter: a run that produced a plan took 135 assistant turns, so the ceiling is set far above any honest run.
@@ -443,6 +448,48 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
     }
     outcome.update(summarize_events(events_path))
     return outcome
+
+
+def arm_spec(name):
+    """The built-in arms by name; a variant arm is injected and carries no invocation."""
+    return ARMS.get(name, {"inject": True, "invoke": ""})
+
+
+def resolve_arms(options, run_dir, model):
+    """Build this run's arms, each with the plugin directory it launches under.
+
+    Without `--variant` the arms are the built-in pair: the harness present, and the
+    harness absent. With it, every arm carries the harness as it existed at some commit,
+    and the comparison moves from "does the skill do anything" to "did this edit change
+    what it does". The second question is the one a prompt revision has to answer, and
+    nothing in the paired-arm shape had to change to ask it.
+    """
+    if not options.variant:
+        plugin = prepare_plugin(run_dir / "plugin", model)
+        return {
+            name: {**spec, "plugin": plugin if spec["inject"] else None}
+            for name, spec in ARMS.items()
+            if not options.arm or name in options.arm
+        }
+
+    repo = run(["git", "rev-parse", "--show-toplevel"], cwd=KEIN_ROOT).stdout.decode().strip()
+    arms = {}
+    for spec in options.variant:
+        name, _, ref = spec.partition("=")
+        if not ref:
+            raise SystemExit(f"ocs eval: --variant wants name=gitref, got {spec!r}")
+        resolved = run(["git", "rev-parse", "--verify", f"{ref}^{{commit}}"], cwd=repo, check=False)
+        if resolved.returncode != 0:
+            raise SystemExit(f"ocs eval: --variant {name}: no such commit {ref!r} in {repo}")
+        commit = resolved.stdout.decode().strip()
+        checkout = run_dir / "refs" / name
+        prepare_worktree(repo, commit, checkout)
+        arms[name] = {
+            "inject": True, "invoke": "", "ref": ref, "commit": commit,
+            "plugin": prepare_plugin(run_dir / "plugins" / name, model, source=checkout / "plugin"),
+        }
+        print(f"[{name}] harness at {ref} ({commit[:12]})", file=sys.stderr)
+    return arms
 
 
 def collect(worktree, destination, exclude=()):
@@ -664,7 +711,7 @@ def check_plumbing(records, probe, contamination):
         inventory = record["run"].get("inventory") or {}
         skills = inventory.get("skills") or []
         plugins = [p.get("name") for p in (inventory.get("plugins") or [])]
-        expected_plugins = ["kein"] if ARMS[arm]["inject"] else []
+        expected_plugins = ["kein"] if arm_spec(arm)["inject"] else []
         checks.append({
             "check": f"plugins loaded are exactly {expected_plugins or 'none'}",
             "arm": arm,
@@ -679,9 +726,9 @@ def check_plumbing(records, probe, contamination):
         })
         has_kein = any(str(s).startswith("kein:") for s in skills)
         checks.append({
-            "check": f"kein skills {'present' if ARMS[arm]['inject'] else 'absent'}",
+            "check": f"kein skills {'present' if arm_spec(arm)['inject'] else 'absent'}",
             "arm": arm,
-            "pass": has_kein == bool(ARMS[arm]["inject"]),
+            "pass": has_kein == bool(arm_spec(arm)["inject"]),
             "detail": f"kein skills={[s for s in skills if str(s).startswith('kein:')]}",
         })
         # A rival planning harness is the failure this whole sanitize exists to prevent, so it is named rather than left to the plugin count.
@@ -698,9 +745,9 @@ def check_plumbing(records, probe, contamination):
             dispatched = record["run"].get("subagents_dispatched") or []
             lanes = [d.get("agent") for d in dispatched if str(d.get("agent") or "").startswith("kein:")]
             checks.append({
-                "check": "the workflow dispatched its own lanes" if ARMS[arm]["invoke"] else "no kein lane dispatched (control)",
+                "check": "the workflow dispatched its own lanes" if arm_spec(arm)['invoke'] else "no kein lane dispatched (control)",
                 "arm": arm,
-                "pass": bool(lanes) == bool(ARMS[arm]["invoke"]),
+                "pass": bool(lanes) == bool(arm_spec(arm)["invoke"]),
                 "detail": f"kein lanes={lanes}, all subagents={[d.get('agent') for d in dispatched]}",
             })
             # Dispatching into the background and then waiting is the known way for a lane's report to be lost.
@@ -708,9 +755,9 @@ def check_plumbing(records, probe, contamination):
             backgrounded = [d.get("agent") for d in dispatched if d.get("background") is not False]
             checks.append({
                 "check": "no lane left to report through a background notification"
-                         if ARMS[arm]["invoke"] else "background dispatch by a lead with no such rule (observation)",
+                         if arm_spec(arm)["invoke"] else "background dispatch by a lead with no such rule (observation)",
                 "arm": arm,
-                "pass": (not backgrounded) or not ARMS[arm]["invoke"],
+                "pass": (not backgrounded) or not arm_spec(arm)["invoke"],
                 "detail": f"backgrounded={backgrounded}" if backgrounded else "all synchronous",
             })
             checks += lane_checks(record, arm)
@@ -762,14 +809,14 @@ def run_case_mode(options, model, config_home_root):
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     run_dir = state_dir("runs/eval") / f"{stamp}-case-{case['name']}"
     run_dir.mkdir(parents=True)
-    plugin_dir = prepare_plugin(run_dir / "plugin", model)
+    arms = resolve_arms(options, run_dir, model)
 
     # A replicate is independent of every other one by construction — its own worktree, its
     # own event stream, its own artifacts — so the only thing forcing them into a queue was
     # a single shared config home. Each gets its own instead, which costs two small files
     # and a keychain read, and the wall clock becomes the slowest replicate rather than the
     # sum of all of them.
-    jobs = [(arm, index) for arm in (options.arm or list(ARMS)) for index in range(replicates)]
+    jobs = [(arm, index) for arm in arms for index in range(replicates)]
     homes = {job: prepare_config_home(run_dir / "config-homes" / f"{job[0]}-{job[1]}") for job in jobs}
 
     def one(job):
@@ -779,7 +826,7 @@ def run_case_mode(options, model, config_home_root):
         events = run_dir / f"events-{arm}-{index}.jsonl"
         print(f"[{arm}] run {index + 1}/{replicates} started ({model})", file=sys.stderr)
         outcome = launch(arm, worktree, prompt, model, False, timeout, events,
-                         homes[job], plugin_dir, max_turns)
+                         homes[job], arms[arm]["plugin"], max_turns)
         artifacts = run_dir / "artifacts" / arm / str(index)
         produced = collect(worktree, artifacts)
         with ThreadPoolExecutor(max_workers=len(graders)) as pool:
@@ -803,6 +850,7 @@ def run_case_mode(options, model, config_home_root):
         (run_dir / "manifest.json").write_text(json.dumps({
             "case": case["name"], "case_dir": str(case_dir), "model": model,
             "judge_model": options.judge_model, "runs_per_arm": replicates, "jobs": options.jobs,
+            "arms_spec": {a: {k: str(v) for k, v in spec.items()} for a, spec in arms.items()},
             "created_at": datetime.now(timezone.utc).isoformat(),
             "arms": records, "classification": tally,
         }, indent=2) + "\n")
@@ -826,6 +874,7 @@ def main():
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders and for --compare. The deterministic grader types do not use it. Graders are many and cheap, so this defaults to haiku; a comparison is a handful of calls on a harder question and wants --judge-model opus.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
+    parser.add_argument("--variant", action="append", metavar="NAME=GITREF", help="define an arm as the harness at a commit; repeatable. `--variant before=HEAD~1 --variant after=HEAD` compares two versions of a prompt instead of comparing presence against absence. Replaces the built-in arm pair for this run.")
     parser.add_argument("--jobs", type=int, default=3, help="replicates to run concurrently with --case. Each gets its own worktree and config home, so the ceiling is the account's tolerance for concurrent sessions rather than anything in the harness.")
     parser.add_argument("--reclassify", metavar="RUN_DIR", help="re-read a finished case run's stored grader results under the current classifier, without launching anything. The labels are a reading of the data, so they change when the reading does.")
     parser.add_argument("--compare-runs", type=int, default=2, help="times to repeat the whole comparison. A single run of a pairwise judge is one draw: the first comparison here returned 3-0 and the second, on identical input, contradicted it. Order control does not cover run-to-run variance.")
@@ -917,17 +966,16 @@ def main():
 
     # One pinned config home for the whole run, created empty, so no arm inherits the operator's plugins or MCP servers.
     config_home = prepare_config_home(run_dir / "config-home")
-    plugin_dir = prepare_plugin(run_dir / "plugin", model)
+    arms = resolve_arms(options, run_dir, model)
 
     try:
         records = {}
 
-        selected = options.arm or list(ARMS)
-        for arm in selected:
+        for arm in arms:
             # The control arm receives the same task text without the invocation, so the only thing that differs is whether the workflow is entered.
             # Leaving the invocation out of both would measure whether the model reaches for the skill unprompted, which is a different question than whether the skill's process changes the result.
-            invoke = ARMS[arm]["invoke"]
-            if options.invoke is not None and ARMS[arm]["inject"]:
+            invoke = arms[arm]["invoke"]
+            if options.invoke is not None and arms[arm]["inject"]:
                 invoke = options.invoke
             prompt = PROBE_PROMPT if options.probe else invoke + fixture["task"]
             worktree = run_dir / "worktrees" / arm
@@ -937,7 +985,7 @@ def main():
             loaded = plugin_status(worktree)
             print(f"[{arm}] launching ({model}, {'probe' if options.probe else 'task'})", file=sys.stderr)
             events = run_dir / f"events-{arm}.jsonl"
-            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home, plugin_dir, options.max_turns)
+            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home, arms[arm]["plugin"], options.max_turns)
             produced = collect(worktree, run_dir / "artifacts" / arm, exclude=set(touched))
             records[arm] = {
                 "path": str(worktree),
