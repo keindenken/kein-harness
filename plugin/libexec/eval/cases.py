@@ -248,7 +248,7 @@ def _ask_judge(spec, prompt, run_cmd, scratch):
     return (winner.group(1).upper() if winner else "TIE"), (why.group(1).strip() if why else "")
 
 
-def compare(run_dir, case_dir, judges, run_cmd):
+def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
     """Blind pairwise reading of the two arms' artifacts.
 
     A per-assertion grader answers whether a plan carried a field. It cannot answer whether
@@ -284,11 +284,12 @@ def compare(run_dir, case_dir, judges, run_cmd):
     pairs = list(range(min(len(treatment), len(control))))
 
     # Every (judge, pair, order) is an independent call, so they all go out at once.
-    calls = [(judge, index, order)
-             for judge in judges for index in pairs for order in ("treatment-first", "control-first")]
+    calls = [(judge, index, order, repeat)
+             for judge in judges for index in pairs
+             for order in ("treatment-first", "control-first") for repeat in range(repeats)]
 
     def one(call):
-        judge, index, order = call
+        judge, index, order, repeat = call
         t_text, c_text = treatment[index][1], control[index][1]
         first, second, treatment_is = ((t_text, c_text, "A") if order == "treatment-first"
                                        else (c_text, t_text, "B"))
@@ -302,9 +303,9 @@ def compare(run_dir, case_dir, judges, run_cmd):
         verdicts = list(pool.map(one, calls))
 
     by_judge, reasons, per_pair = {}, [], {}
-    for (judge, index, order), winner, why in verdicts:
-        per_pair.setdefault((judge, index), {})[order] = winner
-        reasons.append((judge, index, order, winner, why[:200]))
+    for (judge, index, order, repeat), winner, why in verdicts:
+        per_pair.setdefault((judge, index), {}).setdefault(order, []).append(winner)
+        reasons.append((judge, index, f"{order}#{repeat}", winner, why[:200]))
     def verdict(judge, index):
         """One judge's reading of one pair, after both orders are reconciled.
 
@@ -312,12 +313,16 @@ def compare(run_dir, case_dir, judges, run_cmd):
         preference rather than a verdict, so that pair is a tie rather than one win each.
         """
         orders = per_pair.get((judge, index), {})
-        return orders.get("treatment-first") if len(set(orders.values())) == 1 else "tie"
+        # Every verdict for this pair, across both orders and every repeat. Anything short
+        # of unanimity is a tie: a judge that changes its mind between identical calls has
+        # not stated a preference, and the first comparison run here did exactly that.
+        seen = {w for winners in orders.values() for w in winners}
+        return seen.pop() if len(seen) == 1 else "tie"
 
     for judge in judges:
         by_judge[judge] = Counter(verdict(judge, index) for index in pairs)
 
-    lines = ["blind pairwise, both orders per pair, arm labels withheld from every judge:"]
+    lines = [f"blind pairwise, both orders x{repeats} repeat(s) per pair, arm labels withheld from every judge:"]
     for judge, tally in by_judge.items():
         lines.append(f"  {judge:22} with-skill={tally['with-skill']}  "
                      f"without-skill={tally['without-skill']}  tie={tally['tie']}")
