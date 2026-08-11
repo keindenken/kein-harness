@@ -812,8 +812,9 @@ def main():
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
     parser.add_argument("--case", help="run a graded case from plugin/evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
-    parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders. The deterministic grader types do not use it.")
+    parser.add_argument("--judge-model", default="haiku", help="model for `llm` graders and for --compare. The deterministic grader types do not use it. Graders are many and cheap, so this defaults to haiku; a comparison is a handful of calls on a harder question and wants --judge-model opus.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
+    parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
@@ -853,6 +854,14 @@ def main():
             print(f"  {'ok  ' if check['pass'] else 'FAIL'} [{check['arm']}] {check['check']} — {check['detail']}")
         print(f"\n{len(checks) - failed}/{len(checks)} checks passed")
         raise SystemExit(1 if failed else 0)
+
+    if options.compare:
+        import cases as case_runner
+        target = Path(options.compare)
+        manifest = json.loads((target / "manifest.json").read_text())
+        text, tally = case_runner.compare(target, manifest["case_dir"], options.judge_model, run)
+        print(text)
+        return 0
 
     if options.case:
         if options.self_test:
