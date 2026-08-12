@@ -18,6 +18,8 @@ description: >
   said nothing about whether the gate is optional. A case that claims nothing is unknown has to make sure of
   it.
 
+  `tests/` is present for the same reason and closes the same class of defect one level down. The acceptance criteria named a golden recording and gave it a home without saying when it is taken, and nothing anywhere named what runs the tests, so every plan invented both — and the judges that separated plans from the same arm cited exactly those two inventions. Capturing a golden recording before the source is edited is a real irreversible-ordering decision, but it belongs to `plan-evidence-gate`, which measures sequencing; here it was variance with nothing to attach to. Shipping the recording already taken, and one `unittest` beside it, settles both by evidence rather than by assertion.
+
   So a gate here is a slot being filled. The owner's criterion for keeping the field is that it acts as an
   optional carrier for what genuinely cannot be settled; if it appears where nothing is unsettled, the field
   is not optional in practice and is better gone. That is what `no-evidence-gate` reads.

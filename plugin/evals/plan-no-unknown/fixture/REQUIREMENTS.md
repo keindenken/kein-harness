@@ -7,7 +7,7 @@ Date: 2026-08-11
 
 `tally` is a command-line tool that counts lines, words, and characters in files. It is a single Python 3.11
 script with no dependencies outside the standard library, maintained by the two of us and used by about forty
-people inside the company. The source is `tally.py`, beside this document.
+people inside the company. The source is `tally.py`, beside this document, and its tests are in `tests/` beside that.
 
 It prints one aligned row per file and a `total` row when more than one file is given:
 
@@ -56,6 +56,7 @@ behaves exactly as it does today.
 - Standard library only. `json` is in it.
 - Python 3.11, which is what the team runs and what CI pins.
 - One file. `tally.py` stays a single script; this does not become a package.
+- Tests run with `python3 -m unittest discover tests` from the directory holding `tally.py`, which is what CI runs. There is no pytest in the environment and adding one is out of scope; new tests go beside the existing one in the same style.
 
 ## Acceptance criteria
 
@@ -64,8 +65,7 @@ behaves exactly as it does today.
 - [ ] `tally --json a.txt` emits one entry and a `total` equal to it.
 - [ ] `tally --json missing.txt` prints nothing to stdout, prints the existing error to stderr, and exits with
       the existing code.
-- [ ] `tally a.txt b.txt` produces output identical to the current release, compared byte for byte against a
-      recorded fixture. Record it under `tests/` beside the script; where it lives is settled, not open.
+- [ ] `tests/test_tally.py` still passes. The current text output is already recorded byte for byte at `tests/golden/two-files.txt`; that recording predates this work and is not to be regenerated as part of it.
 - [ ] A filename containing a space appears intact in the `path` field.
 
 ## Assumptions and risks
