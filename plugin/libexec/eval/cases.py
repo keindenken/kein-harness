@@ -344,13 +344,11 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
                                        else (c_text, t_text, "B"))
         choice, why = _ask_judge(judge, JUDGE.format(requirements=requirements, a=first, b=second),
                                  run_cmd, scratch)
-        if kind == "cross":
-            winner = (named["treatment"] if choice == treatment_is else
-                      "tie" if choice == "TIE" else named["control"])
-        else:
-            # Within an arm there is no arm to win; what is recorded is whether the judge
-            # expressed any preference between two plans the same prompt produced.
-            winner = "tie" if choice == "TIE" else "decided"
+        left = f"{named['treatment']}/{i}" if kind != "within-control" else f"{named['control']}/{i}"
+        right = (f"{named['control']}/{j}" if kind == "cross"
+                 else f"{named['treatment']}/{j}" if kind == "within-treatment"
+                 else f"{named['control']}/{j}")
+        winner = "tie" if choice == "TIE" else (left if choice == treatment_is else right)
         return call, winner, why
 
     with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
@@ -374,8 +372,28 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
 
     cross = [p for p in pairs if p[0] == "cross"]
     within = [p for p in pairs if p[0] != "cross"]
+
+    def arm_of(plan):
+        return plan.split("/")[0]
+
     for judge in judges:
-        by_judge[judge] = Counter(verdict(judge, p) for p in cross)
+        tally = Counter()
+        for p in cross:
+            v = verdict(judge, p)
+            tally[v if v == "tie" else arm_of(v)] += 1
+        by_judge[judge] = tally
+
+    # 15 pairs over 6 plans is every pair, so wins across all of them is a ranking.
+    standings = Counter()
+    for judge in judges:
+        for p in pairs:
+            v = verdict(judge, p)
+            if v != "tie":
+                standings[v] += 1
+    everyone = [f"{named['treatment']}/{i}" for i in range(len(treatment))] + \
+               [f"{named['control']}/{i}" for i in range(len(control))]
+    for plan in everyone:
+        standings.setdefault(plan, 0)
 
     lines = [f"blind pairwise over every cross-arm pair ({len(cross)}), both orders "
              f"x{repeats} repeat(s), arm labels withheld from every judge:"]
@@ -383,13 +401,21 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
         lines.append(f"  {judge:24} {named['treatment']}={tally[named['treatment']]}  "
                      f"{named['control']}={tally[named['control']]}  tie={tally['tie']}")
 
+    lines.append("")
+    lines.append(f"  every plan ranked, wins over all {len(pairs)} pairs x {len(judges)} judge(s) x 2 orders:")
+    for plan, wins in sorted(standings.items(), key=lambda kv: -kv[1]):
+        lines.append(f"    {wins:3d}  {plan}")
+    arms_in_order = [arm_of(plan) for plan, _ in sorted(standings.items(), key=lambda kv: -kv[1])]
+    lines.append(f"    order by arm: {' '.join(arms_in_order)}")
+    lines.append("    Arms interleaved here means the arm is not what the ranking is ranking.")
+
     if within:
         lines.append("")
         lines.append(f"  control - the same judges on {len(within)} pairs drawn from inside one arm, where")
         lines.append("  there is no arm to win. A separation rate here as high as the cross-arm rate means")
         lines.append("  the judges are separating plans rather than arms:")
         for judge in judges:
-            w = Counter(verdict(judge, p) for p in within)
+            w = Counter("tie" if verdict(judge, p) == "tie" else "decided" for p in within)
             lines.append(f"    {judge:24} within: decided={w['decided']} tie={w['tie']}"
                          f"   cross: decided={len(cross) - by_judge[judge]['tie']} tie={by_judge[judge]['tie']}")
 
