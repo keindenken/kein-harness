@@ -30,6 +30,8 @@ description: >
   if they separate them by less, it is changing the headings. Reporting a delta driven by the vocabulary
   graders as a benefit of `plan` would be the misreading this case exists to prevent.
 
+  **Entry stays unpinned here, and that is what `routed-to-a-skill` depends on.** Its companion case pins entry with a `/kein:plan` prefix, because a quarter of its replicates were never reaching the skill and diluting every number taken over them. That option does not exist for this case: these arms are presence against absence, and a slash command handed to the arm without the plugin is an unexpanded string rather than a fair prompt. The consequence is that this case keeps paying the reachability variance its companion no longer does, so a null result here has one more candidate explanation than a null result there.
+
   **`routed-to-a-skill` requires a clean plugin environment.** It is a free deterministic signal that the
   no-plugin arm cannot fake — but only if no other skill-bearing plugin is loaded. This machine has
   superpowers, skill-creator and ralph-loop enabled in `~/.claude/settings.json`, any of which can fire a

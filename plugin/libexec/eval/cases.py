@@ -21,6 +21,7 @@ evidence `docs/prompt-revision.md` says nobody collects.
 """
 
 import json
+import random
 import re
 import shutil
 import subprocess
@@ -236,6 +237,76 @@ CODEX_SCHEMA = {
 }
 
 
+# Same criteria as JUDGE, asked of the whole field at once. Pairwise cost is quadratic in plans -- six per arm
+# is 66 pairs and, at three judges and two orders, 396 calls -- while a judge that reads every plan in one
+# sitting costs one call and still compares, which is what an isolated per-plan score would have thrown away.
+RANKER = (
+    "Several implementation plans were written from the same requirements document, by different processes. "
+    "Rank them from best to worst for the person who has to build from them.\n\n"
+    "Judge only against the requirements document below. Do not reward a plan for structure, for headings, "
+    "for length, or for confident tone; a plan that carries a section is not thereby better than one that "
+    "does the same work in prose. What matters is whether someone could execute it without having to make "
+    "a decision the plan should have made for them.\n\n"
+    "Pay particular attention to what each plan does with a fact the requirements say nobody has established "
+    "yet. Naming it is easy. Deciding, now, what happens under each of its possible answers is the thing "
+    "that costs something.\n\n"
+    "=== REQUIREMENTS ===\n{requirements}\n\n"
+    "{plans}\n\n"
+    "Reply with exactly two lines and nothing else:\n"
+    "RANKING: all {n} labels separated by commas, best first, each label exactly once\n"
+    "WHY: one sentence naming the difference that separated the top of your ranking from the bottom."
+)
+
+RANKING_SCHEMA = {
+    "type": "object",
+    "properties": {"ranking": {"type": "array", "items": {"type": "string"}}, "why": {"type": "string"}},
+    "required": ["ranking", "why"],
+    "additionalProperties": False,
+}
+
+
+def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
+    """One judge, one ordering of the whole field. Returns (ranking, why) or (None, reason).
+
+    A reading is kept only when it is a permutation of the labels handed out. A judge that
+    drops a plan or names one twice has not ranked the field, and averaging a partial order
+    in with complete ones would quietly weight it.
+    """
+    def check(order, why):
+        order = [item.strip().upper() for item in order if item.strip()]
+        if sorted(order) != sorted(labels):
+            return None, f"not a permutation of {''.join(labels)}: {','.join(order) or 'empty'}"
+        return order, why
+
+    if spec.endswith("@codex") or not spec.startswith("codex"):
+        if spec.endswith("@codex"):
+            role = spec[: -len("@codex")]
+            command = [str(Path(__import__("os").environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
+                       "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt]
+        else:
+            command = ["claude", "--model", spec, "--strict-mcp-config", "-p", prompt]
+        out = run_cmd(command, check=False).stdout.decode("utf-8", "replace")
+        ranking = re.search(r"^RANKING:\s*(.+)$", out, re.M | re.I)
+        why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
+        if not ranking:
+            return None, "no RANKING line"
+        return check(ranking.group(1).split(","), why.group(1).strip() if why else "")
+
+    schema = scratch / "rank-schema.json"
+    schema.write_text(json.dumps(RANKING_SCHEMA))
+    command = ["codex", "exec", "--sandbox", "read-only", "--skip-git-repo-check",
+               "--ephemeral", "--output-schema", str(schema)]
+    _, _, chosen = spec.partition(":")
+    if chosen:
+        command += ["-m", chosen]
+    result = run_cmd(command + [prompt], check=False).stdout.decode("utf-8", "replace")
+    objects = re.findall(r'\{[^{}]*"ranking"[^{}]*\}', result)
+    if not objects:
+        return None, "unreadable codex output"
+    parsed = json.loads(objects[-1])
+    return check(parsed.get("ranking") or [], parsed.get("why", ""))
+
+
 def _ask_judge(spec, prompt, run_cmd, scratch):
     """One judge, one verdict. `spec` is a Claude model, or `codex` / `codex:<model>`.
 
@@ -277,6 +348,128 @@ def _ask_judge(spec, prompt, run_cmd, scratch):
     return (winner.group(1).upper() if winner else "TIE"), (why.group(1).strip() if why else "")
 
 
+def _artifacts(run_dir, arm):
+    """One arm's produced markdown, per replicate, with the copied fixture left out of it."""
+    root = Path(run_dir) / "artifacts" / arm
+    out = []
+    for replicate in sorted(root.iterdir()) if root.is_dir() else []:
+        files = sorted(p for p in replicate.rglob("*") if p.is_file() and p.suffix == ".md")
+        files = [p for p in files if not p.is_relative_to(replicate / "fixture")]
+        if files:
+            out.append((replicate.name, "\n\n".join(p.read_text(errors="replace") for p in files)))
+    return out
+
+
+def _requirements(case_dir):
+    return "\n\n".join(p.read_text(errors="replace")
+                       for p in sorted((Path(case_dir) / "fixture").rglob("*.md")))
+
+
+def rank(run_dir, case_dir, judges, run_cmd, shuffles=3, roles=None):
+    """Every plan ranked in one sitting, by each judge, over several presentation orders.
+
+    This answers the same question `compare` does and replaces it above about four plans a
+    side, where the pairwise cost stops being worth paying: pairs grow as the square of the
+    field, so six a side is 66 pairs and 396 calls at three judges and two orders, while
+    this is one call per judge per shuffle.
+
+    What the shuffles buy is what both orders bought pairwise. A judge handed a list has a
+    position preference, and re-presenting the same field in a different order is the only
+    thing that separates that preference from a reading of the plans.
+
+    The within-arm control does not survive as its own number, and does not need to: the
+    ranking already carries it. If plans from the two arms interleave, whatever the judges
+    are sorting on is not the arm -- which is the same reading the control was there to
+    license, taken off the ranking instead of off a separate set of pairs.
+    """
+    run_dir, case_dir = Path(run_dir), Path(case_dir)
+    requirements = _requirements(case_dir)
+    named = roles or {"treatment": "with-skill", "control": "without-skill"}
+    field = ([(f"{named['treatment']}/{name}", text) for name, text in _artifacts(run_dir, named["treatment"])] +
+             [(f"{named['control']}/{name}", text) for name, text in _artifacts(run_dir, named["control"])])
+    if len(field) < 3:
+        raise SystemExit(f"ocs eval: need at least three plans under {run_dir / 'artifacts'}; found {len(field)}")
+
+    scratch = run_dir / "rank"
+    scratch.mkdir(exist_ok=True)
+    labels = [chr(ord("A") + i) for i in range(len(field))]
+
+    # Seeded from the shuffle index alone, so the same run ranked twice presents the same
+    # orders twice and a difference between the readings is the judges, not the deal.
+    orders = []
+    for index in range(shuffles):
+        order = list(range(len(field)))
+        random.Random(9000 + index).shuffle(order)
+        orders.append(order)
+
+    def one(call):
+        judge, index = call
+        order = orders[index]
+        plans = "\n\n".join(f"=== PLAN {labels[seat]} ===\n{field[plan][1]}"
+                            for seat, plan in enumerate(order))
+        ranking, why = _ask_ranking(
+            judge, RANKER.format(requirements=requirements, plans=plans, n=len(field)),
+            run_cmd, scratch, labels)
+        if ranking is None:
+            return call, None, why
+        # The judge names seats; the seat's occupant is what gets the points.
+        return call, [field[order[labels.index(label)]][0] for label in ranking], why
+
+    calls = [(judge, index) for judge in judges for index in range(shuffles)]
+    with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
+        readings = list(pool.map(one, calls))
+
+    points, per_judge, discarded = Counter(), {}, []
+    for (judge, index), ranking, why in readings:
+        if ranking is None:
+            discarded.append((judge, index, why))
+            continue
+        per_judge.setdefault(judge, Counter())
+        for position, plan in enumerate(ranking):
+            gained = len(field) - 1 - position
+            points[plan] += gained
+            per_judge[judge][plan] += gained
+    for plan, _ in field:
+        points.setdefault(plan, 0)
+
+    kept = len(readings) - len(discarded)
+    lines = [f"every plan ranked in one sitting, {len(field)} plans x {len(judges)} judge(s) "
+             f"x {shuffles} presentation order(s), arm labels withheld:"]
+    lines.append(f"  {kept}/{len(readings)} reading(s) usable; a reading that is not a permutation "
+                 f"of the field is dropped rather than partially counted.")
+    lines.append("")
+    lines.append(f"  points (a plan placed first in a reading takes {len(field) - 1}, last takes 0):")
+    standing = sorted(points.items(), key=lambda kv: -kv[1])
+    for plan, score in standing:
+        lines.append(f"    {score:4d}  {plan}")
+    lines.append(f"    order by arm: {' '.join(plan.split('/')[0] for plan, _ in standing)}")
+    lines.append("    Arms interleaved here means the arm is not what the ranking is ranking.")
+    lines.append("    This line is the control: within-arm spread showing up as interleaving is the same")
+    lines.append("    finding the separate within-arm pairs used to report.")
+
+    if len(per_judge) > 1:
+        lines.append("")
+        lines.append("  each judge's own order, so a single judge driving the aggregate is visible:")
+        for judge, tally in per_judge.items():
+            order = [plan for plan, _ in sorted(tally.items(), key=lambda kv: -kv[1])]
+            lines.append(f"    {judge:24} {' > '.join(order)}")
+
+    if discarded:
+        lines.append("")
+        lines.append("  dropped readings:")
+        for judge, index, why in discarded:
+            lines.append(f"    [{judge}] order#{index}  {why}")
+
+    lines.append("")
+    lines.append("  reasons given:")
+    for (judge, index), ranking, why in readings:
+        if ranking is not None:
+            lines.append(f"    [{judge}] order#{index}  {' > '.join(ranking)}")
+            lines.append(f"      {why[:220]}")
+
+    return "\n".join(lines), {plan: score for plan, score in standing}
+
+
 def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
     """Blind pairwise reading of the two arms' artifacts.
 
@@ -294,18 +487,8 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
         p.read_text(errors="replace") for p in sorted((case_dir / "fixture").rglob("*.md"))
     )
 
-    def artifacts(arm):
-        root = run_dir / "artifacts" / arm
-        out = []
-        for replicate in sorted(root.iterdir()) if root.is_dir() else []:
-            files = sorted(p for p in replicate.rglob("*") if p.is_file() and p.suffix == ".md")
-            files = [p for p in files if not p.is_relative_to(replicate / "fixture")]
-            if files:
-                out.append((replicate.name, "\n\n".join(p.read_text(errors="replace") for p in files)))
-        return out
-
     named = roles or {"treatment": "with-skill", "control": "without-skill"}
-    treatment, control = artifacts(named["treatment"]), artifacts(named["control"])
+    treatment, control = _artifacts(run_dir, named["treatment"]), _artifacts(run_dir, named["control"])
     if not treatment or not control:
         raise SystemExit(
             f"ocs eval: need artifacts from both arms under {run_dir / 'artifacts'}; "

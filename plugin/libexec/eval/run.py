@@ -803,11 +803,9 @@ def check_plumbing(records, probe, contamination):
 def run_case_mode(options, model, config_home_root):
     """Run a graded case: every arm, every replicate, then one label per assertion.
 
-    The case prompt goes to both arms verbatim, with no invocation prefixed to either.
-    That is the opposite of the fixture path above, and deliberately: a fixture run pins
-    entry so that only the workflow's effect varies, while a case asks the prior question
-    of whether the skill is reached at all. Both are worth measuring; conflating them
-    would leave a null result unattributable between routing and content.
+    The case prompt goes to both arms verbatim, and the harness prefixes nothing to either. Whether entry is pinned is the case's own decision, written into its prompt, and `--invoke` does not reach here.
+
+    Both settings are worth measuring and conflating them would leave a null unattributable between routing and content, so a case picks one and says which. A case comparing two versions of the harness can pin, since both arms carry the skill; a case comparing presence against absence cannot, because a slash command reaching the arm without the plugin is an unexpanded string rather than a fair prompt. `plan-no-unknown` is the first, `plan-evidence-gate` the second, and each says so in its own file.
     """
     import cases as case_runner
 
@@ -911,6 +909,8 @@ def main():
     parser.add_argument("--compare-runs", type=int, default=2, help="times to repeat the whole comparison. A single run of a pairwise judge is one draw: the first comparison here returned 3-0 and the second, on identical input, contradicted it. Order control does not cover run-to-run variance.")
     parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --compare; repeatable. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
+    parser.add_argument("--rank", metavar="RUN_DIR", help="the same question as --compare, asked of the whole field at once. Pairs grow as the square of the plans -- six an arm is 66 pairs, 396 calls at three judges and two orders -- so past about four a side this is the one to reach for: one call per judge per presentation order, and the judge still compares rather than scoring a plan alone.")
+    parser.add_argument("--rank-orders", type=int, default=3, help="presentation orders for --rank. These do for a list what judging both orders did for a pair: a judge handed a list has a position preference, and re-dealing the same field is what separates it from a reading.")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
@@ -959,6 +959,16 @@ def main():
         text, tally = case_runner.report(case, graders, manifest["arms"], manifest.get("roles"))
         print(text)
         return 0 if (tally.get(case_runner.DISCRIMINATES) or tally.get(case_runner.STRENGTHENS)) else 1
+
+    if options.rank:
+        import cases as case_runner
+        target = Path(options.rank)
+        manifest = json.loads((target / "manifest.json").read_text())
+        judges = options.compare_judge or [options.judge_model]
+        text, _ = case_runner.rank(target, manifest["case_dir"], judges, run,
+                                   options.rank_orders, manifest.get("roles"))
+        print(text)
+        return 0
 
     if options.compare:
         import cases as case_runner

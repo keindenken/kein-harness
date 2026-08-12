@@ -36,10 +36,20 @@ context:
   add_dirs: [fixture]
 
 execution:
+  # Entry is pinned. Unpinned, three of twelve replicates on 260812 never reached the skill at all -- 13 to 16
+  # turns against a normal 31, no Skill call, the lead writing a plan itself -- and every one of them failed
+  # the vocabulary grader for the ordinary reason that it never saw the template. A quarter of the sample
+  # measuring something else dilutes every number taken over it.
+  #
+  # Reachability is a real question and this is not the case that asks it: the skill is meant to be invoked by
+  # name, and nothing here tunes the description or hooks an auto-invoke, so scoring `plan` on whether it gets
+  # found would score a mechanism nobody is maintaining. Pinning is only available because both arms of a
+  # `--variant` pair carry the skill; `plan-evidence-gate` compares presence against absence and cannot.
+  #
+  # Note for a grader author: a slash command *is* the injection, so the arm never calls the `Skill` tool.
+  # A `tool_used: Skill` assertion inverts here -- it fails precisely when entry worked.
   prompt: |
-    REQUIREMENTS.md in the fixture directory is an approved requirements document for a small feature.
-
-    I need an implementation plan for it before anyone starts. Write it to PLAN.md in the working directory.
+    /kein:plan REQUIREMENTS.md in the fixture directory is an approved requirements document for a small feature. I need an implementation plan for it before anyone starts. Write it to PLAN.md in the working directory.
   max_turns: 40
   timeout_seconds: 1200
   # Nothing is denied. Every run in the 260812 measurement reached for `od -c` and `cat -A` on the golden
