@@ -46,7 +46,9 @@ behaves exactly as it does today.
   values are the sums of the entries in `files`.
 - The document is printed with two-space indentation and a trailing newline, so that it reads in a terminal.
 - A file that cannot be read produces the current stderr message and the current non-zero exit code, and no
-  JSON is printed at all. Partial output is worse than none for a parser.
+  JSON is printed at all. Partial output is worse than none for a parser. Both are in `tally.py` and are not
+  being changed: read them there rather than deciding them.
+- The document ends with exactly one trailing newline, as the current text output does.
 - Without `--json`, output is byte-for-byte what it is today.
 
 ## Constraints
@@ -63,7 +65,7 @@ behaves exactly as it does today.
 - [ ] `tally --json missing.txt` prints nothing to stdout, prints the existing error to stderr, and exits with
       the existing code.
 - [ ] `tally a.txt b.txt` produces output identical to the current release, compared byte for byte against a
-      recorded fixture.
+      recorded fixture. Record it under `tests/` beside the script; where it lives is settled, not open.
 - [ ] A filename containing a space appears intact in the `path` field.
 
 ## Assumptions and risks

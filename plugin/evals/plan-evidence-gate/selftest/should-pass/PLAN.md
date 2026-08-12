@@ -1,26 +1,106 @@
 # Full-text search for Marginalia
 
 Status: Draft
-Status reason: Provisionally executable. One evidence gate is outstanding and both of its paths are planned.
+Status reason: Provisionally executable. The one material unknown that changes architecture — whether the bundled SQLite has FTS5 compiled in — is bounded as Evidence Gate 1 below, with a fully pre-planned path for each expected outcome, so execution can start immediately at the gate without stalling on it. No other blocking gaps were found against the approved requirements (fixture/REQUIREMENTS.md, Status: Approved, 2026-08-11). One requirement (recency tie-break on equal match quality) is explicitly left to team discretion by the requirements doc itself and is carried forward as a non-blocking Open Question rather than a blocker. The requirements doc does not name Marginalia's language/runtime, and this repository contains no existing Marginalia source (fixture-only repo), so implementation steps below are framework-agnostic SQL/architecture guidance; the executing engineer maps them onto the actual app's DB access layer.
+
+## Outcome and scope
+
+Outcome: ranked search over `title` and `body` on the existing 40,000-note / ~600MB SQLite library, returning in under 300ms warm, with an index that stays live through create/edit/delete, a resumable first-launch build, and a safe fallback to the current `LIKE` behavior if the index is unusable — all without altering the `notes` table schema, without a second DB process, and without making the user wait before the app is usable.
+
+In scope (from requirements): ranked FTS over title+body; index freshness on create/edit/delete; one-time first-launch backfill.
+
+Non-goals (from requirements, restated so implementers don't accidentally expand scope): searching or filtering by tags; fuzzy/typo-tolerant matching; any change to note storage or sync.
+
+## Constraints driving the design
+
+- SQLite only — no search server, no second DB process.
+- `notes` table schema is immutable (other tooling reads it directly). This rules out adding columns to `notes` for index bookkeeping, and makes any FTS5 "external content" setup that requires triggers *on* `notes` worth avoiding if a simpler option exists (see architecture decision below).
+- No re-entry, no forced wait on upgrade — the app must be usable immediately after upgrade, with the first-launch build running underneath normal use.
+
+## Architecture decision: index lives in a separate SQLite database file
+
+Decision: the search index (whichever internal shape Evidence Gate 1 selects) is stored in its own SQLite database file (e.g. `search_index.sqlite`), opened on its own connection and written in its own transactions — never in the same transaction as writes to the `notes` database file. The two databases are joined only by `notes.id`, read via a SELECT from `notes` and written via INSERT/UPDATE/DELETE to the index file.
+
+Why this over the alternatives:
+- **Alternative: `ATTACH DATABASE` the index file to the same connection as `notes` and rely on triggers on `notes` for sync.** Rejected as the default. It works technically, but a trigger body that writes into an attached database as part of the same statement/transaction as a write to `notes` reintroduces exactly the failure mode the requirements doc flags: "rebuilding an index in place risks the notes table if the two are written in one transaction." A crash or `SQLITE_BUSY` mid-transaction risks the write being retried against `notes` in a way coupled to index state, and any bug in trigger logic runs with write access to the same transaction as the user's note data. Two connections with two independently-committing transactions means the worst case is "index is one save behind," never "notes.db is corrupted by index-related work."
+- **Alternative: embed the index inside the same file as `notes` (FTS5 virtual table or shadow tables in `notes.sqlite` itself).** Rejected: FTS5 virtual tables and their shadow tables (`_data`, `_idx`, `_docsize`, `_config`) do not alter the *schema of the `notes` table itself*, but they do add new tables to the same database file, and a corrupt or half-built FTS5 structure sharing a file with `notes` raises the blast radius of any index bug to the file other tooling reads directly. Keeping the index in its own file makes "index missing or corrupt" a simple file-level fact (delete/replace `search_index.sqlite`) that can never touch `notes.sqlite`.
+- **Chosen: separate file, app-level sync calls (not DB triggers), one connection each.** Slightly more application code (an explicit call after every save/delete) in exchange for a hard structural guarantee that index work cannot corrupt `notes`. This directly satisfies the acceptance criterion that an interrupted build leaves `notes`' checksum unchanged, because the build path never issues a single write to `notes.sqlite`.
+
+Trade-off accepted: because the index file cannot use FTS5 "external content" tables that alias `notes`' own storage (that requires being in the same database as the content table, or at minimum entangles triggers on `notes`), the index will hold its own denormalized copy of `title` and `body` text. This roughly doubles the text portion of storage, which is small (text, not the full 600MB, is the searchable content) — acceptable for a single-user desktop app and worth the isolation guarantee.
 
 ## Evidence Gates
 
-### FTS5 availability in the bundled SQLite
+### FTS5 availability in bundled SQLite
 
-- Claim: the SQLite the packaging toolchain links has FTS5 compiled in.
-- Evidence method: `PRAGMA compile_options;` against the shipped library, checking for `ENABLE_FTS5`.
-- Pass path: an FTS5 external-content table over `notes`, with triggers maintaining it on write.
-- Alternate path: an inverted index in a separate SQLite file, maintained in application code on save.
-- Required before: any index schema work.
-- Unexpected result: the probe cannot be run against the packaged binary at all. Stop and raise it.
+- Claim: the SQLite library the packaged Marginalia binary links against was compiled with `SQLITE_ENABLE_FTS5`. Not yet established — requirements doc explicitly flags this as unverified ("nobody has checked").
+- Evidence method: against the *exact SQLite binary/library the packaged app ships* (not the developer machine's system `sqlite3`, which may differ from the packaging toolchain's build) — either run `PRAGMA compile_options;` and check for `ENABLE_FTS5` in the result set, or attempt `CREATE VIRTUAL TABLE fts5_probe USING fts5(x); DROP TABLE fts5_probe;` and check for success vs. an "no such module: fts5" error. Run this through the same driver/binding the app uses at runtime, in a build artifact matching what will actually ship (e.g. a packaged dev build, not just `cargo test` / `npm test` against a differently-vendored SQLite).
+- Pass path: FTS5 is available. Implement the index as an FTS5 virtual table (`CREATE VIRTUAL TABLE notes_fts USING fts5(id UNINDEXED, title, body)`) inside `search_index.sqlite`. Rank with the built-in `bm25(notes_fts)` function; `ORDER BY bm25(notes_fts)` (ascending — lower is better) satisfies "ranked by match quality, best first" directly, with no custom scoring code.
+- Alternate path: FTS5 is not available. Implement a hand-rolled inverted index entirely in ordinary SQLite tables inside `search_index.sqlite`:
+  - `doc (id INTEGER PRIMARY KEY, doc_len INTEGER)` — token count per note, for length-normalized scoring.
+  - `term_stats (term TEXT PRIMARY KEY, doc_freq INTEGER)` — number of notes containing the term, for IDF.
+  - `postings (term TEXT, doc_id INTEGER, term_freq INTEGER, PRIMARY KEY (term, doc_id))` with an index on `doc_id` for deletes and on `term` for lookups (the primary key already covers `term` lookups).
+  - Tokenize in application code (lowercase, split on non-alphanumeric, no stemming — matches the "no fuzzy matching" non-goal) at write time, and at query time for the search terms.
+  - At query time, look up postings for each query term, compute a BM25-equivalent score in application code or a single SQL query joining `postings`/`term_stats`/`doc`, and `ORDER BY score DESC LIMIT n`. Because `postings` is indexed by `term`, this touches only the rows for the queried terms, not a table scan — the same complexity class that keeps FTS5 fast, so the <300ms target is a design goal here too, not something only the FTS5 path can hit. Add a benchmark early in Step 3 (below) specifically for this path, since it is new code rather than a well-worn SQLite feature.
+- Required before: Step 2 (index schema creation) and everything downstream of it (write-path sync, first-launch build, query implementation) — none of that code can be written until the shape of the index is known.
+- Unexpected result: the probe itself fails to run (e.g., the packaging toolchain's SQLite is old enough that `PRAGMA compile_options` is unsupported, or the app's DB driver hides the underlying compile flags and virtual-table creation errors are ambiguous). Do not guess either way — stop and escalate for a driver-level way to introspect the bundled library (e.g., inspecting the vendored SQLite amalgamation's build flags directly, or the packaging toolchain's own build manifest) before writing any index code.
 
-## Work
+## Design: index maintenance (freshness, delete)
 
-1. Build the checksum comparison over `notes` first, so the bulk build has a gate to run behind.
-2. Settle the gate above.
-3. Index into a separate file, never in the same transaction as `notes`.
+- On every note save (create or edit) in the app's existing save path: after the `notes.sqlite` write commits successfully, issue an upsert into the index (`INSERT ... ON CONFLICT(id) DO UPDATE` for the FTS5 path's `id`-keyed rowid, or delete-then-reinsert postings/doc rows for the manual path) on the separate index connection, in its own transaction. This is synchronous and in-process, so it completes in well under the 1-second freshness budget without needing a queue or background debounce.
+- On every note delete: after the `notes.sqlite` delete commits, delete the corresponding row(s) from the index (`DELETE FROM notes_fts WHERE id = ?` for FTS5; `DELETE FROM doc WHERE id = ?` plus `DELETE FROM postings WHERE doc_id = ?` and decrement `term_stats.doc_freq` for terms that no longer appear, for the manual path).
+- Idempotency: both the upsert and delete are safe to run twice (upsert overwrites, delete of an absent row is a no-op), which matters for interaction with the first-launch build below — an explicit user edit and the background build touching the same note can happen in either order without corrupting the index.
+- Failure handling: if the index-side write fails (e.g., index file locked, disk full, unexpectedly missing), log and continue — the note save to `notes.sqlite` has already committed and must never be rolled back or blocked by an index failure. This is the same principle as the missing/corrupt fallback below, applied per-write instead of at search time.
+
+## Design: fallback to LIKE when the index is missing or corrupt
+
+- At app startup (and lazily, on first search after startup, to catch a file that goes missing mid-session): attempt to open `search_index.sqlite` and run `PRAGMA integrity_check;`. If the file is absent, `integrity_check` fails, or opening/attaching throws, set an in-memory "index unhealthy" flag and do not attempt further index reads or writes this session.
+- Search path checks the flag first: healthy → query the index (FTS5 `bm25()` or the manual scored query); unhealthy → fall back to the existing `WHERE title LIKE '%term%' OR body LIKE '%term%'` path unchanged. This satisfies "search still returns results with the index file deleted" without any behavior change to the LIKE path itself.
+- Recovery: when the flag is unhealthy, do not keep retrying the index on every keystroke (cost of repeated `integrity_check` calls). Instead, treat "index unhealthy" the same as "no index built yet" and let the first-launch/rebuild flow (below) recreate `search_index.sqlite` from scratch in the background; flip the flag back once that background rebuild completes and passes its own integrity check.
+
+## Design: first-launch (and rebuild) index build — progress, interruption, resumability
+
+- Trigger: on app start, if `search_index.sqlite` is absent, fails integrity check, or its schema/version metadata is older than the app's expected index version, start a background build.
+- Progress + non-blocking: the build runs on a background thread/task, batching e.g. 500 notes per transaction (`SELECT id, title, body FROM notes WHERE id > :last_checkpoint ORDER BY id ASC LIMIT 500`, read-only against `notes.sqlite`; write the batch's upserts into the index in one transaction on the index connection). After each batch commits, update a checkpoint row (`build_progress(last_id INTEGER, total INTEGER, status TEXT)`) inside `search_index.sqlite` itself, and surface `last_id / total` to the UI as a progress indicator. The app remains fully usable throughout — search uses the LIKE fallback (index is incomplete/being-built, so treat it as unhealthy for search purposes until `status = 'complete'`) and note CRUD is unaffected because the index write path never blocks or is blocked by `notes.sqlite` writes.
+- Interruption/resume safety: because each batch is a single self-contained transaction against `search_index.sqlite` only, and the checkpoint is written in that same transaction, a crash or forced quit mid-batch simply loses that one uncommitted batch — on restart the build resumes from the last committed checkpoint. `notes.sqlite` is never written by the build (only `SELECT`ed), so its checksum is untouched by definition, satisfying the acceptance criterion directly rather than needing separate crash-safety logic for `notes`.
+- Interaction with concurrent edits: if a note is created/edited/deleted by the user while the build is in progress, the normal save/delete-path sync (above) fires immediately and is idempotent with the build's own upsert of that same id whenever the build's sweep reaches it — last write wins, no ordering dependency, no corruption.
+- Checkpoint ordering assumption: this design assumes `notes.id` is monotonically increasing (e.g. an `INTEGER PRIMARY KEY` autoincrement rowid) so `id > :last_checkpoint ORDER BY id` is a stable, complete sweep. Verify this against the actual `notes` table DDL at implementation time; if ids are not guaranteed monotonic (e.g. externally assigned, reused), switch the checkpoint to SQLite's `rowid` (always monotonic per-connection unless the table is `WITHOUT ROWID`) instead of the `id` column.
+- 600MB scale: 40,000 notes in 500-row batches is 80 batches; this is a UI/UX sizing question (batch size, progress bar granularity) rather than a correctness one, and is tunable without affecting the resumability guarantee above.
+
+## Design: ranking and the recency tie-break
+
+- Primary rank key is match quality: `bm25()` (FTS5 path) or the computed BM25-equivalent score (manual path), best match first — this alone satisfies the acceptance criterion ("for a prepared query with a known best match, that match is first").
+- The requirements doc explicitly leaves open whether a more recent note should outrank an older one of equal match quality, and states the team is comfortable shipping either way. Implement `ORDER BY <match_score> [, updated_at DESC]` with the `updated_at` tie-break as a single, isolated `ORDER BY` clause addition (not a scoring-formula change) so it can be added or omitted with a one-line change whenever the team decides. Ship without the tie-break by default (i.e., ties broken by SQLite's default row order) unless told otherwise, since "no decision" is closer to "no behavior added" than to guessing an ordering.
+
+## Implementation steps
+
+1. **Evidence Gate 1 (FTS5 probe).** Run the compile-option/virtual-table probe against the actual packaged SQLite build. Acceptance: a written record of pass/fail and which path (FTS5 vs. manual inverted index) the rest of the work follows. Verification: probe output captured (compile_options list or virtual-table create success/error) attached to the decision.
+2. **Index schema + connection setup.** Create `search_index.sqlite` with the schema from the gate's chosen path (`notes_fts` FTS5 table, or `doc`/`term_stats`/`postings` tables), plus a `build_progress` bookkeeping table. Acceptance: schema creation script runs against an empty file and against a pre-existing file idempotently (`CREATE TABLE IF NOT EXISTS` / `CREATE VIRTUAL TABLE IF NOT EXISTS`). Verification: run the creation step twice in a row with no error and no duplicate objects (`sqlite3 search_index.sqlite ".schema"` shows one instance of each object).
+3. **Query path + benchmark.** Implement the ranked search query (`bm25()` order, or manual scored query) against a fixture-scale (40,000-row) populated index. Acceptance criterion 1: warm query returns in under 300ms. Verification: populate the index fully (via step 5 offline, or a test fixture), run the target query 2+ times discarding the first (cold) run, assert the second run's wall-clock time is < 300ms. For the manual-index alternate path specifically, this benchmark is the first checkpoint that the hand-rolled scoring approach is fast enough — if it fails, the fallback design (e.g., precomputed `doc_len`/`doc_freq`, or capping postings scanned per term) needs revisiting before continuing.
+4. **Write-path sync (create/edit/delete).** Hook the app's existing save and delete code paths to call the index upsert/delete described above, after the `notes.sqlite` transaction commits, on the separate index connection. Acceptance criterion 3: after create, edit, and delete, a search reflects each within one second. Verification: scripted test — create a note with a unique token, search for it (should appear), edit it to remove the token and add a different unique token, search both (old token gone, new token found), delete it, search the new token (gone) — each step timed and asserted < 1s from the write.
+5. **Missing/corrupt fallback.** Implement the startup/lazy health check and the flag-gated routing between index search and LIKE search. Acceptance criterion 5: with the index file deleted, search still returns results. Verification: delete `search_index.sqlite` while the app is running (or before startup), issue a search, confirm results are returned (via the LIKE path) and no error/crash occurs.
+6. **First-launch build with progress + resume.** Implement the batched background build, checkpointing, and progress UI surface described above. Acceptance criterion 4: an interrupted build resumes and completes, and a full-table checksum of `notes` is identical before and after. Verification: start the build on the 40,000-note fixture, kill the process partway through (e.g., after ~30% of checkpoints committed), restart, confirm the build resumes from the last checkpoint (not from zero) and reaches `status = 'complete'`; separately, compute a checksum of `notes` (e.g., `SELECT sum(...) ` over an ordered dump, or a file-level check if `notes.sqlite` is untouched) before starting the build and after it completes (including the interrupt/resume run) and confirm they're identical.
+7. **Ranking verification + tie-break hook.** Confirm criterion 2 with a prepared query fixture: a query with one clearly-best match (e.g., an exact phrase in the title) returns that note first. Verification: fixture query against the populated index, assert first result's id matches the expected note. Leave the recency `ORDER BY` tie-break as the isolated, easily-toggled clause described above; do not resolve it here (see Open Questions).
+8. **Full acceptance pass.** Run all five checkbox acceptance criteria from the requirements doc back-to-back against the same 40,000-note fixture library used throughout, in one sitting, to catch any interaction effects (e.g., a build still in progress affecting the 300ms benchmark). Verification: all five criteria checked off with the measurements/evidence from steps 3–7 attached.
+
+## Acceptance criteria traceability
+
+| Requirements doc acceptance criterion | Satisfied by |
+|---|---|
+| Search under 300ms warm, 40k notes | Step 3 (query path + benchmark), architecture's indexed lookup (FTS5 or postings-indexed manual path) |
+| Ranking verifiable (known best match first) | Step 7, `bm25()` or computed score `ORDER BY` |
+| Create/edit/delete reflected within 1s | Step 4, synchronous post-commit index sync |
+| Interrupted build resumes, `notes` checksum unchanged | Step 6, batched checkpointed build that never writes `notes.sqlite` |
+| Index file deleted → search still returns results | Step 5, health-check-gated LIKE fallback |
+
+## Risks and mitigations
+
+- **FTS5 not compiled in.** Covered by Evidence Gate 1 with a fully pre-planned alternate path (manual inverted index); not an open risk once the gate runs.
+- **Index write corrupts `notes` table.** Structurally avoided by the separate-file, separate-transaction architecture decision (index and notes are never in the same transaction, and the build path never writes `notes.sqlite` at all).
+- **First-launch build over 600MB needs dedicated UI treatment.** Addressed by the background build + progress-table + non-blocking design; batch size (and therefore progress granularity / total build wall-clock time) is a tunable implementation detail, not a structural risk, but should be checked against real hardware once step 6 is implemented — if 80 batches feels too coarse or too slow end-to-end, adjust batch size rather than the checkpointing mechanism itself.
+- **Manual inverted-index path (if Evidence Gate 1 fails) misses the 300ms target.** Mitigated by benchmarking this path specifically and early (Step 3), before the rest of the write-path/build work is built on top of it, so a scoring-approach rework is cheap if needed.
+- **Tokenization choices (manual path) silently drift into fuzzy matching territory.** Out of scope per requirements; keep tokenization to lowercase + non-alphanumeric splitting only, no stemming/fuzzy expansion, so the manual path's behavior stays comparable to FTS5's default (non-fuzzy) tokenizer.
 
 ## Open Questions
 
-- Should a more recent note outrank an older one of equal match quality? The requirements leave this open;
-  defaulting to relevance alone, which is reversible.
+- Should equal-match-quality results additionally be ordered by recency (`updated_at DESC`)? The requirements doc explicitly defers this to team preference ("the team is comfortable shipping either way"). It matters only for the exact tie-break UX, not for correctness or any acceptance criterion, and the design above (an isolated, one-line `ORDER BY` addition) means it can be decided and applied at any point, including after initial ship, without touching the scoring logic. Non-blocking.
+- None other — all other requirements-doc risks (FTS5 availability, in-place-rebuild transaction risk, first-launch UI treatment) are resolved into the Evidence Gate and design sections above rather than left open.

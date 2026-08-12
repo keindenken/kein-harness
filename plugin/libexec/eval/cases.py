@@ -84,7 +84,7 @@ def _judge(grader, artifacts, record, model, run_cmd):
 
     The verdict has to be one token because anything a judge can hedge in, it will.
     """
-    path = grader.get("path") or grader.get("target", {}).get("path") or _default_artifact(grader)
+    path = grader.get("path") or grader.get("target", {}).get("path")
     content = None
     if path:
         found = _artifact(artifacts, path)
@@ -101,12 +101,12 @@ def _judge(grader, artifacts, record, model, run_cmd):
     if content is not None:
         prompt += f"=== ARTIFACT ({path}) ===\n{content}\n\n"
     else:
-        prompt += (
-            "=== FILES THE RUN PRODUCED ===\n"
-            + "\n".join(sorted(str(p.relative_to(artifacts)) for p in Path(artifacts).rglob("*") if p.is_file()))
-            + "\n\n=== FILES THE RUN WROTE, FROM ITS TOOL CALLS ===\n"
-            + "\n".join(record.get("files_written") or ["(none)"]) + "\n\n"
-        )
+        produced = _produced(artifacts)
+        if not produced.strip():
+            return False, "the run produced no readable artifact to judge"
+        prompt += ("=== WHAT THE RUN PRODUCED ===\n" + produced + "\n\n"
+                   "=== FILES THE RUN WROTE, FROM ITS TOOL CALLS ===\n"
+                   + "\n".join(record.get("files_written") or ["(none)"]) + "\n\n")
     prompt += "Reply with exactly one word: PASS or FAIL. Nothing else."
 
     out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p", prompt],
@@ -119,9 +119,28 @@ def _judge(grader, artifacts, record, model, run_cmd):
     return False, f"unreadable verdict: {out[:200]}"
 
 
-def _default_artifact(grader):
-    """A criterion that judges the whole run names no path; one that judges a file does."""
-    return None
+PRODUCED_LIMIT = 40000
+
+
+def _produced(artifacts):
+    """Every text file the run produced, smallest name first, as one block.
+
+    A criterion that names no path still has to be judged against something, and the
+    something is the work product. Handing the judge a directory listing instead is how
+    every llm verdict in this instrument was reached until 2026-08-12: the graders say
+    "judge PLAN.md", the prompt showed them a list of filenames, and the verdicts were
+    guesses that happened to look like judgements.
+    """
+    out, budget = [], PRODUCED_LIMIT
+    for path in sorted(Path(artifacts).rglob("*")):
+        if not path.is_file() or path.suffix not in (".md", ".txt", ".json", ".yaml", ".yml"):
+            continue
+        text = path.read_text(errors="replace")[:budget]
+        budget -= len(text)
+        out.append(f"--- {path.relative_to(artifacts)}\n{text}")
+        if budget <= 0:
+            break
+    return "\n\n".join(out)
 
 
 def grade(grader, artifacts, record, judge_model, run_cmd):
