@@ -939,7 +939,8 @@ def main():
         target = Path(options.compare)
         manifest = json.loads((target / "manifest.json").read_text())
         judges = options.compare_judge or [options.judge_model]
-        text, tally = case_runner.compare(target, manifest["case_dir"], judges, run, options.compare_runs)
+        text, tally = case_runner.compare(target, manifest["case_dir"], judges, run,
+                                          options.compare_runs, manifest.get("roles"))
         print(text)
         return 0
 

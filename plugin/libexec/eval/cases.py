@@ -249,7 +249,7 @@ def _ask_judge(spec, prompt, run_cmd, scratch):
     return (winner.group(1).upper() if winner else "TIE"), (why.group(1).strip() if why else "")
 
 
-def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
+def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
     """Blind pairwise reading of the two arms' artifacts.
 
     A per-assertion grader answers whether a plan carried a field. It cannot answer whether
@@ -276,9 +276,12 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
                 out.append((replicate.name, "\n\n".join(p.read_text(errors="replace") for p in files)))
         return out
 
-    treatment, control = artifacts("with-skill"), artifacts("without-skill")
+    named = roles or {"treatment": "with-skill", "control": "without-skill"}
+    treatment, control = artifacts(named["treatment"]), artifacts(named["control"])
     if not treatment or not control:
-        raise SystemExit(f"ocs eval: need artifacts from both arms under {run_dir / 'artifacts'}")
+        raise SystemExit(
+            f"ocs eval: need artifacts from both arms under {run_dir / 'artifacts'}; "
+            f"looked for {named['treatment']!r} and {named['control']!r}")
 
     scratch = Path(run_dir) / "compare"
     scratch.mkdir(exist_ok=True)
@@ -296,8 +299,8 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
                                        else (c_text, t_text, "B"))
         choice, why = _ask_judge(judge, JUDGE.format(requirements=requirements, a=first, b=second),
                                  run_cmd, scratch)
-        winner = ("with-skill" if choice == treatment_is else
-                  "tie" if choice == "TIE" else "without-skill")
+        winner = (named["treatment"] if choice == treatment_is else
+                  "tie" if choice == "TIE" else named["control"])
         return call, winner, why
 
     with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
@@ -325,8 +328,8 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
 
     lines = [f"blind pairwise, both orders x{repeats} repeat(s) per pair, arm labels withheld from every judge:"]
     for judge, tally in by_judge.items():
-        lines.append(f"  {judge:22} with-skill={tally['with-skill']}  "
-                     f"without-skill={tally['without-skill']}  tie={tally['tie']}")
+        lines.append(f"  {judge:22} {named['treatment']}={tally[named['treatment']]}  "
+                     f"{named['control']}={tally[named['control']]}  tie={tally['tie']}")
 
     if len(judges) > 1:
         agreed = sum(1 for index in pairs if len({verdict(j, index) for j in judges}) == 1)
@@ -342,7 +345,7 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2):
     flat = Counter()
     for tally in by_judge.values():
         flat.update(tally)
-    if flat["with-skill"] == flat["without-skill"]:
+    if flat[named["treatment"]] == flat[named["control"]]:
         lines.append("\n  No preference overall. Read this beside the assertion classification: if the graders "
                      "separated\n  the arms and this did not, the skill moved the form and not the plan.")
     return "\n".join(lines), {j: dict(t) for j, t in by_judge.items()}
