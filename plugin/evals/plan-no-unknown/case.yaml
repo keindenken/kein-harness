@@ -42,7 +42,10 @@ execution:
     I need an implementation plan for it before anyone starts. Write it to PLAN.md in the working directory.
   max_turns: 40
   timeout_seconds: 1200
-  allowed_tools: [Read, Glob, Grep, Write, Edit, Skill, Task]
+  # Nothing is denied. Every run in the 260812 measurement reached for `od -c` and `cat -A` on the golden
+  # recording, which is the right instinct for a requirement stated in bytes, and that measurement was taken
+  # with those available. Withholding them now would make the plans worse and the next run incomparable.
+  denied_tools: []
 
 runs: 3
 

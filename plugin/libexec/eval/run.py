@@ -173,6 +173,21 @@ def prepare_plugin(path, model, source=None):
     return path
 
 
+def prune_empty_dirs(root):
+    """Remove the directories a finished run left holding nothing.
+
+    A replicate's worktree goes as soon as its graders have read it, but the `worktrees/` tree that held it does not, and a pinned config home ends every replicate with half a dozen empty scaffolding directories of Claude's own.
+    None of that is a finding, and all of it makes a spent run look like it still has something in it.
+    `rmdir` refuses a directory with anything in it, so walking deepest-first removes exactly the empty ones and cannot reach a kept artifact.
+    """
+    for path in sorted((p for p in Path(root).rglob("*") if p.is_dir()),
+                       key=lambda p: len(p.parts), reverse=True):
+        try:
+            path.rmdir()
+        except OSError:
+            pass
+
+
 def prepare_config_home(path):
     """Build a config home that carries authentication and nothing else.
 
@@ -396,7 +411,7 @@ def worktree_instruction_names(worktree):
     return [Path(name).name for name in WORKTREE_INSTRUCTION_NAMES if (Path(worktree) / name).is_file()]
 
 
-def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns):
+def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=()):
     """`plugin_dir` is None for an arm that runs without the harness."""
     # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
     command = [
@@ -416,6 +431,10 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
     if not probe:
         # A real task writes files and dispatches lanes, which a headless run cannot stop to ask about.
         command += ["--permission-mode", "bypassPermissions"]
+    if denied:
+        # `bypassPermissions` approves every tool, so an allow-list is a no-op here and only a deny-list restricts anything; checked against a live session rather than assumed.
+        # A case denies a tool when having it would let the arm settle the very fact the case is built around — `plan-evidence-gate` is the one, where the local `sqlite3` is not the bundled one the requirements ask about.
+        command += ["--disallowedTools", *denied]
 
     # The config home is pinned rather than inherited, which is the same move `ocs ask` makes for the Codex side.
     # Inheriting it would hand every arm the user's other plugins — superpowers among them, whose planning skills would mask the variable under test far more thoroughly than the fixture's own contamination did.
@@ -807,6 +826,9 @@ def run_case_mode(options, model, config_home_root):
     replicates = options.runs or case.get("runs", 3)
     timeout = options.timeout if options.timeout != 1800 else execution.get("timeout_seconds", 1800)
     max_turns = options.max_turns if options.max_turns != 500 else execution.get("max_turns", 500)
+    # Named for what it does. The field this replaces was `allowed_tools`, which is `claude plugin eval`'s
+    # and which nothing here read, so every case ran with every tool while its own file said otherwise.
+    denied = list(execution.get("denied_tools") or [])
 
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     run_dir = state_dir("runs/eval") / f"{stamp}-case-{case['name']}"
@@ -828,7 +850,7 @@ def run_case_mode(options, model, config_home_root):
         events = run_dir / f"events-{arm}-{index}.jsonl"
         print(f"[{arm}] run {index + 1}/{replicates} started ({model})", file=sys.stderr)
         outcome = launch(arm, worktree, prompt, model, False, timeout, events,
-                         homes[job], arms[arm]["plugin"], max_turns)
+                         homes[job], arms[arm]["plugin"], max_turns, denied)
         artifacts = run_dir / "artifacts" / arm / str(index)
         produced = collect(worktree, artifacts)
         with ThreadPoolExecutor(max_workers=len(graders)) as pool:
@@ -839,7 +861,8 @@ def run_case_mode(options, model, config_home_root):
         marks = "".join("." if graded[g["name"]]["passed"] else "x" for g in graders)
         print(f"[{arm}] run {index + 1}/{replicates} exit={outcome['exit_code']} {outcome['seconds']}s "
               f"{outcome['assistant_turns']} turns  graders {marks}", file=sys.stderr)
-        shutil.rmtree(worktree, ignore_errors=True)
+        if not options.keep:
+            shutil.rmtree(worktree, ignore_errors=True)
         return job, {"run": outcome, "produced": produced, "graders": graded, "artifacts": str(artifacts)}
 
     try:
@@ -856,8 +879,11 @@ def run_case_mode(options, model, config_home_root):
             "arms_spec": {a: {k: str(v) for k, v in spec.items()} for a, spec in arms.items()},
             "roles": {spec.get("role", "treatment"): name for name, spec in arms.items()},
             "created_at": datetime.now(timezone.utc).isoformat(),
+            "denied_tools": denied,
             "arms": records, "classification": tally,
         }, indent=2) + "\n")
+        if not options.keep:
+            prune_empty_dirs(run_dir)
 
         print(f"\nrun: {run_dir}")
         print(text)

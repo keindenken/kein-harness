@@ -14,9 +14,7 @@ description: >
   not corrupt) and one genuinely non-blocking question (recency versus relevance in ranking), so that
   sequencing and the Open Questions section have something to be right or wrong about.
 
-  Not yet run. `claude plugin eval` is gated behind early access on this account, so no arm, delta, or turn
-  count is recorded here and this description must not be read as though one were. The graders are written to
-  be checkable by whichever runner gets to them.
+  Run once, on 260811, three replicates per arm against `with-skill` and `without-skill`. Its grader results are void: that run predates the fix for `_judge()` never showing the judge the artifact it was grading, so every `llm` verdict in it was returned on a directory listing. The six plans it produced are real and are the only with-skill-versus-without data this case has; nothing computed from them is. It also ran with every tool available, before `denied_tools` existed, so a re-run is owed on that ground too and no number from the old one should be carried into it.
 
   Three notes for whoever runs it first.
 
@@ -54,7 +52,11 @@ execution:
   # prompt. Calibrating this cap on the baseline would truncate the treatment arm and score it as a failure.
   max_turns: 40
   timeout_seconds: 1200
-  allowed_tools: [Read, Glob, Grep, Write, Edit, Skill, Task]
+  # This case rests on one fact being unresolved: whether the *bundled* SQLite has FTS5 compiled in. A local
+  # `sqlite3` is a different binary built by a different toolchain, so an arm that probes it settles nothing
+  # and has every reason to believe it settled something — which would close the gate this case exists to
+  # watch, for the wrong reason and invisibly. Network goes for the reason the fixture is pinned at all.
+  denied_tools: [Bash, WebFetch, WebSearch]
 
 runs: 3
 
