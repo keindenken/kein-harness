@@ -245,6 +245,15 @@ def _ask_judge(spec, prompt, run_cmd, scratch):
     error correlations, so agreement between them is the cheapest available control on
     that, and disagreement is itself the finding.
     """
+    if spec.endswith("@codex"):
+        role = spec[: -len("@codex")]
+        out = run_cmd([str(Path(__import__("os").environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
+                       "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt],
+                      check=False).stdout.decode("utf-8", "replace")
+        winner = re.search(r"^WINNER:\s*(A|B|TIE)", out, re.M | re.I)
+        why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
+        return (winner.group(1).upper() if winner else "TIE"), (why.group(1).strip() if why else "")
+
     if spec.startswith("codex"):
         schema = scratch / "judge-schema.json"
         schema.write_text(json.dumps(CODEX_SCHEMA))
@@ -304,62 +313,98 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
 
     scratch = Path(run_dir) / "compare"
     scratch.mkdir(exist_ok=True)
-    pairs = list(range(min(len(treatment), len(control))))
 
-    # Every (judge, pair, order) is an independent call, so they all go out at once.
-    calls = [(judge, index, order, repeat)
-             for judge in judges for index in pairs
+    # Replicate index carries no correspondence between arms - run 0 of one is not the
+    # partner of run 0 of the other - so pairing by index both invented a relationship and
+    # threw away two thirds of the available comparisons. Every cross-arm pair is judged.
+    #
+    # The within-arm pairs are the control. If a judge separates two plans from the same
+    # arm as readily as it separates plans from different arms, the arm is not the variable
+    # and a cross-arm win rate means nothing.
+    pairs = [("cross", i, j) for i in range(len(treatment)) for j in range(len(control))]
+    pairs += [("within-treatment", i, j) for i in range(len(treatment)) for j in range(i + 1, len(treatment))]
+    pairs += [("within-control", i, j) for i in range(len(control)) for j in range(i + 1, len(control))]
+
+    def texts(kind, i, j):
+        if kind == "within-treatment":
+            return treatment[i][1], treatment[j][1]
+        if kind == "within-control":
+            return control[i][1], control[j][1]
+        return treatment[i][1], control[j][1]
+
+    calls = [(judge, pair, order, repeat)
+             for judge in judges for pair in pairs
              for order in ("treatment-first", "control-first") for repeat in range(repeats)]
 
     def one(call):
-        judge, index, order, repeat = call
-        t_text, c_text = treatment[index][1], control[index][1]
+        judge, pair, order, repeat = call
+        kind, i, j = pair
+        t_text, c_text = texts(kind, i, j)
         first, second, treatment_is = ((t_text, c_text, "A") if order == "treatment-first"
                                        else (c_text, t_text, "B"))
         choice, why = _ask_judge(judge, JUDGE.format(requirements=requirements, a=first, b=second),
                                  run_cmd, scratch)
-        winner = (named["treatment"] if choice == treatment_is else
-                  "tie" if choice == "TIE" else named["control"])
+        if kind == "cross":
+            winner = (named["treatment"] if choice == treatment_is else
+                      "tie" if choice == "TIE" else named["control"])
+        else:
+            # Within an arm there is no arm to win; what is recorded is whether the judge
+            # expressed any preference between two plans the same prompt produced.
+            winner = "tie" if choice == "TIE" else "decided"
         return call, winner, why
 
     with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
         verdicts = list(pool.map(one, calls))
 
     by_judge, reasons, per_pair = {}, [], {}
-    for (judge, index, order, repeat), winner, why in verdicts:
-        per_pair.setdefault((judge, index), {}).setdefault(order, []).append(winner)
-        reasons.append((judge, index, f"{order}#{repeat}", winner, why[:200]))
-    def verdict(judge, index):
-        """One judge's reading of one pair, after both orders are reconciled.
+    for (judge, pair, order, repeat), winner, why in verdicts:
+        per_pair.setdefault((judge, pair), {}).setdefault(order, []).append(winner)
+        reasons.append((judge, pair, f"{order}#{repeat}", winner, why[:200]))
 
-        A judge that names the same position in both orders is stating a position
-        preference rather than a verdict, so that pair is a tie rather than one win each.
+    def verdict(judge, pair):
+        """One judge's reading of one pair, after both orders and every repeat.
+
+        Anything short of unanimity is a tie: a judge that names the same position in both
+        orders is stating a position preference, and one that changes its mind between
+        identical calls has not stated a preference at all.
         """
-        orders = per_pair.get((judge, index), {})
-        # Every verdict for this pair, across both orders and every repeat. Anything short
-        # of unanimity is a tie: a judge that changes its mind between identical calls has
-        # not stated a preference, and the first comparison run here did exactly that.
+        orders = per_pair.get((judge, pair), {})
         seen = {w for winners in orders.values() for w in winners}
         return seen.pop() if len(seen) == 1 else "tie"
 
+    cross = [p for p in pairs if p[0] == "cross"]
+    within = [p for p in pairs if p[0] != "cross"]
     for judge in judges:
-        by_judge[judge] = Counter(verdict(judge, index) for index in pairs)
+        by_judge[judge] = Counter(verdict(judge, p) for p in cross)
 
-    lines = [f"blind pairwise, both orders x{repeats} repeat(s) per pair, arm labels withheld from every judge:"]
+    lines = [f"blind pairwise over every cross-arm pair ({len(cross)}), both orders "
+             f"x{repeats} repeat(s), arm labels withheld from every judge:"]
     for judge, tally in by_judge.items():
-        lines.append(f"  {judge:22} {named['treatment']}={tally[named['treatment']]}  "
+        lines.append(f"  {judge:24} {named['treatment']}={tally[named['treatment']]}  "
                      f"{named['control']}={tally[named['control']]}  tie={tally['tie']}")
 
-    if len(judges) > 1:
-        agreed = sum(1 for index in pairs if len({verdict(j, index) for j in judges}) == 1)
+    if within:
         lines.append("")
-        lines.append(f"  judges agreed on {agreed}/{len(pairs)} pairs. Agreement across vendors is the control "
-                     "on\n  a judge simply preferring the longer document; disagreement is a finding of its own.")
+        lines.append(f"  control - the same judges on {len(within)} pairs drawn from inside one arm, where")
+        lines.append("  there is no arm to win. A separation rate here as high as the cross-arm rate means")
+        lines.append("  the judges are separating plans rather than arms:")
+        for judge in judges:
+            w = Counter(verdict(judge, p) for p in within)
+            lines.append(f"    {judge:24} within: decided={w['decided']} tie={w['tie']}"
+                         f"   cross: decided={len(cross) - by_judge[judge]['tie']} tie={by_judge[judge]['tie']}")
+
+    if len(judges) > 1:
+        agreed = sum(1 for p in cross if len({verdict(j, p) for j in judges}) == 1)
+        lines.append("")
+        lines.append(f"  judges agreed on {agreed}/{len(cross)} cross-arm pairs. Agreement across judges is a")
+        lines.append("  control on any one of them simply preferring the longer document; disagreement is a")
+        lines.append("  finding of its own.")
 
     lines.append("")
     lines.append("  reasons given:")
-    for judge, index, order, winner, why in reasons:
-        lines.append(f"    [{judge}] pair{index} {order:15} {winner:14} {why}")
+    for judge, pair, order, winner, why in reasons:
+        kind, i, j = pair
+        lines.append(f"    [{judge}] {kind}:{i}v{j} {order:15} {winner:14} {why}")
 
     flat = Counter()
     for tally in by_judge.values():
