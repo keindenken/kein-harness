@@ -1,5 +1,9 @@
 # `plan`, measured
 
+> **Every `llm` row below is void.** `_judge()` resolved the artifact path from a field no `llm` grader declares, so it handed the judge a directory listing and asked it to grade a plan it had never seen. Fixed in `8211571`, after this was written. That kills four rows in the first table — `gate-decides-both-paths`, `records-the-open-question`, `sequences-the-irreversible-step`, `stops-at-the-artifact` — including both `strengthens` cells, which were the only content effect this document claimed. The deterministic rows stand: `tool_used`, the three `regex`, and `file_exists` read the artifact directly and never went through `_judge()`.
+>
+> Read the rest as a record of how the instrument was built, not as measurements of `plan`. What replaced it is [260813-plan-assertion-sentence.md](260813-plan-assertion-sentence.md), which is the first run in the programme where a prompt change and a judged difference line up.
+
 The first result from the instrument `.agents/kein/requirements/260810-skill-measurement-program.md` specifies. Run 2026-08-11, three replicates per arm, Sonnet lead and Sonnet lanes, case `plan-evidence-gate`.
 
 Raw run at `.agents/kein/runs/eval/260811-155344-case-plan-evidence-gate`; re-read the classification at any time with `ocs eval --reclassify <that path>`, and the artifacts are kept under `artifacts/`.
