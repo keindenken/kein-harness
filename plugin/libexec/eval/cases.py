@@ -252,31 +252,42 @@ RANKER = (
     "that costs something.\n\n"
     "=== REQUIREMENTS ===\n{requirements}\n\n"
     "{plans}\n\n"
-    "Reply with exactly two lines and nothing else:\n"
+    "Reply with exactly these lines and nothing else:\n"
     "RANKING: all {n} labels separated by commas, best first, each label exactly once\n"
-    "WHY: one sentence naming the difference that separated the top of your ranking from the bottom."
+    "WHY: one sentence naming the difference that separated the top of your ranking from the bottom.\n"
+    "then one line per plan, in your ranked order:\n"
+    "NOTE <label>: the specific thing about that plan that put it where you put it."
 )
 
 RANKING_SCHEMA = {
     "type": "object",
-    "properties": {"ranking": {"type": "array", "items": {"type": "string"}}, "why": {"type": "string"}},
+    "properties": {
+        "ranking": {"type": "array", "items": {"type": "string"}},
+        "why": {"type": "string"},
+        "notes": {"type": "object", "additionalProperties": {"type": "string"}},
+    },
     "required": ["ranking", "why"],
     "additionalProperties": False,
 }
 
 
 def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
-    """One judge, one ordering of the whole field. Returns (ranking, why) or (None, reason).
+    """One judge, one ordering of the whole field. Returns (ranking, why, notes) or (None, reason, {}).
 
     A reading is kept only when it is a permutation of the labels handed out. A judge that
     drops a plan or names one twice has not ranked the field, and averaging a partial order
     in with complete ones would quietly weight it.
+
+    The per-plan notes are why this is worth more than a number. A ranking says the field
+    was sorted; it does not say on what, and the axis the judges turned out to be sorting on
+    was not the one the prompt under test was written to move. A note attached to a plan is
+    where that shows up.
     """
-    def check(order, why):
+    def check(order, why, notes):
         order = [item.strip().upper() for item in order if item.strip()]
         if sorted(order) != sorted(labels):
-            return None, f"not a permutation of {''.join(labels)}: {','.join(order) or 'empty'}"
-        return order, why
+            return None, f"not a permutation of {''.join(labels)}: {','.join(order) or 'empty'}", {}
+        return order, why, {k.strip().upper(): v.strip() for k, v in (notes or {}).items()}
 
     if spec.endswith("@codex") or not spec.startswith("codex"):
         if spec.endswith("@codex"):
@@ -289,8 +300,9 @@ def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
         ranking = re.search(r"^RANKING:\s*(.+)$", out, re.M | re.I)
         why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
         if not ranking:
-            return None, "no RANKING line"
-        return check(ranking.group(1).split(","), why.group(1).strip() if why else "")
+            return None, "no RANKING line", {}
+        notes = dict(re.findall(r"^NOTE\s+([A-Za-z]+)\s*:\s*(.+)$", out, re.M))
+        return check(ranking.group(1).split(","), why.group(1).strip() if why else "", notes)
 
     schema = scratch / "rank-schema.json"
     schema.write_text(json.dumps(RANKING_SCHEMA))
@@ -300,11 +312,11 @@ def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
     if chosen:
         command += ["-m", chosen]
     result = run_cmd(command + [prompt], check=False).stdout.decode("utf-8", "replace")
-    objects = re.findall(r'\{[^{}]*"ranking"[^{}]*\}', result)
+    objects = re.findall(r'\{.*?"ranking".*?\}\s*$', result, re.S | re.M)
     if not objects:
-        return None, "unreadable codex output"
+        return None, "unreadable codex output", {}
     parsed = json.loads(objects[-1])
-    return check(parsed.get("ranking") or [], parsed.get("why", ""))
+    return check(parsed.get("ranking") or [], parsed.get("why", ""), parsed.get("notes"))
 
 
 def _ask_judge(spec, prompt, run_cmd, scratch):
@@ -407,20 +419,23 @@ def rank(run_dir, case_dir, judges, run_cmd, shuffles=3, roles=None):
         order = orders[index]
         plans = "\n\n".join(f"=== PLAN {labels[seat]} ===\n{field[plan][1]}"
                             for seat, plan in enumerate(order))
-        ranking, why = _ask_ranking(
+        ranking, why, notes = _ask_ranking(
             judge, RANKER.format(requirements=requirements, plans=plans, n=len(field)),
             run_cmd, scratch, labels)
         if ranking is None:
-            return call, None, why
-        # The judge names seats; the seat's occupant is what gets the points.
-        return call, [field[order[labels.index(label)]][0] for label in ranking], why
+            return call, None, why, {}
+        # The judge names seats; the seat's occupant is what gets the points, and what the
+        # note is about. A note filed under a seat is meaningless one deal later.
+        seated = {label: field[order[labels.index(label)]][0] for label in labels}
+        return (call, [seated[label] for label in ranking], why,
+                {seated[label]: text for label, text in notes.items() if label in seated})
 
     calls = [(judge, index) for judge in judges for index in range(shuffles)]
     with ThreadPoolExecutor(max_workers=min(8, len(calls))) as pool:
         readings = list(pool.map(one, calls))
 
-    points, per_judge, discarded = Counter(), {}, []
-    for (judge, index), ranking, why in readings:
+    points, per_judge, discarded, said = Counter(), {}, [], {}
+    for (judge, index), ranking, why, notes in readings:
         if ranking is None:
             discarded.append((judge, index, why))
             continue
@@ -429,6 +444,8 @@ def rank(run_dir, case_dir, judges, run_cmd, shuffles=3, roles=None):
             gained = len(field) - 1 - position
             points[plan] += gained
             per_judge[judge][plan] += gained
+        for plan, text in notes.items():
+            said.setdefault(plan, []).append((judge, index, text))
     for plan, _ in field:
         points.setdefault(plan, 0)
 
@@ -461,11 +478,22 @@ def rank(run_dir, case_dir, judges, run_cmd, shuffles=3, roles=None):
             lines.append(f"    [{judge}] order#{index}  {why}")
 
     lines.append("")
-    lines.append("  reasons given:")
-    for (judge, index), ranking, why in readings:
+    lines.append("  each reading, and the axis it says it sorted on:")
+    for (judge, index), ranking, why, _ in readings:
         if ranking is not None:
             lines.append(f"    [{judge}] order#{index}  {' > '.join(ranking)}")
             lines.append(f"      {why[:220]}")
+
+    if said:
+        lines.append("")
+        lines.append("  what the judges said about each plan, in finishing order. A ranking says the field was")
+        lines.append("  sorted and not on what; this is where a judge sorting on something the prompt under")
+        lines.append("  test was never written to move becomes visible:")
+        for plan, _ in standing:
+            if plan in said:
+                lines.append(f"    {plan}")
+                for judge, index, text in said[plan]:
+                    lines.append(f"      [{judge}#{index}] {text[:200]}")
 
     return "\n".join(lines), {plan: score for plan, score in standing}
 
