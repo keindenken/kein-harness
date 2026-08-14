@@ -772,8 +772,15 @@ def report(case, graders, records, roles=None):
     # The replicate count comes from what ran, not from what the case file asks for:
     # --runs overrides it, and a header that reports the intention misdescribes the run.
     replicates = min((len(runs) for runs in records.values()), default=0)
-    lines = [f"case: {case['name']}  ({replicates} run(s) per arm; "
-             f"treatment={named['treatment']}, control={named['control']})"]
+    # `--arm` can leave one side out, and a run of one arm has no comparison to name. It
+    # still has results worth printing -- filling a gap in an interrupted run is exactly
+    # when one gets used -- so say which arm ran instead of failing on the missing role.
+    if len(records) < 2:
+        only = next(iter(records), "none")
+        lines = [f"case: {case['name']}  ({replicates} run(s); {only} only, no comparison)"]
+    else:
+        lines = [f"case: {case['name']}  ({replicates} run(s) per arm; "
+                 f"treatment={named['treatment']}, control={named['control']})"]
     tally = Counter()
     rows = []
     for grader in graders:

@@ -909,6 +909,7 @@ def main():
     parser.add_argument("--compare-runs", type=int, default=2, help="times to repeat the whole comparison. A single run of a pairwise judge is one draw: the first comparison here returned 3-0 and the second, on identical input, contradicted it. Order control does not cover run-to-run variance.")
     parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --compare; repeatable. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
+    parser.add_argument("--regrade", metavar="RUN_DIR", help="re-ask only the graders whose verdict was never reached, against artifacts already on disk. A judge stopped by a rate limit records `unreadable verdict`, which counts as a failure and is not one; this repairs those and leaves every honestly-obtained verdict alone.")
     parser.add_argument("--rank", metavar="RUN_DIR", help="the same question as --compare, asked of the whole field at once. Pairs grow as the square of the plans -- six an arm is 66 pairs, 396 calls at three judges and two orders -- so past about four a side this is the one to reach for: one call per judge per presentation order, and the judge still compares rather than scoring a plan alone.")
     parser.add_argument("--rank-orders", type=int, default=3, help="presentation orders for --rank. These do for a list what judging both orders did for a pair: a judge handed a list has a position preference, and re-dealing the same field is what separates it from a reading.")
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
@@ -959,6 +960,43 @@ def main():
         text, tally = case_runner.report(case, graders, manifest["arms"], manifest.get("roles"))
         print(text)
         return 0 if (tally.get(case_runner.DISCRIMINATES) or tally.get(case_runner.STRENGTHENS)) else 1
+
+    if options.regrade:
+        # A judge that could not answer is not a grader that answered no. When the account's
+        # session limit landed mid-run, six llm graders on two replicates came back
+        # "unreadable verdict: You've hit your session limit", and both plans were complete
+        # and on disk. Without this the whole run is thrown away to re-earn verdicts on
+        # artifacts that never changed.
+        import cases as case_runner
+        target = Path(options.regrade)
+        manifest = json.loads((target / "manifest.json").read_text())
+        _, graders = case_runner.load_case(manifest["case_dir"])
+        by_name = {g["name"]: g for g in graders}
+        redone = 0
+        for arm, records in manifest["arms"].items():
+            for index, record in enumerate(records):
+                for name, result in (record or {}).get("graders", {}).items():
+                    detail = str(result.get("detail") or "")
+                    # Only verdicts that were never reached. Re-rolling a verdict that was
+                    # honestly obtained would quietly replace a result with a fresh sample.
+                    if result.get("passed") or not detail.startswith("unreadable verdict"):
+                        continue
+                    passed, why = case_runner.grade(
+                        by_name[name], Path(record["artifacts"]), record["run"],
+                        options.judge_model, run)
+                    record["graders"][name] = {"passed": bool(passed), "detail": why}
+                    redone += 1
+                    print(f"  [{arm}/{index}] {name}: {'pass' if passed else 'fail'}", file=sys.stderr)
+        if not redone:
+            print("no unreached verdicts to regrade")
+            return 0
+        case, graders = case_runner.load_case(manifest["case_dir"])
+        text, tally = case_runner.report(case, graders, manifest["arms"], manifest.get("roles"))
+        manifest["classification"] = tally
+        (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+        print(f"\nregraded {redone} verdict(s)\n")
+        print(text)
+        return 0
 
     if options.rank:
         import cases as case_runner
