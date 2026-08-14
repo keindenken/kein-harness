@@ -376,12 +376,25 @@ def _role_prompt(role):
 def _text_judge_command(spec, prompt):
     """The argv for a judge that answers in text, whichever vendor wears the role.
 
-    `<role>@codex` and `<role>@claude` are the same lens on two vendors, which is the
+    `<role>@codex` and `<role>@claude` aim at the same lens on two vendors, which is the
     comparison worth having: judges that share a vendor share their error correlations, so
-    agreement across vendors is the control and disagreement is a finding. The Claude side
-    reads the same role from `agents/`, which `ocs render-agents` writes from the canonical
-    prompt the Codex side is also serving -- one prompt, two harnesses, no second copy to
-    drift.
+    agreement across vendors is the control and disagreement is a finding. Both sides read
+    the role from the canonical prompt -- `agents/` is what `ocs render-agents` writes from
+    it -- so there is no second copy to drift.
+
+    The Claude side defines the role as an agent and runs the session as it, rather than
+    appending the role to Claude Code's own system prompt, which is what it did first. A
+    subagent is documented as receiving its own system prompt, so appending produced Claude
+    Code wearing a role and not the role. Checked rather than assumed, because an ignored
+    flag would leave a judge with no role and nothing in the output to say so -- the same
+    trap `ocs-team` probes for on the Codex side. Asked which name its instructions give
+    it: `--agent` answers Verifier, a bare call answers none. `--model` is still honoured,
+    so the agent's own `model:` frontmatter does not quietly take the tier back, and
+    defining the agent inline means no plugin has to be loaded into a judge.
+
+    One asymmetry left: the Codex side runs against a pinned vanilla home, and this does
+    not, so a Claude judge still sees the operator's ambient plugins and skills. That is
+    unchanged from the plain-model judges used before it.
     """
     if "@codex" in spec:
         # No model unless one is named. `ocs-ask` resolves the role's declared tier itself,
@@ -398,8 +411,10 @@ def _text_judge_command(spec, prompt):
         # Split on the marker rather than testing the end of the string: `critic@claude`
         # and `critic@claude:sonnet` are the same lens and only the second names a model.
         role, _, rest = spec.partition("@claude")
+        agents = json.dumps({role: {"description": f"{role} acting as a judge",
+                                    "prompt": _role_prompt(role)}})
         return ["claude", "--model", rest.lstrip(":") or "opus", "--strict-mcp-config",
-                "--append-system-prompt", _role_prompt(role), "-p", prompt]
+                "--agents", agents, "--agent", role, "-p", prompt]
     return ["claude", "--model", spec, "--strict-mcp-config", "-p", prompt]
 
 

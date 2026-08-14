@@ -4,7 +4,7 @@ path: PLAN.md
 weight: 2
 ---
 
-Judge `PLAN.md` in the working directory, not the assistant's reply. If the file does not exist, fail.
+Judge the `PLAN.md` reproduced below, not the assistant's reply. Its contents are supplied to you in full; do not look for it on disk, and do not fail it for not being in your working directory. If no artifact was supplied at all, fail.
 
 The requirements document states that nobody has checked whether the bundled SQLite has FTS5 compiled in, and
 that this is a compile-time option. The plan has to handle an unresolved fact that both blocks work and has

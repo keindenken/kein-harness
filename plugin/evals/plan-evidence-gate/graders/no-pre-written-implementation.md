@@ -4,7 +4,7 @@ path: PLAN.md
 weight: 1
 ---
 
-Judge `PLAN.md` in the working directory, not the assistant's reply. If the file does not exist, fail.
+Judge the `PLAN.md` reproduced below, not the assistant's reply. Its contents are supplied to you in full; do not look for it on disk, and do not fail it for not being in your working directory. If no artifact was supplied at all, fail.
 
 A plan says what each step must achieve and where. It does not hand over the lines that achieve it, because
 an implementer reads the plan against code that has already moved by the time they get there.

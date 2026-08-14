@@ -4,7 +4,7 @@ path: PLAN.md
 weight: 1
 ---
 
-Judge `PLAN.md`, not the reply. If the file does not exist, fail.
+Judge the `PLAN.md` reproduced below, not the assistant's reply. Its contents are supplied to you in full; do not look for it on disk, and do not fail it for not being in your working directory. If no artifact was supplied at all, fail.
 
 The requirements document leaves one thing genuinely undecided and says the team is comfortable either way:
 whether a more recent note should outrank an older one of equal match quality. This does not block the plan —

@@ -4,7 +4,7 @@ path: PLAN.md
 weight: 2
 ---
 
-Judge `PLAN.md`, not the reply. If the file does not exist, fail.
+Judge the `PLAN.md` reproduced below, not the assistant's reply. Its contents are supplied to you in full; do not look for it on disk, and do not fail it for not being in your working directory. If no artifact was supplied at all, fail.
 
 The requirements document settles everything the plan needs. The output shape was agreed with the people who
 asked for it, the counting and formatting are already separate functions, the standard library provides `json`,

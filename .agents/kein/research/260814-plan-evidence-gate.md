@@ -71,6 +71,29 @@ The ranking said this before the graders could. It separated the arms 383 to 157
 
 What survives from the first run unchanged: `records-the-open-question` still has the control ahead, 5/5 against 4/5. `no-pre-written-implementation` is now 0/5 on both sides — nobody follows it, including the arm that carries the rule.
 
+### The ranking of the same ten plans
+
+Three Codex role lenses, all at the deep tier, three presentation orders, nine of nine readings usable. `opus` is left out until the Claude-side routing is settled: `--append-system-prompt` appends to Claude Code's own system prompt, and a native subagent is documented as receiving its own, so the two sides are not yet the same environment.
+
+| | with | without |
+| :--- | ---: | ---: |
+| Borda points | **314** | 91 |
+| mean finishing position | **3.0** | 8.0 |
+
+```
+order by arm: with with with with with without without without without without
+```
+
+**No interleaving at all, and each judge produced that separation independently.** Every run in this programme until now has printed the line about interleaved arms meaning the arm is not what the ranking is ranking. This is the first time it does not apply.
+
+The axis is the same in all nine readings, and it is the gate:
+
+> The top plans fully choose an executable ranked-search backend for both FTS5 outcomes, while the bottom plans leave the no-FTS5 outcome requiring a new architecture decision or knowingly abandon the required outcome.
+
+The last-placed plan "hands the key decision to the packaging owner and even permits accepting LIKE-only search, which fails the desired outcome" — which is the clause the gate grader was tightened to include. The grader was made to ask what the judges were already sorting on, and on these ten plans the two instruments now return the same answer: 5/5 against 0/5, and 314 against 91.
+
+That agreement is on one set of plans, not across two runs, which is what makes it worth more than this morning's. And it is the first run of either case that turned up no defect in the instrument.
+
 ## On the rule against pre-written implementation
 
 Nine of ten plans carried implementation, so the grader labels it `unreliable` at 1/5 against 0/5 and separates nothing. Three things are worth keeping straight about that.
