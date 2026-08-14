@@ -108,15 +108,24 @@ def _judge(grader, artifacts, record, model, run_cmd):
         prompt += ("=== WHAT THE RUN PRODUCED ===\n" + produced + "\n\n"
                    "=== FILES THE RUN WROTE, FROM ITS TOOL CALLS ===\n"
                    + "\n".join(record.get("files_written") or ["(none)"]) + "\n\n")
-    prompt += "Reply with exactly one word: PASS or FAIL. Nothing else."
+    prompt += ("Reply with exactly two lines and nothing else:\n"
+               "VERDICT: PASS or FAIL\n"
+               "WHY: one sentence naming the specific thing in the artifact that decided it.")
 
     out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p", prompt],
                   check=False).stdout.decode("utf-8", "replace").strip()
-    verdict = out.upper().split()[0] if out.split() else ""
+    # The verdict is still one token and still the first thing parsed, because anything a
+    # judge can hedge in it will. The reason is read from its own line and never consulted
+    # for the decision -- it is there because a run of these is otherwise a column of bare
+    # FAILs, and every time this programme learned something it was from a judge's wording.
+    stated = re.search(r"^VERDICT:\s*(PASS|FAIL)", out, re.M | re.I)
+    why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
+    verdict = (stated.group(1) if stated else (out.split() or [""])[0]).upper()
+    detail = (why.group(1).strip() if why else out.replace("\n", " "))[:300]
     if verdict.startswith("PASS"):
-        return True, out[:200]
+        return True, detail
     if verdict.startswith("FAIL"):
-        return False, out[:200]
+        return False, detail
     return False, f"unreadable verdict: {out[:200]}"
 
 
