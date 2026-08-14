@@ -85,6 +85,15 @@ def _judge(grader, artifacts, record, model, run_cmd):
     """An LLM grader reads the artifact, never the reply.
 
     The verdict has to be one token because anything a judge can hedge in, it will.
+
+    `model` takes the same specs a ranking judge does, so a grader can be run on the Codex
+    side. That is not a preference between vendors. `~/.claude/CLAUDE.md` reaches every
+    Claude agent and the pinned config home does not cover it, and a judge here obeyed its
+    language instruction over the reply format and returned Korean prose where a verdict
+    belonged. For the arms that file is a constant on both sides and attribution survives
+    it; for a judge it is a third party in the room. Deleting it before a run would fix the
+    judge and perturb the arms, and would have to be remembered every time. Asking a
+    harness that never reads it costs nothing and cannot be forgotten.
     """
     path = grader.get("path") or grader.get("target", {}).get("path")
     content = None
@@ -125,7 +134,7 @@ def _judge(grader, artifacts, record, model, run_cmd):
     # `~/.claude/CLAUDE.md` reaches the judge and this one obeyed it over the format. Ask
     # again rather than record a no. This never re-rolls a verdict that parsed.
     for attempt in range(3):
-        out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p", prompt],
+        out = run_cmd(_text_judge_command(model, prompt),
                       check=False).stdout.decode("utf-8", "replace").strip()
         # The verdict is still one token and still the first thing parsed, because anything
         # a judge can hedge in it will. The reason is read from its own line and never
