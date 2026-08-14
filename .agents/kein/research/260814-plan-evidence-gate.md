@@ -45,7 +45,31 @@ That eighth-place plan **passed** `gate-decides-both-paths`. It had decided both
 
 What it did not ask is whether the decision satisfies the requirements. "Keep `LIKE`" abandons the desired outcome the document opens with and two of its five acceptance criteria, and every judge saw that and every judge ranked it accordingly.
 
-So the case's central grader returned 5/5 against 4/5 — nearly nothing — on the same question the ranking separated 383 to 157. **Pass/fail cannot see degree, and a bar set at "a decision was made" admits a decision that gives up the outcome.** The grader is being tightened to require the alternate path to still meet the acceptance criteria, which is not a new rule imported into the case but a thing the requirements document already demands.
+So the case's central grader returned 5/5 against 4/5 — nearly nothing — on the same question the ranking separated 383 to 157. **Pass/fail cannot see degree, and a bar set at "a decision was made" admits a decision that gives up the outcome.** The grader was tightened to require the alternate path to still meet the acceptance criteria, which is not a new rule imported into the case but a thing the requirements document already demands.
+
+## Second run, and what the first one was actually measuring
+
+Run `260814-223423`, five replicates a side, after three corrections: the tightened gate criterion, `path: PLAN.md` declared on every grader that names a file, and the judge moved off the fast tier.
+
+| | with | without | |
+| :--- | ---: | ---: | :--- |
+| `gate-decides-both-paths` | 5/5 | 0/5 | discriminates |
+| `routed-to-a-skill` | 5/5 | 0/5 | discriminates |
+| `vocabulary-open-questions` | 5/5 | 0/5 | discriminates |
+| `vocabulary-status-metadata` | 5/5 | 0/5 | discriminates |
+| `names-the-files-it-touches` | 4/5 | 1/5 | unreliable |
+| `records-the-open-question` | 4/5 | 5/5 | unreliable |
+| `vocabulary-gate-shape` | 4/5 | 0/5 | unreliable |
+| `plan-file-written` | 5/5 | 5/5 | inert |
+| `sequences-the-irreversible-step` | 5/5 | 5/5 | inert |
+| `stops-at-the-artifact` | 5/5 | 5/5 | inert |
+| `no-pre-written-implementation` | 0/5 | 0/5 | unreached |
+
+**This reverses the reading above.** The case file sets the test: if the content graders separate the arms by as much as the vocabulary graders do, the skill is changing the plan; if by less, it is changing the headings. The central content grader now separates 5/5 against 0/5, which is exactly what the vocabulary controls do, at twice their weight. The first run's 5/5 against 4/5 was not a measurement of the skill; it was a measurement taken with a criterion that accepted "keep `LIKE`" as a decided branch, and with a judge that hallucinated a missing artifact.
+
+The ranking said this before the graders could. It separated the arms 383 to 157 on the gate axis while the gate grader was reporting almost nothing, and the disagreement was the grader's fault. That is the second time in this programme the ranking has been right about something the per-assertion graders could not see, and both times the fix was to the grader.
+
+What survives from the first run unchanged: `records-the-open-question` still has the control ahead, 5/5 against 4/5. `no-pre-written-implementation` is now 0/5 on both sides — nobody follows it, including the arm that carries the rule.
 
 ## On the rule against pre-written implementation
 
