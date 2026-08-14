@@ -7,4 +7,4 @@ match: contains
 flags: ms
 weight: 1
 ---
-^(?=.*^- Alternate path:)(?=.*^- Unexpected result:).*
+^(?=.*^- Alternate path\b)(?=.*^- Unexpected result\b).*

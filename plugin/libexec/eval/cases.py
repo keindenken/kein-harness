@@ -778,4 +778,14 @@ def report(case, graders, records, roles=None):
         lines.append(
             f"  {tally[UNRELIABLE]} assertion(s) the skill itself produced only sometimes. That is the skill or\n"
             "  the assertion being unreliable, not the baseline, and it needs more replicates before it is read.")
+    if tally[HARMFUL]:
+        lines.append(
+            f"  {tally[HARMFUL]} assertion(s) the control produced and the skill did not. Read it as written\n"
+            "  before softening it: the arm carrying the skill is the one that failed.")
+    if tally[UNREACHED]:
+        lines.append(
+            f"  {tally[UNREACHED]} assertion(s) neither arm produced. The word is not `unreachable` and does not\n"
+            "  mean the run fell short of them — both arms finished and both failed. It is a rule the skill\n"
+            "  states and does not get followed, or an assertion no plan can satisfy as written, and the two\n"
+            "  are different findings this label does not separate. Read the artifact before choosing.")
     return "\n".join(lines), dict(tally)

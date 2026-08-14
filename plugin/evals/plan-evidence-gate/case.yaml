@@ -38,6 +38,10 @@ description: >
 
   **Entry stays unpinned here, and that is what `routed-to-a-skill` depends on.** Its companion case pins entry with a `/kein:plan` prefix, because a quarter of its replicates were never reaching the skill and diluting every number taken over them. That option does not exist for this case: these arms are presence against absence, and a slash command handed to the arm without the plugin is an unexpanded string rather than a fair prompt. The consequence is that this case keeps paying the reachability variance its companion no longer does, so a null result here has one more candidate explanation than a null result there.
 
+  **`vocabulary-gate-shape` matches the label, not the label plus a colon.** It first ran demanding `- Alternate path:` exactly, and scored zero against a plan that had written `- Alternate path (all shipped targets report FTS5_AVAILABLE=0):` and split the unexpected result into `- Unexpected result, case A —` and `case B`. That plan had used the template's vocabulary more thoroughly than the template asks, and the control read it as absent. A broken control is worse than a missing one, because the two content graders are read against it. The arm without the skill produced neither label in any form, so loosening costs the separation nothing.
+
+  **`names-the-files-it-touches` is expected to come back `inert`, and that is the result.** Both arms named `marginalia/search.py`, `marginalia/notes.py` and a new module in the first run, because the modules are on disk and naming them is what anyone does. The rule it grades is satisfied without the skill. Recording that is the point -- it is the same deletion evidence the five graders in `plan-no-unknown` produced, and a grader is not broken for reporting it.
+
   **`routed-to-a-skill` requires a clean plugin environment.** It is a free deterministic signal that the
   no-plugin arm cannot fake — but only if no other skill-bearing plugin is loaded. This machine has
   superpowers, skill-creator and ralph-loop enabled in `~/.claude/settings.json`, any of which can fire a
