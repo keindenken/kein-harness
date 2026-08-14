@@ -383,10 +383,17 @@ def _text_judge_command(spec, prompt):
     prompt the Codex side is also serving -- one prompt, two harnesses, no second copy to
     drift.
     """
-    if spec.endswith("@codex"):
-        role = spec[: -len("@codex")]
+    if "@codex" in spec:
+        # No model unless one is named. `ocs-ask` resolves the role's declared tier itself,
+        # which is the harness's design -- the manifest states a vendor-neutral tier and
+        # each side maps it. This used to pass `gpt-5.6-sol` unconditionally, which was
+        # written when `@codex` meant a handful of ranking calls and then became the
+        # grader default, so every grader ran at the deep tier and `verifier` ran there
+        # too despite being declared standard.
+        role, _, model = spec.partition("@codex")
         return [str(Path(os.environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
-                "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt]
+                "codex", "--agent", role, *(["--model", model.lstrip(":")] if model.strip(":") else []),
+                "--effort", "medium", prompt]
     if "@claude" in spec:
         # Split on the marker rather than testing the end of the string: `critic@claude`
         # and `critic@claude:sonnet` are the same lens and only the second names a model.

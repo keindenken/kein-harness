@@ -1,5 +1,6 @@
 ---
 type: llm
+path: PLAN.md
 weight: 1
 ---
 

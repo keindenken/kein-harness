@@ -900,7 +900,7 @@ def main():
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
     parser.add_argument("--case", help="run a graded case from plugin/evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
-    parser.add_argument("--judge-model", default="verifier@codex", help="judge for `llm` graders. Takes the same specs --compare-judge does. Defaults to the Codex side because `~/.claude/CLAUDE.md` reaches every Claude agent, is not covered by the pinned config home, and broke a verdict here by being obeyed over the reply format; a harness that never reads it cannot be contaminated by it and cannot be forgotten about. haiku also answered the same artifact three different ways, one of them a hallucinated missing file, where the Codex role returned the same verdict three times.")
+    parser.add_argument("--judge-model", default="verifier@codex", help="judge for `llm` graders, at whatever tier the role declares -- standard, for `verifier`. The fast tier was tried first, since a grader is one narrow pass/fail and there are many of them, and it is not usable here: on `gate-decides-both-paths` it hallucinated a missing PLAN.md that both higher tiers read, and passed a plan they agreed to fail. Standard and deep returned the same verdicts as each other. Takes the same specs --compare-judge does. Defaults to the Codex side because `~/.claude/CLAUDE.md` reaches every Claude agent, is not covered by the pinned config home, and broke a verdict here by being obeyed over the reply format; a harness that never reads it cannot be contaminated by it and cannot be forgotten about. haiku also answered the same artifact three different ways, one of them a hallucinated missing file, where the Codex role returned the same verdict three times.")
     parser.add_argument("--judge", action="store_true", help="with --self-test: also check the llm graders against the case's known-good and known-bad artifacts. Costs one judge call per grader per fixture, and catches a judge that fails its own criterion.")
     parser.add_argument("--self-test", action="store_true", help="with --case: prove the deterministic graders still detect their target, without launching an arm")
     parser.add_argument("--variant", action="append", metavar="NAME=GITREF", help="define an arm as the harness at a commit; repeatable. `--variant before=HEAD~1 --variant after=HEAD` compares two versions of a prompt instead of comparing presence against absence. Replaces the built-in arm pair for this run.")
@@ -909,6 +909,7 @@ def main():
     parser.add_argument("--compare-runs", type=int, default=2, help="times to repeat the whole comparison. A single run of a pairwise judge is one draw: the first comparison here returned 3-0 and the second, on identical input, contradicted it. Order control does not cover run-to-run variance.")
     parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --compare; repeatable. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
+    parser.add_argument("--regrade-all", action="store_true", help="with --regrade: re-ask every `llm` verdict, not only the ones that were never reached. For when the grader files changed and the stored verdicts answer a question no grader asks any more. It does replace results that were honestly obtained, which is why it is not the default.")
     parser.add_argument("--regrade", metavar="RUN_DIR", help="re-ask only the graders whose verdict was never reached, against artifacts already on disk. A judge stopped by a rate limit records `unreadable verdict`, which counts as a failure and is not one; this repairs those and leaves every honestly-obtained verdict alone.")
     parser.add_argument("--rank", metavar="RUN_DIR", help="the same question as --compare, asked of the whole field at once. Pairs grow as the square of the plans -- six an arm is 66 pairs, 396 calls at three judges and two orders -- so past about four a side this is the one to reach for: one call per judge per presentation order, and the judge still compares rather than scoring a plan alone.")
     parser.add_argument("--rank-orders", type=int, default=3, help="presentation orders for --rank. These do for a list what judging both orders did for a pair: a judge handed a list has a position preference, and re-dealing the same field is what separates it from a reading.")
@@ -979,7 +980,15 @@ def main():
                     detail = str(result.get("detail") or "")
                     # Only verdicts that were never reached. Re-rolling a verdict that was
                     # honestly obtained would quietly replace a result with a fresh sample.
-                    if result.get("passed") or not detail.startswith("unreadable verdict"):
+                    # --regrade-all lifts that, and is for one situation: the grader files
+                    # themselves changed, so the stored verdicts answer a question no
+                    # grader asks any more. Every llm verdict is then re-asked and the run
+                    # is a reading under the current graders, which is what --reclassify is
+                    # for the classifier one level up.
+                    if not options.regrade_all and (
+                            result.get("passed") or not detail.startswith("unreadable verdict")):
+                        continue
+                    if options.regrade_all and by_name[name].get("type") != "llm":
                         continue
                     passed, why = case_runner.grade(
                         by_name[name], Path(record["artifacts"]), record["run"],
