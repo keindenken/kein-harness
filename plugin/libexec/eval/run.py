@@ -22,6 +22,24 @@ except KeyError:
 
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
+# Ranking judges, pinned to one tier on purpose.
+#
+# A role's declared tier is set by the work that role normally does -- deep for the ones
+# that design, standard for the one that checks evidence. As judges they are all doing the
+# same job, so the tier that matters is the one the judging needs, not the one the role
+# carries elsewhere.
+#
+# It has to be the same tier for all of them because the ranking sums their Borda points.
+# Equal weight in the aggregate is a claim of equal capability, and a standard-tier judge
+# sitting beside two deep ones gets an equal say it has not earned. The alternative is to
+# stop aggregating and read the per-judge orders the report already prints; pinning is
+# cheaper and keeps both readings available.
+#
+# Graders go the other way and stay at the role's tier: many narrow pass/fail calls, each
+# read on its own, nothing summed across judges.
+RANK_JUDGES = ["critic@codex:gpt-5.6-sol", "architect@codex:gpt-5.6-sol",
+               "verifier@codex:gpt-5.6-sol"]
+
 ARMS = {
     "with-skill": {"inject": True, "invoke": "/kein:ralplan "},
     "without-skill": {"inject": False, "invoke": ""},
@@ -907,7 +925,7 @@ def main():
     parser.add_argument("--jobs", type=int, default=3, help="replicates to run concurrently with --case. Each gets its own worktree and config home, so the ceiling is the account's tolerance for concurrent sessions rather than anything in the harness.")
     parser.add_argument("--reclassify", metavar="RUN_DIR", help="re-read a finished case run's stored grader results under the current classifier, without launching anything. The labels are a reading of the data, so they change when the reading does.")
     parser.add_argument("--compare-runs", type=int, default=2, help="times to repeat the whole comparison. A single run of a pairwise judge is one draw: the first comparison here returned 3-0 and the second, on identical input, contradicted it. Order control does not cover run-to-run variance.")
-    parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --compare; repeatable. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
+    parser.add_argument("--compare-judge", action="append", metavar="JUDGE", help="judge for --rank and --compare; repeatable. Defaults to the three Codex role lenses pinned to the deep tier, because the ranking sums Borda points across judges and equal weight in a sum is a claim of equal capability. Pass your own and keep them on one tier, or read the per-judge orders the report prints instead of the aggregate. A Claude model name, or `codex` / `codex:<model>`. Two vendors share the task but not their error correlations, so their agreement is the control on a judge simply preferring the longer document. Defaults to --judge-model.")
     parser.add_argument("--compare", metavar="RUN_DIR", help="read the two arms' artifacts from a finished case run as a blind pairwise choice, which answers whether the plan is better rather than whether it carried the fields")
     parser.add_argument("--regrade-all", action="store_true", help="with --regrade: re-ask every `llm` verdict, not only the ones that were never reached. For when the grader files changed and the stored verdicts answer a question no grader asks any more. It does replace results that were honestly obtained, which is why it is not the default.")
     parser.add_argument("--regrade", metavar="RUN_DIR", help="re-ask only the graders whose verdict was never reached, against artifacts already on disk. A judge stopped by a rate limit records `unreadable verdict`, which counts as a failure and is not one; this repairs those and leaves every honestly-obtained verdict alone.")
@@ -1011,7 +1029,7 @@ def main():
         import cases as case_runner
         target = Path(options.rank)
         manifest = json.loads((target / "manifest.json").read_text())
-        judges = options.compare_judge or [options.judge_model]
+        judges = options.compare_judge or RANK_JUDGES
         text, _ = case_runner.rank(target, manifest["case_dir"], judges, run,
                                    options.rank_orders, manifest.get("roles"))
         print(text)
