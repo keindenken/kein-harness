@@ -9,7 +9,7 @@ Marginalia is a single-user note-taking desktop application. Notes are Markdown,
 local SQLite database (`notes` table: `id`, `title`, `body`, `created_at`, `updated_at`, `tags` as a JSON
 array). The library is 40,000 notes and about 600 MB.
 
-The source is `marginalia/`, beside this document, and it is the whole application: `db.py` holds the schema, resolves where a user's library lives, and hands out connections; `search.py` is the search shown to the user; `notes.py` is the only module that writes to the `notes` table. Read them rather than inferring their shape from this document.
+The source is `marginalia/`, beside this document, and it is the whole application: `app.py` is the entry point and `start()` is the only code that runs once per launch; `db.py` holds the schema, resolves where a user's library lives, and hands out connections; `search.py` is the search shown to the user; `notes.py` is the only module that writes to the `notes` table. Read them rather than inferring their shape from this document.
 
 Search today is the `LIKE` query in `search.py`, which takes 4 to 9 seconds on that library and cannot rank results. Users report that they stop searching and scroll instead.
 

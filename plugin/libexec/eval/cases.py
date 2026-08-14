@@ -105,9 +105,15 @@ def _judge(grader, artifacts, record, model, run_cmd):
         produced = _produced(artifacts)
         if not produced.strip():
             return False, "the run produced no readable artifact to judge"
+        # Not `record["files_written"]`, which is read off the lead's event stream and so
+        # contains nothing a subagent wrote. A run whose Planner wrote the artifact showed
+        # the judge an empty list, and the judge concluded from it that no file was created
+        # -- while the deterministic grader beside it confirmed the file was there.
+        # `collect()` takes this from `git status` against a worktree committed before the
+        # arm started, so it holds every file the run touched whoever touched it.
         prompt += ("=== WHAT THE RUN PRODUCED ===\n" + produced + "\n\n"
-                   "=== FILES THE RUN WROTE, FROM ITS TOOL CALLS ===\n"
-                   + "\n".join(record.get("files_written") or ["(none)"]) + "\n\n")
+                   "=== EVERY FILE THE RUN CREATED OR CHANGED ===\n"
+                   + "\n".join(_produced_paths(artifacts) or ["(none)"]) + "\n\n")
     prompt += ("Reply with exactly two lines and nothing else:\n"
                "VERDICT: PASS or FAIL\n"
                "WHY: one sentence naming the specific thing in the artifact that decided it.")
@@ -145,12 +151,30 @@ def _produced(artifacts):
     for path in sorted(Path(artifacts).rglob("*")):
         if not path.is_file() or path.suffix not in (".md", ".txt", ".json", ".yaml", ".yml"):
             continue
+        if path.name in HARNESS_FILES:
+            continue
         text = path.read_text(errors="replace")[:budget]
         budget -= len(text)
         out.append(f"--- {path.relative_to(artifacts)}\n{text}")
         if budget <= 0:
             break
     return "\n\n".join(out)
+
+
+HARNESS_FILES = {"_record.json"}
+
+
+def _produced_paths(artifacts):
+    """Every file the run created or changed, as paths, fixture copy excluded.
+
+    `_record.json` is the self-test's own contract file and no run ever writes one.
+    Listing it told a judge grading "is PLAN.md the only file written" that a second
+    file had been written, and it failed the artifact built to pass it.
+    """
+    root = Path(artifacts)
+    return sorted(str(p.relative_to(root)) for p in root.rglob("*")
+                  if p.is_file() and p.name not in HARNESS_FILES
+                  and not p.is_relative_to(root / "fixture"))
 
 
 def grade(grader, artifacts, record, judge_model, run_cmd):
