@@ -21,6 +21,7 @@ evidence `docs/prompt-revision.md` says nobody collects.
 """
 
 import json
+import os
 import random
 import re
 import shutil
@@ -118,21 +119,28 @@ def _judge(grader, artifacts, record, model, run_cmd):
                "VERDICT: PASS or FAIL\n"
                "WHY: one sentence naming the specific thing in the artifact that decided it.")
 
-    out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p", prompt],
-                  check=False).stdout.decode("utf-8", "replace").strip()
-    # The verdict is still one token and still the first thing parsed, because anything a
-    # judge can hedge in it will. The reason is read from its own line and never consulted
-    # for the decision -- it is there because a run of these is otherwise a column of bare
-    # FAILs, and every time this programme learned something it was from a judge's wording.
-    stated = re.search(r"^VERDICT:\s*(PASS|FAIL)", out, re.M | re.I)
-    why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
-    verdict = (stated.group(1) if stated else (out.split() or [""])[0]).upper()
-    detail = (why.group(1).strip() if why else out.replace("\n", " "))[:300]
-    if verdict.startswith("PASS"):
-        return True, detail
-    if verdict.startswith("FAIL"):
-        return False, detail
-    return False, f"unreadable verdict: {out[:200]}"
+    # A reply that is not in the format is not a verdict, and counting it as a failure is
+    # how a judge that never answered becomes a grader that answered no. Observed twice on
+    # the same artifact: once a refusal to grade at all, once in Korean prose because
+    # `~/.claude/CLAUDE.md` reaches the judge and this one obeyed it over the format. Ask
+    # again rather than record a no. This never re-rolls a verdict that parsed.
+    for attempt in range(3):
+        out = run_cmd(["claude", "--model", model, "--strict-mcp-config", "-p", prompt],
+                      check=False).stdout.decode("utf-8", "replace").strip()
+        # The verdict is still one token and still the first thing parsed, because anything
+        # a judge can hedge in it will. The reason is read from its own line and never
+        # consulted for the decision -- it is there because a run of these is otherwise a
+        # column of bare FAILs, and every time this programme learned something it was from
+        # a judge's wording.
+        stated = re.search(r"^VERDICT:\s*(PASS|FAIL)", out, re.M | re.I)
+        why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
+        verdict = (stated.group(1) if stated else (out.split() or [""])[0]).upper()
+        detail = (why.group(1).strip() if why else out.replace("\n", " "))[:300]
+        if verdict.startswith("PASS"):
+            return True, detail
+        if verdict.startswith("FAIL"):
+            return False, detail
+    return False, f"unreadable verdict after 3 attempts: {out[:200]}"
 
 
 PRODUCED_LIMIT = 40000
@@ -322,14 +330,8 @@ def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
             return None, f"not a permutation of {''.join(labels)}: {','.join(order) or 'empty'}", {}
         return order, why, {k.strip().upper(): v.strip() for k, v in (notes or {}).items()}
 
-    if spec.endswith("@codex") or not spec.startswith("codex"):
-        if spec.endswith("@codex"):
-            role = spec[: -len("@codex")]
-            command = [str(Path(__import__("os").environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
-                       "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt]
-        else:
-            command = ["claude", "--model", spec, "--strict-mcp-config", "-p", prompt]
-        out = run_cmd(command, check=False).stdout.decode("utf-8", "replace")
+    if spec.endswith("@codex") or spec.endswith("@claude") or not spec.startswith("codex"):
+        out = run_cmd(_text_judge_command(spec, prompt), check=False).stdout.decode("utf-8", "replace")
         ranking = re.search(r"^RANKING:\s*(.+)$", out, re.M | re.I)
         why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)
         if not ranking:
@@ -352,6 +354,39 @@ def _ask_ranking(spec, prompt, run_cmd, scratch, labels):
     return check(parsed.get("ranking") or [], parsed.get("why", ""), parsed.get("notes"))
 
 
+def _role_prompt(role):
+    """A rendered agent's prompt, minus the frontmatter that configures Claude Code."""
+    path = Path(os.environ["KEIN_ROOT"]) / "agents" / f"{role}.md"
+    if not path.is_file():
+        raise SystemExit(f"ocs eval: no agent prompt at {path}. Known roles: "
+                         + ", ".join(sorted(p.stem for p in path.parent.glob("*.md"))))
+    text = path.read_text()
+    return text.split("---", 2)[2].strip() if text.startswith("---") else text.strip()
+
+
+def _text_judge_command(spec, prompt):
+    """The argv for a judge that answers in text, whichever vendor wears the role.
+
+    `<role>@codex` and `<role>@claude` are the same lens on two vendors, which is the
+    comparison worth having: judges that share a vendor share their error correlations, so
+    agreement across vendors is the control and disagreement is a finding. The Claude side
+    reads the same role from `agents/`, which `ocs render-agents` writes from the canonical
+    prompt the Codex side is also serving -- one prompt, two harnesses, no second copy to
+    drift.
+    """
+    if spec.endswith("@codex"):
+        role = spec[: -len("@codex")]
+        return [str(Path(os.environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
+                "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt]
+    if "@claude" in spec:
+        # Split on the marker rather than testing the end of the string: `critic@claude`
+        # and `critic@claude:sonnet` are the same lens and only the second names a model.
+        role, _, rest = spec.partition("@claude")
+        return ["claude", "--model", rest.lstrip(":") or "opus", "--strict-mcp-config",
+                "--append-system-prompt", _role_prompt(role), "-p", prompt]
+    return ["claude", "--model", spec, "--strict-mcp-config", "-p", prompt]
+
+
 def _ask_judge(spec, prompt, run_cmd, scratch):
     """One judge, one verdict. `spec` is a Claude model, or `codex` / `codex:<model>`.
 
@@ -361,10 +396,8 @@ def _ask_judge(spec, prompt, run_cmd, scratch):
     error correlations, so agreement between them is the cheapest available control on
     that, and disagreement is itself the finding.
     """
-    if spec.endswith("@codex"):
-        role = spec[: -len("@codex")]
-        out = run_cmd([str(Path(__import__("os").environ["KEIN_ROOT"]) / "libexec" / "ocs-ask"),
-                       "codex", "--agent", role, "--model", "gpt-5.6-sol", "--effort", "medium", prompt],
+    if spec.endswith("@codex") or spec.endswith("@claude"):
+        out = run_cmd(_text_judge_command(spec, prompt),
                       check=False).stdout.decode("utf-8", "replace")
         winner = re.search(r"^WINNER:\s*(A|B|TIE)", out, re.M | re.I)
         why = re.search(r"^WHY:\s*(.+)$", out, re.M | re.I)

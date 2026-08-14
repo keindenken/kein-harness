@@ -16,7 +16,12 @@ Pass if the plan, for the FTS5 question, does all four of these:
   `PRAGMA compile_options` query, `sqlite3_compileoption_used`, a probe that creates a virtual table and
   catches the error — rather than "investigate" or "confirm with the team";
 - gives a course of action for FTS5 being present **and** a different course of action for it being absent,
-  both chosen in the plan rather than left to whoever executes it;
+  both chosen in the plan rather than left to whoever executes it, and **both of them still delivering what
+  the requirements ask for**. A branch is not decided by being named. "If FTS5 is absent, keep the existing
+  `LIKE` search" is a decision, and it abandons the desired outcome the requirements open with along with the
+  under-300-ms and ranked-results criteria; a plan that takes it has decided to fail rather than decided what
+  to do. Read each branch against the acceptance criteria and fail the plan if either branch cannot meet
+  them;
 - names what to do if the observation produces neither expected result, or otherwise bounds the case it did
   not plan for.
 
@@ -26,7 +31,9 @@ Fail if the plan:
   being resolved into planned work;
 - assumes FTS5 is available and mentions the alternative only as a possibility;
 - describes the fallback as "use a different approach" or "revisit the design" without saying which approach;
-- names both branches but assigns the choice between them to execution time.
+- names both branches but assigns the choice between them to execution time;
+- resolves the absent branch into shipping the current behaviour unchanged, or into anything else that leaves
+  a stated acceptance criterion unmet, however explicitly that is chosen.
 
 The plan may reasonably fold the check into the first step of the work rather than isolating it as a
 prerequisite. That does not fail this grader as long as both outcomes still have planned work attached.
