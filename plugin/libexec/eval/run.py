@@ -175,7 +175,13 @@ def prepare_plugin(path, model, source=None):
     That is expensive, and worse, it makes the arms differ by model as well as by skill: with-skill gets Opus lanes while the control improvises cheaper ones, and a difference between them can no longer be read as the skill's doing.
     Copying rather than rendering in place also keeps the installed harness untouched while a run is in flight.
     """
-    shutil.copytree(source or KEIN_ROOT, path, symlinks=True)
+    # `evals` and the runner under `libexec/eval` are excluded whatever commit they come
+    # from. Cases now live outside the plugin, but a `--variant` arm copies the plugin as
+    # it existed at some older commit, where they did not, and the arm has no use for
+    # either: the graders are what will judge it and `selftest/should-pass` is a worked
+    # answer to the fixture it is planning for.
+    shutil.copytree(source or KEIN_ROOT, path, symlinks=True,
+                    ignore=shutil.ignore_patterns("evals", "eval"))
     run(
         [str(path / "libexec" / "ocs-render-agents"), str(path / "agents")],
         env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model),
@@ -189,6 +195,41 @@ def prepare_plugin(path, model, source=None):
     if models != [model]:
         raise SystemExit(f"ocs eval: agent models did not collapse to {model}: {models}")
     return path
+
+
+def evals_root():
+    """Where the graded cases live: `evals/` in the harness repository, not in the plugin.
+
+    They used to sit at `KEIN_ROOT/evals`, which is inside the plugin directory, which
+    `prepare_plugin` copies wholesale and hands an arm as its `--plugin-dir`. Every arm
+    therefore ran with the eleven graders that would judge it and with
+    `selftest/should-pass/PLAN.md` -- a worked answer to the very fixture it was planning
+    for -- readable on disk. No arm was found to have read either across six runs, and one
+    did list the paths while looking for REQUIREMENTS.md, so it was an open channel rather
+    than a used one. Cases are development assets and a plugin someone installs has no use
+    for them.
+    """
+    found = run(["git", "rev-parse", "--show-toplevel"], cwd=KEIN_ROOT, check=False)
+    if found.returncode != 0:
+        raise SystemExit("ocs eval: graded cases live in the harness repository's `evals/`, "
+                         f"and {KEIN_ROOT} is not inside one.")
+    return Path(found.stdout.decode().strip()) / "evals"
+
+
+def resolve_case(name):
+    """A case name or a path, to the directory holding its `case.yaml`.
+
+    Both entry points resolve it the same way and fail the same way. `--self-test` used to
+    resolve without checking, so an unknown name reached `load_case` and came back as a
+    FileNotFoundError traceback instead of the list of cases that do exist.
+    """
+    case_dir = Path(name)
+    if not (case_dir / "case.yaml").is_file():
+        case_dir = evals_root() / name
+    if not (case_dir / "case.yaml").is_file():
+        known = sorted(p.parent.name for p in evals_root().glob("*/case.yaml"))
+        raise SystemExit(f"ocs eval: no case.yaml under {case_dir}. Known: {', '.join(known) or 'none'}")
+    return case_dir
 
 
 def prune_empty_dirs(root):
@@ -827,12 +868,7 @@ def run_case_mode(options, model, config_home_root):
     """
     import cases as case_runner
 
-    case_dir = Path(options.case)
-    if not case_dir.is_dir():
-        case_dir = KEIN_ROOT / "evals" / options.case
-    if not (case_dir / "case.yaml").is_file():
-        known = sorted(p.parent.name for p in (KEIN_ROOT / "evals").glob("*/case.yaml"))
-        raise SystemExit(f"ocs eval: no case.yaml under {case_dir}. Known: {', '.join(known) or 'none'}")
+    case_dir = resolve_case(options.case)
 
     case, graders = case_runner.load_case(case_dir)
     execution = case.get("execution") or {}
@@ -916,7 +952,7 @@ def run_case_mode(options, model, config_home_root):
 def main():
     parser = argparse.ArgumentParser(prog="ocs eval")
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
-    parser.add_argument("--case", help="run a graded case from plugin/evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
+    parser.add_argument("--case", help="run a graded case from the repository's evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="verifier@codex", help="judge for `llm` graders, at whatever tier the role declares -- standard, for `verifier`. The fast tier was tried first, since a grader is one narrow pass/fail and there are many of them, and it is not usable here: on `gate-decides-both-paths` it hallucinated a missing PLAN.md that both higher tiers read, and passed a plan they agreed to fail. Standard and deep returned the same verdicts as each other. Takes the same specs --compare-judge does. Defaults to the Codex side because `~/.claude/CLAUDE.md` reaches every Claude agent, is not covered by the pinned config home, and broke a verdict here by being obeyed over the reply format; a harness that never reads it cannot be contaminated by it and cannot be forgotten about. haiku also answered the same artifact three different ways, one of them a hallucinated missing file, where the Codex role returned the same verdict three times.")
     parser.add_argument("--judge", action="store_true", help="with --self-test: also check the llm graders against the case's known-good and known-bad artifacts. Costs one judge call per grader per fixture, and catches a judge that fails its own criterion.")
@@ -1048,10 +1084,7 @@ def main():
     if options.case:
         if options.self_test:
             import cases as case_runner
-            target = Path(options.case)
-            if not (target / "case.yaml").is_file():
-                target = KEIN_ROOT / "evals" / options.case
-            return case_runner.self_test(target, run, options.judge_model if options.judge else None)
+            return case_runner.self_test(resolve_case(options.case), run, options.judge_model if options.judge else None)
         config, _ = load_config()
         return run_case_mode(options, config.get("models", {}).get("arm", "sonnet"), None)
 
