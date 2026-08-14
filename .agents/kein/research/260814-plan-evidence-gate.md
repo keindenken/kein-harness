@@ -94,6 +94,35 @@ The last-placed plan "hands the key decision to the packaging owner and even per
 
 That agreement is on one set of plans, not across two runs, which is what makes it worth more than this morning's. And it is the first run of either case that turned up no defect in the instrument.
 
+### The same ten plans, judged again on the other vendor
+
+Three Claude role lenses — `critic@claude`, `architect@claude`, `verifier@claude`, all at opus to match the Codex panel's pinned deep tier — over the same three presentation orders. Nine of nine readings usable.
+
+| | with | without |
+| :--- | ---: | ---: |
+| Codex | 314 | 91 |
+| Claude | 313 | 92 |
+
+Both panels separate the arms completely, with no interleaving, and all six judges reached that independently. They also agree on the arm boundary, on which control plan is the best of its arm, on which treatment plan is the worst of its, and on which two control plans are the bottom pair.
+
+**What makes that worth more than the totals is that the two vendors are not reading for the same thing.** Codex audits for defects, and nearly every note turns on a "but":
+
+> …but its manual schema cannot produce the promised title/body
+> …but knowingly serves incomplete ranked results after only the first backfill batch
+> …but its manual SQL assumes LN support
+
+Claude credits the quality of the reasoning, and its notes turn on why a plan decided what it did:
+
+> unusually honest about *why* the no-FTS5 backend drops true IDF (per-write corpus recomputation would make one note's save…)
+> goes further than anyone on persisting which branch a given index file was built under (`build_state.mode`) so a mismatch…
+> the only plan that actually *mitigates* the substring→token semantics change
+
+Two reading styles, same arm ordering. A result that survives both is not an artifact of one panel's habits.
+
+The single real disagreement is internal to the treatment arm: `with-skill/1` is first for Codex and fourth for Claude. Neither is wrong. Codex found a concrete defect in `with-skill/0` — its manual backend cannot return the title and body it promises — and dropped it below. Claude weighed `with-skill/0` as leaving an executor almost nothing to decide and put it first. One panel is asking what is missing, the other what was decided and why.
+
+**The control arm's best plan is worth its own note.** `without-skill/0` finishes sixth, close behind the treatment arm, and Claude says why: it is the only plan that noticed `LIKE '%term%'` is substring matching while `MATCH` is not, and decided on prefix matching to mitigate the change. That is a consequence the requirements never mention and the gate has nothing to do with. A good plan without the skill is still a good plan, and when it happens the reason is domain insight rather than the discipline this case measures.
+
 ## On the rule against pre-written implementation
 
 Nine of ten plans carried implementation, so the grader labels it `unreliable` at 1/5 against 0/5 and separates nothing. Three things are worth keeping straight about that.
