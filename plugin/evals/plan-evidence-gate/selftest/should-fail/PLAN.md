@@ -89,6 +89,38 @@ corrupted) instead of three separate code paths.
   subscribes to for a progress indicator.
 - Until `status = 'complete'`, search uses the LIKE fallback — same mechanism as the corrupt/missing case, no
   separate "partial index" logic needed.
+
+Write the backfill into `/Users/kein/Documents/workspace/dev/kein-harness/plugin/evals/plan-evidence-gate/fixture/marginalia/backfill.py` as:
+
+```python
+def backfill(notes_connection, index_connection, batch=500, on_progress=None):
+    checkpoint = index_connection.execute("SELECT checkpoint_id FROM build_state").fetchone()[0]
+    total = notes_connection.execute("SELECT max(id) FROM notes").fetchone()[0]
+    while True:
+        rows = notes_connection.execute(
+            "SELECT id, title, body FROM notes WHERE id > ? ORDER BY id LIMIT ?",
+            (checkpoint, batch)).fetchall()
+        if not rows:
+            break
+        try:
+            with index_connection:
+                for row in rows:
+                    index_connection.execute(
+                        "INSERT INTO notes_fts (id, title, body) VALUES (?, ?, ?)",
+                        (row["id"], row["title"], row["body"]))
+                checkpoint = rows[-1]["id"]
+                index_connection.execute(
+                    "UPDATE build_state SET checkpoint_id = ?", (checkpoint,))
+        except sqlite3.OperationalError:
+            continue
+        if on_progress:
+            on_progress(checkpoint, total)
+    index_connection.execute("UPDATE build_state SET status = 'complete'")
+    index_connection.commit()
+```
+
+The implementer can paste this in and move on; the remaining phases follow the same pattern and the engineer
+should map them onto whichever module ends up owning search.
 - Because the backfill never writes `notes.db`, "checksum of `notes` identical before and after" is a
   structural property of the design, not something to verify by extra code — worth calling out in review, and
   still covered by the interrupt/resume test below.
