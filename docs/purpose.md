@@ -120,9 +120,17 @@ commands moved to `bin/kein-dev`, reached as `libexec/dev-<name>`. `ask`, `team`
 The split is by audience. `ocs help` is a surface an agent reads mid-task, and four of its
 ten entries were maintenance it has no reason to run — two of which overwrite generated
 artifacts. Nothing about the resolver changed: `prompts/` is still generated once and read
-by both vendors, and the gate is still reachable from every consumer, because `ocs ask` and
-`ocs team` invoke `libexec/dev-check-prompts` by path. Sharing a `libexec/` and a
-`KEIN_ROOT` is what made the gate reachable; appearing in the same help listing never was.
+by both vendors, and the gate is still reachable from every consumer — as a function under
+`libexec/lib/` that `ocs ask` and `ocs team` source. Shared code is what makes it
+reachable; appearing in the same help listing never was.
+
+Decomposing it that way was forced by the split and fixed a defect the coupling had hidden.
+Freshness was one command asking three questions, and a dispatch was running all three:
+whether `prompts/` had been edited since rendering, whether canonical had moved underneath
+it, and whether `agents/` still matched `prompts/`. Only the first bears on the answer a
+dispatch produces. The second needs `~/.codex-orca` on the machine, so `ocs ask` reported
+every role as `missing(canonical)` and refused to run wherever the Codex home was absent —
+which is the one thing committing `prompts/` was supposed to buy.
 
 `kein-dev` lives at the repository root rather than in `plugin/bin/`, since anything there
 becomes a bare command wherever the plugin is enabled. The rule below scopes to `ocs`,

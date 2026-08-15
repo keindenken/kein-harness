@@ -81,7 +81,9 @@ manifest="$prompts/manifest.json"
 [ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `kein-dev sync-prompts`.\n' >&2; exit 1; }
 
 # A stale library would answer as a role that no longer exists as written, so the gate runs before anything is spent on inference.
-"$KEIN_ROOT/libexec/dev-check-prompts" >/dev/null
+# Only the half a dispatch can settle for itself; `kein-dev check-prompts` owns the rest and is not reachable from here by design.
+. "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+prompt_library_fresh
 
 # Advisory only: the nine read-only roles.
 # A write-capable role reached through a bare one-shot would let a remote vendor edit the worktree with no workflow around it, which is what `execute` is for.

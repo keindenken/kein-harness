@@ -3,51 +3,52 @@
 #
 # The rendered copy exists so the harness is self-contained.
 # That only holds if staleness is loud, so this exits non-zero and names every role that moved.
+#
+# Three questions live here, and only the first is one a dispatch can answer:
+#   1. has `prompts/` been edited since it was rendered  -> lib/prompt-freshness.sh, also called by `ocs ask` and `ocs team`
+#   2. has the canonical source moved underneath it      -> below; needs the Codex home
+#   3. does `agents/` still match `prompts/`             -> below; needs the renderer
+# Two and three are maintenance. Neither can change the answer a dispatch is about to
+# produce, and both were being run on every `ocs ask` until the split.
 set -eu
 
 source_dir=${KEIN_CANONICAL_PROMPTS:-$HOME/.codex-orca/foundation/prompts}
 destination="$KEIN_ROOT/prompts"
 record="$destination/canonical.sha256"
 
-if [ ! -f "$record" ]; then
-  printf 'kein-dev check-prompts: no rendered copy. Run `kein-dev sync-prompts` first.\n' >&2
+# 1. Rendered copy against the hashes recorded for it. Self-contained, and the only check
+# that runs at dispatch. Exits on failure under `set -e`.
+. "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+prompt_library_fresh "$destination"
+
+# 2. Canonical against the same record: an edit upstream is drift the rendered copy cannot
+# see. This is the check that needs `~/.codex-orca`, which is why it stays out of dispatch.
+if [ ! -d "$source_dir" ]; then
+  printf 'kein-dev check-prompts: no canonical prompts at %s\n' "$source_dir" >&2
+  printf '  the rendered copy is intact; set KEIN_CANONICAL_PROMPTS to check it against source\n' >&2
   exit 1
 fi
 
 drifted=''
 missing=''
 
-# Recorded roles: compare the rendered copy against canonical, so an edit to either side is caught.
 while read -r expected name; do
   [ -n "$name" ] || continue
-  rendered="$destination/$name"
   canonical="$source_dir/$name"
 
-  if [ ! -f "$rendered" ]; then
-    missing="$missing $name(rendered)"
-    continue
-  fi
   if [ ! -f "$canonical" ]; then
     missing="$missing $name(canonical)"
     continue
   fi
-
-  actual_rendered=$(shasum -a 256 "$rendered" | cut -d' ' -f1)
-  actual_canonical=$(shasum -a 256 "$canonical" | cut -d' ' -f1)
-
-  if [ "$actual_rendered" != "$expected" ] || [ "$actual_canonical" != "$expected" ]; then
-    drifted="$drifted $name"
-  fi
+  [ "$(shasum -a 256 "$canonical" | cut -d' ' -f1)" = "$expected" ] || drifted="$drifted $name"
 done < "$record"
 
 # Roles added to canonical since the last sync are drift too: the rendered copy is incomplete, and nothing in the recorded hashes would reveal that.
-if [ -d "$source_dir" ]; then
-  for canonical in "$source_dir"/*.md; do
-    [ -e "$canonical" ] || continue
-    name=$(basename "$canonical")
-    grep -q " $name\$" "$record" || drifted="$drifted $name(unrendered)"
-  done
-fi
+for canonical in "$source_dir"/*.md; do
+  [ -e "$canonical" ] || continue
+  name=$(basename "$canonical")
+  grep -q " $name\$" "$record" || drifted="$drifted $name(unrendered)"
+done
 
 if [ -n "$drifted" ] || [ -n "$missing" ]; then
   printf 'kein-dev check-prompts: rendered prompts are out of date\n' >&2
@@ -57,9 +58,9 @@ if [ -n "$drifted" ] || [ -n "$missing" ]; then
   exit 1
 fi
 
-# agents/ is a deterministic function of prompts/, so re-render and diff.
+# 3. agents/ is a deterministic function of prompts/, so re-render and diff.
 # This catches a hand-edit to a generated agent, which the hash record above cannot see because it only covers the library.
-scratch=$(mktemp -d "${TMPDIR:-/tmp}/ocs-check.XXXXXX")
+scratch=$(mktemp -d "${TMPDIR:-/tmp}/kein-check.XXXXXX")
 trap 'rm -rf "$scratch"' EXIT INT TERM
 "$KEIN_ROOT/libexec/dev-render-agents" "$scratch" >/dev/null
 

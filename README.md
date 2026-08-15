@@ -34,8 +34,14 @@ Artifacts still land at the repository root rather than inside `plugin/`, becaus
 the harness works without the Codex home present. `prompts/` is the vendor-neutral
 library `ocs ask` reads; `agents/` is the same text under Claude frontmatter, which
 Claude Code auto-discovers as subagents. Edit neither — change the canonical prompt
-and re-sync. `kein-dev check-prompts` fails when either has drifted, and `ocs ask` and
-`ocs team` run it themselves before they dispatch.
+and re-sync. `kein-dev check-prompts` fails when either has drifted.
+
+Freshness is three questions, and only the first is one a dispatch can answer for itself:
+has `prompts/` been edited since it was rendered, has canonical moved underneath it, and
+does `agents/` still match `prompts/`. The first lives in `libexec/lib/prompt-freshness.sh`
+and `ocs ask` and `ocs team` source it before they spend anything on inference. The other
+two need the Codex home and the renderer respectively, so they stay in `kein-dev
+check-prompts` — neither can change the answer a dispatch is about to produce.
 
 Default locations Claude Code also auto-discovers, absent until needed:
 `hooks/hooks.json`, `.mcp.json`, `.lsp.json`, `output-styles/`, `monitors/`,
@@ -123,8 +129,9 @@ The commands that build and gate the harness answer to `bin/kein-dev` instead, f
 reads mid-task, and `sync-prompts` and `render-agents` overwrite generated artifacts.
 `kein-dev` sits at the repository root rather than in `plugin/bin/`, because anything
 there becomes a bare command wherever the plugin is enabled — which would put them back
-in front of every agent by another route. The gate stays wired regardless: `ocs ask` and
-`ocs team` call `libexec/dev-check-prompts` by path, not through either dispatcher.
+in front of every agent by another route. Nothing under `ocs` reaches a `dev-` command:
+the freshness check `ocs ask` and `ocs team` need is a function they source from
+`libexec/lib/`, so the two CLIs share code and not a call path.
 
 ```sh
 kein-dev help
