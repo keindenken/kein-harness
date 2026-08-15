@@ -10,10 +10,10 @@ Started, then displaced by the `plan` measurement programme, and the reason for 
 
 It describes how a prompt is revised — what evidence a change needs, what counts as deletion evidence — and it is currently prose nobody executes. The measurement programme has been generating exactly the evidence it asks for, so it is worth turning into something invocable rather than read.
 
-## Development commands ship to anyone who installs the plugin
+## Development commands ship to anyone who installs the plugin — closed 2026-08-16
 
-`bin/` is where a file becomes a command on the Bash tool's PATH, so `ocs` is deliberately the only entry point there, and `libexec/` holds the subcommands. That mixes two audiences: `ocs ask` and `ocs team` are for using the harness, `ocs eval` is for building it, and someone who installs the plugin has no use for the second kind.
+Closed by `dev/`. `sync-prompts`, `render-agents`, `check-prompts` and `eval` answer to `dev/kein-dev`, and the runner and its cases sit at `dev/eval/`. Nothing under `plugin/` builds the harness any more, so an install carries only what running it needs.
 
-Splitting it was raised before and set aside over a naming collision — an `omc ask` / `/oh-my-claudecode:ask` confusion that a second `kein` entry point looked likely to repeat. The counter-argument, on the table and not yet answered: there is no `/kein:eval` skill planned, and the development commands only ever run inside this repository, so the collision that made the earlier objection real may not apply here.
+The naming collision that had stalled it was measured against the wrong case. It was `omc team` beside `/oh-my-claudecode:team` — a command and a skill answering to the same word — and no skill is planned for any of these four. `kein-dev` reuses the harness name and collides with nothing.
 
-Moving `evals/` out of the plugin is the first half of it and is done. What remains is the commands themselves, and it is not a folder move.
+What the split actually needed was not a folder move. `ocs ask` and `ocs team` called the drift gate as a development command, so the two audiences were coupled by a call path and not only by a directory; that came apart first, into `plugin/libexec/lib/prompt-freshness.sh`. The move was the easy half.

@@ -1,6 +1,6 @@
 # `plan`: what is still open
 
-Measurements are in this directory; the surveys they were read against are in `docs/research/`. Cases are in `evals/` at the repository root.
+Measurements are in this directory; the surveys they were read against are in `docs/research/`. Cases are in `dev/eval/cases/`.
 
 ## The two graders that have never separated anything
 

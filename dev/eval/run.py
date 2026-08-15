@@ -17,8 +17,11 @@ from pathlib import Path
 
 try:
     KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
-except KeyError:
-    raise SystemExit("kein-dev eval: KEIN_ROOT environment variable is not set; run this command through 'kein-dev eval', which sets KEIN_ROOT")
+    # This tree, which is outside the plugin. Every path below splits on which of the two
+    # it wants: the plugin is the subject being measured, and this is the instrument.
+    KEIN_DEV_ROOT = Path(os.environ["KEIN_DEV_ROOT"])
+except KeyError as missing:
+    raise SystemExit(f"kein-dev eval: {missing.args[0]} is not set; run this command through 'kein-dev eval', which sets it")
 
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
@@ -175,15 +178,22 @@ def prepare_plugin(path, model, source=None):
     That is expensive, and worse, it makes the arms differ by model as well as by skill: with-skill gets Opus lanes while the control improvises cheaper ones, and a difference between them can no longer be read as the skill's doing.
     Copying rather than rendering in place also keeps the installed harness untouched while a run is in flight.
     """
-    # `evals` and the runner under `libexec/eval` are excluded whatever commit they come
-    # from. Cases now live outside the plugin, but a `--variant` arm copies the plugin as
-    # it existed at some older commit, where they did not, and the arm has no use for
-    # either: the graders are what will judge it and `selftest/should-pass` is a worked
-    # answer to the fixture it is planning for.
+    # `evals` and `eval` are excluded whatever commit they come from. Neither exists under
+    # `plugin/` any more, but a `--variant` arm copies the plugin as it existed at some
+    # older commit, where they did, and the arm has no use for either: the graders are what
+    # will judge it and `selftest/should-pass` is a worked answer to the fixture it is
+    # planning for.
     shutil.copytree(source or KEIN_ROOT, path, symlinks=True,
                     ignore=shutil.ignore_patterns("evals", "eval"))
+    # The renderer comes from this tree, never from the copy. A `--variant` arm copies the
+    # plugin as it existed at some older commit, and the dev tooling has not lived inside
+    # the plugin since it moved to `dev/` -- nor, before that, under the same filename.
+    # Reaching into the copy for it fails outright on any commit whose layout differs.
+    # One renderer across every arm is also the correct experiment: the renderer is the
+    # instrument, and an arm that brought its own would differ from its neighbours by a
+    # variable nobody chose to test.
     run(
-        [str(path / "libexec" / "dev-render-agents"), str(path / "agents")],
+        [str(KEIN_DEV_ROOT / "libexec" / "render-agents"), str(path / "agents")],
         env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model),
     )
     models = sorted({
@@ -198,7 +208,7 @@ def prepare_plugin(path, model, source=None):
 
 
 def evals_root():
-    """Where the graded cases live: `evals/` in the harness repository, not in the plugin.
+    """Where the graded cases live: beside the runner in `dev/eval/cases/`.
 
     They used to sit at `KEIN_ROOT/evals`, which is inside the plugin directory, which
     `prepare_plugin` copies wholesale and hands an arm as its `--plugin-dir`. Every arm
@@ -208,12 +218,12 @@ def evals_root():
     did list the paths while looking for REQUIREMENTS.md, so it was an open channel rather
     than a used one. Cases are development assets and a plugin someone installs has no use
     for them.
+
+    They then sat at the repository root, found through `git rev-parse`, which asked the
+    filesystem a question the process already knew the answer to. `dev/` is a fixed
+    location relative to this file, so the lookup is gone with the reason for it.
     """
-    found = run(["git", "rev-parse", "--show-toplevel"], cwd=KEIN_ROOT, check=False)
-    if found.returncode != 0:
-        raise SystemExit("kein-dev eval: graded cases live in the harness repository's `evals/`, "
-                         f"and {KEIN_ROOT} is not inside one.")
-    return Path(found.stdout.decode().strip()) / "evals"
+    return KEIN_DEV_ROOT / "eval" / "cases"
 
 
 def resolve_case(name):
@@ -866,7 +876,7 @@ def run_case_mode(options, model, config_home_root):
 
     Both settings are worth measuring and conflating them would leave a null unattributable between routing and content, so a case picks one and says which. A case comparing two versions of the harness can pin, since both arms carry the skill; a case comparing presence against absence cannot, because a slash command reaching the arm without the plugin is an unexpanded string rather than a fair prompt. `plan-no-unknown` is the first, `plan-evidence-gate` the second, and each says so in its own file.
     """
-    import cases as case_runner
+    import graded as case_runner
 
     case_dir = resolve_case(options.case)
 
@@ -952,7 +962,7 @@ def run_case_mode(options, model, config_home_root):
 def main():
     parser = argparse.ArgumentParser(prog="kein-dev eval")
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
-    parser.add_argument("--case", help="run a graded case from the repository's evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
+    parser.add_argument("--case", help="run a graded case from dev/eval/cases/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
     parser.add_argument("--judge-model", default="verifier@codex", help="judge for `llm` graders, at whatever tier the role declares -- standard, for `verifier`. The fast tier was tried first, since a grader is one narrow pass/fail and there are many of them, and it is not usable here: on `gate-decides-both-paths` it hallucinated a missing PLAN.md that both higher tiers read, and passed a plan they agreed to fail. Standard and deep returned the same verdicts as each other. Takes the same specs --compare-judge does. Defaults to the Codex side because `~/.claude/CLAUDE.md` reaches every Claude agent, is not covered by the pinned config home, and broke a verdict here by being obeyed over the reply format; a harness that never reads it cannot be contaminated by it and cannot be forgotten about. haiku also answered the same artifact three different ways, one of them a hallucinated missing file, where the Codex role returned the same verdict three times.")
     parser.add_argument("--judge", action="store_true", help="with --self-test: also check the llm graders against the case's known-good and known-bad artifacts. Costs one judge call per grader per fixture, and catches a judge that fails its own criterion.")
@@ -1008,7 +1018,7 @@ def main():
         raise SystemExit(1 if failed else 0)
 
     if options.reclassify:
-        import cases as case_runner
+        import graded as case_runner
         target = Path(options.reclassify)
         manifest = json.loads((target / "manifest.json").read_text())
         case, graders = case_runner.load_case(manifest["case_dir"])
@@ -1022,7 +1032,7 @@ def main():
         # "unreadable verdict: You've hit your session limit", and both plans were complete
         # and on disk. Without this the whole run is thrown away to re-earn verdicts on
         # artifacts that never changed.
-        import cases as case_runner
+        import graded as case_runner
         target = Path(options.regrade)
         manifest = json.loads((target / "manifest.json").read_text())
         _, graders = case_runner.load_case(manifest["case_dir"])
@@ -1062,7 +1072,7 @@ def main():
         return 0
 
     if options.rank:
-        import cases as case_runner
+        import graded as case_runner
         target = Path(options.rank)
         manifest = json.loads((target / "manifest.json").read_text())
         judges = options.compare_judge or RANK_JUDGES
@@ -1072,7 +1082,7 @@ def main():
         return 0
 
     if options.compare:
-        import cases as case_runner
+        import graded as case_runner
         target = Path(options.compare)
         manifest = json.loads((target / "manifest.json").read_text())
         judges = options.compare_judge or [options.judge_model]
@@ -1083,7 +1093,7 @@ def main():
 
     if options.case:
         if options.self_test:
-            import cases as case_runner
+            import graded as case_runner
             return case_runner.self_test(resolve_case(options.case), run, options.judge_model if options.judge else None)
         config, _ = load_config()
         return run_case_mode(options, config.get("models", {}).get("arm", "sonnet"), None)

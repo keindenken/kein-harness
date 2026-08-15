@@ -8,4 +8,4 @@
 # The implementation is Python under libexec/eval/ rather than a sibling `ocs-*` file, because `ocs help` lists everything matching `ocs-*` and a helper is not a subcommand.
 set -eu
 
-exec python3 "$KEIN_ROOT/libexec/eval/run.py" "$@"
+exec python3 "$KEIN_DEV_ROOT/eval/run.py" "$@"

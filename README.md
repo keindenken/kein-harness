@@ -21,8 +21,8 @@ plugin/                everything Claude Code loads. The symlink points HERE,
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
   bin/                 ON the Bash tool's PATH while enabled. `ocs` only.
-  libexec/             subcommands, OFF PATH. `ocs-<name>` -> `ocs <name>`
-                                              `dev-<name>` -> `kein-dev <name>`
+  libexec/             ocs subcommands, OFF PATH. `ocs-<name>` -> `ocs <name>`
+    lib/               sourceable shell shared by more than one subcommand
   prompts/             rendered canonical role prompts + canonical.sha256
 ```
 
@@ -124,14 +124,19 @@ ocs validate <workflow> ...    # check an artifact's shape
 ocs state <workflow> ...       # the workflow's durable run state
 ```
 
-The commands that build and gate the harness answer to `bin/kein-dev` instead, from
-`libexec/dev-<name>`. They are split off by audience: `ocs help` is a surface an agent
+The commands that build and gate the harness answer to `dev/kein-dev` instead, from
+`dev/libexec/<name>`. They are split off by audience: `ocs help` is a surface an agent
 reads mid-task, and `sync-prompts` and `render-agents` overwrite generated artifacts.
-`kein-dev` sits at the repository root rather than in `plugin/bin/`, because anything
-there becomes a bare command wherever the plugin is enabled — which would put them back
-in front of every agent by another route. Nothing under `ocs` reaches a `dev-` command:
-the freshness check `ocs ask` and `ocs team` need is a function they source from
-`libexec/lib/`, so the two CLIs share code and not a call path.
+The whole tree sits outside `plugin/` because a plugin folder is installed wholesale, and
+anything under `plugin/bin/` would additionally become a bare command wherever the plugin
+is enabled — putting them back in front of every agent by another route. Nothing under
+`ocs` reaches into `dev/`: the freshness check `ocs ask` and `ocs team` need is a function
+they source from `plugin/libexec/lib/`, so the two share code and not a call path.
+
+`kein-dev` exports two roots. `KEIN_ROOT` is the plugin these commands read and write;
+`KEIN_DEV_ROOT` is `dev/` itself, and is how a subcommand reaches a sibling without
+assuming it was copied along with the plugin — `eval` builds a variant arm out of an
+arbitrary older commit, whose `plugin/` has no development tooling in it at all.
 
 ```sh
 kein-dev help

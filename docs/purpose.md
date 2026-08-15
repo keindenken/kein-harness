@@ -114,8 +114,8 @@ introduced `ocs` for "role-aware one-shot calls and external CLI orchestration",
 took on `sync-prompts`, `render-agents`, `check-prompts`, `state`, `validate`, `doctor`
 and `eval` on the reasoning that the commands building the prompt library should sit in
 the same binary as the ones consuming it. Overturned 2026-08-16: the build and gate
-commands moved to `bin/kein-dev`, reached as `libexec/dev-<name>`. `ask`, `team`,
-`state`, `state-dir`, `validate` and `doctor` stayed.
+commands moved to `dev/`, a tree outside the plugin, reached as `kein-dev <name>`. `ask`,
+`team`, `state`, `state-dir`, `validate` and `doctor` stayed.
 
 The split is by audience. `ocs help` is a surface an agent reads mid-task, and four of its
 ten entries were maintenance it has no reason to run — two of which overwrite generated
@@ -132,10 +132,11 @@ dispatch produces. The second needs `~/.codex-orca` on the machine, so `ocs ask`
 every role as `missing(canonical)` and refused to run wherever the Codex home was absent —
 which is the one thing committing `prompts/` was supposed to buy.
 
-`kein-dev` lives at the repository root rather than in `plugin/bin/`, since anything there
-becomes a bare command wherever the plugin is enabled. The rule below scopes to `ocs`,
-whose subcommands an agent can see; `kein-dev` is reachable only from a clone of this
-repository.
+`dev/` sits outside `plugin/` because a plugin folder is installed wholesale, and anything
+under `plugin/bin/` would additionally become a bare command wherever the plugin is
+enabled. That also closes the non-goal above about what an install carries: nothing that
+builds the harness ships with it any more. The rule below scopes to `ocs`, whose
+subcommands an agent can see; `kein-dev` is reachable only from a clone.
 
 Read `ocs` as the harness CLI's name, not as an abbreviation of any of its subcommands.
 

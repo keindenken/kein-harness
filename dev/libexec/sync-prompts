@@ -59,4 +59,4 @@ printf '  from  %s\n' "$source_dir"
 printf '  to    %s\n' "$destination"
 
 # Claude subagents derive from the library, so one command leaves both in step.
-"$KEIN_ROOT/libexec/dev-render-agents"
+"$KEIN_DEV_ROOT/libexec/render-agents"
