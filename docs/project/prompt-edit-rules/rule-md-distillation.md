@@ -343,3 +343,18 @@ C12 가 environment fact 를 식별한다
 
 순서는 rule.md 초안 → 그것으로 lead.md 재작성이다.
 
+
+## 초안 1차 — 2026-08-15
+
+`rule-md-draft.md`. 영어, 서론 하나 + 체크 여덟, 수치·커밋·유래 없음. 배포 파일명과 배포 시점(wiki 공사와 맞물림)은 미정.
+
+초안이 닫거나 옮긴 결정:
+
+- **결정 2 (C1 형태): 원칙형이 성공했다.** "A line binds only where the agent has a real choice and the means to comply"가 원칙이고, 원문의 실패 모드 두 개는 그 파생으로 뒤에 붙었다. 지워보기·열거 단계까지 갈 필요가 없었다.
+- **결정 6 (흡수)의 첫 집행.** `context-engineering-claude-5`에서 두 체크가 들어왔다 — "Don't state what the repository already shows"(레이어 가이드의 CLAUDE.md 행), "Prefer a principle to an enumeration"(규칙→판단 전환). 후자의 단서("체크리스트는 원칙을 이기는 유일한 목록")는 슬라이스 4의 C15 열거 메모가 그대로 착지한 것이다.
+- **C10 주시 항목 대응: 범위를 좁혔다.** "Write only claims" 대신 "A factual claim must carry its own check" — 선호·판단 문장은 사실 주장이 아니므로 걸리지 않는다.
+- **C3 세 번째 문장은 버렸다** (결정 3 집행). 대신 이유를 새로 달았다: 우선순위를 작성자가 한 번 정하면 에이전트가 압박 속에서 매번 추측하지 않는다.
+- **C11의 provenance 행선지가 "the file's history"로 적혔다.** 결정 12(git 커밋 규약)를 전제한다. C12로 시험했다 — 전제를 부정해도 "provenance는 프롬프트 밖"은 남은 이유(keep-or-cut은 스토리가 아니라 메커니즘이 결정한다)로 살아남으므로 성립한다.
+- **C10을 lead 지문에도 둘지는 lead.md 재작성 때 판정한다.**
+
+자기 적용 결과: C10 통과(재도출 불가능한 수치 없음 — "three shapes" 등 구조 개수뿐), C1 통과(여덟 개 모두 쓰는 순간의 선택을 지목), C13 통과(경로 매칭이라 프롬프트를 안 건드리는 런의 비용 0), C6 통과(계획 스킬 재료가 전부 빠진 것이 그 증거).
