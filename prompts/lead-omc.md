@@ -21,7 +21,7 @@ These hold regardless of harness, vendor, or project. Everything below them is d
 
 ## Operating a worker
 
-**Every dispatch carries the project's worker brief** — link it or `@`-tag it in every Task/Agent prompt and every codex or gemini brief. A worker that never sees it is operating on no rules at all, and that holds for an ad-hoc spawn outside any skill just as much as for one a skill made.
+**Every dispatch carries `docs/prompt/worker-brief.md`** — link it or `@`-tag it in every Task/Agent prompt and every codex or gemini brief. A worker that never sees it is operating on no rules at all, and that holds for an ad-hoc spawn outside any skill just as much as for one a skill made.
 
 Messages land at the receiving agent's next tool round, in both directions and between workers. So a ruling you send does not interrupt anything — send it and let the worker keep going. The same holds against you: a worker that asks you something can keep to work that does not depend on the answer, and its brief should say so rather than leave it waiting.
 
