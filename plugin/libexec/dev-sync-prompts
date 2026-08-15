@@ -13,13 +13,13 @@ manifest_src=${KEIN_CANONICAL_MANIFEST:-$HOME/.codex-orca/foundation/manifest.js
 destination="$KEIN_ROOT/prompts"
 
 if [ ! -d "$source_dir" ]; then
-  printf 'ocs sync-prompts: canonical prompts not found at %s\n' "$source_dir" >&2
+  printf 'kein-dev sync-prompts: canonical prompts not found at %s\n' "$source_dir" >&2
   printf '  set KEIN_CANONICAL_PROMPTS if the library has moved\n' >&2
   exit 1
 fi
 
 if [ ! -f "$manifest_src" ]; then
-  printf 'ocs sync-prompts: canonical manifest not found at %s\n' "$manifest_src" >&2
+  printf 'kein-dev sync-prompts: canonical manifest not found at %s\n' "$manifest_src" >&2
   exit 1
 fi
 
@@ -40,7 +40,7 @@ for prompt in "$source_dir"/*.md; do
 done
 
 if [ "$count" -eq 0 ]; then
-  printf 'ocs sync-prompts: no prompts found in %s\n' "$source_dir" >&2
+  printf 'kein-dev sync-prompts: no prompts found in %s\n' "$source_dir" >&2
   exit 1
 fi
 
@@ -59,4 +59,4 @@ printf '  from  %s\n' "$source_dir"
 printf '  to    %s\n' "$destination"
 
 # Claude subagents derive from the library, so one command leaves both in step.
-"$KEIN_ROOT/libexec/ocs-render-agents"
+"$KEIN_ROOT/libexec/dev-render-agents"

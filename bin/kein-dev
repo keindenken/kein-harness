@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+# kein-dev — the commands that build and gate the harness, rather than run under it.
+#
+# These were `ocs` subcommands. They came out because `ocs --help` is a surface an agent
+# reads mid-task, and half of what it listed was maintenance the agent has no reason to
+# run -- two entries of which (`sync-prompts`, `render-agents`) overwrite generated
+# artifacts. The split is by audience, not by layer: `ocs` is what an agent doing work
+# calls, and this is what a person building the harness calls.
+#
+# It lives at the repository root and NOT in `plugin/bin/`, because every file there
+# becomes a bare command on the Bash tool's PATH wherever the plugin is enabled, which
+# would put these back in front of every agent by another route.
+set -eu
+
+# No CLAUDE_PLUGIN_ROOT fallback: this runs from a clone, never from an installed plugin.
+# The subcommands stay under `plugin/libexec/` because `dev-eval` copies the plugin
+# directory to build a variant arm and calls `dev-render-agents` inside that copy.
+KEIN_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../plugin" && pwd)
+export KEIN_ROOT
+
+KEIN_VERSION=$(
+  sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
+    "$KEIN_ROOT/.claude-plugin/plugin.json" 2>/dev/null | head -1
+)
+KEIN_VERSION=${KEIN_VERSION:-unknown}
+
+usage() {
+  cat <<EOF
+kein-dev — harness development CLI (v${KEIN_VERSION})
+
+Usage:
+  kein-dev <command> [args...]
+  kein-dev help
+  kein-dev version
+
+Commands:
+$(list_commands)
+EOF
+}
+
+list_commands() {
+  found=0
+  for f in "$KEIN_ROOT"/libexec/dev-*; do
+    [ -x "$f" ] || continue
+    found=1
+    name=${f##*/dev-}
+    # First `#:` comment line in a subcommand is its one-line summary.
+    summary=$(sed -n 's/^#:[[:space:]]*//p' "$f" 2>/dev/null | head -1)
+    printf '  %-14s %s\n' "$name" "$summary"
+  done
+  [ "$found" -eq 1 ] || printf '  (none yet — add an executable at plugin/libexec/dev-<name>)\n'
+}
+
+cmd=${1:-help}
+[ $# -gt 0 ] && shift
+
+case "$cmd" in
+  help | -h | --help)
+    usage
+    ;;
+  version | -v | --version)
+    printf '%s\n' "$KEIN_VERSION"
+    ;;
+  *)
+    sub="$KEIN_ROOT/libexec/dev-$cmd"
+    if [ -x "$sub" ]; then
+      exec "$sub" "$@"
+    fi
+    printf 'kein-dev: unknown command '\''%s'\''\n\n' "$cmd" >&2
+    usage >&2
+    exit 1
+    ;;
+esac

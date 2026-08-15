@@ -109,13 +109,27 @@ Harness name: **kein**. CLI name: **ocs**. They are deliberately different.
 `gdr` is superseded. One CLI is a requirement rather than tidying: a single resolver for the
 canonical role prompts is what prevents the two vendors' prompt sets from drifting apart.
 
-That requirement is also why `ocs` carries more than the bridge commands. `~/.codex-orca`'s
-decision log introduced it for "role-aware one-shot calls and external CLI orchestration",
-and it has since taken on `sync-prompts`, `render-agents`, `check-prompts`, `state`,
-`validate`, `doctor`, and `eval` — the commands that build and gate the prompt library now
-sit in the same binary as the ones that consume it, which is what makes the gate reachable
-from every consumer. Read `ocs` as the harness CLI's name, not as an abbreviation of any of
-its subcommands.
+That requirement is about one resolver, not one binary. `~/.codex-orca`'s decision log
+introduced `ocs` for "role-aware one-shot calls and external CLI orchestration", and it
+took on `sync-prompts`, `render-agents`, `check-prompts`, `state`, `validate`, `doctor`
+and `eval` on the reasoning that the commands building the prompt library should sit in
+the same binary as the ones consuming it. Overturned 2026-08-16: the build and gate
+commands moved to `bin/kein-dev`, reached as `libexec/dev-<name>`. `ask`, `team`,
+`state`, `state-dir`, `validate` and `doctor` stayed.
+
+The split is by audience. `ocs help` is a surface an agent reads mid-task, and four of its
+ten entries were maintenance it has no reason to run — two of which overwrite generated
+artifacts. Nothing about the resolver changed: `prompts/` is still generated once and read
+by both vendors, and the gate is still reachable from every consumer, because `ocs ask` and
+`ocs team` invoke `libexec/dev-check-prompts` by path. Sharing a `libexec/` and a
+`KEIN_ROOT` is what made the gate reachable; appearing in the same help listing never was.
+
+`kein-dev` lives at the repository root rather than in `plugin/bin/`, since anything there
+becomes a bare command wherever the plugin is enabled. The rule below scopes to `ocs`,
+whose subcommands an agent can see; `kein-dev` is reachable only from a clone of this
+repository.
+
+Read `ocs` as the harness CLI's name, not as an abbreviation of any of its subcommands.
 
 Splitting the CLI name from the harness name is a direct response to how OMC read in
 practice, where `omc ask` the command sat beside `ask` the skill under a plugin also called

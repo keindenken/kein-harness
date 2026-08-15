@@ -13,7 +13,7 @@ set -eu
 PROVIDERS='codex'
 
 # The canonical manifest states a vendor-neutral tier, never a model, so each side maps it.
-# `ocs render-agents` is the Claude half of this; the lines below are the Codex half, and without them a lane inherits whatever model the operator happens to have set in their own config.
+# `kein-dev render-agents` is the Claude half of this; the lines below are the Codex half, and without them a lane inherits whatever model the operator happens to have set in their own config.
 # That makes a lane's model a property of the machine rather than of the harness, which the first cross-vendor conformance run demonstrated: the reply came back as the operator's default and only looked correct because the default happened to match.
 TIER_DEEP_MODEL='gpt-5.6-sol'
 TIER_STANDARD_MODEL='gpt-5.6-terra'
@@ -78,10 +78,10 @@ esac
 prompts="$KEIN_ROOT/prompts"
 manifest="$prompts/manifest.json"
 
-[ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `ocs sync-prompts`.\n' >&2; exit 1; }
+[ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `kein-dev sync-prompts`.\n' >&2; exit 1; }
 
 # A stale library would answer as a role that no longer exists as written, so the gate runs before anything is spent on inference.
-"$KEIN_ROOT/libexec/ocs-check-prompts" >/dev/null
+"$KEIN_ROOT/libexec/dev-check-prompts" >/dev/null
 
 # Advisory only: the nine read-only roles.
 # A write-capable role reached through a bare one-shot would let a remote vendor edit the worktree with no workflow around it, which is what `execute` is for.

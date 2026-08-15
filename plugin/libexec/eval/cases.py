@@ -50,13 +50,13 @@ def load_case(directory):
         text = path.read_text()
         match = re.match(r"\A---\r?\n(.*?)\r?\n---\r?\n?(.*)\Z", text, re.S)
         if not match:
-            raise SystemExit(f"ocs eval: grader has no frontmatter: {path}")
+            raise SystemExit(f"kein-dev eval: grader has no frontmatter: {path}")
         meta = yaml.safe_load(match.group(1)) or {}
         meta["name"] = path.stem
         meta["body"] = match.group(2).strip()
         graders.append(meta)
     if not graders:
-        raise SystemExit(f"ocs eval: no graders under {directory / 'graders'}")
+        raise SystemExit(f"kein-dev eval: no graders under {directory / 'graders'}")
     return case, graders
 
 
@@ -367,7 +367,7 @@ def _role_prompt(role):
     """A rendered agent's prompt, minus the frontmatter that configures Claude Code."""
     path = Path(os.environ["KEIN_ROOT"]) / "agents" / f"{role}.md"
     if not path.is_file():
-        raise SystemExit(f"ocs eval: no agent prompt at {path}. Known roles: "
+        raise SystemExit(f"kein-dev eval: no agent prompt at {path}. Known roles: "
                          + ", ".join(sorted(p.stem for p in path.parent.glob("*.md"))))
     text = path.read_text()
     return text.split("---", 2)[2].strip() if text.startswith("---") else text.strip()
@@ -379,7 +379,7 @@ def _text_judge_command(spec, prompt):
     `<role>@codex` and `<role>@claude` aim at the same lens on two vendors, which is the
     comparison worth having: judges that share a vendor share their error correlations, so
     agreement across vendors is the control and disagreement is a finding. Both sides read
-    the role from the canonical prompt -- `agents/` is what `ocs render-agents` writes from
+    the role from the canonical prompt -- `agents/` is what `kein-dev render-agents` writes from
     it -- so there is no second copy to drift.
 
     The Claude side defines the role as an agent and runs the session as it, rather than
@@ -497,7 +497,7 @@ def rank(run_dir, case_dir, judges, run_cmd, shuffles=3, roles=None):
     field = ([(f"{named['treatment']}/{name}", text) for name, text in _artifacts(run_dir, named["treatment"])] +
              [(f"{named['control']}/{name}", text) for name, text in _artifacts(run_dir, named["control"])])
     if len(field) < 3:
-        raise SystemExit(f"ocs eval: need at least three plans under {run_dir / 'artifacts'}; found {len(field)}")
+        raise SystemExit(f"kein-dev eval: need at least three plans under {run_dir / 'artifacts'}; found {len(field)}")
 
     scratch = run_dir / "rank"
     scratch.mkdir(exist_ok=True)
@@ -616,7 +616,7 @@ def compare(run_dir, case_dir, judges, run_cmd, repeats=2, roles=None):
     treatment, control = _artifacts(run_dir, named["treatment"]), _artifacts(run_dir, named["control"])
     if not treatment or not control:
         raise SystemExit(
-            f"ocs eval: need artifacts from both arms under {run_dir / 'artifacts'}; "
+            f"kein-dev eval: need artifacts from both arms under {run_dir / 'artifacts'}; "
             f"looked for {named['treatment']!r} and {named['control']!r}")
 
     scratch = Path(run_dir) / "compare"
@@ -767,7 +767,7 @@ def self_test(case_dir, run_cmd, judge_model=None):
     case, graders = load_case(case_dir)
     free = [g for g in graders if g.get("type") != "llm"]
     if not free:
-        raise SystemExit(f"ocs eval: {case['name']} has no deterministic grader to self-test")
+        raise SystemExit(f"kein-dev eval: {case['name']} has no deterministic grader to self-test")
 
     checks, failures = 0, []
 

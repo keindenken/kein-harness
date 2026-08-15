@@ -10,7 +10,7 @@ destination="$KEIN_ROOT/prompts"
 record="$destination/canonical.sha256"
 
 if [ ! -f "$record" ]; then
-  printf 'ocs check-prompts: no rendered copy. Run `ocs sync-prompts` first.\n' >&2
+  printf 'kein-dev check-prompts: no rendered copy. Run `kein-dev sync-prompts` first.\n' >&2
   exit 1
 fi
 
@@ -50,10 +50,10 @@ if [ -d "$source_dir" ]; then
 fi
 
 if [ -n "$drifted" ] || [ -n "$missing" ]; then
-  printf 'ocs check-prompts: rendered prompts are out of date\n' >&2
+  printf 'kein-dev check-prompts: rendered prompts are out of date\n' >&2
   [ -n "$drifted" ] && printf '  drifted:%s\n' "$drifted" >&2
   [ -n "$missing" ] && printf '  missing:%s\n' "$missing" >&2
-  printf '  run `ocs sync-prompts` and review the diff\n' >&2
+  printf '  run `kein-dev sync-prompts` and review the diff\n' >&2
   exit 1
 fi
 
@@ -61,7 +61,7 @@ fi
 # This catches a hand-edit to a generated agent, which the hash record above cannot see because it only covers the library.
 scratch=$(mktemp -d "${TMPDIR:-/tmp}/ocs-check.XXXXXX")
 trap 'rm -rf "$scratch"' EXIT INT TERM
-"$KEIN_ROOT/libexec/ocs-render-agents" "$scratch" >/dev/null
+"$KEIN_ROOT/libexec/dev-render-agents" "$scratch" >/dev/null
 
 agents_drifted=''
 for expected in "$scratch"/*.md; do
@@ -76,9 +76,9 @@ for existing in "$KEIN_ROOT/agents"/*.md; do
 done
 
 if [ -n "$agents_drifted" ]; then
-  printf 'ocs check-prompts: generated agents are out of date\n' >&2
+  printf 'kein-dev check-prompts: generated agents are out of date\n' >&2
   printf '  drifted:%s\n' "$agents_drifted" >&2
-  printf '  run `ocs render-agents`; agents/ is generated, edit the canonical prompt\n' >&2
+  printf '  run `kein-dev render-agents`; agents/ is generated, edit the canonical prompt\n' >&2
   exit 1
 fi
 

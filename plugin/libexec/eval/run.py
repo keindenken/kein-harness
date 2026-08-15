@@ -18,7 +18,7 @@ from pathlib import Path
 try:
     KEIN_ROOT = Path(os.environ["KEIN_ROOT"])
 except KeyError:
-    raise SystemExit("ocs eval: KEIN_ROOT environment variable is not set; run this command through 'ocs eval', which sets KEIN_ROOT")
+    raise SystemExit("kein-dev eval: KEIN_ROOT environment variable is not set; run this command through 'kein-dev eval', which sets KEIN_ROOT")
 
 # The plugin reaches an arm through --plugin-dir, which bypasses the enabledPlugins gate.
 # That is what makes a genuinely skill-absent control arm possible: the ambient default is off everywhere, and only an injected arm has the harness.
@@ -66,7 +66,7 @@ def run(args, cwd=None, timeout=None, check=True, env=None):
     )
     if check and result.returncode != 0:
         raise SystemExit(
-            f"ocs eval: command failed ({result.returncode}): {' '.join(map(str, args))}\n"
+            f"kein-dev eval: command failed ({result.returncode}): {' '.join(map(str, args))}\n"
             + result.stderr.decode("utf-8", "replace")
         )
     return result
@@ -80,7 +80,7 @@ def state_dir(sub):
 def load_config():
     path = state_dir("eval") / "fixtures.json"
     if not path.exists():
-        raise SystemExit(f"ocs eval: no fixture definitions at {path}")
+        raise SystemExit(f"kein-dev eval: no fixture definitions at {path}")
     return json.loads(path.read_text()), path
 
 
@@ -183,7 +183,7 @@ def prepare_plugin(path, model, source=None):
     shutil.copytree(source or KEIN_ROOT, path, symlinks=True,
                     ignore=shutil.ignore_patterns("evals", "eval"))
     run(
-        [str(path / "libexec" / "ocs-render-agents"), str(path / "agents")],
+        [str(path / "libexec" / "dev-render-agents"), str(path / "agents")],
         env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model),
     )
     models = sorted({
@@ -193,7 +193,7 @@ def prepare_plugin(path, model, source=None):
         if line.startswith("model:")
     })
     if models != [model]:
-        raise SystemExit(f"ocs eval: agent models did not collapse to {model}: {models}")
+        raise SystemExit(f"kein-dev eval: agent models did not collapse to {model}: {models}")
     return path
 
 
@@ -211,7 +211,7 @@ def evals_root():
     """
     found = run(["git", "rev-parse", "--show-toplevel"], cwd=KEIN_ROOT, check=False)
     if found.returncode != 0:
-        raise SystemExit("ocs eval: graded cases live in the harness repository's `evals/`, "
+        raise SystemExit("kein-dev eval: graded cases live in the harness repository's `evals/`, "
                          f"and {KEIN_ROOT} is not inside one.")
     return Path(found.stdout.decode().strip()) / "evals"
 
@@ -228,7 +228,7 @@ def resolve_case(name):
         case_dir = evals_root() / name
     if not (case_dir / "case.yaml").is_file():
         known = sorted(p.parent.name for p in evals_root().glob("*/case.yaml"))
-        raise SystemExit(f"ocs eval: no case.yaml under {case_dir}. Known: {', '.join(known) or 'none'}")
+        raise SystemExit(f"kein-dev eval: no case.yaml under {case_dir}. Known: {', '.join(known) or 'none'}")
     return case_dir
 
 
@@ -265,7 +265,7 @@ def prepare_config_home(path):
 
     source = Path.home() / ".claude.json"
     if not source.exists():
-        raise SystemExit(f"ocs eval: cannot seed a config home, {source} is missing")
+        raise SystemExit(f"kein-dev eval: cannot seed a config home, {source} is missing")
     original = json.loads(source.read_text())
     keep = ("oauthAccount", "userID", "hasCompletedOnboarding", "lastOnboardingVersion", "firstStartTime", "installMethod")
     (path / ".claude.json").write_text(json.dumps({k: original[k] for k in keep if k in original}, indent=2))
@@ -275,7 +275,7 @@ def prepare_config_home(path):
     )
     if credentials.returncode != 0 or not credentials.stdout.strip():
         raise SystemExit(
-            "ocs eval: no 'Claude Code-credentials' entry in the Keychain.\n"
+            "kein-dev eval: no 'Claude Code-credentials' entry in the Keychain.\n"
             "  A pinned config home has no login of its own, and running without the pin would let the operator's\n"
             "  other plugins reach every arm, which silently invalidates the comparison."
         )
@@ -556,10 +556,10 @@ def resolve_arms(options, run_dir, model):
     for spec in options.variant:
         name, _, ref = spec.partition("=")
         if not ref:
-            raise SystemExit(f"ocs eval: --variant wants name=gitref, got {spec!r}")
+            raise SystemExit(f"kein-dev eval: --variant wants name=gitref, got {spec!r}")
         resolved = run(["git", "rev-parse", "--verify", f"{ref}^{{commit}}"], cwd=repo, check=False)
         if resolved.returncode != 0:
-            raise SystemExit(f"ocs eval: --variant {name}: no such commit {ref!r} in {repo}")
+            raise SystemExit(f"kein-dev eval: --variant {name}: no such commit {ref!r} in {repo}")
         commit = resolved.stdout.decode().strip()
         checkout = run_dir / "refs" / name
         prepare_worktree(repo, commit, checkout)
@@ -874,7 +874,7 @@ def run_case_mode(options, model, config_home_root):
     execution = case.get("execution") or {}
     prompt = execution.get("prompt")
     if not prompt:
-        raise SystemExit(f"ocs eval: {case_dir}/case.yaml has no execution.prompt")
+        raise SystemExit(f"kein-dev eval: {case_dir}/case.yaml has no execution.prompt")
     replicates = options.runs or case.get("runs", 3)
     timeout = options.timeout if options.timeout != 1800 else execution.get("timeout_seconds", 1800)
     max_turns = options.max_turns if options.max_turns != 500 else execution.get("max_turns", 500)
@@ -950,7 +950,7 @@ def run_case_mode(options, model, config_home_root):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="ocs eval")
+    parser = argparse.ArgumentParser(prog="kein-dev eval")
     parser.add_argument("fixture", nargs="?", help="fixture name defined in .agents/kein/eval/fixtures.json")
     parser.add_argument("--case", help="run a graded case from the repository's evals/<name>/ (or a path) instead of a fixture: every arm, every replicate, one label per assertion")
     parser.add_argument("--runs", type=int, help="replicates per arm; overrides the case's own `runs`")
@@ -979,7 +979,7 @@ def main():
     if options.verify:
         target = Path(options.verify).resolve()
         if not target.is_dir():
-            raise SystemExit(f"ocs eval: {target} is not a directory")
+            raise SystemExit(f"kein-dev eval: {target} is not a directory")
         # A worktree accumulates every lane it has ever run, and a trace written before a fix stays wrong
         # forever, so checking the whole worktree reports history rather than the state of the build.
         # Pointing at one trace directory is how a single run is gated; pointing at the worktree is how the history is read.
@@ -1000,7 +1000,7 @@ def main():
         }
         checks = lane_checks(record, worktree.name)
         if not checks:
-            raise SystemExit(f"ocs eval: no lane traces under {worktree}/.agents/kein/runs. A lane must be run with --trace to be checkable.")
+            raise SystemExit(f"kein-dev eval: no lane traces under {worktree}/.agents/kein/runs. A lane must be run with --trace to be checkable.")
         failed = sum(not check["pass"] for check in checks)
         for check in checks:
             print(f"  {'ok  ' if check['pass'] else 'FAIL'} [{check['arm']}] {check['check']} — {check['detail']}")
@@ -1089,12 +1089,12 @@ def main():
         return run_case_mode(options, config.get("models", {}).get("arm", "sonnet"), None)
 
     if not options.fixture:
-        raise SystemExit("ocs eval: a fixture name is required unless --case or --verify is given")
+        raise SystemExit("kein-dev eval: a fixture name is required unless --case or --verify is given")
 
     config, config_path = load_config()
     fixtures = config["fixtures"]
     if options.fixture not in fixtures:
-        raise SystemExit(f"ocs eval: unknown fixture '{options.fixture}'. Known: {', '.join(sorted(fixtures))}")
+        raise SystemExit(f"kein-dev eval: unknown fixture '{options.fixture}'. Known: {', '.join(sorted(fixtures))}")
     fixture = fixtures[options.fixture]
     contamination = config.get("contamination", {})
     model = config.get("models", {}).get("arm", "sonnet")
