@@ -346,7 +346,9 @@ C12 가 environment fact 를 식별한다
 
 ## 초안 1차 — 2026-08-15
 
-`rule-md-draft.md`. 영어, 서론 하나 + 체크 여덟, 수치·커밋·유래 없음. 배포 파일명과 배포 시점(wiki 공사와 맞물림)은 미정.
+`rule-md-draft.md`. 영어, 서론 하나 + 체크 여덟, 수치·커밋·유래 없음.
+
+**2026-08-18 — 초안은 삭제됐고 규칙은 `~/Documents/wiki/_rules/standing-prompt.md`에 산다.** 위키가 소스이고 리포에는 사본을 두지 않는다. 사본이 둘이면 동기화 장치가 없어서 하루 만에 갈라졌기 때문이다 — 실제로 갈라졌고, environment facts 조항의 '강제 수단이 없을 때' 갈래가 배포본에 빠져 있었다. 이름이 `authoring-claude-md`에서 바뀐 이유는 트리거가 `AGENTS.md`·`SKILL.md`·`.claude/rules/**`에도 걸려서 CLAUDE.md 전용이 아니기 때문이다. 이 폴더에 남는 것은 초안 6개와 증류 과정, 그리고 출처인 `prompt-revision.md`뿐이다.
 
 초안이 닫거나 옮긴 결정:
 
