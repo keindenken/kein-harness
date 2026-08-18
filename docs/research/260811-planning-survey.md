@@ -2,7 +2,7 @@
 
 Read 2026-08-11 by six agents over disjoint slices of `planning-readlist.json` — 104 files, 375,000 words, selected from 578 name-and-body matches in the corpus by requiring two independent body signals and deduplicating (`planning-with-files` alone ships eighteen near-copies). Each agent answered the same six questions per file and was instructed to write "nothing" rather than invent, because a file that specifies little is itself a finding.
 
-Slices at `.agents/kein/research/260811-github-skill-corpus/slices/`. Roughly a quarter of the 104 turned out not to be planning skills at all — SEO audits, offensive-security playbooks, financial reports — and those are reported as "nothing" throughout rather than dropped, so the denominators below are honest.
+Slices at `references/corpora/260811-github-skills/slices/`. Roughly a quarter of the 104 turned out not to be planning skills at all — SEO audits, offensive-security playbooks, financial reports — and those are reported as "nothing" throughout rather than dropped, so the denominators below are honest.
 
 ## Name the files; do not write the code
 

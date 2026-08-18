@@ -156,7 +156,7 @@ docs/prompt-revision.md        조사·검증 기록. 근거로 남고 이동하
 
 **C9. `references/`로 옮기면 상대 링크가 깨진다** → 보류
 
-- 출처: `.agents/kein/research/260810-prompt-revision/long-procedural.md:117`. 외부 코퍼스(Anthropic 자체 스킬) 감사에서 나왔다.
+- 출처: `docs/project/prompt-edit-rules/260810-prompt-revision/long-procedural.md:117`. 외부 코퍼스(Anthropic 자체 스킬) 감사에서 나왔다.
   ```
   build-mcp-app/../build-mcp-server/references/elicitation.md              → exists
   build-mcp-app/references/../build-mcp-server/references/elicitation.md   → No such file

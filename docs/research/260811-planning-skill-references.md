@@ -1,6 +1,6 @@
 # What other people's planning skills know
 
-Read 2026-08-11 from the corpus at `.agents/kein/research/260811-github-skill-corpus/corpus/`, selected by name and body match and ranked by revision depth (`planning-candidates.json`, 578 candidates). Nothing here has been added to `plan` or `planner`; this is the reading that comes first.
+Read 2026-08-11 from the corpus at `references/corpora/260811-github-skills/corpus/`, selected by name and body match and ranked by revision depth (`planning-candidates.json`, 578 candidates). Nothing here has been added to `plan` or `planner`; this is the reading that comes first.
 
 Four houses, plus the incumbent:
 

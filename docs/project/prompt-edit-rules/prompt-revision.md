@@ -6,7 +6,7 @@ Its purpose is that a prompt gets changed the same way in November as in August,
 
 **This document is prose, not a prompt.** The form rules below govern prompts and do not govern this file. The exposure is real anyway: an agent reads this at the moment it edits a prompt, so however the checks below are written is a template it may copy. That is a reason to keep the *shape* of a check honest here, not a reason to treat this file as bound by its own contents.
 
-Rewritten 2026-08-11 after ten analyses and three reviews. The analyses are at `.agents/kein/research/260810-prompt-revision/`, every claim in them cited to a path or a commit. `git show` on this file has the two earlier versions, and the second one had several claims the reviews then falsified — those are listed at the end rather than quietly dropped.
+Rewritten 2026-08-11 after ten analyses and three reviews. The analyses are at `docs/project/prompt-edit-rules/260810-prompt-revision/`, every claim in them cited to a path or a commit. `git show` on this file has the two earlier versions, and the second one had several claims the reviews then falsified — those are listed at the end rather than quietly dropped.
 
 ## Which kind of rule is this
 
@@ -97,4 +97,4 @@ Recorded so it is not rediscovered and re-adopted. The first three were in the 2
 
 ## Open
 
-Three reviewer-design questions surfaced while writing this and do not belong here: which way a reviewer should default, whether a `PASS` must carry an artifact of the attempted attack, and how the Critic should be told to weight a plan's own rationale. They are in the analyses at `.agents/kein/research/260810-prompt-revision/` and want their own decision, not a paragraph in this file.
+Three reviewer-design questions surfaced while writing this and do not belong here: which way a reviewer should default, whether a `PASS` must carry an artifact of the attempted attack, and how the Critic should be told to weight a plan's own rationale. They are in the analyses at `docs/project/prompt-edit-rules/260810-prompt-revision/` and want their own decision, not a paragraph in this file.
