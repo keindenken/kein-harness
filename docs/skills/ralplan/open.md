@@ -2,30 +2,40 @@
 
 Observed during the e3-v3 fixture round in `descvi/kein-e3v3`, with the harness pinned at `fb55678`. Nothing here has been acted on: the instrument is fixed for the length of that run, so any change waits for it to finish.
 
-## The lead checkpoints a state the workflow does not name
+## A fresh lane is not blind, and the artifact contract is why
 
-A blocked round produces three `Status reason` writes and two checkpoints:
+`review-contract.md` requires each lane package to contain "the complete current canonical plan", and one paragraph later requires that "a fresh reviewer receives no previous finding, verdict, reviewer identity, revision note, change summary, claimed fix, closure result, or expected outcome."
 
-| | `Status` | phase in the reason | checkpoint | prescribed by |
-| :--- | :--- | :--- | :--- | :--- |
-| 1 | `Draft` | `revising` | — | step 6 |
-| 2 | `Draft` | `drafted` | `DRAFT_CHECKPOINT_OK` | nothing |
-| 3 | `In Review` | `reviewing` | `CHECKPOINT_OK` | step 4 |
+`plan-gate.md` requires the artifact to carry a `Status reason` saying why approval is absent. Round 5 of the fixture run opened with this one:
 
-Row 2 is in no step. Step 3's "compute both hashes and checkpoint only once it has" governs a first draft returned by the `plan` skill, and the same step says revisions are this workflow's own and do not run `plan` again. `state-schema.md` ties phase `drafted` to the first durable checkpoint at round 0, which this is not.
+> Round-4 findings were addressed by Planner revision and every round-4 verdict (including the architect PASS) invalidated by the content change.
 
-It is not obviously waste, which is why it is recorded rather than deleted. Between "Planner returned a revision" and "lanes dispatched" there is a real state, and with no checkpoint in it a crashed run resumes through `reconcile` reading phase `revising` against an already-revised artifact — and sends the revision back to Planner. The lead invented a state because the workflow is missing one.
+That is a previous verdict, a revision note, a change summary, and a claimed fix — four of the eight forbidden items — delivered to a fresh Architect and Critic inside the artifact the contract mandates including. Nothing in either file excludes the status lines from the package.
 
-Decide which way: name the post-revision state in step 6 and let it checkpoint, or state that a revision checkpoints only on dispatch and accept the re-revision on resume.
+The code already knows those lines are not review content: `review_text()` strips both by line prefix before hashing, which is what makes a status-only edit leave the review hash stable. The strip exists for the hash and was never extended to the package.
 
-## `Status reason` is being written as a round summary
+This is not a cost question. Blind lanes are the whole mechanism the consensus gate rests on, and after the first round they have not been blind.
 
-`plan-gate.md` asks it for two things: the current workflow phase, and why approval is absent. Row 3 above instead re-narrated the round — which findings were consolidated, which lane had returned `PASS` before the revision, what the content change invalidated, and the full 64-character review hash.
+## The post-revision checkpoint is required by the state machine
 
-That content already has a home. Step 6 persists consolidated findings into state, and `state-schema.md` gives each one `claim`, `evidence`, `impact`, and `required_correction`. Writing it into the artifact as well costs an `Edit` against a large plan file three times a round, and leaves a later reader two copies that can disagree.
+An earlier version of this file recorded that checkpoint as a state the lead invented because no workflow step names it. That was wrong, and the correction is the interesting part.
 
-Nothing is invalidated by it — both lines are excluded from the review hash by design. The cost is tokens and duplication, not correctness.
+`validate_transition` refuses to open `In Review` while the previous state carries unresolved findings, and step 6 requires those findings to be persisted. So `Draft(revising, findings) -> In Review` is rejected outright, and the run has to pass through a `Draft` checkpoint that clears them. Clearing them is itself gated: a same-hash `Draft` that drops its findings is rejected too.
 
-## The `Draft` / `In Review` flip itself is correct
+Together those two rules say **findings may only be dropped by actually changing the plan**, and the checkpoint in the middle of the round is where that is enforced. It is the mechanism that makes a `MUST_FIX` unskippable. The prose not mentioning it is a documentation gap; the call is doing real work.
 
-Recorded because it looks like the wasteful part and is not. `plan-gate.md` permits `In Review` "only while the complete current review content sits at a fresh official gate", so a plan being revised cannot stay in it. Two status transitions per blocked round is what those definitions require, and collapsing them would mean a plan is `In Review` while no lane is reading it.
+## `Status` carries two facts and can only express one
+
+`plan-gate.md` gives `Draft` three meanings: before review, after a must-fix verdict, and for a terminal unapproved plan. A reader who opens the artifact cannot tell an abandoned plan from one whose Planner is mid-revision, and the field flips twice within about half an hour of wall clock on a live round.
+
+The alternative reading is that `Status` should answer only "is a gate running over this artifact" — `Draft` when no run is open, `In Review` for the length of a run including its revisions, `Approved` when it passed. `phase` already exists and already carries `revising` / `drafted` / `reviewing`, so the sub-state has a home that is not the artifact header.
+
+The mechanism does not object. What the state machine actually protects is the findings-and-hash invariant above, which it happens to express on `plan.status`; expressing it on `phase` would preserve it exactly while freeing `Status` to mean one thing. That is the change to weigh, not the flip itself.
+
+## The two-field header is not the only shape
+
+The incumbent artifacts in `descvi` use a single free-form line — `Status: APPROVED — two-vendor unanimous consensus, 2026-08-17` — rather than a fixed token plus a separate `Status reason`, and that is the preferred style here.
+
+`validate_plan_text` currently rejects it twice over: it requires exactly one `Status:` whose stripped value is exactly `Draft`, `In Review`, or `Approved`, and separately requires a non-empty `Status reason`. Accepting `Status: <state> — <free text>` and dropping the second field is a small parser change, and `review_text()` already strips by line prefix, so one merged line stays out of the review hash without any further work.
+
+Note that merging the fields does not fix the blindness leak above. That one is fixed by stripping the status lines from the lane package, and the two changes are independent.
