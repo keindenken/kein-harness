@@ -55,6 +55,23 @@
 
 둘 다 필요하다. 평가가 없으면 경합하는 답을 이어붙이고, 감사가 없으면 n개가 사이좋게 같은 방향으로 틀려도 모른다.
 
+### 감사는 두 가지를 묻는다
+
+방법 수립은 소스만 가정하는 게 아니라 **질문 분해**도 가정한다. 완벽한 소스를 써도 틀린 질문을 물었으면 소스 감사만으로는 아무것도 안 잡힌다. 260810이 둘 다 했다:
+
+- **소스 맹점** — "There is not one ❌/✅ pair **in the material Stage 1 read**."
+- **분해 맹점** — "**every question in the six analyses** is about whether a rule is *needed*, *justified*, *loaded*, *costly*, or *stale*. **None asks** whether a rule that is present and correct is syntactically capable of binding."
+
+두 번째는 자료가 아니라 질문 목록에 대한 감사다. 물은 것을 나열하고 아무도 안 물은 것을 지목한다. 이것이 가정된 분해를 사후에 교정하는 장치다.
+
+## interview와의 관계
+
+상호보완이고 어느 쪽도 필수가 아니다. 축은 **research는 "무엇이 참인가", interview는 "무엇을 원하는가"**.
+
+interview 스킬 자신이 "do not... make a purely discoverable repository fact into a user decision"이라고 쓴다. 발견 가능한 것을 사용자에게 묻지 말라는 것이고, 그것이 research가 채우는 자리다 — research가 돌면 interview가 물어야 할 질문이 줄어든다. 반대 방향은 목표 자체가 불분명할 때인데, 그때도 **권하되 멈추지 않는다.**
+
+**방법 수립은 정의상 가정하는 단계다.** 그 시점에는 자료가 없고, interview를 돌려도 자료가 생기지는 않는다. 그러므로 "분해가 안 되면 멈춘다"는 선택지는 성립하지 않는다 — 가정하고 진행하되, 가정을 기록하고, 분해 맹점 감사가 사후에 교정한다.
+
 ## 하나의 스킬이다
 
 "마케팅 아이디에이션"처럼 결론이 주관적인 주제는 맹점 정의가 어려워 보이지만, 260810도 결론이 주관적이었고 감사가 성립했다. 감사가 도는 대상이 **답이 아니라 과정**이기 때문이다. 마케팅에도 "세 레인이 전부 영어 자료만 봤다", "전부 B2B를 가정했다"는 정의된다.
