@@ -1,6 +1,6 @@
 # Open threads
 
-Work that is parked rather than finished, with enough context to pick it up cold. Skill-specific items live beside the skill — `docs/skills/plan/open.md` is the one that exists.
+Work that is parked rather than finished, with enough context to pick it up cold. Skill-specific items live beside the skill: `docs/skills/plan/open.md` and `docs/skills/ralplan/open.md` are the ones that exist.
 
 ## The `research` skill was abandoned mid-build
 
