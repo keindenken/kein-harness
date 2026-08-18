@@ -1,0 +1,8 @@
+trailofbits_skills__plugins_testing-handbook-skills_skills_harness-writing_SKILL.md
+trailofbits_skills__plugins_testing-handbook-skills_skills_aflpp_SKILL.md
+trailofbits_skills__plugins_agentic-actions-auditor_skills_agentic-actions-auditor_SKILL.md
+czlonkowski_n8n-skills__skills_n8n-agents_SKILL.md
+czlonkowski_n8n-skills__skills_n8n-workflow-patterns_SKILL.md
+garrytan_gstack__design-review_SKILL.md
+mvanhorn_last30days-skill__skills_last30days_SKILL.md
+ljagiello_ctf-skills__ctf-crypto_SKILL.md
