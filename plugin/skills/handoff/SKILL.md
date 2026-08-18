@@ -7,9 +7,7 @@ disable-model-invocation: true
 
 Write a handoff document summarising the current conversation so a fresh agent can continue the work.
 
-Run `ocs state-dir handoff` and save to `<that path>/YYMMDD-<slug>.md`. The document stays with the repository it describes, so the next agent finds it whichever vendor it runs under, and it survives the session that wrote it.
-
-Include a "suggested skills" section in the document, which suggests skills that the agent should invoke.
+Run ocs state-dir handoff and save to &lt;that path&gt;/YYMMDD-&lt;slug&gt;.md. The document stays with the repository it describes, so the next agent finds it whichever vendor it runs under, and it survives the session that wrote it.
 
 Do not duplicate content already captured in other artifacts (specs, plans, ADRs, issues, commits, diffs). Reference them by path or URL instead.
 
