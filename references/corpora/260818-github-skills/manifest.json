@@ -1,0 +1,359 @@
+[
+ {
+  "repo": "czlonkowski/n8n-skills",
+  "branch": "main",
+  "dir": "skills/n8n-agents",
+  "files": [
+   {
+    "path": "skills/n8n-agents/CHAT_AGENT_PATTERNS.md",
+    "size": 13047,
+    "sha": "8757d1935ba8b0baa663b4e919aea3a22812f5eb"
+   },
+   {
+    "path": "skills/n8n-agents/EXAMPLES.md",
+    "size": 19766,
+    "sha": "8449bb5c4f6b4f5e8e423da75484b818a485591c"
+   },
+   {
+    "path": "skills/n8n-agents/HUMAN_REVIEW.md",
+    "size": 9442,
+    "sha": "274196f251904a3add0c10ec5824bf5c9685625a"
+   },
+   {
+    "path": "skills/n8n-agents/MEMORY.md",
+    "size": 7865,
+    "sha": "07d33ea08b53f122446239928943b67da5c86c98"
+   },
+   {
+    "path": "skills/n8n-agents/RAG.md",
+    "size": 6513,
+    "sha": "e2dacae137d8ea4ce777f0fd046fee4277f85d84"
+   },
+   {
+    "path": "skills/n8n-agents/README.md",
+    "size": 8361,
+    "sha": "b6cc46fea5b64d9158d6d6360093b6d14fc946c2"
+   },
+   {
+    "path": "skills/n8n-agents/SKILL.md",
+    "size": 23337,
+    "sha": "a208df812f69ac9f0503000fb87dce3b2832b0d1"
+   },
+   {
+    "path": "skills/n8n-agents/STRUCTURED_OUTPUT.md",
+    "size": 6950,
+    "sha": "1ad5f7f380eaabfa0484365126798df2bfb6229e"
+   },
+   {
+    "path": "skills/n8n-agents/SUBWORKFLOW_AS_TOOL.md",
+    "size": 9129,
+    "sha": "6c4d037c97122fbc3c7724dfcbf43efa48cd387e"
+   },
+   {
+    "path": "skills/n8n-agents/SYSTEM_PROMPT.md",
+    "size": 6939,
+    "sha": "20f74e1c8c58388fa3c8d22a9a9d5165f4efc8e0"
+   },
+   {
+    "path": "skills/n8n-agents/TOOLS.md",
+    "size": 11357,
+    "sha": "e7c15672597c349495950783a2b3c82975840ca4"
+   }
+  ],
+  "not_fetched": []
+ },
+ {
+  "repo": "czlonkowski/n8n-skills",
+  "branch": "main",
+  "dir": "skills/n8n-binary-and-data",
+  "files": [
+   {
+    "path": "skills/n8n-binary-and-data/AGENT_TOOL_BINARY.md",
+    "size": 14807,
+    "sha": "4bcb6532dad9398a402c7dd6aae7861de0b7c5e0"
+   },
+   {
+    "path": "skills/n8n-binary-and-data/BINARY_BASICS.md",
+    "size": 9088,
+    "sha": "e01a70d92811c94cb667a2c98333c0d0e4011623"
+   },
+   {
+    "path": "skills/n8n-binary-and-data/CDN_REQUIREMENT.md",
+    "size": 6263,
+    "sha": "1d88a4b6a3fdcc6c52cf0cc4b5c53e2d67662b72"
+   },
+   {
+    "path": "skills/n8n-binary-and-data/MERGE_FOR_CONTEXT.md",
+    "size": 7325,
+    "sha": "e74b15b78da65e6d452f0cee9f60d81bf0e76f3a"
+   },
+   {
+    "path": "skills/n8n-binary-and-data/README.md",
+    "size": 8578,
+    "sha": "83c6c714af8e1420e7c8ee6d7d3ed218f3c2d79b"
+   },
+   {
+    "path": "skills/n8n-binary-and-data/SKILL.md",
+    "size": 15591,
+    "sha": "6217d7a1d8938053b61350082d597d6e8d853f89"
+   }
+  ],
+  "not_fetched": []
+ },
+ {
+  "repo": "czlonkowski/n8n-skills",
+  "branch": "main",
+  "dir": "skills/n8n-code-javascript",
+  "files": [
+   {
+    "path": "skills/n8n-code-javascript/BUILTIN_FUNCTIONS.md",
+    "size": 22298,
+    "sha": "b443f63e25dc3e2a0105736516950c4d333ba102"
+   },
+   {
+    "path": "skills/n8n-code-javascript/COMMON_PATTERNS.md",
+    "size": 31321,
+    "sha": "71454bc136a0c11e5e246b84d2d63f3a2b5362ee"
+   },
+   {
+    "path": "skills/n8n-code-javascript/DATA_ACCESS.md",
+    "size": 22004,
+    "sha": "e76b2d6c182e03ded9eeeea61e63409605565abc"
+   },
+   {
+    "path": "skills/n8n-code-javascript/ERROR_PATTERNS.md",
+    "size": 23932,
+    "sha": "d263a0974388ce4456b866d773391ce5382aa2bf"
+   },
+   {
+    "path": "skills/n8n-code-javascript/README.md",
+    "size": 10006,
+    "sha": "ab155c2bbc60e8ab576a9d2ff0ff3c86dc89a427"
+   },
+   {
+    "path": "skills/n8n-code-javascript/SKILL.md",
+    "size": 19799,
+    "sha": "8c9ab95088f5fe39a2898ca076492121b69340d1"
+   }
+  ],
+  "not_fetched": []
+ },
+ {
+  "repo": "czlonkowski/n8n-skills",
+  "branch": "main",
+  "dir": "skills/n8n-code-python",
+  "files": [
+   {
+    "path": "skills/n8n-code-python/COMMON_PATTERNS.md",
+    "size": 21767,
+    "sha": "ec78522fc8f211ea1a40f0c08de4405560d89d1d"
+   },
+   {
+    "path": "skills/n8n-code-python/DATA_ACCESS.md",
+    "size": 15026,
+    "sha": "d87ed7ab9eece7f7eb72d49a8d5b3b5806fbb144"
+   },
+   {
+    "path": "skills/n8n-code-python/ERROR_PATTERNS.md",
+    "size": 13921,
+    "sha": "c3e1abed1b7b2c1fdec5bb82fddc6cdd722b33bc"
+   },
+   {
+    "path": "skills/n8n-code-python/README.md",
+    "size": 9457,
+    "sha": "a88a3a531f36b1858c6b7a6ed25144aa6f15fa57"
+   },
+   {
+    "path": "skills/n8n-code-python/SKILL.md",
+    "size": 15957,
+    "sha": "6a874416cd3a38c1efe5b82b7c9d38ec79d84ffb"
+   },
+   {
+    "path": "skills/n8n-code-python/STANDARD_LIBRARY.md",
+    "size": 19004,
+    "sha": "b9368be83c2fbc6c6a5ab357774eb92f41e4018e"
+   }
+  ],
+  "not_fetched": []
+ },
+ {
+  "repo": "trailofbits/skills",
+  "branch": "main",
+  "dir": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor",
+  "files": [
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/SKILL.md",
+    "size": 21526,
+    "sha": "3b0255ac73456f667ba8e88a17132951bfffabb8"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/agents/openai.yaml",
+    "size": 128,
+    "sha": "1d437b6dfffe6d157d6744ea946a9c9620578c2a"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/action-profiles.md",
+    "size": 8777,
+    "sha": "74eaeb1c345713bed1e14a2c04f3f98094363367"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/cross-file-resolution.md",
+    "size": 10625,
+    "sha": "18c4d79edc6367be6d3428016cd576176cfe496d"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/foundations.md",
+    "size": 5151,
+    "sha": "e8dbf34684590ece8c3fe96cfa109f9e76aa8ac3"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-a-env-var-intermediary.md",
+    "size": 4482,
+    "sha": "77388fc7ae219976adc2cb4ca5719f6664db3ef5"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-b-direct-expression-injection.md",
+    "size": 4541,
+    "sha": "9e8cc4825fef789cea9f704ca049d35c1574bc4e"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-c-cli-data-fetch.md",
+    "size": 5042,
+    "sha": "630d9e4f14d22fb7adf810176d8436546333f72b"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-d-pr-target-checkout.md",
+    "size": 5235,
+    "sha": "659d2f60fc9b9b7b2a847e625b5307308e281d86"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-e-error-log-injection.md",
+    "size": 5380,
+    "sha": "681dd7ae2485c031fd5210cacd42e6b5562cb109"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-f-subshell-expansion.md",
+    "size": 5791,
+    "sha": "cf98b91c375421854e61e4a65a044d7aeec8adcb"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-g-eval-of-ai-output.md",
+    "size": 5602,
+    "sha": "7e2bbfb63819ac5a25a61695fc594493a17207cf"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-h-dangerous-sandbox-configs.md",
+    "size": 5576,
+    "sha": "745f256fa37ab630450a9be76b21b7a211f7a906"
+   },
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/references/vector-i-wildcard-allowlists.md",
+    "size": 4372,
+    "sha": "881ee57e23a8bb6dee9b00b53838d727a8e3abb0"
+   }
+  ],
+  "not_fetched": [
+   {
+    "path": "plugins/agentic-actions-auditor/skills/agentic-actions-auditor/assets/trail-of-bits-mark.svg",
+    "size": 3084,
+    "sha": "7cd6e7ca7348897984f2498f301a888bb2f3ca71",
+    "reason": "binary"
+   }
+  ]
+ },
+ {
+  "repo": "trailofbits/skills",
+  "branch": "main",
+  "dir": "plugins/audit-context-building/skills/audit-context-building",
+  "files": [
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/SKILL.md",
+    "size": 3982,
+    "sha": "0c636031fc56264ec7201c2813fbc154485fd74f"
+   },
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/agents/openai.yaml",
+    "size": 128,
+    "sha": "1d437b6dfffe6d157d6744ea946a9c9620578c2a"
+   },
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/resources/ANALYSIS_FORMAT.md",
+    "size": 2613,
+    "sha": "edabd5ddabdaf4690b8b86cdd95f4142956cb640"
+   },
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/resources/DOMAIN_NOTES.md",
+    "size": 5040,
+    "sha": "eea579c744dbd755e1dd60c44b96d0c11bea8068"
+   },
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/resources/FUNCTION_MICRO_ANALYSIS_EXAMPLE.md",
+    "size": 9056,
+    "sha": "4f5f47f497aad03b5de8e4cec5e10b3e209e26ad"
+   }
+  ],
+  "not_fetched": [
+   {
+    "path": "plugins/audit-context-building/skills/audit-context-building/assets/trail-of-bits-mark.svg",
+    "size": 3084,
+    "sha": "7cd6e7ca7348897984f2498f301a888bb2f3ca71",
+    "reason": "binary"
+   }
+  ]
+ },
+ {
+  "repo": "trailofbits/skills",
+  "branch": "main",
+  "dir": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner",
+  "files": [
+   {
+    "path": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner/SKILL.md",
+    "size": 8886,
+    "sha": "55990638368183aaa70a06836a332cd7494035e5"
+   },
+   {
+    "path": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner/agents/openai.yaml",
+    "size": 128,
+    "sha": "1d437b6dfffe6d157d6744ea946a9c9620578c2a"
+   },
+   {
+    "path": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner/resources/VULNERABILITY_PATTERNS.md",
+    "size": 12636,
+    "sha": "53d8b2ded8f610308d3989808c72ce15d4324750"
+   }
+  ],
+  "not_fetched": [
+   {
+    "path": "plugins/building-secure-contracts/skills/algorand-vulnerability-scanner/assets/trail-of-bits-mark.svg",
+    "size": 3084,
+    "sha": "7cd6e7ca7348897984f2498f301a888bb2f3ca71",
+    "reason": "binary"
+   }
+  ]
+ },
+ {
+  "repo": "trailofbits/skills",
+  "branch": "main",
+  "dir": "plugins/building-secure-contracts/skills/audit-prep-assistant",
+  "files": [
+   {
+    "path": "plugins/building-secure-contracts/skills/audit-prep-assistant/SKILL.md",
+    "size": 9688,
+    "sha": "13796324aecad3e446bbc72ad614e1127033edde"
+   },
+   {
+    "path": "plugins/building-secure-contracts/skills/audit-prep-assistant/agents/openai.yaml",
+    "size": 128,
+    "sha": "1d437b6dfffe6d157d6744ea946a9c9620578c2a"
+   }
+  ],
+  "not_fetched": [
+   {
+    "path": "plugins/building-secure-contracts/skills/audit-prep-assistant/assets/trail-of-bits-mark.svg",
+    "size": 3084,
+    "sha": "7cd6e7ca7348897984f2498f301a888bb2f3ca71",
+    "reason": "binary"
+   }
+  ]
+ }
+]

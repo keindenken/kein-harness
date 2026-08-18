@@ -1,1 +1,5 @@
+# Rebuilt by harvest.py, and too large to carry. manifest.json records every
+# file's path, size and blob SHA, so the corpus is reproducible from it.
+corpus/
+skills.json
 runs/

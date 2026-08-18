@@ -19,9 +19,40 @@ INDEX = json.loads((HERE.parent / '260811-github-skills' / 'index.json').read_te
 PATH_OF = {r['file']: (r['repo'], r['path']) for r in INDEX}
 
 def parse(raw):
-    for cand in reversed(re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', raw, re.S)):
-        try: return json.loads(cand)
-        except Exception: continue
+    """Pull the JSON object out of a reply.
+
+    A brace-counting regex is not enough: a quote can carry braces of its own,
+    and `{{ $json.output }}` inside one silently ends the object early. This
+    scans with the string state that JSON actually has.
+    """
+    raw = raw.strip()
+    try:
+        return json.loads(raw)
+    except Exception:
+        pass
+    for start in (m.start() for m in re.finditer(r"\{", raw)):
+        depth, i, instr, esc = 0, start, False, False
+        while i < len(raw):
+            c = raw[i]
+            if instr:
+                if esc:
+                    esc = False
+                elif c == "\\":
+                    esc = True
+                elif c == '"':
+                    instr = False
+            elif c == '"':
+                instr = True
+            elif c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    try:
+                        return json.loads(raw[start:i + 1])
+                    except Exception:
+                        break
+            i += 1
     return None
 
 def one(args):

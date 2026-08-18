@@ -30,10 +30,40 @@ def call(prompt, effort):
     return p.stdout
 
 def parse(raw):
-    m = re.findall(r'\{.*?\}(?=\s*$|\s*\n)', raw, re.S)
-    for cand in reversed(re.findall(r'\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}', raw, re.S)):
-        try: return json.loads(cand)
-        except Exception: continue
+    """Pull the JSON object out of a reply.
+
+    A brace-counting regex is not enough: a quote can carry braces of its own,
+    and `{{ $json.output }}` inside one silently ends the object early. This
+    scans with the string state that JSON actually has.
+    """
+    raw = raw.strip()
+    try:
+        return json.loads(raw)
+    except Exception:
+        pass
+    for start in (m.start() for m in re.finditer(r"\{", raw)):
+        depth, i, instr, esc = 0, start, False, False
+        while i < len(raw):
+            c = raw[i]
+            if instr:
+                if esc:
+                    esc = False
+                elif c == "\\":
+                    esc = True
+                elif c == '"':
+                    instr = False
+            elif c == '"':
+                instr = True
+            elif c == "{":
+                depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0:
+                    try:
+                        return json.loads(raw[start:i + 1])
+                    except Exception:
+                        break
+            i += 1
     return None
 
 def quotes_of(rec):
@@ -72,7 +102,7 @@ def main():
     for i, a in enumerate(sys.argv):
         if a == '--fixture': halves = [(x.split('=')[0], x.split('=')[1]) for x in sys.argv[i+1].split(',')]
     for label, lst in halves:
-        for f in (FIXTURE / lst).read_text().split():
+        for f in [x for x in (FIXTURE / lst).read_text().splitlines() if x.strip()]:
             jobs.append((label, f, tpl, effort, window))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         res = list(pool.map(one, jobs))

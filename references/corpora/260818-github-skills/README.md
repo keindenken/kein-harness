@@ -47,19 +47,20 @@ Then it moved. Roughly 113 luna calls into one day the reading stepped 76 to 77,
 
 6–14 seconds per call at 18k tokens. Run it in small batches rather than all at once.
 
-## Every surface proxy tried so far has failed
+## Most surface proxies failed, and one was wrongly convicted
 
 Each of these stood in for a judgement, was cheaper than a model reading the file, and measured something else:
 
 | proxy | meant to measure | actually measured |
 | :--- | :--- | :--- |
-| `specificity` regex (260811) | files carrying evidence | files carrying version numbers — `last30days` scores 156 on 158 `version_pin` hits |
 | seven `DOMAINS` regexes (260811) | subject | `meta` fires on 66% and `process` on 67%; assignment was alphabetical first-match, so every bucket after `code` is a leftover |
 | `shape` regex (260811) | instruction / reference / guidebook | `instruction` on 2.7% of files, the one class most wanted |
 | description word overlap | within-repo subject coherence | template reuse — top score 1.000 is five byte-identical descriptions, and `marketingskills` (all marketing) scores 0.060 against `makerskills` (a toolbelt) at 0.042 |
 | the model's own `calls` field | what a skill reaches for | reported `none` for a file that says `uv run` forty-seven times |
 
-What has worked instead is a model reading the file and quoting it, with the quote located in the source before the record is kept: 0 fabrications across ~250 calls.
+`specificity` belongs on a different list. It looked like another failure — its control band, drawn from below the median, scored 85% against the top band's 91% — but that was the *score* failing to discriminate, not the proxy. Asked for a quote instead, a stratified 500 yields 24%, 40%, 64% and 74% across its quartiles: monotonic, and a threefold spread. The control band did exactly what a control band is for, and the conclusion drawn from it was the wrong one.
+
+What has worked instead is a model reading the file and quoting it, with the quote located in the source before the record is kept. Over 498 stratified files, 250 quotes verified and 9 did not; two of those nine are the checker's own normalisation missing a match and the rest read as paraphrase. None of them entered the count.
 
 The one proxy that survives is narrow and admits its blind spot. `labels.py` reports a pattern it found and never reports absence — `no-signal` means no pattern fired, not that the skill reaches for nothing. A quarter of the pilot disagreed with the model, and each side was right about a different thing: grep caught the binaries in fenced commands, the model caught n8n calling MCP tools by bare name with no `mcp__` prefix anywhere.
 
@@ -72,3 +73,11 @@ The repo pass reports `coherence` before it reports a field, because assigning a
 - `grab-bag` — `coreyhaines31/makerskills` (19 files, one maker's toolbelt), `zhayujie/CowAgent` (3 unrelated)
 
 The same author holds one of each. Two of eight pilot verdicts are arguable, both landing on `grab-bag` while their own `what_it_is` names a thread, so `grab-bag` may be where the model goes when undecided.
+
+## What the harvest changed, and the first thing it showed
+
+`harvest.py` treats a skill as a directory. A survey of 2,239 skill directories found 51% hold something besides `SKILL.md`, and only 47% of those siblings are Markdown — `.py` is 32%, and there are fonts, spreadsheets and images. So the tree is mirrored rather than flattened, every file carries its blob SHA, and binaries are recorded by path and size and left upstream.
+
+`assemble.py` then builds the document a call reads: prose inlined under a `<file path="...">` tag, everything else listed by name, size and type. Merging the scripts in as well would answer no question this pass asks — it asks for a sentence — while a merged prose document has a median of 9 KB against 11 KB for all text and a maximum of 2 MB against 15 MB.
+
+The path on the tag is not decoration. `czlonkowski/n8n-skills/skills/n8n-agents` is 23 KB as a file and 122 KB as a directory, and in the first eight directories run this way, **all five quotes came from a reference file rather than from `SKILL.md`** — `AGENT_TOOL_BINARY.md`, `DATA_ACCESS.md`, `ERROR_PATTERNS.md`, `references/vector-f-subshell-expansion.md`, `resources/VULNERABILITY_PATTERNS.md`. 260811 concluded that prompts shrink because obligations move down a level, from a corpus containing only the level they move from. `quote_file` is where that finally becomes measurable, and eight directories is not yet a measurement.
