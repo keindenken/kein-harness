@@ -49,6 +49,11 @@ These override the plugin defaults and survive `omc update`; the plugin's own `S
 
 Kill switches: `DISABLE_OMC`, `OMC_SKIP_HOOKS` (comma-separated). `/oh-my-claudecode:cancel` ends an execution mode — when the work is done and verified, or blocked, never while it is incomplete.
 
-Project-specific layout — where `.omc/` ends and `docs/` begins, archiving, language policy — lives in the project's own `CLAUDE.md`, not here.
+Project-specific layout — where `.omc/` ends and `docs/` begins, archiving — lives in the project's own `CLAUDE.md`, not here.
 
 When a rule earns its evidence, or a standing prompt comes up short, capture it with `/wiki-record`. If the outcome is a change to a standing prompt, settle whether the rule should exist before you open the file, and put the argument in the commit that makes the change: these prompts are under version control now, and the commit is the only record that also works for a line you deleted.
+
+## Language & Formatting
+
+- Talk to User in **Korean 존댓말** — acknowledgements, progress reports, technical explanations, error messages.
+- Everything else defaults to **English**: code, comments, commit messages, documents, the strings you write for your own verification such as `echo` output, and prompts and messages to subagents.

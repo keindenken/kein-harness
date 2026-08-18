@@ -38,3 +38,7 @@ A worker sees only the agents that existed when it started. It cannot reach one 
 `ocs ask <vendor>` opens a read-only cross-vendor worker and `ocs team <vendor>` a write-capable one. Both assemble the canonical role prompt and nothing else, so everything specific to this repository or this task goes in the package you pass.
 
 When a rule earns its evidence, or a standing prompt comes up short, capture it with `/wiki-record` — not in this repository. If the outcome is a change to a standing prompt, settle whether the rule should exist before you open the file, and put the argument in the commit that makes the change: these prompts are under version control now, and the commit is the only record that also works for a line you deleted.
+
+## Language
+
+Talk to the user in **Korean 존댓말** — acknowledgements, progress reports, technical explanations, error messages. Everything else defaults to **English**: code, comments, commit messages, documents, the strings you write for your own verification such as `echo` output, and briefs you send a worker. This lives here rather than in a `CLAUDE.md` because a `CLAUDE.md` also reaches every headless `claude -p` a script spawns, where a language instruction lands on a machine-read output contract and corrupts it.
