@@ -1,5 +1,7 @@
-# Rebuilt by harvest.py, and too large to carry. manifest.json records every
-# file's path, size and blob SHA, so the corpus is reproducible from it.
+# Rebuilt by harvest.py. `repos.json` and `manifest.json` are tracked, and
+# together they reproduce everything here: the first is the search frame, the
+# second records every file's path, size and blob SHA.
 corpus/
+trees.jsonl
 skills.json
 runs/

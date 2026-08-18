@@ -75,6 +75,8 @@ PAGES = 3            # 100 per page; GitHub caps any query at 1000 results
 MIN_STARS = 3
 HUMAN_SCALE = 60     # skills per repo above which a generator, not a person, wrote them
 SAMPLE_FROM_LARGE = 15
+LOOSE_SCALE = 15     # `AGENTS.md` files per repo past which it is one convention repeated
+SAMPLE_FROM_LOOSE = 8
 
 # Downloaded when a skill directory holds them. Everything else is recorded in
 # the manifest by path and size and left upstream.
@@ -82,23 +84,63 @@ TEXT_EXT = {".md", ".txt", ".json", ".yaml", ".yml", ".toml", ".sh", ".bash", ".
             ".py", ".ts", ".js", ".mjs", ".cjs", ".rb", ".go", ".rs", ".sql",
             ".xml", ".xsd", ".csv", ".tsv", ".html", ".css", ".env.example"}
 MAX_FILE_BYTES = 250_000   # one sibling above this is a data dump, not an instruction
-SKILL_BASENAMES = ("SKILL.md", "AGENTS.md", "CLAUDE.md")
+# Only `SKILL.md` marks a directory. `AGENTS.md` and `CLAUDE.md` are instructions
+# scoped to a subtree, not bundles that own it: `langgenius/dify` carries
+# `web/AGENTS.md`, and treating that as a skill handed one record 7,428 source
+# files. Both are still collected, one file each, wherever they sit.
+DIR_ANCHOR = "SKILL.md"
+LOOSE_ANCHORS = ("AGENTS.md", "CLAUDE.md")
+# A skill directory above this is not a bundled skill; it is a project that
+# happens to hold one. Recorded rather than dropped, so the shape stays visible.
+MAX_SKILL_FILES = 250
 # Directory names that are never part of a skill, however deep inside one they sit.
 NOT_SOURCE = {"node_modules", ".git", "vendor", "dist", "build", "__pycache__",
               ".venv", "venv", "target", ".next", "coverage"}
 
 
-def gh(path):
-    out = subprocess.run(["gh", "api", path], capture_output=True, text=True)
-    if out.returncode != 0:
-        return None, out.stderr.strip()[:200]
-    return json.loads(out.stdout), None
+_LIMIT_LOCK = __import__("threading").Lock()
+
+
+def _wait_for_core():
+    """Block until the core quota is usable again.
+
+    5,065 repositories is one tree request each against a 5,000/hour ceiling, so
+    a run that does not wait fails on its last sixty and loses the other five
+    thousand with it.
+    """
+    with _LIMIT_LOCK:
+        out = subprocess.run(["gh", "api", "rate_limit"], capture_output=True, text=True)
+        if out.returncode != 0:
+            time.sleep(60)
+            return
+        core = json.loads(out.stdout)["resources"]["core"]
+        if core["remaining"] > 20:
+            return
+        nap = max(30, core["reset"] - int(time.time()) + 5)
+        print(f"  core exhausted, sleeping {nap // 60}m{nap % 60}s", flush=True)
+        time.sleep(nap)
+
+
+def gh(path, retries=3):
+    for attempt in range(retries):
+        out = subprocess.run(["gh", "api", path], capture_output=True, text=True)
+        if out.returncode == 0:
+            return json.loads(out.stdout), None
+        err = out.stderr.strip()
+        if "rate limit" in err.lower() or "API rate limit" in err:
+            _wait_for_core()
+            continue
+        if attempt < retries - 1 and ("timeout" in err.lower() or "connection" in err.lower()):
+            time.sleep(2 * (attempt + 1))
+            continue
+        return None, err[:200]
+    return None, "rate limited after retries"
 
 
 def stage_repos():
     seen = {}
     for i, q in enumerate(QUERIES):
-        kept_before = len(seen)
+        kept_before, total = len(seen), "?"
         for page in range(1, PAGES + 1):
             url = (f"search/repositories?q={urllib.parse.quote(q)}"
                    f"&sort=stars&order=desc&per_page=100&page={page}")
@@ -107,6 +149,7 @@ def stage_repos():
                 print(f"  ! {q} p{page}: {err}", file=sys.stderr)
                 break
             items = data.get("items", [])
+            total = data.get("total_count", "?")
             for r in items:
                 if r["stargazers_count"] < MIN_STARS:
                     continue
@@ -125,7 +168,7 @@ def stage_repos():
             if len(items) < 100:
                 break
             time.sleep(2.2)   # 30/min ceiling on the search endpoint
-        print(f"  {q[:46]:46} total {data.get('total_count', '?'):>7}  new {len(seen)-kept_before:4}  corpus {len(seen)}")
+        print(f"  {q[:46]:46} total {total:>7}  new {len(seen)-kept_before:4}  corpus {len(seen)}", flush=True)
         time.sleep(2.2)
     repos = sorted(seen.values(), key=lambda r: -r["stars"])
     (HERE / "repos.json").write_text(json.dumps(repos, indent=1))
@@ -144,7 +187,7 @@ def _tree(repo):
         return name, [], err
     blobs = [n for n in data.get("tree", []) if n["type"] == "blob"]
     anchors = [n["path"] for n in blobs
-               if n["path"].rsplit("/", 1)[-1] in SKILL_BASENAMES and "/" in n["path"]]
+               if n["path"].rsplit("/", 1)[-1] == DIR_ANCHOR and "/" in n["path"]]
     # A skill directory is one holding an anchor file. Nested anchors mean the
     # inner one owns its subtree, so the outer does not claim it.
     #
@@ -153,7 +196,7 @@ def _tree(repo):
     # treating it as a skill hands it every path no inner skill claimed:
     # `trailofbits/skills` gave the root 570 files, `.github/` and all.
     dirs = sorted({p.rsplit("/", 1)[0] for p in anchors})
-    owned = {}
+    owned, oversized = {}, []
     for d in dirs:
         prefix = d + "/"
         inner = [x for x in dirs if x != d and (x + "/").startswith(prefix)]
@@ -167,46 +210,85 @@ def _tree(repo):
             if any(seg in NOT_SOURCE for seg in p[len(prefix):].split("/")[:-1]):
                 continue
             files.append({"path": p, "size": n.get("size", 0), "sha": n["sha"]})
+        if len(files) > MAX_SKILL_FILES:
+            keep = [f for f in files
+                    if f["path"].rsplit("/", 1)[-1] == DIR_ANCHOR
+                    or f["path"].lower().endswith((".md", ".txt"))][:MAX_SKILL_FILES]
+            owned[d] = keep or files[:MAX_SKILL_FILES]
+            oversized.append((d, len(files)))
+            continue
         if files:
             owned[d] = files
-    skills = [{"repo": name, "branch": branch, "dir": d, "files": f}
+    skills = [{"repo": name, "branch": branch, "dir": d, "files": f,
+               **({"trimmed_from": dict(oversized)[d]} if d in dict(oversized) else {})}
               for d, f in owned.items()]
-    # Root-level instruction files are kept as themselves, one file each.
+    # Directory-scoped instruction files are kept as themselves, one file each,
+    # at whatever depth they sit. They are the subject, not their neighbours.
     for n in blobs:
-        if "/" not in n["path"] and n["path"] in SKILL_BASENAMES:
-            skills.append({"repo": name, "branch": branch, "dir": "", "root_file": True,
+        base = n["path"].rsplit("/", 1)[-1]
+        if base in LOOSE_ANCHORS and not any(seg in NOT_SOURCE for seg in n["path"].split("/")[:-1]):
+            skills.append({"repo": name, "branch": branch, "dir": n["path"].rsplit("/", 1)[0] if "/" in n["path"] else "",
+                           "loose_file": base,
                            "files": [{"path": n["path"], "size": n.get("size", 0), "sha": n["sha"]}]})
     return name, skills, ("truncated" if data.get("truncated") else None)
 
 
 def stage_trees():
+    """Walk every repository's tree, appending as it goes so a stop is resumable."""
     repos = json.loads((HERE / "repos.json").read_text())
-    out, notes = [], {}
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        for i, (name, skills, note) in enumerate(pool.map(_tree, repos), 1):
-            out.extend(skills)
-            if note:
+    raw = HERE / "trees.jsonl"
+    seen = set()
+    if raw.exists():
+        for line in raw.read_text().splitlines():
+            try:
+                seen.add(json.loads(line)["repo"])
+            except Exception:
+                pass
+    todo = [r for r in repos if r["full_name"] not in seen]
+    print(f"{len(repos)} repositories, {len(seen)} already walked, {len(todo)} to go", flush=True)
+    notes = {}
+    with raw.open("a") as fh, ThreadPoolExecutor(max_workers=8) as pool:
+        for i, (name, skills, note) in enumerate(pool.map(_tree, todo), 1):
+            fh.write(json.dumps({"repo": name, "skills": skills, "note": note}) + "\n")
+            fh.flush()
+            if note and note != "truncated":
                 notes[name] = note
-            if i % 100 == 0:
-                print(f"  {i}/{len(repos)} repos, {len(out)} skills", flush=True)
+            if i % 200 == 0:
+                print(f"  {i}/{len(todo)} repos", flush=True)
+    out = []
+    for line in raw.read_text().splitlines():
+        rec = json.loads(line)
+        out.extend(rec["skills"])
     # A repository holding hundreds of skills was generated, and 260811 measured
     # the count itself as an inverted quality signal: median 9, maximum 23,793.
-    by_repo = defaultdict(list)
+    by_repo = defaultdict(lambda: ([], []))
     for s in out:
-        by_repo[s["repo"]].append(s)
-    picked, sampled = [], 0
-    for repo, ss in by_repo.items():
+        by_repo[s["repo"]][1 if s.get("loose_file") else 0].append(s)
+
+    def sample(ss, cap, take):
         ss.sort(key=lambda s: s["dir"])
-        if len(ss) <= HUMAN_SCALE:
-            picked.extend(ss)
-        else:
-            sampled += 1
-            step = len(ss) / SAMPLE_FROM_LARGE
-            picked.extend(ss[int(i * step)] for i in range(SAMPLE_FROM_LARGE))
+        if len(ss) <= cap:
+            return ss, False
+        step = len(ss) / take
+        return [ss[int(i * step)] for i in range(take)], True
+
+    picked, sampled, loose_sampled = [], 0, 0
+    for repo, (dirs, loose) in by_repo.items():
+        got, cut = sample(dirs, HUMAN_SCALE, SAMPLE_FROM_LARGE)
+        picked.extend(got)
+        sampled += cut
+        # A monorepo puts an `AGENTS.md` in every package: `elizaOS/eliza` has
+        # 312. Past a point those are one convention repeated, not 312 readings.
+        got, cut = sample(loose, LOOSE_SCALE, SAMPLE_FROM_LOOSE)
+        picked.extend(got)
+        loose_sampled += cut
     (HERE / "skills.json").write_text(json.dumps(picked, indent=1))
     files = sum(len(s["files"]) for s in picked)
     print(f"stage trees: {len(picked)} skills over {len(by_repo)} repositories, {files} files")
-    print(f"  {sampled} repositories above {HUMAN_SCALE} skills were sampled to {SAMPLE_FROM_LARGE}")
+    d = sum(1 for s in picked if not s.get("loose_file"))
+    print(f"  {d} skill directories, {len(picked)-d} loose instruction files")
+    print(f"  sampled down: {sampled} repositories above {HUMAN_SCALE} skills, "
+          f"{loose_sampled} above {LOOSE_SCALE} loose files")
     if notes:
         print(f"  truncated trees: {len(notes)}")
 
