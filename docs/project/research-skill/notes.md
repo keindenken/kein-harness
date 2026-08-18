@@ -127,9 +127,75 @@ interview 스킬 자신이 "do not... make a purely discoverable repository fact
 
 조사 쪽에 초점을 두려면 `survey`·`investigate`가 후보지만 그러면 방법 수립 노드가 이름과 어긋난다.
 
+## 코퍼스를 처음 의도대로 써봤다 (2026-08-18)
+
+`260811` 코퍼스는 원래 이 스킬을 위해 모은 것이었고, 여기서 처음 그 용도로 썼다. 결과와 한계 둘 다 남긴다.
+
+### 무엇이 있었나
+
+이름으로 걸리는 리서치 계열 스킬이 여럿 있다. 가장 가까운 것은 `199-biotechnologies/claude-deep-research-skill`이고, **자율성 원칙이 우리가 독립적으로 도달한 결론과 같다**:
+
+> **Autonomy Principle:** Operate independently. Infer assumptions from context. Only stop for critical errors or incomprehensible queries. **Surface high-materiality assumptions explicitly in the Introduction and Methodology rather than silently defaulting.**
+
+"가정하고 진행하되 표시한다"와 같은 문장이다. 수렴 신호로 볼 만하다.
+
+다만 그쪽은 깊이를 미리 고른다 — quick / standard / deep / ultradeep, 각각 단계 수와 **분 단위 소요 시간**이 프롬프트에 박혀 있다. `standing-prompt.md`가 경고하는 형태다. 재도출 불가능한 수치는 예산으로 복종된다.
+
+### 측정을 한 번 틀렸다
+
+방법론 어휘를 세다가 첫 수치가 틀렸다. 기록해둔다.
+
+| | 첫 측정 | 실제 |
+|---|---|---|
+| PRISMA | 61 | **10** (대소문자 구분), 그중 리뷰 방법론 문맥 **5** |
+| saturation | 49 | **0** (전부 색 채도) |
+
+`Prisma` ORM과 색 채도를 세고 있었다. 4,659개 중 체계적 리뷰 방법론을 실제로 쓰는 것은 **5개**, `threats to validity`는 **1개**. 문자열 일치는 개념 일치가 아니다.
+
+### 코퍼스의 한계 — 재수확이 필요하다
+
+`harvest.py:123`이 basename으로 거른다:
+
+```python
+if base in ("SKILL.md", "AGENTS.md", "CLAUDE.md"):
+```
+
+그래서 `references/methodology.md` 같은 파일은 **내용을 받은 적이 없다.** `corpus/`는 완전히 평평하다 — 하위 디렉터리 0개.
+
+**되받을 수 있다.** trees API가 리포당 모든 경로를 읽었으므로 reference 파일들의 경로는 이미 보였다가 필터에서 버려졌을 뿐이고, `repos.json`에 리포와 브랜치가 남아 있다.
+
+이게 실질적 손실인 이유: **잘 만든 스킬일수록 `SKILL.md`를 얇게 두고 방법을 `reference/`로 미룬다.** `deep-research`가 그 예다 — `SKILL.md`에는 결정 트리와 모드 선택만 있고 8단계 실제 내용은 `reference/methodology.md`에 있으며, 그 파일이 코퍼스에 없다. 읽을 값이 가장 큰 것이 정확히 안 받아온 쪽이다.
+
+**그리고 코퍼스는 다른 질문을 위해 만들어졌다.** 13개 쿼리 → 별 3개 이상 579개 리포 → 640개 층화 숏리스트 → 244개 blobless 클론으로 경로별 커밋 계수. 답하려던 것은 "프롬프트가 단조 증가한다는 전제가 살아남는가"였다. 시간에 따른 변화를 재려고 만든 것이지 방법론을 읽으려고 만든 것이 아니다.
+
+용도가 갈린다 — **발견에는 좋고**(이름·description 훑기) **방법에는 약하다**.
+
+`corpus/` 자체도 gitignore다. 이 기계에만 있다.
+
+## 논문 방법에서 무엇을 가져오나
+
+통째로 따르지 않는다. 논문은 심사자를 설득해야 해서 질문·선행연구 섹션이 필요한데 이 아티팩트에는 그런 독자가 없다.
+
+**명백히 값하는 것은 한계 / 타당성 위협 하나다.** 이유가 구조적이다 — 각 인용문헌이 자기 맹점을 신고하는 게 아니라 **저자가 모아놓고 마지막에 한 번 쓴다.** 레인이 못 본 것을 보고하리라는 기대를 접어도 감사가 성립한다.
+
+네 갈래 중 우리가 이미 세운 둘이 앞의 둘과 겹친다:
+
+| | 묻는 것 | 우리 감사 |
+|---|---|---|
+| External | 일반화되나 | **소스 맹점** — 표본이 모집단이 아니다 |
+| Construct | 재려던 걸 쟀나 | **분해 맹점** — 틀린 질문을 물었다 |
+| Internal | 인과 주장이 성립하나 | 아직 없음 |
+| Conclusion | 데이터가 주장 강도를 받치나 | 아직 없음 |
+
+네 번째가 특히 우리 근거 정의와 직결된다. 다섯 사례에서 뽑은 결론을 단정형으로 쓰면 걸리는 것이 Conclusion validity다.
+
+**선행연구의 싼 형태 하나는 살릴 만하다**: 팬아웃 전에 `.agents/kein/research/`를 훑어 이미 답한 질문인지 확인하는 것. 섹션이 아니라 단계다. 이 코퍼스가 그 사례다 — 있는 줄 모르고 새로 조사했으면 5,398개를 다시 긁었을 것이다.
+
 ## 다음
 
+- **코퍼스 재수확** — `harvest.py`의 basename 필터를 넓혀 `reference/` 계열을 받는다. 지난번 경험이 있으니 더 잘 긁을 수 있고, 무엇을 자료화할지도 같이 정한다. 방법론이 실제로 사는 곳이라 이것이 다음 라운드의 소스다.
 - **질문 분해** 확정 — 방법 수립의 두 책임 중 더 자주 발화하는 쪽
+- **감사에 Internal / Conclusion validity를 넣을지**
 - 정지 규칙 확정
 - 에이전트 배정 확정
 - `prove before adding`의 홈리스 상태 — research가 처음으로 필요로 하는 작업
