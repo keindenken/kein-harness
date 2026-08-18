@@ -13,13 +13,15 @@ Progress is not recorded here. What has been built is visible in `plugin/skills/
 
 Skills, capped at what is actually used:
 
-`interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · `research` · orca orchestration
+`interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
 
-Not in v1: `self-improve`, `autoresearch`. Both are wanted, but how to use them is unresolved, and an unresolved use is a signal that the need has not arrived. `research` is in scope and `autoresearch` is not, because they are different things: `research` answers a question someone asked and leaves a cited artifact behind, while `autoresearch` would be the harness deciding on its own that a question is worth answering. The first needs an invocation; the second needs a judgement nobody has specified.
+After v1: `research`. In scope and its use is clear — it answers a question someone asked and leaves a cited artifact behind — but it is not part of what the v1 gate measures.
+
+Out of scope until the use is clear: `self-improve`, `autoresearch`. Both are wanted, and an unresolved use is a signal that the need has not arrived. `autoresearch` differs from `research` in exactly that way: it would have the harness decide on its own that a question is worth answering, which is a judgement nobody has specified.
 
 Agents: the fourteen canonical roles, rendered for both vendors from one source.
 
-**No skill may share a name with an `ocs` subcommand.** A command and a skill answering to the same word is the confusion this harness was built to avoid; the plugin name is not the problem.
+**No skill may share a name with an `ocs` subcommand.** Cheap insurance rather than a live hazard: the CLI is `ocs`, the plugin is `kein`, and a command already cannot be mistaken for a skill on its prefix alone. Naming costs nothing at the moment a thing is created and everything afterwards, so the rule is kept as a habit and not as a defence against something currently happening.
 
 ### Non-goals
 
@@ -31,7 +33,9 @@ Agents: the fourteen canonical roles, rendered for both vendors from one source.
 
 A Codex port is planned. Whichever vendor leads, the experience should be as close to identical as the platforms allow.
 
-Where a platform forces a difference, the difference is the platform's and not a design choice — it is not licence for two designs that drift apart.
+Detail may differ for two reasons, and both are legitimate. A platform can force it — flags, sandboxing, which instruction files a runtime discovers. A model's temperament can call for it, where the same instruction lands differently on a different model and the wording has to change to mean the same thing.
+
+What must not differ is the design. Two vendors doing the same work in two different shapes is the failure this guards against, not two wordings of one shape.
 
 ### v1 done
 
@@ -46,7 +50,9 @@ Nothing below binds. It is here so that a later reader can tell whether a commit
 
 ### The obsolescence lens
 
-The argument that set this scope: execution harness has been retired by model capability, and only planning harness survives. That lands on half of this project, so it sets the scope rather than sitting beside it.
+The argument that set this scope: execution harness has been retired by model capability, and only planning harness survives. It is a contested claim, not a settled one — hold it as the strongest available hypothesis rather than as a finding. It lands on half of this project either way, so it sets the scope rather than sitting beside it.
+
+*Planning* here means the product-management layer — deciding what to build, what the policy is, how it should be shaped. It is not the `plan` skill, which is one implementation of a slice of it.
 
 The measured evidence so far agrees. Porting OMC's Critic from 3,047 words to 1,115 changed no behaviour, and a three-line restoration of the removed severity floor changed nothing across ten samples under deliberate pressure. Prompt material that reads as load-bearing frequently is not.
 
