@@ -149,24 +149,34 @@ codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
 
 worktree=$PWD
 
+# A linked worktree inherits the main worktree's trust record, measured 2026-08-19: codex opened without a
+# prompt in a worktree that had no record of its own, and prompted again the moment the record for the
+# repository it was linked to was removed. So the key is the main worktree, which is the parent of the shared
+# git directory -- and for the main worktree itself that is the same path, so there is no second case.
+# Checking `$PWD` alone refused every worktree the provider would in fact have opened.
+# `--path-format` is git 2.31+; anything older or non-git leaves this empty and only `$PWD` is checked.
+main_worktree=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" 2>/dev/null || true)
+[ "$main_worktree" = "." ] && main_worktree=''
+
 # Codex keeps its project trust records per home, so a directory trusted in one is not trusted in the other.
 # An untrusted directory stops the interactive agent at a prompt. Orca catches that for its own launch path and reports `codex-interactive-prompt`, but a terminal we created ourselves gets no such check: the brief would be typed into the trust prompt and the lane would hang with no timeout of its own.
 # Refuse before creating anything, and do not write the operator's config to make the problem go away.
 trusted=$(
-  python3 - "$codex_home/config.toml" "$worktree" <<'PY'
+  python3 - "$codex_home/config.toml" "$worktree" "$main_worktree" <<'PY'
 import re, sys
-path, root = sys.argv[1], sys.argv[2]
+path = sys.argv[1]
+roots = {root for root in sys.argv[2:] if root}
 try:
     lines = open(path, encoding="utf-8").read().splitlines()
 except OSError:
     print("no")
     raise SystemExit
-want = f'[projects."{root}"]'
+wanted = {f'[projects."{root}"]' for root in roots}
 inside = False
 for line in lines:
     stripped = line.strip()
     if stripped.startswith("["):
-        inside = stripped == want
+        inside = stripped in wanted
         continue
     if inside and re.match(r'trust_level\s*=\s*"trusted"', stripped):
         print("yes")
@@ -176,9 +186,12 @@ PY
 )
 if [ "$trusted" != "yes" ]; then
   printf 'ocs team: %s is not trusted in %s\n' "$worktree" "$codex_home" >&2
+  if [ -n "$main_worktree" ] && [ "$main_worktree" != "$worktree" ]; then
+    printf '  Its main worktree %s carries no record either, and a linked worktree inherits that one.\n' "$main_worktree" >&2
+  fi
   printf '  A worker launched there would stall at the trust prompt with no brief delivered.\n' >&2
   printf '  Open the provider once in that directory and accept, or add to %s/config.toml:\n' "$codex_home" >&2
-  printf '    [projects."%s"]\n    trust_level = "trusted"\n' "$worktree" >&2
+  printf '    [projects."%s"]\n    trust_level = "trusted"\n' "${main_worktree:-$worktree}" >&2
   exit 1
 fi
 
