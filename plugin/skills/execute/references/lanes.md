@@ -23,7 +23,7 @@ Every lane blocks. RALPLAN offers an `:advisory` suffix and this does not, becau
 ## The write-capable lane
 
 ```sh
-ocs team codex --agent executor --trace "<the task package>"
+ocs team codex --agent executor "<the task package>"
 ```
 
 `ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
@@ -62,6 +62,6 @@ A codex lane may run in the background. The skill body forbids backgrounding an 
 
 A verdict's `reviewer_role` becomes `<role>@<vendor>` — `code-reviewer@claude`, `critic@codex`. Findings carry the same identifier as the verdict they came from. No schema change is needed: verdicts are already a list and the role is already free text. Nothing in the workflow reads the vendor half, and it is worth the two characters only because a native lane leaves no trace of its own: the ledger is the sole record of which vendor judged.
 
-The Executor's vendor is not recorded, and putting it in the state would be a fact with no reader. `reconcile` resolves continuation without it, acceptance judges the worktree rather than its author, and a correction round may switch vendors either way. `ocs team --trace` already holds the vendor, the model, and the home, written by the mechanism instead of by a lead who can forget — which is how the first observed run recorded none of it. The worktree fingerprint binds verification to the round exactly as before: a vendor Executor wrote to the same canonical worktree.
+The Executor's vendor is not recorded, and putting it in the state would be a fact with no reader. `reconcile` resolves continuation without it, acceptance judges the worktree rather than its author, and a correction round may switch vendors either way. `ocs team` already holds the vendor, the model, and the home, written by the mechanism instead of by a lead who can forget — which is how the first observed run recorded none of it. It has no flag to forget either: that record used to depend on `--trace`, which left this argument resting on the lead remembering the very thing it was cited for not remembering. The worktree fingerprint binds verification to the round exactly as before: a vendor Executor wrote to the same canonical worktree.
 
 A nonzero exit from `ocs ask` or `ocs team` is not a lane result. A lane that failed to run has not passed, so the round is incomplete until it runs, and this one is the lead's to hold rather than the state's: verdicts are a list rather than a roster, so a lane that never reported leaves nothing behind to notice. A vendor Executor that exits nonzero has not implemented the task, whatever the worktree looks like: re-read the fingerprint before deciding what happened.

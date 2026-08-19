@@ -180,7 +180,7 @@ one-shot would let a remote vendor edit the worktree with no workflow around it.
 ### Adding a teammate from another vendor
 
 ```sh
-ocs team codex --agent executor --trace "<task>"   # supervised, write-capable
+ocs team codex --agent executor "<task>"   # supervised, write-capable
 ```
 
 `team` is the other half of the same bridge, and covers exactly the five write-capable
@@ -217,16 +217,18 @@ prompts happen to live inside that home, but the library and the environment are
 concerns. `KEIN_CANONICAL_PROMPTS` and `KEIN_CODEX_HOME` override each independently.
 
 `--trace` writes the assembled prompt, the invocation, and the response under
-`$(ocs state-dir runs/ask)/`. It began as a way for a test to assert the two-layer guarantee and has
-since acquired two callers that are not tests: RALPLAN's review contract requires it on every
-cross-vendor lane, because the trace is what makes that lane's verdict recoverable after the fact,
-and a backgrounded `ocs team` lane has nobody watching while it runs. Treat it as required wherever
+`$(ocs state-dir runs/ask)/`. On `ocs ask` it is the only persistence there is — without it nothing
+is written anywhere — which is why RALPLAN and `execute` both require it on every cross-vendor lane:
+the trace is what makes that lane's verdict recoverable after the fact. Treat it as required wherever
 a verdict has to outlive the session, rather than as a debug flag.
 
-The two commands differ on what its absence costs, and neither is obvious from the flag. Without it
-`ocs ask` writes nothing at all, so there is nothing to clean up and equally nothing to read.
-`ocs team` writes the role prompt and the worker's report either way — that report is the deliverable
-and the command prints its path — and `--trace` only adds the material around it.
+`ocs team` has no such flag. It creates its run directory and copies the role prompt whether or not
+anyone asked, so the marginal cost of also recording the spec, the launch environment and the Orca
+handles is two small files, and what they hold is the only record of which home, model and sandbox a
+lane actually received. `execute`'s lane reference already deletes a requirement on the strength of
+that record existing, and a record that depends on remembering a flag is precisely the failure that
+argument names. The material is written as each piece becomes known rather than once the lane
+succeeds, so a lane that dies early still leaves what it got that far with.
 
 Requirements: [.agents/kein/requirements/260803-kein-ask-bridge.md](.agents/kein/requirements/260803-kein-ask-bridge.md)
 

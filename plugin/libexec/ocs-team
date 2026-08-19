@@ -2,7 +2,7 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+#   ocs team <provider> --agent <role> [--worktree new|<path>] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
 #
@@ -36,11 +36,11 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them
-  --worktree: where the worker writes. Default is here. `new` creates an
+  --worktree: where the worker writes. Default is here. \`new\` creates an
               Orca-managed worktree for this lane; a path uses an existing one.
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
@@ -48,18 +48,17 @@ usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--trace] [--m
   --keep:    leave the worker terminal open after it completes
 
 One invocation is one worker, and it blocks. Run several in the background for
-several lanes: the trace persists every artifact, so nothing is lost when the
-caller is not waiting. Backgrounded lanes that share a worktree also share every
-file in it, so give each one `--worktree new` unless they are meant to collide.
+several lanes: every artifact is persisted, so nothing is lost when the caller
+is not waiting. Backgrounded lanes that share a worktree also share every
+file in it, so give each one \`--worktree new\` unless they are meant to collide.
 
 example:
-  ocs team codex --agent executor --trace "Implement the bounded change in src/foo.ts"
+  ocs team codex --agent executor "Implement the bounded change in src/foo.ts"
 EOF
 }
 
 provider=''
 role=''
-trace=0
 model=''
 effort=''
 timeout=3600
@@ -71,7 +70,6 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs team: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
     --agent=*) role=${1#--agent=}; shift ;;
-    --trace) trace=1; shift ;;
     --keep) keep=1; shift ;;
     --worktree) worktree_arg=${2:-}; [ -n "$worktree_arg" ] || { printf 'ocs team: missing value after --worktree\n' >&2; exit 1; }; shift 2 ;;
     --worktree=*) worktree_arg=${1#--worktree=}; shift ;;
@@ -240,7 +238,14 @@ orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not re
 # holds, so a report path anywhere else is one the worker cannot write and the lane would complete silently.
 dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
 mkdir -p "$dir"
-report="$dir/report.md"
+
+# The report is the deliverable and does not belong in the tree the repository ignores. `runs/` is
+# declared transient in `.gitignore` and everything else under `.agents/kein/` is a kept record, so a
+# report written into `runs/` is the one file there worth keeping -- and the only reason the directory
+# cannot simply be deleted when it looks cluttered.
+reports="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" reports)"
+mkdir -p "$reports"
+report="$reports/$stamp-$role.md"
 
 # The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
 role_file="$dir/role.md"
@@ -272,6 +277,13 @@ fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
 
 # One Run per invocation, so two backgrounded lanes never share a coordinator inbox.
 # Completion is read from the dispatch and the report file rather than from that inbox, which is what keeps concurrent invocations from consuming each other's mail.
+# No flag. The command already writes the role prompt and creates this directory unconditionally, so
+# the marginal cost is two small files -- roughly 2 KB against the role prompt's 5 to 8 -- and what
+# they hold is the only record of which home, model and sandbox a lane actually received. A record
+# that depends on remembering a flag is the failure mode `execute`'s lane reference already cites for
+# deleting the Executor-vendor requirement: written by the mechanism rather than by a lead who forgets.
+printf '%s' "$spec" > "$dir/spec.txt"
+
 run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
 [ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
 
@@ -288,6 +300,12 @@ launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c mode
 # The terminal must land where the caller is, not where the operator's Orca window happens to be focused.
 # `--worktree current` reads Orca's own selection, so a lead working in one checkout could dispatch a worker into another: the sandbox roots and KEIN_STATE_ROOT above are built from $PWD and would then describe a directory the worker is not in.
 # That is the same defect shape as the model and CODEX_HOME ones — a value that looks pinned and is actually inherited from the environment.
+{
+  printf 'CODEX_HOME=%s\n' "$codex_home"
+  printf 'cwd=%s\n' "$worktree"
+  printf '%s\n' "$launch"
+} > "$dir/command.txt"
+
 handle=$(orca terminal create --worktree "path:$worktree" --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
 if [ -z "$handle" ]; then
   printf 'ocs team: could not create a worker terminal in %s\n' "$worktree" >&2
@@ -305,15 +323,11 @@ if [ -z "$dispatch" ]; then
   exit 1
 fi
 
-if [ "$trace" -eq 1 ]; then
-  printf '%s' "$spec" > "$dir/spec.txt"
-  {
-    printf 'CODEX_HOME=%s\n' "$codex_home"
-    printf 'cwd=%s\n' "$worktree"
-    printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$dispatch" "$handle"
-    printf '%s\n' "$launch"
-  } > "$dir/command.txt"
-fi
+# Written here rather than after the dispatch attaches, which is where it used to be. The lane that
+# most needs a record is the one that failed, and every failure path above this point exited before
+# reaching it -- so the flag that was supposed to make a lane recoverable produced nothing in exactly
+# the case it was for.
+printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$dispatch" "$handle" >> "$dir/command.txt"
 
 # Poll the dispatch rather than wait on the Run mailbox.
 # `worker-show` takes the dispatch id directly, so nothing here depends on which Run this terminal happens to be bound to.
@@ -345,5 +359,5 @@ if [ ! -s "$report" ]; then
 fi
 
 printf 'report: %s\n' "$report"
-[ "$trace" -eq 1 ] && printf 'trace: %s\n' "$dir" >&2
+printf 'trace: %s\n' "$dir" >&2
 cat "$report"
