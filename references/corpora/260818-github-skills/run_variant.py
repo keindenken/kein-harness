@@ -21,12 +21,14 @@ CORPUS = Path(os.environ.get('CORPUS', HERE.parent / '260811-github-skills' / 'c
 sys.path.insert(0, str(HERE))
 from verify import norm
 
-def call(prompt, effort):
-    p = subprocess.run(
-        ['codex', 'exec', '--skip-git-repo-check', '--sandbox', 'read-only',
-         '-m', 'gpt-5.6-luna', '-c', f'model_reasoning_effort={effort}',
-         '-C', str(HERE), '-'],
-        input=prompt, capture_output=True, text=True, timeout=600)
+def call(prompt, effort, model='gpt-5.6-luna'):
+    if model.startswith('gpt-'):
+        cmd = ['codex', 'exec', '--skip-git-repo-check', '--sandbox', 'read-only',
+               '-m', model, '-c', f'model_reasoning_effort={effort}', '-C', '/tmp', '-']
+    else:
+        cmd = ['claude', '-p', '--model', model]
+    p = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
+                       cwd='/tmp', timeout=600)
     return p.stdout
 
 def parse(raw):
@@ -73,12 +75,12 @@ def quotes_of(rec):
     return [x for x in (q if isinstance(q, list) else [q]) if x]
 
 def one(job):
-    label, file, tpl, effort, window = job
+    label, file, tpl, effort, window, model = job
     text = (CORPUS / file).read_text(errors='replace')
     chunks = [text] if not window else [text[i:i+window] for i in range(0, len(text), window)]
     hits, invented, raws = [], [], []
     for ch in chunks:
-        raw = call(tpl.replace('{{FILE}}', file).replace('{{BODY}}', ch), effort)
+        raw = call(tpl.replace('{{FILE}}', file).replace('{{BODY}}', ch), effort, model)
         raws.append(raw)
         rec = parse(raw)
         if rec is None:
@@ -91,11 +93,12 @@ def one(job):
 
 def main():
     tplpath = Path(sys.argv[1])
-    effort = 'medium'; workers = 4; window = 0
+    effort = 'medium'; workers = 4; window = 0; model = 'gpt-5.6-luna'
     for i, a in enumerate(sys.argv):
         if a == '--effort': effort = sys.argv[i+1]
         if a == '--workers': workers = int(sys.argv[i+1])
         if a == '--window': window = int(sys.argv[i+1])
+        if a == '--model': model = sys.argv[i+1]
     tpl = tplpath.read_text()
     jobs = []
     halves = [('pos', 'positive.txt'), ('neg', 'negative.txt')]
@@ -103,10 +106,11 @@ def main():
         if a == '--fixture': halves = [(x.split('=')[0], x.split('=')[1]) for x in sys.argv[i+1].split(',')]
     for label, lst in halves:
         for f in [x for x in (FIXTURE / lst).read_text().splitlines() if x.strip()]:
-            jobs.append((label, f, tpl, effort, window))
+            jobs.append((label, f, tpl, effort, window, model))
     with ThreadPoolExecutor(max_workers=workers) as pool:
         res = list(pool.map(one, jobs))
     tagsfx = ''.join('-'+h[0] for h in halves if h[0] not in ('pos','neg'))
+    tagsfx += '-' + model.replace('gpt-5.6-', '')
     RUNS.mkdir(exist_ok=True)
     out = RUNS / f'{tplpath.stem}-{effort}{tagsfx}{"-w"+str(window) if window else ""}.json'
     out.write_text(json.dumps(res, indent=1, ensure_ascii=False))

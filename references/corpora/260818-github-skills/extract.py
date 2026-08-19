@@ -22,7 +22,7 @@ and the file it was found in is recorded. That last field is the measurement
 or in the references they were moved to.
 
 Usage:
-  ./extract.py <manifest.json> <out.jsonl> [--workers N] [--effort E] [--limit N]
+  ./extract.py <manifest.json> <out.jsonl> [--model M] [--workers N] [--effort E] [--limit N]
 """
 import json
 import os
@@ -41,6 +41,33 @@ from labels import label         # noqa: E402
 from assemble import assemble    # noqa: E402
 
 TPL = (HERE / "prompt" / "extract.md").read_text()
+
+# Haiku rather than luna, for a reason that is about the accounts and not the
+# models: the ChatGPT plan is the $20 one and the cross-vendor audit lane already
+# lives there, while the Claude plan has room three Opus sessions do not fill.
+# Bulk corpus reading should not compete with the lane the harness reviews with.
+#
+# They measure the same on the fixture — 7/8 and 8/8 on the positives, 1/8 on
+# the negatives for both, 10/15 and 9-15 unlabelled — which is inside the run to
+# run spread. Haiku is the one that drifts mid-quote, though: on
+# `mvanhorn/last30days-skill` it copied 105 characters exactly and then finished
+# the sentence in its own words. The verbatim check caught it, and that is what
+# the check is for, but a paraphrase that stops one clause earlier would pass.
+DEFAULT_MODEL = "claude-haiku-4-5"
+
+# Two vendors, one prompt. `codex exec` and `claude -p` both take a prompt on
+# stdin and print the reply, so swapping the reader is a flag rather than a
+# rewrite — and the fixture is what decides whether a swap is safe.
+def call(prompt, model, effort):
+    if model.startswith("gpt-"):
+        cmd = ["codex", "exec", "--skip-git-repo-check", "--sandbox", "read-only",
+               "-m", model, "-c", f"model_reasoning_effort={effort}", "-C", "/tmp", "-"]
+    else:
+        cmd = ["claude", "-p", "--model", model]
+    p = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
+                       cwd="/tmp", timeout=900)
+    return p.stdout, p.stderr
+
 
 
 def parse(raw):
@@ -97,35 +124,41 @@ def _locate(quote, doc):
 
 
 def one(args):
-    skill, effort = args
+    skill, effort, model = args
     key = f"{skill['repo']}/{skill['dir']}" if skill["dir"] else skill["repo"]
     try:
         doc, meta = assemble(skill, CORPUS)
     except OSError as e:
         return {"skill": key, "ok": False, "error": f"assemble: {e}"}
-    p = subprocess.run(
-        ["codex", "exec", "--skip-git-repo-check", "--sandbox", "read-only",
-         "-m", "gpt-5.6-luna", "-c", f"model_reasoning_effort={effort}", "-C", "/tmp", "-"],
-        input=TPL.replace("{{FILE}}", key).replace("{{BODY}}", doc),
-        capture_output=True, text=True, timeout=900)
-    rec = parse(p.stdout)
+    out, err = call(TPL.replace("{{FILE}}", key).replace("{{BODY}}", doc), model, effort)
+    rec = parse(out)
     if rec is None:
-        return {"skill": key, "ok": False, "error": (p.stdout or p.stderr)[-300:], **meta}
+        return {"skill": key, "ok": False, "error": (out or err)[-300:], **meta}
     q = rec.get("quote")
     where, found = _locate(q, doc)
+    # A null quote means one of two things and they are not the same event: the
+    # skill holds no qualifying sentence, or the file holding it was never shown.
+    # In the star-band run every record was anchors-only, so 80 of 150 were asked
+    # about a skill with prose siblings the model could not see — and among eight
+    # directories read at full depth, four of six quotes came from a sibling.
+    unread_prose = [n for n in meta["not_inlined"]
+                    if n.lower().endswith((".md", ".txt"))]
     return {
         "skill": key, "repo": skill["repo"], "dir": skill["dir"], "ok": True,
         "summary": rec.get("summary", ""), "drives": rec.get("drives", []),
         "quote": q, "quote_reason": rec.get("quote_reason"),
         "quote_ok": found, "quote_file": where,
+        "partial": bool(unread_prose), "unread_prose": unread_prose,
         **label(doc), **meta,
     }
 
 
 def main():
     src, out = Path(sys.argv[1]), Path(sys.argv[2])
-    w, effort, limit = 4, "medium", None
+    w, effort, limit, model = 4, "medium", None, DEFAULT_MODEL
     for i, a in enumerate(sys.argv):
+        if a == "--model":
+            model = sys.argv[i + 1]
         if a == "--workers":
             w = int(sys.argv[i + 1])
         if a == "--effort":
@@ -140,7 +173,7 @@ def main():
     print(f"{len(skills)} skills, {len(done)} already done, {len(todo)} to run", flush=True)
     t0, n = time.time(), 0
     with out.open("a") as fh, ThreadPoolExecutor(max_workers=w) as pool:
-        for rec in pool.map(one, ((s, effort) for s in todo)):
+        for rec in pool.map(one, ((s, effort, model) for s in todo)):
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
             fh.flush()
             n += 1

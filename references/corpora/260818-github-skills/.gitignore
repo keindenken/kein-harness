@@ -1,7 +1,12 @@
-# Rebuilt by harvest.py. `repos.json` and `manifest.json` are tracked, and
-# together they reproduce everything here: the first is the search frame, the
-# second records every file's path, size and blob SHA.
+# Rebuilt by harvest.py. `repos.json` is the search frame and `provenance.tsv`
+# pins a blob SHA per fetched file; together they reproduce everything here.
+# `manifest.json` says the same thing at 15 MB and rewrites wholesale on every
+# fetch, so it stays out.
 corpus/
 trees.jsonl
 skills.json
+manifest.json
+manifest.jsonl
+shortlist.json
+band-*.json
 runs/

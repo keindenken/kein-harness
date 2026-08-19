@@ -299,9 +299,14 @@ def _wanted(f):
     return ext in TEXT_EXT and f["size"] <= MAX_FILE_BYTES
 
 
-def _fetch_skill(skill):
+def _fetch_skill(args):
+    skill, anchors_only = args
     got, skipped = [], []
     for f in skill["files"]:
+        base = f["path"].rsplit("/", 1)[-1]
+        if anchors_only and base != DIR_ANCHOR and base not in LOOSE_ANCHORS:
+            skipped.append({**f, "reason": "not an anchor"})
+            continue
         if not _wanted(f):
             skipped.append({**f, "reason": "binary" if f["size"] <= MAX_FILE_BYTES else "oversize"})
             continue
@@ -321,29 +326,99 @@ def _fetch_skill(skill):
         dest.write_bytes(body)
         got.append(f)
     return {"repo": skill["repo"], "branch": skill["branch"], "dir": skill["dir"],
-            "files": got, "not_fetched": skipped}
+            **({"loose_file": skill["loose_file"]} if skill.get("loose_file") else {}),
+            "files": got, "not_fetched": skipped, "anchors_only": anchors_only}
 
 
-def stage_fetch(workers=12):
+def stage_fetch(workers=12, anchors_only=False, repo_limit=None):
+    """Download in repository-sized chunks, resumable at any point.
+
+    173,507 files is not one sitting, and the whole point of fetching anchors
+    first is to decide what the rest is worth before spending 1.5 GB on it. So
+    repositories are taken in star order, a chunk at a time, and a repository
+    already finished at the current depth is skipped.
+    """
     skills = json.loads((HERE / "skills.json").read_text())
+    order = {r["full_name"]: i for i, r in enumerate(json.loads((HERE / "repos.json").read_text()))}
+    raw = HERE / "manifest.jsonl"
+
+    depth = "anchors" if anchors_only else "full"
+    have = defaultdict(set)
+    if raw.exists():
+        for line in raw.read_text().splitlines():
+            try:
+                rec = json.loads(line)
+            except Exception:
+                continue
+            key = (rec["repo"], rec["dir"], rec.get("loose_file"))
+            have[key].add("anchors" if rec.get("anchors_only") else "full")
+
+    def satisfied(s):
+        got = have.get((s["repo"], s["dir"], s.get("loose_file")), set())
+        return "full" in got or (anchors_only and "anchors" in got)
+
+    pending = sorted((s for s in skills if not satisfied(s)),
+                     key=lambda s: (order.get(s["repo"], 1 << 30), s["dir"]))
+    todo = pending
+    if repo_limit:
+        keep, seen_repos = [], []
+        for s in todo:
+            if s["repo"] not in seen_repos:
+                if len(seen_repos) >= repo_limit:
+                    break
+                seen_repos.append(s["repo"])
+            keep.append(s)
+        todo = keep
+    print(f"{len(skills)} skills: {len(skills)-len(pending)} already at {depth} depth or better, "
+          f"{len(pending)} pending over {len({s['repo'] for s in pending})} repositories", flush=True)
+    print(f"  this chunk: {len(todo)} skills over {len({s['repo'] for s in todo})} repositories",
+          flush=True)
+    if not todo:
+        return _summarise(raw)
+
     CORPUS.mkdir(exist_ok=True)
-    manifest, done = [], 0
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        for rec in pool.map(_fetch_skill, skills):
-            manifest.append(rec)
+    done, t0 = 0, time.time()
+    with raw.open("a") as fh, ThreadPoolExecutor(max_workers=workers) as pool:
+        for rec in pool.map(_fetch_skill, ((s, anchors_only) for s in todo)):
+            fh.write(json.dumps(rec) + "\n")
+            fh.flush()
             done += 1
-            if done % 200 == 0:
-                print(f"  {done}/{len(skills)} skills", flush=True)
+            if done % 500 == 0 or done == len(todo):
+                print(f"  {done}/{len(todo)} skills  {int(time.time()-t0)}s", flush=True)
+    _summarise(raw)
+
+
+def _summarise(raw):
+    """Collapse the append log into manifest.json, deepest record per skill wins."""
+    best = {}
+    for line in raw.read_text().splitlines():
+        rec = json.loads(line)
+        key = (rec["repo"], rec["dir"], rec.get("loose_file"))
+        if key not in best or (best[key].get("anchors_only") and not rec.get("anchors_only")):
+            best[key] = rec
+    manifest = list(best.values())
     (HERE / "manifest.json").write_text(json.dumps(manifest, indent=1))
+    # The tracked half. `manifest.json` is 15 MB and changes wholesale on every
+    # fetch; what actually reproduces the corpus is a blob SHA per file, and that
+    # fits in a tenth of the space. `trees.jsonl` is not tracked either, so
+    # without this the only way back to these exact bytes is re-walking 5,065
+    # repository trees and hoping none of them moved.
+    with (HERE / "provenance.tsv").open("w") as fh:
+        fh.write("repo\tpath\tsha\tsize\n")
+        for m in sorted(manifest, key=lambda m: (m["repo"], m["dir"])):
+            for f in m["files"]:
+                fh.write(f'{m["repo"]}\t{f["path"]}\t{f["sha"]}\t{f["size"]}\n')
     fetched = sum(len(m["files"]) for m in manifest)
-    left = sum(len(m["not_fetched"]) for m in manifest)
     byte = sum(f["size"] for m in manifest for f in m["files"])
-    print(f"stage fetch: {len(manifest)} skills, {fetched} files ({byte/1e6:.0f} MB), "
-          f"{left} recorded but not downloaded")
+    full = sum(1 for m in manifest if not m.get("anchors_only"))
+    print(f"manifest: {len(manifest)} skills ({full} at full depth), "
+          f"{fetched} files, {byte/1e6:.0f} MB on disk")
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "repos"
     w = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 12
+    anchors = "--anchors" in sys.argv
+    rl = int(sys.argv[sys.argv.index("--repos") + 1]) if "--repos" in sys.argv else None
     {"repos": stage_repos, "trees": stage_trees,
-     "fetch": lambda: stage_fetch(w)}[cmd]()
+     "fetch": lambda: stage_fetch(w, anchors, rl)}[cmd]()
