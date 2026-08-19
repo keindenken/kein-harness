@@ -83,9 +83,11 @@ Create a candidate JSON file, then run `ocs state ralplan checkpoint <state.json
 
 Three states per blocked round, and a lane returning is not one of them:
 
-1. the round opens — `In Review`, fresh round number, empty verdicts;
-2. the round is blocked — `Draft`, consolidated findings persisted, every verdict cleared;
-3. the revision landed — `Draft`, findings cleared, which the transition rules permit only once the review hash has moved.
+1. the round opens — phase `reviewing`, fresh round number, empty verdicts;
+2. the round is blocked — phase `revising`, consolidated findings persisted, every verdict cleared;
+3. the revision landed — phase `drafted`, findings cleared, which the transition rules permit only once the review hash has moved.
+
+`Status` stays `In Review` across all three: the run is open the whole time, and the artifact says so. Only `phase` moves.
 
 A verdict arriving is not a state worth writing. The next checkpoint clears the map, so a checkpoint holding one incoming verdict is erased before anything reads it, and a blocked round records its review in `findings`, which carries the lane on each entry. Wait for every dispatched lane to return, then write the checkpoint that resolves the round.
 

@@ -399,29 +399,31 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 # Otherwise a lane that returned MUST_FIX could simply be removed from the roster and the plan approved without it.
                 errors.append("The lane roster is fixed for the run and cannot change between checkpoints")
         previous_has_blocker = previous_has_must_fix or bool(previous.get("findings"))
-        if previous_has_blocker and candidate_status != "Draft":
+        # Keyed on `phase` and not on `Status`. What must not happen is a plan reaching reviewers
+        # while a finding against it is unresolved, and `phase` is the field that says whether
+        # reviewers are reading. Keying it on `Status` also fixed the meaning of that field to
+        # "did the last round block", which is not what a reader of the artifact needs from it.
+        if previous_has_blocker and candidate.get("phase") == "reviewing":
             errors.append(
-                "A recorded MUST_FIX or unresolved finding must return to Draft"
+                "A recorded MUST_FIX or unresolved finding cannot enter a reviewing phase"
             )
         if (
             previous_has_blocker
-            and candidate_status == "Draft"
             and previous_plan.get("review_sha256")
             == candidate_plan.get("review_sha256")
             and not candidate.get("findings")
         ):
-            errors.append("A same-hash Draft must retain unresolved findings")
-        if previous_status == "Draft" and candidate_status == "In Review":
+            errors.append("Findings can only be cleared by a review-content change")
+        if previous.get("phase") != "reviewing" and candidate.get("phase") == "reviewing":
             opens_fresh_round = (
-                candidate.get("phase") == "reviewing"
-                and isinstance(previous.get("round"), int)
+                isinstance(previous.get("round"), int)
                 and candidate.get("round") == previous.get("round") + 1
                 and _empty_roster(candidate.get("verdicts"))
                 and candidate.get("findings") == []
             )
             if not opens_fresh_round:
                 errors.append(
-                    "Opening In Review must advance to a fresh round with empty verdicts"
+                    "Entering a reviewing phase must advance to a fresh round with empty verdicts"
                 )
         if candidate_status == "Approved":
             if previous_has_blocker:
@@ -429,8 +431,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                     "Approval cannot overwrite a recorded MUST_FIX or unresolved finding"
                 )
             if (
-                previous_status != "In Review"
-                or previous.get("phase") != "reviewing"
+                previous.get("phase") != "reviewing"
                 or candidate.get("phase") != "reviewing"
                 or previous.get("round") != candidate.get("round")
                 or not isinstance(candidate.get("round"), int)
@@ -439,7 +440,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 != candidate_plan.get("review_sha256")
             ):
                 errors.append(
-                    "Approval must transition from an In Review official round"
+                    "Approval must transition from an official reviewing round"
                 )
         if previous_plan.get("path") != candidate_plan.get("path"):
             errors.append("Transition cannot change the canonical plan path")
