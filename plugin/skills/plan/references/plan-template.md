@@ -33,3 +33,19 @@ When the plan carries a bounded execution-time empirical obligation, use this ex
 ```
 
 A gate whose unexpected result has no stop boundary is not a gate. Every expected result needs a path that was decided here rather than at execution time, which is what keeps the obligation bounded.
+
+When Planner's role contract calls for a pre-mortem, use this exact optional shape. Whether one is called for is that contract's decision and not this file's:
+
+```markdown
+## Pre-mortem
+
+### S<n>: <how this ships wrong>
+
+- Caught by: <the acceptance criterion or gate that surfaces it>
+- Prevented by: <the mechanism that stops it, or None>
+- Residual: <what is accepted because nothing catches it, or None>
+```
+
+A scenario with no `Caught by` is a worry rather than a pre-mortem entry: it names a fear without saying which check would have to fail for it to happen. `Residual: None` and a missing `Residual` line say different things — the first is a claim that the scenario is covered, the second is silence about whether anyone looked.
+
+The numbering is what lets the rest of the plan cite a scenario instead of restating it; the shape is otherwise free, and the section is the plan's own record of what it expects to survive.
