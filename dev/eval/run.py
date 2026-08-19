@@ -528,8 +528,34 @@ def worktree_instruction_names(worktree):
     return [Path(name).name for name in WORKTREE_INSTRUCTION_NAMES if (Path(worktree) / name).is_file()]
 
 
-def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=()):
-    """`plugin_dir` is None for an arm that runs without the harness."""
+def resolve_lead_prompt(value):
+    """Turn `--lead-prompt` into a path or into nothing, and refuse anything in between.
+
+    Real use reaches a lead through a launcher that injects a standing prompt; every run measured so far reached one bare. That gap is worth measuring, and it must not be closed by default: switching it on silently would make every past run incomparable to every later one while both still say `kein-dev eval` at the top.
+
+    So it is an axis with `none` as its default, and the run records which side it was on.
+
+    A missing file is refused rather than skipped. The failure being avoided is a run that looks like it carried a lead prompt, reports normally, and did not.
+
+    Two things to know before turning it on, neither of which is a reason not to:
+
+    `prompts/lead.md` ends with a rule to talk to the user in Korean, which is there precisely because a `CLAUDE.md` would carry it into every headless `claude -p`. An arm *is* a headless `claude -p`, with no user and an artifact as its output, and `graded.py`'s judge has already been seen obeying a language instruction over its own reply format. Watch what the arms write, not only what they do.
+
+    Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin the control arm does not have. That is the harness's own recorded failure mode — an instruction naming an ungranted capability fails silently and reads as disobedience. Against `--variant` arms, where both sides carry the plugin, neither concern applies.
+    """
+    if value in (None, "none"):
+        return None
+    path = Path(value).expanduser()
+    if not path.is_file():
+        raise SystemExit(f"kein-dev eval: --lead-prompt {value!r} is not a file. Pass a path, or 'none' to run the lead bare.")
+    return path.resolve()
+
+
+def launch_command(prompt, model, probe, plugin_dir, max_turns, denied=(), lead_prompt=None):
+    """Build the arm's command line.
+
+    Separated from `launch` because everything an arm is or is not given is decided here, and every one of these flags is a variable in the comparison. A flag that appears by default changes what every past run means, so this has to be readable and checkable without spending a session to see it.
+    """
     # The event stream is the record. Plain text would give only the final message, which cannot show whether a lane was ever dispatched.
     command = [
         "claude", "--model", model,
@@ -541,6 +567,12 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
     ]
     if plugin_dir is not None:
         command += ["--plugin-dir", str(plugin_dir)]
+    if lead_prompt is not None:
+        # Every arm, or none. The lead prompt is the axis rather than a treatment, and giving it to
+        # one arm would put two variables between the arms and make the difference unattributable.
+        # `~/.claude/CLAUDE.md` sets the precedent already documented in `prepare_config_home`:
+        # constant across arms, so attribution survives it.
+        command += ["--append-system-prompt-file", str(lead_prompt)]
     if max_turns:
         # A backstop against a runaway loop, not a round limiter: a run that produced a plan took 135 assistant turns, so the ceiling is set far above any honest run.
         # It also cannot reach a subagent's own turns, so the real cost lever is the pinned model, not this.
@@ -552,6 +584,12 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
         # `bypassPermissions` approves every tool, so an allow-list is a no-op here and only a deny-list restricts anything; checked against a live session rather than assumed.
         # A case denies a tool when having it would let the arm settle the very fact the case is built around — `plan-evidence-gate` is the one, where the local `sqlite3` is not the bundled one the requirements ask about.
         command += ["--disallowedTools", *denied]
+    return command
+
+
+def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=(), lead_prompt=None):
+    """`plugin_dir` is None for an arm that runs without the harness."""
+    command = launch_command(prompt, model, probe, plugin_dir, max_turns, denied, lead_prompt)
 
     # The config home is pinned rather than inherited, which is the same move `ocs ask` makes for the Codex side.
     # Inheriting it would hand every arm the user's other plugins — superpowers among them, whose planning skills would mask the variable under test far more thoroughly than the fixture's own contamination did.
@@ -936,6 +974,9 @@ def run_case_mode(options, model, config_home_root):
     replicates = options.runs or case.get("runs", 3)
     timeout = options.timeout if options.timeout != 1800 else execution.get("timeout_seconds", 1800)
     max_turns = options.max_turns if options.max_turns != 500 else execution.get("max_turns", 500)
+    # Resolved before the run directory exists, so a bad path fails immediately rather than after
+    # the config homes have been built and a keychain read has happened per replicate.
+    lead_prompt = resolve_lead_prompt(options.lead_prompt)
     # Named for what it does. The field this replaces was `allowed_tools`, which is `claude plugin eval`'s
     # and which nothing here read, so every case ran with every tool while its own file said otherwise.
     denied = list(execution.get("denied_tools") or [])
@@ -960,7 +1001,7 @@ def run_case_mode(options, model, config_home_root):
         events = run_dir / f"events-{arm}-{index}.jsonl"
         print(f"[{arm}] run {index + 1}/{replicates} started ({model})", file=sys.stderr)
         outcome = launch(arm, worktree, prompt, model, False, timeout, events,
-                         homes[job], arms[arm]["plugin"], max_turns, denied)
+                         homes[job], arms[arm]["plugin"], max_turns, denied, lead_prompt)
         artifacts = run_dir / "artifacts" / arm / str(index)
         produced = collect(worktree, artifacts)
         with ThreadPoolExecutor(max_workers=len(graders)) as pool:
@@ -990,6 +1031,9 @@ def run_case_mode(options, model, config_home_root):
             "roles": {spec.get("role", "treatment"): name for name, spec in arms.items()},
             "created_at": datetime.now(timezone.utc).isoformat(),
             "denied_tools": denied,
+            # Null is what every run before this axis existed did, so a manifest without the key and
+            # one with it set to null mean the same thing, and neither can be mistaken for the other side.
+            "lead_prompt": str(lead_prompt) if lead_prompt else None,
             # Each replicate's record names the config home it ran under, which is retired when the
             # run ends. Its transcripts land in `transcripts/<arm>-<index>/`.
             "transcripts": str(run_dir / "transcripts"),
@@ -1044,6 +1088,7 @@ def main():
     parser.add_argument("--arm", action="append", choices=sorted(ARMS), help="run only these arms; repeatable. A conformance run needs one arm, not a comparison.")
     parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --critic claude,codex '. The trailing space matters.")
     parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
+    parser.add_argument("--lead-prompt", default="none", metavar="PATH|none", help="append a standing lead prompt to every arm, as a launcher does in real use. Default 'none', which is what every run measured so far did — turning it on by default would make those runs incomparable without saying so. Run one case both ways to read what it costs.")
     options = parser.parse_args()
 
     if options.verify:
@@ -1169,6 +1214,10 @@ def main():
     contamination = config.get("contamination", {})
     model = config.get("models", {}).get("arm", "sonnet")
 
+    # Resolved before anything is built, so a bad path fails immediately rather than after a run
+    # directory, a config home and a keychain read have already happened.
+    lead_prompt = resolve_lead_prompt(options.lead_prompt)
+
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     kind = "probe" if options.probe else "task"
     run_dir = state_dir("runs/eval") / f"{stamp}-{options.fixture}-{kind}"
@@ -1195,7 +1244,7 @@ def main():
             loaded = plugin_status(worktree)
             print(f"[{arm}] launching ({model}, {'probe' if options.probe else 'task'})", file=sys.stderr)
             events = run_dir / f"events-{arm}.jsonl"
-            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home, arms[arm]["plugin"], options.max_turns)
+            outcome = launch(arm, worktree, prompt, model, options.probe, options.timeout, events, config_home, arms[arm]["plugin"], options.max_turns, lead_prompt=lead_prompt)
             produced = collect(worktree, run_dir / "artifacts" / arm, exclude=set(touched))
             records[arm] = {
                 "path": str(worktree),
@@ -1220,6 +1269,9 @@ def main():
             "config_path": str(config_path),
             "mode": kind,
             "model": model,
+            # Null is what every run before this axis existed did, so a manifest without the key and
+            # one with it set to null mean the same thing, and neither can be mistaken for the other side.
+            "lead_prompt": str(lead_prompt) if lead_prompt else None,
             "created_at": datetime.now(timezone.utc).isoformat(),
             # Each arm's record names the config home it ran under, which is retired when the run
             # ends. This is where its transcripts went, so the trail does not stop at a path that

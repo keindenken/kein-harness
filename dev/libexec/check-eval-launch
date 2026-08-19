@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+#: Prove an arm's command line carries exactly what the run asked for and nothing by default.
+#
+# Every flag `launch_command` adds is a variable in the comparison, and the expensive failure is not
+# a crash. It is a flag that starts appearing by default: every past run stays on disk, keeps saying
+# `kein-dev eval` at the top, and quietly stops being comparable to anything run afterwards. Nothing
+# else here reads a command line, so a change of that kind would surface only as a result nobody
+# could explain.
+import importlib.util
+import os
+import sys
+import tempfile
+from pathlib import Path
+
+DEV_ROOT = Path(os.environ["KEIN_DEV_ROOT"])
+spec = importlib.util.spec_from_file_location("kein_eval_run", DEV_ROOT / "eval" / "run.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+
+failures = []
+
+
+def flag_value(command, flag):
+    return command[command.index(flag) + 1] if flag in command else None
+
+
+# --- the default is bare, which is what every run so far measured -----------------------------
+bare = module.launch_command("do the task", "sonnet", False, None, 500)
+if "--append-system-prompt-file" in bare:
+    failures.append("a lead prompt reached an arm that did not ask for one, which silently reprices every past run")
+if "--plugin-dir" in bare:
+    failures.append("the control arm was given the harness")
+if flag_value(bare, "--permission-mode") != "bypassPermissions":
+    failures.append("a task arm cannot write, so it cannot produce the artifact it is graded on")
+
+# A probe asks what reached the session and writes nothing, so it must not be handed bypass.
+probe = module.launch_command("what reached you", "sonnet", True, None, 500)
+if "--permission-mode" in probe:
+    failures.append("a probe was given a permission mode it has no use for")
+
+# --- resolution ------------------------------------------------------------------------------
+if module.resolve_lead_prompt("none") is not None:
+    failures.append("'none' resolved to something, so the default side of the axis is not reachable")
+if module.resolve_lead_prompt(None) is not None:
+    failures.append("an absent value resolved to something")
+
+with tempfile.TemporaryDirectory() as tmp:
+    lead = Path(tmp) / "lead.md"
+    lead.write_text("# Lead\n")
+
+    resolved = module.resolve_lead_prompt(str(lead))
+    if resolved != lead.resolve():
+        failures.append(f"a lead prompt path did not resolve to itself: {resolved}")
+
+    # A run that looks like it carried a lead prompt and did not is the failure worth refusing for.
+    # Skipping a missing file would produce exactly that, and it would report as a normal run.
+    try:
+        module.resolve_lead_prompt(str(Path(tmp) / "absent.md"))
+        failures.append("a missing lead prompt was accepted, so a run could report carrying one it never had")
+    except SystemExit:
+        pass
+
+    # Both arms or neither. The lead prompt is the axis; giving it to one side would put two
+    # variables between the arms and leave the difference unattributable to either.
+    for plugin_dir in (None, Path(tmp) / "plugin"):
+        command = module.launch_command("do the task", "sonnet", False, plugin_dir, 500, (), resolved)
+        if flag_value(command, "--append-system-prompt-file") != str(resolved):
+            failures.append(f"the lead prompt did not reach the arm with plugin_dir={plugin_dir}")
+
+    # A denied tool is the one case-level flag that changes what an arm can find out for itself.
+    denied = module.launch_command("do the task", "sonnet", False, None, 500, ("Bash(sqlite3:*)",))
+    if flag_value(denied, "--disallowedTools") != "Bash(sqlite3:*)":
+        failures.append("a denied tool did not reach the arm, so a case could settle its own question")
+
+if failures:
+    for failure in failures:
+        print(f"check-eval-launch: {failure}", file=sys.stderr)
+    raise SystemExit(1)
+print("check-eval-launch: the default arm is bare, a lead prompt reaches every arm or none, and a missing one is refused")
