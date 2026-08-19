@@ -48,7 +48,7 @@ Resolve a load-bearing empirical fact before approval when its result could chan
 
 Ask the user immediately only when an answer is necessary for the next approval or materially changes a review. Record useful non-blocking questions in the plan and continue.
 
-Around five unsuccessful official rounds is a diagnostic trigger, not a maximum. Reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff. Do not manufacture approval from repetition.
+Around five unsuccessful official rounds is a diagnostic trigger, not a maximum, and it re-arms rather than being spent: a decision to continue covers the next five rounds, not the rest of the run. Reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff. Do not manufacture approval from repetition.
 
 When the same defect class recurs against the same contract, revisit the contract or underlying design instead of polishing the same prose again. Evidence gathering does not authorize production implementation or scope expansion.
 
