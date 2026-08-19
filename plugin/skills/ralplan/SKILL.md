@@ -22,7 +22,7 @@ Read these when their stage begins:
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
 - [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
 
-Use `ocs state ralplan --help` for validation, reconciliation, and atomic checkpoint commands.
+Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
 
 Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete stage-specific package. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
 

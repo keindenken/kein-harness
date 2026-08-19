@@ -77,7 +77,27 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
 }
 ```
 
-Create a candidate JSON file, then run `ocs state ralplan checkpoint <state.json> <candidate.json>` from the skill directory. The command validates the plan, transition, hashes, and compact terminal shape before atomically replacing state. Run `reconcile` before every resume and after compaction.
+## Driving the run
+
+One subcommand per transition. Each reads the saved state and the plan file, builds the next state, and promotes it through the same validation, so nothing is passed that the two of them already know — the round number, both hashes, and the artifact's own `Status` are read, never supplied.
+
+```sh
+ocs state ralplan start   <state.json> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>]
+ocs state ralplan open    <state.json>                    # the next official round
+ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
+ocs state ralplan revised <state.json>                    # Planner's revision landed
+ocs state ralplan approve <state.json>                    # every blocking lane passed this hash
+ocs state ralplan complete <state.json>                   # compact to the receipt
+ocs state ralplan abort   <state.json> --reason <text>
+```
+
+`--next` overrides `next_action` on any of them; each carries a default. `--verdict <lane>=<verdict>` on `approve` names an advisory lane, which is otherwise left unset.
+
+`--findings` takes a JSON array of findings, or an object carrying one under `findings`. It is the only content a transition cannot derive, and it is the round's review record rather than scratch — keep it beside the run.
+
+`checkpoint <state.json> <candidate.json>` promotes a hand-authored state and remains for a shape no transition names — `blocked`, `interrupted`, `gathering_evidence`. Delete the candidate once it succeeds; the durable record is `state.json` and the receipt.
+
+`validate-plan <plan.md>` checks the artifact's shape alone. `validate-state <state.json>` checks one state document's shape and no transition; every promoting command already runs it. `reconcile <state.json>` recomputes the plan and input hashes against the files on disk and returns the exact next action — run it before every resume and after compaction.
 
 ## What a round checkpoints
 

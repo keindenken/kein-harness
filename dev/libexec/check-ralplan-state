@@ -1,0 +1,63 @@
+#!/usr/bin/env sh
+#: Drive a full RALPLAN run through the state machine and fail if any invariant stopped holding.
+#
+# The state machine owns the only thing that makes the consensus gate more than ceremony: a
+# MUST_FIX cannot be skipped, findings cannot be dropped without changing the plan, and a round
+# cannot be re-reviewed without advancing. Those rules are enforced across `validate_transition`
+# and the transition builders, and nothing else in this repository exercises them.
+#
+# Written after a change to those rules shipped with a hole in it: `approve` ran happily from a
+# `drafted` phase because the approval branch keyed on the artifact's own `Status`, and only
+# driving a whole run end to end surfaced it.
+set -eu
+
+CMD="python3 ${KEIN_ROOT:?}/skills/ralplan/scripts/state.py"
+WORK=$(mktemp -d)
+trap 'rm -rf "$WORK"' EXIT
+RUN="$WORK/260101-000000-check"
+mkdir -p "$RUN"
+ST="$RUN/state.json"
+PLAN="$WORK/plan.md"
+failures=0
+
+header() { printf '# Check plan\n\nStatus: %s\nStatus reason: %s\n\n---\n\n%s\n' "$1" "$2" "$3" > "$PLAN"; }
+must()   { if ! $CMD "$@" >/dev/null 2>&1; then printf 'check-ralplan-state: %s was refused and should not be\n' "$1" >&2; failures=$((failures + 1)); fi; }
+refuse() { label=$1; shift; if $CMD "$@" >/dev/null 2>&1; then printf 'check-ralplan-state: %s was accepted and must not be\n' "$label" >&2; failures=$((failures + 1)); fi; }
+
+header Draft "Drafted." "body v0"
+must start "$ST" --plan "$PLAN" --summary "Check task" --lanes architect@claude,critic@claude
+
+refuse "a second start over a live run" start "$ST" --plan "$PLAN" --summary "Check task" --lanes architect@claude,critic@claude
+refuse "approval before any round opened" approve "$ST"
+
+header "In Review" "Reviewing round 1." "body v0"
+must open "$ST"
+
+printf '[{"lane":"critic@claude","claim":"c","evidence":"e","impact":"i","required_correction":"r"}]\n' > "$WORK/f.json"
+must block "$ST" --findings "$WORK/f.json"
+
+refuse "clearing findings without a review-content change" revised "$ST"
+refuse "opening a round while findings are unresolved" open "$ST"
+
+header "In Review" "Drafted." "body v1, revised"
+must revised "$ST"
+
+refuse "approval from a drafted phase" approve "$ST"
+
+header "In Review" "Reviewing round 2." "body v1, revised"
+must open "$ST"
+header Approved "Approved at round 2." "body v1, revised"
+must approve "$ST"
+must complete "$ST"
+
+if ! $CMD reconcile "$ST" >/dev/null 2>&1; then
+  printf 'check-ralplan-state: the completed receipt does not reconcile\n' >&2
+  failures=$((failures + 1))
+fi
+refuse "a transition out of a terminal receipt" open "$ST"
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-ralplan-state: %d check(s) failed\n' "$failures" >&2
+  exit 1
+fi
+printf 'check-ralplan-state: the run drove clean and every refusal held\n'

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from datetime import datetime
 import hashlib
 import json
@@ -403,6 +404,12 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         # while a finding against it is unresolved, and `phase` is the field that says whether
         # reviewers are reading. Keying it on `Status` also fixed the meaning of that field to
         # "did the last round block", which is not what a reader of the artifact needs from it.
+        if candidate.get("phase") != "reviewing" and any(
+            value is not None for value in (candidate.get("verdicts") or {}).values()
+        ):
+            # A verdict is a statement about a round under review. Recorded anywhere else it is a
+            # `PASS` with no gate behind it, which `Status` being free text can no longer catch.
+            errors.append("Verdicts can only be recorded in a reviewing phase")
         if previous_has_blocker and candidate.get("phase") == "reviewing":
             errors.append(
                 "A recorded MUST_FIX or unresolved finding cannot enter a reviewing phase"
@@ -517,7 +524,10 @@ def reconcile(state_path: Path) -> Dict[str, Any]:
 
 
 def checkpoint(destination: Path, candidate_path: Path) -> None:
-    candidate = _load_json(candidate_path)
+    _commit(destination, _load_json(candidate_path))
+
+
+def _commit(destination: Path, candidate: Dict[str, Any]) -> None:
     previous = _load_json(destination) if destination.exists() else None
     errors = validate_transition(previous, candidate)
     if errors:
@@ -556,6 +566,155 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
             temporary_path.unlink()
 
 
+def _now() -> str:
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def _refresh(candidate: Dict[str, Any]) -> None:
+    """The artifact is the authority on its own status and content.
+
+    Every field here is readable from the plan file, so asking the caller for it only creates a
+    way for the recorded state and the file to disagree -- which is exactly what the three checks
+    in `_commit` existed to catch. Read them instead.
+    """
+    plan_path = Path(candidate["plan"]["path"])
+    candidate["plan"]["status"] = parse_plan_text(plan_path.read_text())["status"]
+    candidate["plan"]["artifact_sha256"] = sha256_file(plan_path)
+    candidate["plan"]["review_sha256"] = review_sha256(plan_path)
+
+
+def _advance(destination: Path, mutate, next_action: Optional[str], default_action: str) -> None:
+    state = _load_json(destination)
+    if state.get("lifecycle") in TERMINAL_LIFECYCLES:
+        raise ValueError("Terminal state cannot transition")
+    candidate = copy.deepcopy(state)
+    _refresh(candidate)
+    mutate(candidate)
+    candidate["next_action"] = next_action or default_action
+    _commit(destination, candidate)
+
+
+def start(destination: Path, plan: Path, summary: str, lanes: List[str],
+          reference: Optional[Path], working_directory: Path, repository: Path,
+          next_action: Optional[str]) -> None:
+    if destination.exists():
+        raise ValueError(f"{destination} already exists; a run is started once")
+    digest = sha256_file(reference) if reference is not None else hashlib.sha256(summary.encode("utf-8")).hexdigest()
+    candidate = {
+        "schema_version": SCHEMA_VERSION,
+        "workflow": "ralplan",
+        "run_id": destination.parent.name,
+        "lifecycle": "active",
+        "working_directory": str(working_directory),
+        "repository": str(repository),
+        "input": {
+            "reference": str(reference) if reference is not None else None,
+            "summary": summary,
+            "sha256": digest,
+        },
+        "plan": {"path": str(plan), "status": "", "artifact_sha256": "", "review_sha256": ""},
+        "phase": "drafted",
+        "round": 0,
+        "verdicts": {lane: None for lane in lanes},
+        "findings": [],
+        "next_action": next_action or "dispatch round 1 fresh reviewers",
+    }
+    _refresh(candidate)
+    _commit(destination, candidate)
+
+
+def open_round(destination: Path, next_action: Optional[str]) -> None:
+    state = _load_json(destination)
+    upcoming = state.get("round", 0) + 1 if isinstance(state.get("round"), int) else 1
+
+    def mutate(candidate: Dict[str, Any]) -> None:
+        candidate["phase"] = "reviewing"
+        candidate["round"] = upcoming
+        candidate["verdicts"] = {lane: None for lane in candidate["verdicts"]}
+        candidate["findings"] = []
+
+    _advance(destination, mutate, next_action, f"await round {upcoming} lane verdicts")
+
+
+def block(destination: Path, findings_path: Path, next_action: Optional[str]) -> None:
+    findings = _load_findings(findings_path)
+
+    def mutate(candidate: Dict[str, Any]) -> None:
+        candidate["phase"] = "revising"
+        candidate["findings"] = findings
+        candidate["verdicts"] = {lane: None for lane in candidate["verdicts"]}
+
+    _advance(destination, mutate, next_action, "ask Planner to revise the same artifact")
+
+
+def revised(destination: Path, next_action: Optional[str]) -> None:
+    state = _load_json(destination)
+    upcoming = state.get("round", 0) + 1 if isinstance(state.get("round"), int) else 1
+
+    def mutate(candidate: Dict[str, Any]) -> None:
+        candidate["phase"] = "drafted"
+        candidate["findings"] = []
+
+    _advance(destination, mutate, next_action, f"dispatch round {upcoming} fresh reviewers")
+
+
+def approve(destination: Path, overrides: Dict[str, str], next_action: Optional[str]) -> None:
+    state = _load_json(destination)
+    if state.get("phase") != "reviewing" or not isinstance(state.get("round"), int) or state["round"] < 1:
+        raise ValueError("Approval must transition from an official reviewing round")
+
+    def mutate(candidate: Dict[str, Any]) -> None:
+        digest = candidate["plan"]["review_sha256"]
+        stamped = _now()
+        for lane in candidate["verdicts"]:
+            parsed = _parse_lane(lane)
+            if parsed is not None and parsed[2] and lane not in overrides:
+                continue
+            candidate["verdicts"][lane] = {
+                "lane": lane,
+                "verdict": overrides.get(lane, "PASS"),
+                "plan_sha256": digest,
+                "reviewed_at": stamped,
+            }
+
+    _advance(destination, mutate, next_action, "compact to the completed receipt")
+
+
+def complete(destination: Path) -> None:
+    state = _load_json(destination)
+    plan = state.get("plan", {})
+    _commit(destination, {
+        "schema_version": SCHEMA_VERSION,
+        "workflow": "ralplan",
+        "run_id": state.get("run_id"),
+        "lifecycle": "completed",
+        "completed_at": _now(),
+        "plan": {key: plan.get(key) for key in ("path", "artifact_sha256", "review_sha256")},
+        "approvals": copy.deepcopy(state.get("verdicts", {})),
+    })
+
+
+def abort(destination: Path, reason: str) -> None:
+    state = _load_json(destination)
+    _commit(destination, {
+        "schema_version": SCHEMA_VERSION,
+        "workflow": "ralplan",
+        "run_id": state.get("run_id"),
+        "lifecycle": "aborted",
+        "aborted_at": _now(),
+        "reason": reason,
+    })
+
+
+def _load_findings(path: Path) -> List[Dict[str, Any]]:
+    payload = json.loads(path.read_text())
+    if isinstance(payload, dict) and "findings" in payload:
+        payload = payload["findings"]
+    if not isinstance(payload, list):
+        raise ValueError("Findings must be a JSON array, or an object carrying one under `findings`")
+    return payload
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -569,11 +728,80 @@ def main() -> int:
     reconcile_parser = subparsers.add_parser("reconcile")
     reconcile_parser.add_argument("path", type=Path)
 
-    checkpoint_parser = subparsers.add_parser("checkpoint")
+    checkpoint_parser = subparsers.add_parser(
+        "checkpoint", help="promote a hand-authored candidate; the escape hatch for a state no transition names"
+    )
     checkpoint_parser.add_argument("destination", type=Path)
     checkpoint_parser.add_argument("candidate", type=Path)
 
+    # One subcommand per transition the workflow actually makes.
+    # Each builds the candidate from the saved state and the plan file and promotes it through the
+    # same validation, so the caller supplies only what cannot be derived: the findings of a round,
+    # and the free text of `next_action`.
+    start_parser = subparsers.add_parser("start", help="first checkpoint of a run")
+    start_parser.add_argument("destination", type=Path)
+    start_parser.add_argument("--plan", type=Path, required=True)
+    start_parser.add_argument("--summary", required=True, help="prompt-safe task summary")
+    start_parser.add_argument("--lanes", required=True, help="comma-separated roster, e.g. architect@claude,critic@claude")
+    start_parser.add_argument("--input", type=Path, default=None, dest="reference", help="requirements path; omit to hash the summary instead")
+    start_parser.add_argument("--working-directory", type=Path, default=None)
+    start_parser.add_argument("--repository", type=Path, default=None)
+    start_parser.add_argument("--next", dest="next_action", default=None)
+
+    open_parser = subparsers.add_parser("open", help="open the next official round")
+    open_parser.add_argument("destination", type=Path)
+    open_parser.add_argument("--next", dest="next_action", default=None)
+
+    block_parser = subparsers.add_parser("block", help="record the round's consolidated findings and return to Planner")
+    block_parser.add_argument("destination", type=Path)
+    block_parser.add_argument("--findings", type=Path, required=True, help="JSON array of findings")
+    block_parser.add_argument("--next", dest="next_action", default=None)
+
+    revised_parser = subparsers.add_parser("revised", help="Planner's revision has landed; clears the findings")
+    revised_parser.add_argument("destination", type=Path)
+    revised_parser.add_argument("--next", dest="next_action", default=None)
+
+    approve_parser = subparsers.add_parser("approve", help="record every blocking lane's PASS at the current review hash")
+    approve_parser.add_argument("destination", type=Path)
+    approve_parser.add_argument("--verdict", action="append", default=[], metavar="LANE=VERDICT",
+                                help="override one lane; repeatable. Advisory lanes stay unset unless named here")
+    approve_parser.add_argument("--next", dest="next_action", default=None)
+
+    complete_parser = subparsers.add_parser("complete", help="compact an approved run to its receipt")
+    complete_parser.add_argument("destination", type=Path)
+
+    abort_parser = subparsers.add_parser("abort", help="compact to an aborted receipt")
+    abort_parser.add_argument("destination", type=Path)
+    abort_parser.add_argument("--reason", required=True)
+
     args = parser.parse_args()
+    builders = {"start", "open", "block", "revised", "approve", "complete", "abort"}
+    if args.command in builders:
+        try:
+            if args.command == "start":
+                here = Path.cwd()
+                start(args.destination, args.plan, args.summary,
+                      [lane.strip() for lane in args.lanes.split(",") if lane.strip()],
+                      args.reference, args.working_directory or here, args.repository or here,
+                      args.next_action)
+            elif args.command == "open":
+                open_round(args.destination, args.next_action)
+            elif args.command == "block":
+                block(args.destination, args.findings, args.next_action)
+            elif args.command == "revised":
+                revised(args.destination, args.next_action)
+            elif args.command == "approve":
+                overrides = dict(item.split("=", 1) for item in args.verdict)
+                approve(args.destination, overrides, args.next_action)
+            elif args.command == "complete":
+                complete(args.destination)
+            else:
+                abort(args.destination, args.reason)
+            return 0
+        except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
+            print(error, file=sys.stderr)
+            return 1
+
     if args.command == "validate-plan":
         errors = validate_plan(args.path)
     elif args.command == "validate-state":
