@@ -22,7 +22,7 @@ and the file it was found in is recorded. That last field is the measurement
 or in the references they were moved to.
 
 Usage:
-  ./extract.py <manifest.json> <out.jsonl> [--model M] [--workers N] [--effort E] [--limit N]
+  ./extract.py <manifest.json> <out.jsonl> [--prompt P] [--model M] [--workers N] [--effort E] [--limit N]
 """
 import json
 import os
@@ -40,7 +40,7 @@ from verify import norm          # noqa: E402
 from labels import label         # noqa: E402
 from assemble import assemble    # noqa: E402
 
-TPL = (HERE / "prompt" / "extract.md").read_text()
+DEFAULT_PROMPT = HERE / "prompt" / "extract.md"
 
 # Haiku rather than luna, for a reason that is about the accounts and not the
 # models: the ChatGPT plan is the $20 one and the cross-vendor audit lane already
@@ -59,14 +59,35 @@ DEFAULT_MODEL = "claude-haiku-4-5"
 # stdin and print the reply, so swapping the reader is a flag rather than a
 # rewrite — and the fixture is what decides whether a swap is safe.
 def call(prompt, model, effort):
+    """Return (reply, stderr, usage). `usage` is empty for Codex.
+
+    Claude's `--output-format json` wraps the reply in an envelope carrying cost
+    and token counts. It is the only per-call gauge either vendor offers — Luna's
+    `used_percent` moves in whole points and says nothing until it does — and a
+    run without it can only be costed by extrapolating a one-off measurement,
+    which is what the first 814 of this pass are stuck with.
+    """
     if model.startswith("gpt-"):
         cmd = ["codex", "exec", "--skip-git-repo-check", "--sandbox", "read-only",
                "-m", model, "-c", f"model_reasoning_effort={effort}", "-C", "/tmp", "-"]
-    else:
-        cmd = ["claude", "-p", "--model", model]
+        p = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
+                           cwd="/tmp", timeout=900)
+        return p.stdout, p.stderr, {}
+    cmd = ["claude", "-p", "--model", model, "--output-format", "json"]
     p = subprocess.run(cmd, input=prompt, capture_output=True, text=True,
                        cwd="/tmp", timeout=900)
-    return p.stdout, p.stderr
+    try:
+        env = json.loads(p.stdout)
+    except Exception:
+        return p.stdout, p.stderr, {}          # fall back to the raw reply
+    u = env.get("usage", {})
+    return env.get("result", ""), p.stderr, {
+        "cost_usd": env.get("total_cost_usd"),
+        "in_new": u.get("cache_creation_input_tokens"),
+        "in_cached": u.get("cache_read_input_tokens"),
+        "out": u.get("output_tokens"),
+        "thinking": (u.get("output_tokens_details") or {}).get("thinking_tokens"),
+    }
 
 
 
@@ -124,16 +145,16 @@ def _locate(quote, doc):
 
 
 def one(args):
-    skill, effort, model = args
+    skill, effort, model, tpl, tag = args
     key = f"{skill['repo']}/{skill['dir']}" if skill["dir"] else skill["repo"]
     try:
         doc, meta = assemble(skill, CORPUS)
     except OSError as e:
         return {"skill": key, "ok": False, "error": f"assemble: {e}"}
-    out, err = call(TPL.replace("{{FILE}}", key).replace("{{BODY}}", doc), model, effort)
+    out, err, usage = call(tpl.replace("{{FILE}}", key).replace("{{BODY}}", doc), model, effort)
     rec = parse(out)
     if rec is None:
-        return {"skill": key, "ok": False, "error": (out or err)[-300:], **meta}
+        return {"skill": key, "ok": False, "error": (out or err)[-300:], "prompt": tag, **usage, **meta}
     q = rec.get("quote")
     where, found = _locate(q, doc)
     # A null quote means one of two things and they are not the same event: the
@@ -148,7 +169,7 @@ def one(args):
         "summary": rec.get("summary", ""), "drives": rec.get("drives", []),
         "quote": q, "quote_reason": rec.get("quote_reason"),
         "quote_ok": found, "quote_file": where,
-        "partial": bool(unread_prose), "unread_prose": unread_prose,
+        "partial": bool(unread_prose), "unread_prose": unread_prose, "prompt": tag, **usage,
         **label(doc), **meta,
     }
 
@@ -156,24 +177,31 @@ def one(args):
 def main():
     src, out = Path(sys.argv[1]), Path(sys.argv[2])
     w, effort, limit, model = 4, "medium", None, DEFAULT_MODEL
+    prompt_path = DEFAULT_PROMPT
     for i, a in enumerate(sys.argv):
         if a == "--model":
             model = sys.argv[i + 1]
+        if a == "--prompt":
+            prompt_path = Path(sys.argv[i + 1])
         if a == "--workers":
             w = int(sys.argv[i + 1])
         if a == "--effort":
             effort = sys.argv[i + 1]
         if a == "--limit":
             limit = int(sys.argv[i + 1])
+    # Which prompt produced a record belongs in the record. Swapping the file
+    # under a fixed path is how the variants were first compared, and it leaves
+    # the seam visible only in whoever remembers running it.
+    tpl, tag = prompt_path.read_text(), prompt_path.stem
     skills = json.loads(src.read_text())[:limit]
     done = ({json.loads(l)["skill"] for l in out.read_text().splitlines()}
             if out.exists() else set())
     todo = [s for s in skills
             if (f"{s['repo']}/{s['dir']}" if s["dir"] else s["repo"]) not in done]
-    print(f"{len(skills)} skills, {len(done)} already done, {len(todo)} to run", flush=True)
+    print(f"{len(skills)} skills, {len(done)} already done, {len(todo)} to run, prompt={tag}", flush=True)
     t0, n = time.time(), 0
     with out.open("a") as fh, ThreadPoolExecutor(max_workers=w) as pool:
-        for rec in pool.map(one, ((s, effort, model) for s in todo)):
+        for rec in pool.map(one, ((s, effort, model, tpl, tag) for s in todo)):
             fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
             fh.flush()
             n += 1
