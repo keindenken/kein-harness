@@ -2,7 +2,9 @@
 
 Observed during the e3-v3 fixture round in `descvi/kein-e3v3`, with the harness pinned at `fb55678`. Nothing here has been acted on: the instrument is fixed for the length of that run, so any change waits for it to finish.
 
-## A fresh lane is not blind, and the artifact contract is why
+## A fresh lane is not blind, and the artifact contract is why — closed 2026-08-19
+
+Closed by `927f460`: the lane package drops both status lines, which `review_text()` was already excluding from the hash.
 
 `review-contract.md` requires each lane package to contain "the complete current canonical plan", and one paragraph later requires that "a fresh reviewer receives no previous finding, verdict, reviewer identity, revision note, change summary, claimed fix, closure result, or expected outcome."
 
@@ -24,7 +26,9 @@ An earlier version of this file recorded that checkpoint as a state the lead inv
 
 Together those two rules say **findings may only be dropped by actually changing the plan**, and the checkpoint in the middle of the round is where that is enforced. It is the mechanism that makes a `MUST_FIX` unskippable. The prose not mentioning it is a documentation gap; the call is doing real work.
 
-## `Status` carries two facts and can only express one
+## `Status` carries two facts and can only express one — closed 2026-08-19
+
+Closed by `3e6d97b`, verified by replaying the run's 70 candidates for zero difference and by six constructed cases. Two of them showed the change was not cosmetic: under the new convention the old code accepted re-entering review without advancing the round.
 
 `plan-gate.md` gives `Draft` three meanings: before review, after a must-fix verdict, and for a terminal unapproved plan. A reader who opens the artifact cannot tell an abandoned plan from one whose Planner is mid-revision, and the field flips twice within about half an hour of wall clock on a live round.
 
@@ -40,7 +44,9 @@ The incumbent artifacts in `descvi` use a single free-form line — `Status: APP
 
 Note that merging the fields does not fix the blindness leak above. That one is fixed by stripping the status lines from the lane package, and the two changes are independent.
 
-## What the run cost, measured
+## What the run cost, measured — the four-checkpoint cycle closed 2026-08-19
+
+The cycle is three states as of `4eef755`, and `b48c0b1` replaced the hand-authored candidate with one command per transition. The rest of this section is the measurement and stands.
 
 The e3-v3 fixture round completed at round 17 in about six hours, against seven rounds for the same input under the incumbent harness. The artifacts are comparable — 846 lines and 195,142 bytes here, 877 lines and 162,842 bytes there — so the extra ten rounds did not buy a larger plan.
 
@@ -71,7 +77,9 @@ The late rounds are not nitpicks either. Round 16 blocked on a `LIVE` evidence t
 
 So the seventeen rounds are not ceremony, and the round count on its own does not say the loop is inefficient. What it costs and what it caught have to be weighed separately, and the caveat on the incumbent's seven is that its planning began with the spike context still in the session rather than reconstructed from the artifact.
 
-## The five-round diagnostic trigger fires once and never re-arms
+## The five-round diagnostic trigger fires once and never re-arms — closed 2026-08-19
+
+Closed by `927f460`: a decision to continue covers five rounds rather than the run.
 
 The skill says around five unsuccessful official rounds is a diagnostic trigger, that the run should reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit `Draft` handoff, and that approval must not be manufactured from repetition.
 
@@ -86,3 +94,11 @@ Those pull on two different halves of `state.py` and only one of them is the art
 `validate_transition` is the other half, and it governs nothing about shape. It is what makes a `MUST_FIX` unskippable and what stops a changed plan from keeping an old approval. Relaxing it does not buy freedom in the artifact; it removes the gate's ability to fail, which is the thing the whole workflow exists for.
 
 Keep them apart when acting on any of this.
+
+## Still open
+
+**The two-field header.** The incumbent's single free-form `Status: APPROVED — two-vendor unanimous consensus, 2026-08-17` is the preferred shape and `validate_plan_text` still rejects it twice over. Untouched.
+
+**`ocs team` never creates a worktree.** It addresses the current directory as an existing Orca worktree — `orca terminal create --worktree "path:$PWD"` — and Orca's own model would give each worker its own, which `orca worktree create` exists for. One invocation is one worker and several lanes come from backgrounding several invocations, so today that is N write-capable workers in one tree. The lead prompt's rule that a file a worker is writing is not yours to touch covers lead against worker and says nothing about worker against worker. This goes live the moment `execute` is exercised.
+
+**`dev/eval/run.py` leaves its arm worktrees behind.** Ten had accumulated, about 11 MB per run, removed 2026-08-19. Nothing is lost by removing them — `artifacts/<arm>/<n>/PLAN.md` holds each replicate's output and `manifest.json` records the arm commits in full — which is exactly why the runner should do it itself.
