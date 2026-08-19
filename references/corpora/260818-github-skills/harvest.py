@@ -29,7 +29,7 @@ and their bytes answer no question here.
 Usage:
   ./harvest.py repos                 # search, writes repos.json
   ./harvest.py trees                 # one request per repo, writes skills.json
-  ./harvest.py fetch [--workers N]   # writes corpus/ and manifest.json
+  ./harvest.py fetch [--anchors] [--repos N] [--from LIST] [--workers N]
 """
 import json
 import os
@@ -330,7 +330,7 @@ def _fetch_skill(args):
             "files": got, "not_fetched": skipped, "anchors_only": anchors_only}
 
 
-def stage_fetch(workers=12, anchors_only=False, repo_limit=None):
+def stage_fetch(workers=12, anchors_only=False, repo_limit=None, only=None):
     """Download in repository-sized chunks, resumable at any point.
 
     173,507 files is not one sitting, and the whole point of fetching anchors
@@ -340,6 +340,14 @@ def stage_fetch(workers=12, anchors_only=False, repo_limit=None):
     """
     skills = json.loads((HERE / "skills.json").read_text())
     order = {r["full_name"]: i for i, r in enumerate(json.loads((HERE / "repos.json").read_text()))}
+    if only:
+        # A shortlist entry is a manifest record: its `files` are what was already
+        # fetched, not what exists. The full file list lives in skills.json, so
+        # the shortlist is used as a key set and never as the thing to fetch.
+        keys = {(r["repo"], r["dir"], r.get("loose_file"))
+                for r in json.loads(Path(only).read_text())}
+        skills = [s for s in skills if (s["repo"], s["dir"], s.get("loose_file")) in keys]
+        print(f"restricted to {len(skills)} skills from {Path(only).name}", flush=True)
     raw = HERE / "manifest.jsonl"
 
     depth = "anchors" if anchors_only else "full"
@@ -420,5 +428,6 @@ if __name__ == "__main__":
     w = int(sys.argv[sys.argv.index("--workers") + 1]) if "--workers" in sys.argv else 12
     anchors = "--anchors" in sys.argv
     rl = int(sys.argv[sys.argv.index("--repos") + 1]) if "--repos" in sys.argv else None
+    only = sys.argv[sys.argv.index("--from") + 1] if "--from" in sys.argv else None
     {"repos": stage_repos, "trees": stage_trees,
-     "fetch": lambda: stage_fetch(w, anchors, rl)}[cmd]()
+     "fetch": lambda: stage_fetch(w, anchors, rl, only)}[cmd]()

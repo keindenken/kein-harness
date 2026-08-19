@@ -8,5 +8,6 @@ skills.json
 manifest.json
 manifest.jsonl
 shortlist.json
+run-manifest.json
 band-*.json
 runs/
