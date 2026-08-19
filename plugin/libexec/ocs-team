@@ -2,7 +2,7 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> --agent <role> [--worktree new|<path>] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+#   ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
 #
@@ -36,7 +36,7 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them
@@ -46,6 +46,8 @@ usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--model M] [-
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
   --timeout: seconds to wait for the worker (default: 3600)
   --keep:    leave the worker terminal open after it completes
+  --check:   run every precondition, print what would be sent, and stop before
+             anything is created. Nothing is spent and no file is written.
 
 One invocation is one worker, and it blocks. Run several in the background for
 several lanes: every artifact is persisted, so nothing is lost when the caller
@@ -63,6 +65,7 @@ model=''
 effort=''
 timeout=3600
 keep=0
+check=0
 worktree_arg=''
 task=''
 
@@ -71,6 +74,7 @@ while [ $# -gt 0 ]; do
     --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs team: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
     --agent=*) role=${1#--agent=}; shift ;;
     --keep) keep=1; shift ;;
+    --check) check=1; shift ;;
     --worktree) worktree_arg=${2:-}; [ -n "$worktree_arg" ] || { printf 'ocs team: missing value after --worktree\n' >&2; exit 1; }; shift 2 ;;
     --worktree=*) worktree_arg=${1#--worktree=}; shift ;;
     --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs team: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
@@ -161,6 +165,9 @@ here=$PWD
 case "$worktree_arg" in
   ''|current|.) worktree=$here ;;
   new)
+    # Refused rather than quietly downgraded to `current`: the two run in different trees, so a check
+    # that silently swapped them would be answering about an invocation the caller did not make.
+    [ "$check" -eq 0 ] || { printf 'ocs team: --check cannot be combined with `--worktree new`, which would create one.\n' >&2; printf '  Check against the tree the lane would branch from, or name an existing worktree.\n' >&2; exit 1; }
     command -v orca >/dev/null 2>&1 || { printf 'ocs team: `orca` is not on PATH, so `--worktree new` cannot create one.\n' >&2; exit 1; }
     # Orca's own command rather than `git worktree add`: a worktree it did not create is one it asks the
     # operator to adopt, and a lane should not open a dialog. It also runs the project's setup hook, which
@@ -237,19 +244,16 @@ orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not re
 # Resolved from the worker's worktree, not the lead's: `workspace-write` is scoped to the tree the worker
 # holds, so a report path anywhere else is one the worker cannot write and the lane would complete silently.
 dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
-mkdir -p "$dir"
 
 # The report is the deliverable and does not belong in the tree the repository ignores. `runs/` is
 # declared transient in `.gitignore` and everything else under `.agents/kein/` is a kept record, so a
 # report written into `runs/` is the one file there worth keeping -- and the only reason the directory
 # cannot simply be deleted when it looks cluttered.
 reports="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" reports)"
-mkdir -p "$reports"
 report="$reports/$stamp-$role.md"
 
 # The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
 role_file="$dir/role.md"
-cp "$prompts/$role.md" "$role_file"
 
 # `developer_instructions` is a Codex configuration field, and an unrecognized field is ignored rather than refused.
 # A version that dropped it would leave a worker running with no role at all and nothing in the output to say so, so prove the injection lands before spending a session on it.
@@ -267,6 +271,34 @@ spec=$(
   printf '%s\n\n## Output contract\n\nWrite your full report to `%s` before finishing: what you changed, what you verified and how, and what remains.\nThen report completion with `--report-path %s`.\nThe file is the deliverable; the completion body is a summary of it.\n' \
     "$task" "$report" "$report"
 )
+
+# KEIN_STATE_ROOT pins the worker's own ledger to this worktree instead of wherever it wanders.
+# The writable-roots value is single-quoted because the terminal runs this through a shell, and `[` opens a glob pattern there.
+# Unquoted, zsh fails the whole line with `no matches found` before codex ever starts.
+# The role is substituted by the shell that launches the worker, so the command line stays short and the prompt's own quoting never reaches a tokenizer.
+# CODEX_HOME travels with the worker, not just with the trust check.
+# Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
+
+if [ "$check" -eq 1 ]; then
+  # Everything above this line is a precondition; everything below creates something. So this is the
+  # only place a check can stop and still have answered the question it was asked.
+  #
+  # Not "nothing was created": resolving a path through `ocs state-dir` creates it, as that command's
+  # own summary says, so `runs/team/` and `reports/` exist after this runs. Both are stable rather
+  # than per-invocation -- the run directory is composed from the resolved root and is not created
+  # here -- so repeated checks add nothing further. What a check promises is that nothing was spent.
+  printf 'ocs team: preconditions pass. No worktree, no Orca run, no worker.\n' >&2
+  printf '\nrole      %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "$role" "$worktree" "$report" "$dir"
+  printf '\n--- launch ---\n%s\n' "$launch"
+  printf '\n--- spec ---\n%s\n' "$spec"
+  exit 0
+fi
+
+# Created here rather than where their paths were resolved, so that a check leaves the filesystem as
+# it found it and can be run as often as it is useful.
+mkdir -p "$dir" "$reports"
+cp "$prompts/$role.md" "$role_file"
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):
@@ -290,13 +322,6 @@ run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%
 task_id=$(orca orchestration task-create --spec "$spec" --json 2>/dev/null | json_field task.id)
 [ -n "$task_id" ] || fail 'could not create the Orca task'
 
-# KEIN_STATE_ROOT pins the worker's own ledger to this worktree instead of wherever it wanders.
-# The writable-roots value is single-quoted because the terminal runs this through a shell, and `[` opens a glob pattern there.
-# Unquoted, zsh fails the whole line with `no matches found` before codex ever starts.
-# The role is substituted by the shell that launches the worker, so the command line stays short and the prompt's own quoting never reaches a tokenizer.
-# CODEX_HOME travels with the worker, not just with the trust check.
-# Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
 # The terminal must land where the caller is, not where the operator's Orca window happens to be focused.
 # `--worktree current` reads Orca's own selection, so a lead working in one checkout could dispatch a worker into another: the sandbox roots and KEIN_STATE_ROOT above are built from $PWD and would then describe a directory the worker is not in.
 # That is the same defect shape as the model and CODEX_HOME ones — a value that looks pinned and is actually inherited from the environment.
