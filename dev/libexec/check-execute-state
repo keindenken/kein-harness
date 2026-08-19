@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+#: Prove the execute state machine derives what it can and still refuses a stale candidate.
+#
+# `checkpoint` recomputes the revision counter and every worktree fingerprint in order to check the
+# candidate against them, so a candidate may write `"auto"` and let it fill them in. What must not
+# follow from that is a lost update: the counter's whole job is to refuse content authored against a
+# state that has since moved, and an autofill that re-derived it under the lock would defeat it.
+#
+# Written because nothing else exercises this file. The one recorded execute run is a compacted
+# receipt, so no leftover candidate shows what a live loop actually costs.
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+ROOT = Path(os.environ["KEIN_ROOT"])
+STATE = ROOT / "skills" / "execute" / "scripts" / "state.py"
+failures = []
+
+
+def run(work, *args):
+    return subprocess.run([sys.executable, str(STATE), *args], cwd=work, capture_output=True, text=True)
+
+
+def git(work, *args):
+    subprocess.run(["git", *args], cwd=work, check=True, capture_output=True)
+
+
+SUMMARY = "check"
+TASK = {
+    "id": "task-001", "title": "the only task", "scope": ["one file"],
+    "completion_condition": "it does the thing", "verification_path": ["run the check"],
+    "rationale": "the fixture needs one", "status": "pending", "round": 0,
+    "latest_verification": [], "unresolved_findings": [], "acceptance": None,
+}
+
+
+def state_for(work, revision, phase="task", next_action="dispatch task-001"):
+    common = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                            cwd=work, capture_output=True, text=True).stdout.strip()
+    common = str(Path(common).resolve())
+    return {
+        "schema_version": 1, "revision": revision, "workflow": "execute", "run_id": "260101-000000-check",
+        "lifecycle": "active",
+        "input": {"kind": "brief", "reference": None, "summary": SUMMARY,
+                  "sha256": hashlib.sha256(SUMMARY.encode()).hexdigest(), "declared_status": None},
+        "worktree": {"root": str(work), "git_common_dir": common, "baseline": "auto", "observed": "auto"},
+        "phase": phase, "tasks": [dict(TASK)], "current_task_id": "task-001", "current_round": 0,
+        "latest_verification": [], "unresolved_findings": [], "final_audit": [],
+        "next_action": next_action,
+    }
+
+
+def write(path, payload):
+    path.write_text(json.dumps(payload, indent=2))
+
+
+with tempfile.TemporaryDirectory() as tmp:
+    # Resolved, because `canonical_worktree` resolves both paths and macOS puts the temp directory
+    # behind a symlink; an unresolved root here fails as "does not match the canonical worktree".
+    work = Path(tmp) / "repo"
+    work.mkdir()
+    work = work.resolve()
+    git(work, "init", "-q")
+    git(work, "config", "user.email", "check@example.invalid")
+    git(work, "config", "user.name", "check")
+    (work / "file.txt").write_text("one\n")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "first")
+
+    runs = work / ".agents" / "kein" / "runs" / "execute" / "260101-000000-check"
+    runs.mkdir(parents=True)
+    destination = runs / "state.json"
+    candidate = runs / "candidate.json"
+
+    # 1 - the initial checkpoint fills the counter and both fingerprints from `"auto"`.
+    first = state_for(work, "auto")
+    first["worktree"]["baseline"] = "auto"
+    write(candidate, first)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"initial checkpoint refused: {result.stderr.strip()}")
+    else:
+        saved = json.loads(destination.read_text())
+        if saved["revision"] != 0:
+            failures.append(f"initial revision is {saved['revision']!r}, expected 0")
+        observed = saved["worktree"]["observed"]
+        if not isinstance(observed, dict) or len(observed.get("fingerprint", "")) != 64:
+            failures.append(f"observed fingerprint was not filled: {observed!r}")
+
+    if failures:
+        for failure in failures:
+            print(f"check-execute-state: {failure}", file=sys.stderr)
+        raise SystemExit(1)
+
+    # 2 - the next one derives revision 1 without being told.
+    second = state_for(work, "auto", next_action="dispatch task-002")
+    second["worktree"]["baseline"] = json.loads(destination.read_text())["worktree"]["baseline"]
+    write(candidate, second)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"second checkpoint refused: {result.stderr.strip()}")
+    elif json.loads(destination.read_text())["revision"] != 1:
+        failures.append("second checkpoint did not advance the revision")
+
+    # 3 - a candidate authored against the older state is still refused. This is the one that matters:
+    #     autofill must not turn a lost update into a silent overwrite.
+    stale = state_for(work, 1, next_action="written against revision 0")
+    stale["worktree"]["baseline"] = second["worktree"]["baseline"]
+    write(candidate, stale)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode == 0:
+        failures.append("a stale revision was accepted and must not be")
+    elif "revision" not in result.stderr:
+        failures.append(f"stale candidate was refused for the wrong reason: {result.stderr.strip()}")
+
+    # 4 - `"auto"` on the baseline after the run has started is refused, not re-derived. Re-deriving it
+    #     would erase the drift the baseline exists to expose.
+    rederive = state_for(work, "auto", next_action="tries to re-derive the baseline")
+    write(candidate, rederive)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode == 0:
+        failures.append("an `auto` baseline was re-derived after the run started and must not be")
+
+    # 5 - a fingerprint that does not match the worktree is still refused when written by hand.
+    (work / "file.txt").write_text("two\n")
+    drifted = state_for(work, "auto")
+    drifted["worktree"]["baseline"] = second["worktree"]["baseline"]
+    drifted["worktree"]["observed"] = json.loads(destination.read_text())["worktree"]["observed"]
+    write(candidate, drifted)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode == 0:
+        failures.append("a stale observed fingerprint was accepted and must not be")
+
+if failures:
+    for failure in failures:
+        print(f"check-execute-state: {failure}", file=sys.stderr)
+    raise SystemExit(1)
+print("check-execute-state: derived values fill in, and neither a stale revision nor a stale fingerprint passes")

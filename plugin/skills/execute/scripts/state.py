@@ -692,8 +692,61 @@ def reconcile(state_path: Path) -> Dict[str, Any]:
     return {"valid": True, "errors": [], "input_matches": input_matches, "worktree_matches": worktree_matches, "required_action": action}
 
 
+AUTO = "auto"
+
+
+def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]) -> None:
+    """Fill in the parts of a candidate that are derived rather than decided.
+
+    Every value here is already computable from the predecessor and the worktree, and the checkpoint
+    recomputes all of them to check the candidate anyway. Asking the author for them creates one way
+    to be wrong per field and no way to be right that the file does not already determine -- and the
+    combined fingerprint alone is repeated in the observed fingerprint, the latest verification, each
+    task's verification and acceptance, every verdict, and the final audit.
+
+    `revision` is filled from an unlocked read on purpose. If another run checkpoints before the lock
+    is taken, the filled number is stale and `validate_transition` refuses it, which is exactly what
+    the counter exists for. Re-deriving it under the lock would let content authored against an older
+    state overwrite a newer one, which is the failure the counter was added to prevent.
+    """
+    if candidate.get("revision") == AUTO or "revision" not in candidate:
+        previous = _load(destination) if destination.exists() else None
+        candidate["revision"] = 0 if previous is None else previous.get("revision", -1) + 1
+    if root is None:
+        return
+    prints = worktree_fingerprint(root)
+    worktree = candidate.get("worktree")
+    if isinstance(worktree, dict):
+        if worktree.get("observed") == AUTO:
+            worktree["observed"] = prints
+        # The baseline is what the run started against and must not move, so it fills only where there
+        # is nothing to move away from. `"auto"` on any later checkpoint is refused rather than
+        # silently re-derived, which would erase the drift the baseline exists to expose.
+        if worktree.get("baseline") == AUTO and not destination.exists():
+            worktree["baseline"] = prints
+    combined = prints["fingerprint"]
+
+    # A walk rather than a list of the places it appears: the set of sites grew with the schema and
+    # would have to be maintained alongside it, and a site the list forgot fails as a bad candidate
+    # rather than as a missing case.
+    def fill(node: Any) -> None:
+        if isinstance(node, dict):
+            for key, value in node.items():
+                if key in {"worktree_fingerprint", "final_fingerprint"} and value == AUTO:
+                    node[key] = combined
+                else:
+                    fill(value)
+        elif isinstance(node, list):
+            for item in node:
+                fill(item)
+
+    fill(candidate)
+
+
 def checkpoint(destination: Path, candidate_path: Path) -> None:
     candidate = _load(candidate_path)
+    _root_value = candidate.get("worktree", {}).get("root") if isinstance(candidate.get("worktree"), dict) else candidate.get("worktree_root")
+    _autofill(candidate, destination, Path(_root_value) if isinstance(_root_value, str) else None)
     candidate_errors = validate_state(candidate, candidate_path)
     if candidate_errors:
         raise ValueError("; ".join(candidate_errors))

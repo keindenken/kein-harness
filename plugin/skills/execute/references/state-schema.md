@@ -6,6 +6,10 @@ Active, blocked, and interrupted states retain run identity, input identity, can
 
 Every state carries a zero-based monotonic `revision`. Each candidate increments the revision observed in the current checkpoint; a stale candidate is rejected after the canonical-worktree lock is acquired.
 
+**Write `"auto"` for anything derived rather than decided, and `checkpoint` fills it in.** It accepts the sentinel for `revision`, for `worktree.observed`, for `worktree.baseline` on the first checkpoint only, and for any `worktree_fingerprint` or `final_fingerprint` wherever it appears — the latest verification, each task's verification and acceptance, every verdict, and the final audit. All of them are computed from the predecessor and the worktree, which the checkpoint reads anyway in order to check what was written; asking for them creates one way to be wrong per field and no way to be right that those two sources do not already determine.
+
+Two of them stay refusable on purpose. `revision` is filled from the state as read before the lock, so a candidate authored against a state that has since moved is still rejected rather than silently promoted — re-deriving it under the lock would defeat the counter. And `"auto"` for `worktree.baseline` after the run has started is an error rather than a re-derivation, because the baseline is what drift is measured against.
+
 Nonterminal state carries no timestamp. `revision` already orders checkpoints, `reconcile` decides continuation and reads no time, `run_id` carries the start to the second, and the file's own mtime is the last write. Do not reintroduce one without a reader that branches on it.
 
 Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. It changes for HEAD, staged, unstaged, and untracked content changes.
