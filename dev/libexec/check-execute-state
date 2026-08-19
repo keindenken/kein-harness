@@ -96,6 +96,29 @@ with tempfile.TemporaryDirectory() as tmp:
             print(f"check-execute-state: {failure}", file=sys.stderr)
         raise SystemExit(1)
 
+    # 1b - and reconciling straight after it reports no drift, because none happened.
+    #
+    #      This repository never saw this fail. Its own `.gitignore` hides `.agents/kein/runs/`, so the
+    #      ledger a checkpoint writes is invisible to `git ls-files --others` here and the fingerprint
+    #      came out stable by accident of the host repository. In a repository that tracks that path --
+    #      the descvi fixture is one -- writing `state.json` changed the untracked set the fingerprint
+    #      had just recorded, and the first reconcile after a clean checkpoint demanded inspection with
+    #      no work done at all. There is no `.gitignore` in this fixture on purpose: it is the case that
+    #      was never exercised.
+    reconciled = json.loads(run(work, "reconcile", str(destination)).stdout or "{}")
+    if not reconciled.get("worktree_matches"):
+        failures.append("a checkpoint's own ledger write counted as worktree drift, so reconcile can never come back clean")
+    if reconciled.get("required_action") != "dispatch task-001":
+        failures.append(f"reconcile diverted a clean run: {reconciled.get('required_action')!r}")
+
+    # 1c - drift that is not the ledger is still drift. An exclusion wide enough to swallow this one
+    #      would leave the fingerprint reporting clean over a lane that rewrote the tree.
+    (work / "stray.txt").write_text("a lane wrote this\n")
+    diverged = json.loads(run(work, "reconcile", str(destination)).stdout or "{}")
+    if diverged.get("worktree_matches"):
+        failures.append("an untracked file outside the ledger did not register as drift")
+    (work / "stray.txt").unlink()
+
     # 2 - the next one derives revision 1 without being told.
     second = state_for(work, "auto", next_action="dispatch task-002")
     second["worktree"]["baseline"] = json.loads(destination.read_text())["worktree"]["baseline"]

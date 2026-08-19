@@ -110,6 +110,24 @@ def canonical_worktree(path: Path) -> Tuple[Path, Path]:
     return root, common.resolve()
 
 
+# The run ledger is the harness's own live scratch, and it changes on every checkpoint by definition:
+# `ocs state-dir` resolves inside the worktree, so writing `state.json` alters the very untracked set
+# the fingerprint just recorded. Left in, the first `reconcile` after a clean checkpoint reports drift
+# with no work done at all, and a gate that is always RED buys what a gate that is always GREEN buys.
+#
+# This repository hides the bug from itself. Its own `.gitignore` carries exactly this path with the
+# note "Transient run state. Deliverables under `.agents/kein/` are tracked." -- so the exclusion is a
+# decision already made here by hand, and the only thing wrong was that it lived in one repository's
+# ignore file instead of in the code, leaving the behaviour to depend on whether a target repository
+# happened to repeat it. Measured 2026-08-20: identical checkpoints reconcile clean under the ignore
+# and dirty without it.
+#
+# Only `runs/`. Plans and other deliverables under `.agents/kein/` stay in the fingerprint, because a
+# plan changing under an executing round is drift that matters -- and is the case `input.sha256`
+# answers for the current input but not for anything else in the tree.
+LEDGER_PREFIX = ".agents/kein/runs/"
+
+
 def worktree_fingerprint(path: Path) -> Dict[str, str]:
     root, _ = canonical_worktree(path)
     head = _git_bytes(root, ["rev-parse", "HEAD"]).strip()
@@ -119,6 +137,8 @@ def worktree_fingerprint(path: Path) -> Dict[str, str]:
     untracked_parts: List[Tuple[bytes, bytes]] = []
     for relative_bytes in sorted(untracked_paths):
         relative = relative_bytes.decode("utf-8", "surrogateescape")
+        if relative.startswith(LEDGER_PREFIX):
+            continue
         candidate = root / relative
         if candidate.is_symlink():
             value = b"symlink\0" + os.fsencode(os.readlink(candidate))

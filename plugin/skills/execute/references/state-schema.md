@@ -12,7 +12,7 @@ Two of them stay refusable on purpose. `revision` is filled from the state as re
 
 Nonterminal state carries no timestamp. `revision` already orders checkpoints, `reconcile` decides continuation and reads no time, `run_id` carries the start to the second, and the file's own mtime is the last write. Do not reintroduce one without a reader that branches on it.
 
-Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. It changes for HEAD, staged, unstaged, and untracked content changes.
+Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. It changes for HEAD, staged, unstaged, and untracked content changes, except for untracked paths under `.agents/kein/runs/`. That exclusion is what keeps the fingerprint measurable: the run ledger lives inside the worktree, so a checkpoint writing its own `state.json` would otherwise change the untracked set it had just recorded and every following `reconcile` would report drift over work nobody did. Deliverables elsewhere under `.agents/kein/` — plans among them — stay in the fingerprint.
 
 Completed receipts retain only input reference/hash, worktree root/final fingerprint, accepted task summaries, final verification, and fresh independent final-audit PASS facts. Aborted receipts retain identity, worktree root, time, and stop reason.
 
