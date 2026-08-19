@@ -203,6 +203,14 @@ purpose replaces one the tooling would have scraped.
 One invocation is one worker, and it blocks. Several lanes come from backgrounding several
 invocations; `--trace` persists everything, so nothing is lost when no one is waiting.
 
+`--worktree` decides where the worker writes, and defaults to here. Backgrounded lanes sharing one
+worktree share every file in it, so each lane wants `--worktree new` unless they are meant to
+collide: that creates an Orca-managed worktree through `orca worktree create`, which runs the
+project's setup hook and so leaves the worker able to run gates rather than landing in a tree with
+no dependencies. An absolute path reuses an existing worktree instead. The run directory follows the
+worker, because `workspace-write` is scoped to the tree it holds and a report path outside that tree
+is one it cannot write.
+
 The provider runs with `CODEX_HOME` pinned to the vanilla Codex home, never inherited: a
 one-shot advisory call must not pick up the lead tuning in `~/.codex-orca`. The canonical
 prompts happen to live inside that home, but the library and the environment are separate

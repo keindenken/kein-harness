@@ -36,10 +36,12 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--trace] [--model M] [--effort E] [--timeout S] [--keep] <task...>
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them
+  --worktree: where the worker writes. Default is here. `new` creates an
+              Orca-managed worktree for this lane; a path uses an existing one.
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
   --timeout: seconds to wait for the worker (default: 3600)
@@ -47,7 +49,8 @@ usage: ocs team <provider> --agent <role> [--trace] [--model M] [--effort E] [--
 
 One invocation is one worker, and it blocks. Run several in the background for
 several lanes: the trace persists every artifact, so nothing is lost when the
-caller is not waiting.
+caller is not waiting. Backgrounded lanes that share a worktree also share every
+file in it, so give each one `--worktree new` unless they are meant to collide.
 
 example:
   ocs team codex --agent executor --trace "Implement the bounded change in src/foo.ts"
@@ -61,6 +64,7 @@ model=''
 effort=''
 timeout=3600
 keep=0
+worktree_arg=''
 task=''
 
 while [ $# -gt 0 ]; do
@@ -69,6 +73,8 @@ while [ $# -gt 0 ]; do
     --agent=*) role=${1#--agent=}; shift ;;
     --trace) trace=1; shift ;;
     --keep) keep=1; shift ;;
+    --worktree) worktree_arg=${2:-}; [ -n "$worktree_arg" ] || { printf 'ocs team: missing value after --worktree\n' >&2; exit 1; }; shift 2 ;;
+    --worktree=*) worktree_arg=${1#--worktree=}; shift ;;
     --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs team: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
     --model=*) model=${1#--model=}; shift ;;
     --effort) effort=${2:-}; [ -n "$effort" ] || { printf 'ocs team: missing value after --effort\n' >&2; exit 1; }; shift 2 ;;
@@ -147,7 +153,39 @@ fi
 # Orca launches whatever command its client is configured with, which on this machine was a launcher pointing at the tuned home; a lane answering as the operator's own tuned lead is not the canonical role.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
 
-worktree=$PWD
+stamp=$(date +%y%m%d-%H%M%S)
+lead_main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" 2>/dev/null || true)
+[ "$lead_main" = "." ] && lead_main=''
+
+# Resolved before the trust check and before the run directory, because both have to name the tree the
+# worker will actually hold rather than the one the lead is standing in.
+here=$PWD
+case "$worktree_arg" in
+  ''|current|.) worktree=$here ;;
+  new)
+    command -v orca >/dev/null 2>&1 || { printf 'ocs team: `orca` is not on PATH, so `--worktree new` cannot create one.\n' >&2; exit 1; }
+    # Orca's own command rather than `git worktree add`: a worktree it did not create is one it asks the
+    # operator to adopt, and a lane should not open a dialog. It also runs the project's setup hook, which
+    # is what leaves the worker able to run gates instead of landing in a tree with no dependencies.
+    repo_selector="path:${lead_main:-$here}"
+    base_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+    worktree=$(
+      orca worktree create --name "kein-$role-$stamp" --repo "$repo_selector" \
+        ${base_branch:+--base-branch "$base_branch"} --setup run --json 2>/dev/null |
+      python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("result") or d).get("worktree",{}).get("path",""))' 2>/dev/null
+    )
+    [ -n "$worktree" ] && [ -d "$worktree" ] || {
+      printf 'ocs team: `orca worktree create` returned no usable path for %s\n' "$repo_selector" >&2
+      printf '  Check `orca worktree list` and that the Orca app is reachable.\n' >&2
+      exit 1
+    }
+    printf 'ocs team: lane worktree %s\n' "$worktree" >&2 ;;
+  /*) worktree=$worktree_arg
+      [ -d "$worktree" ] || { printf 'ocs team: --worktree %s is not a directory\n' "$worktree" >&2; exit 1; }
+      git -C "$worktree" rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+        printf 'ocs team: --worktree %s is not a git worktree\n' "$worktree" >&2; exit 1; } ;;
+  *) printf 'ocs team: --worktree takes `new`, `current`, or an absolute path (got %s)\n' "$worktree_arg" >&2; exit 1 ;;
+esac
 
 # A linked worktree inherits the main worktree's trust record, measured 2026-08-19: codex opened without a
 # prompt in a worktree that had no record of its own, and prompted again the moment the record for the
@@ -155,7 +193,7 @@ worktree=$PWD
 # git directory -- and for the main worktree itself that is the same path, so there is no second case.
 # Checking `$PWD` alone refused every worktree the provider would in fact have opened.
 # `--path-format` is git 2.31+; anything older or non-git leaves this empty and only `$PWD` is checked.
-main_worktree=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" 2>/dev/null || true)
+main_worktree=$(dirname "$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" 2>/dev/null || true)
 [ "$main_worktree" = "." ] && main_worktree=''
 
 # Codex keeps its project trust records per home, so a directory trusted in one is not trusted in the other.
@@ -198,8 +236,9 @@ fi
 command -v orca >/dev/null 2>&1 || { printf 'ocs team: `orca` is not on PATH.\n' >&2; exit 1; }
 orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not reachable. Start it with `orca open`.\n' >&2; exit 1; }
 
-stamp=$(date +%y%m%d-%H%M%S)
-dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
+# Resolved from the worker's worktree, not the lead's: `workspace-write` is scoped to the tree the worker
+# holds, so a report path anywhere else is one the worker cannot write and the lane would complete silently.
+dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
 mkdir -p "$dir"
 report="$dir/report.md"
 
