@@ -39,3 +39,46 @@ The incumbent artifacts in `descvi` use a single free-form line — `Status: APP
 `validate_plan_text` currently rejects it twice over: it requires exactly one `Status:` whose stripped value is exactly `Draft`, `In Review`, or `Approved`, and separately requires a non-empty `Status reason`. Accepting `Status: <state> — <free text>` and dropping the second field is a small parser change, and `review_text()` already strips by line prefix, so one merged line stays out of the review hash without any further work.
 
 Note that merging the fields does not fix the blindness leak above. That one is fixed by stripping the status lines from the lane package, and the two changes are independent.
+
+## What the run cost, measured
+
+The e3-v3 fixture round completed at round 17 in about six hours, against seven rounds for the same input under the incumbent harness. The artifacts are comparable — 846 lines and 195,142 bytes here, 877 lines and 162,842 bytes there — so the extra ten rounds did not buy a larger plan.
+
+Every blocked round ran the same four-checkpoint cycle, and the ledger has one candidate file per checkpoint:
+
+| | `Status` | phase | what it records |
+| :--- | :--- | :--- | :--- |
+| 1 | `In Review` | `reviewing` | the round opens, verdicts empty |
+| 2 | `In Review` | `reviewing` | one lane's `MUST_FIX` |
+| 3 | `Draft` | `revising` | blocked, findings persisted, verdicts cleared |
+| 4 | `Draft` | `drafted` | the revision landed, findings cleared |
+
+**Row 2 is erased by row 3.** It writes a verdict that the next checkpoint clears, and it is never read: one `MUST_FIX` already blocks, so the decision does not need it. Its only consumer is a resume after a crash between the lane returning and the revision starting, which is the ledger purpose being demoted here. It is the one row that comes out under a smoothness criterion without touching any invariant.
+
+Rows 3 and 4 are two writes because the state machine expresses the findings-and-hash invariant on `plan.status`. Moving that invariant to `phase` merges them and keeps the enforcement, which is the change already described above.
+
+72 candidate files survive in the run directory. `state-schema.md` says to create one and check it in and never says to remove it, so nothing does. The lead also abandoned its own naming scheme partway: rounds 1-6 are hand-named (`candidate-revising3`, `candidate-redrafted4`, `candidate-round5`), and from round 7 on it is `c1` through `c44`.
+
+## Ten of the seventeen rounds turned on one lane
+
+In every blocked round exactly one lane is recorded blocking and the other is never recorded at all — architect and critic alternating, never both. Findings per round ran 8, then 4, 4, 3, 2, 3, 2, 1, 2, 1, 3, and then a clean pass.
+
+That shape is not a plan failing a gate repeatedly. It is two fresh blind readers sampling a 195 KB document and each surfacing a different one to three items. A plan with a real defect would be caught by both. The declining count with a spike back to three at round 16 is what sampling looks like, not convergence.
+
+This is the first thing to weigh against the round count, because it says the loop's termination condition is "a round in which neither sampler happened to find anything" rather than "the plan is sound".
+
+## The five-round diagnostic trigger fires once and never re-arms
+
+The skill says around five unsuccessful official rounds is a diagnostic trigger, that the run should reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit `Draft` handoff, and that approval must not be manufactured from repetition.
+
+It fired at round 5, the owner was asked whether to continue, and the run went twelve more rounds without asking again. The prose names a threshold and no interval, so a trigger answered once is answered forever.
+
+## What "the script earns its place" now means
+
+The criterion recorded here is whether the skill runs without friction, not whether it enforces the artifact's rules — the plan wants more freedom in its shape, not less, and the ledger's resumability across a compaction or a vendor switch is a hedge rather than the point.
+
+Those pull on two different halves of `state.py` and only one of them is the artifact's rules. `validate_plan_text` is the half that governs shape: exactly one `Status` token from a fixed set, a non-empty `Status reason`, a level-one title, and a labelled field on every Evidence Gate. That half is what "plans should be freer" is about.
+
+`validate_transition` is the other half, and it governs nothing about shape. It is what makes a `MUST_FIX` unskippable and what stops a changed plan from keeping an old approval. Relaxing it does not buy freedom in the artifact; it removes the gate's ability to fail, which is the thing the whole workflow exists for.
+
+Keep them apart when acting on any of this.
