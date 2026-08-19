@@ -302,6 +302,54 @@ def discard_credentials(path):
         secret.unlink()
 
 
+def retire_worktrees(parent, repo):
+    """Remove every checkout a run registered under one directory.
+
+    Reads the directory rather than a list of what the run believes it made, because the failure this has to survive is the run dying partway through: an arm that raised after its worktree was added is exactly the one no record names, and it is registered all the same.
+
+    Nothing is lost. Both callers pin a commit that the manifest records — the fixture's for an arm, the variant's own for a `--variant` checkout — so anything removed here comes back with the same `git worktree add` that made it.
+
+    A removal that fails leaves the directory and says so. Swallowing it would report a clean run while a worktree stayed registered, and the next `git worktree list` would be the first anyone heard of it.
+    """
+    parent = Path(parent)
+    if not parent.is_dir():
+        return
+    for checkout in sorted(p for p in parent.iterdir() if p.is_dir()):
+        removed = run(["git", "worktree", "remove", "--force", str(checkout)], cwd=repo, check=False)
+        if removed.returncode != 0:
+            detail = removed.stderr.decode(errors="replace").strip().splitlines()
+            print(f"  warning: {checkout} is still a registered worktree of {repo}"
+                  f"{' — ' + detail[-1] if detail else ''}", file=sys.stderr)
+
+
+def retire_variant_checkouts(run_dir):
+    """Remove the harness checkouts a `--variant` run made on the harness's own repository.
+
+    `resolve_arms` adds one worktree per variant arm and nothing ever removed it, so a run that compared two commits left two registered worktrees behind — on this repository rather than on the fixture's, which is the one place a stray checkout is a hazard rather than only clutter.
+
+    `refs/<name>` is where `resolve_arms` puts them and there is nothing else under `refs/`, so the directory is the list.
+    """
+    retire_worktrees(Path(run_dir) / "refs",
+                     run(["git", "rev-parse", "--show-toplevel"], cwd=KEIN_ROOT).stdout.decode().strip())
+
+
+def retire_config_home(home, destination):
+    """Keep the transcripts, drop the config home built around them.
+
+    A pinned config home is scaffolding except for one directory. `projects/` holds Claude Code's own transcript of the session, and beside it `<session>/subagents/*.jsonl` holds each lane's — which is the only copy anywhere. The event stream this harness captures comes from `--output-format stream-json` and carries the lead's turns alone, so what an architect or a critic actually said inside a ralplan round exists here and nowhere else. Measured on one replicate: 336K of subagent transcripts against an event stream with no sidechain entry in it at all.
+
+    Promoting it is mostly not about disk — the transcripts are roughly 85% of a config home and they are being kept. It is about being able to find them. Buried, the path is `config-homes/<arm>-<n>/projects/<the working directory with every slash turned into a dash>/<uuid>/subagents/`, and a directory named for a vendor's config layout does not read as evidence.
+
+    The move preserves the structure underneath, project-slug directories included, because those slugs are the record of every working directory the run opened a session in — the check `sessions_outside` reads, and the evidence that first caught a lane pointed at live work.
+    """
+    projects = Path(home) / "projects"
+    if projects.is_dir():
+        destination = Path(destination)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(projects), str(destination))
+    shutil.rmtree(home, ignore_errors=True)
+
+
 def sessions_outside(config_home, allowed):
     """Name every working directory this run opened a session in, minus the ones it was supposed to.
 
@@ -942,10 +990,11 @@ def run_case_mode(options, model, config_home_root):
             "roles": {spec.get("role", "treatment"): name for name, spec in arms.items()},
             "created_at": datetime.now(timezone.utc).isoformat(),
             "denied_tools": denied,
+            # Each replicate's record names the config home it ran under, which is retired when the
+            # run ends. Its transcripts land in `transcripts/<arm>-<index>/`.
+            "transcripts": str(run_dir / "transcripts"),
             "arms": records, "classification": tally,
         }, indent=2) + "\n")
-        if not options.keep:
-            prune_empty_dirs(run_dir)
 
         print(f"\nrun: {run_dir}")
         print(text)
@@ -955,8 +1004,19 @@ def run_case_mode(options, model, config_home_root):
         print(f"\nartifacts kept at {run_dir / 'artifacts'}")
         return 0 if tally.get(case_runner.DISCRIMINATES) else 1
     finally:
+        # The secret goes first and unconditionally, because it is the one thing here that must not
+        # survive a `--keep`. Everything after it is scaffolding, and `--keep` means leave it alone.
         for home in homes.values():
             discard_credentials(home)
+        if not options.keep:
+            retire_variant_checkouts(run_dir)
+            for (arm, index), home in homes.items():
+                retire_config_home(home, run_dir / "transcripts" / f"{arm}-{index}")
+            # A replicate removes its own worktree once its graders have read it, which a replicate
+            # that raised never reaches. These are ordinary directories rather than registered
+            # worktrees — a case builds its own repository — so a sweep is the whole cleanup.
+            shutil.rmtree(run_dir / "worktrees", ignore_errors=True)
+            prune_empty_dirs(run_dir)
 
 
 def main():
@@ -980,7 +1040,7 @@ def main():
     parser.add_argument("--verify", metavar="WORKTREE", help="check the lane traces already in a worktree instead of running a fixture. A write-capable lane cannot run inside a throwaway eval worktree, so this is how one is checked where it actually ran.")
     parser.add_argument("--probe", action="store_true", help="ask each arm what reached it instead of running the task")
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
-    parser.add_argument("--keep", action="store_true", help="leave worktrees on disk for inspection")
+    parser.add_argument("--keep", action="store_true", help="leave worktrees and config homes on disk for inspection. Without it a finished run keeps its artifacts, event streams, manifest and transcripts, and removes the scaffolding that produced them.")
     parser.add_argument("--arm", action="append", choices=sorted(ARMS), help="run only these arms; repeatable. A conformance run needs one arm, not a comparison.")
     parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --critic claude,codex '. The trailing space matters.")
     parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
@@ -1161,6 +1221,10 @@ def main():
             "mode": kind,
             "model": model,
             "created_at": datetime.now(timezone.utc).isoformat(),
+            # Each arm's record names the config home it ran under, which is retired when the run
+            # ends. This is where its transcripts went, so the trail does not stop at a path that
+            # no longer exists.
+            "transcripts": str(run_dir / "transcripts"),
             "arms": records,
             "plumbing_checks": checks,
         }
@@ -1173,15 +1237,19 @@ def main():
             failed += 0 if check["pass"] else 1
             print(f"  {mark} [{check['arm']}] {check['check']} — {check['detail']}")
 
-        if not options.keep:
-            for arm in records:
-                run(["git", "worktree", "remove", "--force", records[arm]["path"]], cwd=fixture["repo"], check=False)
-            print("  worktrees removed (pass --keep to inspect them)")
-
         return 1 if failed else 0
     finally:
         # The copied secret goes away whether the run succeeded, failed, or was interrupted.
         discard_credentials(config_home)
+        if not options.keep:
+            # The arm worktrees used to be removed on the success path, so a run that raised or was
+            # interrupted left its checkouts of the fixture repository registered. `--keep` is how a
+            # run says to leave them; a crash is not.
+            retire_worktrees(run_dir / "worktrees", fixture["repo"])
+            retire_variant_checkouts(run_dir)
+            retire_config_home(config_home, run_dir / "transcripts")
+            prune_empty_dirs(run_dir)
+            print("  worktrees removed, transcripts kept (pass --keep to inspect them in place)")
 
 
 if __name__ == "__main__":
