@@ -59,13 +59,17 @@ Rows 3 and 4 are two writes because the state machine expresses the findings-and
 
 72 candidate files survive in the run directory. `state-schema.md` says to create one and check it in and never says to remove it, so nothing does. The lead also abandoned its own naming scheme partway: rounds 1-6 are hand-named (`candidate-revising3`, `candidate-redrafted4`, `candidate-round5`), and from round 7 on it is `c1` through `c44`.
 
-## Ten of the seventeen rounds turned on one lane
+## The rounds were doing real work, and an earlier reading here said otherwise
 
-In every blocked round exactly one lane is recorded blocking and the other is never recorded at all — architect and critic alternating, never both. Findings per round ran 8, then 4, 4, 3, 2, 3, 2, 1, 2, 1, 3, and then a clean pass.
+An earlier version of this section read the `verdicts` map, saw one lane recorded and the other `null` in every blocked round, and concluded that two blind readers were sampling a large document and each surfacing a different item. That was wrong, and the way it was wrong is worth keeping.
 
-That shape is not a plan failing a gate repeatedly. It is two fresh blind readers sampling a 195 KB document and each surfacing a different one to three items. A plan with a real defect would be caught by both. The declining count with a spike back to three at round 16 is what sampling looks like, not convergence.
+`verdicts` is not where a round's review lands. `findings` is, and every finding carries its lane. Read there, eleven of the sixteen blocked rounds carry findings from **both** lanes; only five are single-lane. No review was discarded. What the partial `verdicts` map shows is that the ledger records one lane's verdict and then clears the map at the next checkpoint, which is a completeness gap in the record and not a gap in the review.
 
-This is the first thing to weigh against the round count, because it says the loop's termination condition is "a round in which neither sampler happened to find anything" rather than "the plan is sound".
+The findings series is `8 5 4 4 5 5 4 4 3 2 3 2 1 2 1 3` and then a clean pass. Noisy, and downward.
+
+The late rounds are not nitpicks either. Round 16 blocked on a `LIVE` evidence tier attached to something its own source files as not-measured, and on an acceptance bound that can go RED on a correct implementation — both squarely inside what the review contract calls blocking, and the second is the repository's own "a gate must be able to fail" invariant pointed at the plan. Round 15 blocked on an amendment contradicting two cells it never dispositioned.
+
+So the seventeen rounds are not ceremony, and the round count on its own does not say the loop is inefficient. What it costs and what it caught have to be weighed separately, and the caveat on the incumbent's seven is that its planning began with the spike context still in the session rather than reconstructed from the artifact.
 
 ## The five-round diagnostic trigger fires once and never re-arms
 
