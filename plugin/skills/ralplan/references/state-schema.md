@@ -78,3 +78,17 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
 ```
 
 Create a candidate JSON file, then run `ocs state ralplan checkpoint <state.json> <candidate.json>` from the skill directory. The command validates the plan, transition, hashes, and compact terminal shape before atomically replacing state. Run `reconcile` before every resume and after compaction.
+
+## What a round checkpoints
+
+Three states per blocked round, and a lane returning is not one of them:
+
+1. the round opens — `In Review`, fresh round number, empty verdicts;
+2. the round is blocked — `Draft`, consolidated findings persisted, every verdict cleared;
+3. the revision landed — `Draft`, findings cleared, which the transition rules permit only once the review hash has moved.
+
+A verdict arriving is not a state worth writing. The next checkpoint clears the map, so a checkpoint holding one incoming verdict is erased before anything reads it, and a blocked round records its review in `findings`, which carries the lane on each entry. Wait for every dispatched lane to return, then write the checkpoint that resolves the round.
+
+Verdicts are recorded for their own sake only on the approving round, where they are the evidence that every fresh lane passed one hash and they survive into the receipt.
+
+Delete the candidate file once the checkpoint succeeds. It is scratch for one transition; a long run otherwise leaves one per checkpoint behind in the run directory, and the durable record is `state.json` and the receipt.
