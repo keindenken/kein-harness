@@ -154,7 +154,7 @@ def one(args):
     out, err, usage = call(tpl.replace("{{FILE}}", key).replace("{{BODY}}", doc), model, effort)
     rec = parse(out)
     if rec is None:
-        return {"skill": key, "ok": False, "error": (out or err)[-300:], "prompt": tag, **usage, **meta}
+        return {"skill": key, "ok": False, "error": (out or err)[-300:], "prompt": tag, "model": model, **usage, **meta}
     q = rec.get("quote")
     where, found = _locate(q, doc)
     # A null quote means one of two things and they are not the same event: the
@@ -169,7 +169,7 @@ def one(args):
         "summary": rec.get("summary", ""), "drives": rec.get("drives", []),
         "quote": q, "quote_reason": rec.get("quote_reason"),
         "quote_ok": found, "quote_file": where,
-        "partial": bool(unread_prose), "unread_prose": unread_prose, "prompt": tag, **usage,
+        "partial": bool(unread_prose), "unread_prose": unread_prose, "prompt": tag, "model": model, **usage,
         **label(doc), **meta,
     }
 

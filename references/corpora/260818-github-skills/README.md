@@ -41,11 +41,13 @@ Positives were first run against the first 8,000 bytes of each file, which inval
 
 ## Cost
 
-`gpt-5.6-luna` costs at least two orders of magnitude less ChatGPT plan quota than the paid tiers, and whether it costs anything is unresolved. Over the rollout history `gpt-5.6-sol` accumulates +1,552 points of `rate_limits.used_percent`, `gpt-5.5` +1,221, `gpt-5.6-terra` +429, `gpt-5.4-mini` +240, and luna +0 across 20 sessions. The instrument responds — 34 sol turns move it four points.
+`gpt-5.6-luna` is cheap and now measured. Starting from a freshly reset weekly window, 2,274 calls moved `rate_limits.used_percent` from 2% to 10% — 0.0035 points each, and steady across five chunks of roughly 490. Reading 3,975 skill directories costs a tenth of one week.
 
-Then it moved. Roughly 113 luna calls into one day the reading stepped 76 to 77, with no session crossing it internally and nothing else running; 60 further calls left it at 77. This does not settle the question and cannot: the reading has no decimals, so a step could be one luna call tipping a residue left at 76.9 by the sol session before it, or luna costing about 1% per hundred calls. Do not plan around either. Read the number between batches and stop if it climbs.
+That also settles a reading this file used to carry. A day earlier the number appeared to step 76 → 77 after about 113 calls, which suggested a rate thirty times higher. It was a residue: `gpt-5.6-sol` had left the counter somewhere above 76.5 and one call tipped it. The gauge has no decimals, so the only way to read it is from a floor you own.
 
-6–14 seconds per call at 18k tokens. Run it in small batches rather than all at once.
+Claude's side is measured too, and differently. 398 Haiku calls through `claude -p` cost $18.90 — $0.0475 each, 15.0M input tokens in twenty minutes. The weight is not the skill document: 23,145 tokens per call are Claude Code's own system prefix, against roughly 6k of content, because `-p` is a fresh session every time. Output is 94% thinking. `--allowed-tools ""` removes 490 tokens of that, `--system-prompt` leaves 15,852 still arriving, and `DISABLE_PROMPT_CACHING` costs *more* — the 25% write premium on 12k is cheaper than paying list price for the 22k prefix.
+
+Luna is also faster: 29 calls a minute on six workers, against 16 on twelve.
 
 ## Most surface proxies failed, and one was wrongly convicted
 
