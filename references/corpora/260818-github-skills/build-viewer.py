@@ -52,7 +52,13 @@ def main():
     p1 = HERE / "runs" / "pass1.jsonl"
     for line in (p1.read_text().splitlines() if p1.exists() else []):
         r = json.loads(line)
-        if r.get("ok"):
+        # A verdict reached from one skill directory is not a verdict. Asked what
+        # a collection's files share, a reader shown one file has no siblings to
+        # compare, and 100% of those came back `one-field` at every coverage band
+        # but the lowest — one skill has one subject. The model said as much in
+        # `house_style` ("cannot be determined from a single file"); the
+        # `coherence` field had no way to say it.
+        if r.get("ok") and r["n_read"] >= 2:
             repo1[r["repo"]] = r
     # The shortlist keys on (repo, dir, loose_file) and the reading pass never
     # carried `loose_file`, so a plain three-part join loses every AGENTS.md and

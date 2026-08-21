@@ -64,12 +64,15 @@ def report(path, by_repo, by_file):
                or (r.get('coherence') != 'unified-by-form' and r.get('form')))
     print(f'  schema leaks: {leak}')
 
-    exact = sub = none = broken = 0
+    exact = sub = none = broken = nulls = starved = 0
     for r in ok:
         bc = norm(r.get('best_claim') or '')
         quotes = [(x, norm(x.get('quote') or '')) for x in by_repo.get(r['repo'], []) if x.get('quote')]
+        # A null claim where no quote was fed is the only answer available, and
+        # counting it as a failure to trace buries the ones that are.
         if not bc:
-            none += 1
+            nulls += 1
+            starved += not quotes
             continue
         if any(bc == q for _, q in quotes):
             exact += 1
@@ -80,7 +83,8 @@ def report(path, by_repo, by_file):
         src = next((x for x, q in quotes if bc in q), None)
         if src is not None and not src.get('quote_ok'):
             broken += 1
-    print(f'  best_claim: {exact} verbatim, {sub} trimmed, {none} untraceable; '
+    print(f'  best_claim: {exact} verbatim, {sub} trimmed, {none} untraceable, '
+          f'{nulls} null ({starved} with no quote to draw on); '
           f'{broken} resting on an unverified quote')
 
     flags = [(r['repo'], f) for r in ok for f in (r.get('recheck') or [])]

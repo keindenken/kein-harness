@@ -102,7 +102,7 @@ The auditing half mostly restated its input. Of fifty flags over 513 records, **
 
 `coherence` agreed on 46 of 50 across the change. Both runs kept a clean schema and a fully traceable `best_claim`.
 
-At 450 repositories — taken in descending order of how many of each one's skills were read, so a run stopped early loses its least useful tail — the totals are 450 of 450 parsed, no schema leaks, 132 flags of 426 that no cheaper pass produces, and $60.
+At 550 repositories the totals are 550 of 550 parsed, no schema leaks, and $70. The first 450 were taken in descending order of how many of each one's skills were read; the last 100 are the sixteen remaining repositories with three or more read plus 84 drawn from the ≤2 pool, stratified by coverage, because that pool is the only place where coverage and the number read come apart — two of two is full coverage from two files.
 
 ## `grab-bag` measures how much of the repository was read
 
@@ -123,13 +123,17 @@ An earlier draft of this section claimed the opposite about size, from a compari
 
 What survives as an independent signal is the flag rate, which falls from 17% of records to 10% as `n_read` rises — less evidence, more suspicion — and that is a fact about the auditor rather than about the repositories.
 
+The ≤2 pool confirmed the coverage relationship and found the floor underneath it. Coverage still separates there: 100% `one-field` and no `grab-bag` above 75% coverage, against 57% and 29% below 15%. But split by how many files were read rather than what fraction, **all 58 repositories where one skill was read came back `one-field`** — 100% of them at every coverage band but the lowest. That is not a finding. Asked what a collection's files share, a reader shown one file has no siblings to compare, and one skill has one subject. The model said so where it could — `house_style` came back "cannot be determined from a single file" and the sample warnings say there is no basis to judge — but `coherence` has no value meaning *unanswerable*, so it answered the only way the schema allowed.
+
+Two files is different: 48% `one-field` against 62% for three or more, with the middle coverage bands landing at 43% `one-field` and 43% `grab-bag`. That is uncertainty rather than tautology, so those verdicts are kept. The viewer drops the 58, and the corpus-wide split moves from 65/14/22 to 62/15/23 when they go.
+
 The viewer prints the coverage on the verdict chip, because a `grab-bag` reached from 18% of a repository and one reached from 90% are not the same claim. The Korean label for it is `모음` rather than `잡동사니`: of 82 such verdicts, 45% describe a personal toolbelt or one project's kit in so many words against 12% of `one-field` verdicts, so what holds them together is an owner rather than a subject — and `잡동사니` frames as junk what is mostly somebody's actual working set.
 
 ## One fabrication in 450 calls, and the check is what found it
 
 `bioMate-AI/biomate-bioconductor-kb` produced a `best_claim` about bacterial genome counts overwhelming BioMart. It is in none of the three records the call was given and in none of the repository's fifteen skill directories. It reads exactly like real `biomaRt` documentation, which is the point: the model answered from what it knows about the subject rather than from what it was shown, and a scoring pass would have recorded that as a good result.
 
-Three other claims failed to trace and none was invented. Two joined several lines of a list into one sentence with ` - ` separators, and one turned `scores 100` into `scores 10` while paraphrasing around it. `norm` was not extended to accept any of them: a bullet list flattened into a sentence is not a sentence in the source, and the guarantee is worth more than three rows.
+Three other claims failed to trace and none was invented, out of 550: 497 `best_claim` values are identical to a quote they were fed, 29 are a trimmed span of one, and 20 are null — 19 of those in repositories where no quote was fed at all, which is the only answer available. Two joined several lines of a list into one sentence with ` - ` separators, and one turned `scores 100` into `scores 10` while paraphrasing around it. `norm` was not extended to accept any of them: a bullet list flattened into a sentence is not a sentence in the source, and the guarantee is worth more than three rows.
 
 ## The verbatim checker has now been wrong four times
 
