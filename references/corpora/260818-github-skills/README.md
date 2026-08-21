@@ -198,3 +198,19 @@ The control meant to check agreement found something else. Of the 31 files where
 | `…/deploy-linux-gpu` | A plain `cmd &` over SSH dies when the session closes | Heavy-KV models cost ~130 KB/token at Q8_0 → ~8.5 GB at 64K per slot |
 
 So the 3,231 quotes are one draw, not the contents. A file that yields one qualifying sentence usually holds more, and the cap of one keeps whichever the reader happened to reach for. A second independent pass over the quote-bearing skills would be expected to add on the order of 1,300 distinct verified sentences, and over the nulls about 90 — and unlike asking for a list, which the fixture stage rejected for starting to paraphrase, it keeps one verbatim sentence per call as the unit.
+
+
+## Pass 3: how far a claim travels
+
+The guidebook/instruction split this corpus was started for does not cut where it was meant to. Only 9% of verified quotes name a tool at all, and **88% of quotes from skills that reach outside themselves name no tool in the sentence** — `reach` is a property of the skill and the question is a property of the claim, and the two are nearly orthogonal. Worse, the split puts *"`az graph query -o table` only renders summary columns and hides projected fields"* on the instruction side, where it is useless: the sentence is hard-won, verbatim, and dies with one Azure CLI release.
+
+So `facet.py` asks how far the knowledge travels, in three levels — `bound` to a product or version, `tool-general` where the tool itself is one a practitioner keeps, and `transferable` where the claim survives its tool. A pilot of 200 splits 47/23/30, so the middle level is real and not a hedge.
+
+Nothing new is read. Everything the judgement needs was written by pass 2 — and `drives` in particular, which names tools the summary never mentions in 85% of cases and is the *only* place they are named in half of all records. Feeding forty records with their summary, quote, quote_reason and `drives` costs a hundred calls; re-reading the directories would cost 3,957 to recover context already on disk. The escape hatch for records the context cannot settle fired twice in 200.
+
+Translation rides the same call. It is additive: the English stays, because a located quote is the guarantee this corpus makes and a translation cannot carry it. `check()` enforces the mechanical half — code, flags, paths and numbers must survive into the Korean unaltered — and after two rounds of tightening its own false positives (`access/deletion` is not a path, `5s` becoming `5초` is not a loss) it reports **0 violations in 170 quotes**.
+
+Two things had to be corrected before scaling:
+
+- **A summary reads as transferable no matter what.** Asked to rate records with no quote, the pilot called 62% of them `transferable` against 43% of quoted records in the same `reach` band. Abstraction has no tool in it. `transfer` is now null where the quote is null — there is no checked claim to rate — while translation still covers every record.
+- **A batch dies whole.** One record trips a cyber safeguard and its twenty-nine neighbours go with it; `facet.py` counted every written line as done on resume, which would have buried them as already-read. Only successful records count now. 2.7% of the corpus carries security vocabulary, spread across 64 of 132 batches, but one batch in eleven actually failed — most of that vocabulary is defensive. Those records get re-run in batches of five, and any that still trip it stay unprocessed and are marked as such rather than filed with the 637 that simply hold no quote.
