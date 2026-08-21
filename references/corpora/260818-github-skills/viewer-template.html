@@ -180,6 +180,7 @@ blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
   background: transparent; border: 1px solid var(--line); color: var(--ink);
   white-space: normal; max-width: 42ch; padding: 1px 6px;
 }
+.chip.v i { font-style: normal; color: var(--faint); }
 .more {
   margin-top: 22px; width: 100%; padding: 12px; cursor: pointer;
   font: inherit; font-size: 14px; color: var(--accent);
@@ -332,7 +333,8 @@ function card(r) {
   if (r.rl) {
     const name = { "one-field": "한 분야", "unified-by-form": "형식이 같음", "grab-bag": "잡동사니" }[r.rl];
     const tail = r.rf ? " · " + (r.rf.length > 52 ? r.rf.slice(0, 52).replace(/\s+\S*$/, "") + "…" : r.rf) : "";
-    chips.push(`<span class="chip v" title="${esc(r.rf || name)}">${name}${esc(tail)}</span>`);
+    const cov = r.rv == null ? "" : ` <i>${r.rv}%</i>`;
+    chips.push(`<span class="chip v" title="${esc(r.rf || name)}${r.rv == null ? "" : ` — 저장소의 ${r.rv}%를 읽고 내린 판정`}">${name}${esc(tail)}${cov}</span>`);
   }
   if (r.il > 1) chips.push(`<span class="chip">파일 ${r.il}</span>`);
   if (r.nf) chips.push(`<span class="chip">미열람 ${r.nf}</span>`);
@@ -382,7 +384,8 @@ document.getElementById("note").textContent =
   "'검증됨'으로 세는 인용문은 전부 원본 문서에서 위치가 확인된 것이다. 확인에 실패한 93개는 목록에는 남아 있으나 어떤 집계에도 들어가지 않으며, 대개 모델이 문장 중간부터 자기 말로 바꾼 경우다. " +
   "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다. " +
   "'무엇을 조작하나'는 코드 펜스 안 명령 위치에서 이름이 걸린 것만 센다 — 패턴이 없다는 것과 아무것도 호출하지 않는다는 것은 다르다. " +
-  "'저장소 성격'은 846개 저장소 중 150개에만 있고, 그 판정도 각 저장소에서 구체성 상위로 뽑힌 일부만 읽고 내린 것이다. " +
+  "'저장소 성격'은 846개 저장소 중 350개에만 있고, 칩 끝의 백분율은 그 판정이 저장소의 몇 퍼센트를 읽고 나온 것인지다. " +
+  "저장소 크기를 통제해도 적게 읽은 쪽이 '잡동사니'로 더 많이 판정된다 — 그 라벨의 일부는 구조가 아니라 읽은 쪽의 확신 부족이다. " +
   "'형제 파일'은 SKILL.md를 가진 스킬에서만 센다 — 루트 AGENTS.md로 앵커된 408개는 내려갈 층이 애당초 없다.";
 
 drawFigures();

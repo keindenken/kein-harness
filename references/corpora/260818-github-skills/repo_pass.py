@@ -61,16 +61,22 @@ def call(prompt, model):
     }
 
 
-def parse(raw):
+def parse(raw, require=None):
     """Pull the JSON object out of a reply.
 
     A brace-counting regex is not enough: a quote can carry braces of its own,
     and `{{ $json.output }}` inside one silently ends the object early. This
     scans with the string state that JSON actually has.
+
+    `require` names a key the object must carry. Taking the first balanced object
+    took a `recheck` element — `{"file": ..., "why": ...}` — as the whole reply
+    once, and it was written out as a successful record with no verdict in it.
     """
     raw = raw.strip()
     try:
-        return json.loads(raw)
+        obj = json.loads(raw)
+        if isinstance(obj, dict) and (require is None or require in obj):
+            return obj
     except Exception:
         pass
     for start in (m.start() for m in re.finditer(r"\{", raw)):
@@ -92,9 +98,12 @@ def parse(raw):
                 depth -= 1
                 if depth == 0:
                     try:
-                        return json.loads(raw[start:i + 1])
+                        obj = json.loads(raw[start:i + 1])
                     except Exception:
                         break
+                    if isinstance(obj, dict) and (require is None or require in obj):
+                        return obj
+                    break
             i += 1
     return None
 
@@ -125,7 +134,7 @@ def one(args):
     out, err, usage = call(prompt, model)
     prov = {'repo': repo, 'n_read': n_read, 'n_total': n_total,
             'relabelled': relabelled, 'model': model, 'prompt': tag, **usage}
-    rec = parse(out)
+    rec = parse(out, require='coherence')
     if rec is None:
         return {**prov, 'ok': False, 'error': (out or err)[-400:]}
     rec.pop('repo', None)

@@ -102,6 +102,43 @@ The auditing half mostly restated its input. Of fifty flags over 513 records, **
 
 `coherence` agreed on 46 of 50 across the change. Both runs kept a clean schema and a fully traceable `best_claim`.
 
+At 350 repositories — taken in descending order of how many of each one's skills were read, so a run stopped early loses its least useful tail — the totals are 350 of 350 parsed, no schema leaks, 115 flags of 365 that no cheaper pass produces, and $48.
+
+## `grab-bag` is partly a statement about the reader
+
+Reading less of a repository makes it read as a grab-bag, and this survives controlling for repository size:
+
+| repository size | coverage | repos | `one-field` | `grab-bag` |
+| :--- | :--- | ---: | ---: | ---: |
+| 5–15 files | ≥45% | 68 | 75% | 9% |
+| 5–15 files | <45% | 22 | 64% | 14% |
+| 16–25 files | ≥45% | 66 | 65% | 20% |
+| 16–25 files | <45% | 71 | 51% | 31% |
+
+The flag rate moves the same way — 17% of records flagged where four or five files were read, 10% where twelve were — which reads as one thing rather than two: less evidence, more suspicion, and a verdict that means "I could not find the thread" filed under a label that says "there is no thread".
+
+Repository size is a separate and real effect. Holding the number read at twelve, collections of 16–25 and 26–45 files land at 70% and 77% `one-field`, and collections of 46 or more drop to 43% with 40% `grab-bag`. A sixty-skill repository is a platform, not a subject. But if coverage were doing all the work there, the 26–45 band would sit between its neighbours, and it does not.
+
+The viewer now prints the coverage on the verdict chip, because a `grab-bag` reached from 18% of a repository and one reached from 90% are not the same claim.
+
+## The verbatim checker has now been wrong four times
+
+Every one was a normalisation gap, and none was a fabrication:
+
+| what it missed | found by |
+| :--- | :--- |
+| a quote lifted out of a wrapped `# ` comment | first fixture run |
+| a quote lifted out of `- **bold:**` | first fixture run |
+| curly quotes against straight ones | pass 1, on a Chinese legal skill scoring 0.98 similar and 0 matching |
+| `[text](url)` against its rendered text | pass 1, on `microsoft/skills-for-fabric` |
+| whitespace between CJK characters, and fullwidth punctuation | pass 1, on three CJK repositories |
+
+`norm` now folds typographic and fullwidth punctuation to ASCII, reduces links to their text, and drops whitespace adjacent to CJK — the last narrowly, because collapsing space everywhere would let an English paraphrase match by accident. Rechecking pass 2's 93 rejected quotes recovers six; **87 remain, and they are drift.** So the check was never too strict. It was wrong in five specific ways, all of them about writing systems and markup it had not been shown.
+
+Two `best_claim` values still do not trace, and both are real drift: `agentscope-ai/OpenJudge` turned `scores 100` into `scores 10` while paraphrasing around it, and `obra/superpowers-skills` dropped the clause that dated the observation.
+
+One reply was accepted as a record with no verdict in it. `parse` took the first balanced object it found, and that was an element of `recheck`; it now requires the object to carry the key the caller names.
+
 ## What pass 1 found that the pass it audits could not
 
 Three of run 2's flags said a `cli` label had no business being there — a rubric-text generator credited with the Go toolchain, a Firebase-messaging skill credited with `make`. They were right, and about `labels.py` rather than about the skills.

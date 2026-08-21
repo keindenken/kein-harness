@@ -79,6 +79,11 @@ def main():
             "rc": (fixed.get(r["skill"], r).get("reach")) or [],
             "cl": (fixed.get(r["skill"], r).get("cli")) or [],
             "rl": (repo1.get(r.get("repo")) or {}).get("coherence"),
+            # How much of the repository the verdict was reached from. It belongs
+            # next to the verdict because it changes what the verdict means:
+            # holding repository size fixed, reading less of one pushes it toward
+            # `grab-bag`, so part of that label is the reader's uncertainty.
+            "rv": (lambda x: round(100 * x["n_read"] / x["n_total"]) if x else None)(repo1.get(r.get("repo"))),
             "rf": ((repo1.get(r.get("repo")) or {}).get("field")
                    or (repo1.get(r.get("repo")) or {}).get("form")),
             "dr": (r.get("drives") or [])[:10],
