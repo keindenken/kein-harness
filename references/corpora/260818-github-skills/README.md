@@ -83,3 +83,43 @@ The same author holds one of each. Two of eight pilot verdicts are arguable, bot
 `assemble.py` then builds the document a call reads: prose inlined under a `<file path="...">` tag, everything else listed by name, size and type. Merging the scripts in as well would answer no question this pass asks — it asks for a sentence — while a merged prose document has a median of 9 KB against 11 KB for all text and a maximum of 2 MB against 15 MB.
 
 The path on the tag is not decoration. `czlonkowski/n8n-skills/skills/n8n-agents` is 23 KB as a file and 122 KB as a directory, and in the first eight directories run this way, **all five quotes came from a reference file rather than from `SKILL.md`** — `AGENT_TOOL_BINARY.md`, `DATA_ACCESS.md`, `ERROR_PATTERNS.md`, `references/vector-f-subshell-expansion.md`, `resources/VULNERABILITY_PATTERNS.md`. 260811 concluded that prompts shrink because obligations move down a level, from a corpus containing only the level they move from. `quote_file` is where that finally becomes measurable, and eight directories is not yet a measurement.
+
+## Pass 1 reads a collection, and it reads the top of one
+
+`repo_pass.py` gives one call every pass-2 record from one repository. Fifty repositories — the eight the pilot used, plus fourteen each from three coverage bands — cost $5.96 and five minutes at `sonnet`, and the two halves of the prompt did not do equally well.
+
+The describing half holds up. No schema leaks in fifty: `field` appears only under `one-field` and `form` only under `unified-by-form`. Every `best_claim` traces back — 46 identical to a quote it was fed, 4 a trimmed span of one, none matching nothing, and none resting on a quote that had failed pass 2's own verbatim check. That closes the chain: a sentence in a source file, located there by `extract.py`, located again in the record by this pass. And seven of the pilot's eight `coherence` verdicts reproduced across a change of corpus *and* a change of prompt. The eighth is `trailofbits/skills` moving `grab-bag` to `one-field`, which was one of the two verdicts the pilot had already flagged as arguable; a security firm's fuzzing and static-analysis skills are one field.
+
+The auditing half mostly restated its input. Of fifty flags over 513 records, **twenty were raised against a `no-signal` record** — and `no-signal` means no grep pattern fired, not that the skill reaches for nothing, which is the one thing `labels.py` is built never to claim. Nine more repeated `quote_verified: false` back at a reader that had handed it over. Six were new: four cross-file observations no other pass can make, including a quote appearing verbatim under two different files in `NeoLabHQ/context-engineering-kit`, and two null quotes under summaries specific enough to expect one. The prompt caused this by listing "the `reach` label contradicts the summary" as a flagging criterion without saying which direction of that comparison is meaningful. `prompt/repo-siblings.md` says which direction, and says outright that a field handed to the model is not something to hand back; `prompt/repo.md` is kept as run. Re-running the same fifty against it cost $7.06 and moved the flags where the wording aimed them:
+
+| | run 1 | run 2 |
+| :--- | ---: | ---: |
+| flags on a `no-signal` record | 20 | 9 |
+| restating `quote_verified` | 9 | 5 |
+| cross-file, or a null under a specific summary | 6 | 17 |
+
+`coherence` agreed on 46 of 50 across the change. Both runs kept a clean schema and a fully traceable `best_claim`.
+
+## What pass 1 found that the pass it audits could not
+
+Three of run 2's flags said a `cli` label had no business being there — a rubric-text generator credited with the Go toolchain, a Firebase-messaging skill credited with `make`. They were right, and about `labels.py` rather than about the skills.
+
+The comment over `BINS` said matches were "counted only at the head of a line inside a fence". The regex was `(?:^|[\s|&;(])`, which under `re.M` means line start **or any preceding whitespace**, and that is where English lives: `go through` inside a fenced ASCII diagram scored `go`; `make FCM messaging work` scored `make`. The comment described an intent the code did not implement, and nothing downstream could notice, because a grep that over-fires looks exactly like a corpus that uses more tools.
+
+Restricting the match to command position — line start, a shell prompt or list marker at one, or the point after `|`, `&&`, `;`, `$(` — over all 3,964 records:
+
+| | before | after |
+| :--- | ---: | ---: |
+| `make` | 222 | 44 |
+| `go` | 208 | 63 |
+| `node` | 346 | 196 |
+| `claude` | 120 | 67 |
+| all `cli` labels | 5,451 | 4,139 |
+
+216 records — 5% — lose a claim to reach outside themselves, 184 of them all the way to `no-signal`. The prompt markers are worth their extra alternation: 1% of a 1,200-record sample writes its only invocation as `$ uv run …`, which a strict line-start rule would have thrown away. Corrected labels are in `runs/labels-v2.jsonl`, keyed by skill.
+
+A second defect surfaced while measuring the first. `extract.py` keyed a skill as `repo/dir`, and `dir` is empty for a repository anchored on a root `AGENTS.md` or `CLAUDE.md` — so a repository holding both produced two manifest entries under one key. 442 keys cover 447 entries, 25 of them shortlisted: read twice in a fresh run, and the second silently skipped as already-done in a resumed one. The key now carries the loose file, and the record carries it as a field.
+
+**What this pass sees is not the collection.** 745 of 846 repositories arrive partly read, and the missing files are not a random sample: dedupe accounts for 386 of 4,671 unread directories in the large repositories and the specificity cut for the other 4,285. So a `filler` list here names filler among a repository's strongest files. The prompt says so and the record carries `n_read`/`n_total`, but no wording repairs the sample — only reading more of it would.
+
+A byproduct worth keeping: the flags include eighteen records whose quote was null, chosen because their summaries promised something a quote should have carried. That is a better place to test whether pass 2's nulls are real than an equal number drawn at random.

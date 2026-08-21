@@ -144,9 +144,25 @@ def _locate(quote, doc):
     return None, nq in norm(doc)
 
 
+def _key(skill):
+    """Identity for a skill directory, unique across the manifest.
+
+    `repo` alone is not: a repository holding both `AGENTS.md` and `CLAUDE.md` at
+    its root produces two manifest entries, both with an empty `dir`, and they
+    collided on one key. 442 keys covered 447 entries that way, 25 of them in the
+    shortlist — read twice in a fresh run, and silently skipped as already-done in
+    a resumed one. The loose file is what tells them apart.
+    """
+    if skill["dir"]:
+        return f"{skill['repo']}/{skill['dir']}"
+    if skill.get("loose_file"):
+        return f"{skill['repo']}::{skill['loose_file']}"
+    return skill["repo"]
+
+
 def one(args):
     skill, effort, model, tpl, tag = args
-    key = f"{skill['repo']}/{skill['dir']}" if skill["dir"] else skill["repo"]
+    key = _key(skill)
     try:
         doc, meta = assemble(skill, CORPUS)
     except OSError as e:
@@ -165,7 +181,8 @@ def one(args):
     unread_prose = [n for n in meta["not_inlined"]
                     if n.lower().endswith((".md", ".txt"))]
     return {
-        "skill": key, "repo": skill["repo"], "dir": skill["dir"], "ok": True,
+        "skill": key, "repo": skill["repo"], "dir": skill["dir"],
+        "loose_file": skill.get("loose_file"), "ok": True,
         "summary": rec.get("summary", ""), "drives": rec.get("drives", []),
         "quote": q, "quote_reason": rec.get("quote_reason"),
         "quote_ok": found, "quote_file": where,
@@ -196,8 +213,7 @@ def main():
     skills = json.loads(src.read_text())[:limit]
     done = ({json.loads(l)["skill"] for l in out.read_text().splitlines()}
             if out.exists() else set())
-    todo = [s for s in skills
-            if (f"{s['repo']}/{s['dir']}" if s["dir"] else s["repo"]) not in done]
+    todo = [s for s in skills if _key(s) not in done]
     print(f"{len(skills)} skills, {len(done)} already done, {len(todo)} to run, prompt={tag}", flush=True)
     t0, n = time.time(), 0
     with out.open("a") as fh, ThreadPoolExecutor(max_workers=w) as pool:

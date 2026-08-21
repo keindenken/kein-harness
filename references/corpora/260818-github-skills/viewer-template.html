@@ -1,0 +1,351 @@
+<title>해봐야 아는 문장들</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+
+<style>
+:root {
+  --ground:  #f6f8f8;
+  --surface: #ffffff;
+  --raised:  #eef2f1;
+  --line:    #dce3e2;
+  --ink:     #1a1f22;
+  --muted:   #667274;
+  --faint:   #8e999b;
+  --accent:  #2f6f66;
+  --accent-soft: #e3efec;
+  --mark:    #8a5f1c;
+  --mark-soft:   #f6ecd9;
+  --shadow:  0 1px 2px rgba(26,31,34,.05), 0 8px 24px -16px rgba(26,31,34,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:  #131719;
+    --surface: #1a1f21;
+    --raised:  #222829;
+    --line:    #2e3639;
+    --ink:     #e2e7e7;
+    --muted:   #939fa1;
+    --faint:   #6f7c7e;
+    --accent:  #6bb3a6;
+    --accent-soft: #1d2e2c;
+    --mark:    #d3a457;
+    --mark-soft:   #2c2519;
+    --shadow:  0 1px 2px rgba(0,0,0,.3), 0 8px 24px -16px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"] {
+  --ground:  #131719;
+  --surface: #1a1f21;
+  --raised:  #222829;
+  --line:    #2e3639;
+  --ink:     #e2e7e7;
+  --muted:   #939fa1;
+  --faint:   #6f7c7e;
+  --accent:  #6bb3a6;
+  --accent-soft: #1d2e2c;
+  --mark:    #d3a457;
+  --mark-soft:   #2c2519;
+  --shadow:  0 1px 2px rgba(0,0,0,.3), 0 8px 24px -16px rgba(0,0,0,.6);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans KR", ui-sans-serif, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- masthead ---------- */
+header {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  padding: 28px 32px 20px;
+}
+.wrap { max-width: 1360px; margin: 0 auto; }
+h1 {
+  font-family: Newsreader, Georgia, serif;
+  font-weight: 500;
+  font-size: 30px;
+  letter-spacing: -.01em;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.lede { color: var(--muted); margin: 0; max-width: 62ch; font-size: 14px; }
+.figures {
+  display: flex; flex-wrap: wrap; gap: 28px;
+  margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line);
+}
+.fig { display: flex; flex-direction: column; gap: 2px; }
+.fig b {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 21px; font-weight: 500; letter-spacing: -.02em;
+}
+.fig span { font-size: 11.5px; color: var(--faint); letter-spacing: .04em; }
+.fig.hi b { color: var(--mark); }
+
+/* ---------- shell ---------- */
+.shell {
+  max-width: 1360px; margin: 0 auto; padding: 24px 32px 80px;
+  display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 36px;
+  align-items: start;
+}
+@media (max-width: 900px) { .shell { grid-template-columns: 1fr; gap: 20px; } aside { position: static !important; } }
+
+aside { position: sticky; top: 20px; display: flex; flex-direction: column; gap: 22px; }
+.facet h2 {
+  font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--faint); margin: 0 0 8px;
+}
+.opts { display: flex; flex-direction: column; gap: 1px; }
+.opt {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  border: 0; background: none; color: var(--muted); cursor: pointer;
+  font: inherit; font-size: 13.5px; text-align: left;
+  padding: 4px 8px; border-radius: 5px; transition: background .12s, color .12s;
+}
+.opt:hover { background: var(--raised); color: var(--ink); }
+.opt[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.opt em {
+  font-style: normal; font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px; font-variant-numeric: tabular-nums; color: var(--faint);
+}
+.opt[aria-pressed="true"] em { color: var(--accent); }
+
+/* ---------- controls ---------- */
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+input[type="search"], select {
+  font: inherit; font-size: 14px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 7px; padding: 8px 11px;
+}
+input[type="search"] { flex: 1 1 260px; min-width: 0; }
+input[type="search"]::placeholder { color: var(--faint); }
+.count {
+  font-family: "IBM Plex Mono", monospace; font-size: 12.5px;
+  color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.count b { color: var(--ink); font-weight: 500; }
+
+/* ---------- records ---------- */
+.list { display: flex; flex-direction: column; gap: 10px; }
+.rec {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 9px; padding: 16px 18px; box-shadow: var(--shadow);
+  border-left: 3px solid transparent;
+}
+.rec.sib { border-left-color: var(--mark); }
+.rec.noq { opacity: .78; }
+blockquote {
+  margin: 0 0 10px;
+  font-family: Newsreader, Georgia, serif;
+  font-size: 17.5px; line-height: 1.5; letter-spacing: -.003em;
+  max-width: 68ch; overflow-wrap: anywhere;
+}
+blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
+.cite {
+  font-family: "IBM Plex Mono", monospace; font-size: 11.5px;
+  color: var(--muted); overflow-wrap: anywhere; margin-bottom: 8px;
+}
+.cite .from { color: var(--mark); }
+.why {
+  font-size: 13px; color: var(--muted); max-width: 72ch;
+  border-left: 2px solid var(--line); padding-left: 11px; margin: 0 0 10px;
+}
+.sum { font-size: 13.5px; color: var(--muted); max-width: 74ch; margin: 0 0 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: .02em;
+  padding: 2px 7px; border-radius: 4px; background: var(--raised); color: var(--muted);
+  font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.chip.a { background: var(--accent-soft); color: var(--accent); }
+.more {
+  margin-top: 22px; width: 100%; padding: 12px; cursor: pointer;
+  font: inherit; font-size: 14px; color: var(--accent);
+  background: var(--surface); border: 1px dashed var(--line); border-radius: 8px;
+}
+.more:hover { background: var(--accent-soft); }
+.empty { color: var(--faint); padding: 48px 0; text-align: center; }
+.note { margin-top: 26px; font-size: 12.5px; color: var(--faint); max-width: 74ch; }
+</style>
+
+<header>
+  <div class="wrap">
+    <h1>해봐야 아는 문장들</h1>
+    <p class="lede">공개 저장소의 에이전트 스킬 3,957개에서, <em>직접 해보지 않았으면 쓸 수 없었을 문장</em>을 한 줄씩 원문 그대로 들어낸 것. 모든 인용은 기록되기 전에 원본에서 위치가 확인되었다.</p>
+    <div class="figures" id="figures"></div>
+  </div>
+</header>
+
+<div class="shell">
+  <aside id="facets"></aside>
+  <main>
+    <div class="bar">
+      <input type="search" id="q" placeholder="인용문 · 요약 · 저장소 · 도구 이름으로 검색" aria-label="검색">
+      <select id="sort" aria-label="정렬">
+        <option value="sp">구체성 높은 순</option>
+        <option value="st">별 많은 순</option>
+        <option value="ql">인용문 긴 순</option>
+        <option value="k">이름 순</option>
+      </select>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="list" id="list"></div>
+    <button class="more" id="more" hidden>더 보기</button>
+    <p class="note" id="note"></p>
+  </main>
+</div>
+
+<script>
+const DATA = __DATA__;
+const ROWS = DATA.rows, CUTS = DATA.cuts;
+const PAGE = 200;
+
+const FACETS = [
+  { id: "quote", label: "인용", opts: [
+      ["yes", "찾음",   r => !!r.q],
+      ["no",  "없음",   r => !r.q] ] },
+  { id: "where", label: "출처", opts: [
+      ["skill", "SKILL.md",  r => r.qf === "SKILL.md"],
+      ["sib",   "형제 파일", r => !!r.qf && r.qf !== "SKILL.md"] ] },
+  { id: "kind", label: "문장 성격", opts: [
+      ["num", "수치·날짜 포함", r => r.n] ] },
+  { id: "reach", label: "무엇을 조작하나", opts: [
+      ["external",  "외부 도구",   r => r.rc.includes("external")],
+      ["internal",  "내부 스크립트", r => r.rc.includes("internal")],
+      ["no-signal", "패턴 없음",   r => r.rc.includes("no-signal")] ] },
+  { id: "spec", label: "구체성", opts: [
+      ["q4", "상위 25%", r => r.sp != null && r.sp >= CUTS[2]],
+      ["q3", "상위 50%", r => r.sp != null && r.sp >= CUTS[1]],
+      ["q2", "상위 75%", r => r.sp != null && r.sp >= CUTS[0]] ] },
+  { id: "model", label: "읽은 모델", opts: [
+      ["luna",  "luna",  r => r.m === "luna"],
+      ["haiku", "haiku", r => r.m === "haiku"] ] },
+  { id: "prompt", label: "프롬프트", opts: [
+      ["extract",        "extract",        r => r.p === "extract"],
+      ["extract-nonum",  "extract-nonum",  r => r.p === "extract-nonum"] ] },
+];
+
+const on = {};              // facet id -> Set of active option ids
+FACETS.forEach(f => on[f.id] = new Set());
+let shown = PAGE;
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function passes(r, skip) {
+  for (const f of FACETS) {
+    if (f.id === skip || !on[f.id].size) continue;
+    const any = f.opts.some(([id, , test]) => on[f.id].has(id) && test(r));
+    if (!any) return false;
+  }
+  return true;
+}
+
+function query(r, q) {
+  if (!q) return true;
+  const hay = (r.q || "") + " " + r.su + " " + r.k + " " + r.dr.join(" ");
+  return hay.toLowerCase().includes(q);
+}
+
+function current() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  return ROWS.filter(r => passes(r, null) && query(r, q));
+}
+
+function drawFigures() {
+  const q = ROWS.filter(r => r.q).length;
+  const sib = ROWS.filter(r => r.qf && r.qf !== "SKILL.md").length;
+  const num = ROWS.filter(r => r.n).length;
+  const repos = new Set(ROWS.map(r => r.r)).size;
+  const figs = [
+    [ROWS.length.toLocaleString(), "읽은 스킬", false],
+    [q.toLocaleString(), "검증된 인용", false],
+    [Math.round(100 * sib / q) + "%", "형제 파일에서 나옴", true],
+    [num.toLocaleString(), "수치·날짜를 담음", false],
+    [repos.toLocaleString(), "저장소", false],
+  ];
+  document.getElementById("figures").innerHTML = figs.map(([b, s, hi]) =>
+    `<div class="fig${hi ? " hi" : ""}"><b>${b}</b><span>${s}</span></div>`).join("");
+}
+
+function drawFacets() {
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  document.getElementById("facets").innerHTML = FACETS.map(f => {
+    const pool = ROWS.filter(r => passes(r, f.id) && query(r, q));
+    const opts = f.opts.map(([id, label, test]) =>
+      `<button class="opt" data-f="${f.id}" data-o="${id}" aria-pressed="${on[f.id].has(id)}">
+         <span>${label}</span><em>${pool.filter(test).length.toLocaleString()}</em></button>`).join("");
+    return `<div class="facet"><h2>${f.label}</h2><div class="opts">${opts}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    const s = on[b.dataset.f];
+    s.has(b.dataset.o) ? s.delete(b.dataset.o) : s.add(b.dataset.o);
+    shown = PAGE; render();
+  });
+}
+
+function card(r) {
+  const sib = r.qf && r.qf !== "SKILL.md";
+  const chips = [];
+  if (r.sp != null) chips.push(`<span class="chip">구체성 ${r.sp}</span>`);
+  if (r.st != null) chips.push(`<span class="chip">★ ${r.st.toLocaleString()}</span>`);
+  r.rc.forEach(x => chips.push(`<span class="chip${x === "external" ? " a" : ""}">${x}</span>`));
+  if (r.il > 1) chips.push(`<span class="chip">파일 ${r.il}</span>`);
+  if (r.nf) chips.push(`<span class="chip">미열람 ${r.nf}</span>`);
+  r.dr.slice(0, 5).forEach(d => chips.push(`<span class="chip">${esc(d)}</span>`));
+  chips.push(`<span class="chip">${r.m}</span>`);
+
+  return `<article class="rec${sib ? " sib" : ""}${r.q ? "" : " noq"}">
+    ${r.q
+      ? `<blockquote>“${esc(r.q)}”</blockquote>`
+      : `<blockquote class="none">해봐야 아는 문장을 찾지 못함</blockquote>`}
+    <div class="cite">${esc(r.k)}${r.qf ? ` · <span class="${sib ? "from" : ""}">${esc(r.qf)}</span>` : ""}</div>
+    ${r.qr ? `<p class="why">${esc(r.qr)}</p>` : ""}
+    <p class="sum">${esc(r.su)}</p>
+    <div class="chips">${chips.join("")}</div>
+  </article>`;
+}
+
+function render() {
+  const hits = current();
+  const sort = document.getElementById("sort").value;
+  const by = {
+    sp: (a, b) => (b.sp ?? -1) - (a.sp ?? -1),
+    st: (a, b) => (b.st ?? -1) - (a.st ?? -1),
+    ql: (a, b) => (b.q || "").length - (a.q || "").length,
+    k:  (a, b) => a.k.localeCompare(b.k),
+  }[sort];
+  hits.sort(by);
+
+  const withQ = hits.filter(r => r.q).length;
+  document.getElementById("count").innerHTML =
+    `<b>${hits.length.toLocaleString()}</b>개 · 인용 ${withQ.toLocaleString()}`;
+  document.getElementById("list").innerHTML = hits.length
+    ? hits.slice(0, shown).map(card).join("")
+    : `<p class="empty">조건에 맞는 스킬이 없습니다.</p>`;
+  const more = document.getElementById("more");
+  more.hidden = hits.length <= shown;
+  more.textContent = `더 보기 — 남은 ${(hits.length - shown).toLocaleString()}개`;
+  drawFacets();
+}
+
+document.getElementById("q").oninput = () => { shown = PAGE; render(); };
+document.getElementById("sort").onchange = () => { shown = PAGE; render(); };
+document.getElementById("more").onclick = () => { shown += PAGE; render(); };
+document.getElementById("note").textContent =
+  "인용문은 기록 전에 원본 문서에서 위치가 확인된 것만 남았다. 확인되지 않은 문장과 파싱에 실패한 응답은 이 목록에 없다. " +
+  "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다.";
+
+drawFigures();
+render();
+</script>

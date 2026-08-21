@@ -29,14 +29,24 @@ SIBLING = re.compile(r'\]\((?!https?:|#)[\w./-]+\.md\)|\b(?:references?|assets|t
 # alone reports them as reaching for nothing.
 MCP_PROSE = re.compile(r'\bMCP\b')
 
-# Counted only at the head of a line inside a fence, so prose that merely names
-# a tool does not register as invoking it.
+# Counted only in command position inside a fence — the start of a line, or after
+# a pipe, a `&&`, a `;` or a `$(` — so prose that merely names a tool does not
+# register as invoking it. The earlier form allowed any preceding whitespace,
+# which is not command position and is where English lives: `go through` in a
+# fenced ASCII diagram scored `go`, `make FCM messaging work` scored `make`. Pass 1
+# found this, on three separate repositories, by noticing that a rubric-text
+# generator had no reason to shell out to the Go toolchain.
 BINS = ['gh', 'git', 'npx', 'npm', 'pnpm', 'yarn', 'uv', 'uvx', 'pip', 'python', 'python3',
         'node', 'deno', 'bun', 'docker', 'curl', 'wget', 'aws', 'gcloud', 'az', 'kubectl',
         'helm', 'terraform', 'ffmpeg', 'pandoc', 'jq', 'rg', 'sed', 'awk', 'make', 'cargo',
         'go', 'psql', 'mysql', 'redis-cli', 'pytest', 'jest', 'playwright', 'cypress',
         'eslint', 'ruff', 'mypy', 'claude', 'codex', 'gemini', 'ollama']
-BIN_RE = {b: re.compile(rf'(?:^|[\s|&;(]){re.escape(b)}\s+\S', re.M) for b in BINS}
+# Command position is the start of a line, a shell prompt or list marker at the
+# start of one, or the point just after a pipe, `&&`, `;` or `$(`. The prompt
+# markers are worth the extra alternation: 1% of a 1,200-record sample writes its
+# only invocation as `$ uv run ...`.
+CMD = r'(?:^[ \t]*(?:[$>%#]|\d+\.)?|[|&;(]|\$\()[ \t]*'
+BIN_RE = {b: re.compile(rf'{CMD}{re.escape(b)}[ \t]+\S', re.M) for b in BINS}
 
 
 def label(text):

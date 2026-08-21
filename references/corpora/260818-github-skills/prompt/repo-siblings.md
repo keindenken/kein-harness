@@ -14,9 +14,11 @@ Say also what holds it together, because that is not always a subject. Some coll
 **Audit the reading.** The per-file records were produced by a smaller model reading each directory alone, with no sight of its siblings. You can see what it could not. Flag a record when:
 
 - the summary and the quote describe different subjects;
-- the `reach` label contradicts the summary — a skill described as driving a hosted service reported as reaching for nothing, or the reverse;
-- the summary promises something specific and technical but the quote is null;
+- the `reach` label claims something the summary denies — `external` on a skill the summary describes as purely local reasoning. Note the asymmetry: `reach` is derived by pattern-matching and never asserts absence, so `no-signal` means no pattern fired, **not** that the skill reaches for nothing. A `no-signal` record whose summary describes calling out to a service is the normal state of that field and is not a finding;
+- the summary promises something specific and technical but the quote is null — say which sentence you would expect the re-read to find;
 - one file is described in terms nothing else in this collection uses.
+
+Do not flag a record for something already stated in the record itself. `quote_verified: false` is a field you were handed; repeating it back is not an audit. What you have that no other pass has is the siblings — a quote that appears verbatim under two different files, a structure every third file shares, a summary written in vocabulary nothing else here uses. Spend the flags there.
 
 Flag sparingly. A file that is simply thin is not a flagged record — it is filler, and it belongs in `filler`. Every flag costs a re-read, so raise one only where a re-read would plausibly change the record.
 
