@@ -168,6 +168,13 @@ blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
   font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 .chip.a { background: var(--accent-soft); color: var(--accent); }
+/* The repository's verdict is about the collection, not this skill, so it is
+   outlined rather than filled — neither the accent nor the ochre, both of which
+   are already spoken for. */
+.chip.v {
+  background: transparent; border: 1px solid var(--line); color: var(--ink);
+  white-space: normal; max-width: 42ch; padding: 1px 6px;
+}
 .more {
   margin-top: 22px; width: 100%; padding: 12px; cursor: pointer;
   font: inherit; font-size: 14px; color: var(--accent);
@@ -223,6 +230,11 @@ const FACETS = [
       ["external",  "외부 도구",   r => r.rc.includes("external")],
       ["internal",  "내부 스크립트", r => r.rc.includes("internal")],
       ["no-signal", "패턴 없음",   r => r.rc.includes("no-signal")] ] },
+  { id: "coll", label: "저장소 성격", opts: [
+      ["one-field",       "한 분야",     r => r.rl === "one-field"],
+      ["unified-by-form", "형식이 같음", r => r.rl === "unified-by-form"],
+      ["grab-bag",        "잡동사니",    r => r.rl === "grab-bag"],
+      ["none",            "미판정",      r => !r.rl] ] },
   { id: "spec", label: "구체성", opts: [
       ["q4", "상위 25%", r => r.sp != null && r.sp >= CUTS[2]],
       ["q3", "상위 50%", r => r.sp != null && r.sp >= CUTS[1]],
@@ -300,6 +312,11 @@ function card(r) {
   if (r.sp != null) chips.push(`<span class="chip">구체성 ${r.sp}</span>`);
   if (r.st != null) chips.push(`<span class="chip">★ ${r.st.toLocaleString()}</span>`);
   r.rc.forEach(x => chips.push(`<span class="chip${x === "external" ? " a" : ""}">${x}</span>`));
+  if (r.rl) {
+    const name = { "one-field": "한 분야", "unified-by-form": "형식이 같음", "grab-bag": "잡동사니" }[r.rl];
+    const tail = r.rf ? " · " + (r.rf.length > 52 ? r.rf.slice(0, 52).replace(/\s+\S*$/, "") + "…" : r.rf) : "";
+    chips.push(`<span class="chip v" title="${esc(r.rf || name)}">${name}${esc(tail)}</span>`);
+  }
   if (r.il > 1) chips.push(`<span class="chip">파일 ${r.il}</span>`);
   if (r.nf) chips.push(`<span class="chip">미열람 ${r.nf}</span>`);
   r.dr.slice(0, 5).forEach(d => chips.push(`<span class="chip">${esc(d)}</span>`));
@@ -344,7 +361,9 @@ document.getElementById("sort").onchange = () => { shown = PAGE; render(); };
 document.getElementById("more").onclick = () => { shown += PAGE; render(); };
 document.getElementById("note").textContent =
   "인용문은 기록 전에 원본 문서에서 위치가 확인된 것만 남았다. 확인되지 않은 문장과 파싱에 실패한 응답은 이 목록에 없다. " +
-  "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다.";
+  "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다. " +
+  "'무엇을 조작하나'는 코드 펜스 안 명령 위치에서 이름이 걸린 것만 센다 — 패턴이 없다는 것과 아무것도 호출하지 않는다는 것은 다르다. " +
+  "'저장소 성격'은 846개 저장소 중 50개에만 있고, 그 판정도 각 저장소에서 구체성 상위로 뽑힌 일부만 읽고 내린 것이다.";
 
 drawFigures();
 render();
