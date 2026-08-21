@@ -143,6 +143,11 @@ input[type="search"]::placeholder { color: var(--faint); }
   border-left: 3px solid transparent;
 }
 .rec.sib { border-left-color: var(--mark); }
+.unver { opacity: .72; }
+.unver span {
+  display: block; margin-top: 7px; font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 11.5px; font-style: normal; color: var(--faint); letter-spacing: 0;
+}
 .rec.noq { opacity: .78; }
 blockquote {
   margin: 0 0 10px;
@@ -188,7 +193,7 @@ blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
 <header>
   <div class="wrap">
     <h1>해봐야 아는 문장들</h1>
-    <p class="lede">공개 저장소의 에이전트 스킬 3,957개에서, <em>직접 해보지 않았으면 쓸 수 없었을 문장</em>을 한 줄씩 원문 그대로 들어낸 것. 모든 인용은 기록되기 전에 원본에서 위치가 확인되었다.</p>
+    <p class="lede">공개 저장소의 에이전트 스킬 3,957개에서, <em>직접 해보지 않았으면 쓸 수 없었을 문장</em>을 한 줄씩 원문 그대로 들어낸 것. 인용으로 세는 문장은 모두 기록되기 전에 원본에서 위치가 확인되었다.</p>
     <div class="figures" id="figures"></div>
   </div>
 </header>
@@ -219,13 +224,15 @@ const PAGE = 200;
 
 const FACETS = [
   { id: "quote", label: "인용", opts: [
-      ["yes", "찾음",   r => !!r.q],
-      ["no",  "없음",   r => !r.q] ] },
+      ["yes",  "검증됨",     r => hasQ(r)],
+      ["no",   "없음",       r => !r.q],
+      ["fail", "검증 실패",  r => !!r.q && !r.qv] ] },
   { id: "where", label: "출처", opts: [
-      ["skill", "SKILL.md",  r => r.qf === "SKILL.md"],
-      ["sib",   "형제 파일", r => !!r.qf && r.qf !== "SKILL.md"] ] },
+      ["skill", "SKILL.md",       r => r.qf === "SKILL.md"],
+      ["sib",   "형제 파일",      r => isSib(r)],
+      ["loose", "SKILL.md 없음",  r => !!r.qf && !r.hm] ] },
   { id: "kind", label: "문장 성격", opts: [
-      ["num", "수치·날짜 포함", r => r.n] ] },
+      ["num", "수치·날짜 포함", r => hasQ(r) && r.n] ] },
   { id: "reach", label: "무엇을 조작하나", opts: [
       ["external",  "외부 도구",   r => r.rc.includes("external")],
       ["internal",  "내부 스크립트", r => r.rc.includes("internal")],
@@ -246,6 +253,15 @@ const FACETS = [
       ["extract",        "extract",        r => r.p === "extract"],
       ["extract-nonum",  "extract-nonum",  r => r.p === "extract-nonum"] ] },
 ];
+
+// A quote counts as having moved down a level only where there was a level to
+// move from. 408 records are anchored on a root `AGENTS.md` or `CLAUDE.md` with
+// no `SKILL.md` beside them; treating those as sibling quotes put the figure at
+// 27% when it is 17%.
+const isSib = r => hasQ(r) && r.hm && r.qf !== "SKILL.md";
+
+// A sentence the checker could not locate in the source is shown but not counted.
+const hasQ = r => !!r.q && r.qv;
 
 const on = {};              // facet id -> Set of active option ids
 FACETS.forEach(f => on[f.id] = new Set());
@@ -275,14 +291,15 @@ function current() {
 }
 
 function drawFigures() {
-  const q = ROWS.filter(r => r.q).length;
-  const sib = ROWS.filter(r => r.qf && r.qf !== "SKILL.md").length;
-  const num = ROWS.filter(r => r.n).length;
+  const q = ROWS.filter(hasQ).length;
+  const withMd = ROWS.filter(r => hasQ(r) && r.hm).length;
+  const sib = ROWS.filter(isSib).length;
+  const num = ROWS.filter(r => hasQ(r) && r.n).length;
   const repos = new Set(ROWS.map(r => r.r)).size;
   const figs = [
     [ROWS.length.toLocaleString(), "읽은 스킬", false],
     [q.toLocaleString(), "검증된 인용", false],
-    [Math.round(100 * sib / q) + "%", "형제 파일에서 나옴", true],
+    [Math.round(100 * sib / withMd) + "%", "SKILL.md 아닌 형제에서", true],
     [num.toLocaleString(), "수치·날짜를 담음", false],
     [repos.toLocaleString(), "저장소", false],
   ];
@@ -307,7 +324,7 @@ function drawFacets() {
 }
 
 function card(r) {
-  const sib = r.qf && r.qf !== "SKILL.md";
+  const sib = isSib(r);
   const chips = [];
   if (r.sp != null) chips.push(`<span class="chip">구체성 ${r.sp}</span>`);
   if (r.st != null) chips.push(`<span class="chip">★ ${r.st.toLocaleString()}</span>`);
@@ -323,9 +340,11 @@ function card(r) {
   chips.push(`<span class="chip">${r.m}</span>`);
 
   return `<article class="rec${sib ? " sib" : ""}${r.q ? "" : " noq"}">
-    ${r.q
-      ? `<blockquote>“${esc(r.q)}”</blockquote>`
-      : `<blockquote class="none">해봐야 아는 문장을 찾지 못함</blockquote>`}
+    ${!r.q
+      ? `<blockquote class="none">해봐야 아는 문장을 찾지 못함</blockquote>`
+      : r.qv
+        ? `<blockquote>“${esc(r.q)}”</blockquote>`
+        : `<blockquote class="unver">“${esc(r.q)}”<span>원문에서 이 문장을 찾지 못함 — 인용으로 세지 않음</span></blockquote>`}
     <div class="cite">${esc(r.k)}${r.qf ? ` · <span class="${sib ? "from" : ""}">${esc(r.qf)}</span>` : ""}</div>
     ${r.qr ? `<p class="why">${esc(r.qr)}</p>` : ""}
     <p class="sum">${esc(r.su)}</p>
@@ -339,12 +358,12 @@ function render() {
   const by = {
     sp: (a, b) => (b.sp ?? -1) - (a.sp ?? -1),
     st: (a, b) => (b.st ?? -1) - (a.st ?? -1),
-    ql: (a, b) => (b.q || "").length - (a.q || "").length,
+    ql: (a, b) => (hasQ(b) ? b.q.length : -1) - (hasQ(a) ? a.q.length : -1),
     k:  (a, b) => a.k.localeCompare(b.k),
   }[sort];
   hits.sort(by);
 
-  const withQ = hits.filter(r => r.q).length;
+  const withQ = hits.filter(hasQ).length;
   document.getElementById("count").innerHTML =
     `<b>${hits.length.toLocaleString()}</b>개 · 인용 ${withQ.toLocaleString()}`;
   document.getElementById("list").innerHTML = hits.length
@@ -360,10 +379,11 @@ document.getElementById("q").oninput = () => { shown = PAGE; render(); };
 document.getElementById("sort").onchange = () => { shown = PAGE; render(); };
 document.getElementById("more").onclick = () => { shown += PAGE; render(); };
 document.getElementById("note").textContent =
-  "인용문은 기록 전에 원본 문서에서 위치가 확인된 것만 남았다. 확인되지 않은 문장과 파싱에 실패한 응답은 이 목록에 없다. " +
+  "'검증됨'으로 세는 인용문은 전부 원본 문서에서 위치가 확인된 것이다. 확인에 실패한 93개는 목록에는 남아 있으나 어떤 집계에도 들어가지 않으며, 대개 모델이 문장 중간부터 자기 말로 바꾼 경우다. " +
   "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다. " +
   "'무엇을 조작하나'는 코드 펜스 안 명령 위치에서 이름이 걸린 것만 센다 — 패턴이 없다는 것과 아무것도 호출하지 않는다는 것은 다르다. " +
-  "'저장소 성격'은 846개 저장소 중 50개에만 있고, 그 판정도 각 저장소에서 구체성 상위로 뽑힌 일부만 읽고 내린 것이다.";
+  "'저장소 성격'은 846개 저장소 중 50개에만 있고, 그 판정도 각 저장소에서 구체성 상위로 뽑힌 일부만 읽고 내린 것이다. " +
+  "'형제 파일'은 SKILL.md를 가진 스킬에서만 센다 — 루트 AGENTS.md로 앵커된 408개는 내려갈 층이 애당초 없다.";
 
 drawFigures();
 render();

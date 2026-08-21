@@ -57,6 +57,11 @@ def main():
             "r": r.get("repo", ""),
             "su": r.get("summary", ""),
             "q": q,
+            # A sentence the checker could not find in the source is kept and
+            # shown, but it is not a quote: the page's one guarantee is that a
+            # quote was located in the file it claims to come from. 93 of these
+            # read as the model drifting into paraphrase mid-sentence.
+            "qv": bool(r.get("quote_ok")),
             "qr": r.get("quote_reason"),
             "qf": r.get("quote_file"),
             "rc": (fixed.get(r["skill"], r).get("reach")) or [],
@@ -69,6 +74,11 @@ def main():
             "p": r.get("prompt") or "extract",
             "sp": spec.get((r.get("repo"), r.get("dir"))),
             "st": stars.get(r.get("repo")),
+            # Whether this skill has a `SKILL.md` at all. 408 records are anchored
+            # on a root `AGENTS.md` or `CLAUDE.md` and have none, so `quote_file
+            # != SKILL.md` marked them as a claim that had moved down a level
+            # when there was no level above it to move from.
+            "hm": "SKILL.md" in (r.get("inlined") or []),
             "nf": len(r.get("unread_prose") or []),
             "il": len(r.get("inlined") or []),
             "n": bool(q and NUM.search(q)),

@@ -84,6 +84,8 @@ The same author holds one of each. Two of eight pilot verdicts are arguable, bot
 
 The path on the tag is not decoration. `czlonkowski/n8n-skills/skills/n8n-agents` is 23 KB as a file and 122 KB as a directory, and in the first eight directories run this way, **all five quotes came from a reference file rather than from `SKILL.md`** — `AGENT_TOOL_BINARY.md`, `DATA_ACCESS.md`, `ERROR_PATTERNS.md`, `references/vector-f-subshell-expansion.md`, `resources/VULNERABILITY_PATTERNS.md`. 260811 concluded that prompts shrink because obligations move down a level, from a corpus containing only the level they move from. `quote_file` is where that finally becomes measurable, and eight directories is not yet a measurement.
 
+Over 3,227 verified quotes it is **17%** — and getting there took throwing out a wrong version of the same number. Counting every quote whose `quote_file` is not `SKILL.md` gives 27%, but 410 of those records have no `SKILL.md` at all: they are anchored on a root `AGENTS.md` or `CLAUDE.md`, which is the whole skill rather than a level above one. A claim cannot have moved down from a level that was never there. Among the 2,825 skills that do have a `SKILL.md`, 480 quotes came from a file beside it; among the 1,399 that have a `SKILL.md` *and* prose siblings, it is **34%**. The pilot's 5-of-5 was drawn from repositories chosen for having deep reference trees, and it overstated the rate by a factor of two.
+
 ## Pass 1 reads a collection, and it reads the top of one
 
 `repo_pass.py` gives one call every pass-2 record from one repository. Fifty repositories — the eight the pilot used, plus fourteen each from three coverage bands — cost $5.96 and five minutes at `sonnet`, and the two halves of the prompt did not do equally well.
