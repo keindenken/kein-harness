@@ -176,3 +176,25 @@ A second defect surfaced while measuring the first. `extract.py` keyed a skill a
 **What this pass sees is not the collection.** 745 of 846 repositories arrive partly read, and the missing files are not a random sample: dedupe accounts for 386 of 4,671 unread directories in the large repositories and the specificity cut for the other 4,285. So a `filler` list here names filler among a repository's strongest files. The prompt says so and the record carries `n_read`/`n_total`, but no wording repairs the sample — only reading more of it would.
 
 A byproduct worth keeping: the flags include eighteen records whose quote was null, chosen because their summaries promised something a quote should have carried. That is a better place to test whether pass 2's nulls are real than an equal number drawn at random.
+
+
+## The nulls are real, and the one-sentence cap is expensive
+
+`repo_pass.py` flags a record when its summary promises something specific and its quote is null — a testable prediction that a sentence is there and the first reader missed it. 91 of those went back through `extract.py` at `sonnet` on the unchanged prompt, blind to the earlier verdict, against two controls: 45 nulls the repository pass did *not* flag, and 45 records that already held a verified quote.
+
+| arm | n | verified quote on re-read |
+| :--- | ---: | ---: |
+| flagged null | 91 | 15% |
+| unflagged null | 44 | 14% |
+| already had a quote | 44 | 70% |
+
+**The flag carries no information.** A null the repository pass singled out yields no more than one drawn at random, so those 91 of 459 flags are noise, and the criterion that produced them should come out of the prompt. The 70% is what makes the other two readable: a second reader finds a quote in most files that hold one, so 14–15% is the residual rate at which a null hides something rather than evidence that `sonnet` reads harder. **Roughly one skill in seven that came back empty has a sentence in it; the other six do not.**
+
+The control meant to check agreement found something else. Of the 31 files where `sonnet` reproduced a verified quote, only 13 were the sentence the first reader took. The other **18 were a different verified sentence in the same file**, and they are different claims rather than the same claim cut at another boundary — similarity between the pairs runs 0.16 to 0.32:
+
+| | first reader | `sonnet` |
+| :--- | :--- | :--- |
+| `…/skills/ai/rag` | Fixed-size chunking splits a table in half and produces two useless chunks. | RETRIEVAL_FAILURE: 31 / 100 ← fix chunking and add a reranker |
+| `…/deploy-linux-gpu` | A plain `cmd &` over SSH dies when the session closes | Heavy-KV models cost ~130 KB/token at Q8_0 → ~8.5 GB at 64K per slot |
+
+So the 3,231 quotes are one draw, not the contents. A file that yields one qualifying sentence usually holds more, and the cap of one keeps whichever the reader happened to reach for. A second independent pass over the quote-bearing skills would be expected to add on the order of 1,300 distinct verified sentences, and over the nulls about 90 — and unlike asking for a list, which the fixture stage rejected for starting to paraphrase, it keeps one verbatim sentence per call as the unit.
