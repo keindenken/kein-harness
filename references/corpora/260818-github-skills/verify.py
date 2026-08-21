@@ -2,11 +2,26 @@ import json, re, sys
 from pathlib import Path
 LEAD = re.compile(r'^[ \t]*(?:#{1,6}|//|>|\*|-|\d+\.)?[ \t]*', re.M)
 EMPH = re.compile(r'[*_`]+')
+# `[text](url)` keeps only the text: a model reading rendered Markdown quotes what
+# it saw, and the source it is checked against still carries the URL.
+LINK = re.compile(r'\[([^\]]*)\]\([^)]*\)')
+# Typographic punctuation, mapped to the ASCII a source file is more likely to
+# hold. A Chinese legal skill and its quote differed only in curly versus
+# straight double quotes, and the pair scored 0.98 similar and 0 matches.
+PUNCT = str.maketrans({
+    '\u2018': "'", '\u2019': "'", '\u201a': "'", '\u201b': "'",
+    '\u201c': '"', '\u201d': '"', '\u201e': '"', '\u201f': '"',
+    '\u2032': "'", '\u2033': '"', '\u00b4': "'",   # not U+0060: EMPH strips backticks
+    '\u2013': '-', '\u2014': '-', '\u2015': '-', '\u2212': '-',
+    '\u2026': '...', '\u00a0': ' ', '\u200b': '', '\ufeff': '',
+})
 def norm(s):
-    """Strip per-line comment/list markers and inline emphasis, then collapse
-    whitespace. A quote lifted out of a wrapped `# ` comment or a `- **bold:**`
-    bullet still matches; an invented sentence still does not."""
-    return re.sub(r'\s+', ' ', EMPH.sub('', LEAD.sub(' ', s or ''))).strip()
+    """Strip per-line comment/list markers, inline emphasis and link syntax, fold
+    typographic punctuation to ASCII, then collapse whitespace. A quote lifted out
+    of a wrapped `# ` comment, a `- **bold:**` bullet or a Markdown link still
+    matches; an invented sentence still does not."""
+    s = LINK.sub(r'\1', (s or '').translate(PUNCT))
+    return re.sub(r'\s+', ' ', EMPH.sub('', LEAD.sub(' ', s))).strip()
 def check(quote, source):
     if not quote: return 'none'
     return 'verbatim' if norm(quote) in norm(source) else 'not-found'

@@ -34,10 +34,22 @@ def main():
         r = json.loads(line)
         fixed[r["skill"]] = r
 
-    # The repository pass has run on fifty of 846 repositories. Everything else
-    # gets no verdict rather than a default one — `미분류` is a real answer here.
+    # Four quotes the checker had rejected are real: `norm` did not fold curly
+    # quotes to straight ones, and did not reduce `[text](url)` to its text.
+    # 89 of the 93 rejections survive the fix, which is the answer to whether
+    # the check was too strict — it was not, it was slightly wrong.
+    requote = {}
+    rq = HERE / "runs" / "quote-recheck.jsonl"
+    for line in (rq.read_text().splitlines() if rq.exists() else []):
+        r = json.loads(line)
+        if r["quote_ok"]:
+            requote[r["skill"]] = r
+
+    # The repository pass runs in chunks, highest-value repositories first, and
+    # everything it has not reached gets no verdict rather than a default one —
+    # `미판정` is a real answer, and its count is the honest size of the gap.
     repo1 = {}
-    p1 = HERE / "runs" / "pass1-50-siblings.jsonl"
+    p1 = HERE / "runs" / "pass1.jsonl"
     for line in (p1.read_text().splitlines() if p1.exists() else []):
         r = json.loads(line)
         if r.get("ok"):
@@ -61,9 +73,9 @@ def main():
             # shown, but it is not a quote: the page's one guarantee is that a
             # quote was located in the file it claims to come from. 93 of these
             # read as the model drifting into paraphrase mid-sentence.
-            "qv": bool(r.get("quote_ok")),
+            "qv": bool(r.get("quote_ok") or r["skill"] in requote),
             "qr": r.get("quote_reason"),
-            "qf": r.get("quote_file"),
+            "qf": (requote.get(r["skill"]) or r).get("quote_file"),
             "rc": (fixed.get(r["skill"], r).get("reach")) or [],
             "cl": (fixed.get(r["skill"], r).get("cli")) or [],
             "rl": (repo1.get(r.get("repo")) or {}).get("coherence"),

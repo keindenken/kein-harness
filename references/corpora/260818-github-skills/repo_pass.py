@@ -28,6 +28,19 @@ FETCHED = defaultdict(int)
 for _m in MANIFEST:
     FETCHED[_m['repo']] += 1
 
+# Corrected dependency labels, where they exist. The first 150 repositories were
+# fed `reach` and `cli` as `extract.py` wrote them, and `labels.py` was
+# over-firing then: it matched a binary after any whitespace rather than in
+# command position, so `go through` inside a fenced diagram scored `go`. Pass 1
+# spent flags reporting that, which is how the bug was found — and would keep
+# spending them on a bug that is now fixed.
+FIXED = {}
+_lv2 = HERE / 'runs' / 'labels-v2.jsonl'
+if _lv2.exists():
+    for _line in _lv2.read_text().splitlines():
+        _r = json.loads(_line)
+        FIXED[_r['skill']] = _r
+
 
 def call(prompt, model):
     """Return (reply, stderr, usage) — the same envelope `extract.py` reads."""
@@ -90,6 +103,7 @@ def one(args):
     repo, recs, model, tpl, tag = args
     body = []
     for r in recs:
+        lab = FIXED.get(r['skill'], r)
         # `quote_file` is the field the pilot did not have. A claim quoted out of
         # `references/ERROR_PATTERNS.md` and one quoted out of `SKILL.md` are
         # different facts about how the collection is built, and only this pass
@@ -97,19 +111,20 @@ def one(args):
         body.append(json.dumps({
             'file': r['dir'] or r.get('loose_file') or '(repo root)',
             'summary': r.get('summary'),
-            'reach': r.get('reach'), 'mcp': r.get('mcp'), 'cli': r.get('cli'),
+            'reach': lab.get('reach'), 'mcp': lab.get('mcp'), 'cli': lab.get('cli'),
             'quote': r.get('quote'), 'quote_verified': r.get('quote_ok'),
             'quote_file': r.get('quote_file'),
             'prose_files': len(r.get('inlined') or []),
         }, ensure_ascii=False))
     n_read, n_total = len(recs), max(FETCHED.get(repo, 0), len(recs))
+    relabelled = sum(1 for r in recs if r['skill'] in FIXED)
     prompt = (tpl.replace('{{REPO}}', repo)
                  .replace('{{N_READ}}', str(n_read))
                  .replace('{{N_TOTAL}}', str(n_total))
                  .replace('{{RECORDS}}', '\n'.join(body)))
     out, err, usage = call(prompt, model)
     prov = {'repo': repo, 'n_read': n_read, 'n_total': n_total,
-            'model': model, 'prompt': tag, **usage}
+            'relabelled': relabelled, 'model': model, 'prompt': tag, **usage}
     rec = parse(out)
     if rec is None:
         return {**prov, 'ok': False, 'error': (out or err)[-400:]}
