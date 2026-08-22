@@ -181,6 +181,21 @@ blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
   white-space: normal; max-width: 42ch; padding: 1px 6px;
 }
 .chip.v i { font-style: normal; color: var(--faint); }
+.tg { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); cursor: pointer; }
+.tg input { accent-color: var(--accent); }
+/* The Korean sits under the English, never in place of it: the located quote is
+   the guarantee, and a translation cannot carry it. */
+.ko {
+  margin: -4px 0 10px; padding-left: 11px; border-left: 2px solid var(--accent-soft);
+  font-family: "IBM Plex Sans KR", sans-serif; font-size: 15px; line-height: 1.62;
+  color: var(--ink); max-width: 66ch; overflow-wrap: anywhere;
+}
+.ko.bad { border-left-color: var(--mark); }
+.ko.bad::after {
+  content: "번역이 원문의 토큰을 바꿨거나 옮기지 않았다 — 위의 원문이 검증된 것이다";
+  display: block; margin-top: 5px; font-size: 11px; color: var(--faint);
+}
+.tw { font-size: 11.5px; color: var(--faint); margin: 0 0 8px; font-family: "IBM Plex Sans KR", sans-serif; }
 .more {
   margin-top: 22px; width: 100%; padding: 12px; cursor: pointer;
   font: inherit; font-size: 14px; color: var(--accent);
@@ -210,6 +225,7 @@ blockquote.none { font-style: italic; color: var(--faint); font-size: 15px; }
         <option value="ql">인용문 긴 순</option>
         <option value="k">이름 순</option>
       </select>
+      <label class="tg"><input type="checkbox" id="ko" checked><span>한국어</span></label>
       <span class="count" id="count"></span>
     </div>
     <div class="list" id="list"></div>
@@ -243,6 +259,10 @@ const FACETS = [
       ["unified-by-form", "형식이 같음", r => r.rl === "unified-by-form"],
       ["grab-bag",        "모음",        r => r.rl === "grab-bag"],
       ["none",            "미판정",      r => !r.rl] ] },
+  { id: "reachOf", label: "지식의 사거리", opts: [
+      ["transferable",  "도구를 넘어감", r => r.tr === "transferable"],
+      ["tool-general",  "도구는 범용",   r => r.tr === "tool-general"],
+      ["bound",         "도구에 묶임",   r => r.tr === "bound"] ] },
   { id: "spec", label: "구체성", opts: [
       ["q4", "상위 25%", r => r.sp != null && r.sp >= CUTS[2]],
       ["q3", "상위 50%", r => r.sp != null && r.sp >= CUTS[1]],
@@ -282,7 +302,8 @@ function passes(r, skip) {
 
 function query(r, q) {
   if (!q) return true;
-  const hay = (r.q || "") + " " + r.su + " " + r.k + " " + r.dr.join(" ");
+  const hay = (r.q || "") + " " + r.su + " " + r.k + " " + r.dr.join(" ")
+            + " " + (r.kq || "") + " " + (r.ks || "");
   return hay.toLowerCase().includes(q);
 }
 
@@ -330,6 +351,9 @@ function card(r) {
   if (r.sp != null) chips.push(`<span class="chip">구체성 ${r.sp}</span>`);
   if (r.st != null) chips.push(`<span class="chip">★ ${r.st.toLocaleString()}</span>`);
   r.rc.forEach(x => chips.push(`<span class="chip${x === "external" ? " a" : ""}">${x}</span>`));
+  const ko = document.getElementById("ko").checked;
+  const TR = { bound: "도구에 묶임", "tool-general": "도구는 범용", transferable: "도구를 넘어감" };
+  if (r.tr) chips.push(`<span class="chip${r.tr === "transferable" ? " a" : ""}">${TR[r.tr]}</span>`);
   if (r.rl) {
     const name = { "one-field": "한 분야", "unified-by-form": "형식이 같음", "grab-bag": "모음" }[r.rl];
     const tail = r.rf ? " · " + (r.rf.length > 52 ? r.rf.slice(0, 52).replace(/\s+\S*$/, "") + "…" : r.rf) : "";
@@ -347,9 +371,11 @@ function card(r) {
       : r.qv
         ? `<blockquote>“${esc(r.q)}”</blockquote>`
         : `<blockquote class="unver">“${esc(r.q)}”<span>원문에서 이 문장을 찾지 못함 — 인용으로 세지 않음</span></blockquote>`}
+    ${ko && r.kq ? `<div class="ko${r.kbad ? " bad" : ""}">${esc(r.kq)}</div>` : ""}
     <div class="cite">${esc(r.k)}${r.qf ? ` · <span class="${sib ? "from" : ""}">${esc(r.qf)}</span>` : ""}</div>
-    ${r.qr ? `<p class="why">${esc(r.qr)}</p>` : ""}
-    <p class="sum">${esc(r.su)}</p>
+    ${r.tw ? `<p class="tw">사거리 판정 — ${esc(r.tw)}</p>` : ""}
+    ${(ko && r.kr) || r.qr ? `<p class="why">${esc(ko && r.kr ? r.kr : r.qr)}</p>` : ""}
+    <p class="sum">${esc(ko && r.ks ? r.ks : r.su)}</p>
     <div class="chips">${chips.join("")}</div>
   </article>`;
 }
@@ -377,6 +403,7 @@ function render() {
   drawFacets();
 }
 
+document.getElementById("ko").onchange = () => render();
 document.getElementById("q").oninput = () => { shown = PAGE; render(); };
 document.getElementById("sort").onchange = () => { shown = PAGE; render(); };
 document.getElementById("more").onclick = () => { shown += PAGE; render(); };
@@ -385,6 +412,8 @@ document.getElementById("note").textContent =
   "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다. " +
   "'무엇을 조작하나'는 코드 펜스 안 명령 위치에서 이름이 걸린 것만 센다 — 패턴이 없다는 것과 아무것도 호출하지 않는다는 것은 다르다. " +
   "'저장소 성격'은 846개 저장소 중 450개에만 있고, 칩 끝의 백분율은 그 판정이 저장소의 몇 퍼센트를 읽고 나온 것인지다. " +
+  "'지식의 사거리'는 인용문이 있는 3,319개에만 매겼다 — 인용문이 없으면 판정할 주장이 없다. 이 판정은 대조할 원본이 없는 유일한 항목이라, 반례를 찾으면 그게 유일한 검증이다. " +
+  "한국어는 원문 위에 얹은 것이고 원문을 대체하지 않는다. 검증된 것은 언제나 위의 영어다. 번역이 토큰을 바꾸거나 옮기지 않은 22건은 표시해두었다. " +
   "'모음'은 주제도 형식도 아닌 소유자가 묶어주는 경우다 — 한 사람의 작업 세트, 한 프로젝트의 기여자용 도구. " +
   "그 백분율이 판정을 단조롭게 움직인다 — 20% 미만에서 '모음'이 37%인데 75% 이상에서는 3%다. 라벨의 상당 부분은 구조가 아니라 읽은 양이다. " +
   "스킬 하나만 읽힌 저장소 58개는 판정에서 제외했다. 형제가 없으면 형제가 무엇을 공유하는지 물을 수 없고, 실제로 그 58개는 전부 '한 분야'로 돌아왔다. " +

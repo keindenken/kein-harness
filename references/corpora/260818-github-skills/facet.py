@@ -31,7 +31,10 @@ TPL = (HERE / "prompt" / "facet.md").read_text()
 # author's own marking of "this is a token, not prose"; the rest catches what a
 # writer left bare.
 TICK = re.compile(r"`[^`\n]+`")
-FLAG = re.compile(r"(?<![\w-])--?[A-Za-z][\w-]{1,}")
+# A flag starts a word. `(?<![\w-])` still let `-based` through in
+# ``RANGE``-based, because a backtick is neither; the hyphen has to follow
+# whitespace or an opening bracket to be one.
+FLAG = re.compile(r"(?:^|(?<=[\s(\[]))--?[A-Za-z][\w-]{1,}")
 # A path needs a dot-extension or a `./` on the front. Anything looser matches
 # prose: `access/deletion`, `web/CLI/TUI`, `verified/unsupported/needs-human` are
 # all slash-separated word lists, and every one of them made a correct Korean
@@ -52,6 +55,26 @@ def fields(s):
         out |= {m.group(0).strip("`") for m in rx.finditer(s)}
     out |= {m.group(0).replace(" ", "") for m in NUM.finditer(s) if any(c.isdigit() for c in m.group(0))}
     return {t for t in out if len(t) > 1}
+
+
+HANGUL = re.compile(r"[\uac00-\ud7af]")
+CODEY = re.compile(r"`[^`]*`|https?://\S+|[\w.]+\([^)]*\)|[{}<>;=|]|--?[A-Za-z][\w-]+")
+
+
+def untranslated(src, ko):
+    """True where prose came back in the language it went in as.
+
+    Not every quote should become Korean: some are a line of code and nothing
+    else, and `app.use(cors({ origin: "*" }))` is already in the only language it
+    has. So the test is whether *prose* survives once code, URLs, calls and flags
+    are stripped — four words of it, and no Hangul in the reply, means the model
+    echoed rather than translated. 68 of 3,319 did, and 62 of those were English.
+    """
+    if not src or not ko:
+        return False
+    prose = CODEY.sub(" ", src)
+    words = [w for w in re.findall(r"[A-Za-z\u3040-\u9fff]{2,}", prose)]
+    return len(words) >= 4 and not HANGUL.search(ko)
 
 
 def check(src, ko):
@@ -154,6 +177,7 @@ def one(args):
             # translation, and the English it sits beside is untouched either way.
             "lost_quote": check(r.get("quote"), a.get("ko_quote")),
             "lost_summary": check(r.get("summary"), a.get("ko_summary")),
+            "untranslated": untranslated(r.get("quote"), a.get("ko_quote")),
             "batch_cost": (usage.get("cost_usd") or 0) / len(batch),
         })
     return recs

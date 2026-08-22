@@ -18,6 +18,7 @@ Set `needs_source` when the record genuinely does not let you decide and reading
 
 - **Never translate what a machine reads.** Code, commands, flags, file paths, identifiers, error strings, product names, numbers and units stay exactly as written. `--no-verify` stays `--no-verify`; `Total_records` stays `Total_records`; `~130 KB/token` stays `~130 KB/token`.
 - **Never repair the source.** If a sentence is fragmentary, a code comment, or ungrammatical, its Korean is fragmentary too. You are not improving it.
+- **Translate whatever is prose, whatever language it starts in.** A quote already in Chinese or Japanese still becomes Korean. Echoing the input back is not a translation. The only line that comes through unchanged is one that is *entirely* code — `app.use(cors({ origin: "*" }))` is already in the only language it has — and a code line with a comment on it is not that: the comment is prose.
 
 Write plain 해라체 — 평서문, no 존댓말, no honorifics.
 
@@ -25,7 +26,7 @@ Answer with a JSON array and nothing else: no preamble, no code fence. One objec
 
 [{"id": "<the id given>",
   "transfer": "bound" | "tool-general" | "transferable", or null where quote is null,
-  "transfer_why": "one short clause naming what it is or is not tied to, or null",
+  "transfer_why": "one short clause **in Korean** naming what it is or is not tied to, or null",
   "needs_source": true | false,
   "ko_quote": "<Korean, or null where quote is null>",
   "ko_reason": "<Korean, or null where quote_reason is null>",

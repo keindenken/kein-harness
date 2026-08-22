@@ -67,6 +67,19 @@ def main():
     for s in json.loads((HERE / "shortlist.json").read_text()):
         spec[(s["repo"], s["dir"])] = s["specificity"]
 
+    # Pass 3: how far the claim travels, and the Korean. Later files win, so the
+    # re-translation of the 61 quotes that came back in their own language
+    # overrides the echo. `untranslated` and `lost_quote` ride along: a
+    # translation that altered a token or never happened is still shown, because
+    # the English beside it is what was verified, but it is not shown silently.
+    facet = {}
+    for name in ("facet.jsonl", "facet-ko-fix.jsonl"):
+        f = HERE / "runs" / name
+        for line in (f.read_text().splitlines() if f.exists() else []):
+            fr = json.loads(line)
+            if fr.get("ok"):
+                facet[fr["skill"]] = fr
+
     out = []
     for r in rows:
         q = r.get("quote")
@@ -105,6 +118,16 @@ def main():
             "nf": len(r.get("unread_prose") or []),
             "il": len(r.get("inlined") or []),
             "n": bool(q and NUM.search(q)),
+            **(lambda f: {
+                "tr": f.get("transfer"),
+                "tw": f.get("transfer_why"),
+                "kq": f.get("ko_quote"),
+                "kr": f.get("ko_reason"),
+                "ks": f.get("ko_summary"),
+                # 6 quotes came back in their own language and 6 lost a token
+                # in translation; both are marked rather than hidden or dropped.
+                "kbad": bool(f.get("untranslated")) or bool(f.get("lost_quote")),
+            })(facet.get(r["skill"], {})),
         })
 
     scored = [x["sp"] for x in out if x["sp"] is not None]
@@ -116,6 +139,9 @@ def main():
     if "__DATA__" not in tpl:
         raise SystemExit("viewer-template.html has no __DATA__ placeholder")
     (HERE / "viewer.html").write_text(tpl.replace("__DATA__", blob))
+    print(f"  facet: {sum(1 for x in out if x.get('tr'))} rated, "
+          f"{sum(1 for x in out if x.get('ks'))} translated, "
+          f"{sum(1 for x in out if x.get('kbad'))} flagged")
     q = sum(1 for x in out if x["q"])
     print(f"  relabelled: {sum(1 for x in out if x['k'] in fixed)}, "
           f"repo verdict on {sum(1 for x in out if x['rl'])} rows "
