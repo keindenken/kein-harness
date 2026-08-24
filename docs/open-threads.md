@@ -94,6 +94,52 @@ Reviving it is small: call `sessions_outside(config_home, [<the arm worktrees>])
 
 Retiring config homes at the end of a run does not block this — the slugs move to `transcripts/` intact, which is why the move preserves them rather than flattening — but it does mean a revival has to read them before the retirement or from their new home.
 
+## `ralplan` costs far more to enter than the incumbent, and most of it is not the process
+
+Two kickoff traces on the same phase-46 task, scraped 2026-08-24 and kept at `docs/260824-omc-plan-kickoff.md` and `docs/260824-kein-plan-kickoff.md`. To the planner dispatch: the incumbent took about four steps, this harness about twelve, seven of them Bash.
+
+Where the difference is not:
+
+The incumbent's MCP server exposes 67 tools — state, notepad, project memory, shared memory, wiki, LSP bridges, a Python REPL, trace readers. It is a persistence surface, it was called once in that trace, and it is not what made the entry cheap.
+
+Its hooks are: 22 across 11 events, of which `SessionStart` runs three that inject up to 6000 characters of prioritized context — project memory, notepad priority, pending tasks, restored modes — before the user types anything. That is the onboarding, and it never appears on the trace's clock. Conceding this one is acceptable: it is a different architecture, not a defect here. What is not acceptable is leaving anything optimizable unoptimized on this side, which is the rest of this entry.
+
+Even that overstates it. `descvi/repo` sets `OMC_SKIP_HOOKS` covering `skill-injector` and `keyword-detector`, so the incumbent ran that trace with its injectors off and still entered in four steps.
+
+Where the difference actually is:
+
+Its `2plan` is one file, 62 lines, no references. `ralplan` is 73 lines plus four references plus `plan`'s own SKILL.md and template — roughly 330 lines across six files, read one `cd … && cat` at a time.
+
+And `## Required Files` says "Read these when their stage begins", which did not happen: all three were read at kickoff, `review-contract.md` included, whose stage is many rounds away. So the staging instruction is either unrealistic — a lead cannot set up a run without the state schema and the gate — or unenforceable. If it is the first, the honest fix is to say which two are needed at entry and stop splitting the rest for a laziness nobody practises.
+
+Two specific things, one of which is a defect and one of which is not:
+
+`ls -R` over the skill directory is not one. It is cheap orientation and reading it as waste would be a rule about tidiness rather than about cost.
+
+Reaching `plan`'s contract by `cat`-ing `plan/SKILL.md` is one. `ralplan/SKILL.md:14` says "the only skill it runs is `plan`" and its Required Files line says the artifact's contract "arrives with the `plan` invocation" — the lead did the opposite of both. Neither line is wrong; both are too quiet to beat a directory listing that is already open. The wording needs strengthening to a refusal, not a description.
+
+Worth noting about the measurement itself: "steps to planner" structurally favours whoever pays at session start. The incumbent pays it in every session whether a plan follows or not, and measuring from skill invocation makes that cost invisible by construction. Six files against one is real; four steps against twelve is inflated.
+
+## A planning run authored its own requirements when the contract asked for a summary
+
+`ralplan/SKILL.md:35` says to "preserve the original requirements by path and hash when possible; otherwise store a prompt-safe summary and its hash", and `state.py`'s `start --input` takes a requirements path. The fallback is a *summary*.
+
+The phase-46 kickoff wrote a 132-line `requirements.md` into the run directory instead, growing past 250 lines, assembled from documents that already exist in the repository and are cited by path inside it. That is not what either half of the contract asks for: the sources have paths, so the first half applied, and what was produced is not a summary in any case.
+
+Not obviously harmless. The lead is the one agent in the loop with no independent review, so a requirements document it authors alone becomes the governing text for every lane downstream without anything having checked it against the sources it paraphrases.
+
+Unresolved whether the contract is at fault. "Preserve by path and hash" assumes one requirements file exists; a phase assembled from a tracker, a spec section, a known-issues file and three owner rulings has no single path to preserve, and the summary fallback may simply be too small a hole for the case that actually occurs. If so the fix is a third option that is honest about what it is, with a bound on it — not a lead-authored document that presents as requirements.
+
+## A 20-minute planner round was spent on punctuation, because only the lead can run the validator
+
+`validate-plan` rejected four Evidence Gates on the phase-46 plan. The content was right; the labels read `- Pass path (조건): …` where `_evidence_gate_errors` requires `^- Pass path:\s*\S`. `plan-template.md` does say "use this exact optional shape", so the validator is not wrong to be strict — a label that drifts is how a gate silently stops being machine-checkable.
+
+The cost is the problem. The planner ran 20m15s, returned, was validated by the lead, and was resumed for a formatting pass it could have caught itself in a second. `validate-plan` is documented in exactly one place — `state-schema.md`, which is a lead-facing reference — and `prompts/planner.md` never mentions it. The agent that writes the artifact has no way to check the artifact's shape.
+
+Nothing here needs a new mechanism. The validator exists, it is a single command, and the planner is already given the canonical plan path. What is missing is the instruction to run it before returning, which is a change to a canonical prompt and therefore not a quiet one.
+
+Worth measuring first: whether the label drift is a one-off or the common failure. If gates are the usual reason a first draft bounces, this is the cheapest round in the whole loop to delete.
+
 ## A pinned `--plugin-dir` loses `ocs` when the launching shell already has one
 
 `--plugin-dir <path>` pins everything it should. Measured 2026-08-20 against the descvi fixture, where `enabledPlugins` has `kein@skills-dir: false`: without the flag no kein skill is invocable at all, with it the skills load, and from a clean `PATH` `ocs` resolves inside the pinned directory.
