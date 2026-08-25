@@ -241,3 +241,14 @@ The 17 that survived are what the corpus knows more than once:
 | minimum sample size | naive N runs low by orders of magnitude, and below threshold the right move is to withhold the statistic rather than report it |
 
 **No cluster contained a contradiction.** Zero across all 17, which is worth stating rather than passing over: it may be that three to seven claims are too few to disagree, or that the prompt saying `null` is the ordinary case discouraged looking. It is not evidence that these questions are settled.
+
+
+## The index, over all of it
+
+Naming ran over every verified quote rather than only the transferable ones — a `bound` claim's subject is what someone searches for when they are working on that product, which is the use a guidebook has. 3,253 quotes carry a subject at $15.54, and the shape does not change with the extra 2,372: **3,191 distinct subjects, 98% of them used once.**
+
+Clustered over the whole set the map does improve: 580 clusters of two or more cover 1,539 claims, **47%** against 32% on the transferable subset alone, and the largest holds 19. What fills in are the shared-infrastructure subjects the transferable band was too narrow to gather — API rate limiting (19), Claude Code's own behaviour (16), file size limits across tools (11).
+
+The subject is the field the viewer's search reads, and it is the only judgement here whose reproducibility was measured. The range rating has no original to check against; the repository verdict tracks how much of a repository was read; the subject was re-derived from scratch with the claims regrouped and agreed 81% against a 0.3% floor. Search over words a quote happened to use finds what it says; search over subjects finds what it is about, and those are different questions.
+
+`stablyai/orca` is in the corpus, with the claim that `orca` outside its own terminals resolves to the GNOME screen reader and starts speech. It is the same sentence this harness carries in its own loaded skill. The corpus contains the tools reading it.

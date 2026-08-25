@@ -80,6 +80,27 @@ def main():
             if fr.get("ok"):
                 facet[fr["skill"]] = fr
 
+    # What each claim is about, named without a category list to choose from and
+    # checked by re-running the naming with the claims regrouped: 81% agree,
+    # against 0.3% for randomly paired claims. It is the only judgement here whose
+    # reproducibility was measured, which is why it carries the search.
+    about = {}
+    tf = HERE / "runs" / "topic.jsonl"
+    for line in (tf.read_text().splitlines() if tf.exists() else []):
+        a = json.loads(line)
+        if a.get("ok") and a.get("seed", 0) == 0:
+            about[a["skill"]] = a["about"]
+
+    # The clusters that survived being read — 6 of 23 came back "not a subject",
+    # grouped on a shared word and nothing else, and those are not shown.
+    cl = {}
+    cf = HERE / "runs" / "cluster-read.jsonl"
+    for line in (cf.read_text().splitlines() if cf.exists() else []):
+        c = json.loads(line)
+        if c.get("ok") and c.get("coherent"):
+            for s in c["skills"]:
+                cl[s] = c["subject"]
+
     out = []
     for r in rows:
         q = r.get("quote")
@@ -118,6 +139,8 @@ def main():
             "nf": len(r.get("unread_prose") or []),
             "il": len(r.get("inlined") or []),
             "n": bool(q and NUM.search(q)),
+            "ab": about.get(r["skill"]),
+            "cs": cl.get(r["skill"]),
             **(lambda f: {
                 "tr": f.get("transfer"),
                 "tw": f.get("transfer_why"),
@@ -139,6 +162,9 @@ def main():
     if "__DATA__" not in tpl:
         raise SystemExit("viewer-template.html has no __DATA__ placeholder")
     (HERE / "viewer.html").write_text(tpl.replace("__DATA__", blob))
+    print(f"  about: {sum(1 for x in out if x.get('ab'))} named, "
+          f"{len(set(x['ab'] for x in out if x.get('ab')))} distinct, "
+          f"{sum(1 for x in out if x.get('cs'))} in a read cluster")
     print(f"  facet: {sum(1 for x in out if x.get('tr'))} rated, "
           f"{sum(1 for x in out if x.get('ks'))} translated, "
           f"{sum(1 for x in out if x.get('kbad'))} flagged")
