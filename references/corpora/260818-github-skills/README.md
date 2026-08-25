@@ -214,3 +214,30 @@ Two things had to be corrected before scaling:
 
 - **A summary reads as transferable no matter what.** Asked to rate records with no quote, the pilot called 62% of them `transferable` against 43% of quoted records in the same `reach` band. Abstraction has no tool in it. `transfer` is now null where the quote is null — there is no checked claim to rate — while translation still covers every record.
 - **A batch dies whole.** One record trips a cyber safeguard and its twenty-nine neighbours go with it; `facet.py` counted every written line as done on resume, which would have buried them as already-read. Only successful records count now. 2.7% of the corpus carries security vocabulary, spread across 64 of 132 batches, but one batch in eleven actually failed — most of that vocabulary is defensive. Those records get re-run in batches of five, and any that still trip it stay unprocessed and are marked as such rather than filed with the 637 that simply hold no quote.
+
+
+## Reading the corpus: a few repeated problems and a very long tail
+
+The corpus is an index, not a replacement — anyone writing a skill will open the original — so the question is which originals, and about what. Three stages, about seventy calls, over the 882 claims rated `transferable`.
+
+**`topic.py` names what each claim is about, with no list to choose from.** 260811 handed a model seven `DOMAINS` regexes and assigned by first alphabetical match; `meta` fired on 66% of files and every bucket after `code` held leftovers. A category list is a hypothesis, and offering one gets it confirmed rather than tested. Asked instead to name the thing the author was dealing with — `retrieval chunking`, `judge panel convergence`, `crt.sh subdomain discovery gaps` — 881 claims produce **867 distinct subjects, 853 of them used once.**
+
+That is the shape of the thing, and it matches every other distribution here: 1,648 identifiers named in quotes with 81% appearing once, 1,713 words across the subjects with 63% appearing once. This corpus is not a few topics. It is a handful of problems people keep hitting and an enormous tail of things one person hit once.
+
+**The subjects were checked before they were used.** Re-running the naming with the claims regrouped into different batches — so no claim sees the same neighbours — 881 claims land on subjects that agree at **81%** by shared-word similarity, against **0.3%** for the same claims randomly paired. Median similarity 0.65 against 0.00. 18% are byte-identical. Most of what does not match is one subject said twice: `mock vs real API divergence` against `mocked tests masking integration failures`, `vacuous tests over empty loops` against `empty-array loop test assertions`. The subjects are in the corpus, not in the call.
+
+**`cluster.py` groups them without a model,** because a model given 881 subjects would invent a taxonomy for them. Words are weighted by rarity — the commonest, `file`, appears in 31 subjects that share nothing else — and linkage is average rather than single. Single linkage is what a union-find gives and it chains: `concurrent plan file writes` to `file read context size` to `subagent dispatch context size`, and a cluster of fourteen forms that is about nothing. Average linkage leaves 121 clusters of two or more covering **281 claims, 32%**, the largest holding seven.
+
+**`cluster_read.py` reads each cluster's claims and is allowed to reject it.** Lexical grouping puts five claims together because every subject ended in "false positives" — A/B testing, HLA typing, cloud storage exposure, subdomain takeover — and calling that a subject buries five real claims under a heading that fits none. Of 23 clusters with three or more claims, **6 came back "not a subject"**, each naming the word it had been grouped on. That is the same permission the repository pass has to say a collection has no thread, and it caught 26%.
+
+The 17 that survived are what the corpus knows more than once:
+
+| | what more than one source independently establishes |
+| :--- | :--- |
+| context window overflow | failures are silent — a legal memo drops 60% of a contract with no error, and degradation starts well before the limit |
+| LLM-as-judge reliability | verdict-before-reasoning ordering and minor wording both move scores materially; a single run is unsafe, and a panel that loses one judge stops converging |
+| automated a11y gates | passing axe does not mean the UI works; scanners catch 30–40% and miss focus order, alt-text quality, and visible render defects |
+| premature completion | prose, a passing test, an opened PR are not evidence of done; agents default to declaring finished unless checked against a durable artifact |
+| minimum sample size | naive N runs low by orders of magnitude, and below threshold the right move is to withhold the statistic rather than report it |
+
+**No cluster contained a contradiction.** Zero across all 17, which is worth stating rather than passing over: it may be that three to seven claims are too few to disagree, or that the prompt saying `null` is the ordinary case discouraged looking. It is not evidence that these questions are settled.
