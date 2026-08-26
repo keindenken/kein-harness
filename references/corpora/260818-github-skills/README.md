@@ -333,3 +333,11 @@ Two corrections to what this file said an hour ago.
 The control never moved. Every recovered finding is located on both sides.
 
 All three clauses were written for the same reason: a model asked to find something will find it, and this corpus is built on the claim that its outputs can be checked. That concern was right, and the machinery for it works — locating each quote in its source is what caught the one fabrication in 450 repository calls. **But a verification device and a discouraging sentence are different things, and I shipped them together.** The device catches invention. The sentence catches findings.
+
+### The key, migrated
+
+`migrate_keys.py` renames the run files onto the key `extract.py` now writes. 167 records had an empty `dir` in a repository holding both `AGENTS.md` and `CLAUDE.md`, and which file each one read is recoverable from its own `inlined` list.
+
+The first attempt was wrong in the way the bug itself is wrong. Mapping old key to new key gives *one* new name per old name, and seven of these repositories were read twice in a single run — both loose files, both written under the one key — so `abhigyanpatwari/GitNexus` had its `AGENTS.md` record and its `CLAUDE.md` record both renamed to `::CLAUDE.md`. A rename that collapses two files into one name is the collision it was written to end. `pass2.jsonl` is renamed line by line now; every other file joins on the old key and takes the name of the line the dedup kept, which is the record each of them was built from.
+
+The viewer gains seven rows — 3,957 to 3,964, and 3,403 verified quotes to 3,409. Those seven were two files being drawn as one the whole time.
