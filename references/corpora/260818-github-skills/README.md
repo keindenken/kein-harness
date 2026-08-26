@@ -287,3 +287,26 @@ What the nine say, on this harness:
 - `prompts/executor.md` names which checks to run before reporting completion. A claim: *"Do not infer success from assistant prose … complete only when the corresponding tool result and files exist."* Running a check is not confirming it passed — which is exactly how `check()` in `facet.py` verified that tokens survived translation and never that translation happened.
 - `prompts/critic.md` says *"Verify material claims against the best available source"*. A claim makes that concrete: *"MUST run real `apm --help`, `grep`, and `python -c` commands to verify doc claims, never assert from prose."*
 - `prompts/code-simplifier.md` restores the simpler boundary and reports on any missing evidence. A claim: *"report reduced confidence and block only when missing evidence prevents a safe decision."* Two files here treat every evidence gap as a stop; the claim says the gap has to be the kind that makes the decision unsafe.
+
+## The same sentence, a third time, on the number this corpus is built from
+
+`extract-nonum.md` — the prompt behind 3,165 of these records — ends its copying rule with *"and null is the right answer for most files."* That is the same shape of sentence that took the harness audit from 12% to 2% and the cluster pass from 3 contradictions to 0.
+
+The null probe already had the control needed to test it. 136 records that came back null went through `sonnet` once before, on this prompt, and yielded 15%. Re-run with the 45 characters removed and nothing else changed:
+
+| | flagged null (91) | unflagged null (44) | all (135) |
+| :--- | ---: | ---: | ---: |
+| as written | 15% | 14% | 15% |
+| 45 characters removed | **38%** | **27%** | **35%** |
+
+Every recovered quote is located in its source; the check does not weaken.
+
+Two things follow, and the second undoes an earlier conclusion.
+
+**The fixture cannot tell the two prompts apart.** Both score 8/8 on the positives and 1/8 on the negatives — identical. The negative half was built to catch a prompt that says yes to everything, and it cannot resolve a difference that doubles yield on real files. Eight files is not an instrument at this margin, and the positive half was already known to be the weak part.
+
+**Specificity says the recovered quotes are not scrapings.** The 36 files where only the neutral prompt found something have a median specificity of 42, against 33 for the files both prompts found something in and 32 for the files neither did; 21 of the 36 sit in the top half of the distribution against 22 of 79 for the never-found group. Specificity is the one surface proxy that survived this round — its quartiles yield 24%, 40%, 64% and 74% — and it points at these files as ones that should have yielded. Reading twelve by hand, perhaps half are genuine and the rest are a table row or a generic rule, so the suppressive clause was doing some real work as a threshold. It was also killing quotes in files that had them.
+
+**And the null flag may carry information after all.** Under the suppressed prompt, flagged nulls yielded 15% against 14% for random ones, and this README concluded the repository pass's flag predicted nothing. Neutral, the same two arms give 38% and 27%. The earlier conclusion was drawn from a measurement that was itself suppressed.
+
+So the corpus's headline — 637 skills, 16%, hold no sentence anyone had to do the work to write — is an upper bound rather than a count. What it would take to replace it with a number is 637 calls on the nulls alone, which changes nothing already verified.
