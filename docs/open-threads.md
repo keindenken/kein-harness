@@ -94,6 +94,36 @@ Reviving it is small: call `sessions_outside(config_home, [<the arm worktrees>])
 
 Retiring config homes at the end of a run does not block this — the slugs move to `transcripts/` intact, which is why the move preserves them rather than flattening — but it does mean a revival has to read them before the retirement or from their new home.
 
+## The plan artifact carries its own review history, which is both the length and a hole in the blind lanes
+
+Two finished plans for the same phase, kept at `docs/260825-omc-v35-ralplan.md` and `docs/260826-kein-v35-ralplan.md`. Not identical in scope, and the gap survives allowing for that: 610 lines against 1069, 8 ruling subsections against 22, four pre-mortem scenarios against thirteen.
+
+The length is a symptom. What produces it is that RALPLAN revises one artifact in place across rounds, and each round's correction gets written as a **diff against the previous text** rather than as the current state. Counting references to the plan's own revision history — "corrected at round 2", "revision 1's elimination for (b) was wrong", "RE-RULED at round 1", "reproduced" — the body carries 149 against the incumbent's 20, which is about three times the density per line. The thirteen pre-mortem scenarios are ordered S1–S8 then S13, S12, S11, S10, S9: sorted by the round that discovered them, which is an ordering no reader of the plan needs.
+
+Two things are being conflated in that prose and only one of them belongs:
+
+A **fact** the correction established — the pill's outward reach is the whole band, `R42-D3` clause 4 is violated in the shipped build, the corrected inequality in §2.11 — is load-bearing and an executor needs it.
+
+An **attribution** — which revision was wrong, what it had claimed, that this is "P46-1's own class landing on P46-1's own section, twice" — is not. The current ruling is the whole of what an executor can act on.
+
+That distinction is the one the owner has been reaching for since before this harness existed, and it is mechanically checkable: state the fact, never state which revision was wrong about it.
+
+**And the attribution is not merely noise — it breaks the review contract.** `review-contract.md` says a fresh reviewer receives "no previous finding, verdict, reviewer identity, revision note, change summary, claimed fix, closure result, or expected outcome". It then explains that `Status` and `Status reason` are stripped from the package precisely because a round-two `Status reason` names "the round, the verdicts it carried, and what the revision changed — four of the things in that list, arriving inside the artifact this package is required to carry whole."
+
+The contract found the leak, identified exactly why it mattered, and plugged two lines of it. The same four forbidden things are spread through the body, which the package carries whole and unredacted. A lane told it is blind is reading "⚠ **Corrected at round 1. Revision 1 named two and omitted the one that matters**" and pre-mortem entries labelled "(NEW, round 5)". `plan-gate.md` states the same goal for `Status` in its own words — "a reader who opens the plan cold gets that answer without reconstructing the round history" — and nothing below that line enforces it.
+
+So the seventeen rounds and sixteen revisions on the earlier plan are not straightforwardly evidence that the loop converges. Some part of each round's blindness was already spent.
+
+What the two documents are good for, in order of how cheap each is:
+
+**A gate, and the function it needs already exists.** `state.py` has `review_text()`, which is exactly the artifact minus the two lines the package strips — the same text a lane reads. A sibling to `_evidence_gate_errors` that fails when *that* text attributes a claim to a revision or a round would move this from a reader's complaint to a RED at the gate. Scoping it to `review_text()` is what keeps `Status reason` free to go on naming the round, which it is required to do.
+
+**Evidence for a template change.** `prompt-revision.md` asks for evidence before a prompt is changed, and a finished pair on one task is the strongest kind available. The incumbent's answer is a `## 10. Revision log` — one place for the history, with the body left alone. `plan-template.md` names Status, Status reason, Open Questions, Evidence Gates and Pre-mortem, and gives round history no home at all, which is why it goes everywhere.
+
+**A grader.** History density per hundred lines of body is a number, and it is the kind of thing `dev/eval`'s case mode grades. Worth having before any template change, so the change can be shown to have moved it.
+
+Not yet established: how much of the 149 is load-bearing fact wearing attribution's clothes. Sampling a dozen and classifying each as fact or attribution would settle whether a gate can be strict or has to be advisory, and it is an hour's work on documents that already exist.
+
 ## `ralplan` costs far more to enter than the incumbent, and most of it is not the process
 
 Two kickoff traces on the same phase-46 task, scraped 2026-08-24 and kept at `docs/260824-omc-plan-kickoff.md` and `docs/260824-kein-plan-kickoff.md`. To the planner dispatch: the incumbent took about four steps, this harness about twelve, seven of them Bash.
