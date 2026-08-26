@@ -130,7 +130,56 @@ The mechanism it needs to name: RALPLAN says "ask Planner to revise the same art
 
 **A grader, not a gate.** History density per hundred lines of body is a number `dev/eval`'s case mode can grade, and grading is the right severity for something with no grammar: it reports and does not block. Worth having before the prompt change, so the change can be shown to have moved it.
 
-Not yet established: how much of the 149 is load-bearing fact wearing attribution's clothes. Sampling a dozen and classifying each would set how strongly the Planner rule should be worded, and it is an hour's work on documents that already exist.
+Not yet established: how much of the 149 is load-bearing fact wearing attribution's clothes. Sampling a dozen and classifying each would set how strongly the rule should be worded, and it is an hour's work on documents that already exist.
+
+**The run ledger for this plan was read afterwards and is the entry below.** It supersedes the causal claim here: the accumulation is real and per-round, round 1's draft carries almost none of it, but which part of the loop produces it is not settled by anything measured yet.
+
+## The phase-46 run ledger, read: the loop grows its own audit machinery and then audits it
+
+The entry above argued from two finished artifacts. The run that produced one of them kept everything — seven rounds of plan snapshot, findings and per-lane reviewer file — at `descvi/repo/phase-46-ring-furniture-restyle-in-kein/.agents/kein/runs/ralplan/260824-222055-…`. Read 2026-08-26. It answers most of what the artifact could only suggest, and corrects some of it.
+
+**Neither plan was approved.** This one is `Status: Draft`, "TERMINAL UNAPPROVED", stopped by an owner rule at round 7. The incumbent's is "REVISION 5 — FINAL TEXT ROUND, NOT YET APPROVED" after two rounds on that text. The comparison in the entry above is between two unapproved documents, which is fair but was not stated.
+
+**Round 1 is clean, and the loop manufactures the rest.**
+
+| round | lines | history refs | per 100 lines |
+|---|---|---|---|
+| 1 | 585 | 5 | 0.9 |
+| 2 | 685 | 65 | 9.5 |
+| 3 | 799 | 170 | 21.3 |
+| 4 | 892 | 231 | 25.9 |
+| 5 | 971 | 269 | 27.7 |
+| 6 | 1008 | 313 | 31.1 |
+| 7 | 1046 | 344 | 32.9 |
+| final | 1070 | 377 | 35.2 |
+
+Lines grow 1.8×; history references grow 75×. The single largest step is round 1 to round 2, where Planner first receives findings. That rules out "Planner is simply verbose" and leaves the loop as the cause — but it does **not** isolate which part. The earlier claim that Planner being resumed rather than respawned is the mechanism is under-evidenced: resumption is real and documented in the run, and so is the correction brief's content, and this table cannot tell them apart.
+
+**No round ever passed both lanes.** Rounds 1–5 both `MUST_FIX`; round 6 critic `PASS` / architect `MUST_FIX`; round 7 architect `PASS` / critic `MUST_FIX`. The passing lane alternates at the end, which is the shape of a revision that satisfies one reader and exposes something to the other. Findings per round: 8, 10, 6, 10, 8, 4, 3.
+
+**The reviewers said "this is a recurrence" out loud, twice.** Round 3's critic: "This is the identical defect the plan diagnosed for requirement item 7 and repaired with DR46-8/G46-17, left standing for requirement item 10." Round 7's critic: "This is the THIRD instance of the shape §3.2 and §3.18 each corrected elsewhere, un-applied here." Tracing that one shape — a test row treated as a unit when it is several subjects in several legs — it appears in rounds 2, 3, 5, 6 and 7 against the same contract.
+
+`SKILL.md:53` is the rule for exactly this: "When the same defect class recurs against the same contract, revisit the contract or underlying design instead of polishing the same prose again." The rule exists, the reviewers detected the recurrence and named it, and the loop kept revising prose.
+
+**Three apparatus sections were minted as repairs, and each became the next round's defect. Three for three.**
+
+| section | minted | falsified |
+|---|---|---|
+| §3.20 the dying-anchor inventory | round 3 | round 4 — "omits S46-0 entirely" |
+| §3.21 the test-home policy | round 4 | round 5 — "measured against ONE jsdom", the repo runs two |
+| §3.22 the sweeps, run to a fixed point | round 5 | round 6 — its own pass-6 sentence breaks its own read-form rule |
+
+The plan predicted this at round 4 and then did it twice more: its pre-mortem carries `S12: (NEW, round 4) a repair mints a gate row, and the row is the next round's defect`.
+
+**Those findings are not preferences, and the apparatus is not required by anything.** Round 4's §3.20 gap means "the FIRST story of the phase lands with CI's citation gate RED". Round 5's fixed-point falsification means requirement item 6 is ungated and "both catchers sweep 1 credits it to are green on a do-nothing build" — a gate that cannot fail, which is the failure this harness rejects everywhere else. Real consequences.
+
+And none of §3.20, §3.21 or §3.22 is named by `plan-template.md`, which names only Status, Status reason, Open Questions, Evidence Gates and Pre-mortem. Planner minted all three to demonstrate completeness to reviewers. They are 173 lines of the final 1069 — 16% — and an executor needs none of them: an inventory of citations that die, a policy for where tests live, and a four-pass sweep record are evidence *for a reviewer*, not instructions for an implementer.
+
+Splitting the findings by subject, roughly: work versus the plan's own verification machinery runs 6/2, 4/6, 2/4, 3/7, 3/5, 3/1, 2/1 across the seven rounds. Round 1 is about the restyle. Rounds 2 through 5 are substantially the plan auditing what it built to answer round 1.
+
+**So the two complaints in the entry above have one root.** 149 history references say "I addressed your finding"; 173 lines of apparatus say "I am complete". Both are addressed to a reviewer and both live in a document addressed to an implementer. Round 1's plan had five of the first and none of the second. The review contract already found one channel of this and closed two lines of it; nothing gives reviewer-facing output anywhere else to go, so it all lands in the artifact body. The incumbent at least has a revision log.
+
+**The round-5 trigger fired into a question that offered one side.** `SKILL.md:51` makes around five unsuccessful rounds a diagnostic trigger, and `:53` says what to do when a class recurs — revisit the contract. At that point the run asked the owner whether to continue, with "closing, keep going" carried as the recommended option and no option naming the contract. The two rules meet at that question and only one of them was on it. Recorded here rather than as its own thread because it is where the recurrence rule had its one chance to change the outcome.
 
 ## `ralplan` costs far more to enter than the incumbent, and most of it is not the process
 
