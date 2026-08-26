@@ -116,13 +116,17 @@ So the seventeen rounds and sixteen revisions on the earlier plan are not straig
 
 What the two documents are good for, in order of how cheap each is:
 
-**A gate, and the function it needs already exists.** `state.py` has `review_text()`, which is exactly the artifact minus the two lines the package strips — the same text a lane reads. A sibling to `_evidence_gate_errors` that fails when *that* text attributes a claim to a revision or a round would move this from a reader's complaint to a RED at the gate. Scoping it to `review_text()` is what keeps `Status reason` free to go on naming the round, which it is required to do.
+**~~A gate over `review_text()`.~~ Withdrawn, 2026-08-26, before anything was built.** The first draft of this entry proposed one, on the reasoning that `state.py` already has `review_text()` — the artifact minus the two stripped lines, the exact text a lane reads — so a sibling to `_evidence_gate_errors` would be cheap. That is the availability of a function driving a design, which is not a reason.
 
-**Evidence for a template change.** `prompt-revision.md` asks for evidence before a prompt is changed, and a finished pair on one task is the strongest kind available. The incumbent's answer is a `## 10. Revision log` — one place for the history, with the body left alone. `plan-template.md` names Status, Status reason, Open Questions, Evidence Gates and Pre-mortem, and gives round history no home at all, which is why it goes everywhere.
+It does not survive contact with what it would have to match. There is no grammar here. "Corrected at round 1", "revision 2's was circular", "an earlier draft claimed", "this was previously bounded at six" are the same offence in four shapes and no pattern catches the set. Worse in the other direction: a plan legitimately cites `R42-D1 clause 4`, `phase-45`, `round-2 consensus` in its status line, so anything keyed on the words would fire on citations that have to stay. A gate that is loose enough to avoid that catches nothing, and one strict enough to catch anything blocks correct text — the failure the Evidence Gate label check demonstrates one section down.
 
-**A grader.** History density per hundred lines of body is a number, and it is the kind of thing `dev/eval`'s case mode grades. Worth having before any template change, so the change can be shown to have moved it.
+**A rule in Planner's contract, which is where it can actually live.** "State the fact the correction established; do not state which revision was wrong about it" is executable by a model reading it and not by a regex. Its misfire is also loud in the right direction: a reader opens the plan and sees the attribution, versus a gate that silently passes prose it could not parse. `prompt-revision.md` asks for evidence before a prompt changes, and a finished pair on one task is the strongest kind available.
 
-Not yet established: how much of the 149 is load-bearing fact wearing attribution's clothes. Sampling a dozen and classifying each as fact or attribution would settle whether a gate can be strict or has to be advisory, and it is an hour's work on documents that already exist.
+**A home for the history, which the incumbent has and this template does not.** Its answer is `## 10. Revision log` — one section, body left alone. `plan-template.md` names Status, Status reason, Open Questions, Evidence Gates and Pre-mortem, and gives round history nowhere to go, which is most of why it goes everywhere.
+
+**A grader, not a gate.** History density per hundred lines of body is a number `dev/eval`'s case mode can grade, and grading is the right severity for something with no grammar: it reports and does not block. Worth having before the prompt change, so the change can be shown to have moved it.
+
+Not yet established: how much of the 149 is load-bearing fact wearing attribution's clothes. Sampling a dozen and classifying each would set how strongly the Planner rule should be worded, and it is an hour's work on documents that already exist.
 
 ## `ralplan` costs far more to enter than the incumbent, and most of it is not the process
 
@@ -167,6 +171,12 @@ Unresolved whether the contract is at fault. "Preserve by path and hash" assumes
 The cost is the problem. The planner ran 20m15s, returned, was validated by the lead, and was resumed for a formatting pass it could have caught itself in a second. `validate-plan` is documented in exactly one place — `state-schema.md`, which is a lead-facing reference — and `prompts/planner.md` never mentions it. The agent that writes the artifact has no way to check the artifact's shape.
 
 Nothing here needs a new mechanism. The validator exists, it is a single command, and the planner is already given the canonical plan path. What is missing is the instruction to run it before returning, which is a change to a canonical prompt and therefore not a quiet one.
+
+**And the check itself is stricter than its own purpose, which is the more interesting half.** What it exists to establish is that every gate carries all six concepts — above all a stop boundary, since `plan-template.md`'s own rule is that "a gate whose unexpected result has no stop boundary is not a gate". What it actually tests is a literal `^- Pass path:`. Those are not the same claim, and the gap is where a correct plan gets bounced.
+
+Loosening the match to `^- <label>\b[^:\n]*:\s*\S` closes it. Measured 2026-08-26 against six spellings: it accepts `- Pass path: …` and the qualified `- Pass path (조건): …` and `- Pass path — when narrow: …`, and still rejects `- Pass paths are many:` (a different label), `- Pass path:` with nothing after it, and `- Passing path:`. One line, and the round this entry is about stops happening.
+
+Deleting the check instead would be wrong. `plan-gate.md` makes approval conditional on every gate's expected results staying inside the approved space, which requires the gates to be enumerable; a label free to drift turns that rule into one that always passes. The problem was never that the shape is checked, it is that the check tests the template's punctuation rather than the template's requirement.
 
 Worth measuring first: whether the label drift is a one-off or the common failure. If gates are the usual reason a first draft bounces, this is the cheapest round in the whole loop to delete.
 
