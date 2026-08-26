@@ -310,3 +310,26 @@ Two things follow, and the second undoes an earlier conclusion.
 **And the null flag may carry information after all.** Under the suppressed prompt, flagged nulls yielded 15% against 14% for random ones, and this README concluded the repository pass's flag predicted nothing. Neutral, the same two arms give 38% and 27%. The earlier conclusion was drawn from a measurement that was itself suppressed.
 
 So the corpus's headline — 637 skills, 16%, hold no sentence anyone had to do the work to write — is an upper bound rather than a count. What it would take to replace it with a number is 637 calls on the nulls alone, which changes nothing already verified.
+
+### And then all 637
+
+Running the remaining nulls on the neutral prompt — 637 records, 27% yield — settles it. **170 skills the reading pass called empty hold a verbatim sentence after all.** The corpus goes from 3,233 verified quotes to **3,403 of 3,957 (82% to 86%)**, and its nulls from 637 to 467 (16% to 12%). All 170 are located in their sources, and all 170 now carry a subject, a range rating and a Korean translation.
+
+Two corrections to what this file said an hour ago.
+
+**The recovery is not concentrated in specific files.** On the 136-record sample, the quotes only the neutral prompt found had a median specificity of 42 against 32–33 elsewhere, and this README read that as evidence they were not scrapings. Over all 637 the recovery rate by specificity quartile is 22%, 29%, 26%, 31% — flat, against the 24/40/64/74% spread the original pass showed. The suppression was indifferent to how specific the file was. Generalising from 36 was the mistake, on the same day a contradiction surfaced here asking how many data points are enough before acting on an estimate.
+
+**Twenty-one records came back under a different name.** `extract.py` grew a key carrying the loose file, so a skill pass 2 wrote as `repo` returns as `repo::AGENTS.md`. Nothing failed; the join needed the manifest to spell both. `runs/pass2.jsonl` still holds the old keys and should be migrated before the reading pass is run again.
+
+### Four times, one sentence
+
+| where | the clause | as written | removed |
+| :--- | :--- | ---: | ---: |
+| harness audit | *"Most of these are `none`"* and three others | 2% | **12%** |
+| cluster reading | *"most groups will have none, and `null` is the ordinary case"* | 0 contradictions | **3** |
+| quote extraction | *"and null is the right answer for most files"* | 15% | **35%** |
+| — | control arm, all three | 0% | 0% |
+
+The control never moved. Every recovered finding is located on both sides.
+
+All three clauses were written for the same reason: a model asked to find something will find it, and this corpus is built on the claim that its outputs can be checked. That concern was right, and the machinery for it works — locating each quote in its source is what caught the one fabrication in 450 repository calls. **But a verification device and a discouraging sentence are different things, and I shipped them together.** The device catches invention. The sentence catches findings.

@@ -422,6 +422,7 @@ document.getElementById("q").oninput = () => { shown = PAGE; render(); };
 document.getElementById("sort").onchange = () => { shown = PAGE; render(); };
 document.getElementById("more").onclick = () => { shown += PAGE; render(); };
 document.getElementById("note").textContent =
+  "인용문 중 170개는 처음 읽을 때 '없음'으로 돌아왔던 것이다. 추출 프롬프트가 복사 규칙 끝에 '대부분의 파일에서는 null이 정답'이라고 붙여뒀는데, 그 45자를 지우고 같은 레코드를 다시 읽히니 수율이 15%에서 35%로 올랐고 대조군은 0% 그대로였다. " +
   "'검증됨'으로 세는 인용문은 전부 원본 문서에서 위치가 확인된 것이다. 확인에 실패한 93개는 목록에는 남아 있으나 어떤 집계에도 들어가지 않으며, 대개 모델이 문장 중간부터 자기 말로 바꾼 경우다. " +
   "다만 그 문장이 '해봐야 아는 것'이라는 판단 자체는 검증되지 않은, 읽은 모델의 주장이다. " +
   "'무엇을 조작하나'는 코드 펜스 안 명령 위치에서 이름이 걸린 것만 센다 — 패턴이 없다는 것과 아무것도 호출하지 않는다는 것은 다르다. " +

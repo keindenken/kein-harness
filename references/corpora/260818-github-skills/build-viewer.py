@@ -22,6 +22,19 @@ def main():
         rows[r["skill"]] = r
     rows = [r for r in rows.values() if r.get("ok")]
 
+    # 170 records the reading pass called null hold a quote after all. Its prompt
+    # ended the copying rule with "null is the right answer for most files", and
+    # deleting those forty-five characters more than doubled the yield on a
+    # controlled re-read — 15% to 35% on 135 records, with the control arm rising
+    # too. Every recovered quote is located in its source like the rest.
+    rf = HERE / "runs" / "null-recovered.json"
+    for r in (json.loads(rf.read_text()) if rf.exists() else []):
+        base = next((x for x in rows if x["skill"] == r["skill"]), None)
+        if base is not None:
+            base.update({k: r[k] for k in ("quote", "quote_reason", "quote_file")
+                         if k in r})
+            base["quote_ok"] = True
+
     stars = {r["full_name"]: r["stars"] for r in json.loads((HERE / "repos.json").read_text())}
 
     # `reach` and `cli` come from the corrected labels, not from the record. The
@@ -73,7 +86,7 @@ def main():
     # translation that altered a token or never happened is still shown, because
     # the English beside it is what was verified, but it is not shown silently.
     facet = {}
-    for name in ("facet.jsonl", "facet-ko-fix.jsonl"):
+    for name in ("facet.jsonl", "facet-ko-fix.jsonl", "facet-recovered.jsonl"):
         f = HERE / "runs" / name
         for line in (f.read_text().splitlines() if f.exists() else []):
             fr = json.loads(line)
