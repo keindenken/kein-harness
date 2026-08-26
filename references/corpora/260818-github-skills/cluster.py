@@ -102,4 +102,5 @@ def main():
         print(f"  [{len(g)}] " + " · ".join(sorted({rows[i]['about'] for i in g})[:5]))
 
 
-main()
+if __name__ == "__main__":
+    main()

@@ -252,3 +252,30 @@ Clustered over the whole set the map does improve: 580 clusters of two or more c
 The subject is the field the viewer's search reads, and it is the only judgement here whose reproducibility was measured. The range rating has no original to check against; the repository verdict tracks how much of a repository was read; the subject was re-derived from scratch with the claims regrouped and agreed 81% against a 0.3% floor. Search over words a quote happened to use finds what it says; search over subjects finds what it is about, and those are different questions.
 
 `stablyai/orca` is in the corpus, with the claim that `orca` outside its own terminals resolves to the GNOME screen reader and starts speech. It is the same sentence this harness carries in its own loaded skill. The corpus contains the tools reading it.
+
+
+## Checking the harness against the corpus, and finding the prompt writer instead
+
+Both sides read the same way. `practice.py` pulls out what each of this harness's 33 instruction files commits to — a rule it imposes or an assumption it rests on, quoted verbatim — because a rule paraphrased into a summary cannot be checked against the file it came from. 486 commitments, 403 rules and 83 assumptions, **all 486 located in their source**. `plugin/agents/*.md` is generated from `plugin/prompts/*.md` and differs only in frontmatter, so only the canonical prompt is read.
+
+`match.py` joins the two sets arithmetically, on the subjects both sides carry. That matters more here than anywhere: asked which corpus claims bear on our practice, a model will find some, and there is no way to tell a real bearing from a helpful one. At a similarity of 0.38, 95 of 486 commitments match, 187 pairs. Twenty-five control groups are drawn from claims sharing no subject words at all and go through the judging call in the same shape, which cannot tell them apart.
+
+Then the result that was not about the corpus.
+
+| prompt | real (95) | control (25) |
+| :--- | ---: | ---: |
+| as written | 2% | 0% |
+| 293 characters removed | **12%** | **0%** |
+
+The removed characters were mine, and all four were discouragement: *"Most of these are `none`"*, *"matched by shared vocabulary, which is a weak signal and often the only thing they share"*, *"Do not soften a `none` into a `gap` because the pairing looks deliberate. It was made by counting words"*, *"and the third is the usual one"*. Everything else is byte-identical, including the requirement to quote and locate both halves — which is what stops a finding from being a paraphrase, and which stays.
+
+**The control did not move.** Nine additional findings appeared on real pairs and none on random ones, so the neutral wording did not manufacture noise; the wording I wrote was hiding nine real findings. Both halves of all eleven are located.
+
+I had written the same kind of sentence once before in this round. `prompt/cluster.md` says of contradictions between claims: *"most groups will have none, and `null` is the ordinary case"* — and it found zero across seventeen clusters. That number now has to be re-taken rather than believed.
+
+What the nine say, on this harness:
+
+- `prompts/lead.md` states that *"Nothing in the harness enforces this — a subagent has the spawn tool with no depth guard"*. A claim reports `CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS` (v2.1.217+) capping concurrent subagents and **denying** over-cap spawns rather than queueing. Our brief may be asserting the absence of a control that exists — checkable, and worth checking.
+- `prompts/executor.md` names which checks to run before reporting completion. A claim: *"Do not infer success from assistant prose … complete only when the corresponding tool result and files exist."* Running a check is not confirming it passed — which is exactly how `check()` in `facet.py` verified that tokens survived translation and never that translation happened.
+- `prompts/critic.md` says *"Verify material claims against the best available source"*. A claim makes that concrete: *"MUST run real `apm --help`, `grep`, and `python -c` commands to verify doc claims, never assert from prose."*
+- `prompts/code-simplifier.md` restores the simpler boundary and reports on any missing evidence. A claim: *"report reduced confidence and block only when missing evidence prevents a safe decision."* Two files here treat every evidence gap as a stop; the claim says the gap has to be the kind that makes the decision unsafe.

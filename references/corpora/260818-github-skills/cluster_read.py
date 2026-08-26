@@ -24,7 +24,11 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-TPL = (HERE / "prompt" / "cluster.md").read_text()
+TPL_NAME = "cluster"
+for _i, _a in enumerate(sys.argv):
+    if _a == "--prompt":
+        TPL_NAME = Path(sys.argv[_i + 1]).stem
+TPL = (HERE / "prompt" / f"{TPL_NAME}.md").read_text()
 
 
 def call(prompt, model):
@@ -85,7 +89,7 @@ def one(args):
     out, err, usage = call(TPL.replace("{{CLAIMS}}", body), model)
     rec = parse(out, require="coherent")
     base = {"cluster": idx, "n": group["n"], "abouts": group["abouts"],
-            "skills": group["skills"], "model": model,
+            "skills": group["skills"], "model": model, "prompt": TPL_NAME,
             "cost_usd": usage.get("cost_usd")}
     if rec is None:
         return {**base, "ok": False, "error": (out or err)[-250:]}
