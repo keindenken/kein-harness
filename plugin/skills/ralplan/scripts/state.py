@@ -133,7 +133,28 @@ def _evidence_gate_errors(text: str) -> List[str]:
         body = section[start:end]
         name = heading.group(1).strip()
         for label in EVIDENCE_GATE_LABELS:
-            if re.search(rf"^- {re.escape(label)}:\s*\S", body, re.MULTILINE) is None:
+            # A qualifier between the label and its colon is correct usage, not a missing field.
+            # `- Pass path (narrow subjects only): …` says which case the path is for, which the
+            # template's one-line shape has nowhere else to put, and a plan that writes one has used
+            # the vocabulary more thoroughly rather than less.
+            #
+            # This repository had already ruled that once and only told half of itself. The grader
+            # `vocabulary-gate-shape` was loosened for the identical construction — see
+            # `dev/eval/cases/plan-evidence-gate/case.yaml`, which records it scoring zero against
+            # `- Alternate path (all shipped targets report FTS5_AVAILABLE=0):` and concludes the
+            # plan "had used the template's vocabulary more thoroughly than the template asks, and
+            # the control read it as absent". This check kept the position that grader abandoned,
+            # and bounced a finished plan for it at the cost of a 20-minute planner round.
+            #
+            # `\b` is what keeps it a repair rather than a hole: `- Pass paths are many:` is a
+            # different label and still fails, as does a label with nothing after its colon.
+            #
+            # That second one only became true here. The value was matched with `\s*\S`, and `\s`
+            # spans newlines, so `- Pass path:` with an empty value matched the first character of
+            # the *following* line and every empty label in the harness's history was accepted. The
+            # check that reads six fields was reading five and a line break. Horizontal whitespace
+            # only, so the value has to be on the label's own line.
+            if re.search(rf"^- {re.escape(label)}\b[^:\n]*:[^\S\n]*\S", body, re.MULTILINE) is None:
                 errors.append(f"Evidence gate {name} is missing {label}")
     return errors
 

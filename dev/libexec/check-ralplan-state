@@ -56,8 +56,46 @@ if ! $CMD reconcile "$ST" >/dev/null 2>&1; then
 fi
 refuse "a transition out of a terminal receipt" open "$ST"
 
+# `validate-plan` had no coverage at all, which is how its Evidence Gate check kept a strictness the
+# grader reading the same labels had already given up. Both directions are checked: a gate whose
+# labels carry a qualifier passes, and a gate missing a label still fails. Testing only the first
+# would license deleting the check entirely.
+gate() {
+  printf '# Check plan\n\nStatus: Draft\nStatus reason: Drafted.\n\n## Evidence Gates\n\n### G1\n\n%s\n' "$2" > "$WORK/gate.md"
+  if $CMD validate-plan "$WORK/gate.md" >/dev/null 2>&1; then found=accepted; else found=refused; fi
+  if [ "$found" != "$1" ]; then
+    printf 'check-ralplan-state: the gate was %s and should have been %s — %s\n' "$found" "$1" "$3" >&2
+    failures=$((failures + 1))
+  fi
+}
+
+FULL='- Claim: c
+- Evidence method: m
+- Pass path: p
+- Alternate path: a
+- Required before: b
+- Unexpected result: u'
+
+gate accepted "$FULL" "every label present and plain"
+
+# The construction that bounced a finished plan. A qualifier says which case the path is for, and
+# the one-line shape has nowhere else to put it.
+gate accepted "$(printf '%s' "$FULL" | sed 's/^- Pass path:/- Pass path (narrow subjects only):/')" \
+  "a qualified label is correct usage"
+
+gate refused "$(printf '%s' "$FULL" | grep -v '^- Unexpected result:')" \
+  "a gate with no stop boundary is not a gate"
+
+# The label has to be the label. Loosening far enough to accept a different one would leave the
+# check reporting green over a gate that never named the field.
+gate refused "$(printf '%s' "$FULL" | sed 's/^- Pass path:/- Pass paths are many:/')" \
+  "a different label is not the label"
+
+gate refused "$(printf '%s' "$FULL" | sed 's/^- Pass path: p/- Pass path:/')" \
+  "a label with nothing after it states nothing"
+
 if [ "$failures" -ne 0 ]; then
   printf 'check-ralplan-state: %d check(s) failed\n' "$failures" >&2
   exit 1
 fi
-printf 'check-ralplan-state: the run drove clean and every refusal held\n'
+printf 'check-ralplan-state: the run drove clean, every refusal held, and the gate reads a qualified label\n'

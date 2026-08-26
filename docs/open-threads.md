@@ -190,6 +190,8 @@ Two honest unknowns before deleting it: whether Critic actually catches an absen
 
 Same construction, same conclusion, written down first — and `_evidence_gate_errors` still holds the position the grader abandoned. So the loosening is not a proposal any more, it is a consistency repair: two things in this repository read the same labels and only one of them was told that a qualifier is correct usage.
 
+**Repaired 2026-08-26, and writing the coverage found a second defect underneath it.** The value was matched with `\s*\S` under `re.MULTILINE`, and `\s` spans newlines — so `- Pass path:` followed by any further line matched that line's first character. Every empty label in the harness's history passed. The check that reads six fields was reading five and a line break, and it had been RED for a plan that filled all six while GREEN for one that filled five. `[^\S\n]*` puts the value back on the label's own line. `validate-plan` had no test at all before this, which is how both survived.
+
 **The formalisation worry it feeds is narrower than it feels, and worth stating precisely.** `validate_plan_text` enforces three things unconditionally — a level-one title, one valid `Status`, a non-empty `Status reason`. Everything else is opt-in: `_evidence_gate_errors` returns nothing at all when the artifact has no `## Evidence Gates` heading, and the template calls both that shape and the pre-mortem optional.
 
 So the artifact is not heavily formalised. What is true is the one trap inside that: **an optional section becomes strictly formatted the moment it is used at all.** Writing the heading is what opts you into six literal labels. That is a fair thing to dislike, and it is the same defect as the punctuation bounce rather than a separate one.
