@@ -186,6 +186,10 @@ And that completeness is already owned by a lane. `review-contract.md` gives Cri
 
 Two honest unknowns before deleting it: whether Critic actually catches an absent label as reliably as a parser does, and whether it has ever caught one. Neither is answerable from here, and both are answerable from the run ledgers.
 
+**One thing that is not unknown: this harness already ruled on the qualified label, in the other direction, and the validator never heard.** `dev/eval/cases/plan-evidence-gate/case.yaml:41` records `vocabulary-gate-shape` being loosened to match "the label, not the label plus a colon", because it "first ran demanding `- Alternate path:` exactly, and scored zero against a plan that had written `- Alternate path (all shipped targets report FTS5_AVAILABLE=0):`". The note's own verdict on that plan: it "had used the template's vocabulary more thoroughly than the template asks, and the control read it as absent."
+
+Same construction, same conclusion, written down first — and `_evidence_gate_errors` still holds the position the grader abandoned. So the loosening is not a proposal any more, it is a consistency repair: two things in this repository read the same labels and only one of them was told that a qualifier is correct usage.
+
 **The formalisation worry it feeds is narrower than it feels, and worth stating precisely.** `validate_plan_text` enforces three things unconditionally — a level-one title, one valid `Status`, a non-empty `Status reason`. Everything else is opt-in: `_evidence_gate_errors` returns nothing at all when the artifact has no `## Evidence Gates` heading, and the template calls both that shape and the pre-mortem optional.
 
 So the artifact is not heavily formalised. What is true is the one trap inside that: **an optional section becomes strictly formatted the moment it is used at all.** Writing the heading is what opts you into six literal labels. That is a fair thing to dislike, and it is the same defect as the punctuation bounce rather than a separate one.
