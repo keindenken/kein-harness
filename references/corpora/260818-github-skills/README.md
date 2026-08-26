@@ -271,7 +271,15 @@ The removed characters were mine, and all four were discouragement: *"Most of th
 
 **The control did not move.** Nine additional findings appeared on real pairs and none on random ones, so the neutral wording did not manufacture noise; the wording I wrote was hiding nine real findings. Both halves of all eleven are located.
 
-I had written the same kind of sentence once before in this round. `prompt/cluster.md` says of contradictions between claims: *"most groups will have none, and `null` is the ordinary case"* — and it found zero across seventeen clusters. That number now has to be re-taken rather than believed.
+I had written the same kind of sentence once before in this round. `prompt/cluster.md` says of contradictions between claims: *"Do not manufacture one: most groups will have none, and `null` is the ordinary case"* — and it found zero across seventeen clusters. Deleting that one sentence and changing nothing else, **the same clusters yield three contradictions.** `coherent` came back 17 of 17 either way, so the suppression was specific to the field it was written about.
+
+One of the three is the question this round kept answering badly:
+
+> **How many data points count as enough before you act on an estimate?**
+> *"For production use, target 30+ per stratum (CI narrows to ~±9%)."*
+> *"Needs 2+ completed steps before projecting. With fewer than 2 data points, the average is unreliable."*
+
+Twenty-five control groups were the basis for reading a 2% hit rate here.
 
 What the nine say, on this harness:
 
