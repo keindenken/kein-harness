@@ -225,6 +225,8 @@ step 4~7이 루프이므로 읽기를 단계 번호에 거는 것도 틀린 앵�
 
 앵커는 **transition 이름**으로 쓰는 게 맞다. 리드가 실제로 `ocs state ralplan open`을 타이핑하고, 그 단어는 CLI에도 `state.py`에도 있으며 `round`·`phase`와 겹치지 않는다. `SKILL.md:27`의 `stage-specific package`도 `lane-specific`이다 — `review-contract.md`가 *"a separate package for each **lane**"* 이라고 쓴다.
 
+**이 두 문장은 `6368b16`이 반증했다.** 불릿 넷이 이미 각자 시점을 달고 있어서(*"before creating or resuming a run"*, *"before setting a status or computing a hash"*) transition 이름을 끌어올 자리가 없었다 — 앞엣것은 resume까지 덮고 뒤엣것은 첫 `open`을 정확히 가리키니 transition 이름보다 낫다. 리드 문장만 지웠고 어휘는 늘지 않았다. `lane-specific`도 틀렸다: `:27`이 Planner도 같이 디스패치하는데 Planner는 레인이 아니고 계약에 Planner 절이 없다. 그래서 계약 자체를 가리키게 했고, `c360041`이 Planner를 그 줄에서 빼면서 남은 게 실제로 레인 둘이 됐다. **위 표의 `stage` 행은 이제 리포에 없다** — §6이 그 자리에서 나온 후속을 잇는다.
+
 ### 구체적인 것 둘, 하나는 결함이고 하나는 아니다
 
 **`ls -R`은 결함이 아니다.** 싼 오리엔테이션이고, 이걸 낭비로 읽으면 비용에 관한 규칙이 아니라 정돈에 관한 규칙이 된다.
@@ -306,14 +308,68 @@ rf"^- {label}\b[^:\n]*:[^\S\n]*\S"
 
 ---
 
+---
+
+## 6. ①②를 고치다 나온 것 — 셋 다 아직 안 정했다
+
+`8bedb2e`·`6368b16`·`c360041`로 A·①·②가 닫혔고, 그 과정에서 표에 없던 스레드 셋이 나왔다. 셋 다 근거는 여기 있고 판정은 없다.
+
+### closure audit이 재량으로만 존재했고, 7라운드 내내 한 번도 안 켜졌다
+
+§2가 "루프가 재발을 못 잡았다"고 쓴 것의 한 단계 아래다. 잡을 계기가 있었는데 재량이었다.
+
+`review-contract.md:48` — *"A previous live reviewer **may** perform a primed closure check for a subtle, high-risk, partial, or reworded correction."* 조건 넷을 리드가 판정하고, 판정 어휘는 없고, positive는 승인 못 한다.
+
+descvi의 `2plan`은 같은 것을 상설 계기로 쓴다. `:25-28`:
+
+> - **CLOSURE AUDIT (primed).** Hand it the required-changes list; require a per-item verdict — CLOSED / PARTIAL / NOT CLOSED / **REWORDED-ONLY**
+> - **UNPRIMED re-review.** A FRESH agent, current text plus the quality bar
+>
+> Running only the first rubber-stamps a list; **running only the second never notices a reworded fix.**
+
+**phase-46은 7라운드 전부 두 번째만 돌았다.** 원장의 verdict 표에 closure check가 없다. 그리고 §2가 기록한 재발이 정확히 첫 번째 계기가 보는 모양이다 — 라운드 7 critic의 *"the THIRD instance of the shape §3.2 and §3.18 each corrected elsewhere, **un-applied here**"*. 다른 데서 고쳐놓고 여기엔 적용 안 한 것은 이전 텍스트를 본 레인만 볼 수 있다.
+
+정해지지 않은 것 셋:
+
+- **재량 → 상설이 맞는 값인가.** 매 라운드 레인 하나가 순증이고, 그건 이 하네스가 다른 곳에서 계속 묻는 상시 비용 질문이다. 발화할 때만 무는 비용이 아니라 매 라운드 무는 비용이다.
+- **`2plan`은 later round의 레인을 "무엇이 바뀌었는지"로 고른다**(`:23`). ralplan의 레인 집합은 고정이고, 그 고정이 블라인드 대칭성을 사고 있다. 두 설계가 다른 것을 사고 있어서 한쪽을 그대로 옮길 수 없다.
+- **판정 어휘가 진짜 산출물일 수 있다.** REWORDED-ONLY는 프레시 레인이 원리적으로 못 내는 판정이고, 어휘가 없으면 primed 레인을 켜도 "고쳐졌다"로 수렴한다. 어휘만 `review-contract.md`에 넣고 재량은 그대로 두는 중간 수도 있다.
+
+### `## Workflow`의 번호는 앵커가 아니다
+
+`stage`와 같은 병이고, `6368b16`이 그 단어를 지우면서 이쪽이 드러났다.
+
+step 4~7은 루프다(§3의 정렬표). 번호는 순차를 암시하고, 루프에는 없는 것을 암시한다. 그리고 이미 살아있는 의존이 하나 있다 — step 3이 *"Revisions … happen in **step 6**"*이라고 안에서 자기를 참조한다. 밖에서의 참조는 더 나쁘다: ②의 초안이 "step 3 gives … step 6 asks"였고 그게 철회된 이유가 이것이다.
+
+`2plan`은 번호를 안 쓴다 — "Round 1", "Then: ONE consolidated revision brief", "Later rounds". 이름은 편집을 견딘다.
+
+값이 붙는 지점: §3의 어휘표가 5개였고 `stage`가 빠져 4개(Workflow 단계 / transition / phase / round)다. **Workflow가 번호 대신 `state.py`의 이름을 쓰면 "Workflow 단계"가 흡수돼 3개로 떨어지고, 남는 셋은 전부 기계가 정의하는 것이 된다.** 어휘를 새로 만들지 않고 줄어드는 유일한 경로다.
+
+안 정한 것: 이름을 transition 이름(`start`/`open`/`block`/`revised`/`approve`/`complete`)으로 할지, 아니면 setup / round / close 같은 상위 이름으로 하고 그 안에 번호를 둘지. 앞은 기계와 1:1이지만 step 1~2가 `start` 이전이라 덮이지 않고, 뒤는 새 어휘를 셋 만든다.
+
+### sizing이 선언된 적이 없다
+
+`plan/SKILL.md:26-30`이 리드에게 **브리프에 어느 크기를 골랐는지 말하라**고 하고, 이렇게 쓴다: *"A plan that comes back carrying several unresolved material decisions was sized too small … The size was the lead's call and correcting it is too."*
+
+7라운드 원장 전체에 sizing 선언이 없다. `plan`을 안 돌렸으니 그 문장에 도달한 적이 없다.
+
+§2는 분량 폭증의 원인을 resume이냐 correction brief냐로 못 갈랐다. **선언되지 않은 sizing은 둘 다보다 상류에 있는 세 번째 후보이고, 라운드 1(585줄)에 이미 작용한다** — 라운드 1은 이력 5건·감사 장치 0줄로 깨끗했지만 585줄이었고, 그 585줄이 이후 모든 라운드의 감사 대상이다.
+
+`c360041`이 `plan` 미호출 쪽을 고쳤지만 **그건 아직 런으로 확인된 게 아니다.** 확인은 싸다: 다음 런이 `plan`을 거치면 브리프에 크기가 적히거나 안 적히거나 둘 중 하나고, 적힌 런의 라운드 1 줄 수가 585와 비교된다.
+
+---
+
 ## 남은 작업
 
 | # | 항목 | 상태 |
 |---|---|---|
 | A | 라벨 완화 + 개행 버그 | **완료** `8bedb2e` |
-| 1 | `stage` → transition 앵커, `stage-specific` → `lane-specific` | 안 정함 |
-| 2 | `plan` 호출 강제 — 서술을 거부로 | 이전 시도의 결과 확인 필요 |
+| 1 | `stage` → transition 앵커, `stage-specific` → `lane-specific` | **완료** `6368b16` — 앵커를 도입하는 대신 단어가 나갔다 |
+| 2 | `plan` 호출 강제 — 서술을 거부로 | **완료** `c360041` — 거부가 아니라 경쟁하던 허가를 옮겼다 |
 | 3 | requirements 계약에 모순이 있는지부터 | 논의 필요 |
+| 6a | closure audit — 재량을 상설로, 판정 어휘 포함 (§6) | 논의 필요, 값 제일 큼 |
+| 6b | Workflow 번호 → 이름, 어휘 4→3 (§6) | 안 정함 |
+| 6c | sizing 미선언 — 다음 런이 확인 (§6) | 관측 대기 |
 | 4·5 | 이력 규칙 → `plan-gate.md` + correction brief | 논의 필요 |
 | — | `prompts/planner.md`에 `validate-plan` 추가 | canonical 수정, 별건 |
 | — | 규격화 A/B — `--variant` + `plan-evidence-gate`, **llm 그레이더로 판정** | 리그는 이미 있음 |
