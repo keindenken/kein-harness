@@ -676,7 +676,12 @@ def revised(destination: Path, next_action: Optional[str]) -> None:
         candidate["phase"] = "drafted"
         candidate["findings"] = []
 
-    _advance(destination, mutate, next_action, f"dispatch round {upcoming} fresh reviewers")
+    # This transition is where the round's findings leave the state, and the fresh lanes about to be
+    # dispatched are forbidden from seeing them, so it is the last point anything can say they exist.
+    # The file beside the run is the only surviving copy and nothing reads it back; a lead who does
+    # not open it has no way to tell a finding's second appearance from its first.
+    _advance(destination, mutate, next_action,
+             f"dispatch round {upcoming} fresh reviewers; every earlier round's findings stay beside the run, so read them before treating a finding as new")
 
 
 def approve(destination: Path, overrides: Dict[str, str], next_action: Optional[str]) -> None:
