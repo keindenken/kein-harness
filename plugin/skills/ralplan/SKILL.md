@@ -15,7 +15,7 @@ This skill ends with an approved plan or an explicit unapproved state. It grants
 
 ## Required Files
 
-Read these when their stage begins:
+Read each before the point its line names:
 
 - [state-schema.md](references/state-schema.md) before creating or resuming a run.
 - [plan-gate.md](references/plan-gate.md) before setting a status or computing a hash. The artifact's own contract arrives with the `plan` invocation; this covers only what the gate adds to it.
@@ -24,7 +24,7 @@ Read these when their stage begins:
 
 Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
 
-Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete stage-specific package. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
+Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
 
 An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
 
