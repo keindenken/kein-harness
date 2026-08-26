@@ -341,3 +341,11 @@ All three clauses were written for the same reason: a model asked to find someth
 The first attempt was wrong in the way the bug itself is wrong. Mapping old key to new key gives *one* new name per old name, and seven of these repositories were read twice in a single run — both loose files, both written under the one key — so `abhigyanpatwari/GitNexus` had its `AGENTS.md` record and its `CLAUDE.md` record both renamed to `::CLAUDE.md`. A rename that collapses two files into one name is the collision it was written to end. `pass2.jsonl` is renamed line by line now; every other file joins on the old key and takes the name of the line the dedup kept, which is the record each of them was built from.
 
 The viewer gains seven rows — 3,957 to 3,964, and 3,403 verified quotes to 3,409. Those seven were two files being drawn as one the whole time.
+
+## What is checked in
+
+`viewer.html` is not. It is generated, it is published as an Artifact, and a 3 MB payload inlined into HTML does not delta — eleven publishes cost seven megabytes each in history for a file `build-viewer.py` rebuilds in a second.
+
+What is checked in instead is what rebuilding it needs: the reading pass's records, the corrected labels, the range ratings and translations, the subjects, the repository verdicts, and the one column of the shortlist the page reads. `specificity.json` is that column at 0.24 MB against the shortlist's 6.08 — the shortlist itself is rebuilt from the manifest, which is rebuilt from `repos.json` and `provenance.tsv`, which are checked in.
+
+Everything else under `runs/` is scratch: probe arms, retry manifests, per-batch inputs, superseded variants. The rule is that a file survives if paying for it again is the only other way to get it back.

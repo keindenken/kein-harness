@@ -73,12 +73,15 @@ def main():
         # `coherence` field had no way to say it.
         if r.get("ok") and r["n_read"] >= 2:
             repo1[r["repo"]] = r
-    # The shortlist keys on (repo, dir, loose_file) and the reading pass never
-    # carried `loose_file`, so a plain three-part join loses every AGENTS.md and
-    # CLAUDE.md record — 450 of them. Key on what both sides actually share.
+    # `specificity.json` is the one column of `shortlist.json` this reads, at 0.2 MB
+    # against 6. The shortlist is rebuilt from the manifest and stays out of the
+    # repository; this is checked in so the page can be rebuilt from a clone.
+    # It keys on (repo, dir): the shortlist also carries `loose_file` and the
+    # reading pass did not, and a three-part join lost 450 AGENTS.md records.
     spec = {}
-    for s in json.loads((HERE / "shortlist.json").read_text()):
-        spec[(s["repo"], s["dir"])] = s["specificity"]
+    for k, v in json.loads((HERE / "specificity.json").read_text()).items():
+        repo, _, d = k.partition("\t")
+        spec[(repo, d)] = v
 
     # Pass 3: how far the claim travels, and the Korean. Later files win, so the
     # re-translation of the 61 quotes that came back in their own language
