@@ -7,7 +7,7 @@ description: Use before adding a rule to a standing prompt or a skill, or when a
 
 This decides **whether a rule should exist**. Writing the line once that is decided is governed by the `standing-prompt` rule, not by this.
 
-**It produces a verdict, not an edit.** Nothing here changes a file. Each half below ends in one of a small set of outcomes, and someone carries that outcome out afterwards — which is when the writing rules apply and when the diff gets made.
+**It produces a verdict, not an edit.** Nothing here changes a file. Each half below ends in one of a small set of outcomes, and someone carries that outcome out afterwards — which is when the writing rules apply and when the diff gets made. What you hand back is the verdict and what settled it, not a drafted commit message: the message is written when the commit is, and someone still deciding has not agreed to the change it would describe.
 
 A rule that describes how you want an agent to work gets no staleness signal. Nothing external marks it false, and testing whether it is still needed means removing it — which is disobeying it. So the two decisions this skill covers are asymmetric on purpose. Adding needs one moment of resistance at the point where hands are already moving. Removing needs an arsenal, because nothing ever brings it up.
 
