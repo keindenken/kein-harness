@@ -15,7 +15,7 @@ Skills, capped at what is actually used:
 
 `interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
 
-After v1: `research`. In scope and its use is clear — it answers a question someone asked and leaves a cited artifact behind — but it is not part of what the v1 gate measures.
+After v1: `research`, `deliberate`. Both are in scope with a clear use — `research` answers a question someone asked and leaves a cited artifact behind, `deliberate` reaches a verdict on whether a rule should exist before anyone writes it — but neither is part of what the v1 gate measures.
 
 Out of scope until the use is clear: `self-improve`, `autoresearch`. Both are wanted, and an unresolved use is a signal that the need has not arrived. `autoresearch` differs from `research` in exactly that way: it would have the harness decide on its own that a question is worth answering, which is a judgement nobody has specified.
 
