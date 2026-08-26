@@ -1,6 +1,6 @@
 ---
 name: deliberate
-description: Use before adding a rule to a prompt or a skill, and when auditing one that already has rules — a CLAUDE.md, an AGENTS.md, a SKILL.md, a role prompt. Reaches a verdict on whether a rule should exist and on what would license removing one; it does not write or delete the line itself.
+description: Use before adding a rule to a standing prompt or a skill, or when auditing rules already there. Reaches a verdict on whether a rule should exist; writes nothing.
 ---
 
 # Deliberating over a prompt or a skill
