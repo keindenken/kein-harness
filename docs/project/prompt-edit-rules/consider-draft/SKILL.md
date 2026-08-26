@@ -1,11 +1,13 @@
 ---
-name: revise
-description: Use before adding a rule to a standing prompt, and when auditing one that already has rules — a CLAUDE.md, an AGENTS.md, a skill, a role prompt. Decides whether a rule should exist at all and what would license removing it. Not for writing the line once that is decided.
+name: deliberate
+description: Use before adding a rule to a prompt or a skill, and when auditing one that already has rules — a CLAUDE.md, an AGENTS.md, a SKILL.md, a role prompt. Reaches a verdict on whether a rule should exist and on what would license removing one; it does not write or delete the line itself.
 ---
 
-# Revising a standing prompt
+# Deliberating over a prompt or a skill
 
-This decides **whether a rule should exist**. How to write it once decided is a separate question, and the `standing-prompt` rule injects itself when the file is opened.
+This decides **whether a rule should exist**. Writing the line once that is decided is governed by the `standing-prompt` rule, not by this.
+
+**It produces a verdict, not an edit.** Nothing here changes a file. Each half below ends in one of a small set of outcomes, and someone carries that outcome out afterwards — which is when the writing rules apply and when the diff gets made.
 
 A rule that describes how you want an agent to work gets no staleness signal. Nothing external marks it false, and testing whether it is still needed means removing it — which is disobeying it. So the two decisions this skill covers are asymmetric on purpose. Adding needs one moment of resistance at the point where hands are already moving. Removing needs an arsenal, because nothing ever brings it up.
 
@@ -16,9 +18,9 @@ Two modes, and both handle addition and removal:
 
 ## Adding
 
-**Almost none of this goes into the file.** These checks are instruments for deciding, and an instrument that leaves residue in the product has become part of it. Of the checks below, one leaves a clause beside the rule — *name the mechanism* — and one leaves a setting outside it — *the off-switch*. The rest leave nothing at all.
+**Almost none of this reaches the file, when the change is finally made.** These checks are instruments for deciding, and an instrument that leaves residue in the product has become part of it. Of the checks below, one produces a clause that belongs beside the rule — *name the mechanism* — and one produces a setting that belongs outside it — *the off-switch*. The rest produce an answer and nothing more.
 
-That is easy to get wrong in one direction only. Having just written a paragraph about what a strong agent would do here, you will want to keep the paragraph. Keeping it puts reasoning in a file that is read as instruction, and a later reader will obey it, cite it as precedent, and stretch it to a case it does not cover. Put that paragraph in the commit that makes the change, where a rule's reasons already go.
+That is easy to get wrong in one direction only. Having just written a paragraph about what a strong agent would do here, you will want to keep the paragraph. Keeping it puts reasoning into a file that is read as instruction, and a later reader will obey it, cite it as precedent, and stretch it to a case it does not cover. That paragraph goes in the commit that makes the change, where a rule's reasons already go.
 
 **What does it forbid that you would want?** Every rule refuses some outputs. Name them before you find them at runtime. Three sub-questions settle it:
 
@@ -34,6 +36,8 @@ That is easy to get wrong in one direction only. Having just written a paragraph
 
 **Does prevention's standing cost beat the exposure?** Not the size of the failure — the standing cost is what the rule charges on every run where nothing happens: tokens on each dispatch, steps a compliant agent walks, and the good outputs it makes an agent refuse. A guard that charges nothing until it fires survives even at zero exposure. A guard that polls does not.
 
+**Outcome:** add it, or do not. If you add it, the change carries at most one clause of mechanism beside the rule, plus whatever setting the off-switch needed. Everything else you produced deciding goes in the commit message.
+
 ## Removing
 
 **Absence of violations is not evidence.** A rule guarding a state that is rarely entered passes clean round after clean round for free, and nobody counts how often the state was entered. Routing rules read backwards on top of that: the violation count rises when the rule is working, because a rule that is doing its job is a rule people are hitting.
@@ -46,6 +50,8 @@ That is easy to get wrong in one direction only. Having just written a paragraph
 - narrow the boundary it claims, so it stops asserting where it was never tested.
 
 Reaching for cut-or-keep first is how a real finding gets thrown out alongside a rule that needed one condition.
+
+Two of those four add text rather than remove it, so a pass that set out to shrink a prompt can honestly end with it longer. That is a real outcome and not a failed removal — but say which of the four you chose, because "made it conditional" and "could not bring myself to cut it" produce the same diff.
 
 **Warrants a single command settles.** Each of these is a command to run rather than a judgement to make, so run them:
 
@@ -66,3 +72,5 @@ The last two need the reason the rule was added, which is in the commit that add
 - An external change that licenses the deletion for you. This works only for a rule describing an external surface — when the surface moves, the rule is already false and removing it needs no experiment.
 
 "There is no fixture for this" is a conclusion, not a starting condition. Ask what a fixture would have to show before accepting that none can exist.
+
+**Outcome:** one of the four moves above, named. Three of them shrink the file and one of them — narrowing the boundary, or making it conditional — adds text to it, so a removal pass can legitimately end with the prompt longer than it started. Say which move you chose and why in the commit; that is the only record that works for a line that is now gone.
