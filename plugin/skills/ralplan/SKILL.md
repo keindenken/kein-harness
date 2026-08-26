@@ -22,15 +22,9 @@ Read each before the point its line names:
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
 - [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
 
-Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
-
-Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history.
-
-An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
-
-Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
-
 ## Workflow
+
+Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
 
 1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts. Preserve the original requirements by path and hash when possible; otherwise store a prompt-safe summary and its hash.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
@@ -41,6 +35,14 @@ Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounde
 7. If every lane returns `PASS` for the same review hash, set Approved and explain the approval and any bounded Evidence Gates in `Status reason`. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
 
 Fresh official reviewers are mandatory after every review-content revision. A previous reviewer may perform a targeted closure check when a subtle or high-risk correction needs confirmation; that check can block but cannot approve or replace a fresh lane.
+
+## Dispatch
+
+Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history. Planner's first dispatch is not one of these — the `plan` skill owns the first draft and dispatches Planner itself.
+
+An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
+
+Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
 
 ## Evidence and Decisions
 
