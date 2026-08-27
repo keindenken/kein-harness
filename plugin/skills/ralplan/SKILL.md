@@ -7,11 +7,11 @@ description: Use when an implementation plan needs evidence-grounded architectur
 
 ## Overview
 
-RALPLAN is the `plan` skill under a consensus gate. Planner owns plan prose; the lead owns workflow state; a fresh Architect and fresh Critic independently decide whether the complete current plan is safe and specific enough to approve.
+RALPLAN is the `/plan` skill under a consensus gate. Planner owns plan prose; the lead owns workflow state; a fresh Architect and fresh Critic independently decide whether the complete current plan is safe and specific enough to approve.
 
-Use it when that gate could actually return `MUST_FIX` — the architecture is contested, an independent reader would plausibly disagree, or a wrong plan is expensive to discover later. A gate that cannot fail is ceremony, and its rounds are the expensive part; `plan` alone produces the same artifact without them.
+Use it when that gate could actually return `MUST_FIX` — the architecture is contested, an independent reader would plausibly disagree, or a wrong plan is expensive to discover later. A gate that cannot fail is ceremony, and its rounds are the expensive part; `/plan` alone produces the same artifact without them.
 
-This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority, and the only skill it runs is `plan`.
+This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority, and the only skill it runs is `/plan`.
 
 ## Required Files
 
@@ -28,7 +28,7 @@ Use `ocs state ralplan --help` for the transition commands — `start`, `open`, 
 
 1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
-3. For a new artifact, run the `plan` skill. It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen in step 6, not by running `plan` again.
+3. For a new artifact, **run the `/plan` skill.** It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen in step 6, not by running `plan` again.
 4. Validate the artifact. The lead may edit only workflow-owned `Status` and `Status reason` metadata. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
 5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. Any lane's `MUST_FIX` blocks approval.
 6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
