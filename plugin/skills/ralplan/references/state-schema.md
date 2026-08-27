@@ -37,8 +37,6 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
 
 The keys of `verdicts` are the run's lane roster, written once and fixed for the run: a lane that returned `MUST_FIX` cannot be dropped and the plan approved without it. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
 
-Nonterminal state carries no timestamp. `reconcile` decides continuation and reads no time, `run_id` already carries the start to the second, and the file's own mtime is the last write. Do not reintroduce one without a reader that branches on it.
-
 Each verdict contains only `lane`, `verdict`, `plan_sha256`, and `reviewed_at`. Each persisted finding contains only `lane`, `claim`, `evidence`, `impact`, and `required_correction`.
 
 Allowed nonterminal phases are `initializing`, `drafting`, `drafted`, `reviewing`, `revising`, `gathering_evidence`, `blocked`, and `interrupted`. Use the closest current activity; put the operationally exact continuation in `next_action`.
