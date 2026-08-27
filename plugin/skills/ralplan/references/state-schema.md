@@ -97,7 +97,7 @@ ocs state ralplan abort   <state.json> --reason <text>
 
 `--findings` takes a JSON array of findings, or an object carrying one under `findings`. It is the only content a transition cannot derive, and it is the round's review record rather than scratch — keep it beside the run.
 
-`checkpoint <state.json> <candidate.json>` promotes a hand-authored state and remains for a shape no transition names — `blocked`, `interrupted`, `gathering_evidence`. Delete the candidate once it succeeds; the durable record is `state.json` and the receipt.
+`checkpoint <state.json> <candidate.json>` promotes a hand-authored state and remains for a shape no transition names — `blocked`, `interrupted`, `gathering_evidence`. Delete the candidate once it succeeds, since a long run otherwise leaves one per checkpoint behind in the run directory; the durable record is `state.json` and the receipt.
 
 `validate-plan <plan.md>` checks the artifact's shape alone. `validate-state <state.json>` checks one state document's shape and no transition; every promoting command already runs it. `reconcile <state.json>` recomputes the plan and input hashes against the files on disk and returns the exact next action — run it before every resume and after compaction.
 
@@ -114,5 +114,3 @@ Three states per blocked round, and a lane returning is not one of them:
 A verdict arriving is not a state worth writing. The next checkpoint clears the map, so a checkpoint holding one incoming verdict is erased before anything reads it, and a blocked round records its review in `findings`, which carries the lane on each entry. Wait for every dispatched lane to return, then write the checkpoint that resolves the round.
 
 Verdicts are recorded for their own sake only on the approving round, where they are the evidence that every fresh lane passed one hash and they survive into the receipt.
-
-Delete the candidate file once the checkpoint succeeds. It is scratch for one transition; a long run otherwise leaves one per checkpoint behind in the run directory, and the durable record is `state.json` and the receipt.

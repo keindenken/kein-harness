@@ -10,7 +10,7 @@ What RALPLAN adds to the artifact the `plan` skill produces. The artifact itself
 - `In Review` for the length of an open run, including while Planner is revising between rounds.
 - `Approved` only after every fresh lane passes the current review-content SHA-256.
 
-The field answers one question — is a gate running over this artifact — so a reader who opens the plan cold gets that answer without reconstructing the round history. It used to answer two, and `Draft` meant "never reviewed", "the last round blocked", and "abandoned unapproved" at once, which is three states a reader cannot tell apart and a field that turns over twice an hour on a live run.
+The field answers one question — is a gate running over this artifact — so a reader who opens the plan cold gets that answer without reconstructing the round history.
 
 Where a run is *inside* a round is `phase`, which lives in state rather than in artifact prose, and it is what the transition rules are enforced on.
 

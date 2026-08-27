@@ -20,7 +20,7 @@ Read each before the point its line names:
 - [state-schema.md](references/state-schema.md) before creating or resuming a run.
 - [plan-gate.md](references/plan-gate.md) before setting a status or computing a hash. The artifact's own contract arrives with the `plan` invocation; this covers only what the gate adds to it.
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
-- [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane.
+- [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane — `--architect codex`, `--critic claude,codex`.
 
 ## Workflow
 
@@ -40,7 +40,7 @@ Fresh official reviewers are mandatory after every review-content revision. A pr
 
 Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history. Planner's first dispatch is not one of these — the `plan` skill owns the first draft and dispatches Planner itself.
 
-An invocation may name another vendor for a review lane — `--architect codex`, `--critic claude,codex`. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
+An invocation may name another vendor for a review lane. Without such a flag every lane is native, and the rest of this section is the whole story.
 
 Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
 
