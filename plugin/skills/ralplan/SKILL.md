@@ -13,6 +13,14 @@ Use it when that gate could actually return `MUST_FIX` — the architecture is c
 
 This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority, and the only skill it runs is `/plan`.
 
+## At entry
+
+- `ocs` resolves to !`command -v ocs || echo "NOTHING ON PATH — no transition command will run"`
+- Plans default under !`ocs state-dir plans 2>&1`
+- Runs default under !`ocs state-dir runs/ralplan 2>&1`
+
+!`ocs state ralplan --help 2>&1`
+
 ## Required Files
 
 Read each before the point its line names:
@@ -24,7 +32,7 @@ Read each before the point its line names:
 
 ## Workflow
 
-Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
+Each transition builds its own state; do not hand-author one unless no command names the shape you need.
 
 Entry and resume:
 
