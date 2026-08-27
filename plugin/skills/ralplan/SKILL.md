@@ -26,9 +26,14 @@ Read each before the point its line names:
 
 Use `ocs state ralplan --help` for the transition commands — `start`, `open`, `block`, `revised`, `approve`, `complete` — plus validation and reconciliation. Each transition builds its own state; do not hand-author one unless no command names the shape you need.
 
+Entry and resume:
+
 1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
-3. For a new artifact, **run the `/plan` skill.** It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen in step 6, not by running `/plan` again.
+3. For a new artifact, **run the `/plan` skill.** It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen when a round blocks, not by running `/plan` again.
+
+Each round, until the plan is approved or the run ends unapproved:
+
 4. Validate the artifact. The lead may edit only workflow-owned `Status` and `Status reason` metadata. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
 5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. Any lane's `MUST_FIX` blocks approval.
 6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
