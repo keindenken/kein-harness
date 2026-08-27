@@ -53,23 +53,3 @@ Ask the user immediately only when an answer is necessary for the next approval 
 Around five unsuccessful official rounds is a diagnostic trigger, not a maximum, and it re-arms rather than being spent: a decision to continue covers the next five rounds, not the rest of the run. Reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff. Do not manufacture approval from repetition.
 
 When the same defect class recurs against the same contract, revisit the contract or underlying design instead of polishing the same prose again. Evidence gathering does not authorize production implementation or scope expansion.
-
-## Quick Reference
-
-| Situation | Required action |
-|---|---|
-| Plan body changed | Clear every verdict; fresh review on every lane |
-| Only status metadata changed | Refresh artifact hash; review hash remains stable |
-| One lane returns `MUST_FIX` | Consolidate findings; return to Planner |
-| Every fresh lane passes one review hash | Mark Approved and checkpoint |
-| Unexpected Evidence Gate result | Stop and replan |
-| Pause or context loss | Checkpoint; resume through `reconcile` |
-
-## Common Mistakes
-
-- **Lead rewrites Planner output:** assign one artifact and let Planner revise it.
-- **Review history leaks into a fresh lane:** package only current inputs listed in the review contract.
-- **One passing lane is treated as consensus:** every independent lane must pass the same review hash.
-- **Full review prose becomes permanent state:** persist only compact verdicts and actionable findings.
-- **A stale verdict survives plan drift:** hashes are authority; invalidate before continuing.
-- **A hard retry cap forces a bad terminal state:** use the around-five reassessment without weakening approval.
