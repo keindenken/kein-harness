@@ -8,10 +8,10 @@ descvi의 phase-46(v3.5 ring-furniture restyle)을 kein `ralplan`과 기존 하�
 
 | 자료 | 위치 |
 |---|---|
-| 진입 트레이스 (기존) | `docs/260824-omc-plan-kickoff.md` |
-| 진입 트레이스 (kein) | `docs/260824-kein-plan-kickoff.md` |
-| 산출물 (기존) | `docs/260825-omc-v35-ralplan.md` |
-| 산출물 (kein) | `docs/260826-kein-v35-ralplan.md` |
+| 진입 트레이스 (기존) | `docs/artifacts/260824-omc-plan-kickoff.md` |
+| 진입 트레이스 (kein) | `docs/artifacts/260824-kein-plan-kickoff.md` |
+| 산출물 (기존) | `docs/artifacts/260825-omc-v35-ralplan.md` |
+| 산출물 (kein) | `docs/artifacts/260826-kein-v35-ralplan.md` |
 | 런 원장 (kein, 7라운드 전량) | `descvi/repo/phase-46-ring-furniture-restyle-in-kein/.agents/kein/runs/ralplan/260824-222055-…` |
 
 **둘 다 승인본이 아니다.** kein 쪽은 `Status: Draft`, "TERMINAL UNAPPROVED" — 7라운드에서 owner의 정지 규칙으로 멈췄다. 기존 쪽은 그 텍스트에 2라운드를 돌고 "REVISION 5 — FINAL TEXT ROUND, NOT YET APPROVED"다. 아래의 모든 비교는 미승인 문서 두 개 사이의 것이다.
