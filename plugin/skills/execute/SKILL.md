@@ -21,8 +21,6 @@ It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or
 
 An invocation may name another vendor for a lane — `--reviewer claude,codex` for review, `--executor codex` for the implementation itself. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
 
-Pass `run_in_background: false` on every Agent tool Executor and reviewer dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead waiting on all selected lanes waits forever. Reviewers deliver verdicts, so for them this is what makes the round observable. Complementary read-only lanes still run concurrently when their dispatches share one message.
-
 ## Entry and Resume
 
 1. Resolve the canonical Git worktree and run root, the latter from `ocs state-dir runs/execute`. Resume or explicitly stop any occupying nonterminal run. Distinct worktrees host only genuinely distinct runs: every normalized task remains in this run's serial ledger through acceptance and cannot be extracted to another worktree for concurrency.
@@ -35,7 +33,7 @@ Pass `run_in_background: false` on every Agent tool Executor and reviewer dispat
 1. Dispatch one focused `kein:executor` with one task, its scope, completion condition, repository instructions, and verification path. Keep later tasks pending; no second write-capable task may run elsewhere as a deadline workaround.
 2. Apply repository testing policy first, then explicit input RED, test-first, or TDD requirements. If both are silent, Execute does not require strict TDD, but verification remains mandatory.
 3. After every implementation or correction, capture fresh Executor self-verification and the exact worktree fingerprint. Self-verification is not approval.
-4. Select at least one independent reviewer by risk and evidence question. Complementary read-only lanes may run concurrently. Wait for all selected lanes, then issue one consolidated correction brief containing every blocker.
+4. Select at least one independent reviewer by risk and evidence question. Complementary read-only lanes may run concurrently when their dispatches share one message. Wait for all selected lanes, then issue one consolidated correction brief containing every blocker.
 5. On `MUST_FIX`, choose the original or a fresh Executor, start a correction round, clear stale evidence, correct, and verify again.
 6. After correction, dispatch at least one newly spawned blind reviewer over the complete current result. Exclude earlier findings, verdicts, identities, correction notes, claimed fixes, closure results, and desired outcomes. A previous reviewer cannot approve the correction; its separate closure check can block but cannot approve.
 7. Accept only when current-round verification and a fresh independent `PASS` bind to the same task, round, and fingerprint. Then checkpoint and advance serially.

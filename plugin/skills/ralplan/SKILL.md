@@ -42,7 +42,7 @@ Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool
 
 An invocation may name another vendor for a review lane. Without such a flag every lane is native, and the rest of this section is the whole story.
 
-Pass `run_in_background: false` on every Agent tool lane dispatch. A backgrounded subagent's final message never reaches the lead — only an idle notification does — so a lane whose deliverable is a judgement rather than a file returns nothing at all, and a lead that settles in to wait for its report waits forever. Planner is partly shielded because it writes the artifact to a path, but Architect and Critic deliver verdicts, so for them this is what makes the round observable. Put the blind lanes in a single message: synchronous dispatch still runs them concurrently, so nothing is lost by not backgrounding them.
+Put the blind lanes in one message: they then run concurrently, and neither can have seen the other's response, so the contract's blindness between them holds by construction rather than by the lead's care.
 
 ## Evidence and Decisions
 

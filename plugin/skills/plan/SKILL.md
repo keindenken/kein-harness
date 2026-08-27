@@ -16,7 +16,7 @@ Read [plan-template.md](references/plan-template.md) before dispatching Planner.
 ## Workflow
 
 1. Resolve the task, the repository, and the canonical plan path.
-2. Dispatch one fresh `kein:planner` with the Agent tool and `run_in_background: false`, supplying the canonical path, the template contract, the requirements, and the repository root.
+2. Dispatch one fresh `kein:planner` with the Agent tool, supplying the canonical path, the template contract, the requirements, and the repository root.
 3. Validate the artifact against the template, then report its path.
 
 ## Where the plan goes

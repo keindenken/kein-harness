@@ -47,10 +47,8 @@ Everything else in the review contract applies unchanged, including the review-c
 A codex lane is structurally fresh.
 `ocs ask` runs `codex exec --ephemeral`, so there is no session to continue and no history to clear, and the blindness requirement is met without the lead doing anything to secure it.
 
-A codex lane may run in the background.
-The skill body forbids backgrounding an Agent tool lane because a backgrounded subagent's final message never reaches the lead, so a verdict simply never arrives.
-That reason does not hold for a shell call whose response is persisted: `--trace` puts the verdict on disk whether or not the lead is waiting when it lands.
 Start a codex lane first and the native lanes alongside it.
+`--trace` puts a codex verdict on disk whether or not the lead is waiting when it lands, so the two kinds of lane overlap without either being waited on.
 
 ## Recording
 

@@ -401,12 +401,13 @@ step 4~7은 루프다(§3의 정렬표). 번호는 순차를 암시하고, 루�
 | A | 라벨 완화 + 개행 버그 | **완료** `8bedb2e` |
 | 1 | `stage` → transition 앵커, `stage-specific` → `lane-specific` | **완료** `6368b16` — 앵커를 도입하는 대신 단어가 나갔다 |
 | 2 | `plan` 호출 강제 — 서술을 거부로 | **완료** `c360041` — 거부가 아니라 경쟁하던 허가를 옮겼다 |
-| 3 | requirements 계약에 모순이 있는지부터 | 논의 필요 |
+| 3 | requirements 계약에 모순이 있는지부터 | **완료** `6bc8252` — 모순은 실재했고, 계약이 아니라 문장 하나가 틀렸다 |
 | 6a | 재발 — `revised`의 `next_action`이 원장을 가리킨다 (§6) | **완료** `a5f57ba` |
 | 6a' | closure 레인 — 세 번째 역할 + "차단 가능·승인 불가" 종류 (§6) | 스키마 변경, 보류 |
 | 6b | Workflow 번호 → 이름, 어휘 4→3 (§6) | 안 정함 |
 | 6c | sizing 미선언 — 다음 런이 확인 (§6) | 관측 대기 |
-| 4·5 | 이력 규칙 → `plan-gate.md` + correction brief | 논의 필요 |
+| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | 논의 필요 |
+| 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | 논의 필요. §1이 4·5와 한 뿌리라 했는데 이 행이 없었다 |
 | — | `prompts/planner.md`에 `validate-plan` 추가 | canonical 수정, 별건 |
 | — | 규격화 A/B — `--variant` + `plan-evidence-gate`, **llm 그레이더로 판정** | 리그는 이미 있음 |
 | — | 타 플러그인 arm | 훅·MCP 인정 여부가 선결 |
