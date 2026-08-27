@@ -16,16 +16,14 @@ It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or
 - Read [state-schema.md](references/state-schema.md) before creating or resuming state.
 - Read [task-ledger-template.md](references/task-ledger-template.md) before normalizing input.
 - Read [review-contract.md](references/review-contract.md) before review, closure check, or final audit.
-- Read [lanes.md](references/lanes.md) only when the invocation names a vendor for a lane.
+- Read [lanes.md](references/lanes.md) only when the invocation names a vendor for a lane — `--reviewer claude,codex` for review, `--executor codex` for the implementation itself.
 - Run `ocs state execute --help` for checkpoint and reconciliation commands.
-
-An invocation may name another vendor for a lane — `--reviewer claude,codex` for review, `--executor codex` for the implementation itself. Read [lanes.md](references/lanes.md) before dispatching whenever it does. Without such a flag every lane is native, and the rest of this section is the whole story.
 
 ## Entry and Resume
 
 1. Resolve the canonical Git worktree and run root, the latter from `ocs state-dir runs/execute`. Resume or explicitly stop any occupying nonterminal run. Distinct worktrees host only genuinely distinct runs: every normalized task remains in this run's serial ledger through acceptance and cannot be extracted to another worktree for concurrency.
 2. On resume, run `reconcile` and follow its exact next action. A transcript or old agent handle never proves completion; fingerprint drift requires inspection and fresh evidence.
-3. Apply the executability gate. Approved, Draft, and unapproved plans and bounded briefs are eligible when outcome, scope, ordering, completion conditions, and verification paths require no invented material decision. Otherwise checkpoint `blocked`.
+3. Apply the executability gate. Approved, Draft, and unapproved plans and bounded briefs are eligible when outcome, scope, ordering, completion conditions, and verification paths require no invented material decision. Otherwise checkpoint `blocked`, and ask the one question that would unblock it when there is one.
 4. Normalize mechanically and checkpoint before dispatch. An unexpected Evidence Gate result blocks before dependent production work.
 
 ## Task Loop
@@ -43,25 +41,3 @@ An invocation may name another vendor for a lane — `--reviewer claude,codex` f
 1. After all tasks pass, run `kein:code-simplifier` only for a concrete avoidable-complexity candidate and immediately before final audit. Any simplifier write requires regression verification.
 2. Dispatch fresh final reviewers over the complete post-simplification tree and final evidence. Any later mutation invalidates final approval; repeat the affected verification and final audit or restore and verify the audited tree.
 3. Collapse state to a compact receipt and report accepted tasks, changed locations, final evidence, and residual risk. Do not create another durable report by default.
-
-## Quick Reference
-
-| Situation | Action |
-|---|---|
-| Unapproved but executable | Start |
-| Material decision missing | Block and ask one necessary question |
-| Reviewer still running | Wait and consolidate the round |
-| Correction | Fresh verification and new blind review |
-| Prior reviewer offers closure | Non-approving closure check only |
-| Post-audit edit | Invalidate and repeat the gate |
-
-## Red Flags
-
-- Next writer starts before acceptance.
-- Executor tests count as approval.
-- Findings arrive piecemeal to the Executor.
-- Existing reviewer approves its correction.
-- Stale evidence survives a changed fingerprint.
-- Task commit is required without user authority.
-
-Any red flag stops advancement until its gate is restored.

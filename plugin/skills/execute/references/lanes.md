@@ -16,7 +16,7 @@ A run without such a flag uses the native lanes described in the skill body and 
 
 The flag names vendors rather than roles, which is where this differs from RALPLAN. RALPLAN has a fixed Architect and Critic to name; here the reviewer roles are chosen per round from the evidence question, so the roster applies to whichever roles that selection produces.
 
-Every lane blocks. RALPLAN offers an `:advisory` suffix and this does not, because there the roster is fixed for the run and the state can hold it — verdicts are keyed by lane, so a silent lane is visible and an advisory one can be skipped by name. With the roles varying per round there is no roster to fix and nothing for a suffix to be enforced against. The rule is the one the review contract already states: a current `MUST_FIX` stops acceptance, whichever lane returned it.
+Every lane blocks.
 
 `--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent.
 
@@ -62,6 +62,6 @@ Start the codex lanes first and the native lanes alongside them. `--trace` puts 
 
 A verdict's `reviewer_role` becomes `<role>@<vendor>` — `code-reviewer@claude`, `critic@codex`. Findings carry the same identifier as the verdict they came from. No schema change is needed: verdicts are already a list and the role is already free text. Nothing in the workflow reads the vendor half, and it is worth the two characters only because a native lane leaves no trace of its own: the ledger is the sole record of which vendor judged.
 
-The Executor's vendor is not recorded, and putting it in the state would be a fact with no reader. `reconcile` resolves continuation without it, acceptance judges the worktree rather than its author, and a correction round may switch vendors either way. `ocs team` already holds the vendor, the model, and the home, written by the mechanism instead of by a lead who can forget — which is how the first observed run recorded none of it. It has no flag to forget either: that record used to depend on `--trace`, which left this argument resting on the lead remembering the very thing it was cited for not remembering. The worktree fingerprint binds verification to the round exactly as before: a vendor Executor wrote to the same canonical worktree.
+The Executor's vendor is not recorded, and putting it in the state would be a fact with no reader. `reconcile` resolves continuation without it, acceptance judges the worktree rather than its author, and a correction round may switch vendors either way. `ocs team` already holds the vendor, the model, and the home, written by the mechanism instead of by a lead who can forget — which is how the first observed run recorded none of it. The worktree fingerprint binds verification to the round exactly as before: a vendor Executor wrote to the same canonical worktree.
 
 A nonzero exit from `ocs ask` or `ocs team` is not a lane result. A lane that failed to run has not passed, so the round is incomplete until it runs, and this one is the lead's to hold rather than the state's: verdicts are a list rather than a roster, so a lane that never reported leaves nothing behind to notice. A vendor Executor that exits nonzero has not implemented the task, whatever the worktree looks like: re-read the fingerprint before deciding what happened.
