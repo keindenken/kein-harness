@@ -10,4 +10,24 @@ manifest.jsonl
 shortlist.json
 run-manifest.json
 band-*.json
-runs/
+
+# `viewer.html` is generated — `build-viewer.py` rebuilds it from the files
+# below, and it was costing 7 MB of history per publish because a 3 MB payload
+# is inlined into it and does not delta.
+viewer.html
+
+# The reading passes write here, and most of what they write is scratch: probe
+# arms, retry manifests, per-batch inputs, superseded variants. What is kept is
+# what `build-viewer.py` reads, which is the same thing as what would have to be
+# paid for again to rebuild the page.
+runs/*
+!runs/pass2.jsonl
+!runs/labels-v2.jsonl
+!runs/quote-recheck.jsonl
+!runs/null-recovered.json
+!runs/facet.jsonl
+!runs/facet-ko-fix.jsonl
+!runs/facet-recovered.jsonl
+!runs/topic.jsonl
+!runs/cluster-read.jsonl
+!runs/pass1.jsonl
