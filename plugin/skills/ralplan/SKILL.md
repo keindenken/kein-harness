@@ -15,9 +15,11 @@ This skill ends with an approved plan or an explicit unapproved state. It grants
 
 ## At entry
 
-- `ocs` resolves to !`command -v ocs || echo "NOTHING ON PATH — no transition command will run"`
-- Plans default under !`ocs state-dir plans 2>&1`
-- Runs default under !`ocs state-dir runs/ralplan 2>&1`
+Read from this working directory when the skill loaded; `ocs state-dir` answers relative to it.
+
+- `command -v ocs` → !`command -v ocs || echo "NOTHING ON PATH — no transition command will run"`
+- `ocs state-dir plans` → !`ocs state-dir plans 2>&1`
+- `ocs state-dir runs/ralplan` → !`ocs state-dir runs/ralplan 2>&1`
 
 !`ocs state ralplan --help 2>&1`
 
