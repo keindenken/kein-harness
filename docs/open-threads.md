@@ -144,3 +144,9 @@ descvi's own `2plan` already learned this and wrote it down: *"Write the brief t
 
 Not changed during the run. The lead has a working method and the phase-47 instrument is already carrying three changes made mid-run; a fourth would cost more than the documentation gap does.
 
+## The `ocs ask` argv limit and the run-directory mint were the same shape
+
+The mint half is fixed. `start` and `checkpoint` now take `--run-root` with `--slug` and name `<run-root>/<YYMMDD-HHMMSS>-<slug>/` themselves. What is left is the `ocs ask` half, above.
+
+Recorded here because the diagnosis generalises. Both were the harness asking a lead to assemble something in the shell that the harness could assemble itself, and in both cases the shell turned out to be the wrong place: a compound command is refused outright by a worktree-isolated session, and a 646-line argument is a shape a document does not take. Anything else that reads as "compute this and pass it in" is worth checking against that pair.
+

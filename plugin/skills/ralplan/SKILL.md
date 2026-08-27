@@ -28,7 +28,7 @@ Use `ocs state ralplan --help` for the transition commands — `start`, `open`, 
 
 Entry and resume:
 
-1. Resolve the task, repository, canonical plan path, and run directory before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md` and the run directory to `<ocs state-dir runs/ralplan>/<YYMMDD-HHMMSS>-<slug>/`; follow the project's own convention instead when it already has one for plan artifacts.
+1. Resolve the task, repository, and canonical plan path before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md`; follow the project's own convention instead when it already has one for plan artifacts.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
 3. For a new artifact, **run the `/plan` skill.** It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen when a round blocks, not by running `/plan` again.
 

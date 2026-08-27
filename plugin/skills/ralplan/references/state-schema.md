@@ -82,7 +82,7 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
 One subcommand per transition. Each reads the saved state and the plan file, builds the next state, and promotes it through the same validation, so nothing is passed that the two of them already know — the round number, both hashes, and the artifact's own `Status` are read, never supplied.
 
 ```sh
-ocs state ralplan start   <state.json> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>]
+ocs state ralplan start   --run-root <runs/ralplan> --slug <slug> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>]
 ocs state ralplan open    <state.json>                    # the next official round
 ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
 ocs state ralplan revised <state.json>                    # Planner's revision landed
@@ -90,6 +90,8 @@ ocs state ralplan approve <state.json>                    # every blocking lane 
 ocs state ralplan complete <state.json>                   # compact to the receipt
 ocs state ralplan abort   <state.json> --reason <text>
 ```
+
+`start` names the run directory itself — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json` — and prints the path it wrote, which is what every later command takes as its positional. Pass that path to `start` instead when a run directory already exists. Nothing needs creating first: a checkpoint makes its own parent directory.
 
 `--next` overrides `next_action` on any of them; each carries a default. `--verdict <lane>=<verdict>` on `approve` names an advisory lane, which is otherwise left unset.
 

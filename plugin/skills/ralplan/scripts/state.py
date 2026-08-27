@@ -591,6 +591,21 @@ def _now() -> str:
     return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
+SLUG_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*\Z")
+
+
+def mint_run_dir(run_root: Path, slug: str) -> Path:
+    """Build the run directory name so the caller does not have to read a clock.
+
+    `run_id` is the directory name, so the lead was left assembling `<YYMMDD-HHMMSS>-<slug>` in
+    the shell -- which is a compound command, and a worktree-isolated session refuses those.
+    Both measured runs hit that refusal at this exact step and split it into three calls.
+    """
+    if not SLUG_PATTERN.match(slug):
+        raise ValueError("Slug must start alphanumeric and hold only letters, digits, dot, dash, underscore")
+    return run_root / f"{datetime.now().astimezone():%y%m%d-%H%M%S}-{slug}"
+
+
 def _refresh(candidate: Dict[str, Any]) -> None:
     """The artifact is the authority on its own status and content.
 
@@ -741,6 +756,19 @@ def _load_findings(path: Path) -> List[Dict[str, Any]]:
     return payload
 
 
+def _resolve_start_destination(args: Any) -> Path:
+    minted = args.run_root is not None or args.slug is not None
+    if args.destination is not None and minted:
+        raise ValueError("Pass a state.json path or --run-root with --slug, not both")
+    if not minted:
+        if args.destination is None:
+            raise ValueError("start needs a state.json path, or --run-root with --slug")
+        return args.destination
+    if args.run_root is None or args.slug is None:
+        raise ValueError("--run-root and --slug are used together")
+    return mint_run_dir(args.run_root, args.slug) / "state.json"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -765,7 +793,11 @@ def main() -> int:
     # same validation, so the caller supplies only what cannot be derived: the findings of a round,
     # and the free text of `next_action`.
     start_parser = subparsers.add_parser("start", help="first checkpoint of a run")
-    start_parser.add_argument("destination", type=Path)
+    start_parser.add_argument("destination", type=Path, nargs="?",
+                              help="state.json path; omit and pass --run-root with --slug to have one named for you")
+    start_parser.add_argument("--run-root", type=Path, default=None,
+                              help="mint <run-root>/<YYMMDD-HHMMSS>-<slug>/state.json instead of naming it")
+    start_parser.add_argument("--slug", default=None, help="run slug, used with --run-root")
     start_parser.add_argument("--plan", type=Path, required=True)
     start_parser.add_argument("--summary", required=True, help="prompt-safe task summary")
     start_parser.add_argument("--lanes", required=True, help="comma-separated roster, e.g. architect@claude,critic@claude")
@@ -806,10 +838,12 @@ def main() -> int:
         try:
             if args.command == "start":
                 here = Path.cwd()
-                start(args.destination, args.plan, args.summary,
+                destination = _resolve_start_destination(args)
+                start(destination, args.plan, args.summary,
                       [lane.strip() for lane in args.lanes.split(",") if lane.strip()],
                       args.reference, args.working_directory or here, args.repository or here,
                       args.next_action)
+                print(destination)
             elif args.command == "open":
                 open_round(args.destination, args.next_action)
             elif args.command == "block":

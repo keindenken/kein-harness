@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -840,6 +841,33 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
         atomic_write()
 
 
+SLUG_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*\Z")
+
+
+def mint_run_dir(run_root: Path, slug: str) -> Path:
+    """Build the run directory name so the caller does not have to read a clock.
+
+    `run_id` is the directory name, so the lead was left assembling `<YYMMDD-HHMMSS>-<slug>` in
+    the shell -- which is a compound command, and a worktree-isolated session refuses those.
+    """
+    if not SLUG_PATTERN.match(slug):
+        raise ValueError("Slug must start alphanumeric and hold only letters, digits, dot, dash, underscore")
+    return run_root / f"{datetime.now().astimezone():%y%m%d-%H%M%S}-{slug}"
+
+
+def _resolve_checkpoint_destination(args: Any) -> Path:
+    minted = args.run_root is not None or args.slug is not None
+    if args.destination is not None and minted:
+        raise ValueError("Pass a state.json path or --run-root with --slug, not both")
+    if not minted:
+        if args.destination is None:
+            raise ValueError("checkpoint needs a state.json path, or --run-root with --slug")
+        return args.destination
+    if args.run_root is None or args.slug is None:
+        raise ValueError("--run-root and --slug are used together")
+    return mint_run_dir(args.run_root, args.slug) / "state.json"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -851,8 +879,12 @@ def main() -> int:
     worktree_parser.add_argument("run_root", type=Path)
     worktree_parser.add_argument("worktree", type=Path)
     checkpoint_parser = commands.add_parser("checkpoint")
-    checkpoint_parser.add_argument("destination", type=Path)
+    checkpoint_parser.add_argument("destination", type=Path, nargs="?",
+                                   help="state.json path; on a run's first checkpoint pass --run-root with --slug instead")
     checkpoint_parser.add_argument("candidate", type=Path)
+    checkpoint_parser.add_argument("--run-root", type=Path, default=None,
+                                   help="mint <run-root>/<YYMMDD-HHMMSS>-<slug>/state.json instead of naming it")
+    checkpoint_parser.add_argument("--slug", default=None, help="run slug, used with --run-root")
     args = parser.parse_args()
     try:
         if args.command == "validate":
@@ -870,7 +902,9 @@ def main() -> int:
             occupant = find_occupying_run(args.run_root, args.worktree)
             print(json.dumps({"occupying_state": str(occupant) if occupant else None}, indent=2))
             return 1 if occupant else 0
-        checkpoint(args.destination, args.candidate)
+        destination = _resolve_checkpoint_destination(args)
+        checkpoint(destination, args.candidate)
+        print(destination)
         return 0
     except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
         print(error, file=sys.stderr)

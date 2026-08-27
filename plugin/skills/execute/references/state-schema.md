@@ -21,6 +21,9 @@ ocs state execute validate <state.json>
 ocs state execute reconcile <state.json>
 ocs state execute check-worktree <run-root> <worktree>
 ocs state execute checkpoint <state.json> <candidate.json>
+ocs state execute checkpoint --run-root <runs/execute> --slug <slug> <candidate.json>
 ```
+
+The second form is a run's first checkpoint: it names the run directory — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json` — and prints the path it wrote, which every later checkpoint takes as its positional. Nothing needs creating first; a checkpoint makes its own parent directory.
 
 `checkpoint` validates transitions, input identity, current worktree fingerprint, and single-run exclusivity before an atomic same-directory replace. `reconcile` never promotes partial work; drift requires inspection and fresh verification before selecting a continuation.
