@@ -1,6 +1,6 @@
 # The Gate Over a Plan
 
-What RALPLAN adds to the artifact the `plan` skill produces. The artifact itself is specified by [that skill's contract](../../plan/references/plan-template.md), which the `plan` invocation already carries; only the overlay is here.
+What RALPLAN adds to the artifact the `/plan` skill produces. The artifact itself is specified by [that skill's contract](../../plan/references/plan-template.md), which the `/plan` invocation already carries; only the overlay is here.
 
 ## Statuses
 
