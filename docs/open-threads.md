@@ -127,3 +127,20 @@ That makes the copy the only record of what actually ran, which is why it is sti
 The fix is one line where `prepare_plugin` is called without a `source`: resolve `HEAD` of the harness repository and put it in the manifest beside the path. `prepare_plugin` also re-renders agents onto one model, so the commit alone does not reproduce the copy — the manifest already records `model`, and the pair does.
 
 Doing it unlocks dropping the copy, which is ~800K of a default run and ~1.4M of a `--variant` one. Not urgent on its own; worth doing next time the manifest shape is touched.
+
+## `ocs ask` takes its task through argv, and a lane package does not fit there
+
+`ocs-ask` builds the task by joining positional arguments — `task="$task $1"` — and `--help` says `<task...>`. There is no file argument and no stdin path, so the whole review package has to arrive as one shell word.
+
+Measured on the phase-47 kein run, 2026-08-27, the first time a `--critic codex` lane has actually been dispatched. The package was 646 lines. The lead wrote a wrapper script to get it through:
+
+```sh
+exec ocs ask codex --agent critic --trace "$(cat "$RUN/round1-critic-codex-package.md")"
+```
+
+That works — `ARG_MAX` on macOS is large enough — and it is an invention, not something `lanes.md` describes. `lanes.md` shows `ocs ask codex --agent <role> --trace "<the lane package>"`, which reads as an inline string and is the shape a 646-line document cannot take.
+
+descvi's own `2plan` already learned this and wrote it down: *"Write the brief to a file and point codex at it; its runtime reads only `AGENTS.md`, so the brief is the only channel that reaches it."* That lesson cannot be ported into `lanes.md` as prose, because `ocs ask` has nothing to point at a file with. The fix is a `--task-file <path>`, or reading stdin when no positional task is given, and then `lanes.md` documents the file form instead of the inline one.
+
+Not changed during the run. The lead has a working method and the phase-47 instrument is already carrying three changes made mid-run; a fourth would cost more than the documentation gap does.
+

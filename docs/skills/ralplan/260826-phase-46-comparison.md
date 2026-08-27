@@ -12,7 +12,7 @@ descvi의 phase-46(v3.5 ring-furniture restyle)을 kein `ralplan`과 기존 하�
 | 진입 트레이스 (kein) | `docs/artifacts/260824-kein-plan-kickoff.md` |
 | 산출물 (기존) | `docs/artifacts/260825-omc-v35-ralplan.md` |
 | 산출물 (kein) | `docs/artifacts/260826-kein-v35-ralplan.md` |
-| 런 원장 (kein, 7라운드 전량) | `descvi/repo/phase-46-ring-furniture-restyle-in-kein/.agents/kein/runs/ralplan/260824-222055-…` |
+| 런 원장 (kein, 7라운드 전량) | **삭제됨 (2026-08-27, phase-47 준비 중).** 있던 곳은 `descvi/repo/phase-46-ring-furniture-restyle-in-kein/.agents/kein/runs/ralplan/260824-222055-…` |
 
 **둘 다 승인본이 아니다.** kein 쪽은 `Status: Draft`, "TERMINAL UNAPPROVED" — 7라운드에서 owner의 정지 규칙으로 멈췄다. 기존 쪽은 그 텍스트에 2라운드를 돌고 "REVISION 5 — FINAL TEXT ROUND, NOT YET APPROVED"다. 아래의 모든 비교는 미승인 문서 두 개 사이의 것이다.
 
@@ -298,6 +298,8 @@ rf"^- {label}\b[^:\n]*:[^\S\n]*\S"
 
 지우기 전에 모르는 것 둘 — Critic이 라벨 부재를 파서만큼 안정적으로 잡는가, 그리고 저 검사가 한 번이라도 뭘 잡았는가. 둘 다 런 원장에서 답이 나온다.
 
+**그 원장이 지워졌으므로 둘 다 지금은 답이 없다** — §7.
+
 ### "정형화" 느낌은 실제보다 좁다
 
 `validate_plan_text`가 무조건 강제하는 건 셋뿐이다 — 레벨1 제목, 유효한 `Status` 하나, 비어있지 않은 `Status reason`. `_evidence_gate_errors`는 `## Evidence Gates` 헤딩이 없으면 에러를 아예 반환하지 않고, 템플릿은 그 shape와 pre-mortem을 둘 다 optional이라 부른다.
@@ -394,6 +396,34 @@ step 4~7은 루프다(§3의 정렬표). 번호는 순차를 암시하고, 루�
 
 ---
 
+---
+
+## 7. 측정이 우연에 기대고 있었다
+
+phase-46 원장이 2026-08-27에 삭제됐다. phase-47 준비 중이었고, 삭제 자체는 정상적인 정리다. 문제는 그것이 **§2 전체와 `4·5`·`4·5b`·§5를 동시에 막았다**는 것이다.
+
+### 하네스는 라운드별 플랜 스냅샷을 요구한 적이 없다
+
+`state-schema.md:96`이 findings에 대해서만 *"the round's review record rather than scratch — keep it beside the run"* 이라고 쓴다. 라운드별 플랜 스냅샷은 어느 계약에도 없다.
+
+**§2의 중심 표(585→1070줄, 이력 5→377건, 100줄당 0.9→35.2)는 전적으로 그 스냅샷에서 나왔다.** phase-46에 7개가 남은 건 그 리드가 그렇게 했기 때문이고, 계약이 시킨 것이 아니다. 즉 이 문서에서 제일 많이 인용되는 측정이 **재현 보장이 없는 데이터** 위에 서 있었다.
+
+phase-47이 그걸 확인해준다. 라운드 1 시점에 런 디렉터리는 `plan-under-review.md` 하나이고, 파일 이름 규약도 phase-46과 다르다 — `round1-critic-codex-package.md` 대 `round-1-architect.md`. **규약이 없으니 리드가 매번 발명한다.**
+
+### 싼 자리가 하나 있다
+
+`revised`가 이미 플랜 파일을 연다 — `_refresh`가 거기서 두 해시를 계산한다. 그 순간에 `round-N-plan.md`로 복사하면 **리드 주의가 0이고 파일 쓰기 하나**다.
+
+정직하게 붙여둘 것: **이건 연속성 보험이 아니라 측정이다.** 원장의 원래 명분(세션 경계·auto compact 대응)과 다른 근거로 서야 하고, 그 근거는 "비교 프로그램이 돌고 있다"이며 프로그램이 끝나면 같이 끝난다. 넣는다면 오프스위치가 함께 가야 한다.
+
+### 이번에는 안 넣기로 했다
+
+phase-47 런이 진행 중이고, 이번 세션에 이미 계기가 세 번 바뀌었다 — `Required Files` 재편, 표 12행 삭제, `run_in_background` 제거. 네 번째를 런 중에 얹으면 phase-47이 무엇에 대한 관측인지가 더 흐려진다.
+
+**대가: phase-47의 라운드별 데이터도 안 남는다.** `4·5`·`4·5b`·§5는 규약이 정해진 다음 런까지 막힌 채로 간다. 런을 다시 시작할 여지가 있으므로, 재시작한다면 그 지점이 규약을 넣을 자리다.
+
+---
+
 ## 남은 작업
 
 | # | 항목 | 상태 |
@@ -406,8 +436,8 @@ step 4~7은 루프다(§3의 정렬표). 번호는 순차를 암시하고, 루�
 | 6a' | closure 레인 — 세 번째 역할 + "차단 가능·승인 불가" 종류 (§6) | 스키마 변경, 보류 |
 | 6b | Workflow 번호 → 이름, 어휘 4→3 (§6) | **완료** — 번호는 남고 루프가 드러났다. 어휘 목표는 폐기 |
 | 6c | sizing 미선언 — 다음 런이 확인 (§6) | 관측 대기 |
-| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | 논의 필요 |
-| 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | 논의 필요. §1이 4·5와 한 뿌리라 했는데 이 행이 없었다 |
+| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | **막힘** — 원장 삭제 (§7) |
+| 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | **막힘** — 원장 삭제 (§7). §1이 4·5와 한 뿌리라 했는데 이 행이 없었다 |
 | — | `prompts/planner.md`에 `validate-plan` 추가 | canonical 수정, 별건 |
 | — | 규격화 A/B — `--variant` + `plan-evidence-gate`, **llm 그레이더로 판정** | 리그는 이미 있음 |
 | — | 타 플러그인 arm | 훅·MCP 인정 여부가 선결 |
