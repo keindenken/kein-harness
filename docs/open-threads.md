@@ -180,3 +180,17 @@ What would work is a home of the run's own, and that is the open half. The vendo
 
 One correction to the incident that started this. The `superpowers` procedure the first cross-vendor Executor cited as authority for not waiting on approval was never in its prompt: `config.toml` registers those skills under 6.2.0 and the disk holds 6.3.0, so none of them loaded, and the home's memories do not mention them. It read them off disk or asserted them without a source. No loaded plugin was speaking, which means suppressing plugins would not have prevented it even if the flags worked.
 
+## A plan correction ends the run, and the question it forces is per-task
+
+`execute` binds a run to its input by hash. `validate_transition` refuses a nonterminal transition that changes input identity, and `reconcile` answers a changed input with `block and reassess the changed input before resuming`. That is what stops a plan being swapped under a live ledger, and it is not the thing to loosen.
+
+It collides with the repository's own rule. descvi's `AGENTS.md` requires the plan to be updated in the same change when reality forces a departure from it, and `task-ledger-template.md` blesses the smaller half of that already — a factual correction may update a task when it stays inside the authorized outcome and its rationale is recorded. So a correction that the work forces is required, and making it ends the run.
+
+Measured on the phase-47 execute run: story one of five forced two plan corrections (acceptance 24's element-keyed reading, part 2's band removal). The run was aborted with a reason naming the one accepted task, and a second run opened carrying the remaining four. One story, one split.
+
+The lead gave two reasons and only the first holds. The input hash is immutable within a run, which is true and decisive. The second was that task-001's acceptance was bound to a fingerprint that HEAD has since moved past, so re-asserting it would be an unmeasured claim — but that is not how acceptance is validated. `_validate_acceptance` checks each reviewer verdict against the acceptance's **own** recorded fingerprint and never against the current worktree, so an acceptance is a sealed, self-describing record and a later worktree move does not touch it. Nothing in the machine would have refused carrying task-001 forward as accepted.
+
+What would have been wrong is subtler and is the actual thread. One of the two corrections changed acceptance 24 — the condition task-001 was accepted against. So the question is not "is this acceptance stale" but "did this correction touch what that task was accepted for", and that is a per-task question the input hash answers for the whole ledger at once. A run that corrects a plan section no accepted task depended on is split for nothing; a run that corrects the very condition a task passed under must not carry it, and today both get the same answer.
+
+Not acted on. The cheap-looking fix — a transition that records old hash, new hash and a reason while keeping the run — moves the judgement to whoever writes the reason, which is the lead, which is the one agent in the loop no lane reviews. Worth deciding only with more than one run's evidence; the remaining four stories will produce it, since the same rule fires on every correction they force.
+
