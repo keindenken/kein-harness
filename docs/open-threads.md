@@ -168,3 +168,15 @@ The mint half is fixed. `start` and `checkpoint` now take `--run-root` with `--s
 
 Recorded here because the diagnosis generalises. Both were the harness asking a lead to assemble something in the shell that the harness could assemble itself, and in both cases the shell turned out to be the wrong place: a compound command is refused outright by a worktree-isolated session, and a 646-line argument is a shape a document does not take. Anything else that reads as "compute this and pass it in" is worth checking against that pair.
 
+## A vendor lane cannot be isolated from the operator's home, and the flags that look like they do are inert
+
+`ocs ask` and `ocs team` pin `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex`. A home is pinned for its auth and carries more: the skills its installed plugins publish reach the worker's prompt, and so do its `AGENTS.md` and its memories.
+
+Both bridges pass `-c 'plugins."<name>".enabled=false'` for every plugin the home registers. It does nothing. Measured 2026-08-29 with `codex debug prompt-input`, which renders the model-visible prompt: disabling `visualize@openai-bundled`, a plugin that is loaded and listed, leaves the prompt byte-identical at 12015 bytes with `visualize` still in its skill list. The override parses and has no effect on this version.
+
+Kept rather than removed, on the owner's call: it costs a dozen flags on a launch line and would begin working if a later version honours the key. `KEIN_CODEX_PLUGINS=inherit` stops passing them. `lanes.md` no longer claims the suppression, because a lead cannot act on a mechanism that does not fire.
+
+What would work is a home of the run's own, and that is the open half. The vendor's auth lives where its home does, so a separate home has to be given credentials before it will run — copied, symlinked, or provisioned — and that is a decision about credential handling rather than a shape this repository can pick on its own.
+
+One correction to the incident that started this. The `superpowers` procedure the first cross-vendor Executor cited as authority for not waiting on approval was never in its prompt: `config.toml` registers those skills under 6.2.0 and the disk holds 6.3.0, so none of them loaded, and the home's memories do not mention them. It read them off disk or asserted them without a source. No loaded plugin was speaking, which means suppressing plugins would not have prevented it even if the flags worked.
+

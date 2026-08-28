@@ -32,7 +32,7 @@ Write the package to a file and name it. A review package is a document — the 
 The mechanism is not a choice to make.
 `ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every review lane here.
 
-`ocs ask` pins the vendor home to `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex`. That home's plugins are turned off at the call, each by name, and `KEIN_CODEX_PLUGINS=inherit` leaves them on; its `AGENTS.md` and its memories still arrive with the home.
+`ocs ask` pins the vendor home to `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex`, so a lane reads the skills that home's plugins publish, its `AGENTS.md` and its memories along with its role prompt.
 
 `--trace` is required rather than optional.
 It writes the prompt, the exact command, the response, and stderr under `ocs state-dir runs/ask`, and that is what makes the lane's verdict recoverable after the fact.
