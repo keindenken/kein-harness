@@ -296,6 +296,8 @@ rf"^- {label}\b[^:\n]*:[^\S\n]*\S"
 
 **지금까지의 장부: 20분 라운드 하나 지출, 기록된 캐치 0.**
 
+**닫혔다.** phase-47 원장이 둘 다 답했다. `validations.log`는 8라운드에 걸쳐 11회 호출·전부 `exit=0`·에러 0이고, phase-46의 유일한 발화는 `8bedb2e`가 검사기 자신의 결함으로 고친 오탐이다. 그리고 Critic이 라운드 1·2·3·4·5에서 *"cannot go RED"*, *"carries no RED-when"*, *"no failure behaviour"*, *"a stop boundary whose gate cannot fire is scaffolding"* 를 직접 썼다 — **파서가 못 보는 것까지 본다.** 라운드 5는 라벨이 전부 있고 mutation도 적힌 게이트에 대해 출하 코드가 그 mutation을 되돌린다는 걸 소스로 추적했다. 리터럴 라벨 검사가 원리적으로 도달할 수 없는 판정이다. `_evidence_gate_errors`는 제거했다.
+
 지우기 전에 모르는 것 둘 — Critic이 라벨 부재를 파서만큼 안정적으로 잡는가, 그리고 저 검사가 한 번이라도 뭘 잡았는가. 둘 다 런 원장에서 답이 나온다.
 
 **그 원장이 지워졌으므로 둘 다 지금은 답이 없다** — §7.
