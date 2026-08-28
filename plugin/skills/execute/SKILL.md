@@ -9,7 +9,7 @@ description: Use when a bounded code change or executable implementation plan sh
 
 Execute is a lead-owned code-development convergence loop. It advances serial tasks through focused implementation, fresh self-verification, independent review, correction, blind re-review, and a whole-change final audit. Approval status is not the entry gate; executability is.
 
-It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or release authority.
+It does not invoke RALPLAN.
 
 ## At entry
 
