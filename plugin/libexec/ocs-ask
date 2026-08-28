@@ -2,7 +2,7 @@
 #: Ask another vendor's CLI a question as a canonical role. Advisory only.
 #
 # Usage:
-#   ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] <task...>
+#   ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
 #
 # The assembled prompt is exactly the role prompt, a blank line, and the task.
 # Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
@@ -26,7 +26,7 @@ DEFAULT_EFFORT='medium'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] <task...>
+usage: ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
 
   providers: $PROVIDERS
   roles:     read-only roles only; run with an unknown role to list them
@@ -42,6 +42,7 @@ provider=''
 role=''
 trace=0
 task=''
+task_file=''
 model=''
 effort=''
 
@@ -53,6 +54,8 @@ while [ $# -gt 0 ]; do
     --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs ask: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
     --model=*) model=${1#--model=}; shift ;;
     --effort) effort=${2:-}; [ -n "$effort" ] || { printf 'ocs ask: missing value after --effort\n' >&2; exit 1; }; shift 2 ;;
+    --task-file) task_file=${2:-}; [ -n "$task_file" ] || { printf 'ocs ask: missing path after --task-file\n' >&2; exit 1; }; shift 2 ;;
+    --task-file=*) task_file=${1#--task-file=}; shift ;;
     --effort=*) effort=${1#--effort=}; shift ;;
     -h|--help) usage; exit 0 ;;
     -*) printf "ocs ask: unknown option '%s'\n" "$1" >&2; usage; exit 1 ;;
@@ -67,6 +70,16 @@ done
 
 [ -n "$provider" ] || { printf 'ocs ask: no provider given\n' >&2; usage; exit 1; }
 [ -n "$role" ]     || { printf 'ocs ask: no role given (--agent <role>)\n' >&2; usage; exit 1; }
+# A lane package is a document, not a shell word. The first measured cross-vendor round wrote a
+# 646-line package and a wrapper script to get it through `argv`; `--task-file` is that wrapper.
+if [ -n "$task_file" ]; then
+  [ -z "$task" ] || { printf 'ocs ask: pass a task or --task-file, not both\n' >&2; exit 1; }
+  if [ "$task_file" = "-" ]; then task=$(cat)
+  else
+    [ -r "$task_file" ] || { printf "ocs ask: cannot read '%s'\n" "$task_file" >&2; exit 1; }
+    task=$(cat "$task_file")
+  fi
+fi
 [ -n "$task" ]     || { printf 'ocs ask: no task given\n' >&2; usage; exit 1; }
 
 case " $PROVIDERS " in

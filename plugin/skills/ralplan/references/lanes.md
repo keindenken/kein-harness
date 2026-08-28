@@ -24,8 +24,10 @@ Refuse `--planner <vendor>` and say so rather than silently planning natively.
 ## Mechanism
 
 ```sh
-ocs ask codex --agent <role> --trace "<the lane package>"
+ocs ask codex --agent <role> --trace --task-file <the lane package>
 ```
+
+Write the package to a file and name it. A review package is a document — the first measured cross-vendor round wrote 646 lines and a wrapper script to get it through `argv`, which is what `--task-file` replaces. `-` reads standard input.
 
 The mechanism is not a choice to make.
 `ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every review lane here.

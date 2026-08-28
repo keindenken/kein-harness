@@ -2,7 +2,7 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+#   ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
 #
@@ -36,7 +36,7 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] <task...>
+usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them
@@ -68,6 +68,7 @@ keep=0
 check=0
 worktree_arg=''
 task=''
+task_file=''
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -80,6 +81,8 @@ while [ $# -gt 0 ]; do
     --model) model=${2:-}; [ -n "$model" ] || { printf 'ocs team: missing value after --model\n' >&2; exit 1; }; shift 2 ;;
     --model=*) model=${1#--model=}; shift ;;
     --effort) effort=${2:-}; [ -n "$effort" ] || { printf 'ocs team: missing value after --effort\n' >&2; exit 1; }; shift 2 ;;
+    --task-file) task_file=${2:-}; [ -n "$task_file" ] || { printf 'ocs team: missing path after --task-file\n' >&2; exit 1; }; shift 2 ;;
+    --task-file=*) task_file=${1#--task-file=}; shift ;;
     --effort=*) effort=${1#--effort=}; shift ;;
     --timeout) timeout=${2:-}; shift 2 ;;
     --timeout=*) timeout=${1#--timeout=}; shift ;;
@@ -96,6 +99,16 @@ done
 
 [ -n "$provider" ] || { printf 'ocs team: no provider given\n' >&2; usage; exit 1; }
 [ -n "$role" ]     || { printf 'ocs team: no role given (--agent <role>)\n' >&2; usage; exit 1; }
+# A lane package is a document, not a shell word. The first measured cross-vendor round wrote a
+# 646-line package and a wrapper script to get it through `argv`; `--task-file` is that wrapper.
+if [ -n "$task_file" ]; then
+  [ -z "$task" ] || { printf 'ocs team: pass a task or --task-file, not both\n' >&2; exit 1; }
+  if [ "$task_file" = "-" ]; then task=$(cat)
+  else
+    [ -r "$task_file" ] || { printf "ocs team: cannot read '%s'\n" "$task_file" >&2; exit 1; }
+    task=$(cat "$task_file")
+  fi
+fi
 [ -n "$task" ]     || { printf 'ocs team: no task given\n' >&2; usage; exit 1; }
 
 case " $PROVIDERS " in

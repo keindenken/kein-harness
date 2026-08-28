@@ -23,7 +23,7 @@ Every lane blocks.
 ## The write-capable lane
 
 ```sh
-ocs team codex --agent executor "<the task package>"
+ocs team codex --agent executor --task-file <the task package>
 ```
 
 `ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
@@ -37,8 +37,10 @@ A vendor Executor is otherwise an ordinary Executor. It takes one task, its scop
 ## Mechanism
 
 ```sh
-ocs ask codex --agent <role> --trace "<the lane package>"
+ocs ask codex --agent <role> --trace --task-file <the lane package>
 ```
+
+Write the package to a file and name it; `-` reads standard input. A review package is a document rather than a shell word.
 
 The mechanism is not a choice to make. `ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every reviewer role the contract offers, and it resolves the model from the role's tier so a lane does not inherit the operator's own default.
 

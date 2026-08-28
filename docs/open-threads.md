@@ -128,7 +128,7 @@ The fix is one line where `prepare_plugin` is called without a `source`: resolve
 
 Doing it unlocks dropping the copy, which is ~800K of a default run and ~1.4M of a `--variant` one. Not urgent on its own; worth doing next time the manifest shape is touched.
 
-## `ocs ask` takes its task through argv, and a lane package does not fit there
+## `ocs ask` takes its task through argv, and a lane package does not fit there — closed 2026-08-28
 
 `ocs-ask` builds the task by joining positional arguments — `task="$task $1"` — and `--help` says `<task...>`. There is no file argument and no stdin path, so the whole review package has to arrive as one shell word.
 
@@ -142,7 +142,9 @@ That works — `ARG_MAX` on macOS is large enough — and it is an invention, no
 
 descvi's own `2plan` already learned this and wrote it down: *"Write the brief to a file and point codex at it; its runtime reads only `AGENTS.md`, so the brief is the only channel that reaches it."* That lesson cannot be ported into `lanes.md` as prose, because `ocs ask` has nothing to point at a file with. The fix is a `--task-file <path>`, or reading stdin when no positional task is given, and then `lanes.md` documents the file form instead of the inline one.
 
-Not changed during the run. The lead has a working method and the phase-47 instrument is already carrying three changes made mid-run; a fourth would cost more than the documentation gap does.
+Not changed during the run. The lead had a working method and the phase-47 instrument was already carrying three changes made mid-run; a fourth would have cost more than the documentation gap did.
+
+Closed after that run ended. `--task-file <path>` on both `ocs ask` and `ocs team`, with `-` for standard input, refusing a positional task alongside it. Both `lanes.md` files show the file form instead of the inline one. The lesson `2plan` had already written down is now portable, because there is something to point at a file with.
 
 ## The `ocs ask` argv limit and the run-directory mint were the same shape
 
