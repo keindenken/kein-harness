@@ -4,10 +4,9 @@
 # Every file in bin/ becomes a bare command on the Bash tool's PATH while the plugin is enabled, so `ocs` is the ONE entry point that belongs here.
 # Subcommands live in libexec/ (off PATH) and are reached as `ocs <name>`.
 #
-# libexec/ also holds `dev-*`, which `list_commands` does not glob and this dispatcher cannot reach.
-# Those are the harness's own build and gate commands, run through `bin/kein-dev` at the repository root.
-# They are split off because this help text is read by an agent mid-task, and `sync-prompts` and
-# `render-agents` overwrite generated artifacts.
+# The harness's own build and gate commands are not here at all: they live at `dev/` outside the
+# plugin and answer to `kein-dev`. They are split off because this help text is read by an agent
+# mid-task, and `render-agents` overwrites generated artifacts.
 set -eu
 
 # CLAUDE_PLUGIN_ROOT is set by Claude Code when the plugin is loaded.

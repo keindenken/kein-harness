@@ -28,7 +28,7 @@ Do not read this as "external rules shrink". Across three releases of one vendor
 
 **Does it collide?** Point at the decision where this rule meets an existing one. If you can name that point, one of the two loses there and you have to say which. This is the one dilution mechanism with evidence behind it; rule *count* has none.
 
-**Is it already said where the agent will see it?** `rg -w '<term>' plugin/prompts/*.md plugin/skills/*/SKILL.md plugin/skills/*/references/*.md` — fourteen role prompts and the skill bodies. That is the whole canonical set.
+**Is it already said where the agent will see it?** `rg -w '<term>' agents/*.md plugin/skills/*/SKILL.md plugin/skills/*/references/*.md` — fourteen role prompts and the skill bodies. That is the whole canonical set.
 
 **Ship it with its own off-switch.** No cost of a rule in this repository was ever found by thinking about it; every one was found by a run, a use attempt, or a reader objecting. So make the run able to answer. A per-agent opt-out, a flag file, an `enabled: false` — the affordance exists in other harnesses, though none of them connects it to measurement either. It also dissolves the removal problem below: not following the rule becomes a use rather than a breach.
 

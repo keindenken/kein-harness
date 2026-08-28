@@ -117,16 +117,13 @@ case " $PROVIDERS " in
      exit 1 ;;
 esac
 
-prompts="$KEIN_ROOT/prompts"
-manifest="$prompts/manifest.json"
+roles="$KEIN_ROOT/agents"
+manifest="$KEIN_ROOT/agents.json"
 
-[ -f "$manifest" ] || { printf 'ocs team: no rendered prompts. Run `kein-dev sync-prompts`.\n' >&2; exit 1; }
+[ -f "$manifest" ] || { printf 'ocs team: no rendered agents. Run `kein-dev render-agents`.\n' >&2; exit 1; }
 
-# A stale library would work as a role that no longer exists as written, so the gate runs before anything is spent on inference.
-# Only the half a dispatch can settle for itself; `kein-dev check-prompts` owns the rest and is not reachable from here by design.
-. "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+. "$KEIN_ROOT/libexec/lib/role-prompt.sh"
 . "$KEIN_ROOT/libexec/lib/vendor-home.sh"
-prompt_library_fresh
 
 # The five write-capable roles, and the exact complement of what `ocs ask` serves.
 # A read-only role reached through here would spend a supervised session and a worktree on work a one-shot already does more cheaply and with guaranteed freshness.
@@ -141,7 +138,7 @@ print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] != "re
 case " $write_roles " in
   *" $role "*) ;;
   *)
-    if [ -f "$prompts/$role.md" ]; then
+    if [ -f "$roles/$role.md" ]; then
       printf 'ocs team: role %s is read-only. Use `ocs ask %s --agent %s` instead.\n' "$role" "$provider" "$role" >&2
       printf '  A supervised session buys nothing for a lane that only reads.\n' >&2
     else
@@ -349,7 +346,7 @@ fi
 # Created here rather than where their paths were resolved, so that a check leaves the filesystem as
 # it found it and can be run as often as it is useful.
 mkdir -p "$dir" "$reports"
-cp "$prompts/$role.md" "$role_file"
+role_prompt_body "$roles/$role.md" > "$role_file"
 
 
 fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }

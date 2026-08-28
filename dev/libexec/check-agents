@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+#: Fail when the rendered agents have drifted from the role library.
+#
+# One question, because the source is in the repository: does `plugin/agents/` still equal what
+# `render-agents` produces from `agents/` and `agents.json`.
+#
+# It used to be three. The library lived in `~/.codex-orca`, so a machine without that home could
+# not re-render, and a recorded hash was the only way to ask whether the committed copy had been
+# hand-edited -- `ocs ask` and `ocs team` paid for that check on every dispatch. Moving the library
+# in deletes the reason: a hash says "this moved", a re-render says what moved and to what.
+set -eu
+
+scratch=$(mktemp -d "${TMPDIR:-/tmp}/kein-check.XXXXXX")
+trap 'rm -rf "$scratch"' EXIT INT TERM
+
+# Rendered without KEIN_TIER_MODEL, which an eval arm sets to collapse the tiers: comparing against
+# a collapsed render would report every role as drifted.
+mkdir -p "$scratch/plugin"
+KEIN_TIER_MODEL= "$KEIN_DEV_ROOT/libexec/render-agents" "$scratch/plugin/agents" >/dev/null
+
+drifted=''
+for expected in "$scratch/plugin/agents"/*.md; do
+  [ -e "$expected" ] || continue
+  name=$(basename "$expected")
+  cmp -s "$expected" "$KEIN_ROOT/agents/$name" || drifted="$drifted $name"
+done
+for existing in "$KEIN_ROOT/agents"/*.md; do
+  [ -e "$existing" ] || continue
+  name=$(basename "$existing")
+  [ -f "$scratch/plugin/agents/$name" ] || drifted="$drifted $name(orphan)"
+done
+cmp -s "$scratch/plugin/agents.json" "$KEIN_ROOT/agents.json" || drifted="$drifted agents.json"
+
+if [ -n "$drifted" ]; then
+  printf 'kein-dev check-agents: the rendered agents are out of date\n' >&2
+  printf '  drifted:%s\n' "$drifted" >&2
+  printf '  run `kein-dev render-agents`; plugin/agents/ is generated, edit agents/\n' >&2
+  exit 1
+fi
+
+printf 'plugin/agents/ matches the role library (%s roles)\n' \
+  "$(ls "$KEIN_ROOT/agents"/*.md | wc -l | tr -d ' ')"

@@ -88,16 +88,13 @@ case " $PROVIDERS " in
      exit 1 ;;
 esac
 
-prompts="$KEIN_ROOT/prompts"
-manifest="$prompts/manifest.json"
+roles="$KEIN_ROOT/agents"
+manifest="$KEIN_ROOT/agents.json"
 
-[ -f "$manifest" ] || { printf 'ocs ask: no rendered prompts. Run `kein-dev sync-prompts`.\n' >&2; exit 1; }
+[ -f "$manifest" ] || { printf 'ocs ask: no rendered agents. Run `kein-dev render-agents`.\n' >&2; exit 1; }
 
-# A stale library would answer as a role that no longer exists as written, so the gate runs before anything is spent on inference.
-# Only the half a dispatch can settle for itself; `kein-dev check-prompts` owns the rest and is not reachable from here by design.
-. "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+. "$KEIN_ROOT/libexec/lib/role-prompt.sh"
 . "$KEIN_ROOT/libexec/lib/vendor-home.sh"
-prompt_library_fresh
 
 # Advisory only: the nine read-only roles.
 # A write-capable role reached through a bare one-shot would let a remote vendor edit the worktree with no workflow around it, which is what `execute` is for.
@@ -112,7 +109,7 @@ print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] == "re
 case " $readonly_roles " in
   *" $role "*) ;;
   *)
-    if [ -f "$prompts/$role.md" ]; then
+    if [ -f "$roles/$role.md" ]; then
       printf "ocs ask: role '%s' is write-capable and is not available here.\n" "$role" >&2
       printf '  `ask` is advisory. Use a workflow skill for work that changes files.\n' >&2
     else
@@ -136,7 +133,7 @@ print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 fi
 [ -n "$effort" ] || effort=$DEFAULT_EFFORT
 
-prompt=$(printf '%s\n\n%s' "$(cat "$prompts/$role.md")" "$task")
+prompt=$(printf '%s\n\n%s' "$(role_prompt_body "$roles/$role.md")" "$task")
 
 # The vanilla home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}

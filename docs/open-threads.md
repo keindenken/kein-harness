@@ -42,11 +42,21 @@ What was actually missing is a place to put it. `plan-template.md` named Status,
 
 The wider observation this came from still stands and is not closed. `docs/prompt-porting-notes.md` files it under "Where the reduction went too far" with three siblings, and one of those is worse than this ever was: `tracer` still says to rank by evidence strength while the six-tier scale that defined the ranking was deleted, which makes the instruction unexecutable rather than merely unnamed.
 
-## Extracting the canonical prompt library from `~/.codex-orca`
+## Extracting the canonical prompt library from `~/.codex-orca` — closed 2026-08-29
 
-The library is vendor-neutral but lives inside a lead-tuned Codex home. `ocs ask` runs the provider against the vanilla home while reading prompts from the tuned one, which was the first sign that the location is incidental rather than meaningful.
+The library is vendor-neutral but lived inside a lead-tuned Codex home. `ocs ask` ran the provider against the vanilla home while reading prompts from the tuned one, which was the first sign that the location is incidental rather than meaningful.
 
-The gate used to be "when a second consumer needs it without the Codex home present", and that has partly arrived. As of `9ec1616` a dispatch no longer touches the Codex home at all: `ocs ask` and `ocs team` check freshness against `prompts/` and its recorded hashes, and only `kein-dev check-prompts` compares against canonical. So the consumers are already free of it and the remaining dependency is the build side — `kein-dev sync-prompts` cannot run without it. Restate the gate against that before acting: what is left is where canonical *lives*, not whether running the harness requires it.
+The gate used to be "when a second consumer needs it without the Codex home present". By `9ec1616` the consumers were already free of it and only the build side was left — `kein-dev sync-prompts` could not run without that home — so what remained was where canonical *lives*, not whether running the harness requires it.
+
+Moved to `agents/` and `agents.json` at the repository root, and `sync-prompts` deleted along with the home it copied from. The render target is an argument rather than a constant, which is how a second vendor's harness gets one.
+
+Two things came off with it, and both are the same observation: **a hash answers "has this moved" only where the source is out of reach.**
+
+`plugin/prompts/` is gone. Its bodies were byte-identical to `plugin/agents/` for as long as both existed — the difference was six or seven lines of Claude frontmatter — so `ocs ask` and `ocs team` now strip that block at dispatch instead. What the frontmatter cannot give back is what it was translated *from*, so `agents.json` renders alongside and keeps carrying `tier` and `sandbox_mode`.
+
+`canonical.sha256` and `libexec/lib/prompt-freshness.sh` are gone, and with them the freshness gate every dispatch paid for. Three questions collapsed into one — does `plugin/agents/` equal what the renderer produces — which `kein-dev check-agents` answers by re-rendering and diffing. The gate did buy one thing the diff does not: a refusal *before* inference was spent on a hand-edited role. That was weak on inspection. A hand-edited prompt answers as the role its editor wanted; the real loss is the next render silently discarding that edit, which the gate did not prevent and `git status` already shows.
+
+What this does not settle is whether the two vendors should ever hold different *wordings* of one role. `purpose.md` permits it where a model's temperament calls for it, and the render has never used it: fourteen bodies, byte-identical, across every commit. The place to put such a difference now exists — the renderer splits per target — so it can wait for one observed instance rather than a layer built in advance.
 
 ## The ported skills have never been read against `standing-prompt.md`
 

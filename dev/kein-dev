@@ -13,15 +13,18 @@
 # Bash tool's PATH wherever the plugin is enabled.
 set -eu
 
-# Two roots, because these commands operate ON the plugin from OUTSIDE it.
-# KEIN_ROOT is the plugin they read and write: prompts/, agents/, libexec/lib/.
+# Three roots, because these commands operate ON the plugin from OUTSIDE it.
+# KEIN_ROOT is the plugin they read and write: agents/, libexec/lib/.
+# KEIN_REPO_ROOT holds what is NOT shipped, and the role library at `agents/` is the part of that
+# these commands render from -- a plugin carries the rendered copy, never the source.
 # KEIN_DEV_ROOT is this tree, and is how a subcommand reaches a sibling without assuming
 # it was copied along with the plugin -- `eval` builds a variant arm from an arbitrary
 # older commit, whose plugin has no dev tooling in it at all.
 # No CLAUDE_PLUGIN_ROOT fallback: this runs from a clone, never from an installed plugin.
 KEIN_DEV_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-KEIN_ROOT=$(CDPATH= cd -- "$KEIN_DEV_ROOT/../plugin" && pwd)
-export KEIN_DEV_ROOT KEIN_ROOT
+KEIN_REPO_ROOT=$(CDPATH= cd -- "$KEIN_DEV_ROOT/.." && pwd)
+KEIN_ROOT="$KEIN_REPO_ROOT/plugin"
+export KEIN_DEV_ROOT KEIN_REPO_ROOT KEIN_ROOT
 
 KEIN_VERSION=$(
   sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
