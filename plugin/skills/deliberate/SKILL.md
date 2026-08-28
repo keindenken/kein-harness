@@ -1,6 +1,7 @@
 ---
 name: deliberate
 description: Use before adding a rule to a standing prompt or a skill, or when auditing rules already there. Reaches a verdict on whether a rule should exist; writes nothing.
+argument-hint: "<rule to add | file or skill to audit>"
 ---
 
 # Deliberating over a prompt or a skill

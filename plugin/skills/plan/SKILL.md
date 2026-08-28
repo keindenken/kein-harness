@@ -1,6 +1,7 @@
 ---
 name: plan
 description: Use when an implementation plan should be written as a durable, reviewable artifact.
+argument-hint: "<what to plan>"
 ---
 
 # Plan

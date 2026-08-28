@@ -1,6 +1,7 @@
 ---
 name: ralplan
 description: Use when an implementation plan needs evidence-grounded architecture and quality consensus before it is trusted for execution.
+argument-hint: "[what to plan] [--architect claude|codex] [--critic claude|codex]"
 ---
 
 # RALPLAN

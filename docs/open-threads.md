@@ -68,15 +68,17 @@ Two findings from 2026-08-19 are what makes this worth a pass rather than a habi
 
 Do it as a pass over one skill at a time with the rules open, not as a sweep. The measurement programme exists to catch what a rewrite breaks, and `plan` is the only skill it currently covers.
 
-## Two Claude Code skill-surface features the skills do not use
+## Two Claude Code skill-surface features the skills do not use — `argument-hint` closed 2026-08-29
 
-`argument-hint` and `` !`command` `` are both available to plugin skills — the frontmatter reference is explicit that Claude Code skills at any level, plugin skills included, get every field, and the restriction to six fields applies only to claude.ai uploads, the Skills API, and `package_skill.py`. So no probe is needed before using them; what is undecided is whether they should be used.
+`argument-hint` and `` !`command` `` are both available to plugin skills — the frontmatter reference is explicit that Claude Code skills at any level, plugin skills included, get every field, and the restriction to six fields applies only to claude.ai uploads, the Skills API, and `package_skill.py`. So no probe is needed before using them; what was undecided was only whether they should be used — settled below for `argument-hint`, still open for `` !`command` ``.
 
 `argument-hint` is a pure autocomplete affordance and carries no portability cost: a Codex port cannot render it and loses nothing by not rendering it, which is the kind of platform-forced difference `purpose.md` already permits.
 
+Closed 2026-08-29: every skill under `plugin/skills/` whose invocation meaningfully takes arguments now carries one. `onboard` already had it; `handoff` already had one too, in its own question-style wording, left as is. `execute`, `ralplan`, `plan`, `interview`, and `deliberate` got theirs new, each describing the argument the skill's own body already documents rather than an invented flag — a plan path or task brief for `execute`, the vendor flags `lanes.md` already names for `execute` and `ralplan`, and a free-form brief for `plan` and `interview`. `ping` takes nothing and was left alone.
+
 `` !`command` `` is different, and the difference is the whole question. It runs before the skill body reaches the model and substitutes the output, so the intended uses are: show the operator the current state, stop the run when that state is wrong, make the state check itself the point, and pre-run a `--help` the body would otherwise ask an agent to run. All four are useful and all four are Claude-only. **A skill whose instructions depend on the injected output has no Codex shape**, and two vendors doing the same work in two different shapes is the failure `purpose.md` names. The rule that falls out: inject what a reader is glad to have, never what the body then refers to.
 
-Neither has been tried. `plugin/skills/ping/SKILL.md` is a one-line skill whose whole job is confirming the harness loaded, so it is the cheapest place to see both render.
+`` !`command` `` has not been tried. `plugin/skills/ping/SKILL.md` is a one-line skill whose whole job is confirming the harness loaded, so it is still the cheapest place to see it render.
 
 ## `ocs team` cannot be exercised without spending a session — closed 2026-08-28
 

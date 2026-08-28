@@ -1,6 +1,7 @@
 ---
 name: execute
 description: Use when a bounded code change or executable implementation plan should be carried through implementation, verification, independent review, correction, and final audit.
+argument-hint: "[plan path or task brief] [--reviewer claude|codex] [--executor claude|codex]"
 ---
 
 # Execute

@@ -1,6 +1,7 @@
 ---
 name: interview
 description: Use when the user asks to be interviewed, presents a vague or conflicting idea, or needs intent, scope, constraints, non-goals, decision boundaries, or acceptance criteria clarified before planning or implementation.
+argument-hint: "[idea or problem to clarify]"
 ---
 
 # Interview
