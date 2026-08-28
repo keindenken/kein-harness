@@ -28,7 +28,9 @@ ocs team codex --agent executor --task-file <the task package>
 
 `ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
 
-The command is what enforces the environment, so there is nothing here for the lead to arrange. It resolves the model from the role's tier, pins the pristine vendor home, sets a sandbox that can both write in the worktree and report completion, and refuses before creating anything if the project is untrusted in that home.
+The command is what enforces the environment, so there is nothing here for the lead to arrange. It resolves the model from the role's tier, pins the vendor home, sets a sandbox that can both write in the worktree and report completion, and refuses before creating anything if the project is untrusted in that home.
+
+The home it pins is `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex` — so a worker reads whatever that home carries, including the plugins its `config.toml` registers, its `AGENTS.md`, and its memories. Point `KEIN_CODEX_HOME` at a home of this run's own when a lane must not, and give that home credentials first: the vendor's auth lives where its home does.
 
 Two things do fall to the lead. The task package must carry the repository instructions, for the same reason a review lane's does — the bridge assembles the role prompt and nothing else. And the worker's report arrives as a file whose path the command prints; treat that file as the Executor's self-verification evidence, exactly as you would a native Executor's returned account, and hold it to the same standard. Self-verification is still not approval.
 

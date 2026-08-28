@@ -371,20 +371,35 @@ printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$disp
 # `worker-show` takes the dispatch id directly, so nothing here depends on which Run this terminal happens to be bound to.
 elapsed=0
 status=''
+said_unsignalled=0
 while [ "$elapsed" -lt "$timeout" ]; do
   status=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null | json_field dispatch.status)
   case "$status" in
     completed|failed) break ;;
   esac
+  # The report is the deliverable and `worker_done` is the signal, and a worker can produce one
+  # without the other -- the first measured run wrote its report and then narrated its stop in prose,
+  # so this loop had nothing to break on and held the terminal for the rest of the timeout. Say it
+  # once when it happens: no further waiting can settle a dispatch the worker never signalled.
+  if [ "$said_unsignalled" -eq 0 ] && [ -s "$report" ]; then
+    said_unsignalled=1
+    printf 'ocs team: the report exists and the dispatch has not settled.\n' >&2
+    printf '  the worker wrote %s without signalling completion; waiting cannot settle that.\n' "$report" >&2
+  fi
   sleep 10
   elapsed=$((elapsed + 10))
 done
 
 if [ "$status" != "completed" ]; then
   [ -n "$status" ] || status='unknown'
-  printf 'ocs team: worker did not complete (status=%s after %ss)\n' "$status" "$elapsed" >&2
-  printf '  dispatch=%s terminal=%s left open for inspection.\n' "$dispatch" "$handle" >&2
-  printf '  inspect: orca orchestration worker-read --dispatch %s --json\n' "$dispatch" >&2
+  # Written to the run record as well as stderr. A backgrounded caller sees no stderr until the
+  # command returns, which on this path is the whole timeout, so the file is the copy that is there
+  # when someone finally looks.
+  {
+    printf 'ocs team: worker did not complete (status=%s after %ss)\n' "$status" "$elapsed"
+    printf '  terminal=%s is now yours to close: orca terminal close --terminal %s\n' "$handle" "$handle"
+    printf '  dispatch=%s -- inspect: orca orchestration worker-read --dispatch %s --json\n' "$dispatch" "$dispatch"
+  } | tee -a "$dir/command.txt" >&2
   exit 1
 fi
 
