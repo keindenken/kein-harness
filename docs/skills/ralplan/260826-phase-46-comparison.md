@@ -436,8 +436,8 @@ phase-47 런이 진행 중이고, 이번 세션에 이미 계기가 세 번 바�
 | 6a' | closure 레인 — 세 번째 역할 + "차단 가능·승인 불가" 종류 (§6) | 스키마 변경, 보류 |
 | 6b | Workflow 번호 → 이름, 어휘 4→3 (§6) | **완료** — 번호는 남고 루프가 드러났다. 어휘 목표는 폐기 |
 | 6c | sizing 미선언 — 다음 런이 확인 (§6) | 관측 대기 |
-| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | **막힘** — 원장 삭제 (§7) |
-| 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | **막힘** — 원장 삭제 (§7). §1이 4·5와 한 뿌리라 했는데 이 행이 없었다 |
+| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | 재개 가능 — phase-47 원장이 보존됐다 (`docs/artifacts/ledgers/260827-235007-…`) |
+| 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | 재개 가능 — 같은 원장. 그 사이 블라인드 대체 표본이 §1의 프레이밍을 정정했다 (`260828-p47-draft-comparison.md` §2) |
 | — | `prompts/planner.md`에 `validate-plan` 추가 | canonical 수정, 별건 |
 | — | 규격화 A/B — `--variant` + `plan-evidence-gate`, **llm 그레이더로 판정** | 리그는 이미 있음 |
 | — | 타 플러그인 arm | 훅·MCP 인정 여부가 선결 |
