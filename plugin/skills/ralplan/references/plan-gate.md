@@ -16,6 +16,12 @@ Where a run is *inside* a round is `phase`, which lives in state rather than in 
 
 `Status reason` additionally carries the current workflow phase and why approval is absent.
 
+## What the body may not narrate
+
+The plan cites anything outside itself and must — a prior phase's ruling, a decision id, an owner's judgement are what bind the work. It does not narrate its own drafts: which round found what, what an earlier revision claimed, which sentence was corrected, what a reviewer will say about a clause. The corrected fact is the whole of what a reader can act on.
+
+The package a fresh lane receives is this artifact whole. [review-contract.md](review-contract.md) removes two lines from it and forbids the lane every previous finding, verdict, revision note and change summary — so a body that narrates its own corrections hands the lane all four back inside the text the contract requires carrying intact. That is the mechanism, and it is what would license dropping this rule: it holds only while a lane's package carries the body entire.
+
 ## Two hashes
 
 State records the exact artifact SHA-256 and a review-content SHA-256 that excludes only the `Status` and `Status reason` lines.

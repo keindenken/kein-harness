@@ -43,7 +43,7 @@ UNCERTAINTY:
 
 ## Revision and closure
 
-Consolidate all current must-fix findings into one correction brief for Planner. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
+Consolidate all current must-fix findings into one correction brief for Planner, and ask it for the corrected fact rather than a record of the correction — the revision's two readers are a fresh lane the contract forbids seeing it and an implementer who cannot act on it. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
 
 A previous live reviewer of either role may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
 

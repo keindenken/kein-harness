@@ -438,7 +438,7 @@ phase-47 런이 진행 중이고, 이번 세션에 이미 계기가 세 번 바�
 | 6a' | closure 레인 — 세 번째 역할 + "차단 가능·승인 불가" 종류 (§6) | 스키마 변경, 보류 |
 | 6b | Workflow 번호 → 이름, 어휘 4→3 (§6) | **완료** — 번호는 남고 루프가 드러났다. 어휘 목표는 폐기 |
 | 6c | sizing 미선언 — 다음 런이 확인 (§6) | 관측 대기 |
-| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | 재개 가능 — phase-47 원장이 보존됐다 (`docs/artifacts/ledgers/260827-235007-…`) |
+| 4·5 | 이력 귀속 149건 — 규칙의 집은 `plan-gate.md` + correction brief | **완료.** 기준선은 `260828-p47-ledger-reading.md` §7 (라운드 1이 0, 최종 20.7/100줄) |
 | 4·5b | 감사 장치 173줄 — Planner가 리뷰어에게 완결성을 입증한 것 | **증거 쪽 완료** — `260828-p47-ledger-reading.md`가 findings 26개를 기준 적고 분류했다. 본체(아티팩트 내용 측정)는 남음 |
 | — | `prompts/planner.md`에 `validate-plan` 추가 | canonical 수정, 별건 |
 | — | 규격화 A/B — `--variant` + `plan-evidence-gate`, **llm 그레이더로 판정** | 리그는 이미 있음 |
