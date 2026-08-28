@@ -1,0 +1,68 @@
+#!/usr/bin/env sh
+#: Move plugin.json and marketplace.json to a new version together.
+#
+# plugin.json's version, and marketplace.json's top-level version plus its "kein" plugin
+# entry, are three copies of one number with nothing enforcing they move together. This
+# refuses to write anything unless all three already agree -- a drift here means someone
+# edited one by hand, and reconciling that is a judgment call this script shouldn't make
+# for you.
+set -eu
+
+PLUGIN_JSON="$KEIN_ROOT/.claude-plugin/plugin.json"
+MARKETPLACE_JSON="$KEIN_ROOT/.claude-plugin/marketplace.json"
+
+new_version=${1:-}
+if [ -z "$new_version" ]; then
+  printf 'usage: kein-dev bump-version <new-version>\n' >&2
+  exit 1
+fi
+
+case "$new_version" in
+  [0-9]*.[0-9]*.[0-9]*) ;;
+  *)
+    printf 'kein-dev bump-version: %s does not look like semver (X.Y.Z)\n' "$new_version" >&2
+    exit 1
+    ;;
+esac
+
+field() {
+  sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$1"
+}
+
+plugin_version=$(field "$PLUGIN_JSON" | sed -n '1p')
+mkt_top=$(field "$MARKETPLACE_JSON" | sed -n '1p')
+mkt_plugin=$(field "$MARKETPLACE_JSON" | sed -n '2p')
+
+if [ -z "$plugin_version" ] || [ -z "$mkt_top" ] || [ -z "$mkt_plugin" ]; then
+  printf 'kein-dev bump-version: could not read a version field from one of:\n' >&2
+  printf '  %s\n  %s\n' "$PLUGIN_JSON" "$MARKETPLACE_JSON" >&2
+  exit 1
+fi
+
+if [ "$plugin_version" != "$mkt_top" ] || [ "$plugin_version" != "$mkt_plugin" ]; then
+  printf 'kein-dev bump-version: versions already out of sync, not touching anything\n' >&2
+  printf '  %s: %s\n' "$PLUGIN_JSON" "$plugin_version" >&2
+  printf '  %s (top-level): %s\n' "$MARKETPLACE_JSON" "$mkt_top" >&2
+  printf '  %s (plugins[0]): %s\n' "$MARKETPLACE_JSON" "$mkt_plugin" >&2
+  exit 1
+fi
+
+current=$plugin_version
+
+if [ "$new_version" = "$current" ]; then
+  printf 'kein-dev bump-version: already at %s\n' "$current" >&2
+  exit 1
+fi
+
+replace_version() {
+  tmp="$1.tmp.$$"
+  sed 's/"version": "'"$current"'"/"version": "'"$new_version"'"/' "$1" > "$tmp"
+  mv "$tmp" "$1"
+}
+
+replace_version "$PLUGIN_JSON"
+replace_version "$MARKETPLACE_JSON"
+
+printf 'bumped %s -> %s\n' "$current" "$new_version"
+printf '  %s\n' "$PLUGIN_JSON"
+printf '  %s (top-level + plugins[0])\n' "$MARKETPLACE_JSON"
