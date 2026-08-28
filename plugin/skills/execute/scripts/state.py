@@ -765,10 +765,13 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
 
 
 def checkpoint(destination: Path, candidate_path: Path) -> None:
-    candidate = _load(candidate_path)
+    _promote(destination, _load(candidate_path))
+
+
+def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
     _root_value = candidate.get("worktree", {}).get("root") if isinstance(candidate.get("worktree"), dict) else candidate.get("worktree_root")
     _autofill(candidate, destination, Path(_root_value) if isinstance(_root_value, str) else None)
-    candidate_errors = validate_state(candidate, candidate_path)
+    candidate_errors = validate_state(candidate, destination)
     if candidate_errors:
         raise ValueError("; ".join(candidate_errors))
     lifecycle = candidate["lifecycle"]
@@ -855,17 +858,95 @@ def mint_run_dir(run_root: Path, slug: str) -> Path:
     return run_root / f"{datetime.now().astimezone():%y%m%d-%H%M%S}-{slug}"
 
 
-def _resolve_checkpoint_destination(args: Any) -> Path:
+def _resolve_start_destination(args: Any) -> Path:
     minted = args.run_root is not None or args.slug is not None
     if args.destination is not None and minted:
         raise ValueError("Pass a state.json path or --run-root with --slug, not both")
     if not minted:
         if args.destination is None:
-            raise ValueError("checkpoint needs a state.json path, or --run-root with --slug")
+            raise ValueError("start needs a state.json path, or --run-root with --slug")
         return args.destination
     if args.run_root is None or args.slug is None:
         raise ValueError("--run-root and --slug are used together")
     return mint_run_dir(args.run_root, args.slug) / "state.json"
+
+
+TASK_AUTHORED_FIELDS = frozenset({
+    "id", "title", "scope", "completion_condition", "verification_path", "rationale",
+})
+
+
+def _load_tasks(path: Path) -> List[Dict[str, Any]]:
+    """The ledger the lead writes, and the five fields per task it does not.
+
+    `task-ledger-template.md` shows an eleven-field task, six of which are the lead's and five of
+    which are a run's opening position -- pending, round zero, no verification, no findings, no
+    acceptance. Copying those five per task was the shape a first checkpoint had to get exactly
+    right before anything else could happen.
+    """
+    payload = json.loads(path.read_text())
+    if isinstance(payload, dict) and "tasks" in payload:
+        payload = payload["tasks"]
+    if not isinstance(payload, list) or not payload:
+        raise ValueError("Tasks must be a non-empty JSON array, or an object carrying one under `tasks`")
+    tasks: List[Dict[str, Any]] = []
+    for index, item in enumerate(payload):
+        if not isinstance(item, dict):
+            raise ValueError(f"Task {index} must be an object")
+        missing = sorted(TASK_AUTHORED_FIELDS - set(item))
+        unexpected = sorted(set(item) - TASK_AUTHORED_FIELDS)
+        if missing or unexpected:
+            raise ValueError(
+                f"Task {item.get('id', index)} must carry exactly {sorted(TASK_AUTHORED_FIELDS)}"
+                + (f"; missing {missing}" if missing else "")
+                + (f"; unexpected {unexpected}" if unexpected else "")
+            )
+        tasks.append({**item, "status": "pending", "round": 0,
+                      "latest_verification": [], "unresolved_findings": [], "acceptance": None})
+    return tasks
+
+
+def start(destination: Path, kind: str, reference: Optional[Path], summary: Optional[str],
+          declared_status: Optional[str], worktree: Path, tasks_path: Path,
+          next_action: Optional[str]) -> None:
+    if destination.exists():
+        raise ValueError(f"{destination} already exists; a run is started once")
+    root, common = canonical_worktree(worktree)
+    if kind == "plan":
+        if reference is None:
+            raise ValueError("A plan input needs --input <path>")
+        if summary is not None:
+            raise ValueError("A plan input carries no --summary; the reference is the input")
+        digest = _sha256_bytes(reference.read_bytes())
+        reference_value: Optional[str] = str(reference)
+        summary_value: Optional[str] = None
+    else:
+        if summary is None:
+            raise ValueError("A brief input needs --summary <text>")
+        if reference is not None:
+            raise ValueError("A brief input carries no --input; the summary is the input")
+        digest = _sha256_bytes(summary.encode("utf-8"))
+        reference_value, summary_value = None, summary
+    tasks = _load_tasks(tasks_path)
+    _promote(destination, {
+        "schema_version": SCHEMA_VERSION,
+        "revision": AUTO,
+        "workflow": "execute",
+        "run_id": destination.parent.name,
+        "lifecycle": "active",
+        "input": {"kind": kind, "reference": reference_value, "summary": summary_value,
+                  "sha256": digest, "declared_status": declared_status},
+        "worktree": {"root": str(root), "git_common_dir": str(common),
+                     "baseline": AUTO, "observed": AUTO},
+        "phase": "initializing",
+        "tasks": tasks,
+        "current_task_id": tasks[0]["id"],
+        "current_round": 0,
+        "latest_verification": [],
+        "unresolved_findings": [],
+        "final_audit": [],
+        "next_action": next_action or f"dispatch {tasks[0]['id']} to an Executor",
+    })
 
 
 def main() -> int:
@@ -878,13 +959,24 @@ def main() -> int:
     worktree_parser = commands.add_parser("check-worktree")
     worktree_parser.add_argument("run_root", type=Path)
     worktree_parser.add_argument("worktree", type=Path)
+    start_parser = commands.add_parser("start", help="first checkpoint of a run; builds the state from its parts")
+    start_parser.add_argument("destination", type=Path, nargs="?",
+                              help="state.json path; omit and pass --run-root with --slug to have one named for you")
+    start_parser.add_argument("--run-root", type=Path, default=None,
+                              help="mint <run-root>/<YYMMDD-HHMMSS>-<slug>/state.json instead of naming it")
+    start_parser.add_argument("--slug", default=None, help="run slug, used with --run-root")
+    start_parser.add_argument("--kind", choices=("plan", "brief"), required=True)
+    start_parser.add_argument("--input", type=Path, default=None, dest="reference", help="plan path")
+    start_parser.add_argument("--summary", default=None, help="brief text")
+    start_parser.add_argument("--declared-status", default=None, help="the plan's own status, when it has one")
+    start_parser.add_argument("--worktree", type=Path, required=True, help="any path inside the canonical worktree")
+    start_parser.add_argument("--tasks", type=Path, required=True, dest="tasks_path",
+                              help="JSON array of tasks, each with id, title, scope, completion_condition, verification_path, rationale")
+    start_parser.add_argument("--next", dest="next_action", default=None)
+
     checkpoint_parser = commands.add_parser("checkpoint")
-    checkpoint_parser.add_argument("destination", type=Path, nargs="?",
-                                   help="state.json path; on a run's first checkpoint pass --run-root with --slug instead")
+    checkpoint_parser.add_argument("destination", type=Path)
     checkpoint_parser.add_argument("candidate", type=Path)
-    checkpoint_parser.add_argument("--run-root", type=Path, default=None,
-                                   help="mint <run-root>/<YYMMDD-HHMMSS>-<slug>/state.json instead of naming it")
-    checkpoint_parser.add_argument("--slug", default=None, help="run slug, used with --run-root")
     args = parser.parse_args()
     try:
         if args.command == "validate":
@@ -902,9 +994,14 @@ def main() -> int:
             occupant = find_occupying_run(args.run_root, args.worktree)
             print(json.dumps({"occupying_state": str(occupant) if occupant else None}, indent=2))
             return 1 if occupant else 0
-        destination = _resolve_checkpoint_destination(args)
-        checkpoint(destination, args.candidate)
-        print(destination)
+        if args.command == "start":
+            destination = _resolve_start_destination(args)
+            start(destination, args.kind, args.reference, args.summary, args.declared_status,
+                  args.worktree, args.tasks_path, args.next_action)
+            print(destination)
+            return 0
+        checkpoint(args.destination, args.candidate)
+        print(args.destination)
         return 0
     except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as error:
         print(error, file=sys.stderr)

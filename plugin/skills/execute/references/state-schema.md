@@ -20,10 +20,12 @@ Use:
 ocs state execute validate <state.json>
 ocs state execute reconcile <state.json>
 ocs state execute check-worktree <run-root> <worktree>
+ocs state execute start --run-root <runs/execute> --slug <slug> --kind plan --input <path> --worktree <path> --tasks <tasks.json>
 ocs state execute checkpoint <state.json> <candidate.json>
-ocs state execute checkpoint --run-root <runs/execute> --slug <slug> <candidate.json>
 ```
 
-The second form is a run's first checkpoint: it names the run directory — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json` — and prints the path it wrote, which every later checkpoint takes as its positional. Nothing needs creating first; a checkpoint makes its own parent directory.
+`start` writes a run's first checkpoint from its parts rather than from a hand-authored candidate. It names the run directory — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json`, printed, and what every later checkpoint takes as its positional — reads the canonical root and Git common directory out of `--worktree`, hashes `--input` or `--summary` for the input identity, and opens the ledger from `--tasks`: a JSON array whose entries carry `id`, `title`, `scope`, `completion_condition`, `verification_path` and `rationale` and nothing else. The five remaining fields on each task are a run's opening position and are filled in. Pass a `state.json` path instead of `--run-root` with `--slug` when the directory already exists. Nothing needs creating first; a checkpoint makes its own parent directory.
+
+`checkpoint` promotes a hand-authored candidate and stays the escape hatch for a state nothing else builds.
 
 `checkpoint` validates transitions, input identity, current worktree fingerprint, and single-run exclusivity before an atomic same-directory replace. `reconcile` never promotes partial work; drift requires inspection and fresh verification before selecting a continuation.
