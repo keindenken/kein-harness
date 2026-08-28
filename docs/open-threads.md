@@ -4,9 +4,13 @@ Work that is parked rather than finished, with enough context to pick it up cold
 
 The phase-46 comparison — the two kickoff traces, the two finished plans, the seven-round run ledger, and the five threads they produced about the plan artifact — has moved to `docs/skills/ralplan/260826-phase-46-comparison.md`, in Korean, because it is one investigation rather than five parked items and the working discussion around it is Korean. Entry cost, the artifact carrying its own review history, the lead authoring its own requirements, and the Evidence Gate validator are all there.
 
-## The `research` skill was abandoned mid-build
+## The `research` skill was abandoned mid-build — closed 2026-08-29
 
-Started, then displaced by the `plan` measurement programme, and the reason for the switch is no longer remembered by anyone involved. Nothing was written down at the time. Whatever exists of it is in the git history around `260810`; start by reading that rather than by starting again.
+Started, then displaced by the `plan` measurement programme, and the reason for the switch was no longer remembered by anyone involved. Nothing was written down at the time.
+
+Written, at `plugin/skills/research/`. The design it was written from is `docs/project/research-skill/notes.md`, which is where the reasoning lives; the skill carries only what a run reads.
+
+It has never been run. What the first run has to answer is in the memo's own terms: whether the audit actually separates a blind spot from a reachability failure, whether the artifact's round section is enough to resume from — which is the falsifying condition for shipping it without a ledger — and whether all three lanes fire.
 
 ## `docs/prompt-revision.md` is documentation that wants to be a prompt
 
