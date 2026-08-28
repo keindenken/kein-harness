@@ -125,6 +125,7 @@ manifest="$prompts/manifest.json"
 # A stale library would work as a role that no longer exists as written, so the gate runs before anything is spent on inference.
 # Only the half a dispatch can settle for itself; `kein-dev check-prompts` owns the rest and is not reachable from here by design.
 . "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+. "$KEIN_ROOT/libexec/lib/vendor-home.sh"
 prompt_library_fresh
 
 # The five write-capable roles, and the exact complement of what `ocs ask` serves.
@@ -291,7 +292,11 @@ spec=$(
 # The role is substituted by the shell that launches the worker, so the command line stays short and the prompt's own quoting never reaches a tokenizer.
 # CODEX_HOME travels with the worker, not just with the trust check.
 # Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
+plugin_flags=''
+for override in $(codex_plugin_overrides "$codex_home"); do
+  plugin_flags="$plugin_flags -c '$override'"
+done
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags -c developer_instructions=\"\$(cat '$role_file')\""
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):

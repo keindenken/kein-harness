@@ -96,6 +96,7 @@ manifest="$prompts/manifest.json"
 # A stale library would answer as a role that no longer exists as written, so the gate runs before anything is spent on inference.
 # Only the half a dispatch can settle for itself; `kein-dev check-prompts` owns the rest and is not reachable from here by design.
 . "$KEIN_ROOT/libexec/lib/prompt-freshness.sh"
+. "$KEIN_ROOT/libexec/lib/vendor-home.sh"
 prompt_library_fresh
 
 # Advisory only: the nine read-only roles.
@@ -147,8 +148,11 @@ trap cleanup EXIT INT TERM
 last="$work/response.txt"
 
 set -- codex exec --ephemeral --skip-git-repo-check --sandbox read-only \
-  -m "$model" -c model_reasoning_effort="$effort" \
-  -C "$PWD" -o "$last" "$prompt"
+  -m "$model" -c model_reasoning_effort="$effort"
+for override in $(codex_plugin_overrides "$codex_home"); do
+  set -- "$@" -c "$override"
+done
+set -- "$@" -C "$PWD" -o "$last" "$prompt"
 
 status=0
 CODEX_HOME="$codex_home" "$@" >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
