@@ -1,0 +1,26 @@
+{
+  "approvals": {
+    "architect@claude": {
+      "lane": "architect@claude",
+      "plan_sha256": "f8f83508509868fcc6aa4d462b8f7dccfaac3dcdcd9b0f841e7c8d58a9788f41",
+      "reviewed_at": "2026-08-28T11:28:01+09:00",
+      "verdict": "PASS"
+    },
+    "critic@claude": {
+      "lane": "critic@claude",
+      "plan_sha256": "f8f83508509868fcc6aa4d462b8f7dccfaac3dcdcd9b0f841e7c8d58a9788f41",
+      "reviewed_at": "2026-08-28T11:28:01+09:00",
+      "verdict": "PASS"
+    }
+  },
+  "completed_at": "2026-08-28T11:28:31+09:00",
+  "lifecycle": "completed",
+  "plan": {
+    "artifact_sha256": "a3c2e0aea6927947db729e9429d66d0b4b1674e5abb604c5d9867d53017bdf78",
+    "path": ".omc/plans/ralplan-phase-47-drag-reorder.md",
+    "review_sha256": "f8f83508509868fcc6aa4d462b8f7dccfaac3dcdcd9b0f841e7c8d58a9788f41"
+  },
+  "run_id": "260827-235007-phase-47-drag-reorder",
+  "schema_version": 1,
+  "workflow": "ralplan"
+}
