@@ -11,6 +11,15 @@ Execute is a lead-owned code-development convergence loop. It advances serial ta
 
 It neither invokes RALPLAN nor grants commit, push, pull-request, deployment, or release authority.
 
+## At entry
+
+Read from this working directory when the skill loaded; `ocs state-dir` answers relative to it.
+
+- `command -v ocs` → !`command -v ocs || echo "NOTHING ON PATH — no state command will run"`
+- `ocs state-dir runs/execute` → !`ocs state-dir runs/execute 2>&1`
+
+!`ocs state execute --help 2>&1`
+
 ## References
 
 - Read [state-schema.md](references/state-schema.md) before creating or resuming state.

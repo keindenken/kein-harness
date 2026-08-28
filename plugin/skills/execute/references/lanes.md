@@ -26,6 +26,8 @@ Every lane blocks.
 ocs team codex --agent executor --task-file <the task package>
 ```
 
+Run it with `--check` first: it reports the preconditions and spends nothing, creating no worktree, no Orca run and no worker. `ocs team --help` carries the rest of the flags.
+
 `ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
 
 The command is what enforces the environment, so there is nothing here for the lead to arrange. It resolves the model from the role's tier, pins the vendor home, sets a sandbox that can both write in the worktree and report completion, and refuses before creating anything if the project is untrusted in that home.
