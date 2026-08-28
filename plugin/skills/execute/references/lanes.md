@@ -18,7 +18,7 @@ The flag names vendors rather than roles, which is where this differs from RALPL
 
 Every lane blocks.
 
-`--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent.
+`--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent. The flag settles one dispatch; the command refuses a second while a worker still holds the worktree, reading the dispatch each prior lane recorded and asking whether it has settled.
 
 ## The write-capable lane
 
@@ -26,7 +26,7 @@ Every lane blocks.
 ocs team codex --agent executor --task-file <the task package>
 ```
 
-Run it with `--check` first: it reports the preconditions and spends nothing, creating no worktree, no Orca run and no worker. `ocs team --help` carries the rest of the flags.
+Run it with `--check` first: it answers whether the preconditions hold and whether a worker already holds the worktree, and spends nothing, creating no worktree, no Orca run and no worker. `ocs team --help` carries the rest of the flags.
 
 `ocs team` is the write-capable counterpart to `ocs ask`: it composes a vendor terminal, hands it to Orca as a supervised worker, and blocks until Orca's own completion signal arrives. Orca owns the dispatch lifecycle and recovery; the command owns the execution environment, which is the part Orca cannot vary per lane.
 

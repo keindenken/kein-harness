@@ -293,6 +293,39 @@ spec=$(
 # Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
 launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]' -c developer_instructions=\"\$(cat '$role_file')\""
 
+json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
+for k in sys.argv[1].split("."):
+    v = (v or {}).get(k) if isinstance(v, dict) else None
+print(v or "")' "$1"; }
+
+# A live worker holding this worktree is the one precondition nothing looked for. `lanes.md` says a
+# single vendor is what keeps the ledger serial, and that is enforced at the flag: one `--executor`
+# names one vendor and says nothing about a second dispatch. The first measured run made the second
+# one while the first still held its terminal.
+#
+# Every dispatch this command makes records its own id, so the sibling run directories are the
+# roster. A dispatch settles when its terminal dies -- both of that run's did, once they were killed
+# -- so a stale record cannot lock the worktree, and an id Orca cannot resolve is a purged dispatch
+# rather than evidence of a worker, which is why only a present-and-unsettled status refuses.
+occupant=''
+for prior in "$(dirname "$dir")"/*/command.txt; do
+  [ -r "$prior" ] || continue
+  grep -qxF "cwd=$worktree" "$prior" || continue
+  prior_dispatch=$(sed -n 's/^dispatch=//p' "$prior" | tail -1)
+  [ -n "$prior_dispatch" ] || continue
+  prior_status=$(orca orchestration worker-show --dispatch "$prior_dispatch" --json 2>/dev/null | json_field dispatch.status)
+  case "$prior_status" in
+    ''|completed|failed) continue ;;
+  esac
+  occupant="$prior_dispatch (status=$prior_status, $(dirname "$prior"))"
+  break
+done
+if [ -n "$occupant" ]; then
+  printf 'ocs team: a worker still holds this worktree — %s\n' "$occupant" >&2
+  printf '  settle or close it before dispatching another; the task ledger is serial.\n' >&2
+  exit 1
+fi
+
 if [ "$check" -eq 1 ]; then
   # Everything above this line is a precondition; everything below creates something. So this is the
   # only place a check can stop and still have answered the question it was asked.
@@ -301,7 +334,7 @@ if [ "$check" -eq 1 ]; then
   # own summary says, so `runs/team/` and `reports/` exist after this runs. Both are stable rather
   # than per-invocation -- the run directory is composed from the resolved root and is not created
   # here -- so repeated checks add nothing further. What a check promises is that nothing was spent.
-  printf 'ocs team: preconditions pass. No worktree, no Orca run, no worker.\n' >&2
+  printf 'ocs team: preconditions pass, and no worker holds this worktree. Nothing was spent.\n' >&2
   printf '\nrole      %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "$role" "$worktree" "$report" "$dir"
   printf '\n--- launch ---\n%s\n' "$launch"
   printf '\n--- spec ---\n%s\n' "$spec"
@@ -313,10 +346,6 @@ fi
 mkdir -p "$dir" "$reports"
 cp "$prompts/$role.md" "$role_file"
 
-json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
-for k in sys.argv[1].split("."):
-    v = (v or {}).get(k) if isinstance(v, dict) else None
-print(v or "")' "$1"; }
 
 fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
 

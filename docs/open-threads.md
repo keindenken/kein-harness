@@ -78,7 +78,9 @@ A `--check` that stops after the last precondition and exits would make the comm
 
 Shipped, and used. The first real dispatch ran `--check` before launching and read `preconditions pass. No worktree, no Orca run, no worker.`
 
-Exercising it found the next thing. That sentence reads as an occupancy report and is a spend report — the command's own comment says what a check promises is *that nothing was spent*, not that nothing is running. A live worker holding the worktree is invisible to it, and nothing else looks either: `ocs state execute check-worktree` finds an occupying run, not an occupying worker. The run that closed this thread dispatched a second Executor while the first still held its terminal, which is the guarantee `execute`'s lanes.md claims for the serial ledger and enforces only at the flag that names one vendor.
+Exercising it found the next thing. That sentence read as an occupancy report and was a spend report — the command's own comment says what a check promises is *that nothing was spent*, not that nothing is running. A live worker holding the worktree was invisible to it, and nothing else looked either: `ocs state execute check-worktree` finds an occupying run, not an occupying worker. The run that closed this thread dispatched a second Executor while the first still held its terminal, which is the guarantee `execute`'s lanes.md claims for the serial ledger and enforced only at the flag that names one vendor.
+
+Both halves are fixed. `ocs team` now reads the dispatch every prior lane in the same worktree recorded, asks Orca whether it has settled, and refuses while one has not; `--check` answers that question too and says so. A dispatch settles when its terminal dies — verified against both of that run's, once they were killed — so a stale record cannot lock the worktree, and an id Orca cannot resolve is treated as purged rather than as a worker.
 
 ## `tracer` ranks by a scale that was deleted
 
