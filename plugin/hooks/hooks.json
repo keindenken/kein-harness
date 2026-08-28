@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hud/repair.sh\" >/dev/null 2>&1 || true"
+          }
+        ]
+      }
+    ]
+  }
+}

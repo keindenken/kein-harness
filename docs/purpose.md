@@ -13,7 +13,7 @@ Progress is not recorded here. What has been built is visible in `plugin/skills/
 
 Skills, capped at what is actually used:
 
-`interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · orca orchestration
+`interview` · `plan` · `ralplan` · `execute` · `handoff` · `ralph` · `autopilot` · `onboard` · orca orchestration
 
 After v1: `research`, `deliberate`. Both are in scope with a clear use — `research` answers a question someone asked and leaves a cited artifact behind, `deliberate` reaches a verdict on whether a rule should exist before anyone writes it — but neither is part of what the v1 gate measures.
 
@@ -25,7 +25,7 @@ Agents: the fourteen canonical roles, rendered for both vendors from one source.
 
 ### Non-goals
 
-- Hooks. Start at zero. Adding one requires naming the failure it prevents and how its misfire would be detected.
+- Hooks. Start at zero. Adding one requires naming the failure it prevents and how its misfire would be detected. One has been added on those terms: Orca reverts its statusline script to a canonical copy at every launch, which strips the harness's HUD, and the plugin's `UserPromptSubmit` hook puts it back within a message. A misfire is visible as a blank statusline, and the hook refuses to write a rebuilt script that lost Orca's own relay call.
 - Restoring prompt material because an upstream harness had it.
 - Reimplementing Orca's orchestration runtime, or shadowing the `orca` executable to add subcommands to its namespace. Composing its commands from `ocs` is not that, and is how the cross-vendor bridge reaches a supervised worker.
 
@@ -36,6 +36,8 @@ A Codex port is planned. Whichever vendor leads, the experience should be as clo
 Detail may differ for two reasons, and both are legitimate. A platform can force it — flags, sandboxing, which instruction files a runtime discovers. A model's temperament can call for it, where the same instruction lands differently on a different model and the wording has to change to mean the same thing.
 
 What must not differ is the design. Two vendors doing the same work in two different shapes is the failure this guards against, not two wordings of one shape.
+
+`onboard` is the exception this admits rather than resolves. Everything it touches — the statusline, the rules directory, the hook — is a Claude Code surface with no Codex equivalent, so a port does not get a differently worded version of it; it gets whatever the other platform's equivalent machine setup turns out to be, which is not yet known.
 
 ### v1 done
 
@@ -67,6 +69,7 @@ And the source states its own exception: a fixed, checkable criterion is where a
 
 | Component | Kind | Consequence |
 | :--- | :--- | :--- |
+| `onboard` | machine setup | outside the argument's scope — it configures the environment rather than doing work in it |
 | `interview` | planning harness | the one class the argument keeps |
 | `plan` | planning harness | the artifact survives even if the gate is retired |
 | `ralplan` (`plan` + consensus gate) | verification | conditional on a gate that can fail |

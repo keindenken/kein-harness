@@ -1,0 +1,27 @@
+---
+paths:
+  - "**/CLAUDE.md"
+  - "**/CLAUDE.local.md"
+  - "**/AGENTS.md"
+  - "**/SKILL.md"
+  - "**/.claude/rules/**"
+  - "**/prompts/**/*.md"
+  - "**/prompt/**/*.md"
+---
+
+# Editing a standing prompt
+
+These rules govern any edit to a file an agent will obey — a `CLAUDE.md`, an `AGENTS.md`, a `SKILL.md`, anything under `prompts/`. They load once, when this session first opens such a file, which may have been long ago and may not be the file you are about to change. Apply them to the one you are changing now.
+
+Rules in such files are of two kinds. One describes an external surface — an API, a tool's behaviour, a file format — and that surface's next change will announce the rule is stale. The other describes how you want an agent to work, and nothing will ever announce it: models and environments move on, and finding out means removing the rule you put in to be followed. So write every line for the reader who must one day decide whether it can go.
+
+Whether the rule should exist at all is a separate decision, made before you opened the file you are editing. If it has not been made, stop and make it first. What follows governs the writing.
+
+- **Can it bind?** A line binds only where the agent has a real choice and the means to comply. A line that describes what would happen anyway instructs nothing; a line whose compliance needs something the agent is not given fails silently, and silent failure reads as obedience.
+- **Don't state what the repository already shows.** The layout, the commands, the framework in use — an agent sees those by looking, and a restatement starts rotting the moment the repository moves on. Spend the lines on what looking cannot reveal: the gotcha, the constraint whose reason is invisible, the convention that lives only in someone's head.
+- **Prefer a principle to an enumeration.** A list invites nearest-match; a principle names what the items share and covers the case you did not foresee. Enumerate only when the items are commands to run rather than judgments to make — a checklist is the one list that outperforms its principle.
+- **A factual claim must carry its own check.** Three shapes qualify: a pointer to the source that regenerates it, a fact pinned to a version with the probe that re-checks it, or a mechanism the reader can verify. A value that moves with a defensible choice of method is not a fact yet — write the qualitative form instead of whichever number you happened to get. A number that is neither regenerable nor anchored gets deleted, not corrected; and a number promoted into a rule stops meaning what it measured, because the rule applies where the measurement never ran. A stated preference asserts nothing to check and is not caught by this.
+- **Justification is three things, and only one goes here.** Mechanism — why the thing behaves as it does — sits beside the rule: it is bounded, checkable, and it is what licenses a later reader to delete the rule when the mechanism no longer holds. Provenance — the incident that produced the rule — goes in the commit message of the change, not beside the rule: the keep-or-cut decision needs the mechanism, not the story, and the file's history already solves retrieval; what goes missing is the supply, so state the argument in the commit that makes the change. Environment facts — true of this machine, this version, this configuration — go to a mechanism that enforces them where one exists: a sandbox setting enforces read-only, while a sentence asking for read-only only hopes. Where nothing can hold the fact, because the runtime behaves a certain way and no setting changes it, the fact stays but the sentence changes: write what the reader does differently, not what the system does. An observation the reader cannot act on is trivia, and it dates without ever having bound anything.
+- **Negate each premise.** Where a line rests on a stated fact, deny the fact and watch the instruction. If it survives, the fact was decoration — drop it; decoration outlives its truth. If it dies, the line was an environment fact in disguise, and goes where those go.
+- **Point at the collision.** Name the decision where the new rule meets an existing one. If such a point exists, one of the two loses there — say which, in the file, so precedence is settled once by the writer instead of at runtime, differently each time.
+- **What a given run will not read leaves the main file.** Not because it is long, and not because it is code: the question is what this run reads, not how big the file is. Splitting what every run reads is pure cost, and deferring a file every run must still open has saved nothing. When content leaves, send it to the layer that fires at the right time — configuration for what the runtime can enforce, a skill for what only some tasks need, a reference beside the skill for what one stage reads — and say it once, at the layer where the run that needs it looks.

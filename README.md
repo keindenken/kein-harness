@@ -23,6 +23,10 @@ plugin/                everything Claude Code loads. The symlink points HERE,
   agents/              subagent markdown files      -> kein:<name>
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
+  hooks/hooks.json     one UserPromptSubmit hook, which keeps the HUD alive
+  hud/                 the statusline renderer, the block that puts it in front
+                       of Orca's, and the repair the hook runs
+  rules/               rule files, linked into the config home by `onboard`
   bin/                 ON the Bash tool's PATH while enabled. `ocs` only.
   libexec/             ocs subcommands, OFF PATH. `ocs-<name>` -> `ocs <name>`
     lib/               sourceable shell shared by more than one subcommand
@@ -51,8 +55,13 @@ anything on inference, because the library lived in `~/.codex-orca` and a machin
 had no way to re-render. A hash answers "has this moved" where the source is out of reach; the
 source is in the repository now, and a re-render says what moved and to what.
 
+`rules/` is not auto-discovered — Claude Code reads rules from the config home, which is
+why `/kein:onboard` links them there rather than the plugin shipping them into place. The
+symlink sits at the home level on purpose: these rules are meant to fire in every project,
+and a plugin-scoped copy would fire only where `kein` is enabled.
+
 Default locations Claude Code also auto-discovers, absent until needed:
-`hooks/hooks.json`, `.mcp.json`, `.lsp.json`, `output-styles/`, `monitors/`,
+`.mcp.json`, `.lsp.json`, `output-styles/`, `monitors/`,
 `settings.json` (only the `agent` and `subagentStatusLine` keys are honored).
 
 ## How this is loaded
