@@ -44,6 +44,7 @@ NONTERMINAL_FIELDS = frozenset({
     "round",
     "verdicts",
     "findings",
+    "closure",
     "next_action",
 })
 COMPLETED_FIELDS = frozenset({
@@ -75,6 +76,12 @@ FINDING_FIELDS = frozenset({
     "impact",
     "required_correction",
 })
+CLOSURE_FIELDS = frozenset({"lane", "finding", "disposition", "evidence"})
+# `REWORDED-ONLY` is the whole reason a primed reader is worth asking: it is the one verdict a
+# blind lane cannot reach, because reaching it means having seen the text the correction replaced.
+CLOSURE_DISPOSITIONS = frozenset({"CLOSED", "PARTIAL", "NOT CLOSED", "REWORDED-ONLY"})
+
+
 INPUT_FIELDS = frozenset({"reference", "summary", "sha256"})
 HEX_64 = re.compile(r"^[0-9a-f]{64}$")
 STATUS_PATTERN = re.compile(r"^Status:\s*(.*?)\s*$", re.MULTILINE)
@@ -254,6 +261,24 @@ def _validate_findings(value: Any) -> List[str]:
     return errors
 
 
+def _validate_closure(value: Any) -> List[str]:
+    if not isinstance(value, list):
+        return ["Closure must be a list"]
+    errors: List[str] = []
+    for index, item in enumerate(value):
+        if not isinstance(item, dict) or set(item) != CLOSURE_FIELDS:
+            errors.append(f"Closure {index} must use the exact closure field set")
+            continue
+        if _parse_lane(item.get("lane")) is None:
+            errors.append(f"Closure {index} has an invalid lane")
+        if item.get("disposition") not in CLOSURE_DISPOSITIONS:
+            errors.append(f"Closure {index} disposition must be one of {', '.join(sorted(CLOSURE_DISPOSITIONS))}")
+        for key in ("finding", "evidence"):
+            if not isinstance(item.get(key), str) or not item[key].strip():
+                errors.append(f"Closure {index} requires non-empty {key}")
+    return errors
+
+
 def validate_state(payload: Any) -> List[str]:
     if not isinstance(payload, dict):
         return ["State must be a JSON object"]
@@ -287,11 +312,19 @@ def validate_state(payload: Any) -> List[str]:
             for lane in verdicts:
                 errors.extend(_validate_verdict(verdicts[lane], lane, digest))
         errors.extend(_validate_findings(payload.get("findings")))
+        errors.extend(_validate_closure(payload.get("closure")))
         if plan.get("status") == "Approved":
             if not _blocking_pass(verdicts, digest):
                 errors.append("Approved requires a fresh PASS from every blocking lane")
             if payload.get("findings"):
                 errors.append("Approved state cannot retain unresolved findings")
+            # A positive closure check cannot approve -- `_blocking_pass` never reads this field.
+            # A negative one blocks, which is the half the contract had no way to record.
+            closure = payload.get("closure")
+            if isinstance(closure, list) and any(
+                isinstance(item, dict) and item.get("disposition") != "CLOSED" for item in closure
+            ):
+                errors.append("Approved state cannot retain a closure disposition other than CLOSED")
     elif lifecycle == "completed":
         if set(payload) != COMPLETED_FIELDS:
             errors.append("Completed receipts must use the exact compact field set")
@@ -599,6 +632,7 @@ def start(destination: Path, plan: Path, summary: str, lanes: List[str],
         "round": 0,
         "verdicts": {lane: None for lane in lanes},
         "findings": [],
+        "closure": [],
         "next_action": next_action or "dispatch round 1 fresh reviewers",
     }
     _refresh(candidate)
@@ -629,20 +663,29 @@ def block(destination: Path, findings_path: Path, next_action: Optional[str]) ->
     _advance(destination, mutate, next_action, "ask Planner to revise the same artifact")
 
 
-def revised(destination: Path, next_action: Optional[str]) -> None:
+def revised(destination: Path, closure_path: Optional[Path], next_action: Optional[str]) -> None:
+    """`revised` is the only writer of `closure`, and it writes on every call.
+
+    The check judges one revision against the findings it answered, so a later revision makes an
+    earlier disposition stale for the same reason a content change clears every verdict. Calling
+    without `--closure` therefore records that this revision was not checked, rather than leaving
+    the previous one standing over text it never read.
+    """
     state = _load_json(destination)
     upcoming = state.get("round", 0) + 1 if isinstance(state.get("round"), int) else 1
+    closure = _load_findings(closure_path, "closure") if closure_path is not None else []
 
     def mutate(candidate: Dict[str, Any]) -> None:
         candidate["phase"] = "drafted"
         candidate["findings"] = []
+        candidate["closure"] = closure
 
     # This transition is where the round's findings leave the state, and the fresh lanes about to be
     # dispatched are forbidden from seeing them, so it is the last point anything can say they exist.
     # The file beside the run is the only surviving copy and nothing reads it back; a lead who does
     # not open it has no way to tell a finding's second appearance from its first.
     _advance(destination, mutate, next_action,
-             f"dispatch round {upcoming} fresh reviewers; every earlier round's findings stay beside the run, so read them before treating a finding as new")
+             f"dispatch round {upcoming} fresh reviewers; every earlier round's findings stay beside the run, so read them before treating a finding as new, and `revised --closure` records a primed reader's per-item disposition of them")
 
 
 def approve(destination: Path, overrides: Dict[str, str], next_action: Optional[str]) -> None:
@@ -693,10 +736,10 @@ def abort(destination: Path, reason: str) -> None:
     })
 
 
-def _load_findings(path: Path) -> List[Dict[str, Any]]:
+def _load_findings(path: Path, key: str = "findings") -> List[Dict[str, Any]]:
     payload = json.loads(path.read_text())
-    if isinstance(payload, dict) and "findings" in payload:
-        payload = payload["findings"]
+    if isinstance(payload, dict) and key in payload:
+        payload = payload[key]
     if not isinstance(payload, list):
         raise ValueError("Findings must be a JSON array, or an object carrying one under `findings`")
     return payload
@@ -763,6 +806,8 @@ def main() -> int:
 
     revised_parser = subparsers.add_parser("revised", help="Planner's revision has landed; clears the findings")
     revised_parser.add_argument("destination", type=Path)
+    revised_parser.add_argument("--closure", type=Path, default=None, dest="closure",
+                                help="JSON array of per-item closure dispositions from a primed reader; omit to record none")
     revised_parser.add_argument("--next", dest="next_action", default=None)
 
     approve_parser = subparsers.add_parser("approve", help="record every blocking lane's PASS at the current review hash")
@@ -795,7 +840,7 @@ def main() -> int:
             elif args.command == "block":
                 block(args.destination, args.findings, args.next_action)
             elif args.command == "revised":
-                revised(args.destination, args.next_action)
+                revised(args.destination, args.closure, args.next_action)
             elif args.command == "approve":
                 overrides = dict(item.split("=", 1) for item in args.verdict)
                 approve(args.destination, overrides, args.next_action)

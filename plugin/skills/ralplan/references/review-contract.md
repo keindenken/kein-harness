@@ -45,4 +45,14 @@ UNCERTAINTY:
 
 Consolidate all current must-fix findings into one correction brief for Planner. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
 
-A previous live reviewer may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
+A previous live reviewer of either role may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
+
+Its answer is one disposition per finding it was handed, recorded with `revised --closure`:
+
+```markdown
+- Finding: <the claim it answers>
+  Disposition: CLOSED | PARTIAL | NOT CLOSED | REWORDED-ONLY
+  Evidence: <what in the current text settles it>
+```
+
+`REWORDED-ONLY` is why the reader has to be primed. A blind lane can judge whether the current text is right; only a reader holding the text the correction replaced can see that it was restated rather than fixed. The run ledger's `round-N-plan.md` and `round-N-findings.json` are that priming, so a fresh agent given both is as capable here as a continued one — which is what makes the check available after a resume, and to a vendor lane that cannot be continued at all.

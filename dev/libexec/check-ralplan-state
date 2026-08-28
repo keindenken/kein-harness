@@ -40,13 +40,30 @@ refuse "clearing findings without a review-content change" revised "$ST"
 refuse "opening a round while findings are unresolved" open "$ST"
 
 header "In Review" "Drafted." "body v1, revised"
-must revised "$ST"
+
+# The closure slot the review contract described and the state had nowhere to put. Both directions:
+# a negative disposition has to reach `approve`, and the field has to refuse a word outside its set.
+printf '[{"lane":"critic@claude","finding":"c","disposition":"NOT CLOSED","evidence":"still there"}]\n' > "$WORK/c-open.json"
+printf '[{"lane":"critic@claude","finding":"c","disposition":"CLOSED","evidence":"gone"}]\n' > "$WORK/c-done.json"
+printf '[{"lane":"critic@claude","finding":"c","disposition":"MAYBE","evidence":"e"}]\n' > "$WORK/c-bad.json"
+
+refuse "a closure disposition outside the vocabulary" revised "$ST" --closure "$WORK/c-bad.json"
+must revised "$ST" --closure "$WORK/c-open.json"
 
 refuse "approval from a drafted phase" approve "$ST"
 
 header "In Review" "Reviewing round 2." "body v1, revised"
 must open "$ST"
 header Approved "Approved at round 2." "body v1, revised"
+refuse "approval over an unclosed closure disposition" approve "$ST"
+
+# A later revision replaces the disposition rather than inheriting it, which is why `revised` writes
+# on every call. Back through a round so the closed reading is the one approval sees.
+header "In Review" "Drafted." "body v2, closed"
+must revised "$ST" --closure "$WORK/c-done.json"
+header "In Review" "Reviewing round 3." "body v2, closed"
+must open "$ST"
+header Approved "Approved at round 3." "body v2, closed"
 must approve "$ST"
 must complete "$ST"
 

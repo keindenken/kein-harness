@@ -49,7 +49,7 @@ Each round, until the plan is approved or the run ends unapproved:
 6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
 7. If every lane returns `PASS` for the same review hash, set Approved and explain the approval and any bounded Evidence Gates in `Status reason`. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
 
-Fresh official reviewers are mandatory after every review-content revision. A previous reviewer may perform a targeted closure check when a subtle or high-risk correction needs confirmation; that check can block but cannot approve or replace a fresh lane.
+Fresh official reviewers are mandatory after every review-content revision.
 
 ## Dispatch
 
