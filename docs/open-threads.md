@@ -68,13 +68,17 @@ Do it as a pass over one skill at a time with the rules open, not as a sweep. Th
 
 Neither has been tried. `plugin/skills/ping/SKILL.md` is a one-line skill whose whole job is confirming the harness loaded, so it is the cheapest place to see both render.
 
-## `ocs team` cannot be exercised without spending a session
+## `ocs team` cannot be exercised without spending a session — closed 2026-08-28
 
 Every precondition it owns — the prompt library's freshness, the role roster, the trust record, Orca's reachability, the `developer_instructions` probe — runs before anything is created, and then the command immediately creates a terminal and starts a worker. There is no way to check that the preconditions pass for a given invocation without also launching one.
 
 Found by launching one accidentally while testing `--worktree`: the lane attached to no dispatch, left an idle provider terminal in an unrelated repository, and created a run directory there that had to be removed by hand. Nothing was damaged, and nothing in the command's design prevented it.
 
 A `--check` that stops after the last precondition and exits would make the command testable. It is small and the ordering it needs already exists.
+
+Shipped, and used. The first real dispatch ran `--check` before launching and read `preconditions pass. No worktree, no Orca run, no worker.`
+
+Exercising it found the next thing. That sentence reads as an occupancy report and is a spend report — the command's own comment says what a check promises is *that nothing was spent*, not that nothing is running. A live worker holding the worktree is invisible to it, and nothing else looks either: `ocs state execute check-worktree` finds an occupying run, not an occupying worker. The run that closed this thread dispatched a second Executor while the first still held its terminal, which is the guarantee `execute`'s lanes.md claims for the serial ledger and enforces only at the flag that names one vendor.
 
 ## `tracer` ranks by a scale that was deleted
 

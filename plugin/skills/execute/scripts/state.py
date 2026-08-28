@@ -257,9 +257,24 @@ def _validate_findings(value: Any) -> List[str]:
     return errors
 
 
+def _field_set_error(label: str, actual: Any, expected: frozenset) -> str:
+    """Name the difference rather than the set the caller then has to go find.
+
+    Every state in this workflow is hand-authored -- there are no transitions that build one -- so a
+    field-set mismatch is the first thing a run hits. The first measured run hit it and answered by
+    writing a script to read the constant out of this file.
+    """
+    keys = set(actual) if isinstance(actual, dict) else set()
+    missing = sorted(expected - keys)
+    unexpected = sorted(keys - expected)
+    return (label
+            + (f"; missing {missing}" if missing else "")
+            + (f"; unexpected {unexpected}" if unexpected else ""))
+
+
 def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
     if not isinstance(task, dict) or set(task) != TASK_FIELDS:
-        return ["Task must use the exact task field set"]
+        return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS)]
     errors: List[str] = []
     for key in ("id", "title", "completion_condition", "rationale"):
         if not isinstance(task.get(key), str) or not task[key].strip():
@@ -340,7 +355,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
     lifecycle = payload.get("lifecycle")
     if lifecycle in NONTERMINAL_LIFECYCLES:
         if set(payload) != NONTERMINAL_FIELDS:
-            errors.append("Nonterminal state must use the exact resumable field set")
+            errors.append(_field_set_error("Nonterminal state must use the exact resumable field set", payload, NONTERMINAL_FIELDS))
             return errors
         if payload.get("phase") not in PHASES:
             errors.append("Nonterminal phase is invalid")
@@ -354,7 +369,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
             errors.append("Nonterminal state requires the exact next action")
         input_value = payload.get("input")
         if not isinstance(input_value, dict) or set(input_value) != INPUT_FIELDS:
-            errors.append("Input must use the exact field set")
+            errors.append(_field_set_error("Input must use the exact field set", input_value, INPUT_FIELDS))
         else:
             if input_value.get("kind") not in {"plan", "brief"}:
                 errors.append("Input kind must be plan or brief")
@@ -375,7 +390,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
         worktree = payload.get("worktree")
         current_fingerprint = ""
         if not isinstance(worktree, dict) or set(worktree) != WORKTREE_FIELDS:
-            errors.append("Worktree must use the exact field set")
+            errors.append(_field_set_error("Worktree must use the exact field set", worktree, WORKTREE_FIELDS))
         else:
             for key in ("root", "git_common_dir"):
                 if not isinstance(worktree.get(key), str) or not worktree[key]:
@@ -437,7 +452,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
             errors.append("Final audit cannot retain unresolved findings")
     elif lifecycle == "completed":
         if set(payload) != COMPLETED_FIELDS:
-            errors.append("Completed receipt must use the exact compact field set")
+            errors.append(_field_set_error("Completed receipt must use the exact compact field set", payload, COMPLETED_FIELDS))
             return errors
         if not _valid_time(payload.get("completed_at")):
             errors.append("Completed receipt requires timezone-aware completed_at")
@@ -490,7 +505,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
                     errors.append("Final audit requires fresh independent PASS verdicts")
     elif lifecycle == "aborted":
         if set(payload) != ABORTED_FIELDS:
-            errors.append("Aborted receipt must use the exact compact field set")
+            errors.append(_field_set_error("Aborted receipt must use the exact compact field set", payload, ABORTED_FIELDS))
             return errors
         if not _valid_time(payload.get("aborted_at")):
             errors.append("Aborted receipt requires timezone-aware aborted_at")
