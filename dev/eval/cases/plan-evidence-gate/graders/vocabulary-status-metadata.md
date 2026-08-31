@@ -7,4 +7,4 @@ match: contains
 flags: m
 weight: 1
 ---
-^Status:\s*Draft\s*$
+^Status:\s*Draft\s+—\s*\S
