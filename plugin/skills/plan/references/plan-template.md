@@ -43,9 +43,12 @@ When Planner's role contract calls for a pre-mortem, use this exact optional sha
 
 - Caught by: <the acceptance criterion or gate that surfaces it>
 - Prevented by: <the mechanism that stops it, or None>
+- Acts on: <what that mechanism reads, writes, removes or attaches, and how it resolves that target>
 - Residual: <what is accepted because nothing catches it, or None>
 ```
 
 A scenario with no `Caught by` is a worry rather than a pre-mortem entry: it names a fear without saying which check would have to fail for it to happen. `Residual: None` and a missing `Residual` line say different things — the first is a claim that the scenario is covered, the second is silence about whether anyone looked.
+
+`Acts on` describes the preventer rather than the scenario, because the preventer is the one element of the entry no earlier review has seen: the scenario has just been argued at length, and the mechanism guarding it is new here. It has no `None` — while `Prevented by` names a mechanism, an entry that cannot say how that mechanism reaches what it touches is showing a gap rather than reporting an absence.
 
 The numbering is what lets the rest of the plan cite a scenario instead of restating it; the shape is otherwise free, and the section is the plan's own record of what it expects to survive.
