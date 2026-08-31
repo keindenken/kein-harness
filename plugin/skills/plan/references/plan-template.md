@@ -1,20 +1,22 @@
 # Canonical Plan Artifact
 
-Use this metadata at the top of the canonical plan and let `kein:planner` supply the evidence-grounded plan body required by its permanent role contract.
+Written to whoever writes the plan. It fixes the artifact's form and nothing about its content — what the body argues is your role contract's, not this file's.
 
 ```markdown
 # <Plan title>
 
 Status: Draft — <where this plan stands, whether it is provisionally executable, and any blocking decision or evidence gap>
 
-<Planner-authored plan body>
+<the plan body>
 
 ## Open Questions
 
 - <non-blocking question and why its answer matters, or None>
 ```
 
-`Draft` is the status this artifact carries. The `Status` line is lead-owned metadata: Planner does not set it, and the lead edits nothing else. The em dash is what separates the machine-read word from the prose after it, and a period would not — a reason is full of them.
+You write `Draft`, and the reason after the em dash is yours. It is where a plan that is not ready for execution says so and says what would make it ready — **the marking your role contract asks for lives here, and this line is the only place that gives it a shape.** The em dash separates the machine-read word from the prose after it, and a period would not: a reason is full of them.
+
+`In Review` and `Approved` also exist and neither is yours to write. A consensus workflow sets them while it runs, and it edits this line and nothing else in the artifact.
 
 When the plan carries a bounded execution-time empirical obligation, use this exact optional shape:
 
@@ -33,7 +35,7 @@ When the plan carries a bounded execution-time empirical obligation, use this ex
 
 A gate whose unexpected result has no stop boundary is not a gate. Every expected result needs a path that was decided here rather than at execution time, which is what keeps the obligation bounded.
 
-When Planner's role contract calls for a pre-mortem, use this exact optional shape. Whether one is called for is that contract's decision and not this file's:
+When your role contract calls for a pre-mortem, use this exact optional shape. Whether one is called for is that contract's decision and not this file's:
 
 ```markdown
 ## Pre-mortem

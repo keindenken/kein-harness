@@ -12,12 +12,12 @@ Plan produces one canonical implementation plan artifact. Planner writes it; the
 
 ## Required Files
 
-Read [plan-template.md](references/plan-template.md) before dispatching Planner.
+[plan-template.md](references/plan-template.md) is written to Planner. Hand it over by absolute path — copying it into the brief spends tokens restating a file the lane can open, and a paraphrase of it is a second copy to keep true. Read it yourself before validating what comes back.
 
 ## Workflow
 
 1. Resolve the task, the repository, and the canonical plan path.
-2. Dispatch one fresh `kein:planner` with the Agent tool, supplying the canonical path, the template contract, the requirements, and the repository root.
+2. Dispatch one fresh `kein:planner` with the Agent tool, supplying the canonical path, the template's absolute path, the requirements, and the repository root. A lane that cannot open that path — a vendor lane under its own sandbox — gets the file's contents instead, which is what `ocs ask --task-file` assembles.
 3. Validate the artifact against the template, then report its path.
 
 ## Where the plan goes
@@ -32,7 +32,7 @@ A plan that comes back carrying several unresolved material decisions was sized 
 
 ## What Planner may touch
 
-Limit its writes to the plan artifact; prohibit source, test, configuration, generated-file, and Git changes. Ownership of the artifact's body is the template's to state and it states it, so nothing here repeats it.
+Limit its writes to the plan artifact; prohibit source, test, configuration, generated-file, and Git changes. Ownership of the artifact's body is the template's to state and it states it, so nothing here repeats it — including the `Status` line, which Planner writes as `Draft` and no workflow-run status.
 
 ## Evidence and Decisions
 
