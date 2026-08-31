@@ -6,14 +6,14 @@ Create a separate package for each lane containing only:
 
 - the original task or prompt-safe task summary;
 - the governing requirements and constraints;
-- the complete current canonical plan, with its `Status` and `Status reason` lines removed;
+- the complete current canonical plan, with its `Status` line removed;
 - the current review-content plan hash;
 - relevant repository evidence or exact locations;
 - the lane rubric and response shape below.
 
 Do not include state history. No lane receives another lane's response before returning its own. A fresh reviewer receives no previous finding, verdict, reviewer identity, revision note, change summary, claimed fix, closure result, or expected outcome.
 
-The two removed lines are why. `Status reason` is required to say why approval is absent, which on any round after the first means naming the round, the verdicts it carried, and what the revision changed — four of the things in that list, arriving inside the artifact this package is required to carry whole. They are the same two lines the review hash already excludes, so removing them changes nothing a lane is being asked about.
+The removed line is why. Its reason half is required to say why approval is absent, which on any round after the first means naming the round, the verdicts it carried, and what the revision changed — four of the things in that list, arriving inside the artifact this package is required to carry whole. It is the same line the review hash already excludes, so removing it changes nothing a lane is being asked about.
 
 ## Architect lane
 

@@ -45,10 +45,10 @@ Entry and resume:
 
 Each round, until the plan is approved or the run ends unapproved:
 
-4. Validate the artifact. The lead may edit only workflow-owned `Status` and `Status reason` metadata. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
+4. Validate the artifact. The lead may edit only the workflow-owned `Status` line. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
 5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. Any lane's `MUST_FIX` blocks approval.
 6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
-7. If every lane returns `PASS` for the same review hash, set Approved and explain the approval and any bounded Evidence Gates in `Status reason`. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
+7. If every lane returns `PASS` for the same review hash, set Approved and explain the approval and any bounded Evidence Gates in the `Status` line's reason. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
 
 Fresh official reviewers are mandatory after every review-content revision.
 

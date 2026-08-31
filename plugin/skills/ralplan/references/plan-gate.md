@@ -14,7 +14,7 @@ The field answers one question — is a gate running over this artifact — so a
 
 Where a run is *inside* a round is `phase`, which lives in state rather than in artifact prose, and it is what the transition rules are enforced on.
 
-`Status reason` additionally carries the current workflow phase and why approval is absent.
+The reason half additionally carries the current workflow phase and why approval is absent.
 
 ## What the body may not narrate
 
@@ -24,7 +24,7 @@ The package a fresh lane receives is this artifact whole. [review-contract.md](r
 
 ## Two hashes
 
-State records the exact artifact SHA-256 and a review-content SHA-256 that excludes only the `Status` and `Status reason` lines.
+State records the exact artifact SHA-256 and a review-content SHA-256 that excludes only the `Status` line.
 
 A status-only transition changes the artifact hash and leaves the review hash stable, so it does not invalidate a review. Every other content change changes the review hash and invalidates every verdict. Hashes are the authority on drift; a transcript is not.
 

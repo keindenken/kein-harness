@@ -5,8 +5,7 @@ Use this metadata at the top of the canonical plan and let `kein:planner` supply
 ```markdown
 # <Plan title>
 
-Status: Draft
-Status reason: <where this plan stands, whether it is provisionally executable, and any blocking decision or evidence gap>
+Status: Draft — <where this plan stands, whether it is provisionally executable, and any blocking decision or evidence gap>
 
 <Planner-authored plan body>
 
@@ -15,7 +14,7 @@ Status reason: <where this plan stands, whether it is provisionally executable, 
 - <non-blocking question and why its answer matters, or None>
 ```
 
-`Draft` is the status this artifact carries. Status and Status reason are lead-owned metadata: Planner does not set them, and the lead edits nothing else.
+`Draft` is the status this artifact carries. The `Status` line is lead-owned metadata: Planner does not set it, and the lead edits nothing else. The em dash is what separates the machine-read word from the prose after it, and a period would not — a reason is full of them.
 
 When the plan carries a bounded execution-time empirical obligation, use this exact optional shape:
 

@@ -85,7 +85,10 @@ CLOSURE_DISPOSITIONS = frozenset({"CLOSED", "PARTIAL", "NOT CLOSED", "REWORDED-O
 INPUT_FIELDS = frozenset({"reference", "summary", "sha256"})
 HEX_64 = re.compile(r"^[0-9a-f]{64}$")
 STATUS_PATTERN = re.compile(r"^Status:\s*(.*?)\s*$", re.MULTILINE)
-STATUS_REASON_PATTERN = re.compile(r"^Status reason:\s*(.*?)\s*$", re.MULTILINE)
+# One header line, `Status: <word> — <reason>`. Non-greedy up to the first em dash, so a reason
+# may carry its own; the dash rather than a period because a reason is full of periods and the
+# word has to stay recoverable from the left.
+STATUS_LINE_PATTERN = re.compile(r"^(.*?)\s+—\s+(\S.*)$")
 HEADING_PATTERN = re.compile(r"^#\s+\S", re.MULTILINE)
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -94,7 +97,7 @@ def sha256_file(path: Path) -> str:
 def review_text(text: str) -> str:
     lines = []
     for line in text.splitlines(keepends=True):
-        if line.startswith("Status:") or line.startswith("Status reason:"):
+        if line.startswith("Status:"):
             continue
         lines.append(line)
     return "".join(lines)
@@ -105,12 +108,10 @@ def review_sha256(path: Path) -> str:
 
 
 def parse_plan_text(text: str) -> Dict[str, str]:
+    """The header's machine-read half. Empty for an absent or malformed line; `validate_plan_text` says which."""
     statuses = STATUS_PATTERN.findall(text)
-    reasons = STATUS_REASON_PATTERN.findall(text)
-    return {
-        "status": statuses[0].strip() if len(statuses) == 1 else "",
-        "status_reason": reasons[0].strip() if len(reasons) == 1 else "",
-    }
+    match = STATUS_LINE_PATTERN.match(statuses[0]) if len(statuses) == 1 else None
+    return {"status": match.group(1).strip() if match else ""}
 
 
 def validate_plan_text(text: str) -> List[str]:
@@ -118,11 +119,12 @@ def validate_plan_text(text: str) -> List[str]:
     if HEADING_PATTERN.search(text) is None:
         errors.append("Plan requires a level-one title")
     statuses = STATUS_PATTERN.findall(text)
-    if len(statuses) != 1 or statuses[0].strip() not in PLAN_STATUSES:
-        errors.append("Plan status must be Draft, In Review, or Approved")
-    reasons = STATUS_REASON_PATTERN.findall(text)
-    if len(reasons) != 1 or not reasons[0].strip():
-        errors.append("Plan requires a non-empty Status reason")
+    if len(statuses) != 1:
+        errors.append("Plan requires exactly one Status line")
+        return errors
+    match = STATUS_LINE_PATTERN.match(statuses[0])
+    if match is None or match.group(1).strip() not in PLAN_STATUSES:
+        errors.append("Status must read `Draft`, `In Review` or `Approved`, an em dash, then a non-empty reason")
     return errors
 
 

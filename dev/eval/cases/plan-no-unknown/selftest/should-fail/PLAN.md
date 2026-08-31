@@ -1,8 +1,6 @@
 # tally --json
 
-Status: Draft
-Status reason: One gate outstanding.
-
+Status: Draft — One gate outstanding.
 ## Evidence Gates
 
 ### Is the requested JSON shape what users want

@@ -20,7 +20,7 @@ ST="$RUN/state.json"
 PLAN="$WORK/plan.md"
 failures=0
 
-header() { printf '# Check plan\n\nStatus: %s\nStatus reason: %s\n\n---\n\n%s\n' "$1" "$2" "$3" > "$PLAN"; }
+header() { printf '# Check plan\n\nStatus: %s — %s\n\n---\n\n%s\n' "$1" "$2" "$3" > "$PLAN"; }
 must()   { if ! $CMD "$@" >/dev/null 2>&1; then printf 'check-ralplan-state: %s was refused and should not be\n' "$1" >&2; failures=$((failures + 1)); fi; }
 refuse() { label=$1; shift; if $CMD "$@" >/dev/null 2>&1; then printf 'check-ralplan-state: %s was accepted and must not be\n' "$label" >&2; failures=$((failures + 1)); fi; }
 

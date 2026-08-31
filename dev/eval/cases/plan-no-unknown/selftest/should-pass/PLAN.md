@@ -1,7 +1,6 @@
 # `--json` output flag for `tally`
 
-Status: Draft
-Status reason: Provisionally executable as written. Both source documents were read in full and their sha256
+Status: Draft — Provisionally executable as written. Both source documents were read in full and their sha256
 hashes verified against the values supplied for this task — `fixture/REQUIREMENTS.md` matches
 `781e8cfa9c74a5c9090d1e9fbc10eb09539af62811c661129a05e465c3ed0e3e` and `fixture/tally.py` matches
 `67ddeec854b12a4624b1265a6c5c1e28ef598856779ccef178963ef16b35fd16`. Every behavior this plan depends on

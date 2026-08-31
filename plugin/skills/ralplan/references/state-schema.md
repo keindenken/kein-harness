@@ -22,7 +22,7 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
   "plan": {
     "path": "/absolute/target/.agents/kein/plans/boundary.md",
     "artifact_sha256": "<exact file hash>",
-    "review_sha256": "<hash excluding Status and Status reason lines>",
+    "review_sha256": "<hash excluding the Status line>",
     "status": "Draft"
   },
   "phase": "drafted",
