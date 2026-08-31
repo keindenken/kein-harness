@@ -16,7 +16,7 @@ Status: Draft — <where this plan stands, whether it is provisionally executabl
 
 You write `Draft`, and the reason after the em dash is yours. It is where a plan that is not ready for execution says so and says what would make it ready — **the marking your role contract asks for lives here, and this line is the only place that gives it a shape.** The em dash separates the machine-read word from the prose after it, and a period would not: a reason is full of them.
 
-`In Review` and `Approved` also exist and neither is yours to write. A consensus workflow sets them while it runs, and it edits this line and nothing else in the artifact. Case and inner spacing are yours — the status word is read case-insensitively and stored in its canonical spelling.
+`In Review` and `Approved` also exist and neither is yours to write. A consensus workflow sets them while it runs, and it edits this line and nothing else in the artifact.
 
 When the plan carries a bounded execution-time empirical obligation, use this exact optional shape:
 
