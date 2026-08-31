@@ -16,6 +16,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 SCHEMA_VERSION = 1
 PLAN_STATUSES = frozenset({"Draft", "In Review", "Approved"})
+# Case and inner spacing are the author's; the stored value is not. Parsing folds a written
+# status onto its canonical spelling so that two artifacts saying the same thing compare equal.
+CANONICAL_STATUS = {status.lower(): status for status in PLAN_STATUSES}
+
+
+def canonical_status(written: str) -> str:
+    return CANONICAL_STATUS.get(" ".join(written.split()).lower(), "")
 NONTERMINAL_LIFECYCLES = frozenset({"active", "blocked", "interrupted"})
 TERMINAL_LIFECYCLES = frozenset({"completed", "aborted"})
 PHASES = frozenset({
@@ -111,7 +118,7 @@ def parse_plan_text(text: str) -> Dict[str, str]:
     """The header's machine-read half. Empty for an absent or malformed line; `validate_plan_text` says which."""
     statuses = STATUS_PATTERN.findall(text)
     match = STATUS_LINE_PATTERN.match(statuses[0]) if len(statuses) == 1 else None
-    return {"status": match.group(1).strip() if match else ""}
+    return {"status": canonical_status(match.group(1)) if match else ""}
 
 
 def validate_plan_text(text: str) -> List[str]:
@@ -123,7 +130,7 @@ def validate_plan_text(text: str) -> List[str]:
         errors.append("Plan requires exactly one Status line")
         return errors
     match = STATUS_LINE_PATTERN.match(statuses[0])
-    if match is None or match.group(1).strip() not in PLAN_STATUSES:
+    if match is None or not canonical_status(match.group(1)):
         errors.append("Status must read `Draft`, `In Review` or `Approved`, an em dash, then a non-empty reason")
     return errors
 
