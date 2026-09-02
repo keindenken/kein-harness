@@ -26,24 +26,47 @@ Apply the `kein:critic` role to requirement coverage, contradictions, missing fa
 ## Response
 
 ```markdown
-VERDICT: PASS | MUST_FIX
+VERDICT: PASS | REVISE | BLOCK
 PLAN_SHA256: <supplied review-content SHA-256>
 
-MUST_FIX:
+FINDINGS:
 - Claim: <one falsifiable defect>
   Evidence: <source, contradiction, or missing proof>
-  Impact: <why approval is unsafe>
+  Impact: <what goes wrong if the plan ships as written>
   Required correction: <specific plan correction or missing evidence>
+  Blocking: <scope | architecture | acceptance semantics | safety | evidence gate paths, or None>
 
 UNCERTAINTY:
 - <unestablished concern and the proof needed, or None>
 ```
 
-`PASS` contains no must-fix entry. `MUST_FIX` contains at least one complete finding. Any lane can block approval. A concern is blocking when it can materially change scope, architecture, acceptance semantics, safety, or the bounded paths of an Evidence Gate. Preferences and non-consequential suggestions do not block.
+The verdict follows the findings rather than being decided beside them. `PASS` carries none; `REVISE` carries findings that all read `Blocking: None`; `BLOCK` carries at least one that names a ground. Those are the only three shapes, and the state refuses each way they can disagree — a `BLOCK` with nothing blocking behind it, a `PASS` standing over the lane's own finding — so the verdict word is a summary of the findings rather than a second judgement about them.
+
+**`Blocking` is the whole of the severity decision, and it is a claim rather than a weight.** Name the one ground the finding moves, or write `None`. Naming a ground is falsifiable and the lead reads it as such: a finding that concerns a gate is not the same as one that moves an Evidence Gate's bounded paths, and only the second is a ground. Preferences and non-consequential suggestions are not findings at all.
+
+**`REVISE` is for a defect that is real and does not make execution unsafe.** It reaches approval carried rather than costing a round, and it carries the full finding shape while it does. That channel is the reason a lane never has to inflate a finding to keep it from evaporating.
+
+`UNCERTAINTY` is not the middle of that scale and never became it. It holds what the lane could not establish, which is a different thing from a defect it could.
+
+## Deferral
+
+A `BLOCK` is answered by a revision or by a deferral, and a deferral is the lead overruling the ground the lane named — not the finding, and not on any other ground. It is recorded with the finding:
+
+```markdown
+- Finding: <the claim>
+  Blocking claimed: <the ground the lane named>
+  Disposition: DEFERRED
+  Why the ground does not hold: <argued against that ground, not against the finding>
+  Caught by: <the story, gate, or execution round that surfaces it instead>
+```
+
+`Caught by` is what keeps this from being a word. It is the plan template's own field, so a deferral that cannot name a catcher is a `Residual`, which the pre-mortem already requires writing down in a section every later lane reads. **The escape hatch costs a line in the artifact rather than a line in the ledger.**
+
+What it is for: a defect the plan cannot settle and execution can, because the evidence does not exist until the code does. What it is not for: a round the lead would rather not run. The distinction is testable at the point of writing — if the required correction is something Planner could do now, deferring it defers work rather than evidence.
 
 ## Revision and closure
 
-Consolidate all current must-fix findings into one correction brief for Planner, and ask it for the corrected fact rather than a record of the correction — the revision's two readers are a fresh lane the contract forbids seeing it and an implementer who cannot act on it. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
+Consolidate the round's findings into one correction brief for Planner, and ask it for the corrected fact rather than a record of the correction — the revision's two readers are a fresh lane the contract forbids seeing it and an implementer who cannot act on it. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
 
 A previous live reviewer of either role may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
 

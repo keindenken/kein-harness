@@ -8,9 +8,11 @@ What RALPLAN adds to the artifact the `/plan` skill produces. The artifact itsel
 
 - `Draft` while no gate is open over the artifact: before the first round, and for a terminal unapproved plan.
 - `In Review` for the length of an open run, including while Planner is revising between rounds.
-- `Approved` only after every fresh lane passes the current review-content SHA-256.
+- `Approved` after every fresh lane has returned a verdict on the current review-content SHA-256 with no blocking ground left standing.
 
 The field answers one question — is a gate running over this artifact — so a reader who opens the plan cold gets that answer without reconstructing the round history.
+
+That question is not "did every lane find nothing". An approved plan may stand over findings: a `REVISE` item, which is real and does not make execution unsafe, and a `BLOCK` item whose ground the lead overruled and deferred. Both are recorded against the run and survive into the completed receipt, and a deferred one additionally owes the plan's pre-mortem the `Caught by` it named. What `Approved` asserts is that nothing blocking is standing unanswered, which is a smaller claim than the status used to make and the only one the gate ever established.
 
 Where a run is *inside* a round is `phase`, which lives in state rather than in artifact prose, and it is what the transition rules are enforced on.
 

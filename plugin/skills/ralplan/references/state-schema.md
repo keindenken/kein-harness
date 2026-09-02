@@ -36,9 +36,13 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
 
 `input.summary` is required and is what reaches every lane in the review package; `input.reference` is optional and names the file `reconcile` re-hashes on resume. Name a file that already held the requirements — one written for the run records only that the lead's own text has not changed, and the lead is the one agent here no lane reviews.
 
-The keys of `verdicts` are the run's lane roster, written once and fixed for the run: a lane that returned `MUST_FIX` cannot be dropped and the plan approved without it. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
+The keys of `verdicts` are the run's lane roster, written once and fixed for the run: a lane that returned `BLOCK` cannot be dropped and the plan approved without it. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
 
-Each verdict contains only `lane`, `verdict`, `plan_sha256`, and `reviewed_at`. Each persisted finding contains only `lane`, `claim`, `evidence`, `impact`, and `required_correction`. Each closure entry contains only `lane`, `finding`, `disposition`, and `evidence`, with the disposition one of `CLOSED`, `PARTIAL`, `NOT CLOSED`, `REWORDED-ONLY`.
+Each verdict contains only `lane`, `verdict`, `plan_sha256`, and `reviewed_at`, with the verdict one of `PASS`, `REVISE`, `BLOCK`. Each persisted finding contains `lane`, `claim`, `evidence`, `impact`, `required_correction`, and `blocking` — the last being `null` or one of `scope`, `architecture`, `acceptance semantics`, `safety`, `evidence gate paths` — plus `deferral` when and only when the lead is approving over it, itself exactly `reason` and `caught_by`. Each closure entry contains only `lane`, `finding`, `disposition`, and `evidence`, with the disposition one of `CLOSED`, `PARTIAL`, `NOT CLOSED`, `REWORDED-ONLY`.
+
+The verdict is checked against the findings rather than trusted beside them: `BLOCK` requires a finding of that lane naming a ground, `REVISE` requires findings of that lane and none naming one, `PASS` requires none at all. It is the one severity call in this workflow that can be re-derived, so the lane does not get to hold it alone.
+
+Approval is what may stand over findings, and `approve --findings` is therefore the only writer of them outside `block`. A finding naming a ground and carrying no deferral refuses the approval; one carrying a deferral records the lead's overruling of that ground and the catcher it named instead. Both survive compaction into the completed receipt, since a deferral that evaporated at compaction would vanish at the one moment it is addressed to — the executor picking the plan up.
 
 `revised` is the only writer of `closure` and it writes on every call, so omitting `--closure` records that the revision was not checked rather than leaving an earlier disposition standing over text it never read. Nothing reads the field for approval except one refusal: an `Approved` state cannot retain a disposition other than `CLOSED`. That is the contract's two halves as a mechanism — a positive closure check cannot approve, because `_blocking_pass` never looks here, and a negative one blocks.
 
@@ -63,9 +67,12 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
   "approvals": {
     "architect@claude": {"lane": "architect@claude", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:28:00+09:00"},
     "critic@claude": {"lane": "critic@claude", "verdict": "PASS", "plan_sha256": "<review hash>", "reviewed_at": "2026-08-02T12:29:00+09:00"}
-  }
+  },
+  "findings": []
 }
 ```
+
+`findings` is what the approved plan stands over, carried through from the approving state: `REVISE` items and any deferred `BLOCK`. Empty is the ordinary case and means the lanes found nothing, not that nothing was recorded.
 
 ## Aborted receipt
 
@@ -89,7 +96,7 @@ ocs state ralplan start   --run-root <runs/ralplan> --slug <slug> --plan <path> 
 ocs state ralplan open    <state.json>                    # the next official round
 ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
 ocs state ralplan revised <state.json> [--closure <file>] # Planner's revision landed
-ocs state ralplan approve <state.json>                    # every blocking lane passed this hash
+ocs state ralplan approve <state.json> [--findings <file>] # every blocking lane answered this hash
 ocs state ralplan complete <state.json>                   # compact to the receipt
 ocs state ralplan abort   <state.json> --reason <text>
 ```

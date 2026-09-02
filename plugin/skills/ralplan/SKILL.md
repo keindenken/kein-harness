@@ -10,7 +10,7 @@ argument-hint: "[what to plan] [--architect claude|codex] [--critic claude|codex
 
 RALPLAN is the `/plan` skill under a consensus gate. Planner owns plan prose; the lead owns workflow state; a fresh Architect and fresh Critic independently decide whether the complete current plan is safe and specific enough to approve.
 
-Use it when that gate could actually return `MUST_FIX` — the architecture is contested, an independent reader would plausibly disagree, or a wrong plan is expensive to discover later. A gate that cannot fail is ceremony, and its rounds are the expensive part; `/plan` alone produces the same artifact without them.
+Use it when that gate could actually return `BLOCK` — the architecture is contested, an independent reader would plausibly disagree, or a wrong plan is expensive to discover later. A gate that cannot fail is ceremony, and its rounds are the expensive part; `/plan` alone produces the same artifact without them.
 
 This skill ends with an approved plan or an explicit unapproved state. It grants no execution authority, and the only skill it runs is `/plan`.
 
@@ -46,9 +46,9 @@ Entry and resume:
 Each round, until the plan is approved or the run ends unapproved:
 
 4. Validate the artifact. The lead may edit only the workflow-owned `Status` line. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
-5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. Any lane's `MUST_FIX` blocks approval.
-6. If blocked, set Draft with a concrete reason, persist consolidated falsifiable findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
-7. If every lane returns `PASS` for the same review hash, set Approved and explain the approval and any bounded Evidence Gates in the `Status` line's reason. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
+5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. A lane's `BLOCK` blocks approval until the ground it named is answered.
+6. If a blocking ground is standing, set Draft with a concrete reason, persist the round's consolidated findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
+7. Otherwise approve, and a round that returned findings can still be that round. Carry `REVISE` findings into the approval rather than spending a round on them; a `BLOCK` reaches approval only with a deferral recorded against the ground it named, and its `Caught by` belongs in the plan's pre-mortem before the approval, not after. Set Approved and explain the approval, what it stands over, and any bounded Evidence Gates in the `Status` line's reason. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
 
 Fresh official reviewers are mandatory after every review-content revision.
 

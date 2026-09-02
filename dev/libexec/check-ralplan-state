@@ -1,14 +1,11 @@
 #!/usr/bin/env sh
 #: Drive a full RALPLAN run through the state machine and fail if any invariant stopped holding.
 #
-# The state machine owns the only thing that makes the consensus gate more than ceremony: a
-# MUST_FIX cannot be skipped, findings cannot be dropped without changing the plan, and a round
-# cannot be re-reviewed without advancing. Those rules are enforced across `validate_transition`
-# and the transition builders, and nothing else in this repository exercises them.
+# The state machine owns the only thing that makes the consensus gate more than ceremony: a blocking finding cannot be skipped, findings cannot be dropped without changing the plan, and a round cannot be re-reviewed without advancing.
+# It also owns the half that keeps the gate from becoming a wall: a non-blocking finding reaches approval instead of being spent on a round, and a blocking one can be deferred only with a written reason and a named catcher beside it.
+# Those rules are enforced across `validate_transition` and the transition builders, and nothing else in this repository exercises them.
 #
-# Written after a change to those rules shipped with a hole in it: `approve` ran happily from a
-# `drafted` phase because the approval branch keyed on the artifact's own `Status`, and only
-# driving a whole run end to end surfaced it.
+# Written after a change to those rules shipped with a hole in it: `approve` ran happily from a `drafted` phase because the approval branch keyed on the artifact's own `Status`, and only driving a whole run end to end surfaced it.
 set -eu
 
 CMD="python3 ${KEIN_ROOT:?}/skills/ralplan/scripts/state.py"
@@ -33,7 +30,15 @@ refuse "approval before any round opened" approve "$ST"
 header "In Review" "Reviewing round 1." "body v0"
 must open "$ST"
 
-printf '[{"lane":"critic@claude","claim":"c","evidence":"e","impact":"i","required_correction":"r"}]\n' > "$WORK/f.json"
+F='"claim":"c","evidence":"e","impact":"i","required_correction":"r"'
+printf '[{"lane":"critic@claude",%s,"blocking":"architecture"}]\n' "$F" > "$WORK/f.json"
+
+# Severity is a claim against the contract's five grounds, not a free word, and a deferral answers a ground -- so a finding that named none has nothing to defer.
+printf '[{"lane":"critic@claude",%s,"blocking":"vibes"}]\n' "$F" > "$WORK/f-ground.json"
+printf '[{"lane":"critic@claude",%s,"blocking":null,"deferral":{"reason":"r","caught_by":"S1"}}]\n' "$F" > "$WORK/f-nogroup.json"
+refuse "a blocking ground outside the vocabulary" block "$ST" --findings "$WORK/f-ground.json"
+refuse "a deferral over a finding that named no ground" block "$ST" --findings "$WORK/f-nogroup.json"
+
 must block "$ST" --findings "$WORK/f.json"
 
 refuse "clearing findings without a review-content change" revised "$ST"
@@ -64,7 +69,20 @@ must revised "$ST" --closure "$WORK/c-done.json"
 header "In Review" "Reviewing round 3." "body v2, closed"
 must open "$ST"
 header Approved "Approved at round 3." "body v2, closed"
-must approve "$ST"
+
+# What approval may stand over. The blocking half needs a deferral; the non-blocking half needs the lane to have said so, which is the one severity call the state can re-derive instead of trusting.
+DEFER='"deferral":{"reason":"the ground does not hold: the gate reads it after the port lands","caught_by":"S1a, whose gate drives it"}'
+printf '[{"lane":"architect@claude",%s,"blocking":"safety"}]\n' "$F" > "$WORK/f-bare.json"
+printf '[{"lane":"architect@claude",%s,"blocking":"safety","deferral":{"reason":"r"}}]\n' "$F" > "$WORK/f-halfdefer.json"
+printf '[{"lane":"critic@claude",%s,"blocking":null}]\n' "$F" > "$WORK/f-carry.json"
+printf '[{"lane":"critic@claude",%s,"blocking":null},{"lane":"architect@claude",%s,"blocking":"safety",%s}]\n' "$F" "$F" "$DEFER" > "$WORK/f-approved.json"
+
+refuse "approval over a blocking finding with no deferral" approve "$ST" --findings "$WORK/f-bare.json"
+refuse "a deferral with no named catcher" approve "$ST" --findings "$WORK/f-halfdefer.json"
+refuse "a PASS standing over the same lane's own finding" approve "$ST" --findings "$WORK/f-carry.json"
+refuse "a BLOCK with nothing blocking behind it" approve "$ST" --verdict architect@claude=BLOCK
+
+must approve "$ST" --findings "$WORK/f-approved.json" --verdict critic@claude=REVISE --verdict architect@claude=BLOCK
 must complete "$ST"
 
 if ! $CMD reconcile "$ST" >/dev/null 2>&1; then

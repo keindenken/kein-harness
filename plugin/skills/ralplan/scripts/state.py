@@ -62,6 +62,8 @@ COMPLETED_FIELDS = frozenset({
     "completed_at",
     "plan",
     "approvals",
+    # What the approved plan is standing over. A deferral that did not survive compaction would evaporate at the one moment it is addressed to: the executor picking the plan up.
+    "findings",
 })
 ABORTED_FIELDS = frozenset({
     "schema_version",
@@ -74,6 +76,9 @@ ABORTED_FIELDS = frozenset({
 PLAN_FIELDS = frozenset({"path", "artifact_sha256", "review_sha256", "status"})
 COMPLETED_PLAN_FIELDS = frozenset({"path", "artifact_sha256", "review_sha256"})
 VERDICT_FIELDS = frozenset({"lane", "verdict", "plan_sha256", "reviewed_at"})
+# A lane that found something real and non-fatal had two places to put it: `MUST_FIX`, which blocked, or a bare `UNCERTAINTY` line the state had no field for and which therefore evaporated at the next transition. The incentive ran one way, so everything arrived blocking.
+# `REVISE` is that missing middle, carrying the same finding shape and reaching approval instead of being spent on a round.
+VERDICT_VALUES = frozenset({"PASS", "REVISE", "BLOCK"})
 LANE_ROLES = ("architect", "critic")
 LANE_PATTERN = re.compile(r"(architect|critic)@([a-z][a-z0-9-]*)(:advisory)?")
 FINDING_FIELDS = frozenset({
@@ -82,6 +87,19 @@ FINDING_FIELDS = frozenset({
     "evidence",
     "impact",
     "required_correction",
+    "blocking",
+})
+# Present only on a finding the lead is approving over, which is why it is not in the required set.
+FINDING_OPTIONAL = frozenset({"deferral"})
+DEFERRAL_FIELDS = frozenset({"reason", "caught_by"})
+# The review contract already defined blocking as these five and then never asked which one a finding hit, so severity was a feeling.
+# Naming the ground makes it a claim the lead can check, and stops "this concerns a gate" from being interchangeable with "this moves a gate's bounded paths".
+BLOCKING_GROUNDS = frozenset({
+    "scope",
+    "architecture",
+    "acceptance semantics",
+    "safety",
+    "evidence gate paths",
 })
 CLOSURE_FIELDS = frozenset({"lane", "finding", "disposition", "evidence"})
 # `REWORDED-ONLY` is the whole reason a primed reader is worth asking: it is the one verdict a
@@ -163,8 +181,8 @@ def _validate_verdict(value: Any, lane: str, expected_hash: str) -> List[str]:
     errors: List[str] = []
     if value.get("lane") != lane:
         errors.append(f"{lane} verdict lane does not match")
-    if value.get("verdict") not in {"PASS", "MUST_FIX"}:
-        errors.append(f"{lane} verdict must be PASS or MUST_FIX")
+    if value.get("verdict") not in VERDICT_VALUES:
+        errors.append(f"{lane} verdict must be one of {', '.join(sorted(VERDICT_VALUES))}")
     if value.get("plan_sha256") != expected_hash:
         errors.append(f"{lane} verdict does not match the current review hash")
     if not _valid_timestamp(value.get("reviewed_at")):
@@ -209,6 +227,11 @@ def _empty_roster(verdicts: Any) -> bool:
 
 
 def _blocking_pass(verdicts: Any, digest: str) -> bool:
+    """Every blocking lane read this exact text and said something about it.
+
+    What the lane said is deliberately not tested here. `PASS` and `REVISE` both approve, and a `BLOCK` approves only when `_unresolved` finds no ground left standing -- which is the lead's deferral, recorded on the finding.
+    Reading the verdict word instead would put the approval decision back inside the lane, which is the thing this split exists to undo.
+    """
     # Advisory lanes are skipped here and nowhere else: their findings still reach Planner, and only the approval decision ignores them.
     if _validate_roster(verdicts):
         return False
@@ -217,7 +240,7 @@ def _blocking_pass(verdicts: Any, digest: str) -> bool:
             continue
         if not isinstance(value, dict):
             return False
-        if value.get("lane") != key or value.get("verdict") != "PASS":
+        if value.get("lane") != key or value.get("verdict") not in VERDICT_VALUES:
             return False
         if value.get("plan_sha256") != digest:
             return False
@@ -259,14 +282,70 @@ def _validate_findings(value: Any) -> List[str]:
         return ["Findings must be a list"]
     errors: List[str] = []
     for index, finding in enumerate(value):
-        if not isinstance(finding, dict) or set(finding) != FINDING_FIELDS:
+        if not isinstance(finding, dict) or set(finding) - FINDING_OPTIONAL != FINDING_FIELDS:
             errors.append(f"Finding {index} must use the exact finding field set")
             continue
         if _parse_lane(finding.get("lane")) is None:
             errors.append(f"Finding {index} has an invalid lane")
-        for key in FINDING_FIELDS - {"lane"}:
+        for key in FINDING_FIELDS - {"lane", "blocking"}:
             if not isinstance(finding.get(key), str) or not finding[key].strip():
                 errors.append(f"Finding {index} requires non-empty {key}")
+        blocking = finding.get("blocking")
+        if blocking is not None and blocking not in BLOCKING_GROUNDS:
+            errors.append(
+                f"Finding {index} blocking must be null or one of {', '.join(sorted(BLOCKING_GROUNDS))}"
+            )
+        errors.extend(_validate_deferral(finding.get("deferral"), blocking, index))
+    return errors
+
+
+def _validate_deferral(value: Any, blocking: Any, index: int) -> List[str]:
+    if value is None:
+        return []
+    # Deferring is the lead overruling a ground a lane staked; a finding that staked none has nothing to overrule and is carried, not deferred.
+    if blocking is None:
+        return [f"Finding {index} carries a deferral without a blocking ground"]
+    if not isinstance(value, dict) or set(value) != DEFERRAL_FIELDS:
+        return [f"Finding {index} deferral must use the exact deferral field set"]
+    errors = []
+    for key in DEFERRAL_FIELDS:
+        if not isinstance(value.get(key), str) or not value[key].strip():
+            errors.append(f"Finding {index} deferral requires non-empty {key}")
+    return errors
+
+
+def _unresolved(findings: Any) -> bool:
+    """A finding that claims a ground and has not been answered -- by a revision, or by a deferral."""
+    if not isinstance(findings, list):
+        return False
+    return any(
+        isinstance(finding, dict) and finding.get("blocking") and not finding.get("deferral")
+        for finding in findings
+    )
+
+
+def _verdict_coherence(verdicts: Any, findings: Any) -> List[str]:
+    """The lane declares the verdict; this checks the declaration against the lane's own findings.
+
+    Every other severity call in this workflow is a judgement nobody can re-derive. This one is arithmetic, so the lane does not get to hold it alone: `BLOCK` with nothing blocking behind it, or `PASS` over a finding the same lane wrote, is a disagreement the state can see.
+    """
+    if not isinstance(verdicts, dict) or not isinstance(findings, list):
+        return []
+    errors = []
+    for lane, value in verdicts.items():
+        if not isinstance(value, dict):
+            continue
+        mine = [f for f in findings if isinstance(f, dict) and f.get("lane") == lane]
+        blocking = [f for f in mine if f.get("blocking")]
+        verdict = value.get("verdict")
+        if verdict == "BLOCK" and not blocking:
+            errors.append(f"{lane} returned BLOCK with no finding of its own naming a ground")
+        elif verdict == "REVISE" and blocking:
+            errors.append(f"{lane} returned REVISE over its own finding naming a ground")
+        elif verdict == "REVISE" and not mine:
+            errors.append(f"{lane} returned REVISE with no finding of its own")
+        elif verdict == "PASS" and mine:
+            errors.append(f"{lane} returned PASS over its own recorded finding")
     return errors
 
 
@@ -324,9 +403,10 @@ def validate_state(payload: Any) -> List[str]:
         errors.extend(_validate_closure(payload.get("closure")))
         if plan.get("status") == "Approved":
             if not _blocking_pass(verdicts, digest):
-                errors.append("Approved requires a fresh PASS from every blocking lane")
-            if payload.get("findings"):
-                errors.append("Approved state cannot retain unresolved findings")
+                errors.append("Approved requires a fresh verdict on this hash from every blocking lane")
+            if _unresolved(payload.get("findings")):
+                errors.append("Approved state cannot retain a blocking finding without a deferral")
+            errors.extend(_verdict_coherence(verdicts, payload.get("findings")))
             # A positive closure check cannot approve -- `_blocking_pass` never reads this field.
             # A negative one blocks, which is the half the contract had no way to record.
             closure = payload.get("closure")
@@ -345,10 +425,14 @@ def validate_state(payload: Any) -> List[str]:
         digest = plan.get("review_sha256", "")
         approvals = payload.get("approvals")
         if not _blocking_pass(approvals, digest):
-            errors.append("Completed receipt requires an exact-hash PASS from every blocking lane")
+            errors.append("Completed receipt requires an exact-hash verdict from every blocking lane")
         elif isinstance(approvals, dict):
             for lane in approvals:
                 errors.extend(_validate_verdict(approvals[lane], lane, digest))
+        errors.extend(_validate_findings(payload.get("findings")))
+        if _unresolved(payload.get("findings")):
+            errors.append("Completed receipt cannot retain a blocking finding without a deferral")
+        errors.extend(_verdict_coherence(approvals, payload.get("findings")))
     elif lifecycle == "aborted":
         if set(payload) != ABORTED_FIELDS:
             errors.append("Aborted receipts must use the exact compact field set")
@@ -399,16 +483,16 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         previous_status = previous_plan.get("status")
         candidate_status = candidate_plan.get("status")
         previous_verdicts = previous.get("verdicts", {})
-        previous_has_must_fix = isinstance(previous_verdicts, dict) and any(
-            isinstance(value, dict) and value.get("verdict") == "MUST_FIX"
+        previous_has_block = isinstance(previous_verdicts, dict) and any(
+            isinstance(value, dict) and value.get("verdict") == "BLOCK"
             for value in previous_verdicts.values()
         )
         candidate_verdicts = candidate.get("verdicts")
         if isinstance(previous_verdicts, dict) and isinstance(candidate_verdicts, dict):
             if set(previous_verdicts) != set(candidate_verdicts):
-                # Otherwise a lane that returned MUST_FIX could simply be removed from the roster and the plan approved without it.
+                # Otherwise a lane that returned BLOCK could simply be removed from the roster and the plan approved without it.
                 errors.append("The lane roster is fixed for the run and cannot change between checkpoints")
-        previous_has_blocker = previous_has_must_fix or bool(previous.get("findings"))
+        previous_has_blocker = previous_has_block or bool(previous.get("findings"))
         # Keyed on `phase` and not on `Status`. What must not happen is a plan reaching reviewers
         # while a finding against it is unresolved, and `phase` is the field that says whether
         # reviewers are reading. Keying it on `Status` also fixed the meaning of that field to
@@ -421,7 +505,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Verdicts can only be recorded in a reviewing phase")
         if previous_has_blocker and candidate.get("phase") == "reviewing":
             errors.append(
-                "A recorded MUST_FIX or unresolved finding cannot enter a reviewing phase"
+                "A recorded BLOCK or uncleared finding cannot enter a reviewing phase"
             )
         if (
             previous_has_blocker
@@ -443,8 +527,9 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 )
         if candidate_status == "Approved":
             if previous_has_blocker:
+                # Findings reach approval only through `approve --findings`, which writes them in the same transition that stamps the verdicts. Ones already standing were never answered.
                 errors.append(
-                    "Approval cannot overwrite a recorded MUST_FIX or unresolved finding"
+                    "Approval cannot overwrite a recorded BLOCK or uncleared finding"
                 )
             if (
                 previous.get("phase") != "reviewing"
@@ -697,10 +782,17 @@ def revised(destination: Path, closure_path: Optional[Path], next_action: Option
              f"dispatch round {upcoming} fresh reviewers; every earlier round's findings stay beside the run, so read them before treating a finding as new, and `revised --closure` records a primed reader's per-item disposition of them")
 
 
-def approve(destination: Path, overrides: Dict[str, str], next_action: Optional[str]) -> None:
+def approve(destination: Path, overrides: Dict[str, str], findings_path: Optional[Path],
+            next_action: Optional[str]) -> None:
+    """Approval is the one transition that may stand over findings, so it is the one that writes them.
+
+    `--findings` carries what the approved plan is standing over: a lane's `REVISE` items, and any `BLOCK` item the lead is deferring.
+    Validation refuses a blocking ground with no deferral beside it, so the escape hatch costs a written reason and a named catcher rather than a silent word.
+    """
     state = _load_json(destination)
     if state.get("phase") != "reviewing" or not isinstance(state.get("round"), int) or state["round"] < 1:
         raise ValueError("Approval must transition from an official reviewing round")
+    findings = _load_findings(findings_path) if findings_path is not None else []
 
     def mutate(candidate: Dict[str, Any]) -> None:
         digest = candidate["plan"]["review_sha256"]
@@ -715,6 +807,7 @@ def approve(destination: Path, overrides: Dict[str, str], next_action: Optional[
                 "plan_sha256": digest,
                 "reviewed_at": stamped,
             }
+        candidate["findings"] = findings
 
     _advance(destination, mutate, next_action, "compact to the completed receipt")
 
@@ -730,6 +823,7 @@ def complete(destination: Path) -> None:
         "completed_at": _now(),
         "plan": {key: plan.get(key) for key in ("path", "artifact_sha256", "review_sha256")},
         "approvals": copy.deepcopy(state.get("verdicts", {})),
+        "findings": copy.deepcopy(state.get("findings", [])),
     })
 
 
@@ -819,8 +913,10 @@ def main() -> int:
                                 help="JSON array of per-item closure dispositions from a primed reader; omit to record none")
     revised_parser.add_argument("--next", dest="next_action", default=None)
 
-    approve_parser = subparsers.add_parser("approve", help="record every blocking lane's PASS at the current review hash")
+    approve_parser = subparsers.add_parser("approve", help="record every blocking lane's verdict at the current review hash, and what the plan stands over")
     approve_parser.add_argument("destination", type=Path)
+    approve_parser.add_argument("--findings", type=Path, default=None,
+                                help="JSON array of the findings the approved plan stands over")
     approve_parser.add_argument("--verdict", action="append", default=[], metavar="LANE=VERDICT",
                                 help="override one lane; repeatable. Advisory lanes stay unset unless named here")
     approve_parser.add_argument("--next", dest="next_action", default=None)
@@ -852,7 +948,7 @@ def main() -> int:
                 revised(args.destination, args.closure, args.next_action)
             elif args.command == "approve":
                 overrides = dict(item.split("=", 1) for item in args.verdict)
-                approve(args.destination, overrides, args.next_action)
+                approve(args.destination, overrides, args.findings, args.next_action)
             elif args.command == "complete":
                 complete(args.destination)
             else:
