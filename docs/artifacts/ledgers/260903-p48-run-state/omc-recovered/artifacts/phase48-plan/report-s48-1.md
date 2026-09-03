@@ -1,0 +1,17 @@
+# S48-1 report (lead's condensed copy for S48-2 / S48-3)
+
+**Production exports now in `packages/descvi/src/react/overlay/canvas/handle-geometry.ts`** (`grep -n "^export"`): `HandleCompass`, `HANDLE_GLYPH_PX`, `HANDLE_CHIP_PX`, `FRAME_CORNER_RADIUS_PX`, `isCornerHandle`, `handleAxes`, `HandleRect`, `HandlePoint`, `ClipArc`, `EffectiveClip`, **`HandleGeometryConstants`**, **`DEFAULT_HANDLE_GEOMETRY`** (fields: cornerNarrowPx 8, cornerWidePx 16, rampNarrowAtPx 20, rampWideAtPx 80, bandPx 10, chipPx, cornerOrder [nw,ne,sw,se], stripOrder [n,e,s,w], gridStepPx 1/32), `gridBound`, `buildEffectiveClip`, `compassPoint`, **`cornerSizeFor(box, k)`**, `HandleRegion`, **`handleRegions(box, k)`** (eight rects in hit order, clip-blind), `ALL_HANDLES`, **`resolveHandleAt`**, `clearanceAt`, `OwnedEmptiness`, `ownedIsEmpty` (returns a RECORD `{ empty, arcExact }`), `HandleWitness`, **`witnessPointFor`** (certified interval; degenerate `{ empty: true, lower: 0, upper: 0, x: null, y: null }`), `HandlePlacement` (no `edgeCoverage`), `fitsInClip`, `WritableAxes`.
+
+**Deleted:** `admitHandles`, `HANDLE_ADMISSION_ORDER`, `HANDLE_HIT_PX`, `STRIP_HIT_BAND_PX`, `STRIP_EDGE_COVERAGE_MIN`, `hitSizeFor`, `placeHandle`, `trimStripSymmetrically`, `stripBandEdges` (deleted, not rewritten — the band rects are built inline in `handleRegions`, as in the spike), `HandlePlacement.edgeCoverage`. `translateIntoRect` / `pushOutOfArcs` moved into the renderer as private helpers.
+
+**NOT in production (S48-2 owns these as test-side implementations):** the criterion-2 machinery — `cornerAimShare`, `widestAimRadius`, `circleRectArea`, `minPurchase`, `CONVERGENCE_TOL`. Production exports no aim-share.
+
+**Renderer (`use-resize-handles.ts`):** `placementFor(region, box, clip)` applies the sandwich (clamp → `pushOutOfArcs` → clamp) to CORNER roots only; strips pass through unmodified. Reverse strip append: `const strips = regions.filter(r => !isCornerHandle(r.handle)).reverse();` so `stripOrder[0]` (`n`) is appended last and wins ties at `RESIZE_STRIP_Z` 42 (constants untouched). Chip: `Math.min(HANDLE_CHIP_PX, cornerSizeFor(box, DEFAULT_HANDLE_GEOMETRY))` threaded into `applyHandleStyle`. **An extra, unasked re-impose pass** re-orders strip nodes when the wanted set's size changes (writability flip mid-selection), gated on `beforeCount !== wanted.size` — flagged for verification (pointer-capture survival not tested).
+
+**Docblocks:** `spacing-affordance-geometry.ts` — three sites rewritten (§2.5 items 1, 2 + a FOURTH: the `GAP_STRIP_HIT_BAND_PX` docblock naming the deleted symbols). `docs/architecture.md` gained `## Resize-handle model (phase-48, C48-1)`.
+
+**Lab:** `order-walk.ts` deleted (AGENTS.md reason 1); `policies.ts`'s `descviPolicy` consumes `handleRegions`; `candidate.ts` labelled a comparison row; `handle-lab.tsx` §1–5 retired, new small §3 panel draws `handleRegions` + per-handle purchase interval/witness; `page.tsx`/`spec.ts` untouched.
+
+**Gates:** citation gate GREEN (571); lint GREEN; spike selftest GREEN (spike unedited); typecheck: root + e2e GREEN, `packages/descvi` RED ONLY in `__tests__/handle-geometry.test.ts` (imports of deleted symbols) — S48-2's file. Port-conformance probe vs the spike over the 12 §5 fixtures: 0 failures (plant control: 94). `resolveHandleAt(witnessPointFor(box,h)) === h` for 96/96; geometric-centre control: 16 wrong.
+
+**Anchors:** 4 re-pointed in the phase-48 plan; the `handle-geometry.test.ts` and `e2e/resize-handles.spec.ts` anchors in docs are S48-2's / S48-3's.

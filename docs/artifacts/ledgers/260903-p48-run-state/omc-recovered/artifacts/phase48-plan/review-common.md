@@ -1,0 +1,21 @@
+# Review lane — common section (phase-48 consensus planning)
+
+Read `docs/prompt/worker-brief.md` first; it binds you. You are READ-ONLY on the repo: no edits under `packages/`, `src/`, `e2e/`, `docs/`, `.omc/plans/`. You MAY run read-only probes — node scripts in your scratchpad or in `/private/tmp/...` OUTSIDE the repo, `pnpm vitest run <file>`, `node --experimental-strip-types` on COPIES. Do NOT start or kill any dev server (`:3000` pid 5804 is another lane's `pnpm dev`; `:3001`/`:7331` may be the owner's live `descvi:dev`). Do NOT run `pnpm gates` or `pnpm test:e2e`. No spawning anything that writes or reviews.
+
+**Text under review:** `.omc/plans/ralplan-phase-48-handle-admission.md` as it stands NOW (round 0, DRAFT). Read the whole file.
+
+**What phase-48 is:** B-Q5 — replace descvi's resize-handle admission model. The shipped model (`packages/descvi/src/react/overlay/canvas/handle-geometry.ts#export function admitHandles`) walks a corner-first order and refuses any handle whose hit centre is within `HANDLE_HIT_PX` (20) of an admitted one; that is why E/W strips vanish below ~39 px. The owner's DECIDED spec (2026-09-01, tentative pending real use) is excalidraw-desktop structure — corner squares centred on the vertices tested first, then one full-edge band per side, no size predicate, no separation clause — with descvi's numbers: corner hit = linear ramp on `min(w,h)`, `≤20 → 8 px`, `≥80 → 16 px`; band 10 px full thickness, STRADDLING the edge (5 in / 5 out). Reference implementation of the structure in the lab: `src/app/sandbox/handle-lab/candidate.ts` and `owner-spec.ts` (the lab is `src/app/**`, out of deliverable scope, never a production import). Out of scope by owner ruling: the tied candidates (outside placement; ㄱ/ㄴ bracket corners) and band 8-vs-10 (designer). Owner's planning note: e2e mechanics will likely NOT be verified during planning — do not spend your review re-deriving Playwright; do attack whether the e2e story's CONTRACT is stated and its gates can go RED.
+
+**Evidence you must respect:** the plan cites research under `.omc/research/phase48-*.md` and `.omc/research/phase46-bq5-admission-measurement.md` and the B-Q5 row in `docs/post-loop-backlog.md`. Re-read what you rely on; do not trust the plan's paraphrase of a measurement — and do not trust this brief's either.
+
+**The bar the plan has to clear (from the `2plan` skill):** acceptance criteria concrete enough to FAIL; no vague term without a metric; every risk paired with a MECHANISM (not a restatement of intent); per-story gates each able to go RED with a stated RED-when that someone who is not the author can run; an ADR (decision, drivers, alternatives, why chosen, consequences, follow-ups); ≥2 viable options per real decision or an explicit invalidation; contracts with numbered ids. Repo rules from `AGENTS.md`: cite by ANCHOR never line number (`node scripts/check-citation-anchors.mjs` scans `.omc/plans`); deleting a test needs one of two named reasons; artifact byte-identity; UI changes need a live `descvi:dev` smoke.
+
+**Two failure shapes this project has already paid for, and you are here to catch again:** (1) a conclusion that is right while its REASON is false — the reason is what builds the gate, so a wrong reason ships a gate that waits on an event that never fires; when you approve a decision, say whether you approved the reasoning or only the outcome. (2) a fact checked against an artifact or a lab file that has never been checked against the RUNNING module — label such facts ⚠ UNVERIFIED in your report even if the plan calls them READ.
+
+**Report format (your FINAL MESSAGE — printed text reaches nobody):**
+1. Verdict line: `APPROVE` or `REVISE`. A conditional approve is REVISE.
+2. **MUST-FIX** findings, numbered `A-n` (architect) / `K-n` (critic): each with the plan section, the claim, what you did to check it (command / file / probe, with pasted output where a number is involved), and what the fix must achieve (not the wording).
+3. **WORTH-CONSIDERING** findings, same shape.
+4. For every decision `D48-n`: `approve reasoning` / `approve outcome only` / `reject`, one line each.
+5. Facts you could not verify: list them.
+Keep it under ~120 lines; put long probe output in a file under your scratchpad and cite the path.

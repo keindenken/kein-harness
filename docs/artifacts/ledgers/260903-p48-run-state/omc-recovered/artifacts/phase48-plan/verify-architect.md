@@ -1,0 +1,17 @@
+# Verification lane — ARCHITECT (behaviour: does the shipped thing DO what the plan says?)
+
+Read `.omc/artifacts/phase48-plan/verify-common.md` first; it is part of this brief.
+
+**You hold: the package-side vitest runner (`pnpm vitest run packages/descvi/...` and `pnpm vitest run --project app src/...`), `pnpm typecheck`, `pnpm lint`, `node scripts/check-citation-anchors.mjs`, the spike scripts, and ONE `descvi:dev` server on the standard ports IF `lsof` shows them free (the owner said they would try to keep them clean) — otherwise a plain `pnpm dev --port 3100 --strictPort` for DOM probes without the overlay, and say what you lost.** You do NOT hold Playwright / `pnpm test:e2e` (the critic lane does) and you do not run `pnpm gates` (the lead does, over a quiesced tree).
+
+Probe, and paste:
+
+1. **Port = model.** Re-run S48-1's port-conformance idea YOURSELF (write your own script; do not reuse theirs): production `handleRegions` / `witnessPointFor` / `ownedIsEmpty` vs `.omc/spikes/phase48-model/model.mjs` over the §5 fixtures AND a random sample of 200 subjects from 1…400² — exact rect equality index-wise, exact interval equality, witness equality. Plant a control (flip one production constant in a scratch copy) and show non-zero.
+2. **Renderer behaviour, live.** With a dev server: select an element ≤ 20 px tall — count `[data-dsh-handle]` roots (must be 8 where both axes are writable); read each root's rect and compare to `handleRegions(box)` (corners after the sandwich may differ at clips — say where); confirm strips share `z-index` 42 and corners 43; confirm DOM order of the strip roots is REVERSE `stripOrder` (last child = `n`); press (`elementFromPoint`) a pixel two strips share on a 220×10-class subject and confirm the winner is `stripOrder`'s first; read the chip's `width` on a narrow subject (8 px) and on a ≥ 35 px one (10 px). If the overlay cannot run (ports), do what you can with the plain view and label the rest ⚠ UNVERIFIED.
+3. **The unasked re-impose pass** in `use-resize-handles.ts` (S48-1 added a strip re-ordering pass gated on `beforeCount !== wanted.size`): read it; construct the scenario (a writability flip mid-selection that removes and re-adds a strip) in a unit or DOM probe; confirm the strip order is restored AND that no corner root is moved while a pointer is captured (or show that the pass cannot run mid-drag, from the code path). Verdict: keep / delete.
+4. **Clipped regime.** A subject flush to the frame's left edge and one at the rounded frame corner: read the corner root rects — the sandwich must keep them inside the effective clip; strips must be clipped by `overflow-hidden`, not moved. Compare to §2.9 / §3.7's stated numbers (12 → 5 px inward depth for a flush strip; a corner at the rounded corner rescued by the push).
+5. **Package-side gates go RED.** For G48-1, G48-2, G48-3a, G48-3b, G48-4b, G48-10 and lab-side G48-6a: run S48-2's files; then drive each row's stated lever yourself (a constants flip in a scratch copy of production, restored by `cp`) and paste the RED. Report separately whether S48-2's OWN planted-mutant cases fire (they are the control the plan requires).
+6. **The U48-8 design-RED.** How S48-2 structured G48-1's h 8..17 rows; whether the file's exit status matches the plan's intent; whether a defect elsewhere in G48-1 would be distinguishable from the design-RED.
+7. `pnpm typecheck`, `pnpm lint`, citation gate, spike selftest — paste.
+
+Prefix findings `VA-n`. Stop your dev server before finishing; paste `lsof` showing it gone.

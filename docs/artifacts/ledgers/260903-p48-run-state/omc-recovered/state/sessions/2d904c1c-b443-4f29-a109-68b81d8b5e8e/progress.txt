@@ -1,0 +1,82 @@
+# progress.txt — phase-48 ralph (2ralph, Claude subagents)
+
+## 2026-09-02 — iteration 1 start
+- Plan: .omc/plans/ralplan-phase-48-handle-admission.md REVISION 5b (unanimous consensus, committed e25e620). Owner: 구현 시작.
+- Owner defaults assumed pending confirmation: U48-1 → D48-1(d) min(chip, hit); U48-2 → leave page.tsx; U48-8 → floor 4 ruled, G48-1 RED over h 8..17 by design until the owner answers.
+- Dispatch: S48-0a (docs sweep, opus executor) ∥ S48-0b (flush-pair measurement, opus executor). Disjoint files: S48-0a owns docs/, .omc/plans, .omc/research, .omc/specs (+ run.test.ts docblock if prose-only); S48-0b owns .omc/spikes/phase48-model/flush-pairs.mjs + driver and its own dev-server port. S48-0b reports its number to the lead; the lead writes it into the plan after S48-0a lands.
+- Runner ownership: S48-0b holds a dev server on its own port. Nobody runs pnpm gates / e2e in this iteration.
+- Known traps carried: :7331 sidecar is a fixed-port singleton (EADDRINUSE = concurrency); Vite silently falls back 3001→3002; zsh does not word-split $var; background exit codes reflect `| tail`; restore by cp, never git checkout --.
+
+## S48-0a — DONE, committed 8721681
+- 26 anchors retired (595→569 = exact arithmetic control); gate GREEN + RED shown; run.test.ts comment-only.
+- Learnings: (1) §2.6's rule under-scopes — ~30 doc anchors point into handle-geometry.test.ts / resize-handles.spec.ts / use-resize-handles.ts, which S48-2/S48-3/S48-1 rewrite; each rewriting lane must re-point its file's anchors or the gate is RED at the code commit. (2) docs/architecture.md has no handle section → S48-1 adds one. (3) ralplan-42 carries zero handle-geometry anchors (prose note only). (4) HandleRect / compassPoint anchors survive in docs — S48-1 must not reshape/delete them without re-pointing.
+
+
+## S48-0b — DONE, committed
+- 25/327 flush pairs lose drill-in (7.6 %) — within threshold; corpus 721 (grew from 628), flush 327 (vs 324). Instrument: flush-pairs.mjs + collector on :3100 --strictPort (plain Vite; data-oid authored in JSX, no sidecar needed). Losers = children flush on both horizontal edges of parents <= 20 px tall. Modal sub-screen states unmeasured.
+- Learnings: the brief's arithmetic for the synthetic control was wrong (200x100 parent → corner 16, not 8); lane corrected from geometry. Number written into plan §3.9/§9 by the lead; exception class (7) declared.
+- Verification decision: no separate verification lane on S48-0b — the number sits 4x under the stop line, the instrument carries selftest + plant + corpus-level non-zero control; covered by the whole-set audit at the end.
+
+
+## Fix round 1 — DONE (uncommitted); verification round dispatched
+- F1: corners reverse-appended (DOM order se,sw,ne,nw,w,s,e,n; last painted = cornerOrder[0]); re-impose pass covers corners; typecheck GREEN across the combined tree; conformance 0 (control 94).
+- F2–F6: shield spec 10/10 (settle predicate derives the rect from handle-derivation.ts; R42-D1 row → C48-3 three-zone row); resize-write G42-6b 9/9 (all eight at every offset + cornerSizeFor within 0.5; the ramp control is a spread, not a direction — the card is min-content-constrained and the sequence is non-monotone); spacing-gesture 31/31 (press re-keyed to the pad strip's owned residual; U48-4 live: pad:top keeps a 3 px sliver, r 1.5; G44-8 had the same hidden defect); F6 pin flipped and shown RED against the pre-F1 order; golden regenerated +2 with every title traced; FULL e2e 194 passed / 0 failed; artifact clean; G48-4a/4c GREEN.
+- One-off flake: `#dsh-ring-layer` not attached after resize-handle-shield ran ahead (HMR window after a mutating spec) — not reproduced, not in the KI register; record at S48-4.
+- Plan write-backs applied (§4 S48-3 Lands, C48-1c corner reverse-append, §3.5 G44-6 live + U48-4 reading, §2.5 fourth site, U48-11 measured); citation gate GREEN.
+- Verification: architect (behaviour + package gates RED) ∥ critic (e2e discipline + browser gates RED + full run). Runners split: architect = package vitest + one dev server; critic = Playwright.
+
+
+## Owner rulings received (2026-09-02, mid-verification)
+- U48-8 → (a): criterion 1 at short side < 18 is an EXISTENCE claim (all eight own something); the 4 px floor is asserted from short side 18 up. Owner: "말만 들어서는 애매하기도 하고" — the live smoke (G48-8) is the real check. Code change: G48-1's ten `it.fails` rows → existence rows (S48-2 lane, fix round 2). Plan §3.9/§5/§9 write-back by the lead.
+- U48-1 → (d) min(HANDLE_CHIP_PX, corner hit) — as implemented. U48-2 → default (page.tsx untouched).
+- Architect verification: REVISE — VA-1 (lead's concurrency error: two verification lanes mutating one tree; closed by a quiesced md5 census + the lead's own S48-4 gate run), VA-2 (re-impose pass may release pointer capture: gate it on no-drag; add a jsdom DOM-order row VA-3), VA-4 (`it.fails` blind to TypeError — moot under (a)), VA-5 (§5 G48-4b lever wording).
+
+
+## Verification round — DONE → FIX ROUND 2 dispatched
+- Architect REVISE: VA-1 (lead's concurrency error — two verification lanes mutating one tree; closed by a quiesced md5 census + the lead's own final gate run), VA-2 (re-impose pass detaches attached nodes → pointer capture risk; gate on no-drag), VA-3 (jsdom DOM-order row missing — would have caught F1), VA-4 (moot under U48-8 (a)), VA-5 (§5 lever wording — applied). Port=model 10,600 checks / 0; every package gate driven RED; U48-8 ten rows fail on exactly T5's values.
+- Critic REVISE: VC-1 (deleted `acceptance 4c` lacks a reason line — coverage moved to G48-5, confirmed), VC-2..6 worth-considering (shared-sweep coverage boundary; 220×10/220×8 not in G48-4c's corpus; padded corpus pin; size-proxy guard; U48-2 visible). Full e2e quiesced 194/0; every RED-when fired incl. the padding press moved back → no write.
+- Fix round 2: G1 (S48-1 lane), G2 (S48-2 lane: U48-8 (a) + DOM-order row), G3 (S48-3 lane), G4 (lead — applied). Then: quiesce, md5 census, lead runs pnpm gates + e2e, closure audit, commit.
+
+
+## Fix round 2 — DONE (uncommitted); closure audit running
+- G1: real order comparison replaces the size proxy; capture fence via gotpointercapture/lostpointercapture (reorder skipped while captured); typecheck GREEN. Residual U48-14 recorded in the plan: the capture fence has no automated control (jsdom stubs setPointerCapture).
+- G2: U48-8 (a) applied — no it.fails left; T5 pin + existence row + a planted-mutant row; two DOM-order rows RED on either .reverse() dropped and on the re-impose disabled (three drives, md5-verified restores). 90/90.
+- G3: 4c reason line; FIXTURE_SIZES = LEG_B_FIXTURES (12 distinct sizes incl. 220×10/220×8); derived count pin; VC-2 sentence. 10/10, 13/13. Residual: no gate binds the two fixture lists.
+- Next: closure audit (critic, sole lane) → quiesce + md5 census → lead runs pnpm gates + e2e → commit (message drafted at scratchpad/commit-code.txt).
+
+
+## S48-4 (lead) — gates over the quiesced tree
+- Closure audit on fix round 2: APPROVE (G1/G2/G3 CLOSED; tree byte-identical; CF-3: the capture fence's armed branch has zero coverage in either runner — recorded as U48-14).
+- pnpm gates: ALL 15 GATES PASSED, GATES_EXIT=0 (packages 4837/4837; KI + V3 registers GREEN; citation gate GREEN; handle-constants selftest + gate GREEN; build OK). Log: scratchpad/gates.log.
+- pnpm test:e2e launched in background over the same quiesced tree (ports free). Census: 25 files md5'd before the runs.
+
+- pnpm test:e2e over the quiesced tree: 194 passed / 13 skipped / E2E_EXIT=0; the two ✘ are the golden's held pins (selection-consistency (c) PROBE-ONLY; undo-cross-screen KI-44). Ports freed. Census unchanged.
+- Next: bounded deslop pass (ralph 7.5) → regression re-check → code commit → S48-4 record + owner smoke.
+
+- Deslop pass (ralph 7.5, bounded to the changed files): NO EDIT. Survey: every production export is consumed or is contract text (ALL_HANDLES / clearanceAt / centredOn / two types have no consumer outside the module but are the measure's definition or §3.10-kept); pnpm lint GREEN in gates; docblocks are load-bearing and off-limits. Regression (7.6) = the gates + e2e runs already made over this exact tree (census unchanged).
+
+
+## Code commit 294add7 landed; G48-8 smoke DONE; S48-5 opened
+- Deslop: no edit. Commit 294add7 (26 files). Handoff record drafted docs/handoff/260902-phase-48-close.md.
+- Owner smoke (descvi:dev :3001 started by the lead): all three items OK; U48-8 (a) confirmed; padding drag fine (U48-4 livable).
+- Owner observations: (1) corner chip not on the vertex at frame-flush edges → D48-7 (iii)'s first clamp violated the 08-27 straight-edge ruling; owner RULED (i) clip everywhere → S48-5 (H1 production by the S48-1 lane, H2 e2e re-record by the S48-3 lane, H3 plan/backlog/record by the lead). (2) padding-handle glyph arrow-up-to-line → plain bar; out of scope → backlog row.
+- Learning: a plan can claim to honour a ruling while its mechanism violates it at the ruling's own site — only the live pass caught this; six text rounds and three verification lanes did not, because nobody pressed a flush corner with a chip in view.
+
+- S48-5 H1 DONE (uncommitted): placementFor returns the region rect for every root; translateIntoRect/pushOutOfArcs/cornerInArcQuadrant/PlacedEdges deleted (reason 1); the renderer no longer builds a clip → buildEffectiveClip/fitsInClip have ZERO production callers (kept as the effective-clip definition G48-5/T6/T7 are stated against; docblock note requested); one research anchor retired to a 294add7 record; plan §3.7/§3.10/§9 written back; citation gate GREEN. Lead's descvi:dev stopped; H2 dispatched to the S48-3 lane.
+
+- S48-5 H2 DONE (uncommitted): only resize-handles.spec.ts edited — 2a scoped like 2b; clipOvershoot deleted (reason 1); rounded corners skipped by ruling branch; U48-11 asserts IDENTITY (table exact in every cell; (iii) had inflated 2.09→4.19 and destroyed 2.00→0.00 — (i) returns all to T6); pins 74→73 / 32→42 / 14→38 recorded visibly; the other three specs needed no edit (shield derives its rect). Full e2e 194/0; golden + artifact clean. Closure audit dispatched (sole lane).
+
+
+## S48-5 closure audit: REVISE (prose only) → fix round 4
+- No behaviour defect; RED drive confirmed (3 px corner translate fires G48-5 2c + U48-11 identity); artifact byte-identity proven with a planted control. Findings: stale sandwich prose in the e2e clause docblocks (incl. a RED-when that cannot fire), plan decision table still (iii), U48-11 pins 74/14 → 73/38, handoff §1 clamp clause, "consumed by the oracles" → no caller, four more (iii) sentences; WC: retitle the U48-11 row (golden regen), lift the free-regime fences (free strengthening), label only nw as a ruling skip, assert the unaskable count, the git-show-294add7 records die on a history rewrite (recorded in the handoff).
+- CG-12: src/app/sandbox/resize-flex-col/page.tsx has an uncommitted owner edit (cqtihi, h-10 p-[8px]) — the owner's smoke fixture; NOT committed; recorded in the handoff for the owner to decide.
+- Dispatched: J1 (S48-3 lane: e2e prose + fences + pins + golden), J2 (S48-1 lane: two docblocks); J3 (lead) applied — plan + handoff, citation gate GREEN.
+
+- Fix round 4 DONE: J1 (e2e: 2a docblock rewritten to the shipped scope; reason 4; U48-11 retitled + golden 1-line rename; three free-regime fences lifted → rect-for-rect identity + envelope on rendered rects + corner legs at all 14 fixtures, RED shown on two rows with a 3 px corner translate; skip labels corrected; unaskable 42 asserted; full e2e 194/0), J2 (three "no caller" sites + fitsInClip note), J3 (lead: plan + handoff). Audit re-check dispatched (resumed lane).
+
+- S48-5 gates run #1: RED at step 4 (Test repo root) — 62 failures in the insert-* / no-reasoned-reasons corpus-pin gates, every assertion off by exactly ONE corpus element (785/784, 824/823, 365/364): the OWNER's uncommitted smoke fixture in src/app/sandbox/resize-flex-col/page.tsx (data-oid cqtihi, +2 lines), added AFTER the first (green) gates run. Not phase-48's. Owner file backed up (scratchpad/owner-resize-flex-col.page.tsx.bak + .bak2, md5 8ff7c30c…). Plan: after the in-flight e2e, set the owner's edit aside (HEAD version), run gates over the commit content, restore the owner's file (cp, md5-verified), commit S48-5 without it. Owner told: committing that fixture needs a corpus re-pin.
+
+
+## S48-5 — DONE, committed; S48-4 — DONE
+- gates over the commit content (owner's edit set aside): ALL 15 PASSED, 4837/4837; full e2e 194/0 (with the owner's edit present — it does not affect e2e). Owner's file restored from backup, md5 8ff7c30c… verified; it stays UNCOMMITTED for the owner to decide (committing it needs the insert-* corpus pins re-pinned by exactly +1).
+- All PRD stories pass. Ralph: reviewer verification (closure audit APPROVE) + deslop (no edit) + regression (gates/e2e) complete → cancel.

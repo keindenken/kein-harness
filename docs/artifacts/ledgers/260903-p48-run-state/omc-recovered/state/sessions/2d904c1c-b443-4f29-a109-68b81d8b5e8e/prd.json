@@ -1,0 +1,119 @@
+{
+  "project": "descvi",
+  "branchName": "phase-48-omc",
+  "plan": ".omc/plans/ralplan-phase-48-handle-admission.md",
+  "planRevision": "REVISION 5b — unanimous lane consensus; owner said 구현 시작 (2026-09-02)",
+  "description": "Phase-48 (B-Q5): replace the resize-handle admission model with the admission-free, predicate-free model C48-1 (vertex-centred ramped corner squares 8→16 on min(w,h) 20→80; four whole-edge rect bands of thickness 10 straddling the edge; corners then strips in stripOrder), ported from .omc/spikes/phase48-model into packages/descvi, with the unit oracle, the browser oracle, every gate leg, and the lab repoint landing in ONE code commit after the docs sweep and the flush-pair measurement gate.",
+  "ownerRulings": {
+    "U48-1": "RULED 2026-09-02: D48-1(d) — painted chip = min(HANDLE_CHIP_PX, corner hit) (as implemented)",
+    "U48-2": "RULED by default 2026-09-02: page.tsx/spec.ts untouched",
+    "U48-8": "RULED 2026-09-02: option (a) — below short side 18 criterion 1 is an existence claim; the 4 px floor is asserted from 18 up; provisional on the live smoke (G48-8). G48-1's ten it.fails rows become existence + pinned-interval rows in fix round 2."
+  },
+  "userStories": [
+    {
+      "id": "S48-0a",
+      "title": "Rulings and the pre-code half of the doc sweep — docs only, no code, no measurement",
+      "priority": 1,
+      "passes": true,
+      "evidence": "26 anchors retired to git-show records (595→569 citations, arithmetic control); citation gate GREEN and shown RED on a planted anchor; diff stat = 8 owned files; committed by the lead as docs(plan). architecture.md has no handle section (nothing false there) — a new section is S48-1's; ~30 doc anchors into handle-geometry.test.ts / resize-handles.spec.ts / use-resize-handles.ts are handed to S48-1/2/3.",
+      "acceptanceCriteria": [
+        "Every ruling the plan lands that is a DOC statement is written where it belongs: D48-2's clause-by-clause disposition of ralplan-42 §3.12 and the discharge (not reversal) of the 'single number' docblock ruling; C48-3's reversal of R42-D1 as a priced acceptance; D48-7(iii)'s clip ruling; D48-8's append-order ruling with the z ladder KEPT — in docs/post-loop-backlog.md's B-Q5 row, docs/architecture.md's handle section, and the ralplan-42 §3.12 / ralplan-46 §8 cross-references (as retirement notes, not rewrites of history).",
+        "§2.5's three falsified prose sites are corrected ONLY where they are docblock prose not attached to a symbol §3.10 deletes or rewrites — the spacing-affordance-geometry.ts 'never overlap' sentence and the '12 MATCHES … OPPOSITE SIDES' docblock are §3.10-owned rewrites and belong to S48-1; S48-0a corrects packages/descvi/test/extractor/run.test.ts's handle-lab docblock (names order-walk.ts) only if that edit is prose-only and outside any symbol S48-1 owns — otherwise it records the site for S48-1.",
+        "Every anchor into handle-geometry.ts whose target text §3.10 deletes or rewrites, found by RUNNING `node scripts/check-citation-anchors.mjs` mechanics (grep the scan roots for `handle-geometry.ts#`), is RETIRED — deleted, or converted to an immutable `git show f411977:…` record — never re-pointed; the list of retired anchors (file, anchor text) is in the story report.",
+        "`.omc/specs/v3-layout-panel-visual-spec.md`'s dying anchors are retired the same way.",
+        "`node scripts/check-citation-anchors.mjs` is GREEN after the sweep AND was shown able to go RED on this tree during the story (a planted bad anchor → RED → restored by inverse edit, evidence pasted).",
+        "No file under packages/**/src, src/**, e2e/**, scripts/** is edited except docblock prose explicitly listed above; `git diff --stat` in the report shows only docs/, .omc/plans, .omc/research, .omc/specs and the explicitly allowed docblock sites.",
+        "Landed as its own commit by the lead (docs(plan)/docs(...) conventional commit)."
+      ]
+    },
+    {
+      "id": "S48-0b",
+      "title": "The U48-5 flush-pair measurement gate — build, run, report the number",
+      "priority": 2,
+      "passes": true,
+      "evidence": "WITHIN THRESHOLD: 25/327 flush pairs lose drill-in (7.6 %) vs stop line 109. Corpus 721 / flush 327 (R42-D1: 628 / 324) calibration reported. 14-assertion selftest, --plant RED (3 assertions), corpus-level control (band 40 → 72.5 %). Own port :3100 --strictPort, no sidecar, ports freed. Number written into plan §3.9/§9 by the lead; committed with the spike files.",
+      "acceptanceCriteria": [
+        ".omc/spikes/phase48-model/flush-pairs.mjs exists and computes, for a corpus of nested parent/child [data-oid] pairs with their layout rects, (a) the flush relation, (b) for each flush pair, the parent's eight C48-1 regions via the SPIKE's handleRegions with DEFAULT_HANDLE_GEOMETRY, (c) whether the child's box minus every parent resize region has an inscribed disc of radius ≥ 4 (the spike's certified purchase measure applied to that residual region) — 'loses drill-in' per plan §3.9.",
+        "A driver collects the corpus from the RUNNING dogfood app's DOM (every screen route under src/app/** the extractor knows), on a port the lane owns; the owner's :3000/:3001/:7331 servers are never killed or reused; the sidecar :7331 is never started by the lane if it is already bound.",
+        "The flush definition used is stated with its tolerance, and the corpus size and flush count are reported beside R42-D1's recorded 628 / 324 (51.6 %) as a calibration — a disagreement is reported, not hidden.",
+        "The count of flush pairs losing drill-in is reported to the LEAD in the final message with the command that reproduces it; if it exceeds one third of the flush population, the report says STOP AND REPORT TO THE OWNER in its first line.",
+        "The instrument has a control: a synthetic pair known to lose drill-in (a child thinner than 10 px flush on one side) and one known to keep it are both classified correctly, evidence pasted.",
+        "The lane does NOT write into the plan (S48-0a owns .omc/plans); the lead writes the number into §3.9/§9 after S48-0a lands."
+      ]
+    },
+    {
+      "id": "S48-1",
+      "title": "Port C48-1 into handle-geometry.ts + the single caller; repoint the lab",
+      "priority": 3,
+      "passes": true,
+      "evidence": "Committed in 294add7. Exports = §3.10 set; deleted symbols survive only as prose; corners AND strips reverse-appended (F1); sandwich corner-only in the renderer; chip = min; re-impose pass fenced by order comparison + pointer-capture tracking (U48-14: no automated control); lab repointed, order-walk.ts deleted (reason 1); architecture.md section; typecheck GREEN; port-conformance 10,600 checks / 0 (architect) and 0 with control 94 (S48-1); citation gate GREEN.",
+      "acceptanceCriteria": [
+        "handle-geometry.ts exports HandleGeometryConstants, DEFAULT_HANDLE_GEOMETRY (with cornerOrder, stripOrder, gridStepPx = 1/32), cornerSizeFor, handleRegions (eight rects in hit order, clip-blind), resolveHandleAt, witnessPointFor (certified interval, deterministic grid witness, explicit no-witness value carrying lower/upper/empty; ownedIsEmpty exact by rect difference); and contains none of admitHandles, HANDLE_ADMISSION_ORDER, HANDLE_HIT_PX, STRIP_HIT_BAND_PX, STRIP_EDGE_COVERAGE_MIN, hitSizeFor, placeHandle, trimStripSymmetrically; edgeCoverage is gone from HandlePlacement; HANDLE_CHIP_PX kept.",
+        "use-resize-handles.ts calls handleRegions, appends strip roots in REVERSE stripOrder so the first strip paints last and wins ties at z 42; RESIZE_STRIP_Z = 42 and RESIZE_CORNER_Z = 43 untouched; D48-7(iii)'s sandwich (clamp-into-clip → pushOutOfArcs → clamp) lives in the renderer for CORNER roots only, strips clip; the painted chip is min(HANDLE_CHIP_PX, corner hit) per D48-1(d).",
+        "§2.5's docblock rewrites in spacing-affordance-geometry.ts read true under straddle ('never overlap' and '12 MATCHES … OPPOSITE SIDES'); run.test.ts's handle-lab docblock no longer names order-walk.ts.",
+        "Lab: order-walk.ts deleted (AGENTS.md reason 1 named in the commit body); policies.ts's descviPolicy imports handleRegions from production and its predicate/kindOfAnswer/caveat fields are rewritten; candidate.ts header labels it a COMPARISON row (capsule); handle-lab.tsx / candidate-lab.tsx / policy-lab.tsx compile against the new exports; page.tsx and spec.ts untouched.",
+        "`pnpm typecheck` green on the whole commit (root + packages); `git diff --exit-code .descvi/screens.json` clean.",
+        "Every anchor into deleted/rewritten text across the scan roots (including the plan's own) is RE-POINTED in this commit; citation gate green."
+      ]
+    },
+    {
+      "id": "S48-2",
+      "title": "Rewrite the unit oracle; land the package-side and lab-side gate rows",
+      "priority": 4,
+      "passes": true,
+      "evidence": "Committed in 294add7. Oracle from prose, imports DEFAULT_HANDLE_GEOMETRY incl. gridStepPx; G48-1 (floor 18..22; h 8..17 existence + T5 pins per U48-8 (a)), G48-2, G48-3a/b, G48-4b, G48-10 each with a planted-mutant case shown firing (the architect drove every lever RED independently); DOM-order rows RED on either .reverse() dropped and on the re-impose disabled; chip rows assert min; G48-6a lab-side 6/6; 90/90.",
+      "acceptanceCriteria": [
+        "handle-geometry.test.ts: greedyExpectation gone; the oracle derives the eight regions from the plan's prose (C48-1 + §2.0 rect table + conventions) independently of the spike and of handleRegions' internals, importing DEFAULT_HANDLE_GEOMETRY including gridStepPx.",
+        "G48-1 (h ∈ 8..22 at 220×h and h×220, all eight non-empty and certified lower bound ≥ 4), G48-2 (=== 100 % share at 220×10, 10×220, 100×100, 40×40), G48-3a (chip ≤ hit for sizes 1..200), G48-3b (widest aim radius 5.189 / 11.571 bisected on exact share), G48-4b (leg (a) index-wise region equality over 1..120², leg (b) interval overlap over the named sub-corpus), G48-10 (220×8 non-empty) exist as test cases, EACH with a planted-mutant test case that asserts the assertion fires (RED shown), using the RED configs the plan names.",
+        "G48-1's RED state over h 8..17 is handled per the owner's U48-8 answer — if unanswered at landing time, the row asserts exactly what the plan says and the story report states plainly that the suite is RED there by the plan's design, not by defect.",
+        "resize-handle-layer.test.tsx chip rows assert D48-1(d)'s min, not the literal '10px'.",
+        "G48-6a at src/app/sandbox/handle-lab/spacing-overlap.test.ts pins the per-scene overlap (72.6 / 69.7 / 29.3 …) with the outside-flip RED shown.",
+        "Every deleted test row names its AGENTS.md reason (code gone / could not go RED) in the commit body.",
+        "Test files that are unchanged in behaviour but import deleted symbols (spacing-affordance-geometry.test.ts imports RESIZE_*_Z — those are KEPT, so it should be untouched) still pass."
+      ]
+    },
+    {
+      "id": "S48-3",
+      "title": "Rewrite the browser oracle; add every remaining gate leg incl. ci.yml",
+      "priority": 5,
+      "passes": true,
+      "evidence": "Committed in 294add7. e2e constants hand-written in e2e/handle-derivation.ts (G48-4a checks 3 files: GREEN, selftest 10/10, both REDs driven); G48-4c 10/10 (7 mutants fire); ci.yml steps 13/14 (gates dry-run); G48-5/6b/9 RED-whens driven incl. the padding press moved back → no write; §3.11 reasons per row incl. 4c; three unlisted specs rewritten; golden +2 traced; full e2e 194/0 in three independent runs.",
+      "acceptanceCriteria": [
+        "e2e/resize-handles.spec.ts: the four hand-copied constants replaced by C48-1's set (cornerNarrowPx 8, cornerWidePx 16, rampNarrowAtPx 20, rampWideAtPx 80, bandPx 10, chipPx 10, gridStepPx 1/32), still hand-written (never imported); its region derivation moved into a pure module the spec imports; every retired row carries its §3.11 reason; the 16–24 window rewritten as the ramp-window assertion.",
+        "G48-4a: a scripts/ file comparing the constants as SOURCE TEXT between handle-geometry.ts and the e2e, RED on disagreement and on an absent anchor, with --selftest; wired as TWO run: lines under verify in .github/workflows/ci.yml (--selftest then bare) in the citation gate's shape; `pnpm gates` picks them up.",
+        "G48-4c: e2e/handle-derivation.test.ts (collected by vitest.config.app.ts) comparing the e2e's own derivation vs handleRegions over the same two corpora as G48-4b, with a planted-mutant case.",
+        "G48-5's witness-keyed rows on the inherited fixtures with the per-fixture floors/known-unreachable entries and the two-sided flush interval; G48-6b's overlap press on a padded container; G48-9's shared-pixel press on 220×10 — each with its RED-when demonstrated once locally (reverse stripOrder; give a layer a z-index; move a root outside the clip).",
+        "U48-11's flush and rounded-corner values measured from rendered rects and reported to the lead for write-back into §5.",
+        "`pnpm test:e2e` run locally by the ONE lane that holds the runner, output pasted; flakes named against docs/known-issues.md (KI-53, spacing-gesture G44-8, unresolved-refresh) rather than retried silently."
+      ]
+    },
+    {
+      "id": "S48-5",
+      "title": "Owner ruling after the live pass: D48-7 → (i) clip everywhere — the corner chip sits on the vertex; no renderer sandwich",
+      "priority": 7,
+      "passes": true,
+      "evidence": "Committed (S48-5). placementFor returns the region rect for every root; translateIntoRect/pushOutOfArcs/cornerInArcQuadrant/PlacedEdges deleted (reason 1); the renderer builds no clip (buildEffectiveClip/fitsInClip kept with dated no-caller notes); e2e: 2a scoped like 2b, clipOvershoot deleted, rounded nw ruling-skip pinned to one entry, U48-11 asserts identity (exact in all 64 cells), free-regime fences lifted (14 fixtures), pins 73/42/38 asserted, U48-11 retitled + golden 1-line rename; RED driven (3 px corner translate fires G48-5 + U48-11); closure audit APPROVE after fix round 4; plan D48-7 → (i), §3.10, §9; backlog padding-glyph row; handoff record. pnpm gates 15/15 over the commit content (owner's uncommitted sandbox edit set aside and restored, md5-verified); full e2e 194/0.",
+      "acceptanceCriteria": [
+        "use-resize-handles.ts: placementFor returns the region rect for corner roots too; the renderer helpers translateIntoRect / pushOutOfArcs / cornerInArcQuadrant are deleted (reason 1: the code they served is gone by ruling); the D48-7 docblock states the (i) ruling dated 2026-09-02; typecheck + lint GREEN; port-conformance unchanged.",
+        "e2e: G48-5's flush rows re-recorded from rendered rects and equal the pure model's T6 values within the bracket; the rounded-corner nw row asserts known-unreachable by ruling (witness press skipped with that reason; containment/emptiness legs still run); clause-2a re-scoped like 2b ('outside by at most its own half'); U48-11's table is identity; scoped specs green; full e2e green over a quiesced tree; golden regenerated if any title changed, traced.",
+        "Plan: D48-7 → (i) RULED by the owner after the live pass (with the reason: (iii)'s first clamp violated the 08-27 ruling at straight edges); U48-7 moot; U48-11 identity; §3.10 rows for translateIntoRect/pushOutOfArcs → delete; anchors into the deleted helpers re-pointed; citation gate GREEN.",
+        "Backlog: a row for the padding-handle glyph (arrow-up-to-line → a plain bar), owner feedback 2026-09-02, out of phase-48 scope.",
+        "Closure audit on H1/H2; pnpm gates + pnpm test:e2e over the quiesced tree; committed."
+      ]
+    },
+    {
+      "id": "S48-4",
+      "title": "The checks that need a built tree or a browser — lands a RECORD",
+      "priority": 6,
+      "passes": true,
+      "evidence": "Artifact byte-identical (md5 6b46dd5f…, proven with a planted control); pnpm gates ALL 15 PASSED at 294add7 and again over the S48-5 commit content; pnpm test:e2e 194 passed / 13 skipped / exit 0 at 294add7 and after S48-5 (three lead runs + lanes' runs; only the golden's two held pins ✘); descvi:dev smoke RECORDED in docs/handoff/260902-phase-48-close.md §2 — all three G48-8 items OK, U48-8 (a) confirmed by the owner, U48-4 livable; the pass produced the D48-7 → (i) ruling (S48-5) and the padding-glyph backlog row. Whole-set audit decision: RUN — the S48-3 full-suite run + the verification round were the cross-story audit (they found the corner-precedence contract mismatch, three unlisted specs asserting the old model, and the live padding consequence); S48-0b was not separately verified (4× margin + selftest + plant + corpus-level control).",
+      "acceptanceCriteria": [
+        "`git diff --exit-code .descvi/screens.json` clean after re-running the extractor.",
+        "`pnpm gates` green (output pasted, read as text not count), over a QUIESCED tree.",
+        "`pnpm test:e2e` green (or every failure named as a known flake with its KI/G id), over a quiesced tree with the fixed ports free.",
+        "A descvi:dev smoke RECORDED (docs/ or the phase tracker): all eight handles grabbed on a ≤ 20 px-tall element; a corner grabbed at a rounded frame corner; a padding drag on 100×100 padding 8 under the straddling band — with the owner's reaction to U48-8 captured or explicitly still open.",
+        "The whole-set audit decision is stated in the completion report (cross-story contract: S48-1's exports ↔ S48-2's oracle ↔ S48-3's hand-copied set ↔ G48-4a/4b/4c)."
+      ]
+    }
+  ]
+}
