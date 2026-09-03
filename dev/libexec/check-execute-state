@@ -158,8 +158,117 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode == 0:
         failures.append("a stale observed fingerprint was accepted and must not be")
 
+    # 6 - what a review may say, and what acceptance may stand over.
+    #
+    #     `severity` is the role's calibration and was never read; `blocks` is the workflow's question and cites the task's own completion condition. A `REVISE` accepts and carries its findings; a `BLOCK` does not accept; the verdict word has to agree with the role's own findings; and a carried `critical` owes a reason for not becoming a task.
+    STAMP = "2026-01-01T00:00:00+09:00"
+
+    def current():
+        return json.loads(destination.read_text())
+
+    def attempt(mutate):
+        state = current()
+        state["revision"] = "auto"
+        state["worktree"]["observed"] = "auto"
+        mutate(state)
+        write(candidate, state)
+        return run(work, "checkpoint", str(destination), str(candidate))
+
+    def must(label, mutate):
+        result = attempt(mutate)
+        if result.returncode != 0:
+            failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
+
+    def refuse(label, mutate, reason=None):
+        result = attempt(mutate)
+        if result.returncode == 0:
+            failures.append(f"{label} was accepted and must not be")
+        elif reason and reason not in result.stderr:
+            failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
+
+    def task(state):
+        return state["tasks"][0]
+
+    def finding(role, severity, blocks, **extra):
+        return {"reviewer_role": role, "claim": "c", "evidence": "e", "impact": "i", "required_correction": "r",
+                "severity": severity, "confidence": "high", "blocks": blocks, **extra}
+
+    def verdict(role, word):
+        return {"reviewer_role": role, "verdict": word, "task_id": "task-001", "round": 1, "worktree_fingerprint": "auto",
+                "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+    verification = {"command": "run the check", "exit_code": 0, "observed_at": STAMP, "round": 1, "worktree_fingerprint": "auto"}
+
+    def to_status(status, **fields):
+        def mutate(state):
+            state["phase"] = "task"
+            task(state).update({"status": status, "round": 1, **fields})
+        return mutate
+
+    must("dispatching the task", to_status("implementing"))
+    must("recording verification", to_status("verifying", latest_verification=[verification]))
+    must("entering review", to_status("reviewing"))
+
+    refuse("a MUST_FIX verdict", to_status("accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "MUST_FIX")]}),
+        reason="one of BLOCK, PASS, REVISE")
+    refuse("a finding with no blocks field", to_status("reviewing",
+        unresolved_findings=[{k: v for k, v in finding("code-reviewer", "minor", None).items() if k != "blocks"}]),
+        reason="exact field set")
+    refuse("a blocks citation the completion condition does not contain", to_status("reviewing",
+        unresolved_findings=[finding("code-reviewer", "minor", "it does the other thing")]),
+        reason="not in this task's completion condition")
+    must("a blocks citation the completion condition does contain", to_status("reviewing",
+        unresolved_findings=[finding("code-reviewer", "minor", "does the thing")]))
+    refuse("acceptance over a finding that blocks the completion condition", to_status("accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "BLOCK")]}),
+        reason="cannot retain a current BLOCK")
+    refuse("a PASS over the role's own finding", to_status("accepted",
+        unresolved_findings=[finding("code-reviewer", "minor", None)],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "PASS")]}),
+        reason="returned PASS over its own recorded finding")
+    refuse("a REVISE with nothing of its own", to_status("accepted",
+        unresolved_findings=[],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
+        reason="returned REVISE with no finding of its own")
+    refuse("a carried critical with no reason for not becoming a task", to_status("accepted",
+        unresolved_findings=[finding("code-reviewer", "critical", None)],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
+        reason="carried_because or promote it")
+    carried = [finding("code-reviewer", "minor", None),
+               finding("code-reviewer", "critical", None, carried_because="outside this task's scope; task-002 appended for it")]
+    must("acceptance carrying a REVISE lane's findings", to_status("accepted",
+        unresolved_findings=carried,
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}))
+
+    # 7 - the receipt carries what the run carried, so the reader who inherits the tree inherits the findings.
+    def to_final_audit(state):
+        # The whole-change audit binds to the run's own round, not the task's.
+        state["phase"] = "final_audit"
+        state["latest_verification"] = [dict(verification, round=state["current_round"])]
+        state["final_audit"] = [dict(verdict("code-reviewer", "PASS"), task_id="whole-change", round=state["current_round"])]
+    must("entering final audit", to_final_audit)
+    accepted = current()
+    receipt = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": accepted["run_id"],
+        "lifecycle": "completed", "completed_at": STAMP,
+        "input": {"reference": None, "sha256": accepted["input"]["sha256"]},
+        "worktree": {"root": accepted["worktree"]["root"], "final_fingerprint": "auto"},
+        "accepted_tasks": [{"id": "task-001", "title": "the only task", "completion_condition": "it does the thing", "carried_findings": []}],
+        "final_verification": accepted["latest_verification"], "final_audit": accepted["final_audit"],
+        "carried_findings": [],
+    }
+    write(candidate, receipt)
+    if run(work, "checkpoint", str(destination), str(candidate)).returncode == 0:
+        failures.append("a receipt that dropped the task's carried findings was accepted and must not be")
+    receipt["accepted_tasks"][0]["carried_findings"] = carried
+    write(candidate, receipt)
+    result = run(work, "checkpoint", str(destination), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"the receipt carrying the findings was refused: {result.stderr.strip()}")
+
 if failures:
     for failure in failures:
         print(f"check-execute-state: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-execute-state: derived values fill in, and neither a stale revision nor a stale fingerprint passes")
+print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites")

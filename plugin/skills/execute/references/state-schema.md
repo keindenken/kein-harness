@@ -4,6 +4,10 @@ Store state at `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json`, where the run roo
 
 Active, blocked, and interrupted states retain run identity, input identity, canonical worktree and Git common directory, baseline and observed fingerprints, the serial task ledger, current task and round, latest verification, unresolved findings, final-audit facts, and the exact next action. They never store transcripts, raw logs, or agent handles.
 
+A finding carries `reviewer_role`, `claim`, `evidence`, `impact`, `required_correction`, `severity` (`critical`, `important`, `minor`), `confidence` (`high`, `medium`, `low`), and `blocks` — `null`, a verbatim clause of the task's `completion_condition` (whitespace and case folded), or text prefixed `regression: ` or `instruction: `. A finding carried on an accepted task may add `carried_because`; a `critical` one must. A verdict is `PASS`, `REVISE`, or `BLOCK`, and at acceptance it is checked against the findings of the same `reviewer_role`: `BLOCK` needs one that cites, `REVISE` needs at least one and none that cite, `PASS` needs none.
+
+`unresolved_findings` on an accepted task is what that task carries — findings with `blocks: null` a `REVISE` lane returned and the lead chose not to promote. A finding that cites cannot be retained by an accepted task, by a final audit, or by completion. The same rule holds for the run-level list.
+
 Every state carries a zero-based monotonic `revision`. Each candidate increments the revision observed in the current checkpoint; a stale candidate is rejected after the canonical-worktree lock is acquired.
 
 **Write `"auto"` for anything derived rather than decided, and `checkpoint` fills it in.** It accepts the sentinel for `revision`, for `worktree.observed`, for `worktree.baseline` on the first checkpoint only, and for any `worktree_fingerprint` or `final_fingerprint` wherever it appears — the latest verification, each task's verification and acceptance, every verdict, and the final audit. All of them are computed from the predecessor and the worktree, which the checkpoint reads anyway in order to check what was written; asking for them creates one way to be wrong per field and no way to be right that those two sources do not already determine.
@@ -12,7 +16,7 @@ Every state carries a zero-based monotonic `revision`. Each candidate increments
 
 Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. It changes for HEAD, staged, unstaged, and untracked content changes, except for untracked paths under `.agents/kein/runs/`. That exclusion is what keeps the fingerprint measurable: the run ledger lives inside the worktree, so a checkpoint writing its own `state.json` would otherwise change the untracked set it had just recorded and every following `reconcile` would report drift over work nobody did. Deliverables elsewhere under `.agents/kein/` — plans among them — stay in the fingerprint.
 
-Completed receipts retain only input reference/hash, worktree root/final fingerprint, accepted task summaries, final verification, and fresh independent final-audit PASS facts. Aborted receipts retain identity, worktree root, time, and stop reason.
+Completed receipts retain only input reference/hash, worktree root/final fingerprint, accepted task summaries — each with the `carried_findings` its task carried — final verification, fresh independent final-audit PASS facts, and the run-level `carried_findings`. Both carried lists are exact projections of the checkpointed state; a receipt that drops one is refused, because the receipt is what the next reader inherits. Aborted receipts retain identity, worktree root, time, and stop reason.
 
 Use:
 

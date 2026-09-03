@@ -33,6 +33,8 @@ A factual correction or implementation-detail adjustment may update a task when 
 
 Task statuses are `pending`, `implementing`, `verifying`, `reviewing`, `correcting`, and `accepted`. Only one task may be write-active. Every earlier task must be accepted before a later task becomes active.
 
+`unresolved_findings` is empty at the opening position and, on an accepted task, holds what the task carries: the findings a `REVISE` lane returned that do not cite its completion condition and were not promoted to a task of their own. Their shape is in the review contract.
+
 ## Evidence Gates
 
 Run a load-bearing Evidence Gate before dependent production work. An expected result may select only a branch already authorized by the input. An unexpected result outside every authorized branch blocks the run; it does not authorize a new design or scope.

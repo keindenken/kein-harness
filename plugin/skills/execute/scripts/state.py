@@ -51,7 +51,7 @@ NONTERMINAL_FIELDS = frozenset({
 })
 COMPLETED_FIELDS = frozenset({
     "schema_version", "revision", "workflow", "run_id", "lifecycle", "completed_at", "input",
-    "worktree", "accepted_tasks", "final_verification", "final_audit",
+    "worktree", "accepted_tasks", "final_verification", "final_audit", "carried_findings",
 })
 ABORTED_FIELDS = frozenset({
     "schema_version", "revision", "workflow", "run_id", "lifecycle", "aborted_at", "worktree_root", "reason",
@@ -68,13 +68,19 @@ VERDICT_FIELDS = frozenset({
     "reviewer_role", "verdict", "task_id", "round", "worktree_fingerprint",
     "reviewed_at", "fresh", "independent",
 })
+# `severity` and `confidence` are the reviewer role's own calibration (`agents/code-reviewer.md`, `agents/critic.md`), self-audited against inflation and minimisation there, and this workflow read neither: acceptance keyed on the verdict word alone, so a `minor` blocked exactly as a `critical` did. The phase-47 run's ten blind lanes returned some twenty findings that were real and not blocking, fourteen of them inside a `PASS`, and the state recorded none of them.
+# `blocks` is the workflow's own question and is separate from severity on purpose: whether THIS task is done. It cites the clause of the task's completion condition the finding defeats, verbatim, or names a regression or a repository instruction with a prefix -- so a finding that cannot point at the condition is, by construction, not about whether this task is done, and goes to a new task or to the receipt instead of blocking this one.
+VERDICT_VALUES = frozenset({"PASS", "REVISE", "BLOCK"})
 FINDING_FIELDS = frozenset({
-    "reviewer_role", "claim", "evidence", "impact", "required_correction", "severity", "confidence",
+    "reviewer_role", "claim", "evidence", "impact", "required_correction", "severity", "confidence", "blocks",
 })
+# A `critical` that stays carried instead of becoming a task owes the receipt the reason, so a promotion that did not happen is a written decision rather than a silence.
+FINDING_OPTIONAL = frozenset({"carried_because"})
+BLOCKS_PREFIXES = ("regression: ", "instruction: ")
 ACCEPTANCE_FIELDS = frozenset({"round", "worktree_fingerprint", "reviewers"})
 COMPLETED_INPUT_FIELDS = frozenset({"reference", "sha256"})
 COMPLETED_WORKTREE_FIELDS = frozenset({"root", "final_fingerprint"})
-ACCEPTED_TASK_FIELDS = frozenset({"id", "title", "completion_condition"})
+ACCEPTED_TASK_FIELDS = frozenset({"id", "title", "completion_condition", "carried_findings"})
 
 
 def _git_bytes(path: Path, args: List[str]) -> bytes:
@@ -224,8 +230,8 @@ def _validate_verdict(value: Any, task_id: str, round_number: int, fingerprint: 
     errors: List[str] = []
     if not isinstance(value.get("reviewer_role"), str) or not value["reviewer_role"]:
         errors.append("Review verdict requires a reviewer_role")
-    if value.get("verdict") not in {"PASS", "MUST_FIX"}:
-        errors.append("Review verdict must be PASS or MUST_FIX")
+    if value.get("verdict") not in VERDICT_VALUES:
+        errors.append(f"Review verdict must be one of {', '.join(sorted(VERDICT_VALUES))}")
     if value.get("task_id") != task_id:
         errors.append("Review verdict task_id does not match")
     if value.get("round") != round_number:
@@ -239,21 +245,81 @@ def _validate_verdict(value: Any, task_id: str, round_number: int, fingerprint: 
     return errors
 
 
-def _validate_findings(value: Any) -> List[str]:
+def _normalized(text: Any) -> str:
+    return " ".join(str(text).split()).lower()
+
+
+def _validate_findings(value: Any, completion_condition: Optional[str] = None) -> List[str]:
     if not isinstance(value, list):
         return ["Findings must be a list"]
     errors: List[str] = []
     for index, finding in enumerate(value):
-        if not isinstance(finding, dict) or set(finding) != FINDING_FIELDS:
+        if not isinstance(finding, dict) or set(finding) - FINDING_OPTIONAL != FINDING_FIELDS:
             errors.append(f"Finding {index} must use the exact field set")
             continue
-        for key in FINDING_FIELDS:
+        for key in FINDING_FIELDS - {"blocks"}:
             if not isinstance(finding.get(key), str) or not finding[key].strip():
                 errors.append(f"Finding {index} requires non-empty {key}")
         if finding.get("severity") not in {"critical", "important", "minor"}:
             errors.append(f"Finding {index} severity is invalid")
         if finding.get("confidence") not in {"high", "medium", "low"}:
             errors.append(f"Finding {index} confidence is invalid")
+        errors.extend(_validate_blocks(finding.get("blocks"), completion_condition, index))
+        reason = finding.get("carried_because")
+        if reason is not None and (not isinstance(reason, str) or not reason.strip()):
+            errors.append(f"Finding {index} carried_because must be non-empty text when present")
+        if reason is not None and finding.get("blocks") is not None:
+            errors.append(f"Finding {index} cannot be carried and blocking at once")
+    return errors
+
+
+def _validate_blocks(value: Any, completion_condition: Optional[str], index: int) -> List[str]:
+    """`blocks` is a citation, not a word: the clause has to be in the condition the lane was handed.
+
+    Whitespace and case are the author's; the check folds both. A finding about a regression or a repository instruction has no clause to cite and says which with a prefix instead.
+    """
+    if value is None:
+        return []
+    if not isinstance(value, str) or not value.strip():
+        return [f"Finding {index} blocks must be null or non-empty text"]
+    if value.startswith(BLOCKS_PREFIXES):
+        if not value.split(":", 1)[1].strip():
+            return [f"Finding {index} blocks names a prefix and nothing after it"]
+        return []
+    if completion_condition is not None and _normalized(value) not in _normalized(completion_condition):
+        return [f"Finding {index} blocks cites a clause that is not in this task's completion condition"]
+    return []
+
+
+def _blocking(findings: Any) -> bool:
+    return isinstance(findings, list) and any(
+        isinstance(finding, dict) and finding.get("blocks") is not None for finding in findings
+    )
+
+
+def _verdict_coherence(reviewers: Any, findings: Any) -> List[str]:
+    """A verdict is a summary of the role's own findings, and the state can re-derive that summary.
+
+    `BLOCK` with nothing of that role blocking, `REVISE` with nothing of that role at all or with something blocking, `PASS` over a finding the same role wrote -- each is a disagreement between two things one lane produced, and the one place severity was ever adjudicated by anything but the lane.
+    """
+    if not isinstance(reviewers, list) or not isinstance(findings, list):
+        return []
+    errors: List[str] = []
+    for reviewer in reviewers:
+        if not isinstance(reviewer, dict):
+            continue
+        role = reviewer.get("reviewer_role")
+        mine = [f for f in findings if isinstance(f, dict) and f.get("reviewer_role") == role]
+        blocking = [f for f in mine if f.get("blocks") is not None]
+        verdict = reviewer.get("verdict")
+        if verdict == "BLOCK" and not blocking:
+            errors.append(f"{role} returned BLOCK with no finding of its own citing what it blocks")
+        elif verdict == "REVISE" and blocking:
+            errors.append(f"{role} returned REVISE over its own blocking finding")
+        elif verdict == "REVISE" and not mine:
+            errors.append(f"{role} returned REVISE with no finding of its own")
+        elif verdict == "PASS" and mine:
+            errors.append(f"{role} returned PASS over its own recorded finding")
     return errors
 
 
@@ -294,7 +360,8 @@ def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
     else:
         for item in verification:
             errors.extend(_validate_verification(item))
-    errors.extend(_validate_findings(task.get("unresolved_findings")))
+    findings = task.get("unresolved_findings")
+    errors.extend(_validate_findings(findings, task.get("completion_condition") if isinstance(task.get("completion_condition"), str) else None))
     acceptance = task.get("acceptance")
     if acceptance is not None:
         if not isinstance(acceptance, dict) or set(acceptance) != ACCEPTANCE_FIELDS:
@@ -317,23 +384,32 @@ def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
             )
             if not current_verification:
                 errors.append("Accepted task requires current-round verification")
+            # `REVISE` accepts: its findings are real, carried on the task, and not about whether the task is done. Only `BLOCK` says that.
             current_pass = any(
-                isinstance(item, dict) and item.get("verdict") == "PASS"
+                isinstance(item, dict) and item.get("verdict") in {"PASS", "REVISE"}
                 and item.get("fresh") is True and item.get("independent") is True
                 and item.get("round") == task.get("round")
                 and item.get("worktree_fingerprint") == acceptance_fingerprint
                 for item in reviewers
             )
             if not current_pass:
-                errors.append("Accepted task requires a fresh independent PASS")
-            if any(isinstance(item, dict) and item.get("verdict") == "MUST_FIX" for item in reviewers):
-                errors.append("Accepted task cannot retain a current MUST_FIX verdict")
+                errors.append("Accepted task requires a fresh independent PASS or REVISE")
+            if any(isinstance(item, dict) and item.get("verdict") == "BLOCK" for item in reviewers):
+                errors.append("Accepted task cannot retain a current BLOCK verdict")
             if acceptance.get("round") != task.get("round"):
                 errors.append("Task acceptance does not match the current round")
+            errors.extend(_verdict_coherence(reviewers, findings))
     if task.get("status") == "accepted" and acceptance is None:
         errors.append("Accepted task requires acceptance facts")
-    if task.get("status") == "accepted" and task.get("unresolved_findings"):
-        errors.append("Accepted task cannot retain unresolved findings")
+    if task.get("status") == "accepted":
+        if _blocking(findings):
+            errors.append("Accepted task cannot retain a finding that blocks its completion condition")
+        if isinstance(findings, list) and any(
+            isinstance(f, dict) and f.get("severity") == "critical" and f.get("blocks") is None
+            and not f.get("carried_because")
+            for f in findings
+        ):
+            errors.append("Accepted task carrying a critical finding must record carried_because or promote it to a task")
     if task.get("status") != "accepted" and acceptance is not None:
         errors.append("Only an accepted task may retain acceptance facts")
     return errors
@@ -448,8 +524,8 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
             if any(item.get("exit_code") != 0 for item in latest_verification if isinstance(item, dict)):
                 errors.append("Regression verification evidence must pass")
         errors.extend(_validate_findings(payload.get("unresolved_findings")))
-        if payload.get("phase") == "final_audit" and payload.get("unresolved_findings"):
-            errors.append("Final audit cannot retain unresolved findings")
+        if payload.get("phase") == "final_audit" and _blocking(payload.get("unresolved_findings")):
+            errors.append("Final audit cannot retain a blocking finding")
     elif lifecycle == "completed":
         if set(payload) != COMPLETED_FIELDS:
             errors.append(_field_set_error("Completed receipt must use the exact compact field set", payload, COMPLETED_FIELDS))
@@ -479,9 +555,12 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
                     errors.append("Accepted task summary must use the exact compact field set")
                     continue
                 accepted_ids.append(task.get("id"))
-                for key in ACCEPTED_TASK_FIELDS:
+                for key in ACCEPTED_TASK_FIELDS - {"carried_findings"}:
                     if not isinstance(task.get(key), str) or not task[key].strip():
                         errors.append(f"Accepted task summary requires non-empty {key}")
+                errors.extend(_validate_findings(task.get("carried_findings"), task.get("completion_condition")))
+                if _blocking(task.get("carried_findings")):
+                    errors.append("Accepted task summary cannot carry a blocking finding")
             if len(accepted_ids) != len(set(accepted_ids)):
                 errors.append("Accepted task summary ids must be unique")
         final_verification = payload.get("final_verification")
@@ -492,6 +571,9 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
                 errors.extend(_validate_verification(item, expected_fingerprint=fingerprint))
             if any(not isinstance(item, dict) or item.get("exit_code") != 0 for item in final_verification):
                 errors.append("Completed receipt requires passing final verification")
+        errors.extend(_validate_findings(payload.get("carried_findings")))
+        if _blocking(payload.get("carried_findings")):
+            errors.append("Completed receipt cannot carry a blocking finding")
         final_audit = payload.get("final_audit")
         if not isinstance(final_audit, list) or not final_audit:
             errors.append("Completed receipt requires final audit PASS facts")
@@ -526,8 +608,8 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Initial checkpoint must be nonterminal")
         return errors
     previous_errors = validate_state(previous, Path("state.json"))
-    if candidate.get("lifecycle") == "completed" and previous.get("unresolved_findings"):
-        errors.append("Completion cannot retain unresolved findings")
+    if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
+        errors.append("Completion cannot retain a blocking finding")
     if previous_errors:
         return [f"Previous state is invalid: {error}" for error in previous_errors] + errors
     for key in ("schema_version", "workflow", "run_id"):
@@ -621,11 +703,14 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         ):
             errors.append("Completion requires checkpointed final audit PASS")
         expected_tasks = [
-            {key: task.get(key) for key in ACCEPTED_TASK_FIELDS}
+            {**{key: task.get(key) for key in ACCEPTED_TASK_FIELDS - {"carried_findings"}},
+             "carried_findings": task.get("unresolved_findings", [])}
             for task in previous.get("tasks", [])
         ]
         if candidate.get("accepted_tasks") != expected_tasks:
-            errors.append("Completed task summaries must exactly project accepted tasks")
+            errors.append("Completed task summaries must exactly project accepted tasks and what each carries")
+        if candidate.get("carried_findings") != previous.get("unresolved_findings", []):
+            errors.append("Completed carried findings must exactly project the checkpointed whole-change findings")
         if candidate.get("final_verification") != previous_verification:
             errors.append("Completed verification must exactly match checkpointed final verification")
         if candidate.get("final_audit") != previous_audit:

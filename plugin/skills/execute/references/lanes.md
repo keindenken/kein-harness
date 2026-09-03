@@ -36,7 +36,7 @@ The home it pins is `KEIN_CODEX_HOME`, and without it the operator's own `~/.cod
 
 Two things do fall to the lead. The task package must carry the repository instructions, for the same reason a review lane's does — the bridge assembles the role prompt and nothing else. Which files those are is the repository's to settle, and it settles it by putting them where the vendor's own runtime looks: a rule kept only in a file that vendor never opens has to be carried by hand into every package, which makes it a rule the lead is remembering rather than one the repository holds. And the worker's report arrives as a file whose path the command prints; treat that file as the Executor's self-verification evidence, exactly as you would a native Executor's returned account, and hold it to the same standard. Self-verification is still not approval.
 
-A vendor Executor is otherwise an ordinary Executor. It takes one task, its scope, completion condition, repository instructions, and verification path; its work is reviewed by the round's reviewer lanes; and a `MUST_FIX` returns to a correction round in the usual way. A correction may go to a fresh vendor Executor or a native one, whichever the evidence favours.
+A vendor Executor is otherwise an ordinary Executor. It takes one task, its scope, completion condition, repository instructions, and verification path; its work is reviewed by the round's reviewer lanes; and a `BLOCK` returns to a correction round in the usual way. A correction may go to a fresh vendor Executor or a native one, whichever the evidence favours.
 
 ## Mechanism
 
