@@ -6,6 +6,8 @@ Active, blocked, and interrupted states retain run identity, input identity, can
 
 A finding carries `reviewer_role`, `claim`, `evidence`, `impact`, `required_correction`, `severity` (`critical`, `important`, `minor`), `confidence` (`high`, `medium`, `low`), and `blocks` — `null`, a verbatim clause of the task's `completion_condition` (whitespace and case folded), or text prefixed `regression: ` or `instruction: `. A finding carried on an accepted task may add `carried_because`; a `critical` one must. A verdict is `PASS`, `REVISE`, or `BLOCK`, and at acceptance it is checked against the findings of the same `reviewer_role`: `BLOCK` needs one that cites, `REVISE` needs at least one and none that cite, `PASS` needs none.
 
+A finding recorded before `blocks` existed stands where it stood, unchanged, until something is accepted over it; acceptance, the final audit and the receipt require the field, and any finding written new carries it.
+
 `unresolved_findings` on an accepted task is what that task carries — findings with `blocks: null` a `REVISE` lane returned and the lead chose not to promote. A finding that cites cannot be retained by an accepted task, by a final audit, or by completion. The same rule holds for the run-level list.
 
 Every state carries a zero-based monotonic `revision`. Each candidate increments the revision observed in the current checkpoint; a stale candidate is rejected after the canonical-worktree lock is acquired.

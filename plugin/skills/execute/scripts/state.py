@@ -249,13 +249,42 @@ def _normalized(text: Any) -> str:
     return " ".join(str(text).split()).lower()
 
 
-def _validate_findings(value: Any, completion_condition: Optional[str] = None) -> List[str]:
+def _canonical(finding: Any) -> str:
+    return json.dumps(finding, sort_keys=True, ensure_ascii=False)
+
+
+def _legacy_findings(payload: Any) -> frozenset:
+    """The findings a state recorded before `blocks` existed.
+
+    The field landed while a run was live, and that run's predecessor is validated on every checkpoint; refusing it would wedge the run over a shape it had no way to write. So a finding in the older shape stands where it stood, unchanged, until something is accepted over it -- acceptance, the final audit and the receipt still require the field, because that is where it decides -- and anything written new must carry it.
+    """
+    legacy = set()
+    lists: List[Any] = []
+    if isinstance(payload, dict):
+        tasks = payload.get("tasks")
+        for task in tasks if isinstance(tasks, list) else []:
+            if isinstance(task, dict):
+                lists.append(task.get("unresolved_findings"))
+        lists.append(payload.get("unresolved_findings"))
+    for findings in lists:
+        for finding in findings if isinstance(findings, list) else []:
+            if isinstance(finding, dict) and set(finding) == FINDING_FIELDS - {"blocks"}:
+                legacy.add(_canonical(finding))
+    return frozenset(legacy)
+
+
+def _validate_findings(value: Any, completion_condition: Optional[str] = None, inherited: frozenset = frozenset()) -> List[str]:
     if not isinstance(value, list):
         return ["Findings must be a list"]
     errors: List[str] = []
     for index, finding in enumerate(value):
-        if not isinstance(finding, dict) or set(finding) - FINDING_OPTIONAL != FINDING_FIELDS:
-            errors.append(f"Finding {index} must use the exact field set")
+        if not isinstance(finding, dict):
+            errors.append(f"Finding {index} must be an object")
+            continue
+        if _canonical(finding) in inherited:
+            continue
+        if set(finding) - FINDING_OPTIONAL != FINDING_FIELDS:
+            errors.append(_field_set_error(f"Finding {index} must use the exact field set", finding, FINDING_FIELDS, FINDING_OPTIONAL))
             continue
         for key in FINDING_FIELDS - {"blocks"}:
             if not isinstance(finding.get(key), str) or not finding[key].strip():
@@ -323,7 +352,7 @@ def _verdict_coherence(reviewers: Any, findings: Any) -> List[str]:
     return errors
 
 
-def _field_set_error(label: str, actual: Any, expected: frozenset) -> str:
+def _field_set_error(label: str, actual: Any, expected: frozenset, optional: frozenset = frozenset()) -> str:
     """Name the difference rather than the set the caller then has to go find.
 
     Every state in this workflow is hand-authored -- there are no transitions that build one -- so a
@@ -332,13 +361,13 @@ def _field_set_error(label: str, actual: Any, expected: frozenset) -> str:
     """
     keys = set(actual) if isinstance(actual, dict) else set()
     missing = sorted(expected - keys)
-    unexpected = sorted(keys - expected)
+    unexpected = sorted(keys - expected - optional)
     return (label
             + (f"; missing {missing}" if missing else "")
             + (f"; unexpected {unexpected}" if unexpected else ""))
 
 
-def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
+def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = frozenset()) -> List[str]:
     if not isinstance(task, dict) or set(task) != TASK_FIELDS:
         return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS)]
     errors: List[str] = []
@@ -361,7 +390,8 @@ def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
         for item in verification:
             errors.extend(_validate_verification(item))
     findings = task.get("unresolved_findings")
-    errors.extend(_validate_findings(findings, task.get("completion_condition") if isinstance(task.get("completion_condition"), str) else None))
+    errors.extend(_validate_findings(findings, task.get("completion_condition") if isinstance(task.get("completion_condition"), str) else None,
+                                     inherited if task.get("status") != "accepted" else frozenset()))
     acceptance = task.get("acceptance")
     if acceptance is not None:
         if not isinstance(acceptance, dict) or set(acceptance) != ACCEPTANCE_FIELDS:
@@ -415,7 +445,7 @@ def _validate_task(task: Any, current_fingerprint: str) -> List[str]:
     return errors
 
 
-def validate_state(payload: Any, state_path: Path) -> List[str]:
+def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozenset()) -> List[str]:
     del state_path
     if not isinstance(payload, dict):
         return ["State must be a JSON object"]
@@ -482,7 +512,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
         identifiers = []
         active_indexes = []
         for index, task in enumerate(tasks):
-            errors.extend(_validate_task(task, current_fingerprint))
+            errors.extend(_validate_task(task, current_fingerprint, inherited))
             if isinstance(task, dict):
                 identifiers.append(task.get("id"))
                 if task.get("status") in WRITE_ACTIVE_STATUSES:
@@ -523,7 +553,7 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
         if payload.get("phase") == "regression_verifying" and latest_verification:
             if any(item.get("exit_code") != 0 for item in latest_verification if isinstance(item, dict)):
                 errors.append("Regression verification evidence must pass")
-        errors.extend(_validate_findings(payload.get("unresolved_findings")))
+        errors.extend(_validate_findings(payload.get("unresolved_findings"), inherited=inherited if payload.get("phase") != "final_audit" else frozenset()))
         if payload.get("phase") == "final_audit" and _blocking(payload.get("unresolved_findings")):
             errors.append("Final audit cannot retain a blocking finding")
     elif lifecycle == "completed":
@@ -600,14 +630,15 @@ def validate_state(payload: Any, state_path: Path) -> List[str]:
 
 
 def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str, Any]) -> List[str]:
-    errors = validate_state(candidate, Path("state.json"))
+    inherited = _legacy_findings(previous) if previous is not None else frozenset()
+    errors = validate_state(candidate, Path("state.json"), inherited)
     if previous is None:
         if candidate.get("revision") != 0:
             errors.append("Initial state revision must be zero")
         if candidate.get("lifecycle") not in NONTERMINAL_LIFECYCLES:
             errors.append("Initial checkpoint must be nonterminal")
         return errors
-    previous_errors = validate_state(previous, Path("state.json"))
+    previous_errors = validate_state(previous, Path("state.json"), inherited)
     if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
         errors.append("Completion cannot retain a blocking finding")
     if previous_errors:
@@ -789,7 +820,7 @@ def _claimed_state(descriptor: int) -> Optional[Path]:
 
 def reconcile(state_path: Path) -> Dict[str, Any]:
     payload = _load(state_path)
-    errors = validate_state(payload, state_path)
+    errors = validate_state(payload, state_path, _legacy_findings(payload))
     if errors:
         return {"valid": False, "errors": errors, "input_matches": False, "worktree_matches": False, "required_action": "repair invalid state before resuming"}
     if payload["lifecycle"] in TERMINAL_LIFECYCLES:
@@ -871,7 +902,7 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
 def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
     _root_value = candidate.get("worktree", {}).get("root") if isinstance(candidate.get("worktree"), dict) else candidate.get("worktree_root")
     _autofill(candidate, destination, Path(_root_value) if isinstance(_root_value, str) else None)
-    candidate_errors = validate_state(candidate, destination)
+    candidate_errors = validate_state(candidate, destination, _legacy_findings(_load(destination)) if destination.exists() else frozenset())
     if candidate_errors:
         raise ValueError("; ".join(candidate_errors))
     lifecycle = candidate["lifecycle"]
@@ -1080,7 +1111,8 @@ def main() -> int:
     args = parser.parse_args()
     try:
         if args.command == "validate":
-            errors = validate_state(_load(args.state), args.state)
+            payload = _load(args.state)
+            errors = validate_state(payload, args.state, _legacy_findings(payload))
             if errors:
                 for error in errors:
                     print(error, file=sys.stderr)

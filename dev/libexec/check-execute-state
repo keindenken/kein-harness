@@ -214,7 +214,7 @@ with tempfile.TemporaryDirectory() as tmp:
         reason="one of BLOCK, PASS, REVISE")
     refuse("a finding with no blocks field", to_status("reviewing",
         unresolved_findings=[{k: v for k, v in finding("code-reviewer", "minor", None).items() if k != "blocks"}]),
-        reason="exact field set")
+        reason="missing ['blocks']")
     refuse("a blocks citation the completion condition does not contain", to_status("reviewing",
         unresolved_findings=[finding("code-reviewer", "minor", "it does the other thing")]),
         reason="not in this task's completion condition")
@@ -240,6 +240,31 @@ with tempfile.TemporaryDirectory() as tmp:
     must("acceptance carrying a REVISE lane's findings", to_status("accepted",
         unresolved_findings=carried,
         acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}))
+
+    # 6b - `blocks` landed while a run was live. A finding that run recorded in the older shape stands where it stood, unchanged, until something is accepted over it; anything written new carries the field, and acceptance requires it.
+    settled = current()
+    legacy = {k: v for k, v in finding("code-reviewer", "minor", None).items() if k != "blocks"}
+    older = current()
+    older["phase"] = "task"
+    task(older).update({"status": "reviewing", "round": 1, "acceptance": None, "unresolved_findings": [legacy]})
+    write(destination, older)
+    result = run(work, "validate", str(destination))
+    if result.returncode != 0:
+        failures.append(f"a state written before blocks existed no longer validates: {result.stderr.strip()}")
+    def correcting(findings):
+        def mutate(state):
+            state["phase"] = "task"
+            task(state).update({"status": "correcting", "round": 2, "latest_verification": [], "unresolved_findings": findings})
+        return mutate
+
+    must("carrying a finding written before blocks existed, unchanged", correcting([legacy]))
+    refuse("acceptance over a finding written before blocks existed", to_status("accepted",
+        unresolved_findings=[legacy],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
+        reason="missing ['blocks']")
+    refuse("a new finding in the older shape", correcting([legacy, {**legacy, "claim": "a second claim"}]),
+        reason="Finding 1 must use the exact field set; missing ['blocks']")
+    write(destination, settled)
 
     # 7 - the receipt carries what the run carried, so the reader who inherits the tree inherits the findings.
     def to_final_audit(state):
