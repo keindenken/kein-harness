@@ -32,6 +32,7 @@ SANDBOX_CONFIG='sandbox_workspace_write.network_access=true'
 # `workspace-write` does not cover dot-directories under the workspace, which is where the state root lives.
 # Measured: `touch .agents/...` exits 10 under the sandbox while a file at the repository root exits 0, so a worker completes its work and then cannot write the report it was asked for.
 # Naming the state root as a writable root is narrower than widening the sandbox mode, and it is the only extra path the worker is granted.
+# Git state stays unwritable under this mode -- index and refs live under `.git`, which the seatbelt denies in a checkout and in a worktree alike -- so a codex worker cannot commit, stash or check out; `kein-dev check-codex-git-sandbox` measures that rather than assuming it.
 STATE_DIRNAME='.agents'
 
 usage() {

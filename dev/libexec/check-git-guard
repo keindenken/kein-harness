@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+#: Feed the git guard the worker calls it must refuse and the ones it must not, and fail if either side moved.
+#
+# The guard is a PreToolUse hook on Bash. It reads one thing to decide whose call it is -- the `agent_id` / `agent_type` fields a subagent's tool events carry -- and one thing to decide what the call does. Both halves are driven here from synthetic hook input, because the hook only loads at session start and a live probe cannot run inside the session that edits it.
+set -eu
+
+GUARD="${KEIN_ROOT:?}/hooks/git-guard.py"
+failures=0
+
+run() { printf '%s' "$2" | python3 -c '
+import json,sys
+agent, cmd = sys.argv[1], sys.stdin.read()
+payload = {"tool_name": "Bash", "tool_input": {"command": cmd}, "session_id": "s", "cwd": "/tmp", "hook_event_name": "PreToolUse"}
+if agent == "sub":
+    payload["agent_id"] = "a1"; payload["agent_type"] = "kein:executor"
+print(json.dumps(payload))' "$1" | python3 "$GUARD" 2>/dev/null; }
+
+refuse() { label=$1; shift; if run "$@"; then printf 'check-git-guard: %s was allowed and must not be\n' "$label" >&2; failures=$((failures + 1)); fi; }
+allow()  { label=$1; shift; if ! run "$@"; then printf 'check-git-guard: %s was refused and should not be\n' "$label" >&2; failures=$((failures + 1)); fi; }
+
+# What moves the stash stack, the index, the tree, the refs -- refused for a worker in every spelling.
+refuse "bare git stash"                sub 'git stash'
+refuse "git stash pop after &&"        sub 'git status && git stash pop'
+refuse "tagged stash push"             sub 'git stash push -u -m "wip-x"'
+refuse "stash drop through -C"         sub 'git -C /some/tree stash drop'
+refuse "stash after cd and ;"          sub 'cd pkg; git stash; ls'
+refuse "commit"                        sub 'git commit -q -am two'
+refuse "add"                           sub 'git add -A'
+refuse "checkout of a path"            sub 'git checkout -- f.txt'
+refuse "switch"                        sub 'git switch -c topic'
+refuse "reset"                         sub 'git reset --hard HEAD~1'
+refuse "restore"                       sub 'git restore .'
+refuse "clean"                         sub 'git clean -fd'
+refuse "rebase"                        sub 'git rebase -i HEAD~3'
+refuse "branch creation"               sub 'git branch topic'
+refuse "branch deletion"               sub 'git branch -D topic'
+refuse "tag creation"                  sub 'git tag v1'
+refuse "tag deletion"                  sub 'git tag -d v1'
+refuse "config set"                    sub 'git config user.email x@y'
+refuse "worktree add"                  sub 'git worktree add ../x'
+refuse "fetch"                         sub 'git fetch origin'
+refuse "push"                          sub 'git push'
+refuse "apply without --check"         sub 'git apply fix.patch'
+refuse "a read then a write in one line" sub 'git log -1 && git commit --amend --no-edit'
+
+# What reads -- stays open to a worker.
+allow  "status and diff"               sub 'git status --short && git diff --stat'
+allow  "diff --exit-code on a file"    sub 'git diff --exit-code .descvi/screens.json'
+allow  "log with formats"              sub 'git log -5 --format="%h %s" -- src/'
+allow  "show of a blob"                sub 'git show 5a53259:e2e/resize-handles.spec.ts | head'
+allow  "ls-files and rev-parse"        sub 'git ls-files scripts | wc -l; git rev-parse --show-toplevel'
+allow  "blame and grep"                sub 'git blame -L 10,20 f.ts; git grep -n "needle" -- "*.ts"'
+allow  "stash list and show"           sub 'git stash list --format="%H %gs"; git stash show -p stash@{0}'
+allow  "branch --show-current and -a"  sub 'git branch --show-current; git branch -a -vv'
+allow  "branch --contains"             sub 'git branch --contains abc123'
+allow  "tag -l"                        sub 'git tag -l "v*"'
+allow  "config --get"                  sub 'git config --get user.name'
+allow  "remote -v and show"            sub 'git remote -v; git remote show origin'
+allow  "worktree list"                 sub 'git worktree list'
+allow  "reflog"                        sub 'git reflog -5'
+allow  "apply --check"                 sub 'git apply --check -R fix.patch'
+allow  "a string mentioning git stash" sub 'grep -rn "git stash" docs/'
+allow  "git -C with a read"            sub 'git -C /other/tree log -1'
+
+# The lead is untouched.
+allow  "the lead's git stash pop"      main 'git stash pop'
+allow  "the lead's commit"             main 'git commit -q -m x'
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-git-guard: %d check(s) failed\n' "$failures" >&2
+  exit 1
+fi
+printf 'check-git-guard: a worker can read git and cannot change it, in every spelling driven here, and the lead is untouched\n'

@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+#: Measure that a codex worker cannot change git state under the sandbox `ocs team` launches it in, in a plain checkout and in a worktree.
+#
+# The native workers get `hooks/git-guard.py`; codex workers are outside Claude Code's hooks and rely on the seatbelt instead. This runs the same git calls under `codex sandbox` with `ocs team`'s settings (workspace-write, network on, only `<tree>/.agents` added as writable) and fails if a mutation lands or a read is refused. The scratch repository lives under `$HOME/.cache`, not `$TMPDIR`: the sandbox keeps the temp directory writable, which is how a first run of this probe wrongly passed every mutation.
+set -eu
+
+command -v codex >/dev/null 2>&1 || { printf 'check-codex-git-sandbox: codex is not installed here; nothing measured\n'; exit 0; }
+
+BASE="$HOME/.cache/kein-codex-git-probe-$$"
+trap 'rm -rf "$BASE"' EXIT
+mkdir -p "$BASE"
+git -C "$BASE" init -q main
+git -C "$BASE/main" commit -q --allow-empty -m init
+printf 'a\n' > "$BASE/main/a.txt"
+git -C "$BASE/main" add a.txt
+git -C "$BASE/main" commit -q -m a
+git -C "$BASE/main" worktree add -q ../wt
+failures=0
+
+under() { # under <tree> <command...>
+  tree=$1; shift
+  (cd "$tree" && codex sandbox -c 'sandbox_mode="workspace-write"' -c 'sandbox_workspace_write.network_access=true' -c "sandbox_workspace_write.writable_roots=[\"$tree/.agents\"]" -- sh -c "$*" >/dev/null 2>&1)
+}
+blocked() { label=$1; tree=$2; shift 2; if under "$tree" "$@"; then printf 'check-codex-git-sandbox: %s went through in %s and must not\n' "$label" "$(basename "$tree")" >&2; failures=$((failures + 1)); fi; }
+passes()  { label=$1; tree=$2; shift 2; if ! under "$tree" "$@"; then printf 'check-codex-git-sandbox: %s was refused in %s and should not be\n' "$label" "$(basename "$tree")" >&2; failures=$((failures + 1)); fi; }
+
+for tree in "$BASE/wt" "$BASE/main"; do
+  printf 'y\n' > "$tree/a.txt"
+  passes  "git status"      "$tree" git status --short
+  passes  "git stash list"  "$tree" git stash list
+  passes  "git log"         "$tree" git log -1 --format=%s
+  blocked "git stash"       "$tree" git stash
+  blocked "git commit"      "$tree" git commit -q -am two
+  blocked "git checkout"    "$tree" git checkout -q -- a.txt
+  blocked "git tag"         "$tree" git tag "t-$(basename "$tree")"
+  if [ "$(git -C "$tree" status --short)" != " M a.txt" ] || [ "$(git -C "$tree" stash list | wc -l | tr -d ' ')" != 0 ] || [ -n "$(git -C "$tree" tag)" ]; then
+    printf 'check-codex-git-sandbox: the tree under %s changed\n' "$(basename "$tree")" >&2; failures=$((failures + 1))
+  fi
+done
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-codex-git-sandbox: %d check(s) failed\n' "$failures" >&2
+  exit 1
+fi
+printf 'check-codex-git-sandbox: under the seatbelt a codex worker reads git and cannot change it, in a checkout and in a worktree\n'
