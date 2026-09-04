@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 from contextlib import contextmanager
 from datetime import datetime
 import fcntl
@@ -57,6 +58,8 @@ ABORTED_FIELDS = frozenset({
     "schema_version", "revision", "workflow", "run_id", "lifecycle", "aborted_at", "worktree_root", "reason",
 })
 INPUT_FIELDS = frozenset({"kind", "reference", "summary", "sha256", "declared_status"})
+INPUT_OPTIONAL = frozenset({"amendments"})
+AMENDMENT_FIELDS = frozenset({"at", "reason", "from", "to"})
 WORKTREE_FIELDS = frozenset({"root", "git_common_dir", "baseline", "observed"})
 FINGERPRINT_FIELDS = frozenset({"head", "index_sha256", "tracked_diff_sha256", "untracked_sha256", "fingerprint"})
 TASK_FIELDS = frozenset({
@@ -445,6 +448,53 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
     return errors
 
 
+def _validate_amendments(input_value: Dict[str, Any]) -> List[str]:
+    amendments = input_value.get("amendments")
+    if amendments is None:
+        return []
+    if not isinstance(amendments, list):
+        return ["Input amendments must be a list"]
+    errors: List[str] = []
+    previous_hash: Optional[str] = None
+    for index, entry in enumerate(amendments):
+        if not isinstance(entry, dict) or set(entry) != AMENDMENT_FIELDS:
+            errors.append(_field_set_error(f"Amendment {index} must use the exact field set", entry, AMENDMENT_FIELDS))
+            continue
+        if not isinstance(entry.get("reason"), str) or not entry["reason"].strip():
+            errors.append(f"Amendment {index} requires a non-empty reason")
+        if not _valid_time(entry.get("at")):
+            errors.append(f"Amendment {index} requires a timezone-aware at")
+        if not _valid_hash(entry.get("from")) or not _valid_hash(entry.get("to")) or entry.get("from") == entry.get("to"):
+            errors.append(f"Amendment {index} must move from one input hash to a different one")
+        if previous_hash is not None and entry.get("from") != previous_hash:
+            errors.append(f"Amendment {index} does not continue from the previous amendment")
+        previous_hash = entry.get("to")
+    if amendments and previous_hash != input_value.get("sha256"):
+        errors.append("The last amendment must end at the input's current sha256; an input that moved again needs another `amend --reason`")
+    return errors
+
+
+def _amendment_transition_errors(previous: Any, candidate: Any) -> List[str]:
+    """The input may move under a run, and only through an amendment that says why.
+
+    A plan is edited while its run is live whenever an owner ruling or a factual correction lands in it, and refusing the run at that point restarts it for a ledger's worth of nothing: three phase-48 and phase-49 runs were aborted and reopened on the same tree for exactly this. The identity rule stays -- a candidate that moves the hash without the entry is still refused -- and the entry is what the receipt carries, so the reader who inherits the tree sees what the plan was approved as and what it became.
+    """
+    refusal = ["Transition cannot change input identity; `amend --reason` records why the input moved"]
+    if not isinstance(previous, dict) or not isinstance(candidate, dict):
+        return refusal
+    for key in ("kind", "reference"):
+        if previous.get(key) != candidate.get(key):
+            return refusal
+    before = previous.get("amendments") or []
+    after = candidate.get("amendments") or []
+    if len(after) != len(before) + 1 or after[:len(before)] != before:
+        return refusal
+    entry = after[-1]
+    if not isinstance(entry, dict) or entry.get("from") != previous.get("sha256") or entry.get("to") != candidate.get("sha256"):
+        return refusal
+    return []
+
+
 def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozenset()) -> List[str]:
     del state_path
     if not isinstance(payload, dict):
@@ -474,9 +524,10 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         if not isinstance(payload.get("next_action"), str) or not payload["next_action"]:
             errors.append("Nonterminal state requires the exact next action")
         input_value = payload.get("input")
-        if not isinstance(input_value, dict) or set(input_value) != INPUT_FIELDS:
-            errors.append(_field_set_error("Input must use the exact field set", input_value, INPUT_FIELDS))
+        if not isinstance(input_value, dict) or set(input_value) - INPUT_OPTIONAL != INPUT_FIELDS:
+            errors.append(_field_set_error("Input must use the exact field set", input_value, INPUT_FIELDS, INPUT_OPTIONAL))
         else:
+            errors.extend(_validate_amendments(input_value))
             if input_value.get("kind") not in {"plan", "brief"}:
                 errors.append("Input kind must be plan or brief")
             if input_value.get("reference") is not None and not isinstance(input_value["reference"], str):
@@ -563,7 +614,7 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         if not _valid_time(payload.get("completed_at")):
             errors.append("Completed receipt requires timezone-aware completed_at")
         compact_input = payload.get("input")
-        if not isinstance(compact_input, dict) or set(compact_input) != COMPLETED_INPUT_FIELDS:
+        if not isinstance(compact_input, dict) or set(compact_input) - INPUT_OPTIONAL != COMPLETED_INPUT_FIELDS:
             errors.append("Completed input must use the exact compact field set")
         elif not _valid_hash(compact_input.get("sha256")):
             errors.append("Completed input requires a valid sha256")
@@ -653,7 +704,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         return errors
     if candidate.get("lifecycle") in NONTERMINAL_LIFECYCLES:
         if previous.get("input") != candidate.get("input"):
-            errors.append("Transition cannot change input identity")
+            errors.extend(_amendment_transition_errors(previous.get("input"), candidate.get("input")))
         if previous.get("worktree", {}).get("root") != candidate.get("worktree", {}).get("root"):
             errors.append("Transition cannot change canonical worktree")
         previous_phase = previous.get("phase")
@@ -710,6 +761,8 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             "reference": previous.get("input", {}).get("reference"),
             "sha256": previous.get("input", {}).get("sha256"),
         }
+        if previous.get("input", {}).get("amendments"):
+            expected_input["amendments"] = previous["input"]["amendments"]
         if candidate.get("input") != expected_input:
             errors.append("Completed input must exactly project checkpointed input identity")
         if candidate.get("worktree", {}).get("root") != previous.get("worktree", {}).get("root"):
@@ -836,7 +889,7 @@ def reconcile(state_path: Path) -> Dict[str, Any]:
     except (OSError, ValueError):
         worktree_matches = False
     if not input_matches:
-        action = "block and reassess the changed input before resuming"
+        action = "the input changed under the run: `amend --reason` it if the change was authorized, otherwise block"
     elif not worktree_matches:
         action = "inspect and verify partial worktree changes before choosing a safe continuation"
     else:
@@ -1080,6 +1133,42 @@ def start(destination: Path, kind: str, reference: Optional[Path], summary: Opti
     })
 
 
+def amend(destination: Path, reason: str, summary: Optional[str], next_action: Optional[str]) -> None:
+    from datetime import datetime
+    state = _load(destination)
+    if state.get("lifecycle") in TERMINAL_LIFECYCLES:
+        raise ValueError("Terminal state cannot transition")
+    if not reason.strip():
+        raise ValueError("An amendment needs a reason")
+    input_value = state.get("input", {})
+    candidate = copy.deepcopy(state)
+    if input_value.get("kind") == "plan":
+        if summary is not None:
+            raise ValueError("A plan input is amended by editing the plan; there is no --summary")
+        reference = Path(input_value["reference"])
+        if not reference.is_file():
+            raise ValueError(f"Plan input {reference} is not a file")
+        digest = _sha256_bytes(reference.read_bytes())
+    else:
+        if summary is None:
+            raise ValueError("A brief input is amended with --summary <new text>")
+        digest = _sha256_bytes(summary.encode("utf-8"))
+        candidate["input"]["summary"] = summary
+    if digest == input_value.get("sha256"):
+        raise ValueError("Input is unchanged; nothing to amend")
+    candidate["revision"] = AUTO
+    candidate["worktree"]["observed"] = AUTO
+    candidate["input"]["sha256"] = digest
+    candidate["input"]["amendments"] = list(input_value.get("amendments") or []) + [{
+        "at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "reason": reason.strip(),
+        "from": input_value.get("sha256"),
+        "to": digest,
+    }]
+    candidate["next_action"] = next_action or "reassess the remaining tasks against the amended input, then continue"
+    _promote(destination, candidate)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -1105,6 +1194,12 @@ def main() -> int:
                               help="JSON array of tasks, each with id, title, scope, completion_condition, verification_path, rationale")
     start_parser.add_argument("--next", dest="next_action", default=None)
 
+    amend_parser = commands.add_parser("amend", help="the input changed under the run: re-hash it and record why, in place")
+    amend_parser.add_argument("destination", type=Path)
+    amend_parser.add_argument("--reason", required=True, help="what changed and who ruled it")
+    amend_parser.add_argument("--summary", default=None, help="the new text, for a brief input; a plan input is re-read from its path")
+    amend_parser.add_argument("--next", dest="next_action", default=None)
+
     checkpoint_parser = commands.add_parser("checkpoint")
     checkpoint_parser.add_argument("destination", type=Path)
     checkpoint_parser.add_argument("candidate", type=Path)
@@ -1126,6 +1221,10 @@ def main() -> int:
             occupant = find_occupying_run(args.run_root, args.worktree)
             print(json.dumps({"occupying_state": str(occupant) if occupant else None}, indent=2))
             return 1 if occupant else 0
+        if args.command == "amend":
+            amend(args.destination, args.reason, args.summary, args.next_action)
+            print(args.destination)
+            return 0
         if args.command == "start":
             destination = _resolve_start_destination(args)
             start(destination, args.kind, args.reference, args.summary, args.declared_status,

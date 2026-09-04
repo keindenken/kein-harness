@@ -32,7 +32,7 @@ Read from this working directory when the skill loaded; `ocs state-dir` answers 
 ## Entry and Resume
 
 1. Resolve the canonical Git worktree and run root, the latter from `ocs state-dir runs/execute`. Resume or explicitly stop any occupying nonterminal run. Distinct worktrees host only genuinely distinct runs: every normalized task remains in this run's serial ledger through acceptance and cannot be extracted to another worktree for concurrency.
-2. On resume, run `reconcile` and follow its exact next action. A transcript or old agent handle never proves completion; fingerprint drift requires inspection and fresh evidence.
+2. On resume, run `reconcile` and follow its exact next action. An input it reports changed is amended with its reason when the change was authorized, and blocked when it was not; a run does not restart because its plan moved. A transcript or old agent handle never proves completion; fingerprint drift requires inspection and fresh evidence.
 3. Apply the executability gate. Approved, Draft, and unapproved plans and bounded briefs are eligible when outcome, scope, ordering, completion conditions, and verification paths require no invented material decision. Otherwise checkpoint `blocked`, and ask the one question that would unblock it when there is one.
 4. Normalize mechanically and open the run with `start` before dispatch. An unexpected Evidence Gate result blocks before dependent production work.
 

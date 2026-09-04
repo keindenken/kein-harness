@@ -266,6 +266,25 @@ with tempfile.TemporaryDirectory() as tmp:
         reason="Finding 1 must use the exact field set; missing ['blocks']")
     write(destination, settled)
 
+    # 6c - the plan moves under the run. An owner ruling or a factual correction lands in the input; the run keeps its ledger and records why the hash moved. Three runs were aborted and reopened on the same tree before this existed.
+    before = current()["input"]["sha256"]
+    if run(work, "amend", str(destination), "--summary", SUMMARY, "--reason", "nothing moved").returncode == 0:
+        failures.append("an amendment with an unchanged input was accepted and must not be")
+    result = run(work, "amend", str(destination), "--summary", SUMMARY + ", amended", "--reason", "owner ruling U-1 moved the acceptance clause")
+    if result.returncode != 0:
+        failures.append(f"an amendment with a reason was refused: {result.stderr.strip()}")
+    else:
+        amended = current()["input"]
+        entries = amended.get("amendments", [])
+        if amended["sha256"] == before or len(entries) != 1 or entries[0]["from"] != before or entries[0]["to"] != amended["sha256"]:
+            failures.append("the amendment did not record the move")
+
+    def silently(state):
+        moved = SUMMARY + ", moved silently"
+        state["input"]["summary"] = moved
+        state["input"]["sha256"] = hashlib.sha256(moved.encode()).hexdigest()
+    refuse("an input change with no amendment recorded", silently, reason="amend --reason")
+
     # 7 - the receipt carries what the run carried, so the reader who inherits the tree inherits the findings.
     def to_final_audit(state):
         # The whole-change audit binds to the run's own round, not the task's.
@@ -287,6 +306,10 @@ with tempfile.TemporaryDirectory() as tmp:
     if run(work, "checkpoint", str(destination), str(candidate)).returncode == 0:
         failures.append("a receipt that dropped the task's carried findings was accepted and must not be")
     receipt["accepted_tasks"][0]["carried_findings"] = carried
+    write(candidate, receipt)
+    if run(work, "checkpoint", str(destination), str(candidate)).returncode == 0:
+        failures.append("a receipt that dropped the input's amendments was accepted and must not be")
+    receipt["input"]["amendments"] = accepted["input"]["amendments"]
     write(candidate, receipt)
     result = run(work, "checkpoint", str(destination), str(candidate))
     if result.returncode != 0:

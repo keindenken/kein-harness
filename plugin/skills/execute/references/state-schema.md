@@ -28,10 +28,13 @@ ocs state execute reconcile <state.json>
 ocs state execute check-worktree <run-root> <worktree>
 ocs state execute start --run-root <runs/execute> --slug <slug> --kind plan --input <path> --worktree <path> --tasks <tasks.json>
 ocs state execute checkpoint <state.json> <candidate.json>
+ocs state execute amend <state.json> --reason <text> [--summary <text>]
 ```
 
 `start` writes a run's first checkpoint from its parts rather than from a hand-authored candidate. It names the run directory — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json`, printed, and what every later checkpoint takes as its positional — reads the canonical root and Git common directory out of `--worktree`, hashes `--input` or `--summary` for the input identity, and opens the ledger from `--tasks`: a JSON array whose entries carry `id`, `title`, `scope`, `completion_condition`, `verification_path` and `rationale` and nothing else. The five remaining fields on each task are a run's opening position and are filled in. Pass a `state.json` path instead of `--run-root` with `--slug` when the directory already exists. Nothing needs creating first; a checkpoint makes its own parent directory.
 
 `checkpoint` promotes a hand-authored candidate and stays the escape hatch for a state nothing else builds.
+
+`amend` moves the run's input identity in place. A plan is edited while its run is live whenever an owner ruling or a factual correction lands in it, and that is a change to the input, not a new run: `amend` re-reads a plan input from its path (or takes `--summary` for a brief), refuses an unchanged input, and appends `{at, reason, from, to}` to `input.amendments`, which the completed receipt carries. A candidate that moves the hash without that entry is still refused, and `reconcile` names `amend` as the exit when it finds the input changed. Amend between tasks; a plan edit is a worktree change like any other, and inside a review round it moves the fingerprint the round was reviewed at.
 
 `checkpoint` validates transitions, input identity, current worktree fingerprint, and single-run exclusivity before an atomic same-directory replace. `reconcile` never promotes partial work; drift requires inspection and fresh verification before selecting a continuation.

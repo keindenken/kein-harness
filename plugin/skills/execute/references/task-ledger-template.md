@@ -11,7 +11,7 @@ Input is executable when:
 
 Formal plan approval is not required. Record the declared plan status when known, but gate on the conditions above.
 
-A factual correction or implementation-detail adjustment may update a task when it stays within the authorized outcome and scope and its rationale is recorded. Append a newly discovered necessary task only with its title, insertion position, scope, rationale, completion condition, and verification path. Otherwise checkpoint `blocked` with the missing decision and its impact.
+A factual correction or implementation-detail adjustment may update a task when it stays within the authorized outcome and scope and its rationale is recorded. Append a newly discovered necessary task only with its title, insertion position, scope, rationale, completion condition, and verification path. When the correction or the ruling lands in the plan itself, `amend` the run with the reason; the input moves and the ledger stays. Otherwise checkpoint `blocked` with the missing decision and its impact.
 
 ## Normalized Task
 
