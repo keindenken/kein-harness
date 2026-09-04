@@ -324,6 +324,22 @@ def _unresolved(findings: Any) -> bool:
     )
 
 
+def _blocking_roles(verdicts: Any) -> frozenset:
+    roles = set()
+    for key in verdicts if isinstance(verdicts, dict) else []:
+        parsed = _parse_lane(key)
+        if parsed is not None and not parsed[2]:
+            roles.add(parsed[0])
+    return frozenset(roles)
+
+
+def _derived_verdict(lane: str, findings: Any) -> str:
+    mine = [item for item in findings if isinstance(item, dict) and item.get("lane") == lane]
+    if any(item.get("blocking") is not None for item in mine):
+        return "BLOCK"
+    return "REVISE" if mine else "PASS"
+
+
 def _verdict_coherence(verdicts: Any, findings: Any) -> List[str]:
     """The lane declares the verdict; this checks the declaration against the lane's own findings.
 
@@ -346,6 +362,9 @@ def _verdict_coherence(verdicts: Any, findings: Any) -> List[str]:
             errors.append(f"{lane} returned REVISE with no finding of its own")
         elif verdict == "PASS" and mine:
             errors.append(f"{lane} returned PASS over its own recorded finding")
+    for index, item in enumerate(findings):
+        if isinstance(item, dict) and item.get("lane") not in verdicts:
+            errors.append(f"Finding {index} is from {item.get('lane')}, which is not in the roster")
     return errors
 
 
@@ -401,12 +420,14 @@ def validate_state(payload: Any) -> List[str]:
                 errors.extend(_validate_verdict(verdicts[lane], lane, digest))
         errors.extend(_validate_findings(payload.get("findings")))
         errors.extend(_validate_closure(payload.get("closure")))
+        if not roster_errors and any(value is not None for value in verdicts.values()):
+            # Keyed on a verdict being recorded, not on `Status`: the run that found this approved under `In Review`, and the incoherent word was only caught at `complete`, when nothing could rewrite it.
+            errors.extend(_verdict_coherence(verdicts, payload.get("findings")))
         if plan.get("status") == "Approved":
             if not _blocking_pass(verdicts, digest):
                 errors.append("Approved requires a fresh verdict on this hash from every blocking lane")
             if _unresolved(payload.get("findings")):
                 errors.append("Approved state cannot retain a blocking finding without a deferral")
-            errors.extend(_verdict_coherence(verdicts, payload.get("findings")))
             # A positive closure check cannot approve -- `_blocking_pass` never reads this field.
             # A negative one blocks, which is the half the contract had no way to record.
             closure = payload.get("closure")
@@ -488,11 +509,30 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             for value in previous_verdicts.values()
         )
         candidate_verdicts = candidate.get("verdicts")
+        opens_round = (
+            previous.get("phase") != "reviewing"
+            and candidate.get("phase") == "reviewing"
+            and isinstance(previous.get("round"), int)
+            and candidate.get("round") == previous.get("round") + 1
+        )
         if isinstance(previous_verdicts, dict) and isinstance(candidate_verdicts, dict):
             if set(previous_verdicts) != set(candidate_verdicts):
-                # Otherwise a lane that returned BLOCK could simply be removed from the roster and the plan approved without it.
-                errors.append("The lane roster is fixed for the run and cannot change between checkpoints")
+                # A role may change vendor when a round opens -- that is what a vendor fallback is -- and may not leave: otherwise a lane that returned BLOCK could simply be removed from the roster and the plan approved without it.
+                if not opens_round:
+                    errors.append("The lane roster can change only when a round opens")
+                gone = _blocking_roles(previous_verdicts) - _blocking_roles(candidate_verdicts)
+                if gone:
+                    errors.append(f"A blocking role cannot leave the roster: {', '.join(sorted(gone))}")
         previous_has_blocker = previous_has_block or bool(previous.get("findings"))
+        # An approval already stamped on this round and hash may be restated: the verdict words and the findings it stands over are replaced together, and the coherence and deferral rules bind the restatement as they bound the first.
+        approval_standing = (
+            previous.get("phase") == "reviewing"
+            and candidate.get("phase") == "reviewing"
+            and previous.get("round") == candidate.get("round")
+            and previous_plan.get("review_sha256") == candidate_plan.get("review_sha256")
+            and isinstance(previous_verdicts, dict)
+            and any(value is not None for value in previous_verdicts.values())
+        )
         # Keyed on `phase` and not on `Status`. What must not happen is a plan reaching reviewers
         # while a finding against it is unresolved, and `phase` is the field that says whether
         # reviewers are reading. Keying it on `Status` also fixed the meaning of that field to
@@ -503,7 +543,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             # A verdict is a statement about a round under review. Recorded anywhere else it is a
             # `PASS` with no gate behind it, which `Status` being free text can no longer catch.
             errors.append("Verdicts can only be recorded in a reviewing phase")
-        if previous_has_blocker and candidate.get("phase") == "reviewing":
+        if previous_has_blocker and candidate.get("phase") == "reviewing" and not approval_standing:
             errors.append(
                 "A recorded BLOCK or uncleared finding cannot enter a reviewing phase"
             )
@@ -526,7 +566,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                     "Entering a reviewing phase must advance to a fresh round with empty verdicts"
                 )
         if candidate_status == "Approved":
-            if previous_has_blocker:
+            if previous_has_blocker and not approval_standing:
                 # Findings reach approval only through `approve --findings`, which writes them in the same transition that stamps the verdicts. Ones already standing were never answered.
                 errors.append(
                     "Approval cannot overwrite a recorded BLOCK or uncleared finding"
@@ -733,14 +773,14 @@ def start(destination: Path, plan: Path, summary: str, lanes: List[str],
     _commit(destination, candidate)
 
 
-def open_round(destination: Path, next_action: Optional[str]) -> None:
+def open_round(destination: Path, lanes: Optional[List[str]], next_action: Optional[str]) -> None:
     state = _load_json(destination)
     upcoming = state.get("round", 0) + 1 if isinstance(state.get("round"), int) else 1
 
     def mutate(candidate: Dict[str, Any]) -> None:
         candidate["phase"] = "reviewing"
         candidate["round"] = upcoming
-        candidate["verdicts"] = {lane: None for lane in candidate["verdicts"]}
+        candidate["verdicts"] = {lane: None for lane in (lanes or candidate["verdicts"])}
         candidate["findings"] = []
 
     _advance(destination, mutate, next_action, f"await round {upcoming} lane verdicts")
@@ -788,6 +828,9 @@ def approve(destination: Path, overrides: Dict[str, str], findings_path: Optiona
 
     `--findings` carries what the approved plan is standing over: a lane's `REVISE` items, and any `BLOCK` item the lead is deferring.
     Validation refuses a blocking ground with no deferral beside it, so the escape hatch costs a written reason and a named catcher rather than a silent word.
+
+    The verdict word is arithmetic over those findings -- `BLOCK` over a ground, `REVISE` over findings, `PASS` over none -- so it is derived here rather than defaulted. The first run to carry findings into an approval got `PASS` stamped over them by the old default and had no transition left that could say `REVISE`.
+    `--verdict` still overrides one lane, and the override is checked against the same findings in the same commit.
     """
     state = _load_json(destination)
     if state.get("phase") != "reviewing" or not isinstance(state.get("round"), int) or state["round"] < 1:
@@ -803,7 +846,7 @@ def approve(destination: Path, overrides: Dict[str, str], findings_path: Optiona
                 continue
             candidate["verdicts"][lane] = {
                 "lane": lane,
-                "verdict": overrides.get(lane, "PASS"),
+                "verdict": overrides.get(lane, _derived_verdict(lane, findings)),
                 "plan_sha256": digest,
                 "reviewed_at": stamped,
             }
@@ -900,6 +943,7 @@ def main() -> int:
 
     open_parser = subparsers.add_parser("open", help="open the next official round")
     open_parser.add_argument("destination", type=Path)
+    open_parser.add_argument("--lanes", default=None, help="a new roster for this round; a blocking role may change vendor here and may not leave")
     open_parser.add_argument("--next", dest="next_action", default=None)
 
     block_parser = subparsers.add_parser("block", help="record the round's consolidated findings and return to Planner")
@@ -918,7 +962,7 @@ def main() -> int:
     approve_parser.add_argument("--findings", type=Path, default=None,
                                 help="JSON array of the findings the approved plan stands over")
     approve_parser.add_argument("--verdict", action="append", default=[], metavar="LANE=VERDICT",
-                                help="override one lane; repeatable. Advisory lanes stay unset unless named here")
+                                help="override one lane; repeatable. Blocking lanes are otherwise derived from --findings; advisory lanes stay unset unless named here")
     approve_parser.add_argument("--next", dest="next_action", default=None)
 
     complete_parser = subparsers.add_parser("complete", help="compact an approved run to its receipt")
@@ -941,7 +985,7 @@ def main() -> int:
                       args.next_action)
                 print(destination)
             elif args.command == "open":
-                open_round(args.destination, args.next_action)
+                open_round(args.destination, args.lanes.split(",") if args.lanes else None, args.next_action)
             elif args.command == "block":
                 block(args.destination, args.findings, args.next_action)
             elif args.command == "revised":

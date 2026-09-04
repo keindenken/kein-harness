@@ -52,6 +52,7 @@ A codex lane is structurally fresh.
 `ocs ask` runs `codex exec --ephemeral`, so there is no session to continue and no history to clear, and the blindness requirement is met without the lead doing anything to secure it.
 
 Start a codex lane first and the native lanes alongside it.
+A codex lane that fails is moved, not restarted: `open --lanes` at the next round puts the role on another vendor and the run keeps its rounds.
 `--trace` puts a codex verdict on disk whether or not the lead is waiting when it lands, so the two kinds of lane overlap without either being waited on.
 
 ## Recording

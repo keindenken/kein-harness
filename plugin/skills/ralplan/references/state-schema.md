@@ -36,7 +36,7 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
 
 `input.summary` is required and is what reaches every lane in the review package; `input.reference` is optional and names the file `reconcile` re-hashes on resume. Name a file that already held the requirements — one written for the run records only that the lead's own text has not changed, and the lead is the one agent here no lane reviews.
 
-The keys of `verdicts` are the run's lane roster, written once and fixed for the run: a lane that returned `BLOCK` cannot be dropped and the plan approved without it. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
+The keys of `verdicts` are the run's lane roster. It changes only when a round opens, through `open --lanes`, and a blocking role may change vendor there and may not leave: a lane that returned `BLOCK` cannot be dropped and the plan approved without it, and a codex lane that failed moves to another vendor at the next round instead of costing a new run. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
 
 Each verdict contains only `lane`, `verdict`, `plan_sha256`, and `reviewed_at`, with the verdict one of `PASS`, `REVISE`, `BLOCK`. Each persisted finding contains `lane`, `claim`, `evidence`, `impact`, `required_correction`, and `blocking` — the last being `null` or one of `scope`, `architecture`, `acceptance semantics`, `safety`, `evidence gate paths` — plus `deferral` when and only when the lead is approving over it, itself exactly `reason` and `caught_by`. Each closure entry contains only `lane`, `finding`, `disposition`, and `evidence`, with the disposition one of `CLOSED`, `PARTIAL`, `NOT CLOSED`, `REWORDED-ONLY`.
 
@@ -93,7 +93,7 @@ One subcommand per transition. Each reads the saved state and the plan file, bui
 
 ```sh
 ocs state ralplan start   --run-root <runs/ralplan> --slug <slug> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>]
-ocs state ralplan open    <state.json>                    # the next official round
+ocs state ralplan open    <state.json> [--lanes <roster>] # the next official round; a blocking role may change vendor here
 ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
 ocs state ralplan revised <state.json> [--closure <file>] # Planner's revision landed
 ocs state ralplan approve <state.json> [--findings <file>] # every blocking lane answered this hash
@@ -103,7 +103,7 @@ ocs state ralplan abort   <state.json> --reason <text>
 
 `start` names the run directory itself — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json` — and prints the path it wrote, which is what every later command takes as its positional. Pass that path to `start` instead when a run directory already exists. Nothing needs creating first: a checkpoint makes its own parent directory.
 
-`--next` overrides `next_action` on any of them; each carries a default. `--verdict <lane>=<verdict>` on `approve` names an advisory lane, which is otherwise left unset.
+`--next` overrides `next_action` on any of them; each carries a default. `approve` derives each blocking lane's verdict from the findings it is handed — `BLOCK` over a ground, `REVISE` over findings, `PASS` over none — and checks the word against those findings in the same commit, whatever the artifact's `Status` says. `--verdict <lane>=<verdict>` overrides one lane, and is the only way to set an advisory lane, which is otherwise left unset. A second `approve` on the same round and review hash restates the approval: words and findings are replaced together, and the findings cannot be dropped.
 
 `--findings` takes a JSON array of findings, or an object carrying one under `findings`. It is the only content a transition cannot derive, and it is the round's review record rather than scratch — keep it beside the run.
 
