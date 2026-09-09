@@ -44,7 +44,7 @@ Read from this working directory when the skill loaded; `ocs state-dir` answers 
 4. Select at least one independent reviewer by risk and evidence question. Complementary read-only lanes may run concurrently when their dispatches share one message. Wait for all selected lanes, then issue one consolidated correction brief containing every `BLOCK` finding.
 5. On `BLOCK`, choose the original or a fresh Executor, start a correction round, clear stale evidence, correct, and verify again.
 6. After correction, dispatch at least one newly spawned blind reviewer over the complete current result. Exclude earlier findings, verdicts, identities, correction notes, claimed fixes, closure results, and desired outcomes. A previous reviewer cannot approve the correction; its separate closure check can block but cannot approve.
-7. Accept only when current-round verification and a fresh independent `PASS` or `REVISE` bind to the same task, round, and fingerprint. A `REVISE` lane's findings are dispositioned at acceptance — promoted to an appended task, or carried on this one with a reason where the review contract requires it — and then written into the checkpoint with the acceptance. Then advance serially.
+7. Accept only when current-round verification and a fresh independent `PASS` or `REVISE` bind to the same task, round, and fingerprint. A `REVISE` lane's findings are dispositioned at acceptance — fixed before it with the verification path re-run and no fresh lane, promoted to an appended task, or carried on this one with a reason where the review contract requires it — and then written into the checkpoint with the acceptance. Then advance serially.
 
 ## Finalization
 

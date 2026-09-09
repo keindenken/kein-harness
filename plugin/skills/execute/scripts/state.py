@@ -81,9 +81,11 @@ FINDING_FIELDS = frozenset({
 FINDING_OPTIONAL = frozenset({"carried_because"})
 BLOCKS_PREFIXES = ("regression: ", "instruction: ")
 ACCEPTANCE_FIELDS = frozenset({"round", "worktree_fingerprint", "reviewers"})
+ACCEPTANCE_OPTIONAL = frozenset({"fixed"})
 COMPLETED_INPUT_FIELDS = frozenset({"reference", "sha256"})
 COMPLETED_WORKTREE_FIELDS = frozenset({"root", "final_fingerprint"})
 ACCEPTED_TASK_FIELDS = frozenset({"id", "title", "completion_condition", "carried_findings"})
+ACCEPTED_TASK_OPTIONAL = frozenset({"fixed_findings"})
 
 
 def _git_bytes(path: Path, args: List[str]) -> bytes:
@@ -397,8 +399,8 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
                                      inherited if task.get("status") != "accepted" else frozenset()))
     acceptance = task.get("acceptance")
     if acceptance is not None:
-        if not isinstance(acceptance, dict) or set(acceptance) != ACCEPTANCE_FIELDS:
-            errors.append("Task acceptance must use the exact field set")
+        if not isinstance(acceptance, dict) or set(acceptance) - ACCEPTANCE_OPTIONAL != ACCEPTANCE_FIELDS:
+            errors.append(_field_set_error("Task acceptance must use the exact field set", acceptance, ACCEPTANCE_FIELDS, ACCEPTANCE_OPTIONAL))
         else:
             acceptance_fingerprint = acceptance.get("worktree_fingerprint", "")
             if not _valid_hash(acceptance_fingerprint):
@@ -407,8 +409,29 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
             if not isinstance(reviewers, list):
                 errors.append("Task acceptance reviewers must be a list")
                 reviewers = []
+            # The third disposition. A non-blocking finding may be fixed before acceptance: the executor corrects within its required_correction, the task's verification path is re-run on the corrected tree, and the lead reads that diff. No fresh lane -- the review that found it already happened, the finding does not touch whether the task is done, and the final audit reads the whole change again. So the verdicts stand at the fingerprint they reviewed, and the acceptance stands at the corrected one.
+            fixed = acceptance.get("fixed")
+            if fixed is None:
+                fixed = []
+            elif not isinstance(fixed, list):
+                errors.append("Task acceptance fixed must be a list of findings")
+                fixed = []
+            else:
+                errors.extend(_validate_findings(fixed, task.get("completion_condition") if isinstance(task.get("completion_condition"), str) else None))
+                if _blocking(fixed):
+                    errors.append("A finding that cites the completion condition cannot be fixed under the same review; it needs a correction round")
+                if any(isinstance(f, dict) and f.get("carried_because") for f in fixed):
+                    errors.append("A fixed finding carries no carried_because")
+            reviewed = {r.get("worktree_fingerprint") for r in reviewers if isinstance(r, dict)}
+            reviewed_fingerprint = next(iter(reviewed)) if len(reviewed) == 1 else acceptance_fingerprint
+            if len(reviewed) > 1:
+                errors.append("Task acceptance reviewers must all have read one fingerprint")
+            if fixed and reviewed_fingerprint == acceptance_fingerprint:
+                errors.append("Task acceptance records fixed findings but the tree the reviewers read is the tree accepted; nothing was fixed")
+            if not fixed:
+                reviewed_fingerprint = acceptance_fingerprint
             for reviewer in reviewers:
-                errors.extend(_validate_verdict(reviewer, task.get("id", ""), task.get("round", -1), acceptance_fingerprint))
+                errors.extend(_validate_verdict(reviewer, task.get("id", ""), task.get("round", -1), reviewed_fingerprint))
             current_verification = any(
                 isinstance(item, dict) and item.get("exit_code") == 0
                 and item.get("round") == task.get("round")
@@ -422,7 +445,7 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
                 isinstance(item, dict) and item.get("verdict") in {"PASS", "REVISE"}
                 and item.get("fresh") is True and item.get("independent") is True
                 and item.get("round") == task.get("round")
-                and item.get("worktree_fingerprint") == acceptance_fingerprint
+                and item.get("worktree_fingerprint") == reviewed_fingerprint
                 for item in reviewers
             )
             if not current_pass:
@@ -431,18 +454,19 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
                 errors.append("Accepted task cannot retain a current BLOCK verdict")
             if acceptance.get("round") != task.get("round"):
                 errors.append("Task acceptance does not match the current round")
-            errors.extend(_verdict_coherence(reviewers, findings))
+            errors.extend(_verdict_coherence(reviewers, (findings if isinstance(findings, list) else []) + fixed))
     if task.get("status") == "accepted" and acceptance is None:
         errors.append("Accepted task requires acceptance facts")
     if task.get("status") == "accepted":
         if _blocking(findings):
             errors.append("Accepted task cannot retain a finding that blocks its completion condition")
+        # Carrying is the disposition that costs the least now and the most later, so it is the one that owes a reason once the finding is above minor. The severity the role assigned finally has a consumer: it prices the carry, and it never gates the acceptance.
         if isinstance(findings, list) and any(
-            isinstance(f, dict) and f.get("severity") == "critical" and f.get("blocks") is None
+            isinstance(f, dict) and f.get("severity") in {"critical", "important"} and f.get("blocks") is None
             and not f.get("carried_because")
             for f in findings
         ):
-            errors.append("Accepted task carrying a critical finding must record carried_because or promote it to a task")
+            errors.append("Accepted task carrying an important or critical finding must record carried_because, fix it before acceptance, or promote it to a task")
     if task.get("status") != "accepted" and acceptance is not None:
         errors.append("Only an accepted task may retain acceptance facts")
     return errors
@@ -632,7 +656,7 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         else:
             accepted_ids = []
             for task in accepted_tasks:
-                if not isinstance(task, dict) or set(task) != ACCEPTED_TASK_FIELDS:
+                if not isinstance(task, dict) or set(task) - ACCEPTED_TASK_OPTIONAL != ACCEPTED_TASK_FIELDS:
                     errors.append("Accepted task summary must use the exact compact field set")
                     continue
                 accepted_ids.append(task.get("id"))
@@ -640,6 +664,8 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
                     if not isinstance(task.get(key), str) or not task[key].strip():
                         errors.append(f"Accepted task summary requires non-empty {key}")
                 errors.extend(_validate_findings(task.get("carried_findings"), task.get("completion_condition")))
+                if task.get("fixed_findings") is not None:
+                    errors.extend(_validate_findings(task.get("fixed_findings"), task.get("completion_condition")))
                 if _blocking(task.get("carried_findings")):
                     errors.append("Accepted task summary cannot carry a blocking finding")
             if len(accepted_ids) != len(set(accepted_ids)):
@@ -788,7 +814,8 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Completion requires checkpointed final audit PASS")
         expected_tasks = [
             {**{key: task.get(key) for key in ACCEPTED_TASK_FIELDS - {"carried_findings"}},
-             "carried_findings": task.get("unresolved_findings", [])}
+             "carried_findings": task.get("unresolved_findings", []),
+             **({"fixed_findings": task["acceptance"]["fixed"]} if isinstance(task.get("acceptance"), dict) and task["acceptance"].get("fixed") else {})}
             for task in previous.get("tasks", [])
         ]
         if candidate.get("accepted_tasks") != expected_tasks:

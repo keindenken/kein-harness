@@ -45,10 +45,11 @@ Consolidate the `BLOCK` findings into one correction brief. After correction, re
 
 ## What acceptance carries
 
-A task accepts over the findings a `REVISE` lane returned. Each is dispositioned once, at acceptance, and the disposition is one of two:
+A task accepts over the findings a `REVISE` lane returned. Each is dispositioned once, at acceptance, and the disposition is one of three:
 
+- **Fix it.** The executor corrects it within its `required_correction`, the task's verification path is re-run on the corrected tree, and the lead reads that diff. No fresh lane: the review that found it already happened, the finding never touched whether the task is done, and the final audit reads the whole change again. The acceptance records it under `fixed`, and it stands at the corrected fingerprint while the verdicts stand at the one they reviewed. A finding that cites the completion condition cannot take this route; that is a correction round.
 - **Promote it.** Append a task whose rationale names the finding, and remove the finding from the task. The ledger already accepts an appended task at round zero; this is the existing mechanism, pointed at its intended input.
-- **Carry it.** Leave it on the task; it projects into the receipt as `carried_findings`, which is the residual risk the final report names. A `critical` carried this way must record `carried_because` — the state refuses acceptance without it — so a promotion that did not happen is a written decision rather than a silence.
+- **Carry it.** Leave it on the task; it projects into the receipt as `carried_findings`, which is the residual risk the final report names. Carrying costs the least now and the most later, so an `important` or `critical` carried this way must record `carried_because` — the state refuses acceptance without it — and a promotion that did not happen is a written decision rather than a silence. Severity prices the carry; it never gates the acceptance.
 
 Nothing else is a disposition. A finding cannot be answered by deleting it from the list, because the receipt projects the list and a fresh audit reads the receipt.
 

@@ -234,8 +234,13 @@ with tempfile.TemporaryDirectory() as tmp:
     refuse("a carried critical with no reason for not becoming a task", to_status("accepted",
         unresolved_findings=[finding("code-reviewer", "critical", None)],
         acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
-        reason="carried_because or promote it")
+        reason="carried_because")
+    refuse("a carried important with no reason either", to_status("accepted",
+        unresolved_findings=[finding("code-reviewer", "important", None)],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
+        reason="carried_because")
     carried = [finding("code-reviewer", "minor", None),
+               finding("code-reviewer", "important", None, carried_because="a wording defect in a docblock the next task rewrites"),
                finding("code-reviewer", "critical", None, carried_because="outside this task's scope; task-002 appended for it")]
     must("acceptance carrying a REVISE lane's findings", to_status("accepted",
         unresolved_findings=carried,
@@ -264,6 +269,37 @@ with tempfile.TemporaryDirectory() as tmp:
         reason="missing ['blocks']")
     refuse("a new finding in the older shape", correcting([legacy, {**legacy, "claim": "a second claim"}]),
         reason="Finding 1 must use the exact field set; missing ['blocks']")
+    write(destination, settled)
+
+    # 6d - the third disposition: fix it before acceptance. The reviewers read one tree, the executor corrected a non-blocking finding within its required_correction, the task's verification path re-ran on the corrected tree, and acceptance stands there with the finding recorded as fixed. No fresh lane: the finding never touched whether the task is done, and the final audit reads the whole change again.
+    reviewing = current()
+    reviewing["phase"] = "task"
+    task(reviewing).update({"status": "reviewing", "round": 1, "acceptance": None, "unresolved_findings": []})
+    write(destination, reviewing)
+    reviewed_at = reviewing["worktree"]["observed"]["fingerprint"]
+    fixed_minor = finding("code-reviewer", "minor", None)
+
+    def reviewed(word):
+        return dict(verdict("code-reviewer", word), worktree_fingerprint=reviewed_at)
+
+    refuse("fixed findings recorded with nothing changed", to_status("accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")], "fixed": [fixed_minor]}),
+        reason="nothing was fixed")
+    (work / "file.txt").write_text("two, corrected\n")
+    refuse("acceptance on a moved tree with no fixed finding", to_status("accepted",
+        latest_verification=[verification],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [reviewed("REVISE")]}),
+        reason="fingerprint does not match")
+    refuse("a fix over a finding that cites the completion condition", to_status("accepted",
+        latest_verification=[verification],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [reviewed("BLOCK")], "fixed": [finding("code-reviewer", "minor", "does the thing")]}),
+        reason="correction round")
+    must("acceptance over a fix the gates re-ran", to_status("accepted",
+        latest_verification=[verification],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [reviewed("REVISE")], "fixed": [fixed_minor]}))
+    if current()["tasks"][0]["acceptance"].get("fixed") != [fixed_minor]:
+        failures.append("the acceptance did not record the fixed finding")
+    (work / "file.txt").write_text("two\n")
     write(destination, settled)
 
     # 6c - the plan moves under the run. An owner ruling or a factual correction lands in the input; the run keeps its ledger and records why the hash moved. Three runs were aborted and reopened on the same tree before this existed.
