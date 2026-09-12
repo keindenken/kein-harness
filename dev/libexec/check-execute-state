@@ -54,6 +54,10 @@ def state_for(work, revision, phase="task", next_action="dispatch task-001"):
     }
 
 
+def _load_json(path):
+    return json.loads(path.read_text())
+
+
 def write(path, payload):
     path.write_text(json.dumps(payload, indent=2))
 
@@ -351,8 +355,54 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"the receipt carrying the findings was refused: {result.stderr.strip()}")
 
+    # 7 - split-check measures scopes as the ledger wrote them: a directory covers what is under it, a
+    # pending task still to be done here counts, an accepted one does not, and a task already active
+    # cannot be sent out. It reports; it does not decide.
+    split_root = work / ".agents" / "kein" / "runs" / "execute" / "260101-000001-split"
+    split_root.mkdir(parents=True)
+    split_tasks = candidate.parent / "split-tasks.json"
+    write(split_tasks, [
+        {"id": "task-001", "title": "a", "scope": ["src/a.py"], "completion_condition": "a", "verification_path": ["check a"], "rationale": "fixture"},
+        {"id": "task-002", "title": "b", "scope": ["src/b/"], "completion_condition": "b", "verification_path": ["check b"], "rationale": "fixture"},
+        {"id": "task-003", "title": "c", "scope": ["src/b/x.py"], "completion_condition": "c", "verification_path": ["check c"], "rationale": "fixture"},
+        {"id": "task-004", "title": "d", "scope": ["docs/"], "completion_condition": "d", "verification_path": ["check d"], "rationale": "fixture"},
+        {"id": "task-005", "title": "e", "scope": ["src/bx.py"], "completion_condition": "e", "verification_path": ["check e"], "rationale": "fixture"},
+    ])
+    split_state = split_root / "state.json"
+    result = run(work, "start", str(split_state), "--kind", "brief", "--summary", "split fixture", "--worktree", str(work), "--tasks", str(split_tasks))
+    if result.returncode != 0:
+        failures.append(f"the split fixture run did not start: {result.stderr.strip()}")
+    else:
+        result = run(work, "split-check", str(split_state), "task-004", "task-005")
+        if result.returncode != 0 or not json.loads(result.stdout)["disjoint"]:
+            failures.append("two tasks whose scopes meet nothing were reported as colliding")
+        result = run(work, "split-check", str(split_state), "task-002", "task-004")
+        report = json.loads(result.stdout) if result.stdout else {}
+        if result.returncode == 0 or not any(o["tasks"] == ["task-002", "task-003"] and "src/b/ ~ src/b/x.py" in o["paths"] for o in report.get("overlaps", [])):
+            failures.append("a directory scope over a remaining task's file was not reported as a collision")
+        if any("task-005" in o["tasks"] for o in report.get("overlaps", [])):
+            failures.append("`src/b/` was read as covering `src/bx.py`, which it does not")
+        result = run(work, "split-check", str(split_state), "task-001", "task-001")
+        if result.returncode == 0:
+            failures.append("naming a task twice was accepted")
+        result = run(work, "split-check", str(split_state), "task-009")
+        if result.returncode == 0:
+            failures.append("an unknown task id was accepted")
+        # Dispatch task-001, then it is no longer a task that can go out; and once accepted its scope no longer counts.
+        active = _load_json(split_state)
+        active["revision"] = "auto"; active["worktree"]["observed"] = "auto"
+        active["tasks"][0]["status"] = "implementing"; active["tasks"][0]["round"] = 1; active["current_round"] = 1
+        active["next_action"] = "implement task-001"
+        write(candidate, active)
+        result = run(work, "checkpoint", str(split_state), str(candidate))
+        if result.returncode != 0:
+            failures.append(f"the split fixture could not dispatch its first task: {result.stderr.strip()}")
+        result = run(work, "split-check", str(split_state), "task-001")
+        if result.returncode == 0:
+            failures.append("an active task was allowed out of the ledger")
+
 if failures:
     for failure in failures:
         print(f"check-execute-state: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites")
+print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and split-check reads scopes as written")

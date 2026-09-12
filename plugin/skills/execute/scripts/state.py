@@ -172,6 +172,66 @@ def worktree_fingerprint(path: Path) -> Dict[str, str]:
     return components
 
 
+def _scope_parts(entry: str) -> Tuple[str, ...]:
+    return tuple(part for part in entry.strip().replace("\\", "/").split("/") if part not in ("", "."))
+
+
+def _scopes_collide(left: str, right: str) -> bool:
+    """Two scope entries name the same place when one is the other or contains it.
+
+    Scope is a list of paths a task may write, and a task that names a directory names everything under it,
+    so `src/b/` and `src/b/x.py` collide while `src/b/` and `src/bx.py` do not. Nothing here reads the
+    filesystem: this measures what the ledger says, which is what the lead wrote and can be held to.
+    """
+    a, b = _scope_parts(left), _scope_parts(right)
+    if not a or not b:
+        return False
+    shorter, longer = (a, b) if len(a) <= len(b) else (b, a)
+    return longer[:len(shorter)] == shorter
+
+
+def split_check(payload: Dict[str, Any], task_ids: List[str]) -> Dict[str, Any]:
+    """Whether the named tasks could be authored somewhere else, measured on the ledger's own scopes.
+
+    The ledger is serial in its worktree, and a task can leave neither the ledger nor its place in it.
+    What a lead can do is author a task in another worktree, as its own run, and bring the result back
+    when the task's turn comes. Whether that is safe is a question about scopes: the tasks going out must
+    not write where each other writes, nor where any task still to be done here writes. Accepted tasks are
+    already in the tree the side worktree branches from, so they are not counted.
+
+    This answers the question and nothing more. It does not say a split is a good idea; a run with two
+    disjoint tasks and one machine-global test port has a reason not to split that no scope list shows.
+    """
+    tasks = {task["id"]: task for task in payload.get("tasks", []) if isinstance(task, dict) and "id" in task}
+    unknown = [task_id for task_id in task_ids if task_id not in tasks]
+    if unknown:
+        raise ValueError(f"no such task: {', '.join(unknown)}")
+    if len(set(task_ids)) != len(task_ids):
+        raise ValueError("a task is named twice")
+    for task_id in task_ids:
+        if tasks[task_id].get("status") != "pending":
+            raise ValueError(f"{task_id} is {tasks[task_id].get('status')}; only a pending task can be authored elsewhere")
+    remaining = [task_id for task_id, task in tasks.items() if task_id not in task_ids and task.get("status") != "accepted"]
+    overlaps: List[Dict[str, Any]] = []
+    def compare(left_id: str, right_id: str) -> None:
+        shared = sorted({f"{l} ~ {r}" if l != r else l
+                         for l in tasks[left_id].get("scope", []) for r in tasks[right_id].get("scope", [])
+                         if isinstance(l, str) and isinstance(r, str) and _scopes_collide(l, r)})
+        if shared:
+            overlaps.append({"tasks": [left_id, right_id], "paths": shared})
+    for index, left_id in enumerate(task_ids):
+        for right_id in task_ids[index + 1:]:
+            compare(left_id, right_id)
+        for right_id in remaining:
+            compare(left_id, right_id)
+    return {
+        "split": task_ids,
+        "stays": remaining,
+        "disjoint": not overlaps,
+        "overlaps": overlaps,
+    }
+
+
 def _valid_hash(value: Any) -> bool:
     return isinstance(value, str) and len(value) == 64 and all(character in HEX_64 for character in value)
 
@@ -1206,6 +1266,9 @@ def main() -> int:
     worktree_parser = commands.add_parser("check-worktree")
     worktree_parser.add_argument("run_root", type=Path)
     worktree_parser.add_argument("worktree", type=Path)
+    split_parser = commands.add_parser("split-check", help="whether the named pending tasks write where each other or the remaining tasks write; measured on the ledger's scopes")
+    split_parser.add_argument("state", type=Path)
+    split_parser.add_argument("task_ids", nargs="+", metavar="task-id")
     start_parser = commands.add_parser("start", help="first checkpoint of a run; builds the state from its parts")
     start_parser.add_argument("destination", type=Path, nargs="?",
                               help="state.json path; omit and pass --run-root with --slug to have one named for you")
@@ -1244,6 +1307,14 @@ def main() -> int:
             result = reconcile(args.state)
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["valid"] and result["input_matches"] and result["worktree_matches"] else 1
+        if args.command == "split-check":
+            payload = _load(args.state)
+            errors = validate_state(payload, args.state, _legacy_findings(payload))
+            if errors:
+                raise ValueError("; ".join(errors))
+            result = split_check(payload, args.task_ids)
+            print(json.dumps(result, indent=2))
+            return 0 if result["disjoint"] else 1
         if args.command == "check-worktree":
             occupant = find_occupying_run(args.run_root, args.worktree)
             print(json.dumps({"occupying_state": str(occupant) if occupant else None}, indent=2))
