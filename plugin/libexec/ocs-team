@@ -29,6 +29,11 @@ DEFAULT_EFFORT='medium'
 SANDBOX='workspace-write'
 SANDBOX_CONFIG='sandbox_workspace_write.network_access=true'
 
+# The interactive TUI opens with an update prompt as soon as a newer release exists, and Orca refuses to attach a dispatch to a terminal showing one (`Agent startup blocked: codex-update-prompt`).
+# The first launch after a release still works, because that launch is the one that discovers the release and caches it in the home's `version.json`; every launch after it reads the cache and prompts. Measured 2026-09-12: one lane ran, the next four died at 0s.
+# Pinned on the command line rather than trusted to the operator's `config.toml`, where the same key had been sitting under a `[projects.*]` table since 2026-09-02, inert.
+UPDATE_CHECK='check_for_update_on_startup=false'
+
 # `workspace-write` does not cover dot-directories under the workspace, which is where the state root lives.
 # Measured: `touch .agents/...` exits 10 under the sandbox while a file at the repository root exits 0, so a worker completes its work and then cannot write the report it was asked for.
 # Naming the state root as a writable root is narrower than widening the sandbox mode, and it is the only extra path the worker is granted.
@@ -294,7 +299,7 @@ plugin_flags=''
 for override in $(codex_plugin_overrides "$codex_home"); do
   plugin_flags="$plugin_flags -c '$override'"
 done
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags -c developer_instructions=\"\$(cat '$role_file')\""
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags -c developer_instructions=\"\$(cat '$role_file')\""
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):
@@ -384,7 +389,14 @@ if [ -z "$handle" ]; then
   exit 1
 fi
 
-orca terminal wait --terminal "$handle" --for tui-idle --timeout-ms 120000 --json >/dev/null 2>&1 || true
+# The wait answers in its JSON, not its exit code: a TUI Orca will not attach to comes back `ok` with `satisfied=false` and the reason named.
+# Refusing here is what turns "failed after 0s" into the reason, and leaves the screen up for the caller to read instead of a dispatch that never bound to a process.
+blocked=$(orca terminal wait --terminal "$handle" --for tui-idle --timeout-ms 120000 --json 2>/dev/null | json_field wait.blockedReason)
+if [ -n "$blocked" ]; then
+  printf 'ocs team: the worker terminal never became ready (%s), so no dispatch was attached.\n' "$blocked" >&2
+  printf '  terminal=%s left open: read it with orca terminal read --terminal %s, then orca terminal close --terminal %s\n' "$handle" "$handle" "$handle" >&2
+  exit 1
+fi
 
 dispatch=$(orca orchestration worker-start --task "$task_id" --terminal "$handle" --json 2>/dev/null | json_field dispatchId)
 if [ -z "$dispatch" ]; then
@@ -405,7 +417,8 @@ elapsed=0
 status=''
 said_unsignalled=0
 while [ "$elapsed" -lt "$timeout" ]; do
-  status=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null | json_field dispatch.status)
+  shown=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null)
+  status=$(printf '%s' "$shown" | json_field dispatch.status)
   case "$status" in
     completed|failed) break ;;
   esac
@@ -427,8 +440,11 @@ if [ "$status" != "completed" ]; then
   # Written to the run record as well as stderr. A backgrounded caller sees no stderr until the
   # command returns, which on this path is the whole timeout, so the file is the copy that is there
   # when someone finally looks.
+  # Orca names why a dispatch failed on the dispatch itself; `worker-read` on one that never bound to a process answers `worker_identity_changed` instead, which is where the first reader of this failure went.
+  last_failure=$(printf '%s' "${shown:-}" | json_field dispatch.lastFailure 2>/dev/null)
   {
     printf 'ocs team: worker did not complete (status=%s after %ss)\n' "$status" "$elapsed"
+    [ -z "$last_failure" ] || printf '  orca: %s\n' "$last_failure"
     printf '  terminal=%s is now yours to close: orca terminal close --terminal %s\n' "$handle" "$handle"
     printf '  dispatch=%s -- inspect: orca orchestration worker-read --dispatch %s --json\n' "$dispatch" "$dispatch"
   } | tee -a "$dir/command.txt" >&2
