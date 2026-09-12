@@ -6,6 +6,8 @@ Choose lanes by the current evidence question. `kein:architect` normally evaluat
 
 This is neither a fixed reviewer matrix nor a fixed reviewer count. Every implementation or correction round requires at least one independent reviewer; complementary read-only lanes may run concurrently.
 
+When the task's completion condition or verification path names a test or a gate, one of the round's lanes is `kein:test-engineer`, reading only, and its question is whether each named test can go RED against the defect it is there for. A lane that reads the code answers a different question, and two of them answer it twice; the holes that survived a review were oracles nobody read.
+
 ## Official Package
 
 Supply the original bounded task, completion condition, repository instructions, relevant current code or diff, current fresh verification, selected rubric, task ID, round, and exact worktree fingerprint.

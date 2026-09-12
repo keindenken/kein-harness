@@ -48,6 +48,6 @@ Read from this working directory when the skill loaded; `ocs state-dir` answers 
 
 ## Finalization
 
-1. After all tasks pass, run `kein:code-simplifier` only for a concrete avoidable-complexity candidate and immediately before final audit. Any simplifier write requires regression verification.
+1. After all tasks pass and before final audit, `kein:code-simplifier` is there for a behaviour-preserving pass over the changed code, where the tasks left something the final reviewers would otherwise have to read past. Any simplifier write requires regression verification.
 2. Dispatch fresh final reviewers over the complete post-simplification tree and final evidence. Any later mutation invalidates final approval; repeat the affected verification and final audit or restore and verify the audited tree.
 3. Collapse state to a compact receipt and report accepted tasks, changed locations, final evidence, and residual risk. Do not create another durable report by default.

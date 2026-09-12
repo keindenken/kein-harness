@@ -46,7 +46,7 @@ ocs ask codex --agent <role> --trace --task-file <the lane package>
 
 Write the package to a file and name it; `-` reads standard input. A review package is a document rather than a shell word.
 
-The mechanism is not a choice to make. `ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every reviewer role the contract offers, and it resolves the model from the role's tier so a lane does not inherit the operator's own default.
+The mechanism is not a choice to make. `ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every reviewer role the contract offers except `kein:test-engineer` and `kein:qa-tester`, which review as native lanes whatever the roster says, and it resolves the model from the role's tier so a lane does not inherit the operator's own default.
 
 `--trace` is required rather than optional. It writes the prompt, the exact command, the response, and stderr under `ocs state-dir runs/ask`, and that is what makes the lane's verdict recoverable after the fact.
 
