@@ -355,9 +355,10 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"the receipt carrying the findings was refused: {result.stderr.strip()}")
 
-    # 7 - split-check measures scopes as the ledger wrote them: a directory covers what is under it, a
-    # pending task still to be done here counts, an accepted one does not, and a task already active
-    # cannot be sent out. It reports; it does not decide.
+    # 7 - split-check answers whether pending tasks can be dispatched now, together, on the scopes the
+    #     ledger wrote: a directory covers what is under it, a task under way counts, an earlier pending
+    #     task counts, a later pending one does not, and an accepted one never does. It reports; it does
+    #     not decide.
     split_root = work / ".agents" / "kein" / "runs" / "execute" / "260101-000001-split"
     split_root.mkdir(parents=True)
     split_tasks = candidate.parent / "split-tasks.json"
@@ -373,14 +374,14 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"the split fixture run did not start: {result.stderr.strip()}")
     else:
-        result = run(work, "split-check", str(split_state), "task-004", "task-005")
+        result = run(work, "split-check", str(split_state), "task-002", "task-004", "task-005")
         if result.returncode != 0 or not json.loads(result.stdout)["disjoint"]:
-            failures.append("two tasks whose scopes meet nothing were reported as colliding")
-        result = run(work, "split-check", str(split_state), "task-002", "task-004")
+            failures.append("tasks whose scopes meet nothing ahead of them were reported as colliding")
+        result = run(work, "split-check", str(split_state), "task-003", "task-004")
         report = json.loads(result.stdout) if result.stdout else {}
-        if result.returncode == 0 or not any(o["tasks"] == ["task-002", "task-003"] and "src/b/ ~ src/b/x.py" in o["paths"] for o in report.get("overlaps", [])):
-            failures.append("a directory scope over a remaining task's file was not reported as a collision")
-        if any("task-005" in o["tasks"] for o in report.get("overlaps", [])):
+        if result.returncode == 0 or not any(sorted(o["tasks"]) == ["task-002", "task-003"] and "src/b/ ~ src/b/x.py" in o["paths"] for o in report.get("collisions", [])):
+            failures.append("a file scope under an earlier pending task's directory scope was not reported as a collision")
+        if any("task-005" in o["tasks"] for o in report.get("collisions", [])):
             failures.append("`src/b/` was read as covering `src/bx.py`, which it does not")
         result = run(work, "split-check", str(split_state), "task-001", "task-001")
         if result.returncode == 0:
@@ -388,21 +389,100 @@ with tempfile.TemporaryDirectory() as tmp:
         result = run(work, "split-check", str(split_state), "task-009")
         if result.returncode == 0:
             failures.append("an unknown task id was accepted")
-        # Dispatch task-001, then it is no longer a task that can go out; and once accepted its scope no longer counts.
-        active = _load_json(split_state)
-        active["revision"] = "auto"; active["worktree"]["observed"] = "auto"
-        active["tasks"][0]["status"] = "implementing"; active["tasks"][0]["round"] = 1; active["current_round"] = 1
-        active["next_action"] = "implement task-001"
-        write(candidate, active)
-        result = run(work, "checkpoint", str(split_state), str(candidate))
+
+    # 8 - two tasks whose scopes do not meet are written at once, each bound to its own scope's fingerprint;
+    #     a task whose scope meets one under way, or an earlier pending one, is refused; and a write inside a
+    #     reviewed scope after its review still unseats the acceptance while a write elsewhere does not.
+    def split_current():
+        return json.loads(split_state.read_text())
+
+    def split_attempt(mutate):
+        state = split_current()
+        state["revision"] = "auto"
+        state["worktree"]["observed"] = "auto"
+        mutate(state)
+        write(candidate, state)
+        return run(work, "checkpoint", str(split_state), str(candidate))
+
+    def split_must(label, mutate):
+        result = split_attempt(mutate)
         if result.returncode != 0:
-            failures.append(f"the split fixture could not dispatch its first task: {result.stderr.strip()}")
-        result = run(work, "split-check", str(split_state), "task-001")
+            failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
+
+    def split_refuse(label, mutate, reason=None):
+        result = split_attempt(mutate)
         if result.returncode == 0:
-            failures.append("an active task was allowed out of the ledger")
+            failures.append(f"{label} was accepted and must not be")
+        elif reason and reason not in result.stderr:
+            failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
+
+    def by_id(state, task_id):
+        return next(t for t in state["tasks"] if t["id"] == task_id)
+
+    def set_status(task_id, status, **fields):
+        def mutate(state):
+            state["phase"] = "task"
+            by_id(state, task_id).update({"status": status, "round": 1, **fields})
+        return mutate
+
+    def both(*mutations):
+        def mutate(state):
+            for m in mutations:
+                m(state)
+        return mutate
+
+    def split_verdict(task_id, word="PASS", round_number=1):
+        return {"reviewer_role": "code-reviewer", "verdict": word, "task_id": task_id, "round": round_number, "worktree_fingerprint": "auto",
+                "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+    def split_verification(task_id, round_number=1):
+        return {"command": f"check {task_id}", "exit_code": 0, "observed_at": STAMP, "round": round_number, "worktree_fingerprint": "auto"}
+
+    def set_round(task_id, status, round_number, **fields):
+        def mutate(state):
+            state["phase"] = "task"
+            by_id(state, task_id).update({"status": status, "round": round_number, **fields})
+        return mutate
+
+    split_must("dispatching task-001", set_status("task-001", "implementing"))
+    split_refuse("dispatching task-003 over task-002's pending directory scope", set_status("task-003", "implementing"), reason="scopes meet")
+    split_must("dispatching task-002 beside task-001", set_status("task-002", "implementing"))
+    split_refuse("dispatching task-003 into task-002's active directory scope", set_status("task-003", "implementing"), reason="scopes meet")
+    split_must("dispatching task-004 as a third writer", set_status("task-004", "implementing"))
+    # task-001 is verified and reviewed at its own scope; task-002 then writes in its scope; task-001 still accepts.
+    (work / "src").mkdir(exist_ok=True)
+    (work / "src" / "a.py").write_text("a = 1\n")
+    split_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[split_verification("task-001")]))
+    split_must("reviewing task-001", set_status("task-001", "reviewing"))
+    reviewed_a = by_id(split_current(), "task-001")["scope_fingerprint"]["fingerprint"]
+    (work / "src" / "b").mkdir(exist_ok=True)
+    (work / "src" / "b" / "y.py").write_text("b = 1\n")
+    split_must("accepting task-001 after task-002 wrote in its own scope",
+               set_status("task-001", "accepted", acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-001")]}))
+    accepted_a = by_id(split_current(), "task-001")["acceptance"]["worktree_fingerprint"]
+    if accepted_a != reviewed_a:
+        failures.append("task-001's acceptance did not bind to the fingerprint its reviewer read, though nothing in its scope moved")
+    whole_before = split_current()["worktree"]["observed"]["fingerprint"]
+    # task-002 reviewed, then someone writes inside task-002's scope: the review no longer stands.
+    split_must("verifying task-002", set_status("task-002", "verifying", latest_verification=[split_verification("task-002")]))
+    split_must("reviewing task-002", set_status("task-002", "reviewing"))
+    (work / "src" / "b" / "y.py").write_text("b = 2\n")
+    split_refuse("accepting task-002 after its own scope moved",
+                 set_status("task-002", "accepted", acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-002")]}))
+    # The moved scope is a correction round: verify and review the scope as it is now, then accept; only then may task-003 follow it.
+    split_must("correcting task-002", set_round("task-002", "correcting", 2, latest_verification=[], acceptance=None))
+    split_must("re-verifying task-002", set_round("task-002", "verifying", 2, latest_verification=[split_verification("task-002", 2)]))
+    split_must("re-reviewing task-002", set_round("task-002", "reviewing", 2))
+    split_must("accepting task-002", set_round("task-002", "accepted", 2, acceptance={"round": 2, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-002", "PASS", 2)]}))
+    split_must("dispatching task-003 once task-002 is accepted", set_status("task-003", "implementing"))
+    sealed_b = by_id(split_current(), "task-002")["scope_fingerprint"]["fingerprint"]
+    (work / "src" / "b" / "x.py").write_text("c = 1\n")
+    split_must("task-003 writing inside the scope task-002 sealed", set_status("task-003", "verifying", latest_verification=[split_verification("task-003")]))
+    if by_id(split_current(), "task-002")["scope_fingerprint"]["fingerprint"] != sealed_b:
+        failures.append("an accepted task's scope fingerprint moved after acceptance; it is sealed there")
 
 if failures:
     for failure in failures:
         print(f"check-execute-state: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and split-check reads scopes as written")
+print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint")

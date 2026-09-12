@@ -2,7 +2,7 @@
 
 Store state at `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json`, where the run root is `ocs state-dir runs/execute`.
 
-Active, blocked, and interrupted states retain run identity, input identity, canonical worktree and Git common directory, baseline and observed fingerprints, the serial task ledger, current task and round, latest verification, unresolved findings, final-audit facts, and the exact next action. They never store transcripts, raw logs, or agent handles.
+Active, blocked, and interrupted states retain run identity, input identity, canonical worktree and Git common directory, baseline and observed fingerprints, the task ledger, current task and round, latest verification, unresolved findings, final-audit facts, and the exact next action. They never store transcripts, raw logs, or agent handles.
 
 A finding carries `reviewer_role`, `claim`, `evidence`, `impact`, `required_correction`, `severity` (`critical`, `important`, `minor`), `confidence` (`high`, `medium`, `low`), and `blocks` — `null`, a verbatim clause of the task's `completion_condition` (whitespace and case folded), or text prefixed `regression: ` or `instruction: `. A finding carried on an accepted task may add `carried_because`; an `important` or `critical` one must. A finding fixed before acceptance is listed under the acceptance's `fixed`, with `blocks` null and no `carried_because`; when that list is non-empty the reviewers' verdicts stand at the fingerprint they read and the acceptance at the corrected one, and the task's verification must be current at the corrected one. A verdict is `PASS`, `REVISE`, or `BLOCK`, and at acceptance it is checked against the findings of the same `reviewer_role`: `BLOCK` needs one that cites, `REVISE` needs at least one and none that cite, `PASS` needs none.
 
@@ -16,7 +16,7 @@ Every state carries a zero-based monotonic `revision`. Each candidate increments
 
 `"auto"` for `worktree.baseline` after the run has started is an error rather than a re-derivation, because the baseline is what drift is measured against.
 
-Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. It changes for HEAD, staged, unstaged, and untracked content changes, except for untracked paths under `.agents/kein/runs/`. That exclusion is what keeps the fingerprint measurable: the run ledger lives inside the worktree, so a checkpoint writing its own `state.json` would otherwise change the untracked set it had just recorded and every following `reconcile` would report drift over work nobody did. Deliverables elsewhere under `.agents/kein/` — plans among them — stay in the fingerprint.
+Each fingerprint contains `head`, `index_sha256`, `tracked_diff_sha256`, `untracked_sha256`, and the combined `fingerprint`. A task's `scope_fingerprint` is the same four components read over the task's `scope` alone; `"auto"` inside a task fills with that, and outside a task with the whole tree's. It changes for HEAD, staged, unstaged, and untracked content changes, except for untracked paths under `.agents/kein/runs/`. That exclusion is what keeps the fingerprint measurable: the run ledger lives inside the worktree, so a checkpoint writing its own `state.json` would otherwise change the untracked set it had just recorded and every following `reconcile` would report drift over work nobody did. Deliverables elsewhere under `.agents/kein/` — plans among them — stay in the fingerprint.
 
 Completed receipts retain only input reference/hash, worktree root/final fingerprint, accepted task summaries — each with the `carried_findings` its task carried and, when there were any, the `fixed_findings` its acceptance fixed — final verification, fresh independent final-audit PASS facts, and the run-level `carried_findings`. Both carried lists are exact projections of the checkpointed state; a receipt that drops one is refused, because the receipt is what the next reader inherits. Aborted receipts retain identity, worktree root, time, and stop reason.
 
@@ -26,6 +26,7 @@ Use:
 ocs state execute validate <state.json>
 ocs state execute reconcile <state.json>
 ocs state execute check-worktree <run-root> <worktree>
+ocs state execute split-check <state.json> <task-id>...
 ocs state execute start --run-root <runs/execute> --slug <slug> --kind plan --input <path> --worktree <path> --tasks <tasks.json>
 ocs state execute checkpoint <state.json> <candidate.json>
 ocs state execute amend <state.json> --reason <text> [--summary <text>]

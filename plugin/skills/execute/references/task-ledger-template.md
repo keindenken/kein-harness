@@ -31,7 +31,9 @@ A factual correction or implementation-detail adjustment may update a task when 
 }
 ```
 
-Task statuses are `pending`, `implementing`, `verifying`, `reviewing`, `correcting`, and `accepted`. Only one task may be write-active. Every earlier task must be accepted before a later task becomes active.
+Task statuses are `pending`, `implementing`, `verifying`, `reviewing`, `correcting`, and `accepted`. Tasks are under way at once only where their scopes do not meet, a directory naming everything under it, and a task does not start ahead of an earlier pending task whose scope meets its own. `split-check` answers the same question before a dispatch.
+
+Each open task carries a `scope_fingerprint`, the fingerprint of its scope on the observed tree, filled at every checkpoint and sealed at acceptance. Its verification, verdicts and acceptance bind to that, so a write elsewhere does not unseat its review and a write inside its scope does.
 
 `unresolved_findings` is empty at the opening position and, on an accepted task, holds what the task carries: the findings a `REVISE` lane returned that do not cite its completion condition and were not promoted to a task of their own. Their shape is in the review contract.
 

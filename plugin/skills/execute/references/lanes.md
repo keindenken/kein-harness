@@ -18,7 +18,7 @@ The flag names vendors rather than roles, which is where this differs from RALPL
 
 Every lane blocks.
 
-`--executor <vendor>` takes exactly one vendor, because the task ledger is serial and two writers is the thing it exists to prevent. The flag settles one dispatch; the command refuses a second while a worker still holds the worktree, reading the dispatch each prior lane recorded and asking whether it has settled.
+`--executor <vendor>` takes exactly one vendor: the flag settles which vendor implements, and says nothing about how many tasks are under way. The command refuses a second worker only when it would carry the same package a live worker in this worktree already holds, reading the dispatch each prior lane recorded and asking whether it has settled.
 
 ## The write-capable lane
 

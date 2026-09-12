@@ -66,6 +66,9 @@ TASK_FIELDS = frozenset({
     "id", "title", "scope", "completion_condition", "verification_path", "rationale",
     "status", "round", "latest_verification", "unresolved_findings", "acceptance",
 })
+# The fingerprint of the task's own scope on the observed tree, filled by `checkpoint` for every task not yet accepted and sealed on acceptance.
+# A task's verification, verdicts and acceptance bind to this rather than to the whole tree, which is what lets two tasks with disjoint scopes be written at once: one's writes do not move the other's fingerprint. Optional so a state written before it existed still validates.
+TASK_OPTIONAL = frozenset({"scope_fingerprint"})
 VERIFICATION_FIELDS = frozenset({"command", "exit_code", "observed_at", "round", "worktree_fingerprint"})
 VERDICT_FIELDS = frozenset({
     "reviewer_role", "verdict", "task_id", "round", "worktree_fingerprint",
@@ -140,16 +143,23 @@ def canonical_worktree(path: Path) -> Tuple[Path, Path]:
 LEDGER_PREFIX = ".agents/kein/runs/"
 
 
-def worktree_fingerprint(path: Path) -> Dict[str, str]:
+def worktree_fingerprint(path: Path, scope: Optional[List[str]] = None) -> Dict[str, str]:
+    """The tree's fingerprint, or with `scope` the fingerprint of those paths alone.
+
+    A scoped fingerprint reads the same four components over the scope's pathspec: HEAD, the staged and unstaged diffs limited to the scope, and the untracked files under it. `:(literal)` keeps the pathspec from globbing, so a scope entry means exactly the path it names and, for a directory, everything under it -- the same reading `_scopes_collide` gives it.
+    """
     root, _ = canonical_worktree(path)
     head = _git_bytes(root, ["rev-parse", "HEAD"]).strip()
-    index = _git_bytes(root, ["diff", "--cached", "--binary", "--no-ext-diff"])
-    tracked = _git_bytes(root, ["diff", "--binary", "--no-ext-diff"])
+    pathspec = ["--"] + [f":(literal){entry}" for entry in scope] if scope else []
+    index = _git_bytes(root, ["diff", "--cached", "--binary", "--no-ext-diff", *pathspec])
+    tracked = _git_bytes(root, ["diff", "--binary", "--no-ext-diff", *pathspec])
     untracked_paths = [item for item in _git_bytes(root, ["ls-files", "--others", "--exclude-standard", "-z"]).split(b"\0") if item]
     untracked_parts: List[Tuple[bytes, bytes]] = []
     for relative_bytes in sorted(untracked_paths):
         relative = relative_bytes.decode("utf-8", "surrogateescape")
         if relative.startswith(LEDGER_PREFIX):
+            continue
+        if scope is not None and not any(_scopes_collide(entry, relative) for entry in scope):
             continue
         candidate = root / relative
         if candidate.is_symlink():
@@ -190,45 +200,55 @@ def _scopes_collide(left: str, right: str) -> bool:
     return longer[:len(shorter)] == shorter
 
 
-def split_check(payload: Dict[str, Any], task_ids: List[str]) -> Dict[str, Any]:
-    """Whether the named tasks could be authored somewhere else, measured on the ledger's own scopes.
+def _scope_collisions(tasks: List[Dict[str, Any]], candidates: List[str]) -> List[Dict[str, Any]]:
+    """Where the named tasks would write over each other, over a task already being written, or over an earlier task not yet done.
 
-    The ledger is serial in its worktree, and a task can leave neither the ledger nor its place in it.
-    What a lead can do is author a task in another worktree, as its own run, and bring the result back
-    when the task's turn comes. Whether that is safe is a question about scopes: the tasks going out must
-    not write where each other writes, nor where any task still to be done here writes. Accepted tasks are
-    already in the tree the side worktree branches from, so they are not counted.
-
-    This answers the question and nothing more. It does not say a split is a good idea; a run with two
-    disjoint tasks and one machine-global test port has a reason not to split that no scope list shows.
+    Scope is what the ledger says a task may write, a directory naming everything under it. Two tasks may be written at once only when their scopes do not meet; a task may not start ahead of an earlier task whose scope meets its own, because the ledger's order is the plan's dependency order and an overlap is where that order is load-bearing. Accepted tasks are already in the tree and do not count. Nothing here reads the filesystem.
     """
-    tasks = {task["id"]: task for task in payload.get("tasks", []) if isinstance(task, dict) and "id" in task}
-    unknown = [task_id for task_id in task_ids if task_id not in tasks]
+    by_id = {task["id"]: task for task in tasks if isinstance(task, dict) and "id" in task}
+    order = [task["id"] for task in tasks if isinstance(task, dict) and "id" in task]
+    def shared(left_id: str, right_id: str) -> List[str]:
+        return sorted({" ~ ".join(sorted((l, r))) if l != r else l
+                       for l in by_id[left_id].get("scope", []) for r in by_id[right_id].get("scope", [])
+                       if isinstance(l, str) and isinstance(r, str) and _scopes_collide(l, r)})
+    collisions: List[Dict[str, Any]] = []
+    seen = set()
+    for index, left_id in enumerate(candidates):
+        others = list(candidates[index + 1:])
+        others += [task_id for task_id in order if task_id not in candidates and by_id[task_id].get("status") in WRITE_ACTIVE_STATUSES]
+        others += [task_id for task_id in order[:order.index(left_id)] if task_id not in candidates and by_id[task_id].get("status") == "pending"]
+        for right_id in others:
+            pair = tuple(sorted((left_id, right_id)))
+            if pair in seen:
+                continue
+            seen.add(pair)
+            paths = shared(left_id, right_id)
+            if paths:
+                collisions.append({"tasks": [left_id, right_id], "paths": paths})
+    return collisions
+
+
+def split_check(payload: Dict[str, Any], task_ids: List[str]) -> Dict[str, Any]:
+    """Whether the named pending tasks could be dispatched now, together, measured on the ledger's own scopes.
+
+    The same rule `checkpoint` enforces when a task becomes write-active, answered before anything is dispatched. It reports; whether two disjoint tasks should be written at once is the lead's call, and a project whose tests hold a machine-global port has a reason no scope list shows.
+    """
+    tasks = payload.get("tasks", [])
+    by_id = {task["id"]: task for task in tasks if isinstance(task, dict) and "id" in task}
+    unknown = [task_id for task_id in task_ids if task_id not in by_id]
     if unknown:
         raise ValueError(f"no such task: {', '.join(unknown)}")
     if len(set(task_ids)) != len(task_ids):
         raise ValueError("a task is named twice")
     for task_id in task_ids:
-        if tasks[task_id].get("status") != "pending":
-            raise ValueError(f"{task_id} is {tasks[task_id].get('status')}; only a pending task can be authored elsewhere")
-    remaining = [task_id for task_id, task in tasks.items() if task_id not in task_ids and task.get("status") != "accepted"]
-    overlaps: List[Dict[str, Any]] = []
-    def compare(left_id: str, right_id: str) -> None:
-        shared = sorted({f"{l} ~ {r}" if l != r else l
-                         for l in tasks[left_id].get("scope", []) for r in tasks[right_id].get("scope", [])
-                         if isinstance(l, str) and isinstance(r, str) and _scopes_collide(l, r)})
-        if shared:
-            overlaps.append({"tasks": [left_id, right_id], "paths": shared})
-    for index, left_id in enumerate(task_ids):
-        for right_id in task_ids[index + 1:]:
-            compare(left_id, right_id)
-        for right_id in remaining:
-            compare(left_id, right_id)
+        if by_id[task_id].get("status") != "pending":
+            raise ValueError(f"{task_id} is {by_id[task_id].get('status')}; only a pending task can be dispatched")
+    collisions = _scope_collisions(tasks, task_ids)
     return {
-        "split": task_ids,
-        "stays": remaining,
-        "disjoint": not overlaps,
-        "overlaps": overlaps,
+        "dispatch": task_ids,
+        "active": [task_id for task_id, task in by_id.items() if task.get("status") in WRITE_ACTIVE_STATUSES],
+        "disjoint": not collisions,
+        "collisions": collisions,
     }
 
 
@@ -433,8 +453,12 @@ def _field_set_error(label: str, actual: Any, expected: frozenset, optional: fro
 
 
 def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = frozenset()) -> List[str]:
-    if not isinstance(task, dict) or set(task) != TASK_FIELDS:
-        return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS)]
+    if not isinstance(task, dict) or set(task) - TASK_OPTIONAL != TASK_FIELDS:
+        return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS, TASK_OPTIONAL)]
+    if task.get("scope_fingerprint") is not None:
+        errors_scope = _validate_fingerprint(task["scope_fingerprint"], f"Task {task.get('id', '?')} scope_fingerprint")
+        if errors_scope:
+            return errors_scope
     errors: List[str] = []
     for key in ("id", "title", "completion_condition", "rationale"):
         if not isinstance(task.get(key), str) or not task[key].strip():
@@ -654,21 +678,14 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
                     active_indexes.append(index)
         if len(identifiers) != len(set(identifiers)):
             errors.append("Task ids must be unique")
-        if len(active_indexes) > 1:
-            errors.append("Only one task may be write-active")
-        if active_indexes and any(tasks[index].get("status") != "accepted" for index in range(active_indexes[0])):
-            errors.append("Every earlier task must be accepted before a later task becomes active")
+        # Tasks are written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs. Everything else about order is the plan's to say.
+        if active_indexes and len(identifiers) == len(set(identifiers)):
+            active_ids = [tasks[index]["id"] for index in active_indexes]
+            for collision in _scope_collisions(tasks, active_ids):
+                left, right = collision["tasks"]
+                errors.append(f"{left} and {right} cannot both be under way: their scopes meet at {', '.join(collision['paths'])}")
         if payload.get("current_task_id") is not None and payload.get("current_task_id") not in identifiers:
             errors.append("current_task_id must identify a task")
-        for task in tasks:
-            if (
-                isinstance(task, dict)
-                and task.get("id") == payload.get("current_task_id")
-                and task.get("status") == "accepted"
-                and isinstance(task.get("acceptance"), dict)
-                and task["acceptance"].get("worktree_fingerprint") != current_fingerprint
-            ):
-                errors.append("Current task acceptance must match the observed worktree fingerprint")
         if type(payload.get("current_round")) is not int or payload["current_round"] < 0:
             errors.append("current_round must be non-negative")
         latest_verification = payload.get("latest_verification")
@@ -829,6 +846,11 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                     errors.append("Correction must clear previous verification")
             if old.get("scope") != task.get("scope") or old.get("completion_condition") != task.get("completion_condition"):
                 errors.append("Existing task scope and completion condition cannot change during execution")
+            if new_status == "accepted" and old_status != "accepted":
+                scoped = task.get("scope_fingerprint")
+                expected = scoped.get("fingerprint") if isinstance(scoped, dict) else None
+                if expected is not None and isinstance(task.get("acceptance"), dict) and task["acceptance"].get("worktree_fingerprint") != expected:
+                    errors.append(f"{task['id']} acceptance must match its scope fingerprint at this checkpoint; the scope moved after review")
         previous_fingerprint = previous.get("worktree", {}).get("observed", {}).get("fingerprint")
         candidate_fingerprint = candidate.get("worktree", {}).get("observed", {}).get("fingerprint")
         fingerprint_changed = previous_fingerprint != candidate_fingerprint
@@ -1021,18 +1043,35 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
     # A walk rather than a list of the places it appears: the set of sites grew with the schema and
     # would have to be maintained alongside it, and a site the list forgot fails as a bad candidate
     # rather than as a missing case.
-    def fill(node: Any) -> None:
+    def fill(node: Any, value_for_auto: str) -> None:
         if isinstance(node, dict):
             for key, value in node.items():
                 if key in {"worktree_fingerprint", "final_fingerprint"} and value == AUTO:
-                    node[key] = combined
+                    node[key] = value_for_auto
                 else:
-                    fill(value)
+                    fill(value, value_for_auto)
         elif isinstance(node, list):
             for item in node:
-                fill(item)
+                fill(item, value_for_auto)
 
-    fill(candidate)
+    # Inside a task, "auto" is the task's scope fingerprint: recomputed at every checkpoint while the task is open, sealed once it is accepted, and absent only on a task recorded before the field existed, where the whole tree stands in as it always did.
+    tasks = candidate.get("tasks")
+    if isinstance(tasks, list):
+        previous_state = _load(destination) if destination.exists() else None
+        sealed = {task.get("id") for task in (previous_state or {}).get("tasks", [])
+                  if isinstance(task, dict) and task.get("status") == "accepted"}
+        for task in tasks:
+            if not isinstance(task, dict):
+                continue
+            scope = task.get("scope")
+            scoped_ok = isinstance(scope, list) and scope and all(isinstance(entry, str) and entry for entry in scope)
+            # Recomputed for every task the previous checkpoint had not accepted, which includes the one being accepted now: the acceptance binds to the scope as it is at this checkpoint, not as it was when the reviewer read it, and the two differing is the refusal.
+            if task.get("id") not in sealed or task.get("scope_fingerprint") == AUTO:
+                if scoped_ok:
+                    task["scope_fingerprint"] = worktree_fingerprint(root, list(scope))
+            scoped = task.get("scope_fingerprint")
+            fill(task, scoped["fingerprint"] if isinstance(scoped, dict) and _valid_hash(scoped.get("fingerprint")) else combined)
+    fill(candidate, combined)
 
 
 def checkpoint(destination: Path, candidate_path: Path) -> None:
@@ -1173,7 +1212,8 @@ def _load_tasks(path: Path) -> List[Dict[str, Any]]:
                 + (f"; unexpected {unexpected}" if unexpected else "")
             )
         tasks.append({**item, "status": "pending", "round": 0,
-                      "latest_verification": [], "unresolved_findings": [], "acceptance": None})
+                      "latest_verification": [], "unresolved_findings": [], "acceptance": None,
+                      "scope_fingerprint": AUTO})
     return tasks
 
 
@@ -1266,7 +1306,7 @@ def main() -> int:
     worktree_parser = commands.add_parser("check-worktree")
     worktree_parser.add_argument("run_root", type=Path)
     worktree_parser.add_argument("worktree", type=Path)
-    split_parser = commands.add_parser("split-check", help="whether the named pending tasks write where each other or the remaining tasks write; measured on the ledger's scopes")
+    split_parser = commands.add_parser("split-check", help="whether the named pending tasks can be dispatched now, together: their scopes must not meet each other's, a task already under way, or an earlier task still pending")
     split_parser.add_argument("state", type=Path)
     split_parser.add_argument("task_ids", nargs="+", metavar="task-id")
     start_parser = commands.add_parser("start", help="first checkpoint of a run; builds the state from its parts")
