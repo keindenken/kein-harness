@@ -6,7 +6,7 @@ hashes verified against the values supplied for this task — `fixture/REQUIREME
 `67ddeec854b12a4624b1265a6c5c1e28ef598856779ccef178963ef16b35fd16`. Every behavior this plan depends on
 (argv filtering, error short-circuiting, exit codes, the shape of `count()`'s return dict) was independently
 observed by running `fixture/tally.py` against real inputs, not assumed from reading the source alone. No
-bounded empirical unknown remains, so no Evidence Gates section is included.
+bounded empirical unknown remains, so no gate is written.
 
 ## Scope
 

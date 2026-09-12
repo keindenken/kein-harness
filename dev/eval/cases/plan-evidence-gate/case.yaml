@@ -28,8 +28,8 @@ description: >
   text passes a run that described a plan without writing one, which is the failure trailofbits/skills records
   as having been green for months.
 
-  **The three `vocabulary-*` graders are a control, not evidence.** `Status: Draft`, `## Evidence Gates` and
-  `## Open Questions` are this template's own headings, so the arm without the skill will essentially never
+  **The three `vocabulary-*` graders are a control, not evidence.** `Status: Draft`, the gate's `- Alternate path` / `- Unexpected result` labels and
+  `## Open Questions` are this template's own vocabulary, so the arm without the skill will essentially never
   produce them and those graders should separate the arms almost perfectly. That result means the skill taught
   a vocabulary and nothing more. They earn their place by sitting beside the four content graders: if the
   content graders separate the arms by as much as the vocabulary graders do, the skill is changing the plan;

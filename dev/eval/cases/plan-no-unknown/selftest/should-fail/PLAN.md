@@ -1,17 +1,14 @@
 # tally --json
 
 Status: Draft — One gate outstanding.
-## Evidence Gates
+## Work
 
-### Is the requested JSON shape what users want
+**Gate — is the requested JSON shape what users want.**
 
 - Claim: the three requesters agree on the object shape.
 - Evidence method: ask them.
-- Pass path: implement as specified.
 - Alternate path: revisit the schema.
-- Required before: any implementation.
 - Unexpected result: stop and escalate.
 
-## Work
 
 1. Add the flag.
