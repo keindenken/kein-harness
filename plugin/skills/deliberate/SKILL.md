@@ -35,7 +35,7 @@ That is easy to get wrong in one direction only. Having just written a paragraph
 
 **What stops this text from growing?** Trigger text is the clearest case: firing too rarely adds scenarios, firing too often adds exceptions, and both directions add. Every bound you write needs to name what stops it. A budget holds when the thing obeying it is a process that gets re-run, and fails when a person has to argue against it each time — which is why the answer here is a process and not a number written into the prompt.
 
-**Does prevention's standing cost beat the exposure?** Not the size of the failure — the standing cost is what the rule charges on every run where nothing happens: tokens on each dispatch, steps a compliant agent walks, and the good outputs it makes an agent refuse. A guard that charges nothing until it fires survives even at zero exposure. A guard that polls does not.
+**Does prevention's standing cost beat the exposure?** Not the size of the failure — the standing cost is what the rule charges on every run where nothing happens: tokens on each dispatch, steps a compliant agent walks, the good outputs it makes an agent refuse, and the shift it puts on every output while it sits in the context, on the runs it does not bear on as much as the ones it does. A guard that charges nothing until it fires survives even at zero exposure. A guard that polls does not.
 
 **Outcome:** add it, or do not. If you add it, the change carries at most one clause of mechanism beside the rule, plus whatever setting the off-switch needed. Everything else you produced deciding goes in the commit message.
 
@@ -46,7 +46,7 @@ That is easy to get wrong in one direction only. Having just written a paragraph
 **The moves are four, not two.** Cutting is the last one, not the first:
 
 - attach a measurement and demote it to insurance that says it is insurance;
-- make it conditional, so a run it does not bear on pays nothing;
+- make it conditional, so a run it does not bear on walks none of its steps; the sentence still sits in the context and still shifts what comes out, which is the cost that only cutting removes;
 - move it to a mechanism, so the runtime enforces what prose was asking for;
 - narrow the boundary it claims, so it stops asserting where it was never tested.
 
