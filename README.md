@@ -12,6 +12,10 @@ agents.json            the two facts about a role that are not about a vendor:
                        `tier` and `sandbox_mode`
 docs/                  reference documentation
 README.md
+.claude-plugin/
+  marketplace.json     the marketplace, at the root because that is the only place
+                       `plugin marketplace add` looks. Its one entry points at
+                       `./plugin`, and an install copies that directory alone.
 plugin/                everything Claude Code loads. The symlink points HERE,
                        not at the repository root.
   .claude-plugin/
@@ -19,7 +23,6 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        paths are omitted on purpose so the default directories
                        below are auto-discovered and the manifest never drifts
                        as components are added.
-    marketplace.json   local marketplace entry, for installing by name
   agents/              subagent markdown files      -> kein:<name>
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
@@ -74,6 +77,15 @@ Three modes exist. They differ on one axis that matters during development:
 | **skills-dir** (active) | symlink at `~/.claude/skills/kein` | **yes, in place** | discovered globally, enabled per project |
 | `--plugin-dir <path>` | CLI flag | yes, in place | one session |
 | marketplace install | `plugin marketplace add` + `install` | **no — copied to cache** | every session |
+
+On another machine, the marketplace path is the one that works from the GitHub address:
+
+```sh
+claude plugin marketplace add keindenken/kein-harness
+claude plugin install kein@kein --scope user
+```
+
+The first command clones the whole repository under `~/.claude/plugins/marketplaces/kein`; the second copies only `plugin/` into the cache, which is the tree `CLAUDE_PLUGIN_ROOT` names in that session. New commits reach that machine through `claude plugin marketplace update kein` followed by `claude plugin update kein@kein`, and only once the version has moved (see the trap below); a machine that should track main as it lands uses the symlink instead.
 
 The active setup is a symlink:
 

@@ -9,7 +9,7 @@
 set -eu
 
 PLUGIN_JSON="$KEIN_ROOT/.claude-plugin/plugin.json"
-MARKETPLACE_JSON="$KEIN_ROOT/.claude-plugin/marketplace.json"
+MARKETPLACE_JSON="$KEIN_REPO_ROOT/.claude-plugin/marketplace.json"
 
 new_version=${1:-}
 if [ -z "$new_version" ]; then
