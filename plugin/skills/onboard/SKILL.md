@@ -2,6 +2,7 @@
 name: onboard
 description: Use to set up a machine for this harness, to report what of that setup is in place, or to take it back out. Covers the rules link and the Orca statusline HUD.
 argument-hint: "[status | apply | remove] [--step rules|hud]"
+disable-model-invocation: true
 ---
 
 # Onboarding a machine
