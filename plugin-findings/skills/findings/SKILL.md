@@ -1,15 +1,15 @@
 ---
 name: findings
-description: Use before answering, deciding, or designing on a belief about how an agent runtime behaves — Claude Code, Codex, Orca, subagents, skills, hooks, sandboxes, headless runs — because it may already be measured. Also use to record a new measurement.
+description: Use before answering, deciding, or designing on a belief about how an agent runtime behaves — Claude Code, Codex, Orca, subagents, skills, hooks, sandboxes, headless runs — because it may already be recorded. Also use to record one.
 ---
 
 # Findings
 
-A finding is something that was run and observed about an agent runtime, kept so the next session does not re-derive it or, worse, assume it. Your training describes these runtimes as they were; a finding describes one as it was measured, pinned to a version.
+A finding is something that was run and observed about an agent runtime, kept so the next session does not have to re-derive it.
 
 ## Look one up
 
-1. Run `findings list`. If the command is missing, exits 3, or prints nothing, there is nothing recorded: carry on with the task and do not mention findings.
+1. Run `findings list`. If the command is missing, exits 3, prints nothing, or prints nothing that bears on your question, carry on as if you had not looked. An empty result says nothing about the runtime, so it does not belong in your answer.
 2. Each line is `<file>\t<measured>\t<status>\t<claim>`. Pick the files whose claim bears on what you are about to rely on, and read only those, from `$(findings where)`.
 3. When a finding shapes your answer, name the file and its `versions`.
 4. A finding is evidence for the version it names. If the runtime in front of you differs, or `versions` is `unrecorded`, treat the claim as unconfirmed; when your conclusion rests on it, say so and offer to rerun its `reproduce`.
@@ -18,25 +18,4 @@ Read nothing else from the directory `findings where` sits in. Only the findings
 
 ## Record one
 
-Record only what was run and observed. A preference, a correction, or the state of ongoing work is not a finding and belongs in memory or the project's own state.
-
-Write `$(findings where)/YYMMDD-<slug>.md`. If `where` exits 3 there is no root; tell the user rather than creating one.
-
-```markdown
----
-claim: <what was measured, one sentence, at most 200 characters>
-measured: YYYY-MM-DD
-versions: <tool version; tool version> | unrecorded
-reproduce: <the command to rerun, or the section of this file that describes it> | unrecorded
-status: current
----
-# <title>
-
-<what was asked, what was run, what came back>
-```
-
-`measured` matches the date in the file name. `project: <repository>` may be added. No other keys: `findings check` rejects them, and that refusal is what keeps the store from growing an index or a taxonomy.
-
-When a new finding overturns an old one, set the old file's `status: superseded` and `superseded_by: <new file name>`; never delete it. `disputed` marks a claim that two measurements disagree on.
-
-Run `findings check` until it exits 0. If the root is inside a git work tree, commit the new file there. Report the path, not the content.
+To record a new measurement, read [record.md](references/record.md) first and follow it.

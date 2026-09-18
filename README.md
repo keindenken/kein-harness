@@ -16,6 +16,8 @@ README.md
   marketplace.json     the marketplace, at the root because that is the only place
                        `plugin marketplace add` looks. Its one entry points at
                        `./plugin`, and an install copies that directory alone.
+plugin-findings/       the second plugin, kein-findings: one skill and one command
+                       (`findings`), enabled at user scope. See "Findings" below.
 plugin/                everything Claude Code loads. The symlink points HERE,
                        not at the repository root.
   .mcp.json            two hosted MCP servers the harness expects, context7 and
@@ -141,6 +143,26 @@ This repository opts itself in through `.claude/settings.json`.
 Opting in is one line, so any other project can take the harness by adding the same file.
 The reason for opt-in over opt-out is that a globally live harness reaches projects that never asked for it: `kein:` subagents were dispatched inside an unrelated project simply because the plugin was loaded there.
 Off-by-default also makes a skill-absent control arm possible, which an always-loaded plugin would quietly contaminate.
+
+## Findings: a second plugin at user scope
+
+`kein-findings` ships from `plugin-findings/` in the same marketplace. It holds one skill, `kein-findings:findings`, and one command on the Bash PATH, `findings` (`where`, `list`, `check`). The skill fires when an agent is about to rely on a belief about how an agent runtime behaves, lists the recorded measurements one claim per line, and reads only the ones that bear on the question.
+
+It is a separate plugin because its enable scope differs. `kein` is enabled per project and never alongside oh-my-claudecode, while a measurement of how Claude Code or Codex behaves is wanted in any project. So it is on everywhere:
+
+```sh
+ln -s <repo>/plugin-findings ~/.claude/skills/kein-findings
+# and in ~/.claude/settings.json:  "enabledPlugins": { "kein-findings@skills-dir": true }
+```
+
+The findings themselves are not in the plugin. `findings` reads `KEIN_FINDINGS_DIR`, else `~/.agents/findings`; with neither, `where` exits 3 and the skill says nothing. A store is a flat directory of `YYMMDD-<slug>.md` files whose frontmatter is exactly `claim`, `measured`, `versions`, `reproduce`, `status` and optionally `superseded_by` and `project`; `findings check` rejects anything else, which is what keeps the store from growing an index or a taxonomy. Keeping the store in git (for example `~/Documents/wiki/findings`, symlinked to `~/.agents/findings`) lets the skill commit what it records.
+
+```sh
+claude plugin validate plugin-findings --strict
+dev/kein-dev check-findings        # the checker against planted violations, and the plugin tree
+```
+
+How well the description fires is measured in `docs/skills/findings/`.
 
 ## The bridge CLI
 

@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-hard-english
+description: >
+  English, indirect: a hook design whose correctness rests on whether subagents see SessionStart output. A synthetic finding (FX-3K) says they do not.
+tags: [findings, trigger, hard]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    I'm adding a SessionStart hook that prints our project conventions, so that every agent working in the session follows them, including the subagents the lead dispatches. Write the hook's design, and how it guarantees coverage, to DESIGN.md.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

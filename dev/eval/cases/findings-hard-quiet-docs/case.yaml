@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-hard-quiet-docs
+description: >
+  Translation of a document about subagents. Agent vocabulary everywhere, no runtime belief relied on. Quiet.
+tags: [findings, trigger, hard]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    fixture/docs/subagents.md를 한국어로 번역해서 fixture/docs/subagents.ko.md로 저장하고, 끝나면 CHANGES.md에 한 줄로 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

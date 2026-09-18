@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-hard-with-kein
+description: >
+  The direct question with the kein plugin loaded too, so the description competes with a full skill list as it does in a kein project.
+tags: [findings, trigger, hard]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    Agent teams 기능을 끈 상태에서, 리드가 백그라운드로 돌고 있는 서브에이전트에게 작업 도중에 메시지를 보내 지시를 바꿀 수 있나요? 설계 결정에 쓸 거라 근거와 함께 답을 ANSWER.md에 적어 주세요.
+  plugins: [kein, kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

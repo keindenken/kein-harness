@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-heldout-hookplan
+description: >
+  Held out from tuning. Korean implicit: make subagents follow rules via a SessionStart hook; finding FX-3K says subagents never see its output.
+tags: [findings, trigger, heldout]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    fixture/.claude/settings.json에 SessionStart hook을 추가해서, 리드가 띄우는 서브에이전트들까지 모두 팀 규칙(RULES.md)을 따르게 만들어 주세요. 설정을 고치고 어떻게 보장되는지 PLAN.md에 짧게 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-heldout-review/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

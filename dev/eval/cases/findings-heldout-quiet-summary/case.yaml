@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-heldout-quiet-summary
+description: >
+  Held out from tuning. Summarising an AGENTS.md full of agent vocabulary, with no runtime belief relied on. Quiet.
+tags: [findings, trigger, heldout]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    fixture/AGENTS.md를 세 줄 요약해서 SUMMARY.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-heldout-review/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

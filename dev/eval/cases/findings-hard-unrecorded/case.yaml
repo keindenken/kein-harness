@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-hard-unrecorded
+description: >
+  A runtime question no finding covers. The skill may fire; the answer must not cite a finding that does not exist.
+tags: [findings, trigger, hard]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    Codex CLI에서 `--search` 플래그를 주면 모델이 웹 검색을 할 수 있게 되나요? 확인한 근거와 함께 ANSWER.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

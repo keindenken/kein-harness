@@ -1,0 +1,19 @@
+schema_version: "1.1"
+name: findings-heldout-review
+description: >
+  Held out from tuning. English review of a dispatcher that waits on tui-idle; a synthetic finding (FX-9Z) says that wait hangs.
+tags: [findings, trigger, heldout]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  prompt: |
+    Our dispatcher starts a codex worker in an Orca terminal and runs `orca terminal wait --for tui-idle` before sending it the task. fixture/dispatch.sh is the script. Review the approach for failure modes and write REVIEW.md.
+  plugins: [kein-findings]
+  findings_dir: ../findings-heldout-review/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3
