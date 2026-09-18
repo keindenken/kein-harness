@@ -78,6 +78,12 @@ for label, (files, expected) in cases.items():
     if result.returncode != 1 or expected not in result.stdout:
         failures.append(f"{label} was not caught (exit {result.returncode}): {result.stdout.strip()!r}")
 
+# A shell comment inside a fenced block is not a heading.
+fenced = store({"260919-plain.md": GOOD + "\n```sh\n# a comment, not a title\nls\n```\n"})
+result = run(fenced, "check")
+if result.returncode != 0:
+    failures.append(f"a '# ' line inside a code fence was counted as a heading: {result.stdout.strip()}")
+
 # A superseded finding pointing at a real one is fine, and list hides it unless --all.
 chain = store({"260919-plain.md": GOOD, "260918-old.md": GOOD.replace("2026-09-19", "2026-09-18").replace("status: current", "status: superseded\nsuperseded_by: 260919-plain.md").replace("What was asked", "Earlier")})
 result = run(chain, "check")

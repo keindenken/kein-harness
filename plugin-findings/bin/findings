@@ -82,7 +82,12 @@ def problems(path, names):
         found.append("superseded_by is set but status is not superseded")
     if target and (target == path.name or target not in names):
         found.append(f"superseded_by {target!r} does not name another finding")
-    headings = [line for line in body.splitlines() if re.match(r"# \S", line)]
+    headings, fenced = [], False
+    for line in body.splitlines():
+        if line.lstrip().startswith(("```", "~~~")):
+            fenced = not fenced
+        elif not fenced and re.match(r"# \S", line):
+            headings.append(line)
     if len(headings) != 1:
         found.append(f"body has {len(headings)} top-level headings, not one")
     return found
