@@ -5,14 +5,14 @@ A run without such a flag uses the native lanes described in the skill body and 
 
 ## Roster
 
-`--architect <vendors>` and `--critic <vendors>` take a comma-separated vendor list and default to `claude`.
+`--reviewer <vendors>` takes a comma-separated vendor list and defaults to `claude`. It applies to both review roles at once, Architect and Critic, the same way `execute` applies it to whichever reviewer roles a round selects.
 
 | Flag | Effect |
 | :--- | :--- |
-| `--critic claude` | the native lane, identical to passing nothing |
-| `--critic codex` | the native lane is replaced |
-| `--critic claude,codex` | two lanes for one role, both blocking |
-| `--critic claude,codex:advisory` | the codex lane reports but cannot block |
+| `--reviewer claude` | the native lanes, identical to passing nothing |
+| `--reviewer codex` | both native lanes are replaced |
+| `--reviewer claude,codex` | each role runs in both vendors, all four lanes blocking |
+| `--reviewer claude,codex:advisory` | the codex lanes report but cannot block |
 
 A vendor suffixed `:advisory` records a verdict and contributes findings without gating approval.
 Every unsuffixed lane blocks, which is the rule the skill body already states for the native pair.

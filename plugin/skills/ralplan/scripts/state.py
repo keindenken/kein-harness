@@ -192,7 +192,7 @@ def _validate_verdict(value: Any, lane: str, expected_hash: str) -> List[str]:
 
 def _parse_lane(key: Any) -> Optional[Tuple[str, str, bool]]:
     # A lane names its role, the vendor that ran it, and whether it gates approval.
-    # `--critic claude,codex:advisory` becomes the keys `critic@claude` and `critic@codex:advisory`, so the roster reads straight off the state instead of being remembered.
+    # `--reviewer claude,codex:advisory` becomes the keys `architect@claude`, `architect@codex:advisory`, `critic@claude` and `critic@codex:advisory`, so the roster reads straight off the state instead of being remembered.
     if not isinstance(key, str):
         return None
     match = LANE_PATTERN.fullmatch(key)

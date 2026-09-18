@@ -1,7 +1,7 @@
 ---
 name: ralplan
 description: Use when an implementation plan needs evidence-grounded architecture and quality consensus before it is trusted for execution.
-argument-hint: "[what to plan] [--architect claude|codex] [--critic claude|codex]"
+argument-hint: "[what to plan] [--reviewer claude|codex]"
 ---
 
 # RALPLAN
@@ -31,7 +31,7 @@ Read each before the point its line names:
 - [state-schema.md](references/state-schema.md) before creating or resuming a run.
 - [plan-gate.md](references/plan-gate.md) before setting a status or computing a hash. The artifact's own contract arrives with the `/plan` invocation; this covers only what the gate adds to it.
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
-- [lanes.md](references/lanes.md) only when the invocation names a vendor for a review lane — `--architect codex`, `--critic claude,codex`.
+- [lanes.md](references/lanes.md) only when the invocation names a vendor for the review lanes — `--reviewer codex`, `--reviewer claude,codex`.
 
 ## Workflow
 

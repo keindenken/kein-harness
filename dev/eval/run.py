@@ -1097,7 +1097,7 @@ def main():
     parser.add_argument("--timeout", type=int, default=1800, help="per-arm timeout in seconds")
     parser.add_argument("--keep", action="store_true", help="leave worktrees and config homes on disk for inspection. Without it a finished run keeps its artifacts, event streams, manifest and transcripts, and removes the scaffolding that produced them.")
     parser.add_argument("--arm", action="append", choices=sorted(ARMS), help="run only these arms; repeatable. A conformance run needs one arm, not a comparison.")
-    parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --critic claude,codex '. The trailing space matters.")
+    parser.add_argument("--invoke", help="override the injected arm's invocation, e.g. '/kein:ralplan --reviewer claude,codex '. The trailing space matters.")
     parser.add_argument("--max-turns", type=int, default=500, help="runaway backstop for the lead; not a round limiter")
     parser.add_argument("--lead-prompt", default="none", metavar="PATH|none", help="append a standing lead prompt to every arm, as a launcher does in real use. Default 'none', which is what every run measured so far did — turning it on by default would make those runs incomparable without saying so. Run one case both ways to read what it costs.")
     options = parser.parse_args()
