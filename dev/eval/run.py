@@ -82,6 +82,32 @@ def state_dir(sub):
     return Path(out.decode().strip())
 
 
+def new_run_dir(name):
+    """Make a run directory outside this repository, and refuse one that project memory can reach.
+
+    Claude Code reads every `CLAUDE.md` from an arm's working directory up to the filesystem root, and that walk does not stop at a git boundary. Run directories used to sit under this repository's `.agents/`, so every arm worktree inherited the repository's own `CLAUDE.md` — the reason this repository went without one.
+    The default is a sibling of the repository, `../eval`, which assumes the hub layout (`kein-harness/main`, `kein-harness/eval`). `KEIN_EVAL_ROOT` moves it elsewhere.
+    The location alone guarantees nothing, since a hub collects shared configuration over time, so the ancestors are checked on every run rather than trusted. `~/.claude` is exempt: user memory reaches every arm equally, as `prepare_config_home` records.
+    """
+    root = Path(os.environ.get("KEIN_EVAL_ROOT") or KEIN_REPO_ROOT.parent / "eval").resolve()
+    user_home = (Path.home() / ".claude").resolve()
+    leaks = []
+    for ancestor in [root, *root.parents]:
+        for relative in ("CLAUDE.md", "CLAUDE.local.md", ".claude/CLAUDE.md", ".claude/rules"):
+            candidate = ancestor / relative
+            if candidate.exists() and not candidate.resolve().is_relative_to(user_home):
+                leaks.append(str(candidate))
+    if leaks:
+        raise SystemExit(
+            f"kein-dev eval: {root} sits under project memory that every arm would read:\n  "
+            + "\n  ".join(leaks)
+            + "\n  Move it, or set KEIN_EVAL_ROOT to a directory with no such ancestor."
+        )
+    run_dir = root / name
+    run_dir.mkdir(parents=True)
+    return run_dir
+
+
 def load_config():
     path = state_dir("eval") / "fixtures.json"
     if not path.exists():
@@ -993,8 +1019,7 @@ def run_case_mode(options, model, config_home_root):
     denied = list(execution.get("denied_tools") or [])
 
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
-    run_dir = state_dir("runs/eval") / f"{stamp}-case-{case['name']}"
-    run_dir.mkdir(parents=True)
+    run_dir = new_run_dir(f"{stamp}-case-{case['name']}")
     arms = resolve_arms(options, run_dir, model)
 
     # A replicate is independent of every other one by construction — its own worktree, its
@@ -1231,8 +1256,7 @@ def main():
 
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     kind = "probe" if options.probe else "task"
-    run_dir = state_dir("runs/eval") / f"{stamp}-{options.fixture}-{kind}"
-    run_dir.mkdir(parents=True)
+    run_dir = new_run_dir(f"{stamp}-{options.fixture}-{kind}")
 
     # One pinned config home for the whole run, created empty, so no arm inherits the operator's plugins or MCP servers.
     config_home = prepare_config_home(run_dir / "config-home")
