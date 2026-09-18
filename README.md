@@ -94,7 +94,7 @@ The first command clones the whole repository under `~/.claude/plugins/marketpla
 The active setup is a symlink:
 
 ```sh
-ln -s /Users/kein/Documents/workspace/dev/kein-harness/plugin ~/.claude/skills/kein
+ln -s /Users/kein/Documents/workspace/dev/kein-harness/main/plugin ~/.claude/skills/kein
 ```
 
 Any folder under a skills directory holding a `.claude-plugin/plugin.json` is
@@ -119,7 +119,7 @@ the field so the git commit SHA is used instead.
 ### Validate
 
 ```sh
-claude plugin validate /Users/kein/Documents/workspace/dev/kein-harness/plugin --strict
+claude plugin validate /Users/kein/Documents/workspace/dev/kein-harness/main/plugin --strict
 ```
 
 ### Scope: discovered globally, enabled per project
