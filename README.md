@@ -18,6 +18,10 @@ README.md
                        `./plugin`, and an install copies that directory alone.
 plugin/                everything Claude Code loads. The symlink points HERE,
                        not at the repository root.
+  .mcp.json            two hosted MCP servers the harness expects, context7 and
+                       exa, both keyless at their public tier. A server of the
+                       same name at user or project scope takes precedence, which
+                       is how a key or a different tool set is supplied.
   .claude-plugin/
     plugin.json        manifest. `name` is the only required field; component
                        paths are omitted on purpose so the default directories
