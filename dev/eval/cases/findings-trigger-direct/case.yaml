@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: findings-trigger-direct
+description: >
+  Asks directly about a runtime behaviour a synthetic finding has measured. The finding carries a marker
+  (probe FX-7Q, 0 of 40) that no model knows, so an answer that cites it could only have come through the
+  skill. Hit case: the skill should fire.
+tags: [findings, trigger]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  # Unpinned on purpose: the question is whether the description alone brings the skill in.
+  prompt: |
+    Agent teams 기능을 끈 상태에서, 리드가 백그라운드로 돌고 있는 서브에이전트에게 작업 도중에 메시지를 보내 지시를 바꿀 수 있나요? 설계 결정에 쓸 거라 근거와 함께 답을 ANSWER.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

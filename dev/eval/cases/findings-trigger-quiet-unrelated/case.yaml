@@ -1,0 +1,20 @@
+schema_version: "1.1"
+name: findings-trigger-quiet-unrelated
+description: >
+  Ordinary coding with no agent runtime in it. Quiet case: the skill should not fire.
+tags: [findings, trigger]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  # Unpinned on purpose: the question is whether the description alone brings the skill in.
+  prompt: |
+    fixture/paginate.py의 paginate 함수에 off-by-one 버그가 있어서 마지막 페이지가 빠집니다. 고쳐 주시고, 무엇을 바꿨는지 한 줄로 CHANGES.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

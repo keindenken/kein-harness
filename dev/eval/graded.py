@@ -224,7 +224,21 @@ def grade(grader, artifacts, record, judge_model, run_cmd):
             used = record.get("files_written") or []
         else:
             return False, f"unsupported tool for tool_used: {tool}"
-        return len(used) >= grader.get("min", 1), f"{len(used)} {tool} call(s)"
+        # `skill:` narrows a Skill count to one skill; both the namespaced and bare forms count,
+        # because the tool input carries whichever the model typed.
+        wanted = grader.get("skill")
+        if wanted:
+            bare = wanted.split(":", 1)[-1]
+            used = [name for name in used if name in (wanted, bare)]
+        # A ceiling makes absence assertable. Absence passes trivially on a run that did nothing,
+        # so a grader with `max:` may name a `path` the run must have produced for the silence to count.
+        required = grader.get("path")
+        if required and _artifact(artifacts, required) is None:
+            return False, f"{required} was not produced, so the absence of {wanted or tool} means nothing"
+        label = f"{len(used)} {wanted or tool} call(s)"
+        if "max" in grader:
+            return len(used) >= grader.get("min", 0) and len(used) <= grader["max"], label
+        return len(used) >= grader.get("min", 1), label
 
     if kind == "llm":
         return _judge(grader, artifacts, record, judge_model, run_cmd)
@@ -244,9 +258,10 @@ def classify(per_arm, roles=None):
     """
     roles = roles or {"treatment": "with-skill", "control": "without-skill"}
     rates = {arm: (sum(results), len(results)) for arm, results in per_arm.items()}
-    passed, total = rates.get(roles["treatment"], (0, 0))
+    passed, total = rates.get(roles.get("treatment"), (0, 0))
     treatment = passed / total if total else 0.0
-    passed, total = rates.get(roles["control"], (0, 0))
+    # A single-arm run (`--arm with-skill`) has no control; it reads as an absent baseline.
+    passed, total = rates.get(roles.get("control"), (0, 0))
     control = passed / total if total else 0.0
     detail = {arm: f"{p}/{n}" for arm, (p, n) in rates.items()}
 

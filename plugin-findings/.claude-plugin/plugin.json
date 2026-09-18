@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "kein-findings",
+  "displayName": "Kein Findings",
+  "version": "0.1.0",
+  "description": "Recorded measurements of how agent runtimes behave, read only when a question depends on one.",
+  "author": {
+    "name": "kein"
+  },
+  "keywords": [
+    "claude-code",
+    "findings",
+    "measurements"
+  ]
+}

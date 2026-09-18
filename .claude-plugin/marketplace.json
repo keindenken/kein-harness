@@ -17,6 +17,16 @@
         "harness",
         "orchestration"
       ]
+    },
+    {
+      "name": "kein-findings",
+      "description": "Recorded measurements of how agent runtimes behave, read only when a question depends on one.",
+      "source": "./plugin-findings",
+      "category": "productivity",
+      "tags": [
+        "findings",
+        "measurements"
+      ]
     }
   ]
 }

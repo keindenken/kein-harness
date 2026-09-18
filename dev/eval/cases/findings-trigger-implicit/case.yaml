@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: findings-trigger-implicit
+description: >
+  A design edit that silently depends on the same runtime behaviour, without asking about it: add a mid-task
+  correction step to a dispatch skill. The finding says such a message never arrives. Hit case, weaker than
+  direct: the skill should fire because the edit rests on a belief about the runtime.
+tags: [findings, trigger]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  # Unpinned on purpose: the question is whether the description alone brings the skill in.
+  prompt: |
+    fixture/skills/dispatch/SKILL.md 스킬에, 리드가 이미 백그라운드에서 돌고 있는 워커에게 작업 도중 수정 지시를 보내는 단계를 추가해 주세요. 파일을 직접 고치고, 무엇을 바꿨는지 한 줄로 CHANGES.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

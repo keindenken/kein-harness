@@ -72,8 +72,39 @@ with tempfile.TemporaryDirectory() as tmp:
     if flag_value(denied, "--disallowedTools") != "Bash(sqlite3:*)":
         failures.append("a denied tool did not reach the arm, so a case could settle its own question")
 
+# --- plugins a case chooses, and the findings store an arm must never inherit ---------------------
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    one = module.launch_command("do the task", "sonnet", False, root / "kein", 500)
+    if one.count("--plugin-dir") != 1:
+        failures.append("a single plugin did not produce exactly one --plugin-dir")
+    chosen = [path for _, path in module.plugin_sources(["kein-findings"], root)]
+    only = module.launch_command("do the task", "sonnet", False, chosen, 500)
+    if only.count("--plugin-dir") != 1 or flag_value(only, "--plugin-dir") != str(root / "plugin-findings"):
+        failures.append("a case that chose only kein-findings did not get exactly that plugin")
+    both = module.launch_command("do the task", "sonnet", False, [p for _, p in module.plugin_sources(["kein", "kein-findings"], root)], 500)
+    if both.count("--plugin-dir") != 2:
+        failures.append("two chosen plugins did not produce two --plugin-dir flags")
+    if "--plugin-dir" in module.launch_command("do the task", "sonnet", False, [], 500):
+        failures.append("an empty plugin list still handed the arm a plugin")
+    try:
+        module.plugin_sources(["no-such-plugin"], root)
+        failures.append("an unknown plugin name was accepted instead of refused before the run")
+    except SystemExit:
+        pass
+
+    home = root / "config-homes" / "with-skill-0"
+    home.mkdir(parents=True)
+    os.environ["KEIN_FINDINGS_DIR"] = str(root / "operator-findings")
+    pinned = module.arm_environment(root / "worktree", home)["KEIN_FINDINGS_DIR"]
+    if pinned == os.environ["KEIN_FINDINGS_DIR"] or Path(pinned).exists():
+        failures.append(f"an arm without supplied findings inherited or could reach a real store: {pinned}")
+    supplied = root / "run" / "findings" / "with-skill-0"
+    if module.arm_environment(root / "worktree", home, supplied)["KEIN_FINDINGS_DIR"] != str(supplied):
+        failures.append("an arm's supplied findings copy did not reach it")
+
 if failures:
     for failure in failures:
         print(f"check-eval-launch: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-eval-launch: the default arm is bare, a lead prompt reaches every arm or none, and a missing one is refused")
+print("check-eval-launch: the default arm is bare, a lead prompt reaches every arm or none, a case gets exactly the plugins it chose, and no arm inherits the operator's findings")

@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+#: Feed the findings checker a clean store and one store per violation, and hold the kein-findings tree to its two files.
+#
+# `findings check` is the only thing standing between the store and the old wiki's growth into indexes and taxonomies, so a violation it stops catching is the failure that matters. Each case below plants exactly one, which is what lets a silent pass be told apart from a clean store.
+import os
+import re
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+REPO = Path(os.environ["KEIN_REPO_ROOT"])
+PLUGIN = REPO / "plugin-findings"
+BIN = PLUGIN / "bin" / "findings"
+failures = []
+
+GOOD = """---
+claim: A plain claim about a runtime.
+measured: 2026-09-19
+versions: claude-code 2.1.276
+reproduce: run the probe in the body
+status: current
+---
+# A finding
+
+What was asked, what ran, what came back.
+"""
+
+
+def run(root, *args):
+    env = dict(os.environ, KEIN_FINDINGS_DIR=str(root))
+    return subprocess.run([sys.executable, str(BIN), *args], env=env, capture_output=True, text=True)
+
+
+def store(files):
+    base = Path(tempfile.mkdtemp())
+    for name, text in files.items():
+        target = base / name
+        if text is None:
+            target.mkdir()
+        else:
+            target.write_text(text)
+    return base
+
+
+def swap(old, new):
+    return GOOD.replace(old, new)
+
+
+# --- a clean store passes, and list shows it -----------------------------------------------
+clean = store({"260919-plain.md": GOOD})
+result = run(clean, "check")
+if result.returncode != 0:
+    failures.append(f"a clean store failed check: {result.stdout.strip()}")
+listed = run(clean, "list").stdout
+if "260919-plain.md\t2026-09-19\tcurrent\tA plain claim about a runtime." not in listed:
+    failures.append(f"list did not print the tab-separated claim line: {listed!r}")
+
+# --- one violation per store ------------------------------------------------------------------
+second = swap("A plain claim about a runtime.", "Another claim.").replace("What was asked", "Something else was asked")
+cases = {
+    "a subdirectory": ({"260919-plain.md": GOOD, "topic": None}, "subdirectories"),
+    "a non-markdown file": ({"260919-plain.md": GOOD, "index.json": "{}"}, "only .md"),
+    "a bad file name": ({"Plain Finding.md": GOOD}, "file name"),
+    "no frontmatter": ({"260919-plain.md": "# A finding\n"}, "no frontmatter"),
+    "an unknown key": ({"260919-plain.md": swap("status: current", "status: current\ntags: x")}, "unknown key"),
+    "a missing key": ({"260919-plain.md": swap("reproduce: run the probe in the body\n", "")}, "missing key"),
+    "a date that disagrees with the name": ({"260918-plain.md": GOOD}, "does not match"),
+    "an overlong claim": ({"260919-plain.md": swap("A plain claim about a runtime.", "x" * 201)}, "over 200"),
+    "an unknown status": ({"260919-plain.md": swap("status: current", "status: maybe")}, "is not one of"),
+    "superseded without a target": ({"260919-plain.md": swap("status: current", "status: superseded")}, "superseded_by is missing"),
+    "a target that does not exist": ({"260919-plain.md": swap("status: current", "status: superseded\nsuperseded_by: 260919-gone.md")}, "does not name another finding"),
+    "two top-level headings": ({"260919-plain.md": GOOD + "# Another\n"}, "top-level headings"),
+    "a duplicate body": ({"260919-plain.md": GOOD, "260919-copy.md": GOOD}, "same body"),
+}
+for label, (files, expected) in cases.items():
+    result = run(store(files), "check")
+    if result.returncode != 1 or expected not in result.stdout:
+        failures.append(f"{label} was not caught (exit {result.returncode}): {result.stdout.strip()!r}")
+
+# A superseded finding pointing at a real one is fine, and list hides it unless --all.
+chain = store({"260919-plain.md": GOOD, "260918-old.md": GOOD.replace("2026-09-19", "2026-09-18").replace("status: current", "status: superseded\nsuperseded_by: 260919-plain.md").replace("What was asked", "Earlier")})
+result = run(chain, "check")
+if result.returncode != 0:
+    failures.append(f"a valid supersession failed check: {result.stdout.strip()}")
+if "260918-old.md" in run(chain, "list").stdout or "260918-old.md" not in run(chain, "list", "--all").stdout:
+    failures.append("list did not hide a superseded finding by default and show it with --all")
+
+# --- no root: where says nothing and exits 3, list is silent ----------------------------------
+absent = Path(tempfile.mkdtemp()) / "absent"
+result = run(absent, "where")
+if result.returncode != 3 or result.stdout:
+    failures.append(f"where without a root gave exit {result.returncode} and {result.stdout!r}")
+result = run(absent, "list")
+if result.returncode != 3 or result.stdout:
+    failures.append(f"list without a root gave exit {result.returncode} and {result.stdout!r}")
+
+# --- the plugin tree stays two files plus its manifest ----------------------------------------
+bins = sorted(p.name for p in (PLUGIN / "bin").iterdir())
+if bins != ["findings"]:
+    failures.append(f"plugin-findings/bin holds {bins}, not only findings")
+for path in PLUGIN.rglob("*"):
+    if path.is_file():
+        text = path.read_text(errors="replace")
+        for word in (r"\bocs\b", r"Documents/wiki", r"CLAUDE_PLUGIN_ROOT"):
+            if re.search(word, text):
+                failures.append(f"{path.relative_to(REPO)} mentions {word}; the plugin must stand alone and carry nothing personal")
+marketplace = (REPO / ".claude-plugin" / "marketplace.json").read_text()
+if len(re.findall(r'"version"', marketplace)) != 2:
+    failures.append("marketplace.json must carry exactly two version fields (top level and kein) or bump-version misreads it")
+
+if failures:
+    for failure in failures:
+        print(f"check-findings: {failure}", file=sys.stderr)
+    raise SystemExit(1)
+print(f"check-findings: a clean store passes, {len(cases)} planted violations are each caught, and the plugin tree stands alone")

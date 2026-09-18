@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""Locate, list, and check recorded measurements of how agent runtimes behave.
+
+usage: findings where | list [--all] | check [<file>...]
+
+The root is `KEIN_FINDINGS_DIR`, else `$HOME/.agents/findings`. It lives outside the plugin because the plugin ships to everyone and the findings are one person's; a machine without a root gets exit 3 from `where` and an empty `list`, which is how the skill knows to say nothing.
+
+This file is the plugin's whole machinery besides the skill. `check` refuses any key outside a fixed set and any subdirectory, so the store cannot grow an index, a config, or a taxonomy without this file changing first.
+"""
+
+import os
+import re
+import sys
+from datetime import date
+from pathlib import Path
+
+REQUIRED = ("claim", "measured", "versions", "reproduce", "status")
+OPTIONAL = ("superseded_by", "project")
+STATUSES = ("current", "superseded", "disputed")
+NAME = re.compile(r"^(\d{2})(\d{2})(\d{2})-[a-z0-9-]+\.md$")
+CLAIM_LIMIT = 200
+
+
+def root():
+    configured = os.environ.get("KEIN_FINDINGS_DIR")
+    candidate = Path(configured) if configured else Path.home() / ".agents" / "findings"
+    return candidate.resolve() if candidate.is_dir() else None
+
+
+def parse(path):
+    """Return (fields, body) or raise ValueError naming what is malformed."""
+    text = path.read_text(encoding="utf-8", errors="replace")
+    match = re.match(r"\A---\n(.*?)\n---\n?(.*)\Z", text, re.S)
+    if not match:
+        raise ValueError("no frontmatter")
+    fields = {}
+    for number, line in enumerate(match.group(1).splitlines(), 2):
+        key, sep, value = line.partition(":")
+        if not sep or not re.fullmatch(r"[a-z_]+", key.strip()) or not value.strip():
+            raise ValueError(f"frontmatter line {number} is not a one-line 'key: value'")
+        key = key.strip()
+        if key in fields:
+            raise ValueError(f"key {key!r} appears twice")
+        fields[key] = value.strip()
+    return fields, match.group(2)
+
+
+def problems(path, names):
+    """Everything wrong with one finding file, as short sentences."""
+    found = []
+    name = NAME.match(path.name)
+    if not name:
+        found.append("file name is not YYMMDD-<slug>.md with a lowercase slug")
+    try:
+        fields, body = parse(path)
+    except ValueError as error:
+        return found + [str(error)]
+    for key in fields:
+        if key not in REQUIRED + OPTIONAL:
+            found.append(f"unknown key {key!r}")
+    for key in REQUIRED:
+        if key not in fields:
+            found.append(f"missing key {key!r}")
+    measured = fields.get("measured")
+    if measured:
+        try:
+            day = date.fromisoformat(measured)
+            if name and day.strftime("%y%m%d") != "".join(name.groups()):
+                found.append(f"measured {measured} does not match the date in the file name")
+        except ValueError:
+            found.append(f"measured {measured!r} is not a YYYY-MM-DD date")
+    claim = fields.get("claim", "")
+    if len(claim) > CLAIM_LIMIT:
+        found.append(f"claim is {len(claim)} characters, over {CLAIM_LIMIT}")
+    status = fields.get("status")
+    if status and status not in STATUSES:
+        found.append(f"status {status!r} is not one of {', '.join(STATUSES)}")
+    target = fields.get("superseded_by")
+    if status == "superseded" and not target:
+        found.append("status is superseded but superseded_by is missing")
+    if target and status != "superseded":
+        found.append("superseded_by is set but status is not superseded")
+    if target and (target == path.name or target not in names):
+        found.append(f"superseded_by {target!r} does not name another finding")
+    headings = [line for line in body.splitlines() if re.match(r"# \S", line)]
+    if len(headings) != 1:
+        found.append(f"body has {len(headings)} top-level headings, not one")
+    return found
+
+
+def entries(base):
+    return sorted(p for p in base.iterdir() if not p.name.startswith("."))
+
+
+def cmd_where(base):
+    if base is None:
+        return 3
+    print(base)
+    return 0
+
+
+def cmd_list(base, show_all):
+    if base is None:
+        return 3
+    for path in entries(base):
+        if not path.is_file() or path.suffix != ".md":
+            continue
+        try:
+            fields, _ = parse(path)
+        except ValueError:
+            continue
+        status = fields.get("status", "?")
+        if not show_all and status == "superseded":
+            continue
+        print("\t".join((path.name, fields.get("measured", "?"), status, fields.get("claim", ""))))
+    return 0
+
+
+def cmd_check(base, files):
+    if base is None:
+        print("findings: no findings root (set KEIN_FINDINGS_DIR or create ~/.agents/findings)", file=sys.stderr)
+        return 3
+    failures, unrecorded = [], 0
+    everything = entries(base)
+    names = {p.name for p in everything if p.is_file()}
+    for path in everything:
+        if path.is_dir():
+            failures.append(f"{path.name}: subdirectories are not allowed; findings are flat")
+        elif path.suffix != ".md":
+            failures.append(f"{path.name}: only .md files belong in the findings root")
+    targets = [base / Path(f).name for f in files] if files else [p for p in everything if p.is_file() and p.suffix == ".md"]
+    bodies = {}
+    for path in targets:
+        if not path.is_file():
+            failures.append(f"{path.name}: no such finding")
+            continue
+        failures += [f"{path.name}: {p}" for p in problems(path, names)]
+        try:
+            fields, body = parse(path)
+        except ValueError:
+            continue
+        unrecorded += sum(fields.get(k) == "unrecorded" for k in ("versions", "reproduce"))
+        key = body.strip()
+        if key in bodies:
+            failures.append(f"{path.name}: same body as {bodies[key]}")
+        else:
+            bodies[key] = path.name
+    for line in failures:
+        print(line)
+    if unrecorded:
+        print(f"findings: {unrecorded} field(s) marked unrecorded (allowed, shown by list as-is)", file=sys.stderr)
+    return 1 if failures else 0
+
+
+def main(argv):
+    if not argv or argv[0] in ("-h", "--help", "help"):
+        print(__doc__.splitlines()[2])
+        return 0 if argv else 2
+    command, rest = argv[0], argv[1:]
+    base = root()
+    if command == "where":
+        return cmd_where(base)
+    if command == "list":
+        return cmd_list(base, "--all" in rest)
+    if command == "check":
+        return cmd_check(base, rest)
+    print(f"findings: unknown command {command!r}", file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

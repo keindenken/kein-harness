@@ -1,0 +1,21 @@
+schema_version: "1.1"
+name: findings-trigger-quiet-near
+description: >
+  Agent vocabulary with no runtime belief behind the work: fix typos in a dispatch skill. Quiet case: the
+  skill should not fire; this is the one that tells a precise description from a keyword match.
+tags: [findings, trigger]
+
+context:
+  add_dirs: [fixture]
+
+execution:
+  # Unpinned on purpose: the question is whether the description alone brings the skill in.
+  prompt: |
+    fixture/skills/dispatch/SKILL.md에 오탈자가 몇 개 있습니다. 내용은 바꾸지 말고 철자만 고쳐 주시고, 고친 단어 목록을 CHANGES.md에 적어 주세요.
+  plugins: [kein-findings]
+  findings_dir: ../findings-trigger-direct/findings
+  max_turns: 30
+  timeout_seconds: 600
+  denied_tools: []
+
+runs: 3

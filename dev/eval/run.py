@@ -45,6 +45,33 @@ except KeyError as missing:
 RANK_JUDGES = ["critic@codex:gpt-5.6-sol", "architect@codex:gpt-5.6-sol",
                "verifier@codex:gpt-5.6-sol"]
 
+# Plugins an arm can be given, by marketplace name, and the directory under the repository (or a
+# variant's checkout) each one ships from. A case names the ones it measures; the default is the
+# harness alone, which is what every case before this table existed ran with.
+PLUGIN_SOURCES = {"kein": "plugin", "kein-findings": "plugin-findings"}
+
+
+def plugin_sources(names, root):
+    """Map a case's plugin names onto source directories under `root`, refusing a name the table lacks.
+
+    Kept free of copying so `check-eval-launch` can assert it without building a run.
+    """
+    unknown = [name for name in names if name not in PLUGIN_SOURCES]
+    if unknown:
+        raise SystemExit(f"kein-dev eval: unknown plugin(s) {unknown}; known: {sorted(PLUGIN_SOURCES)}")
+    return [(name, Path(root) / PLUGIN_SOURCES[name]) for name in names]
+
+
+def findings_dir_for(config_home):
+    """Where an arm's KEIN_FINDINGS_DIR points when its case supplies no findings.
+
+    It must be set on every arm, because an arm inherits the operator's environment and HOME, and
+    without it the findings skill would read the operator's own store through the default path. The
+    path sits beside the arm's config home and is never created, so `findings where` exits 3.
+    """
+    return Path(config_home).parent / f"{Path(config_home).name}-no-findings"
+
+
 ARMS = {
     "with-skill": {"inject": True, "invoke": "/kein:ralplan "},
     "without-skill": {"inject": False, "invoke": ""},
@@ -602,8 +629,9 @@ def launch_command(prompt, model, probe, plugin_dir, max_turns, denied=(), lead_
         "--strict-mcp-config",
         "-p", prompt,
     ]
-    if plugin_dir is not None:
-        command += ["--plugin-dir", str(plugin_dir)]
+    # One directory, a list of them, or None for the control arm. `--plugin-dir` repeats.
+    for directory in ([] if plugin_dir is None else plugin_dir if isinstance(plugin_dir, list) else [plugin_dir]):
+        command += ["--plugin-dir", str(directory)]
     if lead_prompt is not None:
         # Every arm, or none. The lead prompt is the axis rather than a treatment, and giving it to
         # one arm would put two variables between the arms and make the difference unattributable.
@@ -624,7 +652,13 @@ def launch_command(prompt, model, probe, plugin_dir, max_turns, denied=(), lead_
     return command
 
 
-def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=(), lead_prompt=None):
+def arm_environment(worktree, config_home, findings_dir=None):
+    """The arm's environment: the operator's, with every variable that would leak their own state pinned."""
+    return dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home), KEIN_STATE_ROOT=str(worktree),
+                KEIN_FINDINGS_DIR=str(findings_dir or findings_dir_for(config_home)))
+
+
+def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=(), lead_prompt=None, findings_dir=None):
     """`plugin_dir` is None for an arm that runs without the harness."""
     command = launch_command(prompt, model, probe, plugin_dir, max_turns, denied, lead_prompt)
 
@@ -632,7 +666,7 @@ def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_hom
     # Inheriting it would hand every arm the user's other plugins — superpowers among them, whose planning skills would mask the variable under test far more thoroughly than the fixture's own contamination did.
     # KEIN_STATE_ROOT pins the arm's run ledger to its own worktree.
     # Without it a lead that steps into the plugin directory to read a reference makes `ocs state-dir` resolve to the harness repository, and the ledger escapes the arm entirely.
-    environment = dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home), KEIN_STATE_ROOT=str(worktree))
+    environment = arm_environment(worktree, config_home, findings_dir)
 
     started = datetime.now(timezone.utc)
     with events_path.open("wb") as sink:
@@ -666,7 +700,20 @@ def arm_spec(name):
     return ARMS.get(name, {"inject": True, "invoke": ""})
 
 
-def resolve_arms(options, run_dir, model):
+def prepare_plugins(sources, run_dir, model, label):
+    """Copy each named plugin into the run; the harness also gets its agents rendered onto one model."""
+    prepared = []
+    for name, source in sources:
+        if name == "kein":
+            prepared.append(prepare_plugin(run_dir / "plugins" / label / name, model, source=source))
+        else:
+            target = run_dir / "plugins" / label / name
+            shutil.copytree(source, target, symlinks=True)
+            prepared.append(target)
+    return prepared
+
+
+def resolve_arms(options, run_dir, model, plugins=("kein",)):
     """Build this run's arms, each with the plugin directory it launches under.
 
     Without `--variant` the arms are the built-in pair: the harness present, and the
@@ -676,7 +723,10 @@ def resolve_arms(options, run_dir, model):
     nothing in the paired-arm shape had to change to ask it.
     """
     if not options.variant:
-        plugin = prepare_plugin(run_dir / "plugin", model)
+        if list(plugins) == ["kein"]:
+            plugin = prepare_plugin(run_dir / "plugin", model)
+        else:
+            plugin = prepare_plugins(plugin_sources(plugins, KEIN_REPO_ROOT), run_dir, model, "treatment")
         return {
             name: {**spec, "plugin": plugin if spec["inject"] else None,
                    "role": "treatment" if spec["inject"] else "control"}
@@ -699,7 +749,9 @@ def resolve_arms(options, run_dir, model):
         arms[name] = {
             "inject": True, "invoke": "", "ref": ref, "commit": commit,
             "role": "control" if not arms else "treatment",
-            "plugin": prepare_plugin(run_dir / "plugins" / name, model, source=checkout / "plugin"),
+            "plugin": (prepare_plugin(run_dir / "plugins" / name, model, source=checkout / "plugin")
+                       if list(plugins) == ["kein"]
+                       else prepare_plugins(plugin_sources(plugins, checkout), run_dir, model, name)),
         }
         print(f"[{name}] harness at {ref} ({commit[:12]})", file=sys.stderr)
     return arms
@@ -1020,7 +1072,10 @@ def run_case_mode(options, model, config_home_root):
 
     stamp = datetime.now().strftime("%y%m%d-%H%M%S")
     run_dir = new_run_dir(f"{stamp}-case-{case['name']}")
-    arms = resolve_arms(options, run_dir, model)
+    arms = resolve_arms(options, run_dir, model, execution.get("plugins") or ["kein"])
+    supplied = execution.get("findings_dir")
+    if supplied and not (case_dir / supplied).is_dir():
+        raise SystemExit(f"kein-dev eval: execution.findings_dir {supplied!r} is not a directory under {case_dir}")
 
     # A replicate is independent of every other one by construction — its own worktree, its
     # own event stream, its own artifacts — so the only thing forcing them into a queue was
@@ -1035,9 +1090,15 @@ def run_case_mode(options, model, config_home_root):
         worktree = run_dir / "worktrees" / arm / str(index)
         case_runner.prepare_case_worktree(case_dir, worktree, run)
         events = run_dir / f"events-{arm}-{index}.jsonl"
+        # Outside the worktree, so an arm cannot stumble on the findings by listing its cwd and the
+        # grader measures the skill reaching them rather than the model reading what lies around.
+        findings = None
+        if supplied:
+            findings = run_dir / "findings" / f"{arm}-{index}"
+            shutil.copytree(case_dir / supplied, findings)
         print(f"[{arm}] run {index + 1}/{replicates} started ({model})", file=sys.stderr)
         outcome = launch(arm, worktree, prompt, model, False, timeout, events,
-                         homes[job], arms[arm]["plugin"], max_turns, denied, lead_prompt)
+                         homes[job], arms[arm]["plugin"], max_turns, denied, lead_prompt, findings)
         artifacts = run_dir / "artifacts" / arm / str(index)
         produced = collect(worktree, artifacts)
         with ThreadPoolExecutor(max_workers=len(graders)) as pool:

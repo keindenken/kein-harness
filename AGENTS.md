@@ -4,7 +4,7 @@ Claude Code용 `kein` 하네스를 만드는 리포다. 설치 방법, 로딩 �
 
 ## 무엇이 배포되는가
 
-- `plugin/`만 설치된다. `agents/`, `dev/`, `docs/`, `.agents/`는 배포되지 않는다. 하네스가 실행 중에 쓰는 것은 `plugin/` 안에, 하네스를 만들고 검사하는 도구는 `dev/`에 둔다.
+- `plugin/`(kein)과 `plugin-findings/`(kein-findings)만 설치된다. `agents/`, `dev/`, `docs/`, `.agents/`는 배포되지 않는다. 하네스가 실행 중에 쓰는 것은 `plugin/` 안에, 하네스를 만들고 검사하는 도구는 `dev/`에 둔다.
 - `plugin/bin/`에는 `ocs` 하나만 둔다. 여기 있는 파일은 플러그인이 켜진 모든 프로젝트에서 Bash PATH에 올라간다. 서브커맨드는 `plugin/libexec/ocs-<name>`으로 만들고, 첫 `#:` 주석 줄이 `ocs help`의 요약이 된다.
 - 개발용 명령은 `dev/libexec/<name>`에 두고 `dev/kein-dev <name>`으로 부른다. `ocs`에서 `dev/`를 참조하지 않는다.
 
@@ -31,6 +31,8 @@ Claude Code용 `kein` 하네스를 만드는 리포다. 설치 방법, 로딩 �
 ocs help                                         # 에이전트가 작업 중에 쓰는 CLI
 dev/kein-dev help                                # 하네스 개발용 명령
 claude plugin validate plugin --strict           # 플러그인 매니페스트 검사
+claude plugin validate plugin-findings --strict  # kein-findings 매니페스트 검사
+dev/kein-dev check-findings                      # findings 검사기와 kein-findings 트리 검사
 ```
 
 버전을 올릴 때는 `bump-version` 스킬로 `plugin/.claude-plugin/plugin.json`과 `.claude-plugin/marketplace.json`을 함께 올린다.
