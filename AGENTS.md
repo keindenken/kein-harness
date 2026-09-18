@@ -38,3 +38,5 @@ claude plugin validate plugin --strict           # 플러그인 매니페스트 
 ## 커밋
 
 `feat(execute): ...`처럼 conventional prefix 뒤에 무엇이 달라졌는지를 문장으로 쓴다.
+
+커밋은 요청을 기다리지 않는다. 한 작업 단위가 검증까지 끝나면 에이전트가 판단해 커밋하고, 이 리포에서는 이 줄이 "요청이 있을 때만 커밋한다"는 기본 지침보다 우선한다. push는 하지 않는다. push는 버전을 올릴 때 `bump-version` 스킬 안에서만 한다.
