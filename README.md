@@ -1,7 +1,7 @@
 # kein-harness
 
 The `kein` harness for Claude Code, driven by the `ocs` CLI.
-Five skills, fourteen generated subagents, and a bridge CLI serving both vendors.
+Eleven skills, fourteen generated subagents, and a bridge CLI serving both vendors.
 
 ## Layout
 
@@ -32,7 +32,9 @@ plugin/                everything Claude Code loads. The symlink points HERE,
   agents/              subagent markdown files      -> kein:<name>
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
-  hooks/hooks.json     one UserPromptSubmit hook, which keeps the HUD alive
+  hooks/hooks.json     one UserPromptSubmit hook, which keeps the HUD alive. The
+                       `fsd` skill's hooks are not here: they sit in its SKILL.md
+                       frontmatter and are armed only while `/kein:fsd` runs.
   hud/                 the statusline renderer, the block that puts it in front
                        of Orca's, and the repair the hook runs
   rules/               rule files, linked into the config home by `onboard`
@@ -216,6 +218,9 @@ Not `docs/`: that tree is for reference documentation, not the output of a work 
 The harness writes nothing the user did not ask for. `runs/` is transient and worth
 adding to a project's `.gitignore`; `requirements/`, `plans/`, `handoff/` and other
 deliverables are records and worth keeping.
+`retros/` holds the retrospective each completed `/kein:fsd` run leaves behind.
+
+`/kein:fsd`'s hooks do nothing while `${CLAUDE_CONFIG_DIR:-$HOME/.claude}/kein/fsd/hooks-off` exists. Create that file when a hook misfires; the flow still runs, without the push between stages.
 
 ### Asking another vendor
 
