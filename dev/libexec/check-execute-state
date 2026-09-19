@@ -9,6 +9,7 @@
 # Written because nothing else exercises this file. The one recorded execute run is a compacted
 # receipt, so no leftover candidate shows what a live loop actually costs.
 import hashlib
+import importlib.util
 import json
 import os
 import subprocess
@@ -27,6 +28,19 @@ def run(work, *args):
 
 def git(work, *args):
     subprocess.run(["git", *args], cwd=work, check=True, capture_output=True)
+
+
+_STATE_MODULE = None
+
+
+def state_module():
+    """`state.py` as an importable module, loaded once, so a legacy-seal fixture can build a real, self-consistent `worktree_fingerprint` value the way round 1's `dispatch` once wrote it -- reimplementing that computation here would drift from the source it is supposed to match."""
+    global _STATE_MODULE
+    if _STATE_MODULE is None:
+        spec = importlib.util.spec_from_file_location("execute_state_module", STATE)
+        _STATE_MODULE = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_STATE_MODULE)
+    return _STATE_MODULE
 
 
 SUMMARY = "check"
@@ -481,8 +495,870 @@ with tempfile.TemporaryDirectory() as tmp:
     if by_id(split_current(), "task-002")["scope_fingerprint"]["fingerprint"] != sealed_b:
         failures.append("an accepted task's scope fingerprint moved after acceptance; it is sealed there")
 
+    # (l) explicit: a state written before dispatch_scope_fingerprint and parked existed still validates. Round 3's `_autofill` fix now seals every `pending -> implementing` transition, so the tasks this fixture already dispatched (via hand-authored checkpoints, not `dispatch`) carry the field organically; a genuinely pre-U1 shape is built by stripping both fields directly, bypassing `checkpoint`, and the original state is restored once `validate` has run on it.
+    original_before_l = split_current()
+    pre_u1 = split_current()
+    for t in pre_u1["tasks"]:
+        t.pop("dispatch_scope_fingerprint", None)
+        t.pop("parked", None)
+    write(split_state, pre_u1)
+    result = run(work, "validate", str(split_state))
+    if result.returncode != 0:
+        failures.append(f"(l) a pre-U1 state with neither new field failed to validate: {result.stderr.strip()}")
+    write(split_state, original_before_l)
+
+    # Correction round 5, item 1 - the initial checkpoint (revision 0, no predecessor) bypassed every seal and restored-scope check: `validate_transition` returned early before the per-task loop, and `validate_external_state` skipped every task since there was no prior task to read. A dedicated, untouched repo, since this needs a genuinely first checkpoint.
+    bypass_repo = Path(tmp) / "bypass"
+    bypass_repo.mkdir()
+    bypass_repo = bypass_repo.resolve()
+    git(bypass_repo, "init", "-q")
+    git(bypass_repo, "config", "user.email", "check@example.invalid")
+    git(bypass_repo, "config", "user.name", "check")
+    (bypass_repo / "seed.txt").write_text("seed\n")
+    git(bypass_repo, "add", "-A")
+    git(bypass_repo, "commit", "-qm", "seed")
+    bypass_common = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                                    cwd=bypass_repo, capture_output=True, text=True).stdout.strip()
+    bypass_run = bypass_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000004-bypass"
+    bypass_run.mkdir(parents=True, exist_ok=True)
+    bypass_state = bypass_run / "state.json"
+    bypass_cand = bypass_run / "cand.json"
+
+    def bypass_initial(task):
+        return {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": bypass_run.name,
+            "lifecycle": "active",
+            "input": {"kind": "brief", "reference": None, "summary": "bypass fixture",
+                      "sha256": hashlib.sha256(b"bypass fixture").hexdigest(), "declared_status": None},
+            "worktree": {"root": str(bypass_repo), "git_common_dir": bypass_common, "baseline": "auto", "observed": "auto"},
+            "phase": "task", "tasks": [task], "current_task_id": task["id"], "current_round": 0,
+            "latest_verification": [], "unresolved_findings": [], "final_audit": [],
+            "next_action": "n/a",
+        }
+
+    # Repro 1: a revision-0 candidate declaring a task already `implementing` with a forged seal.
+    write(bypass_cand, bypass_initial({
+        "id": "bypass-1", "title": "b1", "scope": ["b1.txt"], "completion_condition": "b1",
+        "verification_path": ["check b1"], "rationale": "fixture", "status": "implementing", "round": 0,
+        "latest_verification": [], "unresolved_findings": [], "acceptance": None,
+        "dispatch_scope_fingerprint": {"forged/x.txt": "a" * 64},
+    }))
+    result = run(bypass_repo, "checkpoint", str(bypass_state), str(bypass_cand))
+    if result.returncode == 0:
+        failures.append("an initial checkpoint declaring a task implementing with a forged seal was accepted and must not be")
+    elif "cannot carry a seal on the initial checkpoint" not in result.stderr:
+        failures.append(f"an initial checkpoint with a forged seal was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Repro 2: a revision-0 candidate declaring a task already `parked` from `implementing`, no seal at all.
+    write(bypass_cand, bypass_initial({
+        "id": "bypass-2", "title": "b2", "scope": ["b2.txt"], "completion_condition": "b2",
+        "verification_path": ["check b2"], "rationale": "fixture", "status": "parked", "round": 0,
+        "latest_verification": [], "unresolved_findings": [], "acceptance": None,
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP},
+    }))
+    result = run(bypass_repo, "checkpoint", str(bypass_state), str(bypass_cand))
+    if result.returncode == 0:
+        failures.append("an initial checkpoint declaring a task already parked from implementing was accepted and must not be")
+    elif "cannot park from implementing on the initial checkpoint" not in result.stderr:
+        failures.append(f"an initial checkpoint parked from implementing was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Sanity: a genuine pending-only initial checkpoint, `start`'s own opening position, still succeeds.
+    write(bypass_cand, bypass_initial({
+        "id": "bypass-3", "title": "b3", "scope": ["b3.txt"], "completion_condition": "b3",
+        "verification_path": ["check b3"], "rationale": "fixture", "status": "pending", "round": 0,
+        "latest_verification": [], "unresolved_findings": [], "acceptance": None,
+    }))
+    result = run(bypass_repo, "checkpoint", str(bypass_state), str(bypass_cand))
+    if result.returncode != 0:
+        failures.append(f"a genuine pending-only initial checkpoint was refused: {result.stderr.strip()}")
+
+    # 9 - individual task parking (U1): `pending | implementing | correcting -> parked`, the restored-scope rule read on the scope's actual content rather than a diff against HEAD, `dispatch_scope_fingerprint` sealed by `dispatch` before any executor starts and verified rather than trusted, the collision rule a parked task carries the same as a pending one, and the finalization refusal while one is parked.
+    park_tasks = {
+        "task-006": ["park/a.txt"], "task-007": ["park/b.txt"], "task-008": ["park/c.txt"],
+        "task-009": ["park/d.txt"], "task-010": ["park/e.txt"], "task-011": ["park/f.txt"],
+        "task-012": ["park/g.txt"], "task-013": ["src/z/early.txt"], "task-014": ["src/z/"],
+        "task-015": ["src/z/late.txt"], "task-016": ["src/w/one.txt"], "task-017": ["src/w/two.txt"],
+        "task-018": ["src/v/mine.txt"], "task-019": ["park/h.txt"], "task-020": ["src/u/mine.txt"],
+        "task-021": ["twoentry/a.txt", "twoentry/b.txt"], "task-022": ["forge/x.txt"],
+        "task-023": ["park/i.txt"], "task-024": ["overlap/"], "task-025": ["overlap/shared.txt"],
+        "task-026": ["park/legacy.txt"], "task-028": ["tracked-item2.txt"],
+        "task-029": ["forge2/y.txt"], "task-031": ["autofill-seal/pre.txt"],
+    }
+    appended_state = split_current()
+    appended_state["revision"] = "auto"
+    appended_state["worktree"]["observed"] = "auto"
+    appended_state["tasks"] += [
+        {"id": task_id, "title": task_id, "scope": scope, "completion_condition": task_id,
+         "verification_path": [f"check {task_id}"], "rationale": "parking fixture", "status": "pending",
+         "round": 0, "latest_verification": [], "unresolved_findings": [], "acceptance": None}
+        for task_id, scope in park_tasks.items()
+    ]
+    write(candidate, appended_state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"appending the parking fixture tasks was refused: {result.stderr.strip()}")
+
+    # (a) pending -> parked is accepted and stamps parked.at. reviewing -> parked is refused.
+    result = run(work, "park", str(split_state), "task-006", "--question", "does task-006 depend on the format decision?")
+    if result.returncode != 0:
+        failures.append(f"pending -> parked was refused and should not be: {result.stderr.strip()}")
+    else:
+        parked_006 = by_id(split_current(), "task-006")
+        if parked_006.get("status") != "parked" or not isinstance(parked_006.get("parked"), dict) or not parked_006["parked"].get("at"):
+            failures.append("pending -> parked did not stamp parked.at")
+        elif parked_006["parked"].get("from") != "pending":
+            failures.append("pending -> parked did not record parked.from as pending")
+
+    split_must("dispatching task-007", set_status("task-007", "implementing"))
+    split_must("verifying task-007", set_status("task-007", "verifying", latest_verification=[split_verification("task-007")]))
+    split_must("reviewing task-007", set_status("task-007", "reviewing"))
+    result = run(work, "park", str(split_state), "task-007", "--question", "q")
+    if result.returncode == 0:
+        failures.append("reviewing -> parked was accepted through `park` and must not be")
+    elif "only a pending, implementing, or correcting task can park" not in result.stderr:
+        failures.append(f"reviewing -> parked via `park` was refused for the wrong reason: {result.stderr.strip()}")
+    # The state machine itself refuses it too, not just the builder's own precheck: a candidate that moves task-007 straight to `parked` while it is `reviewing` is refused by the transition table.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-007")["status"] = "parked"
+    by_id(state, "task-007")["parked"] = {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP}
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("reviewing -> parked was accepted through a hand-authored checkpoint and must not be")
+    elif "reviewing -> parked is not allowed" not in result.stderr:
+        failures.append(f"reviewing -> parked was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (b) implementing -> parked is refused while the task's scope holds a write, naming the path, and accepted once the write is removed.
+    result = run(work, "dispatch", str(split_state), "task-008")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-008 was refused: {result.stderr.strip()}")
+    (work / "park").mkdir(exist_ok=True)
+    (work / "park" / "c.txt").write_text("a draft the executor left behind\n")
+    result = run(work, "park", str(split_state), "task-008", "--question", "q")
+    if result.returncode == 0:
+        failures.append("implementing -> parked was accepted while the scope held a write and must not be")
+    elif "park/c.txt" not in result.stderr or "task-008" not in result.stderr:
+        failures.append(f"implementing -> parked with an uncommitted write was refused without naming the path: {result.stderr.strip()}")
+    (work / "park" / "c.txt").unlink()
+    result = run(work, "park", str(split_state), "task-008", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"implementing -> parked was refused once the write was removed: {result.stderr.strip()}")
+
+    # (c) a task dispatched in a state written without dispatch_scope_fingerprint cannot park from implementing. A plain `checkpoint` can no longer produce this shape on its own: `_autofill` now seals any `pending -> implementing` candidate that leaves the field unset (Decision 2's intent, round 3), so the case is built the way the legacy-seal fixture below is -- written directly, bypassing `checkpoint` -- since only a state from outside the normal flow lacks it.
+    legacy_009 = split_current()
+    by_id(legacy_009, "task-009").update({"status": "implementing", "round": 0})
+    write(split_state, legacy_009)
+    result = run(work, "validate", str(split_state))
+    if result.returncode != 0:
+        failures.append(f"a state holding an implementing task with no dispatch_scope_fingerprint failed to validate: {result.stderr.strip()}")
+    result = run(work, "park", str(split_state), "task-009", "--question", "q")
+    if result.returncode == 0:
+        failures.append("a task dispatched without a seal was allowed to park and must not be")
+    elif "dispatched without a seal" not in result.stderr:
+        failures.append(f"parking a task with no dispatch_scope_fingerprint was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Urgent correction, live-run compatibility - a dispatch_scope_fingerprint sealed by round 1's `dispatch`, before this correction changed its shape, is a legacy seal: valid shape (it is still `worktree_fingerprint`'s own head-plus-diff fields), but it cannot answer the restored-scope question the new per-path digest exists for. A state holding one still validates and checkpoints; a task holding one is treated exactly as a task with no seal and cannot park from a write-active status. Written directly, bypassing `checkpoint`, the way the file's own legacy-`blocks` case is -- nothing produces this shape going forward, and no live transition should be asked to write it.
+    legacy_seal = state_module().worktree_fingerprint(work, ["park/legacy.txt"])
+    legacy_state = split_current()
+    by_id(legacy_state, "task-026").update({"status": "implementing", "round": 0, "dispatch_scope_fingerprint": legacy_seal})
+    write(split_state, legacy_state)
+    result = run(work, "validate", str(split_state))
+    if result.returncode != 0:
+        failures.append(f"a state holding a legacy-shaped dispatch_scope_fingerprint failed to validate: {result.stderr.strip()}")
+    result = run(work, "park", str(split_state), "task-026", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking a legacy-sealed implementing task was accepted and must not be")
+    elif "dispatched without a seal" not in result.stderr:
+        failures.append(f"parking a legacy-sealed task was refused for the wrong reason: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    state["next_action"] = "an unrelated checkpoint on a state holding a legacy seal"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"an unrelated checkpoint on a state holding a legacy seal was refused: {result.stderr.strip()}")
+
+    # (d) pending -> implementing fills dispatch_scope_fingerprint, and a later candidate that changes it is refused.
+    result = run(work, "dispatch", str(split_state), "task-010")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-010 was refused: {result.stderr.strip()}")
+    sealed_010 = by_id(split_current(), "task-010").get("dispatch_scope_fingerprint")
+    if not isinstance(sealed_010, dict):
+        failures.append("dispatch did not seal task-010's dispatch_scope_fingerprint")
+    # A well-formed but different digest, hand-built rather than borrowed from another task: task-010's own scope never existed on disk, so its true seal is `{}`, and any non-empty, validly-shaped map differs from that without needing a second real dispatch to produce one.
+    other_fingerprint = {"forged/path.txt": "a" * 64}
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-010")["dispatch_scope_fingerprint"] = other_fingerprint
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a changed dispatch_scope_fingerprint on a write-active task was accepted and must not be")
+    elif "cannot change except when dispatched or unparked" not in result.stderr:
+        failures.append(f"a changed dispatch_scope_fingerprint was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (g) with a task parked, an independent one is still driven to acceptance.
+    result = run(work, "park", str(split_state), "task-011", "--question", "does task-011 depend on the naming decision?", "--ref", "Q1")
+    if result.returncode != 0:
+        failures.append(f"parking task-011 was refused: {result.stderr.strip()}")
+    split_must("dispatching task-012 while task-011 is parked", set_status("task-012", "implementing"))
+    split_must("verifying task-012", set_status("task-012", "verifying", latest_verification=[split_verification("task-012")]))
+    split_must("reviewing task-012", set_status("task-012", "reviewing"))
+    split_must("accepting task-012 while task-011 stays parked",
+               set_status("task-012", "accepted", acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-012")]}))
+    after_g = split_current()
+    if by_id(after_g, "task-012").get("status") != "accepted" or by_id(after_g, "task-011").get("status") != "parked":
+        failures.append("task-012 did not reach acceptance while task-011 stayed parked")
+
+    # (e) parked -> accepted and parked -> implementing are refused; parked -> pending via `unpark` is accepted.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    t11 = by_id(state, "task-011")
+    t11["status"] = "implementing"
+    t11.pop("parked", None)
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parked -> implementing was accepted and must not be")
+    elif "parked -> implementing is not allowed" not in result.stderr:
+        failures.append(f"parked -> implementing was refused for the wrong reason: {result.stderr.strip()}")
+
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    t11 = by_id(state, "task-011")
+    t11["status"] = "accepted"
+    t11.pop("parked", None)
+    t11["latest_verification"] = [split_verification("task-011", 0)]
+    t11["acceptance"] = {"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-011", "PASS", 0)]}
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parked -> accepted was accepted and must not be")
+    elif "parked -> accepted is not allowed" not in result.stderr:
+        failures.append(f"parked -> accepted was refused for the wrong reason: {result.stderr.strip()}")
+
+    result = run(work, "unpark", str(split_state), "task-011")
+    if result.returncode != 0:
+        failures.append(f"unpark was refused and should not be: {result.stderr.strip()}")
+    else:
+        unparked_011 = by_id(split_current(), "task-011")
+        if unparked_011.get("status") != "pending" or "parked" in unparked_011 or "dispatch_scope_fingerprint" in unparked_011:
+            failures.append("unpark did not return the task to pending and drop the parked field and the stale seal")
+
+    # (f) `parked` status without the field, and the field on a non-parked task, are both refused.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-011")["status"] = "parked"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parked without the parked field was accepted and must not be")
+    elif "missing" not in result.stderr or "parked" not in result.stderr:
+        failures.append(f"parked without the field was refused for the wrong reason: {result.stderr.strip()}")
+
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-019")["parked"] = {"question": "q", "from": "pending", "decision_ref": None, "at": STAMP}
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a parked field on a non-parked task was accepted and must not be")
+    elif "Only a parked task may carry parked facts" not in result.stderr:
+        failures.append(f"a parked field on a non-parked task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (h) entering final_audit while a task is parked is refused.
+    result = run(work, "park", str(split_state), "task-011", "--question", "does task-011 depend on the naming decision?", "--ref", "Q1")
+    if result.returncode != 0:
+        failures.append(f"re-parking task-011 for the finalization tests was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    state["phase"] = "final_audit"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("entering final_audit with a parked task was accepted and must not be")
+    elif "Cannot enter final_audit while a task is parked" not in result.stderr:
+        failures.append(f"entering final_audit with a parked task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (i) an earlier task whose scope meets a parked task's scope can become write-active; a later one cannot.
+    result = run(work, "park", str(split_state), "task-014", "--question", "does the naming choice touch src/z?", "--ref", "Q2")
+    if result.returncode != 0:
+        failures.append(f"parking task-014 was refused: {result.stderr.strip()}")
+    result = run(work, "dispatch", str(split_state), "task-013")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-013, earlier than the parked task-014 whose scope it meets, was refused: {result.stderr.strip()}")
+    result = run(work, "dispatch", str(split_state), "task-015")
+    if result.returncode == 0:
+        failures.append("dispatching task-015, later than the parked task-014 whose scope it meets, was accepted and must not be")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"dispatching task-015 over the parked task-014's scope was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (j) split-check refuses a parked task.
+    result = run(work, "split-check", str(split_state), "task-014")
+    if result.returncode == 0:
+        failures.append("split-check accepted a parked task and must not have")
+    elif "only a pending task can be dispatched" not in result.stderr:
+        failures.append(f"split-check on a parked task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (k) a blocked checkpoint holding a parked task and an accepted task validates, and blocked -> task followed by unpark then continues.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    state["lifecycle"] = "blocked"
+    state["phase"] = "blocked"
+    state["next_action"] = "blocked on Q2: task-014 parked pending the naming decision"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"a blocked checkpoint holding a parked task and an accepted task was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    state["lifecycle"] = "active"
+    state["phase"] = "task"
+    state["next_action"] = "resume once Q2 is answered"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"blocked -> task was refused: {result.stderr.strip()}")
+    result = run(work, "unpark", str(split_state), "task-014")
+    if result.returncode != 0:
+        failures.append(f"unparking task-014 after blocked -> task was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 2 - parking must clear latest_verification. task-023's scope is never touched, so the only possible defect in this candidate is a stale verification entry left in place.
+    result = run(work, "dispatch", str(split_state), "task-023")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-023 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    stale_verification = [dict(split_verification("task-023", 0), worktree_fingerprint="auto")]
+    by_id(state, "task-023")["latest_verification"] = stale_verification
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"recording a verification attempt on task-023 while it stayed implementing was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-023").update({"status": "parked", "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP}})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parking task-023 without clearing latest_verification was accepted and must not be")
+    elif "parking must clear previous verification" not in result.stderr:
+        failures.append(f"parking with a stale verification was refused for the wrong reason: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-023").update({"status": "parked", "latest_verification": [],
+                                      "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP}})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"parking task-023 once latest_verification was cleared was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 3 - the refusal names only the scope entries whose content still differs. task-021's scope has two entries; only one is dirty.
+    result = run(work, "dispatch", str(split_state), "task-021")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-021 was refused: {result.stderr.strip()}")
+    (work / "twoentry").mkdir(exist_ok=True)
+    (work / "twoentry" / "a.txt").write_text("only a.txt is dirty\n")
+    result = run(work, "park", str(split_state), "task-021", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-021 with one dirty entry out of two was accepted and must not be")
+    else:
+        if "twoentry/a.txt" not in result.stderr:
+            failures.append(f"the refusal did not name the dirty entry: {result.stderr.strip()}")
+        if "twoentry/b.txt" in result.stderr:
+            failures.append(f"the refusal named the clean entry too, not only the one that differs: {result.stderr.strip()}")
+    (work / "twoentry" / "a.txt").unlink()
+    result = run(work, "park", str(split_state), "task-021", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-021 once its dirty entry was restored was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 4 - a hand-authored pending -> implementing candidate cannot forge dispatch_scope_fingerprint: it must be absent or exactly what the checkpoint itself computes.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-022").update({"status": "implementing", "dispatch_scope_fingerprint": {"forge/x.txt": "0" * 64}})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a forged dispatch_scope_fingerprint at pending -> implementing was accepted and must not be")
+    elif "does not match the scope's content at this checkpoint" not in result.stderr:
+        failures.append(f"a forged dispatch_scope_fingerprint was refused for the wrong reason: {result.stderr.strip()}")
+    result = run(work, "dispatch", str(split_state), "task-022")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-022 for real, after the forged candidate was refused, failed: {result.stderr.strip()}")
+
+    # Correction round 5, item 2 - `_autofill`'s fallback fill (a bare `checkpoint` reaching `pending -> implementing` with the seal left unset, not `dispatch`'s own `"auto"` path) is never checked against the seal's actual content elsewhere, only against itself, so a mutation sealing `{}` regardless of the scope would pass silently if the scope had no real content at dispatch to tell the difference. task-031's scope already holds real, non-empty content before it is ever dispatched.
+    (work / "autofill-seal").mkdir(exist_ok=True)
+    (work / "autofill-seal" / "pre.txt").write_text("real content sitting there before dispatch\n")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-031")["status"] = "implementing"
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"a bare pending -> implementing checkpoint for task-031, seal left unset, was refused: {result.stderr.strip()}")
+    sealed_031 = by_id(split_current(), "task-031").get("dispatch_scope_fingerprint")
+    if not isinstance(sealed_031, dict) or not sealed_031:
+        failures.append("_autofill's fallback seal for task-031 is empty though its scope held real content at dispatch; a `{}` mutation would pass here")
+    elif "autofill-seal/pre.txt" not in sealed_031:
+        failures.append(f"_autofill's fallback seal for task-031 does not name its own pre-existing path: {sealed_031!r}")
+    (work / "autofill-seal" / "pre.txt").write_text("the executor's write, after dispatch\n")
+    result = run(work, "park", str(split_state), "task-031", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-031 was accepted before its scope was restored, and must not be")
+    elif "autofill-seal/pre.txt" not in result.stderr:
+        failures.append(f"parking task-031 over its own unrestored write was refused without naming the path: {result.stderr.strip()}")
+    (work / "autofill-seal" / "pre.txt").write_text("real content sitting there before dispatch\n")
+    result = run(work, "park", str(split_state), "task-031", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-031 once its scope was restored to its pre-dispatch content was refused: {result.stderr.strip()}")
+
+    # Correction round 4, item 1 - `accepted -> correcting` is not a write-active status, so round 3's fix that closed this specific gap needs a case that actually drives a task to a genuine acceptance and then forges the seal on that exact transition; a mutation widening `seal_may_change` to include it must turn this RED. task-029 is dispatched, driven through the file's own acceptance pattern to `accepted`, then reopened to `correcting` with `dispatch_scope_fingerprint` changed in the same candidate.
+    result = run(work, "dispatch", str(split_state), "task-029")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-029 was refused: {result.stderr.strip()}")
+    sealed_029 = by_id(split_current(), "task-029").get("dispatch_scope_fingerprint")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-029").update({"status": "verifying", "round": 0, "latest_verification": [split_verification("task-029", 0)]})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"verifying task-029 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-029").update({"status": "reviewing", "round": 0})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"reviewing task-029 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-029").update({"status": "accepted", "round": 0,
+        "acceptance": {"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-029", "PASS", 0)]}})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"accepting task-029 was refused: {result.stderr.strip()}")
+    if by_id(split_current(), "task-029").get("status") != "accepted":
+        failures.append("task-029 did not reach accepted; the accepted -> correcting forgery case cannot run")
+    else:
+        forged_029 = {"forged/on-accepted-to-correcting.txt": "b" * 64}
+        if forged_029 == sealed_029:
+            failures.append("the forged dispatch_scope_fingerprint coincides with task-029's real seal; this case proves nothing")
+        state = split_current()
+        state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+        by_id(state, "task-029").update({"status": "correcting", "round": 1, "latest_verification": [], "acceptance": None,
+            "dispatch_scope_fingerprint": forged_029})
+        write(candidate, state)
+        result = run(work, "checkpoint", str(split_state), str(candidate))
+        if result.returncode == 0:
+            failures.append("accepted -> correcting was accepted while forging dispatch_scope_fingerprint on that same transition, and must not be")
+        elif "cannot change except when dispatched or unparked" not in result.stderr:
+            failures.append(f"accepted -> correcting forging the seal was refused for the wrong reason: {result.stderr.strip()}")
+        # The same transition with the seal carried forward unchanged is legitimate and must succeed.
+        state = split_current()
+        state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+        by_id(state, "task-029").update({"status": "correcting", "round": 1, "latest_verification": [], "acceptance": None})
+        write(candidate, state)
+        result = run(work, "checkpoint", str(split_state), str(candidate))
+        if result.returncode != 0:
+            failures.append(f"accepted -> correcting with the seal unchanged was refused: {result.stderr.strip()}")
+        elif by_id(split_current(), "task-029").get("dispatch_scope_fingerprint") != sealed_029:
+            failures.append("task-029's seal moved across a legitimate accepted -> correcting transition; it should have been carried forward exactly")
+
+    # Correction round 3, item 1 - the interleaving clause the ledger contract states: a checkpoint that dispatches an executor into a task's scope must not read as content sealed at dispatch, even when another task's checkpoint lands on this same run afterward. task-016 (A) is dispatched, its executor writes into its scope, and task-017 (B) -- an unrelated task on the same run -- is then dispatched too. A's seal must still read exactly as it did right after its own dispatch; park(A) is refused, naming the written path, and succeeds once the write is undone.
+    result = run(work, "dispatch", str(split_state), "task-016")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-016 (A) was refused: {result.stderr.strip()}")
+    sealed_016 = by_id(split_current(), "task-016").get("dispatch_scope_fingerprint")
+    revision_before_b = split_current()["revision"]
+    (work / "src" / "w").mkdir(parents=True, exist_ok=True)
+    (work / "src" / "w" / "one.txt").write_text("A's executor writes into A's own scope\n")
+    result = run(work, "dispatch", str(split_state), "task-017")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-017 (B), landing between A's dispatch and A's own next checkpoint, was refused: {result.stderr.strip()}")
+    after_b = split_current()
+    if by_id(after_b, "task-016").get("dispatch_scope_fingerprint") != sealed_016:
+        failures.append("A's dispatch_scope_fingerprint moved when B's checkpoint landed afterward; the seal is not holding across an interleaved checkpoint")
+    result = run(work, "park", str(split_state), "task-016", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking A while its scope still holds the write was accepted and must not be")
+    elif "src/w/one.txt" not in result.stderr:
+        failures.append(f"parking A over its own unrestored write was refused without naming the path: {result.stderr.strip()}")
+    (work / "src" / "w" / "one.txt").unlink()
+    result = run(work, "park", str(split_state), "task-016", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking A once its scope was restored, after B's interleaved checkpoint, was refused: {result.stderr.strip()}")
+    # A candidate authored against the state as it stood before B's dispatch is now stale, and replaying it cannot retroactively unwind the interleaving: the revision counter refuses it on its own terms.
+    stale = split_current()
+    stale["revision"] = revision_before_b
+    stale["next_action"] = "written against the state from before B's dispatch"
+    write(candidate, stale)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a candidate authored before B's interleaved dispatch was accepted as current and must not be")
+    elif "revision" not in result.stderr:
+        failures.append(f"a stale pre-interleaving candidate was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Correction round 3, item 2 - a mutation that hashed `git diff HEAD` instead of the path's actual bytes must turn this RED: task-028's scope is a tracked file that already existed, committed, before dispatch, so the path is present on both sides of the comparison and only the content is at stake. Modifying it after dispatch and committing the modification -- never reverting it -- makes a diff-against-HEAD digest go quiet the moment the modification is committed, while the bytes on disk are still the modified ones; a genuine content digest still disagrees.
+    (work / "tracked-item2.txt").write_text("committed before task-028 is ever dispatched\n")
+    git(work, "add", "tracked-item2.txt")
+    git(work, "commit", "-qm", "seed task-028's scope with tracked, committed content")
+    result = run(work, "dispatch", str(split_state), "task-028")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-028 was refused: {result.stderr.strip()}")
+    (work / "tracked-item2.txt").write_text("modified after dispatch, then committed, never reverted\n")
+    git(work, "add", "tracked-item2.txt")
+    git(work, "commit", "-qm", "commit task-028's modification without reverting it")
+    result = run(work, "park", str(split_state), "task-028", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-028 over a committed-but-not-reverted modification to an already-tracked file was accepted and must not be")
+    elif "tracked-item2.txt" not in result.stderr:
+        failures.append(f"parking over a committed modification to a tracked file was refused without naming it: {result.stderr.strip()}")
+    git(work, "checkout", "HEAD~1", "--", "tracked-item2.txt")
+    result = run(work, "park", str(split_state), "task-028", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-028 once the tracked file was restored to its dispatch content was refused: {result.stderr.strip()}")
+
+    # Correction round 4, item 2 - a scope entry with no path parts (`.`, `./`) must meet every other scope, not just cover the whole tree for its own digest: `_scopes_collide` used to answer False for an empty side regardless of the other path, so a root-scoped task could dispatch alongside a write-active sibling (sealing the sibling's partial files as its own dispatch content) and never held a later task back, or waited behind an earlier one. A dedicated, isolated repo keeps this fixture's three tasks' statuses exactly controlled -- the shared fixture above has too many lingering write-active and parked tasks by this point to show a clean before/after collision.
+    root_repo = Path(tmp) / "root-scope"
+    root_repo.mkdir()
+    root_repo = root_repo.resolve()
+    git(root_repo, "init", "-q")
+    git(root_repo, "config", "user.email", "check@example.invalid")
+    git(root_repo, "config", "user.name", "check")
+    (root_repo / "seed.txt").write_text("seed\n")
+    git(root_repo, "add", "-A")
+    git(root_repo, "commit", "-qm", "seed")
+    root_run = root_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000003-root-scope"
+    root_run.parent.mkdir(parents=True, exist_ok=True)
+    root_tasks_path = root_run.parent / "tasks.json"
+    write(root_tasks_path, [
+        {"id": "root-early", "title": "early", "scope": ["early.txt"], "completion_condition": "early",
+         "verification_path": ["check early"], "rationale": "root-scope fixture"},
+        {"id": "root-dot", "title": "dot", "scope": ["."], "completion_condition": "dot",
+         "verification_path": ["check dot"], "rationale": "root-scope fixture"},
+        {"id": "root-late", "title": "late", "scope": ["late.txt"], "completion_condition": "late",
+         "verification_path": ["check late"], "rationale": "root-scope fixture"},
+    ])
+    root_state = root_run / "state.json"
+    root_cand = root_run.parent / "root-cand.json"
+
+    def root_current():
+        return json.loads(root_state.read_text())
+
+    def root_by_id(tid):
+        return next(t for t in root_current()["tasks"] if t["id"] == tid)
+
+    def root_by_id_update(state, tid, **fields):
+        next(t for t in state["tasks"] if t["id"] == tid).update(fields)
+
+    def root_checkpoint(mutate):
+        state = root_current()
+        state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+        mutate(state)
+        write(root_cand, state)
+        return run(root_repo, "checkpoint", str(root_state), str(root_cand))
+
+    result = run(root_repo, "start", str(root_state), "--kind", "brief", "--summary", "root-scope fixture",
+                 "--worktree", str(root_repo), "--tasks", str(root_tasks_path))
+    if result.returncode != 0:
+        failures.append(f"the root-scope fixture did not start: {result.stderr.strip()}")
+
+    # (B, pending) root-early is still pending, earlier than root-dot: root-dot cannot start ahead of it.
+    result = run(root_repo, "dispatch", str(root_state), "root-dot")
+    if result.returncode == 0:
+        failures.append("a `.`-scoped task dispatched ahead of an earlier pending task and must not have")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"a `.`-scoped task ahead of an earlier pending task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (A) root-early is now write-active: a `.`-scoped task cannot dispatch alongside it.
+    result = run(root_repo, "dispatch", str(root_state), "root-early")
+    if result.returncode != 0:
+        failures.append(f"dispatching root-early was refused: {result.stderr.strip()}")
+    result = run(root_repo, "dispatch", str(root_state), "root-dot")
+    if result.returncode == 0:
+        failures.append("a `.`-scoped task dispatched while another task was write-active and must not have")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"a `.`-scoped task alongside a write-active sibling was refused for the wrong reason: {result.stderr.strip()}")
+
+    # (B, parked) root-early parks (untouched, so the restore is trivial); root-dot still cannot start ahead of it.
+    result = run(root_repo, "park", str(root_state), "root-early", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking root-early was refused: {result.stderr.strip()}")
+    result = run(root_repo, "dispatch", str(root_state), "root-dot")
+    if result.returncode == 0:
+        failures.append("a `.`-scoped task dispatched ahead of an earlier parked task and must not have")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"a `.`-scoped task ahead of an earlier parked task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Clear root-early out of the way for good: unpark it and drive it to a genuine acceptance, since an accepted task no longer counts for collision purposes, the same as it never did for a narrow scope.
+    result = run(root_repo, "unpark", str(root_state), "root-early")
+    if result.returncode != 0:
+        failures.append(f"unparking root-early was refused: {result.stderr.strip()}")
+    result = run(root_repo, "dispatch", str(root_state), "root-early")
+    if result.returncode != 0:
+        failures.append(f"re-dispatching root-early was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-early", status="verifying", round=0,
+        latest_verification=[split_verification("root-early", 0)]))
+    if result.returncode != 0:
+        failures.append(f"verifying root-early was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-early", status="reviewing", round=0))
+    if result.returncode != 0:
+        failures.append(f"reviewing root-early was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-early", status="accepted", round=0,
+        acceptance={"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("root-early", "PASS", 0)]}))
+    if result.returncode != 0:
+        failures.append(f"accepting root-early was refused: {result.stderr.strip()}")
+
+    result = run(root_repo, "dispatch", str(root_state), "root-dot")
+    if result.returncode != 0:
+        failures.append(f"dispatching root-dot once root-early was accepted was refused: {result.stderr.strip()}")
+    sealed_dot = root_by_id("root-dot").get("dispatch_scope_fingerprint")
+    if not isinstance(sealed_dot, dict) or not sealed_dot:
+        failures.append("a whole-tree scope sealed an empty digest; the root-scope digest fix did not take")
+
+    # (C, write-active) root-dot is now the earlier, `.`-scoped task: root-late cannot start ahead of it.
+    result = run(root_repo, "dispatch", str(root_state), "root-late")
+    if result.returncode == 0:
+        failures.append("a later task dispatched ahead of an earlier write-active `.`-scoped task and must not have")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"a later task ahead of a write-active `.`-scoped task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # The digest-restoration proof from round 3's item 3, now on an isolated fixture: a write anywhere in the tree is caught and named, and restoring it lets root-dot park.
+    (root_repo / "src").mkdir(exist_ok=True)
+    (root_repo / "src" / "whole-repo-write.txt").write_text("a write anywhere in the tree\n")
+    result = run(root_repo, "park", str(root_state), "root-dot", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking a whole-tree-scoped task was accepted though a write landed somewhere in the tree, and must not be")
+    elif "src/whole-repo-write.txt" not in result.stderr:
+        failures.append(f"parking a whole-tree-scoped task over an unrestored write elsewhere was refused without naming the path: {result.stderr.strip()}")
+    (root_repo / "src" / "whole-repo-write.txt").unlink()
+    result = run(root_repo, "park", str(root_state), "root-dot", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking root-dot once the tree was restored was refused: {result.stderr.strip()}")
+
+    # (C, parked) root-dot is parked now, still the earlier `.`-scoped task: root-late still cannot start ahead of it.
+    result = run(root_repo, "dispatch", str(root_state), "root-late")
+    if result.returncode == 0:
+        failures.append("a later task dispatched ahead of an earlier parked `.`-scoped task and must not have")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"a later task ahead of a parked `.`-scoped task was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Once root-dot is also out of the way, root-late is free to proceed: the fix blocks only while a colliding earlier task is actually pending, parked, or write-active, never permanently.
+    result = run(root_repo, "unpark", str(root_state), "root-dot")
+    if result.returncode != 0:
+        failures.append(f"unparking root-dot was refused: {result.stderr.strip()}")
+    result = run(root_repo, "dispatch", str(root_state), "root-dot")
+    if result.returncode != 0:
+        failures.append(f"re-dispatching root-dot was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-dot", status="verifying", round=0,
+        latest_verification=[split_verification("root-dot", 0)]))
+    if result.returncode != 0:
+        failures.append(f"verifying root-dot was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-dot", status="reviewing", round=0))
+    if result.returncode != 0:
+        failures.append(f"reviewing root-dot was refused: {result.stderr.strip()}")
+    result = root_checkpoint(lambda s: root_by_id_update(s, "root-dot", status="accepted", round=0,
+        acceptance={"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("root-dot", "PASS", 0)]}))
+    if result.returncode != 0:
+        failures.append(f"accepting root-dot was refused: {result.stderr.strip()}")
+    result = run(root_repo, "dispatch", str(root_state), "root-late")
+    if result.returncode != 0:
+        failures.append(f"dispatching root-late once both earlier tasks were accepted was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 1, failure A - the seal is content, not a diff, so a commit that sweeps a task's own draft into HEAD without reverting it must still refuse parking: the bytes are still there, committed or not. Only once the draft is genuinely undone does parking succeed.
+    result = run(work, "dispatch", str(split_state), "task-018")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-018 was refused: {result.stderr.strip()}")
+    (work / "src" / "v").mkdir(parents=True, exist_ok=True)
+    (work / "src" / "v" / "mine.txt").write_text("a draft that gets committed, not reverted\n")
+    git(work, "add", "src/v/mine.txt")
+    git(work, "commit", "-qm", "sweep task-018's own draft into HEAD without reverting it")
+    result = run(work, "park", str(split_state), "task-018", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-018 was accepted though its own committed draft is still sitting there, and must not be")
+    elif "src/v/mine.txt" not in result.stderr:
+        failures.append(f"parking over a committed-but-not-reverted draft was refused for the wrong reason: {result.stderr.strip()}")
+    (work / "src" / "v" / "mine.txt").unlink()
+    result = run(work, "park", str(split_state), "task-018", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-018 once the draft was actually undone was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 1 - a commit of content outside the scope, while the scope itself is genuinely restored, does not stand in the way: HEAD moved, but nothing this task owns changed.
+    result = run(work, "dispatch", str(split_state), "task-020")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-020 was refused: {result.stderr.strip()}")
+    head_at_dispatch_020 = json.loads(split_state.read_text())["worktree"]["observed"]["head"]
+    (work / "src" / "u").mkdir(parents=True, exist_ok=True)
+    (work / "src" / "u" / "mine.txt").write_text("a draft, later undone\n")
+    (work / "unrelated-commit.txt").write_text("a sibling task's commit while task-020 is under way\n")
+    git(work, "add", "unrelated-commit.txt")
+    git(work, "commit", "-qm", "a sibling task's commit while task-020 is under way")
+    (work / "src" / "u" / "mine.txt").unlink()
+    result = run(work, "park", str(split_state), "task-020", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-020 once its own scope was restored was refused despite an unrelated commit moving HEAD: {result.stderr.strip()}")
+    else:
+        head_at_park_020 = json.loads(split_state.read_text())["worktree"]["observed"]["head"]
+        if head_at_park_020 == head_at_dispatch_020:
+            failures.append("the unrelated commit never moved HEAD, so this case proves nothing about HEAD-independence")
+
+    # Correction round 2, item 1, failure B - an earlier, overlapping task's already-accepted work sits inside a later task's scope at dispatch, uncommitted; the lead's own commit of that accepted work must not then make the later, untouched task unable to park. task-024's scope is the directory, task-025's is one file under it; task-024 is driven to a genuine acceptance before task-025 ever dispatches, so the overlap is exactly the shape a real run produces.
+    result = run(work, "dispatch", str(split_state), "task-024")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-024 was refused: {result.stderr.strip()}")
+    (work / "overlap").mkdir(exist_ok=True)
+    (work / "overlap" / "shared.txt").write_text("task-024's accepted work\n")
+    # `dispatch` leaves round at 0 rather than bumping it the way `set_status` does, so task-024's own cycle stays at round 0 throughout.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-024").update({"status": "verifying", "round": 0, "latest_verification": [split_verification("task-024", 0)]})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"verifying task-024 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-024").update({"status": "reviewing", "round": 0})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"reviewing task-024 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-024").update({"status": "accepted", "round": 0,
+        "acceptance": {"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-024", "PASS", 0)]}})
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"accepting task-024, not yet committed, was refused: {result.stderr.strip()}")
+    result = run(work, "dispatch", str(split_state), "task-025")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-025 while task-024's accepted work sits uncommitted in its scope was refused: {result.stderr.strip()}")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "commit task-024's accepted work")
+    result = run(work, "park", str(split_state), "task-025", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-025, untouched, after task-024's overlapping work was committed, was refused: {result.stderr.strip()}")
+
+    # Correction round 2, item 5 - an isolated fixture where every task but the parked one is a genuine, fully valid acceptance, so completion's refusal can only be coming from the parked task. The shared fixture above carries many tasks that are non-accepted for reasons that have nothing to do with parking, and would pass this assertion even if a parked task were wrongly treated as complete.
+    iso_root = Path(tmp) / "isolated"
+    iso_root.mkdir()
+    iso_root = iso_root.resolve()
+    git(iso_root, "init", "-q")
+    git(iso_root, "config", "user.email", "check@example.invalid")
+    git(iso_root, "config", "user.name", "check")
+    (iso_root / "seed.txt").write_text("seed\n")
+    git(iso_root, "add", "-A")
+    git(iso_root, "commit", "-qm", "seed")
+    iso_run = iso_root / ".agents" / "kein" / "runs" / "execute" / "260101-000002-isolated"
+    iso_run.parent.mkdir(parents=True, exist_ok=True)
+    iso_tasks_path = iso_run.parent / "tasks.json"
+    write(iso_tasks_path, [
+        {"id": "iso-x", "title": "x", "scope": ["iso/x.txt"], "completion_condition": "x",
+         "verification_path": ["check x"], "rationale": "isolated completion fixture"},
+        {"id": "iso-y", "title": "y", "scope": ["iso/y.txt"], "completion_condition": "y",
+         "verification_path": ["check y"], "rationale": "isolated completion fixture"},
+    ])
+    iso_state = iso_run / "state.json"
+    iso_cand = iso_run.parent / "iso-cand.json"
+
+    def iso_current():
+        return json.loads(iso_state.read_text())
+
+    result = run(iso_root, "start", str(iso_state), "--kind", "brief", "--summary", "isolated completion fixture",
+                 "--worktree", str(iso_root), "--tasks", str(iso_tasks_path))
+    if result.returncode != 0:
+        failures.append(f"the isolated completion fixture did not start: {result.stderr.strip()}")
+
+    result = run(iso_root, "park", str(iso_state), "iso-x", "--question", "does iso-x depend on the decision?")
+    if result.returncode != 0:
+        failures.append(f"parking iso-x in the isolated fixture was refused: {result.stderr.strip()}")
+
+    result = run(iso_root, "dispatch", str(iso_state), "iso-y")
+    if result.returncode != 0:
+        failures.append(f"dispatching iso-y in the isolated fixture was refused: {result.stderr.strip()}")
+    (iso_root / "iso").mkdir(exist_ok=True)
+    (iso_root / "iso" / "y.txt").write_text("iso-y's work\n")
+
+    s = iso_current(); s["revision"] = "auto"; s["worktree"]["observed"] = "auto"
+    y = next(t for t in s["tasks"] if t["id"] == "iso-y")
+    y.update({"status": "verifying", "round": 0, "latest_verification": [split_verification("iso-y", 0)]})
+    write(iso_cand, s)
+    result = run(iso_root, "checkpoint", str(iso_state), str(iso_cand))
+    if result.returncode != 0:
+        failures.append(f"verifying iso-y in the isolated fixture was refused: {result.stderr.strip()}")
+
+    s = iso_current(); s["revision"] = "auto"; s["worktree"]["observed"] = "auto"
+    y = next(t for t in s["tasks"] if t["id"] == "iso-y")
+    y["status"] = "reviewing"
+    write(iso_cand, s)
+    result = run(iso_root, "checkpoint", str(iso_state), str(iso_cand))
+    if result.returncode != 0:
+        failures.append(f"reviewing iso-y in the isolated fixture was refused: {result.stderr.strip()}")
+
+    s = iso_current(); s["revision"] = "auto"; s["worktree"]["observed"] = "auto"
+    y = next(t for t in s["tasks"] if t["id"] == "iso-y")
+    y.update({"status": "accepted", "acceptance": {"round": 0, "worktree_fingerprint": "auto", "reviewers": [split_verdict("iso-y", "PASS", 0)]}})
+    write(iso_cand, s)
+    result = run(iso_root, "checkpoint", str(iso_state), str(iso_cand))
+    if result.returncode != 0:
+        failures.append(f"accepting iso-y in the isolated fixture was refused: {result.stderr.strip()}")
+
+    iso_final = iso_current()
+    iso_y_final = next(t for t in iso_final["tasks"] if t["id"] == "iso-y")
+    iso_x_final = next(t for t in iso_final["tasks"] if t["id"] == "iso-x")
+    if iso_y_final.get("status") != "accepted" or iso_x_final.get("status") != "parked":
+        failures.append("the isolated fixture did not reach exactly one accepted task and one parked task")
+    else:
+        # Round 5, item 3 - a completion attempt made straight from `task` phase fails on several invariants at once (no checkpointed final_audit phase, no checkpointed final verification or audit, and the parked task), so the "every task accepted" assertion above did not actually isolate what it claimed to. Entering `final_audit` while iso-x is parked is itself refused (round 2's own finalization rule), so the only way to hold every other invariant satisfied while iso-x stays genuinely parked is to write that combination directly, bypassing `checkpoint` -- the same escape hatch the legacy-seal and no-seal fixtures already use -- and then let the completion candidate be validated against it for real.
+        fingerprint = iso_final["worktree"]["observed"]["fingerprint"]
+        almost_complete = json.loads(json.dumps(iso_final))
+        almost_complete["phase"] = "final_audit"
+        almost_complete["latest_verification"] = [{
+            "command": "whole-change check", "exit_code": 0, "observed_at": STAMP,
+            "round": almost_complete["current_round"], "worktree_fingerprint": fingerprint,
+        }]
+        almost_complete["final_audit"] = [{
+            "reviewer_role": "code-reviewer", "verdict": "PASS", "task_id": "whole-change",
+            "round": almost_complete["current_round"], "worktree_fingerprint": fingerprint,
+            "reviewed_at": STAMP, "fresh": True, "independent": True,
+        }]
+        write(iso_state, almost_complete)
+        result = run(iso_root, "validate", str(iso_state))
+        if result.returncode != 0:
+            failures.append(f"an otherwise-complete isolated state with iso-x still parked failed to validate: {result.stderr.strip()}")
+
+        iso_completion = {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": almost_complete["run_id"],
+            "lifecycle": "completed", "completed_at": STAMP,
+            "input": {"reference": None, "sha256": almost_complete["input"]["sha256"]},
+            "worktree": {"root": almost_complete["worktree"]["root"], "final_fingerprint": "auto"},
+            "accepted_tasks": [
+                {"id": t["id"], "title": t["title"], "completion_condition": t["completion_condition"],
+                 "carried_findings": t.get("unresolved_findings") or []}
+                for t in almost_complete["tasks"]
+            ],
+            "final_verification": almost_complete["latest_verification"],
+            "final_audit": almost_complete["final_audit"],
+            "carried_findings": [],
+        }
+        write(iso_cand, iso_completion)
+        result = run(iso_root, "checkpoint", str(iso_state), str(iso_cand))
+        if result.returncode == 0:
+            failures.append("completion succeeded in the isolated fixture though its only non-accepted task is parked, and must not have")
+        else:
+            if "Completion requires every task accepted" not in result.stderr:
+                failures.append(f"completion in the isolated fixture was refused without citing every task accepted: {result.stderr.strip()}")
+            for unrelated in ("final_audit phase", "final verification", "final audit PASS"):
+                if unrelated in result.stderr:
+                    failures.append(f"completion refusal cited an unrelated invariant ({unrelated!r}) that this fixture supplied directly; the case does not isolate the parked-task refusal: {result.stderr.strip()}")
+
+
 if failures:
     for failure in failures:
         print(f"check-execute-state: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint")
+print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint, and a task parks only once its dispatch seal -- taken before any executor starts and read on content rather than HEAD -- shows its scope restored")

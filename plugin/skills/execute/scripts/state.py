@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 
 SCHEMA_VERSION = 1
-TASK_STATUSES = frozenset({"pending", "implementing", "verifying", "reviewing", "correcting", "accepted"})
+TASK_STATUSES = frozenset({"pending", "implementing", "verifying", "reviewing", "correcting", "accepted", "parked"})
 WRITE_ACTIVE_STATUSES = frozenset({"implementing", "verifying", "reviewing", "correcting"})
 NONTERMINAL_LIFECYCLES = frozenset({"active", "blocked", "interrupted"})
 TERMINAL_LIFECYCLES = frozenset({"completed", "aborted"})
@@ -32,13 +32,15 @@ PHASE_TRANSITIONS = {
     "blocked": frozenset({"blocked", "task", "interrupted"}),
     "interrupted": frozenset({"interrupted", "task", "blocked"}),
 }
+# A parked task holds no writes: `pending` and a restored `implementing`/`correcting` may park, `verifying` and `reviewing` may not (their tree is between gates, not at a checked-in rest point), and `parked` only ever returns to `pending`, where the ordinary dispatch cycle picks it up again.
 TASK_TRANSITIONS = {
-    "pending": frozenset({"pending", "implementing"}),
-    "implementing": frozenset({"implementing", "verifying"}),
+    "pending": frozenset({"pending", "implementing", "parked"}),
+    "implementing": frozenset({"implementing", "verifying", "parked"}),
     "verifying": frozenset({"verifying", "reviewing", "correcting"}),
     "reviewing": frozenset({"reviewing", "correcting", "accepted"}),
-    "correcting": frozenset({"correcting", "verifying"}),
+    "correcting": frozenset({"correcting", "verifying", "parked"}),
     "accepted": frozenset({"accepted", "correcting"}),
+    "parked": frozenset({"parked", "pending"}),
 }
 HEX_64 = "0123456789abcdef"
 
@@ -68,7 +70,13 @@ TASK_FIELDS = frozenset({
 })
 # The fingerprint of the task's own scope on the observed tree, filled by `checkpoint` for every task not yet accepted and sealed on acceptance.
 # A task's verification, verdicts and acceptance bind to this rather than to the whole tree, which is what lets two tasks with disjoint scopes be written at once: one's writes do not move the other's fingerprint. Optional so a state written before it existed still validates.
-TASK_OPTIONAL = frozenset({"scope_fingerprint"})
+#
+# `dispatch_scope_fingerprint` is a different shape, not this one: a map from a scope-relative path to the sha256 of that path's own content, read straight off the index and the worktree with no HEAD in it anywhere (`_scope_content_digest`). It is sealed once by `dispatch` on the `pending -> implementing` checkpoint that dispatches the task, before its executor is told to start, and never changed after that checkpoint while the task stays write-active.
+# A task without it, or with one written in the pre-correction `worktree_fingerprint` shape (`_is_legacy_dispatch_seal`), cannot park from a write-active status.
+# `parked` carries `question`, `from`, `decision_ref`, `at`: required exactly when `status` is `parked`, refused otherwise. Both optional so a state written before either existed still validates.
+TASK_OPTIONAL = frozenset({"scope_fingerprint", "dispatch_scope_fingerprint", "parked"})
+PARKED_FIELDS = frozenset({"question", "from", "decision_ref", "at"})
+PARKED_FROM_VALUES = frozenset({"pending", "implementing", "correcting"})
 VERIFICATION_FIELDS = frozenset({"command", "exit_code", "observed_at", "round", "worktree_fingerprint"})
 VERDICT_FIELDS = frozenset({
     "reviewer_role", "verdict", "task_id", "round", "worktree_fingerprint",
@@ -182,6 +190,61 @@ def worktree_fingerprint(path: Path, scope: Optional[List[str]] = None) -> Dict[
     return components
 
 
+def _scope_pathspec(scope: List[str]) -> List[str]:
+    """The `git` pathspec argument list for a scope, matched the same way `worktree_fingerprint` matches its own scoped calls.
+
+    A scope entry with no path parts -- `.`, `./`, `""` -- names the whole tree and needs no restriction to say so: an unscoped call already reads as "no restriction" elsewhere in this file, and `_scopes_collide` reads the same entries as meeting every other scope, so this keeps that same reading rather than routing it through a pathspec that would say the same thing more roundabout. Every other scope is restricted to its own `:(literal)` entries as before.
+    """
+    if any(not _scope_parts(entry) for entry in scope):
+        return []
+    return ["--"] + [f":(literal){entry}" for entry in scope]
+
+
+_CHUNK_SIZE = 1 << 20
+
+
+def _hash_scope_path(candidate: Path) -> Optional[str]:
+    """A symlink's target, or a regular file's bytes read in chunks rather than loaded whole, so a large file under a scope does not have to fit in memory at once; `None` for a path that is neither -- deleted, or never a regular file to begin with."""
+    if candidate.is_symlink():
+        return _sha256_bytes(b"symlink\0" + os.fsencode(os.readlink(candidate)))
+    if not candidate.is_file():
+        return None
+    digest = hashlib.sha256()
+    digest.update(b"file\0")
+    with candidate.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(_CHUNK_SIZE), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _scope_content_digest(path: Path, scope: List[str]) -> Dict[str, str]:
+    """The scope's actual content right now, one hash per path, read from the index and the worktree with no reference to HEAD at all.
+
+    This is not `worktree_fingerprint`: that reads `git diff` output, which is a delta against HEAD, so it moves whenever HEAD moves even where the bytes a task actually wrote have not changed -- a commit elsewhere sweeps a task's own draft into HEAD and the diff goes quiet over it, and a commit of an earlier, overlapping task's already-accepted work moves the index's blob id for paths this task never touched. Content this function reads is the current tracked-or-visibly-untracked path list under the scope's own `git` pathspec (`git ls-files` and `git ls-files --others --exclude-standard`, restricted the way `_scope_pathspec` builds it, ignored paths and the run ledger excluded exactly as `worktree_fingerprint` excludes them) and, per path, the literal bytes on disk right now -- a symlink's target, a regular file's content, nothing else. No blob id from the index is read: a path's index entry can change across an `add`+`commit` even while its worktree bytes do not move, and that would make a genuinely restored path fail this comparison for a reason that has nothing to do with restoration. A path absent from the returned map does not currently exist under the scope, whether it never did or was deleted; that absence is itself part of what two digests are compared for.
+    """
+    root, _ = canonical_worktree(path)
+    pathspec = _scope_pathspec(scope)
+    tracked_paths = [item for item in _git_bytes(root, ["ls-files", "-z", *pathspec]).split(b"\0") if item]
+    untracked_paths = [item for item in _git_bytes(root, ["ls-files", "--others", "--exclude-standard", "-z", *pathspec]).split(b"\0") if item]
+    digest: Dict[str, str] = {}
+    for relative_bytes in sorted(set(tracked_paths) | set(untracked_paths)):
+        relative = relative_bytes.decode("utf-8", "surrogateescape")
+        if relative.startswith(LEDGER_PREFIX):
+            continue
+        value_hash = _hash_scope_path(root / relative)
+        if value_hash is None:
+            continue
+        digest[relative] = value_hash
+    return digest
+
+
+def _scope_digest_diff(current: Any, dispatched: Any) -> List[str]:
+    """The scope paths whose content differs between two digests, sorted; empty when they agree everywhere `_scope_content_digest` could report a difference (a changed path, an added one, or a removed one)."""
+    if not isinstance(current, dict) or not isinstance(dispatched, dict):
+        return sorted(set(current) | set(dispatched)) if isinstance(current, dict) or isinstance(dispatched, dict) else ["<unreadable>"]
+    return sorted(path for path in set(current) | set(dispatched) if current.get(path) != dispatched.get(path))
+
+
 def _scope_parts(entry: str) -> Tuple[str, ...]:
     return tuple(part for part in entry.strip().replace("\\", "/").split("/") if part not in ("", "."))
 
@@ -189,13 +252,11 @@ def _scope_parts(entry: str) -> Tuple[str, ...]:
 def _scopes_collide(left: str, right: str) -> bool:
     """Two scope entries name the same place when one is the other or contains it.
 
-    Scope is a list of paths a task may write, and a task that names a directory names everything under it,
-    so `src/b/` and `src/b/x.py` collide while `src/b/` and `src/bx.py` do not. Nothing here reads the
-    filesystem: this measures what the ledger says, which is what the lead wrote and can be held to.
+    Scope is a list of paths a task may write, and a task that names a directory names everything under it, so `src/b/` and `src/b/x.py` collide while `src/b/` and `src/bx.py` do not. An entry with no path parts -- `.`, `./`, an empty string -- names the whole tree rather than nothing, the same reading `_scope_pathspec` gives it for a content digest, so it collides with every other entry, including another one shaped the same way: a root-scoped task must not dispatch alongside a write-active sibling, must wait behind an earlier pending or parked one, and must hold a later one back exactly as any other scope does. Nothing here reads the filesystem: this measures what the ledger says, which is what the lead wrote and can be held to.
     """
     a, b = _scope_parts(left), _scope_parts(right)
     if not a or not b:
-        return False
+        return True
     shorter, longer = (a, b) if len(a) <= len(b) else (b, a)
     return longer[:len(shorter)] == shorter
 
@@ -203,7 +264,7 @@ def _scopes_collide(left: str, right: str) -> bool:
 def _scope_collisions(tasks: List[Dict[str, Any]], candidates: List[str]) -> List[Dict[str, Any]]:
     """Where the named tasks would write over each other, over a task already being written, or over an earlier task not yet done.
 
-    Scope is what the ledger says a task may write, a directory naming everything under it. Two tasks may be written at once only when their scopes do not meet; a task may not start ahead of an earlier task whose scope meets its own, because the ledger's order is the plan's dependency order and an overlap is where that order is load-bearing. Accepted tasks are already in the tree and do not count. Nothing here reads the filesystem.
+    Scope is what the ledger says a task may write, a directory naming everything under it. Two tasks may be written at once only when their scopes do not meet; a task may not start ahead of an earlier task whose scope meets its own, because the ledger's order is the plan's dependency order and an overlap is where that order is load-bearing. Accepted tasks are already in the tree and do not count. A parked task collides exactly as a pending one does: it occupies its scope only against tasks listed after it, so an earlier independent task is never starved by a question that parked something later. Nothing here reads the filesystem.
     """
     by_id = {task["id"]: task for task in tasks if isinstance(task, dict) and "id" in task}
     order = [task["id"] for task in tasks if isinstance(task, dict) and "id" in task]
@@ -216,7 +277,7 @@ def _scope_collisions(tasks: List[Dict[str, Any]], candidates: List[str]) -> Lis
     for index, left_id in enumerate(candidates):
         others = list(candidates[index + 1:])
         others += [task_id for task_id in order if task_id not in candidates and by_id[task_id].get("status") in WRITE_ACTIVE_STATUSES]
-        others += [task_id for task_id in order[:order.index(left_id)] if task_id not in candidates and by_id[task_id].get("status") == "pending"]
+        others += [task_id for task_id in order[:order.index(left_id)] if task_id not in candidates and by_id[task_id].get("status") in {"pending", "parked"}]
         for right_id in others:
             pair = tuple(sorted((left_id, right_id)))
             if pair in seen:
@@ -452,6 +513,27 @@ def _field_set_error(label: str, actual: Any, expected: frozenset, optional: fro
             + (f"; unexpected {unexpected}" if unexpected else ""))
 
 
+def _validate_scope_digest(value: Any, label: str) -> List[str]:
+    """`dispatch_scope_fingerprint`'s shape: a map from a scope-relative path to the sha256 of that path's content, exactly what `_scope_content_digest` returns. An empty object is valid -- it means the scope covered nothing that existed yet at dispatch."""
+    if not isinstance(value, dict):
+        return [f"{label} must be an object mapping paths to content hashes"]
+    errors: List[str] = []
+    for path, value_hash in value.items():
+        if not isinstance(path, str) or not path:
+            errors.append(f"{label} requires a non-empty string for every key")
+        if not _valid_hash(value_hash):
+            errors.append(f"{label} requires a valid content hash for {path if isinstance(path, str) else '?'}")
+    return errors
+
+
+def _is_legacy_dispatch_seal(value: Any) -> bool:
+    """A `dispatch_scope_fingerprint` written before this correction, in `worktree_fingerprint`'s field shape (`head` plus three diff hashes plus the combined one) rather than the per-path content digest.
+
+    It is a valid seal in the sense that it once satisfied `_validate_fingerprint`, and a state holding it still validates -- refusing it would wedge a run this correction lands under mid-flight, exactly the failure `TASK_OPTIONAL` exists to rule out elsewhere in this file. It cannot answer the restored-scope question the new shape exists for, because it is a diff against HEAD rather than per-path content read straight off the tree, so a task holding one is treated exactly as a task with no seal at all: it cannot park from a write-active status.
+    """
+    return isinstance(value, dict) and set(value) == FINGERPRINT_FIELDS
+
+
 def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = frozenset()) -> List[str]:
     if not isinstance(task, dict) or set(task) - TASK_OPTIONAL != TASK_FIELDS:
         return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS, TASK_OPTIONAL)]
@@ -459,6 +541,12 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
         errors_scope = _validate_fingerprint(task["scope_fingerprint"], f"Task {task.get('id', '?')} scope_fingerprint")
         if errors_scope:
             return errors_scope
+    if task.get("dispatch_scope_fingerprint") is not None:
+        seal = task["dispatch_scope_fingerprint"]
+        label = f"Task {task.get('id', '?')} dispatch_scope_fingerprint"
+        errors_dispatch = _validate_fingerprint(seal, label) if _is_legacy_dispatch_seal(seal) else _validate_scope_digest(seal, label)
+        if errors_dispatch:
+            return errors_dispatch
     errors: List[str] = []
     for key in ("id", "title", "completion_condition", "rationale"):
         if not isinstance(task.get(key), str) or not task[key].strip():
@@ -471,6 +559,22 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
         errors.append("Task status is invalid")
     if type(task.get("round")) is not int or task["round"] < 0:
         errors.append("Task round must be non-negative")
+    parked = task.get("parked")
+    if task.get("status") == "parked":
+        if not isinstance(parked, dict) or set(parked) != PARKED_FIELDS:
+            errors.append(_field_set_error(f"Task {task.get('id', '?')} parked must use the exact field set", parked, PARKED_FIELDS))
+        else:
+            if not isinstance(parked.get("question"), str) or not parked["question"].strip():
+                errors.append("Task parked requires a non-empty question")
+            if parked.get("from") not in PARKED_FROM_VALUES:
+                errors.append(f"Task parked.from must be one of {', '.join(sorted(PARKED_FROM_VALUES))}")
+            decision_ref = parked.get("decision_ref")
+            if decision_ref is not None and (not isinstance(decision_ref, str) or not decision_ref.strip()):
+                errors.append("Task parked.decision_ref must be null or non-empty text")
+            if not _valid_time(parked.get("at")):
+                errors.append("Task parked requires a timezone-aware at")
+    elif parked is not None:
+        errors.append("Only a parked task may carry parked facts")
     verification = task.get("latest_verification")
     if not isinstance(verification, list):
         errors.append("Task latest_verification must be a list")
@@ -791,6 +895,18 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Initial state revision must be zero")
         if candidate.get("lifecycle") not in NONTERMINAL_LIFECYCLES:
             errors.append("Initial checkpoint must be nonterminal")
+        # There is no predecessor for the per-task loop below to read, so nothing there ever runs against an initial checkpoint; a hand-authored one could otherwise declare a task already `implementing` with a forged seal, or already `parked` from a write-active status that never happened, since neither `dispatch` nor a restored scope can have occurred before the first checkpoint exists. So here, directly: no task may carry `dispatch_scope_fingerprint`, and a `parked` task's `parked.from` must equal `pending`.
+        for task in candidate.get("tasks", []) if isinstance(candidate.get("tasks"), list) else []:
+            if not isinstance(task, dict):
+                continue
+            task_id = task.get("id", "?")
+            if task.get("dispatch_scope_fingerprint") is not None:
+                errors.append(f"{task_id} cannot carry a seal on the initial checkpoint; nothing has dispatched it yet")
+            if task.get("status") == "parked":
+                parked_info = task.get("parked")
+                from_status = parked_info.get("from") if isinstance(parked_info, dict) else None
+                if from_status != "pending":
+                    errors.append(f"{task_id} cannot park from {from_status} on the initial checkpoint; nothing has dispatched it yet")
         return errors
     previous_errors = validate_state(previous, Path("state.json"), inherited)
     if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
@@ -851,6 +967,25 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 expected = scoped.get("fingerprint") if isinstance(scoped, dict) else None
                 if expected is not None and isinstance(task.get("acceptance"), dict) and task["acceptance"].get("worktree_fingerprint") != expected:
                     errors.append(f"{task['id']} acceptance must match its scope fingerprint at this checkpoint; the scope moved after review")
+            # `dispatch_scope_fingerprint` may change on exactly two transitions: `pending -> implementing`, where `dispatch` (or `_autofill`, for any candidate that leaves it unfilled) seals it fresh, and `parked -> pending`, where `unpark` drops it so the next dispatch seals again. Every other transition must carry it forward unchanged -- explicitly including `accepted -> correcting`, which is not a write-active status and so was once missed here, the gap a forged seal could pass through unchecked.
+            seal_may_change = (old_status == "pending" and new_status == "implementing") or (old_status == "parked" and new_status == "pending")
+            if not seal_may_change and old.get("dispatch_scope_fingerprint") != task.get("dispatch_scope_fingerprint"):
+                errors.append(f"{task['id']} dispatch_scope_fingerprint cannot change except when dispatched or unparked")
+            if new_status == "parked" and old_status != "parked":
+                parked_info = task.get("parked")
+                if isinstance(parked_info, dict) and parked_info.get("from") != old_status:
+                    errors.append(f"{task['id']} parked.from must record the status it parked from ({old_status})")
+                # Parking clears the task's own review state: the round is unchanged, but nothing it carried from before is still current once the tree it was measured against is gone.
+                if task.get("latest_verification"):
+                    errors.append(f"{task['id']} parking must clear previous verification")
+                # `pending -> parked` needs no restored-scope check: a pending task was never dispatched and holds no writes by construction. `implementing | correcting -> parked` is the one that can hold a partial write, and whether its content is actually restored needs the live worktree, which this function does not read -- `validate_external_state` makes that comparison and raises there. A task with no seal at all, or with one written before this correction (`worktree_fingerprint`'s diff-shaped fields rather than the per-path content digest, which cannot answer the restored-scope question either), is refused here instead; it never restores from a write-active status at all.
+                old_seal = old.get("dispatch_scope_fingerprint")
+                if old_status in {"implementing", "correcting"} and (not isinstance(old_seal, dict) or _is_legacy_dispatch_seal(old_seal)):
+                    errors.append(f"{task['id']} cannot park from {old_status}: it was dispatched without a seal")
+        if candidate_phase in {"simplifying", "regression_verifying", "final_audit"} and any(
+            isinstance(task, dict) and task.get("status") == "parked" for task in candidate_task_list
+        ):
+            errors.append(f"Cannot enter {candidate_phase} while a task is parked")
         previous_fingerprint = previous.get("worktree", {}).get("observed", {}).get("fingerprint")
         candidate_fingerprint = candidate.get("worktree", {}).get("observed", {}).get("fingerprint")
         fingerprint_changed = previous_fingerprint != candidate_fingerprint
@@ -1058,8 +1193,11 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
     tasks = candidate.get("tasks")
     if isinstance(tasks, list):
         previous_state = _load(destination) if destination.exists() else None
-        sealed = {task.get("id") for task in (previous_state or {}).get("tasks", [])
+        previous_tasks = (previous_state or {}).get("tasks", [])
+        sealed = {task.get("id") for task in previous_tasks
                   if isinstance(task, dict) and task.get("status") == "accepted"}
+        previous_status = {task.get("id"): task.get("status") for task in previous_tasks
+                            if isinstance(task, dict) and "id" in task}
         for task in tasks:
             if not isinstance(task, dict):
                 continue
@@ -1069,6 +1207,11 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
             if task.get("id") not in sealed or task.get("scope_fingerprint") == AUTO:
                 if scoped_ok:
                     task["scope_fingerprint"] = worktree_fingerprint(root, list(scope))
+            # `dispatch_scope_fingerprint` fills from `_scope_content_digest`, read fresh from the worktree right now -- not from `scope_fingerprint`, which is a diff against HEAD and moves for reasons that have nothing to do with this task's own content. This is what makes `dispatch` a seal that happens before any executor is dispatched: the CLI command reads the worktree, writes the checkpoint, and only then is the executor told to start, so the value captured here is the task's content at that moment. `validate_external_state` re-derives it the same way at every `pending -> implementing` checkpoint and refuses a candidate whose literal value does not match, and `validate_transition` refuses any later candidate that tries to change it while the task stays write-active, so a stale `"auto"` re-derivation on an already-sealed task fails as a changed field rather than silently re-sealing over a partial write. It also fills a `pending -> implementing` candidate that never mentioned the field at all: Decision 2 means every fresh dispatch to seal, and `dispatch` is the documented route to it, but a hand-authored `checkpoint` reaching the same transition must not quietly produce a task that can never park -- only a task already `implementing` before this checkpoint, or one carrying a seal in the pre-correction shape, is treated as dispatched without a seal.
+            seal = task.get("dispatch_scope_fingerprint")
+            freshly_dispatched = previous_status.get(task.get("id")) == "pending" and task.get("status") == "implementing"
+            if scoped_ok and (seal == AUTO or (freshly_dispatched and not isinstance(seal, dict))):
+                task["dispatch_scope_fingerprint"] = _scope_content_digest(root, list(scope))
             scoped = task.get("scope_fingerprint")
             fill(task, scoped["fingerprint"] if isinstance(scoped, dict) and _valid_hash(scoped.get("fingerprint")) else combined)
     fill(candidate, combined)
@@ -1106,6 +1249,30 @@ def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
             occupant = find_occupying_run(run_root, root, exclude=destination)
             if occupant is not None:
                 raise ValueError(f"Canonical worktree is occupied by {occupant}")
+            # Two checks that need the live worktree, which `validate_transition` never reads because it is a pure function over two JSON payloads. Both re-derive `_scope_content_digest` the same way `_autofill` does, so a legitimate candidate (built through `dispatch` or `park`, or copied forward unchanged) always agrees with what is read here, and only a hand-authored value that does not match the actual tree is refused.
+            previous_for_scope = _load(destination) if destination.exists() else None
+            previous_tasks_by_id = {t["id"]: t for t in (previous_for_scope or {}).get("tasks", []) if isinstance(t, dict) and "id" in t}
+            for task in candidate.get("tasks", []):
+                if not isinstance(task, dict):
+                    continue
+                old_task = previous_tasks_by_id.get(task.get("id"))
+                if old_task is None:
+                    continue
+                old_status, new_status, scope = old_task.get("status"), task.get("status"), task.get("scope")
+                if not isinstance(scope, list):
+                    continue
+                # A `pending -> implementing` checkpoint may carry a `dispatch_scope_fingerprint` that is absent (the legacy path, case (c)) or exactly what this checkpoint computes; nothing else, so a candidate cannot forge a seal or carry one held over from a stale read.
+                if old_status == "pending" and new_status == "implementing" and task.get("dispatch_scope_fingerprint") is not None:
+                    fresh = _scope_content_digest(root, scope)
+                    if fresh != task["dispatch_scope_fingerprint"]:
+                        raise ValueError(f"{task['id']} dispatch_scope_fingerprint does not match the scope's content at this checkpoint")
+                # `implementing | correcting -> parked` may leave only once the scope's actual content is back at what `dispatch` sealed; `validate_transition` already refused a task with no seal, or a legacy-shaped one, to compare against.
+                if new_status == "parked" and old_status in {"implementing", "correcting"}:
+                    dispatched_scope = old_task.get("dispatch_scope_fingerprint")
+                    if isinstance(dispatched_scope, dict) and not _is_legacy_dispatch_seal(dispatched_scope):
+                        differing = _scope_digest_diff(_scope_content_digest(root, scope), dispatched_scope)
+                        if differing:
+                            raise ValueError(f"{task['id']} cannot park from {old_status}: {', '.join(differing)} still differs from its dispatch content")
         elif lifecycle == "completed":
             assert root is not None
             actual = worktree_fingerprint(root)["fingerprint"]
@@ -1296,6 +1463,91 @@ def amend(destination: Path, reason: str, summary: Optional[str], next_action: O
     _promote(destination, candidate)
 
 
+def _named_tasks(state: Dict[str, Any], task_ids: List[str]) -> Dict[str, Dict[str, Any]]:
+    by_id = {task["id"]: task for task in state.get("tasks", []) if isinstance(task, dict) and "id" in task}
+    unknown = [task_id for task_id in task_ids if task_id not in by_id]
+    if unknown:
+        raise ValueError(f"no such task: {', '.join(unknown)}")
+    if len(set(task_ids)) != len(task_ids):
+        raise ValueError("a task is named twice")
+    return by_id
+
+
+def dispatch(destination: Path, task_ids: List[str], next_action: Optional[str]) -> None:
+    """`pending -> implementing`, sealing `dispatch_scope_fingerprint` before any executor is dispatched.
+
+    This command is the seal: it reads the worktree and writes the checkpoint synchronously, and only once it has returned does the lead tell an executor to start writing that task's scope. Nothing else orders those two events, so a lead that dispatches the executor first and runs this afterward has already broken the guarantee -- the ledger contract states the order because the state machine cannot enforce it from here.
+    """
+    state = _load(destination)
+    if state.get("lifecycle") in TERMINAL_LIFECYCLES:
+        raise ValueError("Terminal state cannot transition")
+    by_id = _named_tasks(state, task_ids)
+    for task_id in task_ids:
+        status = by_id[task_id].get("status")
+        if status != "pending":
+            raise ValueError(f"{task_id} is {status}; only a pending task can be dispatched")
+    candidate = copy.deepcopy(state)
+    candidate["revision"] = AUTO
+    candidate["worktree"]["observed"] = AUTO
+    if candidate.get("phase") == "initializing":
+        candidate["phase"] = "task"
+    for task in candidate["tasks"]:
+        if task.get("id") in task_ids:
+            task["status"] = "implementing"
+            task["dispatch_scope_fingerprint"] = AUTO
+    candidate["next_action"] = next_action or f"await verification for {', '.join(task_ids)}"
+    _promote(destination, candidate)
+
+
+def park(destination: Path, task_ids: List[str], question: str, ref: Optional[str], next_action: Optional[str]) -> None:
+    """`pending | implementing | correcting -> parked`. A write-active task parks only once its scope is restored to its dispatch content; `checkpoint`'s transition check names the scope paths still differing when it is not."""
+    state = _load(destination)
+    if state.get("lifecycle") in TERMINAL_LIFECYCLES:
+        raise ValueError("Terminal state cannot transition")
+    if not question.strip():
+        raise ValueError("park needs --question <text>")
+    by_id = _named_tasks(state, task_ids)
+    for task_id in task_ids:
+        status = by_id[task_id].get("status")
+        if status not in {"pending", "implementing", "correcting"}:
+            raise ValueError(f"{task_id} is {status}; only a pending, implementing, or correcting task can park")
+    at = datetime.now().astimezone().isoformat(timespec="seconds")
+    candidate = copy.deepcopy(state)
+    candidate["revision"] = AUTO
+    candidate["worktree"]["observed"] = AUTO
+    for task in candidate["tasks"]:
+        if task.get("id") in task_ids:
+            from_status = by_id[task["id"]]["status"]
+            task["status"] = "parked"
+            task["parked"] = {"question": question.strip(), "from": from_status, "decision_ref": ref, "at": at}
+            task["latest_verification"] = []
+            task["acceptance"] = None
+    candidate["next_action"] = next_action or f"blocked on {ref or question.strip()}: {', '.join(task_ids)} parked"
+    _promote(destination, candidate)
+
+
+def unpark(destination: Path, task_ids: List[str], next_action: Optional[str]) -> None:
+    """`parked -> pending`. Drops `parked` and the stale `dispatch_scope_fingerprint`; the task is dispatched again in the ordinary way, so no verification or review is skipped, and its next `dispatch` seals a fresh value rather than carrying one held over from before it parked."""
+    state = _load(destination)
+    if state.get("lifecycle") in TERMINAL_LIFECYCLES:
+        raise ValueError("Terminal state cannot transition")
+    by_id = _named_tasks(state, task_ids)
+    for task_id in task_ids:
+        status = by_id[task_id].get("status")
+        if status != "parked":
+            raise ValueError(f"{task_id} is {status}; only a parked task can be unparked")
+    candidate = copy.deepcopy(state)
+    candidate["revision"] = AUTO
+    candidate["worktree"]["observed"] = AUTO
+    for task in candidate["tasks"]:
+        if task.get("id") in task_ids:
+            task["status"] = "pending"
+            task.pop("parked", None)
+            task.pop("dispatch_scope_fingerprint", None)
+    candidate["next_action"] = next_action or f"dispatch {', '.join(task_ids)}"
+    _promote(destination, candidate)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -1330,6 +1582,23 @@ def main() -> int:
     amend_parser.add_argument("--summary", default=None, help="the new text, for a brief input; a plan input is re-read from its path")
     amend_parser.add_argument("--next", dest="next_action", default=None)
 
+    dispatch_parser = commands.add_parser("dispatch", help="pending -> implementing, sealing dispatch_scope_fingerprint before any executor is dispatched; run this before telling an executor to start, never after")
+    dispatch_parser.add_argument("destination", type=Path)
+    dispatch_parser.add_argument("task_ids", nargs="+", metavar="task-id")
+    dispatch_parser.add_argument("--next", dest="next_action", default=None)
+
+    park_parser = commands.add_parser("park", help="pending|implementing|correcting -> parked; refuses a write-active task whose scope is not yet restored to its dispatch content")
+    park_parser.add_argument("destination", type=Path)
+    park_parser.add_argument("task_ids", nargs="+", metavar="task-id")
+    park_parser.add_argument("--question", required=True, help="the decision, as asked")
+    park_parser.add_argument("--ref", default=None, help="the caller's id for the decision, e.g. Q1")
+    park_parser.add_argument("--next", dest="next_action", default=None)
+
+    unpark_parser = commands.add_parser("unpark", help="parked -> pending; drops the parked record so the task is dispatched again in the ordinary way")
+    unpark_parser.add_argument("destination", type=Path)
+    unpark_parser.add_argument("task_ids", nargs="+", metavar="task-id")
+    unpark_parser.add_argument("--next", dest="next_action", default=None)
+
     checkpoint_parser = commands.add_parser("checkpoint")
     checkpoint_parser.add_argument("destination", type=Path)
     checkpoint_parser.add_argument("candidate", type=Path)
@@ -1361,6 +1630,18 @@ def main() -> int:
             return 1 if occupant else 0
         if args.command == "amend":
             amend(args.destination, args.reason, args.summary, args.next_action)
+            print(args.destination)
+            return 0
+        if args.command == "dispatch":
+            dispatch(args.destination, args.task_ids, args.next_action)
+            print(args.destination)
+            return 0
+        if args.command == "park":
+            park(args.destination, args.task_ids, args.question, args.ref, args.next_action)
+            print(args.destination)
+            return 0
+        if args.command == "unpark":
+            unpark(args.destination, args.task_ids, args.next_action)
             print(args.destination)
             return 0
         if args.command == "start":
