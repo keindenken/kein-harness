@@ -379,7 +379,7 @@ printf '%s' "$spec" > "$dir/spec.txt"
 run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
 [ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
 
-task_id=$(orca orchestration task-create --spec "$spec" --json 2>/dev/null | json_field task.id)
+task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2>/dev/null | json_field task.id)
 [ -n "$task_id" ] || fail 'could not create the Orca task'
 
 # The terminal must land where the caller is, not where the operator's Orca window happens to be focused.
@@ -408,10 +408,28 @@ if [ -n "$blocked" ]; then
   exit 1
 fi
 
-dispatch=$(orca orchestration worker-start --task "$task_id" --terminal "$handle" --json 2>/dev/null | json_field dispatchId)
+# `--worktree` names the terminal's tree, because Orca otherwise checks a reused terminal against the coordinator pane's worktree and refuses any other with `terminal_worktree_mismatch`.
+# Measured 2026-09-19: without it, every `--worktree <path>` and `--worktree new` lane stopped here, since both put the terminal outside the pane's tree; `$PWD` does not move the check, because the pane's identity comes from Orca and not from the shell.
+started=$(orca orchestration worker-start --task "$task_id" --terminal "$handle" --worktree "path:$worktree" --run "$run_id" --json 2>/dev/null || true)
+dispatch=$(printf '%s' "$started" | json_field dispatchId)
 if [ -z "$dispatch" ]; then
-  printf 'ocs team: the worker started but could not be attached to a dispatch.\n' >&2
-  printf '  terminal=%s left open for inspection.\n' "$handle" >&2
+  # The refusal is in the JSON body, and it is the only line that names the cause. Dropping it made this read like a transient hiccup, and the retry it invited stranded a second terminal and task.
+  reason=$(printf '%s' "$started" | python3 -c 'import json,sys
+try: e=json.load(sys.stdin).get("error") or {}
+except Exception: e={}
+print(" ".join(x for x in (e.get("code"), e.get("message")) if x))' 2>/dev/null)
+  orca orchestration task-update --id "$task_id" --status failed --json >/dev/null 2>&1 || true
+  {
+    printf 'ocs team: the worker started but could not be attached to a dispatch.\n'
+    printf '  orca: %s\n' "${reason:-no error returned}"
+    printf '  task=%s marked failed.\n' "$task_id"
+    if [ "$keep" -eq 1 ]; then
+      printf '  terminal=%s left open (--keep): orca terminal close --terminal %s\n' "$handle" "$handle"
+    else
+      printf '  terminal=%s closed.\n' "$handle"
+    fi
+  } | tee -a "$dir/command.txt" >&2
+  [ "$keep" -eq 1 ] || orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
   exit 1
 fi
 
