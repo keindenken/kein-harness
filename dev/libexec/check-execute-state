@@ -9,10 +9,7 @@
 # Written because nothing else exercises this file. The one recorded execute run is a compacted
 # receipt, so no leftover candidate shows what a live loop actually costs.
 #
-# The sections below share one worktree and one checkpoint chain up through `disjoint-scope-acceptance`, so a
-# later section in that chain declares the earlier ones as dependencies in the `SECTIONS` list near the end of
-# this file; the seal-bypass, collision-bypass, root-scope, legacy-root-scope, and isolated-completion sections
-# each build their own throwaway repository and declare no dependency at all.
+# The sections below share one worktree and one checkpoint chain up through `disjoint-scope-acceptance`, so a later section in that chain declares the earlier ones as dependencies in the `SECTIONS` list near the end of this file; the seal-bypass, collision-bypass, root-scope, legacy-root-scope, and isolated-completion sections each build their own throwaway repository and declare no dependency at all.
 import hashlib
 import importlib.util
 import json
@@ -80,12 +77,7 @@ def _load_json(path):
 def write(path, payload):
     path.write_text(json.dumps(payload, indent=2))
 # ---------------------------------------------------------------------------
-# Shared fixtures and pure helpers -- hoisted here, rather than left where the section that first
-# needed them once defined them inline, because several sections below need them and the sections
-# now run as separate functions with no shared enclosing scope. `STAMP`, `finding`, `verdict`, and
-# `_carried_findings` were section 3's own locals; `by_id`, `set_status`, `both`, `split_verdict`,
-# `split_verification`, and `set_round` were section 6's. Every one of them is a pure function of
-# its arguments (or of `STAMP`), so hoisting them changes nothing about what any section asserts.
+# Shared fixtures and pure helpers -- hoisted here, rather than left where the section that first needed them once defined them inline, because several sections below need them and the sections now run as separate functions with no shared enclosing scope. `STAMP`, `finding`, `verdict`, and `_carried_findings` were section 3's own locals; `by_id`, `set_status`, `both`, `split_verdict`, `split_verification`, and `set_round` were section 6's. Every one of them is a pure function of its arguments (or of `STAMP`), so hoisting them changes nothing about what any section asserts.
 
 STAMP = "2026-01-01T00:00:00+09:00"
 
@@ -1523,11 +1515,7 @@ def _section_isolated_completion(tmp):
                 if unrelated in result.stderr:
                     failures.append(f"completion refusal cited an unrelated invariant ({unrelated!r}) that this fixture supplied directly; the case does not isolate the parked-task refusal: {result.stderr.strip()}")
 # ---------------------------------------------------------------------------
-# Section registry and CLI driver -- `--list` prints the section names below in the order they
-# run; `--only <name>[,<name>...]` runs just those sections together with whatever earlier ones
-# the declared dependency map names (a shared fixture an earlier section built -- the first run's
-# own checkpoint chain, or the split run's -- is rebuilt exactly as it would be on a full run);
-# neither flag runs every section in order exactly as running this file always has.
+# Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections together with whatever earlier ones the declared dependency map names (a shared fixture an earlier section built -- the first run's own checkpoint chain, or the split run's -- is rebuilt exactly as it would be on a full run); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
     ("derive-and-reconcile", (), _section_derive_and_reconcile),
@@ -1551,9 +1539,7 @@ SCRIPT_NAME = "check-execute-state"
 
 
 def _section_closure(requested):
-    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering
-    # `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run
-    # order on its own, with no separate topological sort needed.
+    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run order on its own, with no separate topological sort needed.
     needed = set()
     stack = list(requested)
     while stack:

@@ -4,6 +4,7 @@
 # `hook.py` reads a live `fsd` `state.json` and calls `fsd`'s own `gap()`; nothing here re-derives what counts as a gap (`check-fsd-state` already owns that). This check drives real fixtures the way a live run would produce them -- `fsd start`/`enter`, `execute`'s CLI, `ralplan`'s CLI, and a couple of hand-authored ledgers for shapes neither CLI builds -- then pipes synthetic hook stdin into `hook.py` as a subprocess (never by importing it: a hook only ever runs as a subprocess, and its own top-level exception guard is part of what this check has to prove). `CLAUDE_PROJECT_DIR` and `CLAUDE_CONFIG_DIR` are pinned into each subprocess's environment so the check never reads or writes this machine's real `~/.claude`, and every fixture is disposed of with its own `tempfile.TemporaryDirectory()` -- every scratch path this file creates, including `run_hook`'s default config directory and `execute_start`/`execute_checkpoint`'s candidate files, is minted under that same enclosing directory rather than the system temp root, so nothing here leaks. Nothing here weakens a case to make it pass; a failure here means `hook.py` is wrong, not the fixture. Every case below is an independent, self-contained function -- its own fixture, its own worktree -- registered in the `SECTIONS` list near the end of this file, so `--only` never needs a dependency to name.
 import json
 import os
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -138,12 +139,14 @@ def _scratch_dir(work):
     return Path(tempfile.mkdtemp(dir=str(work.parent)))
 
 
-def execute_start(work, run_root, slug, tasks, worktree=None):
+def execute_start(work, run_root, slug, tasks, worktree=None, plan_path=None):
+    # `plan_path`, when given, starts the run against that plan (`--kind plan --input <plan_path>`) instead of the ordinary brief fixture input -- needed wherever a case means the run's own `input.reference` to line up with an fsd run's plan, since a `--kind brief` run's own `null` reference never strictly belongs to a plan-driven flow.
     tasks_path = _scratch_dir(work) / "tasks.json"
     tasks_path.write_text(json.dumps(tasks))
+    input_args = ["--kind", "plan", "--input", str(plan_path)] if plan_path is not None else ["--kind", "brief", "--summary", f"check {slug}"]
     result = must(f"starting execute run {slug}",
-                  execute(work, "start", "--run-root", str(run_root), "--slug", slug, "--kind", "brief",
-                          "--summary", f"check {slug}", "--worktree", str(worktree or work), "--tasks", str(tasks_path)))
+                  execute(work, "start", "--run-root", str(run_root), "--slug", slug, *input_args,
+                          "--worktree", str(worktree or work), "--tasks", str(tasks_path)))
     return Path(result.stdout.strip())
 
 
@@ -192,7 +195,7 @@ def execute_complete(work, state_path, task_ids):
     receipt = {
         "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": state["run_id"],
         "lifecycle": "completed", "completed_at": STAMP,
-        "input": {"reference": None, "sha256": state["input"]["sha256"]},
+        "input": {"reference": state["input"]["reference"], "sha256": state["input"]["sha256"]},
         "worktree": {"root": state["worktree"]["root"], "final_fingerprint": "auto"},
         "accepted_tasks": [{"id": t["id"], "title": t["title"], "completion_condition": t["completion_condition"], "carried_findings": []}
                            for t in state["tasks"] if t["id"] in task_ids],
@@ -246,6 +249,13 @@ def pretool_payload(work, tool_name, tool_input=None):
 def postskill_payload(work, skill):
     return {"hook_event_name": "PostToolUse", "tool_name": "Skill", "tool_input": {"skill": skill},
             "tool_response": {"commandName": skill, "success": True}, "session_id": "s",
+            "cwd": str(work), "tool_use_id": "t1"}
+
+
+def postbash_payload(work, command, stdout=""):
+    # The shape the 2026-09-19 probe measured for a frontmatter `PostToolUse` `Bash` hook: `tool_input.command` carries the exact shell text run, `tool_response.stdout` its captured stdout.
+    return {"hook_event_name": "PostToolUse", "tool_name": "Bash", "tool_input": {"command": command},
+            "tool_response": {"stdout": stdout, "stderr": ""}, "session_id": "s",
             "cwd": str(work), "tool_use_id": "t1"}
 
 
@@ -313,6 +323,12 @@ def assert_postskill_silent(label, work, skill, config_dir=None):
         failures.append(f"{label}: post-skill did not allow silently for {skill!r}: exit={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
 
 
+def assert_postbash_silent(label, work, command, stdout="", config_dir=None):
+    result = run_hook(work, "post-bash", postbash_payload(work, command, stdout), config_dir)
+    if result.returncode != 0 or result.stdout.strip():
+        failures.append(f"{label}: post-bash did not allow silently for {command!r}: exit={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+
+
 # ---------------------------------------------------------------------------
 # Case: entry stage still pending (gap row 1) blocks Stop and denies pre-write Write, naming the same gap action in both reasons; every other tool is allowed on the same gap; entering the stage clears the gap and both hooks allow.
 
@@ -353,6 +369,9 @@ def _section_interview_completed_approved():
         requirements_path = work / ".agents" / "kein" / "requirements" / "row2.md"
         requirements_path.parent.mkdir(parents=True)
         write_requirements(requirements_path, "Approved")
+        # Attached explicitly while still active, simulating what the post-bash hook does automatically from `ocs validate interview ledger <path>` (proven end to end in the ordinary-path case below): interview's own completed shape drops `output_path` entirely, so nothing would otherwise confirm this same ledger belongs once it completes.
+        write_active_ledger(ledger, "260101-000000-row2", work, work, requirements_path)
+        must("attaching the interview ledger for row2 while still active", fsd(work, "attach", str(state_path), "interview", str(ledger)))
         write_completed_ledger(ledger, requirements_path)
 
         assert_stop_blocks("row2 interview completed, requirements Approved", work, "invoke /kein:ralplan")
@@ -367,16 +386,29 @@ def _section_ralplan_completed():
         run_root = work / ".agents" / "kein" / "runs" / "fsd"
         state_path = fsd_start(work, run_root, "row3", "an idea")
         # entry is `interview` for an idea input, so its own row (gap row 1) is checked before ralplan's.
-        # Entering it, with no ledger evidence at all, clears that row without satisfying row 2's interview-completed condition, which only fires while `stages.ralplan.status` is still pending.
         must("entering interview for row3", fsd(work, "enter", str(state_path), "interview"))
+
+        # This flow's own expected ralplan reference (`_expected_ralplan_reference`) is read off interview's own completed receipt, so ralplan's own attach below has nothing to match against until interview is genuinely linked and completed -- entering ralplan with no ledger evidence at all, the way an earlier fixture here did, clears row 2 (which only fires while ralplan is still pending) but leaves attach with an unknowable expected reference.
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row3"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "row3.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Approved")
+        write_active_ledger(ledger, "260101-000000-row3", work, work, requirements_path)
+        must("attaching the interview ledger for row3 while still active", fsd(work, "attach", str(state_path), "interview", str(ledger)))
+        write_completed_ledger(ledger, requirements_path)
+
         must("entering ralplan for row3", fsd(work, "enter", str(state_path), "ralplan"))
 
         plan_path = work / ".agents" / "kein" / "plans" / "row3.md"
         plan_path.parent.mkdir(parents=True)
         write_plan(plan_path, "Draft", "first cut", "v0")
         ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-row3" / "state.json"
-        must("starting the ralplan run for row3", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
+        must("starting the ralplan run for row3", ralplan(work, "start", str(ralplan_dest), "--input", str(requirements_path), "--plan", str(plan_path),
              "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        # Pinned explicitly while still nonterminal: ralplan's own completed receipt drops `input` entirely, so nothing would otherwise confirm this same run belongs once it completes.
+        must("attaching the ralplan run for row3 while still nonterminal", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
         must("opening ralplan round 1 for row3", ralplan(work, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving ralplan round 1 for row3", ralplan(work, "approve", str(ralplan_dest)))
@@ -397,7 +429,11 @@ def _section_interview_aborted():
 
         interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row4"
         interview_dir.mkdir(parents=True)
-        write_aborted_ledger(interview_dir / "ledger.md")
+        ledger = interview_dir / "ledger.md"
+        # Attached explicitly while still active -- interview's own aborted shape drops `output_path` entirely, so nothing would otherwise confirm this same ledger belongs once it aborts.
+        write_active_ledger(ledger, "260101-000000-row4", work, work, work / "req-row4.md")
+        must("attaching the interview ledger for row4 while still active", fsd(work, "attach", str(state_path), "interview", str(ledger)))
+        write_aborted_ledger(ledger)
 
         assert_stop_blocks("row4 interview aborted", work, f"run ocs state fsd closeout {state_path}")
 
@@ -415,7 +451,8 @@ def _section_execute_blocked_parked():
         must("entering execute for row5", fsd(work, "enter", str(state_path), "execute"))
 
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "row5", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "row5", [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
+        must("attaching the execute run for row5 while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         must("dispatching task-001 for row5", execute(work, "dispatch", str(execute_state), "task-001"))
         q = must("recording the irreversible question for row5",
                  fsd(work, "question", str(state_path), "--stage", "execute", "--question", "which persisted format?",
@@ -444,6 +481,137 @@ def _section_execute_blocked_parked():
         assert_pretool_allows("row5 pre-write allows the lead's checkpoint candidate", work, "Write")
 
 # ---------------------------------------------------------------------------
+# Case: execute is the entry stage (an approved plan) and still pending, but an unrelated nonterminal execute run -- a different plan entirely -- already occupies the worktree. Invoking /kein:execute again would only be refused a second time by execute's own per-worktree claim, so gap's row 1 must not name that as the single action that clears it (the binding single-invocation-clears-it constraint); it either allows outright or blocks/denies naming the occupant and a command that actually clears it. The model then invokes the kein:execute skill anyway -- post-skill's own `enter` call is refused by the mismatch and silently swallowed, exactly as it swallows any other `enter` failure -- and the very next Stop/pre-write call must still not carry the false instruction, because gap() itself, not anything post-skill wrote, is what stays honest.
+
+def _section_unrelated_occupant_execute_entry_no_false_instruction():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-occupant-entry.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "occupantentry", str(plan_path))
+
+        # `execute_start` here always starts a `--kind brief` run, whose own `input.reference` is `null` and so can never match a real plan reference -- a guaranteed non-belonging occupant.
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        occupant = execute_start(work, execute_run_root, "occupantentry-other", [execute_task("task-x", ["README.md"])])
+
+        assert_postskill_silent("occupantentry: post-skill kein:execute stays silent over the mismatched occupant", work, "kein:execute")
+        if read_json(state_path)["stages"]["execute"]["status"] != "pending":
+            failures.append("post-skill kein:execute entered execute despite the occupant not belonging to this flow")
+
+        stop_result = run_hook(work, "stop", stop_payload(work))
+        if stop_result.returncode != 0:
+            failures.append(f"occupantentry: stop hook exited {stop_result.returncode}: {stop_result.stderr!r}")
+        else:
+            stdout = stop_result.stdout.strip()
+            if stdout:
+                reason = json.loads(stdout).get("reason", "")
+                if "invoke /kein:execute" in reason and "abort" not in reason and "finish" not in reason:
+                    failures.append(f"occupantentry: stop blocked with a false single-invocation instruction to invoke /kein:execute while an unrelated occupant holds the worktree's claim: {reason!r}")
+                if str(occupant) not in reason:
+                    failures.append(f"occupantentry: stop's block did not name the occupant blocking the entry: {reason!r}")
+            # An empty stdout means Stop allowed outright -- also acceptable: the binding constraint only rules out naming an action whose single invocation cannot clear the condition, it does not require a block whenever one cannot be worded that way.
+
+        pretool_result = run_hook(work, "pre-write", pretool_payload(work, "Write"))
+        if pretool_result.returncode != 0:
+            failures.append(f"occupantentry: pre-write hook exited {pretool_result.returncode}: {pretool_result.stderr!r}")
+        else:
+            pre_stdout = pretool_result.stdout.strip()
+            if pre_stdout:
+                pre_reason = (json.loads(pre_stdout).get("hookSpecificOutput") or {}).get("permissionDecisionReason", "")
+                if "invoke /kein:execute" in pre_reason and "abort" not in pre_reason and "finish" not in pre_reason:
+                    failures.append(f"occupantentry: pre-write denied with a false single-invocation instruction to invoke /kein:execute: {pre_reason!r}")
+
+# ---------------------------------------------------------------------------
+# Case: the occupant gap row's own printed action is a single Bash command, runnable exactly as printed even while pre-write is actively denying the Write tool over this same row -- it builds the aborted candidate itself, with no Write tool call at all, and checkpoints it in the same call. Required: running the action as printed clears the row.
+
+def _section_occupant_block_action_runs_as_printed():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-occupant-action.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "occupantaction", str(plan_path))
+
+        # A `--kind brief` occupant, whose own `input.reference` is `null` and so never belongs to this plan-driven flow.
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        occupant = execute_start(work, execute_run_root, "occupantaction-other", [execute_task("task-x", ["README.md"])])
+
+        gap_before = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if not gap_before["gap"]:
+            failures.append(f"occupant-block-action: the fixture did not actually produce a gap: {gap_before}")
+        action = gap_before.get("action", "")
+        if "python3 -c" not in action or "&&" not in action or "ocs state execute checkpoint" not in action:
+            failures.append(f"occupant-block-action: gap's own action was not the single chained Bash command expected: {action!r}")
+        if str(occupant) not in action:
+            failures.append(f"occupant-block-action: gap's own action did not name the occupant: {action!r}")
+
+        # pre-write is actively denying Write over this exact row -- proof that the printed action must not need the Write tool to run.
+        assert_pretool_denies("occupant-block-action: pre-write denies Write while the row stands", work, "not this flow's own run")
+
+        # The action is prose naming the row followed by the one runnable command, separated by "in one call: " -- everything after that marker is the command as printed, exactly what a lead would copy and run.
+        marker = "in one call: "
+        marker_index = action.find(marker)
+        if marker_index == -1:
+            failures.append(f"occupant-block-action: could not find the runnable command inside gap's own action text: {action!r}")
+            command = action
+        else:
+            command = action[marker_index + len(marker):]
+
+        run_result = subprocess.run(command, shell=True, cwd=str(work), capture_output=True, text=True, timeout=30)
+        if run_result.returncode != 0:
+            failures.append(f"occupant-block-action: the printed action did not run successfully as a single Bash command: exit={run_result.returncode} stdout={run_result.stdout!r} stderr={run_result.stderr!r}")
+
+        occupant_after = read_json(occupant)
+        if occupant_after.get("lifecycle") != "aborted":
+            failures.append(f"occupant-block-action: the printed action did not actually abort the occupant: {occupant_after}")
+
+        gap_after = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_after.get("action", "") == action or "own run" in gap_after.get("action", ""):
+            failures.append(f"occupant-block-action: the row did not clear after running the printed action: {gap_after}")
+        if "invoke /kein:execute" not in gap_after.get("action", ""):
+            failures.append(f"occupant-block-action: clearing the occupant did not restore the ordinary invoke-execute row: {gap_after}")
+
+# ---------------------------------------------------------------------------
+# Case: the occupant gap row's own printed action still runs as one Bash command when the repository itself lives at a path containing a space -- the inline `python3 -c` script is passed as a single `shlex.quote`d argument, and the occupant's and the candidate's own paths are each `shlex.quote`d again in the trailing `checkpoint` call, so the whole line stays valid shell syntax end to end. Required case: the occupant abort command runs as printed from a repository path containing a space.
+
+def _section_occupant_block_action_runs_with_space_in_repository_path():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo with space").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-occupant-space.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "occupantspace", str(plan_path))
+
+        # A `--kind brief` occupant, whose own `input.reference` is `null` and so never belongs to this plan-driven flow.
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        occupant = execute_start(work, execute_run_root, "occupantspace-other", [execute_task("task-x", ["README.md"])])
+
+        gap_before = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if not gap_before["gap"]:
+            failures.append(f"occupant-block-action-space: the fixture did not actually produce a gap: {gap_before}")
+        action = gap_before.get("action", "")
+
+        marker = "in one call: "
+        marker_index = action.find(marker)
+        if marker_index == -1:
+            failures.append(f"occupant-block-action-space: could not find the runnable command inside gap's own action text: {action!r}")
+            command = action
+        else:
+            command = action[marker_index + len(marker):]
+
+        run_result = subprocess.run(command, shell=True, cwd=str(work), capture_output=True, text=True, timeout=30)
+        if run_result.returncode != 0:
+            failures.append(f"occupant-block-action-space: the printed action did not run as one Bash command from a repository path containing a space: exit={run_result.returncode} stdout={run_result.stdout!r} stderr={run_result.stderr!r} command={command!r}")
+
+        occupant_after = read_json(occupant)
+        if occupant_after.get("lifecycle") != "aborted":
+            failures.append(f"occupant-block-action-space: the printed action did not actually abort the occupant: {occupant_after}")
+
+# ---------------------------------------------------------------------------
 # Case: post-skill for `kein:ralplan` records the stage entry, and the next Stop allows. Run twice -- the qualified form and the bare form -- since a real Skill-tool call was measured to leave either one verbatim in the hook's `tool_input.skill` (docs/skills/fsd/260919-hook-probe.md).
 
 def _section_postskill_ralplan_forms():
@@ -457,10 +625,14 @@ def _section_postskill_ralplan_forms():
 
             interview_dir = work / ".agents" / "kein" / "runs" / "interview" / f"260101-000000-{slug}"
             interview_dir.mkdir(parents=True)
+            ledger = interview_dir / "ledger.md"
             requirements_path = work / ".agents" / "kein" / "requirements" / f"{slug}.md"
             requirements_path.parent.mkdir(parents=True)
             write_requirements(requirements_path, "Approved")
-            write_completed_ledger(interview_dir / "ledger.md", requirements_path)
+            # Attached explicitly while still active -- interview's own completed shape drops `output_path` entirely.
+            write_active_ledger(ledger, f"260101-000000-{slug}", work, work, requirements_path)
+            must(f"attaching the interview ledger for {slug} while still active", fsd(work, "attach", str(state_path), "interview", str(ledger)))
+            write_completed_ledger(ledger, requirements_path)
 
             assert_stop_blocks(f"{slug} before post-skill", work, "invoke /kein:ralplan")
             assert_postskill_silent(f"{slug} post-skill {skill_name!r}", work, skill_name)
@@ -472,7 +644,7 @@ def _section_postskill_ralplan_forms():
             assert_stop_allows(f"{slug} next stop after post-skill", work)
 
 # ---------------------------------------------------------------------------
-# Case: three genuinely live, running stages -- not merely "entered with no association yet" the way row1's second half is, but a real nonterminal run the association resolves to -- all give no gap, so Stop and pre-write Write both allow. Together these are what "allows in every running stage" (U4's Acceptance) means for a stage that already has a live run behind it, as opposed to one that was just entered.
+# Case: three genuinely live, running stages -- not merely "entered with no association yet" the way row1's second half is, but a real nonterminal run sitting in the stage's own run root -- all give no gap, so Stop and pre-write Write both allow, and none of the three ever calls `attach`: no association is ever formed here at all, which is the point -- `gap`'s own reading of a genuinely running stage does not depend on anything having attached it. Together these are what "allows in every running stage" (U4's Acceptance) means for a stage that already has a live run behind it, as opposed to one that was just entered.
 
 def _section_live_running_stages():
     with tempfile.TemporaryDirectory() as tmp:
@@ -521,7 +693,7 @@ def _section_live_running_stages():
         requirements_path = work / ".agents" / "kein" / "requirements" / "live-interview.md"
         write_active_ledger(interview_dir / "ledger.md", "260101-000000-live-interview", work, work, requirements_path)
 
-        assert_stop_allows("live-interview: active ledger, association resolved, no gap evidence", work)
+        assert_stop_allows("live-interview: active ledger present, unassociated, no gap evidence", work)
         assert_pretool_allows("live-interview: pre-write allows Write while interview is genuinely running", work, "Write")
 
 # ---------------------------------------------------------------------------
@@ -698,7 +870,9 @@ def _section_closeout_path_end_to_end():
         must("entering execute for closeout-path", fsd(work, "enter", str(state_path), "execute"))
 
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "closeout-path", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "closeout-path", [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
+        # Attached explicitly while the run is still nonterminal -- the completed receipt this drives toward next is free to leave `input.reference` null, so nothing would otherwise confirm this same run belongs afterward.
+        must("attaching closeout-path's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         drive_task_to_acceptance(work, execute_state, "task-001")
         must("entering final_audit for closeout-path", execute_to_final_audit(work, execute_state))
         must("completing execute for closeout-path", execute_complete(work, execute_state, ["task-001"]))
@@ -710,6 +884,307 @@ def _section_closeout_path_end_to_end():
         must("entering closeout for closeout-path", fsd(work, "closeout", str(state_path)))
         assert_stop_allows("closeout-path: after entering closeout, stop allows", work)
         assert_pretool_allows("closeout-path: after entering closeout, pre-write allows Write", work, "Write")
+
+# ---------------------------------------------------------------------------
+# Case: the ordinary interview -> ralplan -> execute path associates every stage's run purely from the post-bash hook watching the real start/validate commands and their own real stdout -- no manual `attach` call anywhere -- and the flow reaches closeout. Also proves, along the way, that a completed ralplan (a receipt with no `input` field left) stays associated once post-bash has pinned it. Both are required cases.
+
+def _section_postbash_ordinary_path_associates_without_attach():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "postbash-ordinary", "an idea")
+        must("entering interview", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-postbash-ordinary"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "postbash-ordinary.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Draft")
+        write_active_ledger(ledger, "260101-000000-postbash-ordinary", work, work, requirements_path)
+
+        # `interview/SKILL.md`'s own `<Ledger>` section: `ocs validate interview ledger <path>` runs before relying on an active ledger. Post-bash watches that exact command and attaches from its own argument, since a successful validation prints nothing to stdout.
+        assert_postbash_silent("postbash-ordinary: validate interview ledger (active)", work, f"ocs validate interview ledger {ledger}")
+        after_validate_active = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_validate_active["stages"]["interview"]["association"] != "kept" or after_validate_active["stages"]["interview"]["run"] != str(ledger):
+            failures.append(f"post-bash did not attach the interview ledger from `ocs validate interview ledger`: {after_validate_active['stages']['interview']}")
+
+        write_requirements(requirements_path, "Approved")
+        write_completed_ledger(ledger, requirements_path)
+        # The same command runs again before accepting the terminal receipt (`interview/SKILL.md`'s own `<Ledger>` section), now over a ledger that has since completed: the belonging test only ever accepts an active ledger, so this second call is a genuine no-op rather than a re-confirmation -- the kept link set by the first, still-active call above stays exactly where it was, and a kept link is never replaced anyway.
+        assert_postbash_silent("postbash-ordinary: validate interview ledger (completed)", work, f"ocs validate interview ledger {ledger}")
+
+        assert_stop_blocks("postbash-ordinary: interview completed, ralplan not yet entered", work, "invoke /kein:ralplan")
+        assert_postskill_silent("postbash-ordinary: post-skill kein:ralplan", work, "kein:ralplan")
+
+        plan_path = work / ".agents" / "kein" / "plans" / "postbash-ordinary.md"
+        plan_path.parent.mkdir(parents=True)
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        ralplan_result = must("starting the ralplan run for postbash-ordinary",
+                              ralplan(work, "start", "--run-root", str(ralplan_run_root), "--slug", "postbash-ordinary",
+                                      "--input", str(requirements_path), "--plan", str(plan_path), "--summary", "check",
+                                      "--lanes", "architect@claude,critic@claude"))
+        ralplan_dest = Path(ralplan_result.stdout.strip())
+
+        # `ralplan start`'s own real stdout -- exactly what a live Bash tool call's `tool_response.stdout` would carry -- fed straight into post-bash.
+        assert_postbash_silent("postbash-ordinary: ocs state ralplan start", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug postbash-ordinary "
+                                f"--input {requirements_path} --plan {plan_path} --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan_result.stdout)
+        after_ralplan_start = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_ralplan_start["stages"]["ralplan"]["association"] != "kept" or after_ralplan_start["stages"]["ralplan"]["run"] != str(ralplan_dest):
+            failures.append(f"post-bash did not attach the ralplan run from `ocs state ralplan start`'s own stdout: {after_ralplan_start['stages']['ralplan']}")
+
+        must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
+        must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
+
+        after_ralplan_complete = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_ralplan_complete["stages"]["ralplan"]["association"] != "kept" or after_ralplan_complete["stages"]["ralplan"]["run"] != str(ralplan_dest):
+            failures.append(f"the completed ralplan run's association was lost once its receipt compacted: {after_ralplan_complete['stages']['ralplan']}")
+        if "input" in read_json(ralplan_dest):
+            failures.append("the completed ralplan receipt still carries input; this case does not actually exercise compaction")
+
+        assert_stop_blocks("postbash-ordinary: ralplan completed, execute not yet entered", work, "invoke /kein:execute")
+        assert_postskill_silent("postbash-ordinary: post-skill kein:execute", work, "kein:execute")
+
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks_path = Path(tmp) / "postbash-ordinary-tasks.json"
+        tasks_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        execute_result = must("starting the execute run for postbash-ordinary",
+                              execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-ordinary",
+                                      "--kind", "plan", "--input", str(plan_path), "--worktree", str(work), "--tasks", str(tasks_path)))
+        execute_dest = Path(execute_result.stdout.strip())
+
+        assert_postbash_silent("postbash-ordinary: ocs state execute start", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug postbash-ordinary "
+                                f"--kind plan --input {plan_path} --worktree {work} --tasks {tasks_path}",
+                                stdout=execute_result.stdout)
+        after_execute_start = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_execute_start["stages"]["execute"]["association"] != "kept" or after_execute_start["stages"]["execute"]["run"] != str(execute_dest):
+            failures.append(f"post-bash did not attach the execute run from `ocs state execute start`'s own stdout: {after_execute_start['stages']['execute']}")
+
+        drive_task_to_acceptance(work, execute_dest, "task-001")
+        must("entering final_audit for postbash-ordinary", execute_to_final_audit(work, execute_dest))
+        must("completing execute for postbash-ordinary", execute_complete(work, execute_dest, ["task-001"]))
+
+        closeout_action = f"run ocs state fsd closeout {state_path}"
+        assert_stop_blocks("postbash-ordinary: execute completed, stop blocks naming closeout", work, closeout_action)
+        must("entering closeout for postbash-ordinary", fsd(work, "closeout", str(state_path)))
+        retro_path = state_path.parent / "retro.md"
+        retro_path.write_text("# Retrospective\n\nNothing recorded.\n")
+        must("closing the ordinary-path run through post-bash associations alone", fsd(work, "close", str(state_path), "--retro", str(retro_path)))
+        if read_json(state_path)["lifecycle"] != "completed":
+            failures.append("close did not complete the ordinary-path run despite every association coming from post-bash alone")
+
+# ---------------------------------------------------------------------------
+# Case: an interview ledger validated by post-bash for the first time only after it has already completed -- never attached while it was active, the way the ordinary path above always does first -- is never linked at all: a completed ledger is terminal, and the belonging test only ever accepts an active one. Required case: attach of any terminal run is refused, interview included, and `attach`'s own explicit call is refused the identical way.
+
+def _section_postbash_interview_completed_never_linked():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "postbash-completed-only", "an idea")
+        must("entering interview for postbash-completed-only", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-postbash-completed-only"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "postbash-completed-only.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Approved")
+        # Written straight to its completed shape -- post-bash never sees this ledger while active at all, unlike the ordinary path, which always validates it once active first.
+        write_completed_ledger(ledger, requirements_path)
+
+        assert_postbash_silent("postbash-completed-only: validate interview ledger (completed, never seen active)", work, f"ocs validate interview ledger {ledger}")
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["interview"]["association"] != "none" or after["stages"]["interview"]["run"] is not None:
+            failures.append(f"post-bash attached a completed interview ledger, which is terminal and never belongs: {after['stages']['interview']}")
+
+        refuse("attaching a completed interview ledger explicitly", fsd(work, "attach", str(state_path), "interview", str(ledger)),
+               reason="does not belong")
+
+# ---------------------------------------------------------------------------
+# Case: post-bash never attaches a run that does not strictly belong -- a plan-kind execute run for a different plan, and a brief-kind execute run with no reference at all -- even though each one's own real `ocs state execute start` command and its own real stdout are fed to it exactly as a live Bash call would produce them. Required case.
+
+def _section_postbash_unrelated_run_never_attached():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-postbash-unrelated.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "postbash-unrelated", str(approved_plan))
+        must("entering execute", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        other_plan = work / "plan-postbash-other.md"
+        write_plan(other_plan, "Approved", "a different plan entirely")
+        tasks_path_plan = Path(tmp) / "tasks-plan.json"
+        tasks_path_plan.write_text(json.dumps([execute_task("task-x", ["README.md"])]))
+        plan_result = must("starting an unrelated plan-kind execute run",
+                           execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-unrelated-plan",
+                                   "--kind", "plan", "--input", str(other_plan), "--worktree", str(work), "--tasks", str(tasks_path_plan)))
+        assert_postbash_silent("postbash-unrelated: ocs state execute start (unrelated plan)", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug postbash-unrelated-plan "
+                                f"--kind plan --input {other_plan} --worktree {work} --tasks {tasks_path_plan}",
+                                stdout=plan_result.stdout)
+        after_plan = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_plan["stages"]["execute"]["association"] != "none" or after_plan["stages"]["execute"]["run"] is not None:
+            failures.append(f"post-bash attached an unrelated plan-kind run for a different plan: {after_plan['stages']['execute']}")
+
+        # The plan-kind run above still holds execute's own per-worktree claim; abort it (execute's own escape hatch, `checkpoint`) so the brief-kind run below can start in the same worktree at all.
+        plan_dest = Path(plan_result.stdout.strip())
+        plan_source = read_json(plan_dest)
+        plan_aborted = {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": plan_source["run_id"],
+            "lifecycle": "aborted", "aborted_at": "2026-01-01T00:00:00+09:00",
+            "worktree_root": plan_source["worktree"]["root"], "reason": "freeing the worktree claim for the next fixture run",
+        }
+        plan_aborted_path = Path(tmp) / "postbash-unrelated-plan-aborted.json"
+        write(plan_aborted_path, plan_aborted)
+        must("aborting the unrelated plan-kind run to free the worktree claim", execute(work, "checkpoint", str(plan_dest), str(plan_aborted_path)))
+
+        tasks_path_brief = Path(tmp) / "tasks-brief.json"
+        tasks_path_brief.write_text(json.dumps([execute_task("task-y", ["README.md"])]))
+        brief_result = must("starting an unrelated brief-kind execute run",
+                            execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-unrelated-brief",
+                                    "--kind", "brief", "--summary", "an unrelated brief", "--worktree", str(work), "--tasks", str(tasks_path_brief)))
+        assert_postbash_silent("postbash-unrelated: ocs state execute start (brief)", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug postbash-unrelated-brief "
+                                f"--kind brief --summary an-unrelated-brief --worktree {work} --tasks {tasks_path_brief}",
+                                stdout=brief_result.stdout)
+        after_brief = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after_brief["stages"]["execute"]["association"] != "none" or after_brief["stages"]["execute"]["run"] is not None:
+            failures.append(f"post-bash attached an unrelated brief-kind run with no reference at all: {after_brief['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Case: `_same_plan_reference` resolves each side against its own root, not both against the flow's own worktree -- a ralplan run started in a second repository, against a plan with the identical *relative* filename this flow's own plan happens to have, fed to post-bash from this flow's own session (`CLAUDE_PROJECT_DIR` pinned to the first repository, exactly as a stray or misdirected Bash call would hand it over), must not be attached purely because the filenames coincide.
+
+def _section_postbash_same_relative_name_second_repository_not_attached():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        other = (Path(tmp) / "other-repo").resolve()
+        init_repo(other)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        write_plan(work / "plan-samename.md", "Draft", "first cut", "v0")
+        state_path = fsd_start(work, run_root, "postbash-samename", str(work / "plan-samename.md"))
+        if read_json(state_path)["entry"] != "ralplan" or read_json(state_path)["input"]["kind"] != "plan":
+            failures.append("postbash-samename: fixture did not enter ralplan over a plan-kind input; this case proves nothing")
+        must("entering ralplan for postbash-samename", fsd(work, "enter", str(state_path), "ralplan"))
+
+        # A different repository, holding a *different* file that happens to share the same relative filename.
+        write_plan(other / "plan-samename.md", "Draft", "an unrelated plan in a different repository", "v0")
+        ralplan_run_root = other / ".agents" / "kein" / "runs" / "ralplan"
+        ralplan_result = must("starting a ralplan run in the second repository with the same relative plan filename",
+                              ralplan(other, "start", "--run-root", str(ralplan_run_root), "--slug", "postbash-samename",
+                                      "--plan", "plan-samename.md", "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        ralplan_dest = Path(ralplan_result.stdout.strip())
+        if read_json(ralplan_dest)["plan"]["path"] != "plan-samename.md":
+            failures.append("postbash-samename: the second repository's own fixture did not store an unresolved relative plan.path; this case proves nothing")
+
+        assert_postbash_silent("postbash-samename: ocs state ralplan start (second repository, identical relative filename)", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug postbash-samename "
+                                f"--plan plan-samename.md --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan_result.stdout)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["ralplan"]["association"] != "none" or after["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"post-bash attached a second repository's own run purely on an identical relative plan filename: {after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
+# Case: post-bash does nothing for a Bash command that is none of the three it watches -- state.json is left byte-for-byte as it read it, not merely "does not block" (which a no-op and a silently-broken match would both satisfy).
+
+def _section_postbash_non_start_command_noop():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-postbash-noop.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "postbash-noop", str(approved_plan))
+        must("entering execute", fsd(work, "enter", str(state_path), "execute"))
+        before = read_json(state_path)
+
+        # A genuinely matching execute run's own real stdout -- one `ocs state execute start` itself would have printed -- is handed to each non-matching command below too, so an over-broad command match (not merely a blank-stdout one) would actually be caught attaching it.
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        matching_run = execute_start(work, execute_run_root, "postbash-noop", [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
+
+        for command in ("echo hello", "git status", "ocs state execute dispatch state.json task-001", "ocs state ralplan open state.json"):
+            assert_postbash_silent(f"postbash-noop: {command!r}", work, command, stdout=str(matching_run))
+            after = read_json(state_path)
+            if after != before:
+                failures.append(f"post-bash changed state.json for a command it should not have matched: {command!r}")
+
+# ---------------------------------------------------------------------------
+# Case: an interview ledger path holding a space, quoted the way a real shell call must quote it, still attaches -- post-bash tokenizes the command with `shlex.split`, which un-quotes the argument back to its own literal text (space intact), rather than the old bare `(\S+)` capture that would have stopped at the first space.
+
+def _section_postbash_ledger_path_with_space_attaches():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "postbash-space-ledger", "an idea")
+        must("entering interview for postbash-space-ledger", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-with space"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "postbash-space-ledger.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Draft")
+        write_active_ledger(ledger, "260101-000000-with space", work, work, requirements_path)
+        if " " not in str(ledger):
+            failures.append("postbash-space-ledger: the fixture's own ledger path carries no space; this case proves nothing")
+
+        assert_postbash_silent("postbash-space-ledger: validate interview ledger (quoted path holding a space)", work,
+                                f"ocs validate interview ledger {shlex.quote(str(ledger))}")
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["interview"]["association"] != "kept" or after["stages"]["interview"]["run"] != str(ledger):
+            failures.append(f"post-bash did not attach an interview ledger path holding a space: {after['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
+# Case: a chained `ocs state execute start ... && ocs state execute dispatch ...` still attaches from the `start` segment's own destination -- post-bash tokenizes the whole line and splits it on the literal `&&` token `shlex.split` leaves behind, matching each segment against the command prefixes it watches rather than searching the raw text for a lookalike substring, and reads the candidate off the stdout line that actually names an existing state.json rather than unconditionally the chain's last line.
+
+def _section_postbash_chained_start_then_dispatch_attaches():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-postbash-chained.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "postbash-chained", str(plan_path))
+        must("entering execute for postbash-chained", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks_path = Path(tmp) / "postbash-chained-tasks.json"
+        tasks_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        start_result = must("starting the execute run for postbash-chained",
+                            execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-chained",
+                                    "--kind", "plan", "--input", str(plan_path), "--worktree", str(work), "--tasks", str(tasks_path)))
+        execute_dest = Path(start_result.stdout.strip())
+
+        # `dispatch` is a real, separate CLI call here too -- its own printed stdout is genuinely captured, not assumed -- so the combined stdout below is exactly what one Bash tool call running both chained commands would have captured.
+        dispatch_result = must("dispatching task-001 for postbash-chained", execute(work, "dispatch", str(execute_dest), "task-001"))
+
+        chained_command = (
+            f"ocs state execute start --run-root {execute_run_root} --slug postbash-chained "
+            f"--kind plan --input {plan_path} --worktree {work} --tasks {tasks_path} "
+            f"&& ocs state execute dispatch {execute_dest} task-001"
+        )
+        combined_stdout = start_result.stdout + dispatch_result.stdout
+
+        assert_postbash_silent("postbash-chained: ocs state execute start && ocs state execute dispatch", work,
+                                chained_command, stdout=combined_stdout)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["execute"]["association"] != "kept" or after["stages"]["execute"]["run"] != str(execute_dest):
+            failures.append(f"post-bash did not attach the execute run from the start segment of a chained command: {after['stages']['execute']}")
 
 # ---------------------------------------------------------------------------
 # Case: a paused fsd run allows regardless of the evidence underneath it -- `gap()`'s very first check is the run's own lifecycle, ahead of any stage row.
@@ -745,10 +1220,7 @@ def _section_paused_lifecycle():
 
 
 # ---------------------------------------------------------------------------
-# Section registry and CLI driver -- `--list` prints the section names below in the order they
-# run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a
-# dependency map names, though every section here is self-contained and needs none); neither flag
-# runs every section in order exactly as running this file always has.
+# Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every section here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
     ("entry-stage-pending", (), _section_entry_stage_pending),
@@ -756,6 +1228,9 @@ SECTIONS = [
     ("ralplan-completed", (), _section_ralplan_completed),
     ("interview-aborted", (), _section_interview_aborted),
     ("execute-blocked-parked", (), _section_execute_blocked_parked),
+    ("unrelated-occupant-execute-entry-no-false-instruction", (), _section_unrelated_occupant_execute_entry_no_false_instruction),
+    ("occupant-block-action-runs-as-printed", (), _section_occupant_block_action_runs_as_printed),
+    ("occupant-block-action-runs-with-space-in-repository-path", (), _section_occupant_block_action_runs_with_space_in_repository_path),
     ("postskill-ralplan-forms", (), _section_postskill_ralplan_forms),
     ("live-running-stages", (), _section_live_running_stages),
     ("postskill-off-switch", (), _section_postskill_off_switch),
@@ -769,6 +1244,13 @@ SECTIONS = [
     ("prewrite-off-switch", (), _section_prewrite_off_switch),
     ("postskill-interview-forms", (), _section_postskill_interview_forms),
     ("closeout-path-end-to-end", (), _section_closeout_path_end_to_end),
+    ("postbash-ordinary-path-associates-without-attach", (), _section_postbash_ordinary_path_associates_without_attach),
+    ("postbash-interview-completed-never-linked", (), _section_postbash_interview_completed_never_linked),
+    ("postbash-unrelated-run-never-attached", (), _section_postbash_unrelated_run_never_attached),
+    ("postbash-same-relative-name-second-repository-not-attached", (), _section_postbash_same_relative_name_second_repository_not_attached),
+    ("postbash-non-start-command-noop", (), _section_postbash_non_start_command_noop),
+    ("postbash-ledger-path-with-space-attaches", (), _section_postbash_ledger_path_with_space_attaches),
+    ("postbash-chained-start-then-dispatch-attaches", (), _section_postbash_chained_start_then_dispatch_attaches),
     ("paused-lifecycle", (), _section_paused_lifecycle),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
@@ -778,9 +1260,7 @@ SCRIPT_NAME = "check-fsd-hooks"
 
 
 def _section_closure(requested):
-    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering
-    # `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run
-    # order on its own, with no separate topological sort needed.
+    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run order on its own, with no separate topological sort needed.
     needed = set()
     stack = list(requested)
     while stack:

@@ -191,7 +191,7 @@ def execute_complete(work, state_path, task_ids):
     receipt = {
         "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": state["run_id"],
         "lifecycle": "completed", "completed_at": STAMP,
-        "input": {"reference": None, "sha256": state["input"]["sha256"]},
+        "input": {"reference": state["input"]["reference"], "sha256": state["input"]["sha256"]},
         "worktree": {"root": state["worktree"]["root"], "final_fingerprint": "auto"},
         "accepted_tasks": [{"id": t["id"], "title": t["title"], "completion_condition": t["completion_condition"], "carried_findings": []}
                            for t in state["tasks"] if t["id"] in task_ids],
@@ -343,8 +343,13 @@ def _section_scenario2_full_drive_lifecycle():
         requirements_path.parent.mkdir(parents=True)
         write_active_ledger(ledger, "260101-000000-flow", work, work, requirements_path)
         status1 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
-        if status1["stages"]["interview"]["association"] != "resolved" or status1["stages"]["interview"]["run"] != str(ledger):
-            failures.append(f"interview association did not resolve to the new ledger: {status1['stages']['interview']}")
+        if status1["stages"]["interview"]["association"] != "none" or status1["stages"]["interview"]["run"] is not None:
+            failures.append(f"interview showed an association before anything ever attached it: {status1['stages']['interview']}")
+        # Attached explicitly, simulating what the post-bash hook does automatically from `ocs validate interview ledger <path>` (proven end to end in check-fsd-hooks): interview's own completed and aborted shapes both drop `output_path`, so nothing would otherwise confirm this same ledger belongs once it compacts.
+        must("attaching the interview ledger while still active", fsd(work, "attach", str(fsd_state), "interview", str(ledger)))
+        status1b = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+        if status1b["stages"]["interview"]["association"] != "kept" or status1b["stages"]["interview"]["run"] != str(ledger):
+            failures.append(f"attach did not pin the interview association: {status1b['stages']['interview']}")
 
         write_requirements(requirements_path, "Draft")
         gap2 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
@@ -367,7 +372,9 @@ def _section_scenario2_full_drive_lifecycle():
         write_plan(plan_path, "Draft", "first cut", "v0")
         ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
         ralplan_dest = ralplan_run_root / "260101-000000-flow" / "state.json"
-        must("starting the ralplan run", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("starting the ralplan run", ralplan(work, "start", str(ralplan_dest), "--input", str(requirements_path), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        # Attached explicitly, simulating what the post-bash hook does automatically from `ocs state ralplan start`'s own printed stdout (proven end to end in check-fsd-hooks): ralplan's own completed receipt drops `input` from its compact shape entirely, so nothing would otherwise confirm this same run belongs once it completes.
+        must("attaching the ralplan run while still nonterminal", fsd(work, "attach", str(fsd_state), "ralplan", str(ralplan_dest)))
         status2 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
         if status2["stages"]["ralplan"]["run"] != str(ralplan_dest):
             failures.append(f"ralplan association did not resolve: {status2['stages']['ralplan']}")
@@ -387,9 +394,14 @@ def _section_scenario2_full_drive_lifecycle():
             failures.append("gap fired while execute is a running stage with no evidence")
 
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "flow", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "flow", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        status2b = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+        if status2b["stages"]["execute"]["association"] != "none" or status2b["stages"]["execute"]["run"] is not None:
+            failures.append(f"execute showed an association before anything ever attached it: {status2b['stages']['execute']}")
+        # Attached explicitly, simulating what the post-bash hook does automatically from `ocs state execute start`'s own printed stdout (proven end to end in check-fsd-hooks).
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(fsd_state), "execute", str(execute_state)))
         status3 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
-        if status3["stages"]["execute"]["run"] != str(execute_state):
+        if status3["stages"]["execute"]["run"] != str(execute_state) or status3["stages"]["execute"]["association"] != "kept":
             failures.append(f"execute association did not resolve: {status3['stages']['execute']}")
 
         must("dispatching task-001", execute(work, "dispatch", str(execute_state), "task-001"))
@@ -535,7 +547,8 @@ def _section_scenario3_agentsmd_drift_across_pause():
         result = must("starting agentsmd-a", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "agentsmd-a", "--input", str(approved_plan), "--worktree", str(work)))
         state_a = require_path(result)
         must("entering execute for agentsmd-a", fsd(work, "enter", str(state_a), "execute"))
-        execute_state_a = execute_start(work, execute_run_root, "agentsmd-a", tasks)
+        execute_state_a = execute_start(work, execute_run_root, "agentsmd-a", tasks, plan_path=approved_plan)
+        must("attaching agentsmd-a's execute run while still nonterminal", fsd(work, "attach", str(state_a), "execute", str(execute_state_a)))
         drive_task_to_acceptance(work, execute_state_a, "task-001")
         must("entering final_audit for agentsmd-a", execute_to_final_audit(work, execute_state_a))
         must("completing agentsmd-a", execute_complete(work, execute_state_a, ["task-001"]))
@@ -580,7 +593,8 @@ def _section_scenario3_agentsmd_drift_across_pause():
         result = must("starting agentsmd-b", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "agentsmd-b", "--input", str(approved_plan), "--worktree", str(work)))
         state_b = require_path(result)
         must("entering execute for agentsmd-b", fsd(work, "enter", str(state_b), "execute"))
-        execute_state_b = execute_start(work, execute_run_root, "agentsmd-b", tasks)
+        execute_state_b = execute_start(work, execute_run_root, "agentsmd-b", tasks, plan_path=approved_plan)
+        must("attaching agentsmd-b's execute run while still nonterminal", fsd(work, "attach", str(state_b), "execute", str(execute_state_b)))
         drive_task_to_acceptance(work, execute_state_b, "task-001")
         must("entering final_audit for agentsmd-b", execute_to_final_audit(work, execute_state_b))
         must("completing agentsmd-b", execute_complete(work, execute_state_b, ["task-001"]))
@@ -626,7 +640,8 @@ def _section_scenario4_guard_scope_violations():
             execute_task("task-c", ["docs/"]),
             execute_task("task-d", ["agents.md"]),
         ]
-        execute_state = execute_start(work, execute_run_root, "guard", tasks)
+        execute_state = execute_start(work, execute_run_root, "guard", tasks, plan_path=plan_path)
+        must("attaching the guard case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         result = fsd(work, "guard", str(state_path))
         guard_result = json.loads(result.stdout)
         if result.returncode == 0:
@@ -677,172 +692,8 @@ def _section_scenario5_blocked_null_decision_ref():
         if gap_null["gap"]:
             failures.append(f"gap fired for a parked task whose decision_ref names no fsd question: {gap_null}")
 
-# Ambiguous association, and `attach` past it.
-def _section_scenario5_ambiguous_association_attach():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        result = must("starting the ambiguous case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ambiguous", "--input", "an idea", "--worktree", str(work)))
-        state_path = require_path(result)
-        must("entering interview for the ambiguous case", fsd(work, "enter", str(state_path), "interview"))
-        interview_run_root = work / ".agents" / "kein" / "runs" / "interview"
-        for name in ("260101-000000-one", "260101-000001-two"):
-            run_dir = interview_run_root / name
-            run_dir.mkdir(parents=True)
-            write_active_ledger(run_dir / "ledger.md", name, work, work, work / "req.md")
-        status_amb = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_amb["stages"]["interview"]["association"] != "ambiguous":
-            failures.append(f"two new run directories did not read as an ambiguous association: {status_amb['stages']['interview']}")
-        write_requirements(work / "req.md", "Approved")
-        write_completed_ledger(interview_run_root / "260101-000000-one" / "ledger.md", work / "req.md")
-        gap_amb = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if gap_amb["gap"]:
-            failures.append(f"gap fired over an ambiguous association: {gap_amb}")
-
-        must("attaching past the ambiguity", fsd(work, "attach", str(state_path), "interview", str(interview_run_root / "260101-000000-one" / "ledger.md")))
-        status_att = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_att["stages"]["interview"]["association"] != "kept" or status_att["stages"]["interview"]["run"] != str(interview_run_root / "260101-000000-one" / "ledger.md"):
-            failures.append(f"attach did not pin the interview association: {status_att['stages']['interview']}")
-        gap_att = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if not gap_att["gap"] or gap_att["next"] != "ralplan":
-            failures.append(f"gap did not read the attached, completed interview run: {gap_att}")
-
 # ---------------------------------------------------------------------------
-# Scenario 6: at `enter`, a stage run that already exists, nonterminal, for the worktree is resumed rather than snapshotted -- the settlement-2 case, proven for execute (whose worktree claim makes it unique) since that is what the state shape names explicitly. Adoption only happens because the pre-existing run's own `input.reference` matches the plan this fsd run executes; scenario 6b below proves the opposite when it does not.
-
-def _section_scenario6_resumed_run_adopted_matching_plan():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        approved_plan = work / "plan-resumed.md"
-        write_plan(approved_plan, "Approved")
-        pre_existing = execute_start(work, execute_run_root, "preexisting", [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
-
-        result = must("starting the resumed-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "resumed", "--input", str(approved_plan), "--worktree", str(work)))
-        state_path = require_path(result)
-        must("entering execute over a pre-existing run whose input matches this flow's own plan", fsd(work, "enter", str(state_path), "execute"))
-        status_res = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_res["stages"]["execute"]["run"] != str(pre_existing) or status_res["stages"]["execute"]["association"] != "kept":
-            failures.append(f"enter did not associate the pre-existing nonterminal execute run directly: {status_res['stages']['execute']}")
-        if read_json(state_path)["stages"]["execute"]["snapshot"]:
-            failures.append("enter snapshotted the run root even though a unique nonterminal run was already there to resume")
-
-# ---------------------------------------------------------------------------
-# Scenario 6b: the reverse of scenario 6 -- an unrelated nonterminal execute run occupies the worktree (an operator's own `/kein:execute`, or a stray run left over from something else entirely), its `input.reference` names a different plan than the one this fsd run executes, and `enter execute` must refuse rather than silently adopt it, naming the occupant.
-
-def _section_scenario6b_refuse_unrelated_occupant_mismatch():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-
-        other_plan = work / "plan-unrelated.md"
-        write_plan(other_plan, "Approved", "someone else's work")
-        other_run = execute_start(work, execute_run_root, "unrelated", [execute_task("task-x", ["README.md"])], plan_path=other_plan)
-
-        fsd_plan = work / "plan-occupied.md"
-        write_plan(fsd_plan, "Approved", "this flow's own plan")
-        result = must("starting the occupied-worktree case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "occupied", "--input", str(fsd_plan), "--worktree", str(work)))
-        state_path = require_path(result)
-        if read_json(state_path)["entry"] != "execute":
-            failures.append("an approved plan input did not classify to execute for the occupied-worktree case")
-
-        # Both references are known here and genuinely differ, so this is the "plans differ" case: the refusal names both references and says to finish or abort the occupying run -- it does not offer `attach`, since a confirmed mismatch (not merely a spelling the comparison failed to resolve) is not what `attach` is for.
-        occupied_result = refuse("entering execute while an unrelated nonterminal execute run occupies the worktree",
-                                  fsd(work, "enter", str(state_path), "execute"), reason=str(other_run))
-        if str(fsd_plan) not in occupied_result.stderr or str(other_plan) not in occupied_result.stderr:
-            failures.append(f"the plans-differ refusal did not name both references: {occupied_result.stderr.strip()}")
-        if "attach" in occupied_result.stderr:
-            failures.append(f"the plans-differ refusal offered attach, which is not the fix for a confirmed mismatch: {occupied_result.stderr.strip()}")
-        if "finish or abort" not in occupied_result.stderr:
-            failures.append(f"the plans-differ refusal did not tell the lead to finish or abort the occupying run: {occupied_result.stderr.strip()}")
-        stage_after_refusal = read_json(state_path)["stages"]["execute"]
-        if stage_after_refusal["status"] != "pending" or stage_after_refusal["run"] is not None:
-            failures.append(f"a refused enter still recorded an association: {stage_after_refusal}")
-
-# ---------------------------------------------------------------------------
-# Scenario 6c: the ralplan-led half of `_expected_execute_plan_reference` -- fsd reaches `execute` through a completed `ralplan` run rather than directly, and `enter execute` compares a pre-existing occupant's `input.reference` against ralplan's own completed receipt's `plan.path`. A matching occupant is adopted; a mismatched one is refused.
-
-def _section_scenario6c_ralplan_led_matching_occupant_adopted():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-
-        approved_requirements = work / "req-viaralplan.md"
-        write_requirements(approved_requirements, "Approved")
-        result = must("starting the ralplan-led occupant case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "viaralplan", "--input", str(approved_requirements), "--worktree", str(work)))
-        state_path = require_path(result)
-        if read_json(state_path)["entry"] != "ralplan":
-            failures.append("approved requirements did not classify to ralplan for the ralplan-led occupant case")
-
-        must("entering ralplan for the ralplan-led occupant case", fsd(work, "enter", str(state_path), "ralplan"))
-        ralplan_plan_path = work / ".agents" / "kein" / "plans" / "viaralplan.md"
-        ralplan_plan_path.parent.mkdir(parents=True, exist_ok=True)
-        write_plan(ralplan_plan_path, "Draft", "first cut", "v0")
-        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
-        ralplan_dest = ralplan_run_root / "260101-000000-viaralplan" / "state.json"
-        must("starting the ralplan run", ralplan(work, "start", str(ralplan_dest), "--plan", str(ralplan_plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
-        must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
-        write_plan(ralplan_plan_path, "Approved", "good", "v0")
-        must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
-        if read_json(ralplan_dest).get("plan", {}).get("path") != str(ralplan_plan_path):
-            failures.append("the completed ralplan receipt's plan.path was not the plan this fixture drove through it; this case proves nothing")
-
-        # A matching occupant, started against the same plan path ralplan's own receipt carries, is adopted directly.
-        matching_run = execute_start(work, execute_run_root, "viaralplan-match", [execute_task("task-x", ["README.md"])], plan_path=ralplan_plan_path)
-        must("entering execute over an occupant matching ralplan's own plan.path", fsd(work, "enter", str(state_path), "execute"))
-        status_match = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_match["stages"]["execute"]["association"] != "kept" or status_match["stages"]["execute"]["run"] != str(matching_run):
-            failures.append(f"enter did not adopt the occupant matching ralplan's plan.path: {status_match['stages']['execute']}")
-
-# A mismatched occupant -- a different plan than the one ralplan's own completed receipt carries -- is refused.
-def _section_scenario6c_ralplan_led_mismatched_occupant_refused():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-
-        approved_requirements = work / "req-viaralplan2.md"
-        write_requirements(approved_requirements, "Approved")
-        result = must("starting the ralplan-led mismatch case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "viaralplan2", "--input", str(approved_requirements), "--worktree", str(work)))
-        state_path = require_path(result)
-        must("entering ralplan for the ralplan-led mismatch case", fsd(work, "enter", str(state_path), "ralplan"))
-        ralplan_plan_path = work / ".agents" / "kein" / "plans" / "viaralplan2.md"
-        ralplan_plan_path.parent.mkdir(parents=True, exist_ok=True)
-        write_plan(ralplan_plan_path, "Draft", "first cut", "v0")
-        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
-        ralplan_dest = ralplan_run_root / "260101-000000-viaralplan2" / "state.json"
-        must("starting the ralplan run", ralplan(work, "start", str(ralplan_dest), "--plan", str(ralplan_plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
-        must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
-        write_plan(ralplan_plan_path, "Approved", "good", "v0")
-        must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
-
-        other_plan = work / "plan-other-viaralplan2.md"
-        write_plan(other_plan, "Approved", "unrelated")
-        mismatched_run = execute_start(work, execute_run_root, "viaralplan2-mismatch", [execute_task("task-y", ["README.md"])], plan_path=other_plan)
-        mismatch_result = refuse("entering execute over an occupant that does not match ralplan's plan.path",
-                                  fsd(work, "enter", str(state_path), "execute"), reason=str(mismatched_run))
-        if str(ralplan_plan_path) not in mismatch_result.stderr or str(other_plan) not in mismatch_result.stderr:
-            failures.append(f"the ralplan-led plans-differ refusal did not name both references: {mismatch_result.stderr.strip()}")
-        if "attach" in mismatch_result.stderr:
-            failures.append(f"the ralplan-led plans-differ refusal offered attach, which is not the fix for a confirmed mismatch: {mismatch_result.stderr.strip()}")
-
-# ---------------------------------------------------------------------------
-# Scenario 6d: `enter` compares occupant and expected plan references as resolved paths, not the raw strings each side happened to store -- `execute start` keeps a relative `--input` exactly as given, and `classify_input` joins a relative one onto the worktree root without ever calling `.resolve()` -- so the same plan, spelled two different ways (relative here, absolute there), still reads as a match.
+# Scenario 6d: `attach`'s strict belonging check compares references as resolved paths, not the raw strings each side happened to store -- `execute start` keeps a relative `--input` exactly as given, and `classify_input` joins a relative one onto the worktree root without ever calling `.resolve()` -- so the same plan, spelled two different ways (relative here, absolute there), still reads as a match.
 
 def _section_scenario6d_path_spelling_relative_vs_absolute():
     with tempfile.TemporaryDirectory() as tmp:
@@ -855,26 +706,28 @@ def _section_scenario6d_path_spelling_relative_vs_absolute():
         plan_path = work / "plan-pathspell.md"
         write_plan(plan_path, "Approved")
 
-        # The occupant's own execute run is started with a *relative* --input, read and stored exactly as given -- an unresolved spelling of the very same file fsd's own --input below names absolutely.
+        # The candidate's own execute run is started with a *relative* --input, read and stored exactly as given -- an unresolved spelling of the very same file fsd's own --input below names absolutely.
         tasks_path = Path(tempfile.mkdtemp()) / "tasks.json"
         tasks_path.write_text(json.dumps([execute_task("task-z", ["README.md"])]))
-        result = must("starting the pathspell occupant with a relative --input",
+        result = must("starting the pathspell candidate with a relative --input",
                       execute(work, "start", "--run-root", str(execute_run_root), "--slug", "pathspell",
                               "--kind", "plan", "--input", "plan-pathspell.md", "--worktree", str(work), "--tasks", str(tasks_path)))
         pathspell_run = require_path(result)
         if read_json(pathspell_run)["input"]["reference"] != "plan-pathspell.md":
-            failures.append("the pathspell occupant fixture did not actually store an unresolved relative reference; this case proves nothing")
+            failures.append("the pathspell candidate fixture did not actually store an unresolved relative reference; this case proves nothing")
 
         result = must("starting fsd with the same plan's absolute spelling",
                       fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "pathspell", "--input", str(plan_path), "--worktree", str(work)))
         state_path = require_path(result)
-        must("entering execute over an occupant naming the same plan, spelled relatively", fsd(work, "enter", str(state_path), "execute"))
+        must("entering execute for the pathspell case", fsd(work, "enter", str(state_path), "execute"))
+        must("attaching a candidate naming the same plan, spelled relatively",
+             fsd(work, "attach", str(state_path), "execute", str(pathspell_run)))
         status_spell = json.loads(fsd(work, "status", str(state_path)).stdout)
         if status_spell["stages"]["execute"]["association"] != "kept" or status_spell["stages"]["execute"]["run"] != str(pathspell_run):
-            failures.append(f"enter refused a matching occupant spelled differently (relative vs absolute): {status_spell['stages']['execute']}")
+            failures.append(f"attach refused a matching candidate spelled differently (relative vs absolute): {status_spell['stages']['execute']}")
 
 # ---------------------------------------------------------------------------
-# Scenario 6e: `enter` refuses a pre-existing occupant with a distinct message when the plan this flow executes cannot be established at all yet -- ralplan has not completed -- naming ralplan and `attach`, not "plans differ", since there is nothing yet to compare the occupant against.
+# Scenario 6e: `attach`'s strict belonging test refuses outright, with no fallback left to reach for, while this flow's own expected `ralplan` reference cannot be established yet -- `interview` has not completed -- so `_expected_ralplan_reference` returns `None` and `_ralplan_candidate_belongs` refuses before it ever reads the candidate at all. A live, otherwise well-formed ralplan run started in this same worktree is refused exactly the same as a genuinely mismatched one; there is nothing left here to rescue it. Required case: attach of a live unrelated ralplan run while the flow's expected reference is unknown is refused.
 
 def _section_scenario6e_no_expected_reference_yet():
     with tempfile.TemporaryDirectory() as tmp:
@@ -882,29 +735,29 @@ def _section_scenario6e_no_expected_reference_yet():
         work = (tmp / "repo").resolve()
         init_repo(work)
         fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
 
-        approved_requirements = work / "req-noexpected.md"
-        write_requirements(approved_requirements, "Approved")
-        result = must("starting the no-expected-reference case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "noexpected", "--input", str(approved_requirements), "--worktree", str(work)))
+        result = must("starting the no-expected-reference case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "noexpected", "--input", "an idea with no document at all", "--worktree", str(work)))
         state_path = require_path(result)
-        if read_json(state_path)["entry"] != "ralplan":
-            failures.append("approved requirements did not classify to ralplan for the no-expected-reference case")
+        if read_json(state_path)["entry"] != "interview":
+            failures.append("free-text idea input did not classify to interview for the no-expected-reference case; this case proves nothing")
 
-        unrelated_plan = work / "plan-noexpected-occupant.md"
-        write_plan(unrelated_plan, "Approved")
-        occupant_run = execute_start(work, execute_run_root, "noexpected-occupant", [execute_task("task-q", ["README.md"])], plan_path=unrelated_plan)
+        unrelated_plan = work / "plan-noexpected-candidate.md"
+        write_plan(unrelated_plan, "Draft", "first cut", "v0")
+        # `ralplan` is entered directly, out of the flow's own order, before `interview` has ever completed -- the only way to observe `_expected_ralplan_reference` return `None` for a genuinely pre-existing candidate.
+        must("entering ralplan directly, out of order, before interview has ever completed", fsd(work, "enter", str(state_path), "ralplan"))
+        candidate_dest = ralplan_run_root / "260101-000000-noexpected" / "state.json"
+        must("starting an unrelated live ralplan run while this flow's own expected reference is unknown",
+             ralplan(work, "start", str(candidate_dest), "--plan", str(unrelated_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
 
-        # `enter execute` is called directly, out of the flow's own order, before ralplan has ever even started -- the only way to observe `_expected_execute_plan_reference` return `None` for a genuinely pre-existing occupant.
-        noexpected_result = refuse("entering execute directly, out of order, before ralplan has ever completed",
-                                    fsd(work, "enter", str(state_path), "execute"), reason=str(occupant_run))
-        if "ralplan" not in noexpected_result.stderr:
-            failures.append(f"the no-expected-reference refusal did not name ralplan: {noexpected_result.stderr.strip()}")
-        if "attach" not in noexpected_result.stderr:
-            failures.append(f"the no-expected-reference refusal did not offer attach for the case the occupant genuinely is this flow's own run: {noexpected_result.stderr.strip()}")
+        refuse("attaching a live ralplan run before this flow's own expected reference is knowable",
+               fsd(work, "attach", str(state_path), "ralplan", str(candidate_dest)), reason="does not belong")
+        status_noexpected = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_noexpected["stages"]["ralplan"]["association"] != "none" or status_noexpected["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"attach pinned a candidate before this flow's own expected reference was knowable: {status_noexpected['stages']['ralplan']}")
 
 # ---------------------------------------------------------------------------
-# Scenario 6f: `_same_plan_reference` resolves an unresolved worktree spelling, not just a relative-vs-absolute one -- on macOS a TemporaryDirectory sits under `/var/...`, itself a symlink to `/private/var/...` (scenario 21's own technique), and the occupant's own reference may use one spelling of the root while fsd's own --input uses the other. Both name the same file once resolved, and `enter` must still adopt.
+# Scenario 6f: `_same_plan_reference`, which `attach`'s strict check uses, resolves an unresolved worktree spelling too, not just a relative-vs-absolute one -- on macOS a TemporaryDirectory sits under `/var/...`, itself a symlink to `/private/var/...` (scenario 21's own technique), and a candidate's own reference may use one spelling of the root while fsd's own --input uses the other. Both name the same file once resolved, and `attach` must still accept it.
 
 def _section_scenario6f_unresolved_worktree_symlink_spelling():
     with tempfile.TemporaryDirectory() as tmp:
@@ -920,12 +773,12 @@ def _section_scenario6f_unresolved_worktree_symlink_spelling():
         plan_name = "plan-unresolved-spelling.md"
         write_plan(unresolved_work / plan_name, "Approved")
 
-        # The occupant's own execute run is started with the unresolved spelling of the worktree root.
-        occupant_run = execute_start(unresolved_work, execute_run_root, "unresolvedspelling",
-                                      [execute_task("task-w", ["README.md"])],
-                                      plan_path=unresolved_work / plan_name)
-        if read_json(occupant_run)["input"]["reference"] != str(unresolved_work / plan_name):
-            failures.append("the unresolved-spelling occupant fixture did not actually store the unresolved spelling; this case proves nothing")
+        # The candidate's own execute run is started with the unresolved spelling of the worktree root.
+        candidate_run = execute_start(unresolved_work, execute_run_root, "unresolvedspelling",
+                                       [execute_task("task-w", ["README.md"])],
+                                       plan_path=unresolved_work / plan_name)
+        if read_json(candidate_run)["input"]["reference"] != str(unresolved_work / plan_name):
+            failures.append("the unresolved-spelling candidate fixture did not actually store the unresolved spelling; this case proves nothing")
 
         # fsd itself is started with the resolved spelling of the very same file.
         result = must("starting fsd with the resolved spelling of the same plan",
@@ -935,13 +788,13 @@ def _section_scenario6f_unresolved_worktree_symlink_spelling():
         if read_json(state_path)["input"]["reference"] != str(resolved_work / plan_name):
             failures.append("fsd's own input.reference was not actually stored in the resolved spelling; this case proves nothing")
 
-        must("entering execute over an occupant naming the same plan through the worktree's unresolved spelling",
-             fsd(unresolved_work, "enter", str(state_path), "execute"))
+        must("entering execute for the unresolved-spelling case", fsd(unresolved_work, "enter", str(state_path), "execute"))
+        must("attaching a candidate naming the same plan through the worktree's unresolved spelling",
+             fsd(unresolved_work, "attach", str(state_path), "execute", str(candidate_run)))
         status_unresolved = json.loads(fsd(unresolved_work, "status", str(state_path)).stdout)
-        # `find_occupying_run`'s own claim file always records a *resolved* destination path (`_record_claim`), so the association `enter` keeps may be spelled differently from `occupant_run` (built from the unresolved run root) even once adoption succeeds; both name the same file, so the comparison resolves both sides.
         kept_run = status_unresolved["stages"]["execute"].get("run")
-        if status_unresolved["stages"]["execute"]["association"] != "kept" or kept_run is None or Path(kept_run).resolve() != occupant_run.resolve():
-            failures.append(f"enter refused a matching occupant spelled through the worktree's unresolved root: {status_unresolved['stages']['execute']}")
+        if status_unresolved["stages"]["execute"]["association"] != "kept" or kept_run is None or Path(kept_run).resolve() != candidate_run.resolve():
+            failures.append(f"attach refused a matching candidate spelled through the worktree's unresolved root: {status_unresolved['stages']['execute']}")
 
 # ---------------------------------------------------------------------------
 # Scenario 7: the ralplan non-convergence exit needs no ralplan change -- five official rounds each blocked then revised, round 6 approved with two deferrals (an architecture ground and a safety ground), the receipt completes carrying both, and approve immediately after block in the same round is refused.
@@ -994,8 +847,8 @@ def _section_scenario7_ralplan_non_convergence_deferrals():
             failures.append("the completed receipt lost a deferral")
 
 # ---------------------------------------------------------------------------
-# Scenario 8: guard's action actually clears the failure.
-# Parking the offending task does not, since its scope is unchanged while parked and guard reads every task regardless of status; the fix is to abort the execute run (its own escape hatch, `checkpoint`, since execute has no `abort` builder), start a new one without the task, and `attach` fsd's association to it before rerunning guard.
+# Scenario 8: guard's action actually clears the failure, using the shrunk, chained recovery -- abort, then start the replacement without the offending task, with no marker file and no `attach` step named at all: the replacement's own association is attached the way `post-bash` attaches it (proven end to end, from a real Bash payload, in check-fsd-hooks), simulated here with an explicit `attach` call since this file drives `state.py` directly rather than through hooks.
+# Parking the offending task does not clear the failure, since its scope is unchanged while parked and guard reads every task regardless of status.
 
 def _section_scenario8_guard_action_clears_failure_restart():
     with tempfile.TemporaryDirectory() as tmp:
@@ -1008,14 +861,14 @@ def _section_scenario8_guard_action_clears_failure_restart():
         result = must("starting the restart case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "restart", "--input", str(plan_path), "--worktree", str(work)))
         state_path = require_path(result)
 
-        # The execute run starts against the same plan fsd is executing (`plan_path=plan_path`) before `enter` runs, so `enter` adopts it directly and `stages.execute.run` becomes a *kept* association -- the shape items 2 and 3 below need stale, rather than one `_stage_association_detail` would re-resolve fresh by snapshot diff every time.
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
         bad_tasks = [execute_task("task-good", ["README.md"]), execute_task("task-bad", ["AGENTS.md"])]
         execute_state_1 = execute_start(work, execute_run_root, "restart-1", bad_tasks, plan_path=plan_path)
-        must("entering execute for the restart case, adopting the matching pre-existing run", fsd(work, "enter", str(state_path), "execute"))
+        must("entering execute for the restart case", fsd(work, "enter", str(state_path), "execute"))
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state_1)))
         status_kept = json.loads(fsd(work, "status", str(state_path)).stdout)
         if status_kept["stages"]["execute"]["association"] != "kept" or status_kept["stages"]["execute"]["run"] != str(execute_state_1):
-            failures.append(f"enter did not adopt the pre-existing execute run whose input matches this flow's plan: {status_kept['stages']['execute']}")
+            failures.append(f"attach did not pin the execute run whose input matches this flow's plan: {status_kept['stages']['execute']}")
 
         guard_1 = json.loads(fsd(work, "guard", str(state_path)).stdout)
         if guard_1["clean"]:
@@ -1037,37 +890,28 @@ def _section_scenario8_guard_action_clears_failure_restart():
         write(aborted_path, aborted_candidate)
         must("aborting the bad execute run through checkpoint (execute has no abort builder)", execute(work, "checkpoint", str(execute_state_1), str(aborted_path)))
 
-        # The replacement still carries a task scoped to AGENTS.md (task-still-bad) -- the lead's first restart attempt did not actually fix the problem -- deliberately, so the window below can tell "guard read the live run" apart from "guard read nothing": `checkpoint ... aborted` compacted run-1 to a receipt with no `tasks` field at all, so a guard that blindly trusts the stale kept link reads zero tasks and is vacuously clean, the same wrong answer a genuinely fixed replacement would also give it. Only reading run-2's own tasks tells the two apart. `plan_path=plan_path` is what makes run-2 read as *this flow's own* replacement rather than an unrelated occupant guard, gap, and close must now leave alone.
-        execute_state_2 = execute_start(work, execute_run_root, "restart-2",
-                                         [execute_task("task-good", ["README.md"]), execute_task("task-still-bad", ["AGENTS.md"])],
-                                         plan_path=plan_path)
+        # Exactly the window between the abort and the replacement's own `execute start` -- `stages.execute.run` still names the just-aborted run, and no replacement exists yet at all. `gap` must read no gap off that stale aborted link (an aborted execute is never evidence of a stage-to-stage gap any more -- see `gap`'s own docstring) and `guard` must report clean (nothing left to check on an aborted receipt with no tasks), neither one guessing that the flow has been abandoned.
+        gap_between_abort_and_start = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_between_abort_and_start["gap"]:
+            failures.append(f"gap reported a gap in the window between guard's abort and the replacement's start: {gap_between_abort_and_start}")
+        guard_between_abort_and_start = json.loads(fsd(work, "guard", str(state_path)).stdout)
+        if not guard_between_abort_and_start["clean"]:
+            failures.append(f"guard was not clean over the stale aborted link, which carries no tasks to violate: {guard_between_abort_and_start}")
 
-        # Between starting the replacement run and the `attach` below repointing fsd's own association, `stages.execute.run` still names the just-aborted run-1 while run-2 already holds the worktree's claim -- exactly the window `_guard_action` opens. `gap` must read no gap off the stale aborted link (it would otherwise fire the execute -> closeout row), and `guard` must read run-2's own tasks rather than vacuously reading run-1's now-compact, tasks-less aborted receipt.
-        gap_between_abort_and_attach = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if gap_between_abort_and_attach["gap"]:
-            failures.append(f"gap reported a gap between abort and attach, off the stale aborted link: {gap_between_abort_and_attach}")
-        guard_stale_link = json.loads(fsd(work, "guard", str(state_path)).stdout)
-        if guard_stale_link["clean"]:
-            failures.append(f"guard read the stale aborted link (a compact receipt with no tasks at all) as vacuously clean instead of the live replacement run's own task-still-bad, which still scopes AGENTS.md: {guard_stale_link}")
-        else:
-            guarded_live = {v["task"] for v in guard_stale_link["violations"]}
-            if guarded_live != {"task-still-bad"}:
-                failures.append(f"guard did not read exactly the live replacement run's own violation while the kept link was still stale: {guarded_live}")
+        # The replacement is started without the offending task -- the fix guard's action actually names.
+        execute_state_2 = execute_start(work, execute_run_root, "restart-2", [execute_task("task-good", ["README.md"])], plan_path=plan_path)
 
-        aborted_source_2 = read_json(execute_state_2)
-        aborted_candidate_2 = {
-            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": aborted_source_2["run_id"],
-            "lifecycle": "aborted", "aborted_at": STAMP,
-            "worktree_root": aborted_source_2["worktree"]["root"], "reason": "task-still-bad also scopes AGENTS.md; restarting again without it",
-        }
-        aborted_path_2 = tmp / "aborted-2.json"
-        write(aborted_path_2, aborted_candidate_2)
-        must("aborting the second bad execute run", execute(work, "checkpoint", str(execute_state_2), str(aborted_path_2)))
+        # Still not attached -- another beat of the same window, now with a live, matching replacement sitting unattached in the worktree. `gap` and `guard` must still read no gap / clean off the stale aborted kept link; neither one reads the live replacement in its place, because the resolver reads only the kept link, never a worktree occupant.
+        gap_before_attach = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_before_attach["gap"]:
+            failures.append(f"gap reported a gap before the replacement was attached: {gap_before_attach}")
+        guard_before_attach = json.loads(fsd(work, "guard", str(state_path)).stdout)
+        if not guard_before_attach["clean"]:
+            failures.append(f"guard was not clean before the replacement was attached: {guard_before_attach}")
 
-        execute_state_3 = execute_start(work, execute_run_root, "restart-3", [execute_task("task-good", ["README.md"])], plan_path=plan_path)
-        must("attaching the restarted execute run", fsd(work, "attach", str(state_path), "execute", str(execute_state_3)))
+        must("attaching the restarted execute run", fsd(work, "attach", str(state_path), "execute", str(execute_state_2)))
         status_restart = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_restart["stages"]["execute"]["run"] != str(execute_state_3):
+        if status_restart["stages"]["execute"]["run"] != str(execute_state_2):
             failures.append(f"attach did not repoint execute's association at the restarted run: {status_restart['stages']['execute']}")
 
         guard_3 = json.loads(fsd(work, "guard", str(state_path)).stdout)
@@ -1075,93 +919,7 @@ def _section_scenario8_guard_action_clears_failure_restart():
             failures.append(f"guard did not read clean once attached to the restarted run without the bad task: {guard_3}")
 
 # ---------------------------------------------------------------------------
-# Scenario 8b: `close` must not read a stale *completed* kept link as execute's side being done while a different, matching, nonterminal execute run still occupies the worktree. This is distinct from scenario 8's aborted-link window: an aborted receipt already answers `_execute_side_done` False on its own (its own `lifecycle` is not `completed`), so that window alone does not prove the occupying-run check inside `_execute_side_done` does anything -- only a *completed* stale link does, since `payload.get("lifecycle") == "completed"` is the one reading that check actually guards.
-
-def _section_scenario8b_stale_completed_kept_link_vs_live_replacement():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        plan_path = work / "plan-completed-then-replaced.md"
-        write_plan(plan_path, "Approved")
-        result = must("starting the completed-then-replaced case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "replaced", "--input", str(plan_path), "--worktree", str(work)))
-        state_path = require_path(result)
-
-        execute_state_a = execute_start(work, execute_run_root, "replaced-a", [execute_task("task-a", ["src/a.txt"])])
-        must("attaching execute run A", fsd(work, "attach", str(state_path), "execute", str(execute_state_a)))
-        drive_task_to_acceptance(work, execute_state_a, "task-a")
-        must("entering final_audit for run A", execute_to_final_audit(work, execute_state_a))
-        must("completing run A", execute_complete(work, execute_state_a, ["task-a"]))
-        if read_json(execute_state_a)["lifecycle"] != "completed":
-            failures.append("execute run A did not reach a completed receipt")
-
-        # A second, matching execute run (same plan, via plan_path=plan_path) starts once A's own claim is released by completion. fsd's own kept association still names A, now a completed receipt -- exactly the shape that would (without the occupying-run check) read as execute's side being done.
-        execute_state_b = execute_start(work, execute_run_root, "replaced-b", [execute_task("task-b", ["src/b.txt"])], plan_path=plan_path)
-
-        gap_completed_replaced = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if gap_completed_replaced["gap"]:
-            failures.append(f"gap reported a gap off a completed kept link while a matching replacement run is still live: {gap_completed_replaced}")
-
-        guard_completed_replaced = json.loads(fsd(work, "guard", str(state_path)).stdout)
-        if not guard_completed_replaced["clean"]:
-            failures.append(f"guard was not clean over run B's own untouched scope: {guard_completed_replaced}")
-
-        retro_path = tmp / "retro-replaced.md"
-        retro_path.write_text("# Retrospective\n\nNothing recorded; this run mints no assumptions, questions, or lessons.\n")
-        close_replaced_result = refuse("closing while a matching replacement execute run is still live, off a completed kept link",
-                                        fsd(work, "close", str(state_path), "--retro", str(retro_path)), reason="not completed")
-        if str(execute_state_b) not in close_replaced_result.stderr or "attach" not in close_replaced_result.stderr:
-            failures.append(f"close's refusal did not name the live replacement run and attach: {close_replaced_result.stderr.strip()}")
-        if read_json(state_path)["lifecycle"] != "active":
-            failures.append("close moved the run out of active despite a live, matching replacement execute run still occupying the worktree")
-
-# ---------------------------------------------------------------------------
-# Scenario 8c: the reverse of 8b -- an unrelated nonterminal execute run (a different plan entirely) occupies the worktree alongside a genuinely completed, matching kept link. Guard, gap, and close must all read the kept link on its own terms rather than the unrelated occupant's: gap still reports the execute-completed -> closeout row, guard is unaffected by the unrelated run's own AGENTS.md-scoped task, and close still completes.
-
-def _section_scenario8c_unrelated_occupant_alongside_completed_kept_link():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        plan_path = work / "plan-completed-then-unrelated.md"
-        write_plan(plan_path, "Approved")
-        result = must("starting the completed-then-unrelated case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "unrelated2", "--input", str(plan_path), "--worktree", str(work)))
-        state_path = require_path(result)
-
-        execute_state_a = execute_start(work, execute_run_root, "unrelated2-a", [execute_task("task-a", ["src/a.txt"])])
-        must("attaching execute run A", fsd(work, "attach", str(state_path), "execute", str(execute_state_a)))
-        drive_task_to_acceptance(work, execute_state_a, "task-a")
-        must("entering final_audit for run A", execute_to_final_audit(work, execute_state_a))
-        must("completing run A", execute_complete(work, execute_state_a, ["task-a"]))
-        if read_json(execute_state_a)["lifecycle"] != "completed":
-            failures.append("execute run A did not reach a completed receipt")
-
-        # A wholly unrelated execute run -- a different plan, an operator's own `/kein:execute` -- starts once A's claim is released. Its own task is deliberately scoped to AGENTS.md, so a `guard` that mistakenly read it as this flow's replacement would be caught failing here.
-        other_plan = work / "plan-unrelated2-other.md"
-        write_plan(other_plan, "Approved", "an unrelated operator run")
-        unrelated_run = execute_start(work, execute_run_root, "unrelated2-b", [execute_task("task-b", ["AGENTS.md"])], plan_path=other_plan)
-
-        gap_unrelated = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if not gap_unrelated["gap"] or gap_unrelated["next"] != "closeout" or gap_unrelated["completed"] != "execute":
-            failures.append(f"gap did not report the execute-completed row while an unrelated occupant sits in the worktree: {gap_unrelated}")
-
-        guard_unrelated = json.loads(fsd(work, "guard", str(state_path)).stdout)
-        if not guard_unrelated["clean"]:
-            failures.append(f"guard read the unrelated occupant's own AGENTS.md-scoped task as though it belonged to this flow: {guard_unrelated}")
-
-        must("entering closeout for the completed-then-unrelated case", fsd(work, "closeout", str(state_path)))
-        retro_path2 = tmp / "retro-unrelated2.md"
-        retro_path2.write_text("# Retrospective\n\nNothing recorded.\n")
-        must("closing despite an unrelated occupant elsewhere in the worktree", fsd(work, "close", str(state_path), "--retro", str(retro_path2)))
-        if read_json(state_path)["lifecycle"] != "completed":
-            failures.append("close did not complete over a genuinely completed execute stage, confused by an unrelated occupant")
-
-# ---------------------------------------------------------------------------
-# Scenario 8d: `guard`'s own recovery text (`_guard_action`) prints `--kind plan --input <the actual plan path>` rather than a `<plan|brief>` placeholder -- a `--kind brief` replacement stores a `null` input.reference, which the matching rule can never call a match, reopening exactly the gap/guard misreading the abort-then-restart window exists to close. This follows the recovery exactly as printed: the restart's `--input` is read straight out of the action text's own claim (the plan fsd itself was started with), not assumed.
+# Scenario 8d: `guard`'s own recovery text (`_guard_action`) prints one chained Bash command -- abort, then start the replacement without the offending task, joined with `&&` -- naming `--kind plan --input <the actual plan path>` rather than a `<plan|brief>` placeholder, and no marker file or `attach` step at all. A `--kind brief` replacement stores a `null` input.reference, which the matching rule can never call a match, reopening exactly the gap the chained command exists to close.
 
 def _section_scenario8d_guard_action_literal_recovery_text():
     with tempfile.TemporaryDirectory() as tmp:
@@ -1175,10 +933,10 @@ def _section_scenario8d_guard_action_literal_recovery_text():
         result = must("starting the literal-recovery case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "literalrecovery", "--input", str(plan_path), "--worktree", str(work)))
         state_path = require_path(result)
 
-        # The execute run starts against the same plan fsd is executing, before `enter` runs, so `enter` adopts it directly and `stages.execute.run` becomes a *kept* association -- otherwise `_stage_association_detail`'s snapshot-diff would read two new directories as ambiguous once the restart below mints a second one.
         bad_tasks = [execute_task("task-good", ["README.md"]), execute_task("task-bad", ["AGENTS.md"])]
         execute_state_1 = execute_start(work, execute_run_root, "literalrecovery-1", bad_tasks, plan_path=plan_path)
-        must("entering execute for the literal-recovery case, adopting the matching pre-existing run", fsd(work, "enter", str(state_path), "execute"))
+        must("entering execute for the literal-recovery case", fsd(work, "enter", str(state_path), "execute"))
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state_1)))
         guard_failed = json.loads(fsd(work, "guard", str(state_path)).stdout)
         if guard_failed["clean"]:
             failures.append("guard reported clean over a task scoped to AGENTS.md for the literal-recovery case")
@@ -1187,6 +945,14 @@ def _section_scenario8d_guard_action_literal_recovery_text():
             failures.append(f"guard's action did not name --kind plan and drop brief entirely: {action_text!r}")
         if str(plan_path) not in action_text:
             failures.append(f"guard's action did not print the actual plan path this flow executes: {action_text!r}")
+        if "checkpoint" not in action_text or " && " not in action_text:
+            failures.append(f"guard's action did not chain the abort and the replacement's start into one Bash call with &&: {action_text!r}")
+        if "ocs state fsd attach" in action_text or "marker" in action_text:
+            failures.append(f"guard's action still names a marker file or an explicit attach command, which the post-bash hook makes unnecessary: {action_text!r}")
+        checkpoint_index = action_text.find("ocs state execute checkpoint")
+        start_index = action_text.find("ocs state execute start")
+        if checkpoint_index == -1 or start_index == -1 or checkpoint_index > start_index:
+            failures.append(f"guard's action did not print the abort before the replacement's start: {action_text!r}")
 
         # Parse the restart's own `--input` and `--worktree` straight out of the printed action text -- proving the command as printed is actually complete and runnable, not merely containing the right substrings -- rather than reusing this fixture's own `plan_path`/`work` variables to build the restart below.
         argv_match = re.search(r"--kind plan --input (\S+) --worktree (\S+) --tasks", action_text)
@@ -1217,62 +983,17 @@ def _section_scenario8d_guard_action_literal_recovery_text():
 
         gap_literal = json.loads(fsd(work, "gap", str(state_path)).stdout)
         if gap_literal["gap"]:
-            failures.append(f"gap fired between abort and attach after following the recovery exactly as printed: {gap_literal}")
+            failures.append(f"gap fired before attaching, after following the recovery exactly as printed: {gap_literal}")
+
+        must("attaching the restarted execute run", fsd(work, "attach", str(state_path), "execute", str(execute_state_2)))
         guard_literal = json.loads(fsd(work, "guard", str(state_path)).stdout)
         if not guard_literal["clean"]:
             failures.append(f"guard did not read the replacement started with the recovery's own --kind plan --input: {guard_literal}")
 
-        must("attaching the restarted execute run", fsd(work, "attach", str(state_path), "execute", str(execute_state_2)))
-
 # ---------------------------------------------------------------------------
-# Scenario 8e: `close`'s retrospective-location rule also reads the live, matching replacement rather than a stale *completed* kept link -- the same substitution its refusal text and `guard` make (`_close_execute_run`). With a question left unanswered (forcing the `paused` outcome) and a live, matching replacement genuinely still nonterminal, a `--retro` outside `.agents/kein/runs/` is still refused, even though the kept link's own lifecycle reads `completed`.
+# Scenario 9: guard is clean while execute is entered but has no kept link there yet (the ordinary window before `execute start`/`attach` records an association), and not clean -- pointing at `attach` -- once a kept association exists but cannot be read.
 
-def _section_scenario8e_close_retro_location_reads_live_replacement():
-    with tempfile.TemporaryDirectory() as tmp:
-        tmp = Path(tmp)
-        work = (tmp / "repo").resolve()
-        init_repo(work)
-        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        plan_path = work / "plan-retro-location-replaced.md"
-        write_plan(plan_path, "Approved")
-        result = must("starting the retro-location-replaced case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "retroloc2", "--input", str(plan_path), "--worktree", str(work)))
-        state_path = require_path(result)
-        fsd_run_dir = state_path.parent
-
-        q = must("recording a question that will stay unanswered",
-                 fsd(work, "question", str(state_path), "--stage", "execute", "--question", "does this need a follow-up plan?",
-                     "--options", "yes,no", "--recommended", "no", "--why-irreversible", "list item 4: an externally visible action",
-                     "--parks", "whole run"))
-        question_id = q.stdout.strip()
-
-        execute_state_a = execute_start(work, execute_run_root, "retroloc2-a", [execute_task("task-a", ["src/a.txt"])])
-        must("attaching execute run A", fsd(work, "attach", str(state_path), "execute", str(execute_state_a)))
-        drive_task_to_acceptance(work, execute_state_a, "task-a")
-        must("entering final_audit for run A", execute_to_final_audit(work, execute_state_a))
-        must("completing run A", execute_complete(work, execute_state_a, ["task-a"]))
-        if read_json(execute_state_a)["lifecycle"] != "completed":
-            failures.append("execute run A did not reach a completed receipt for the retro-location-replaced case")
-
-        # A second, matching execute run starts once A's claim is released -- genuinely nonterminal, though the kept association still names A, now a completed receipt.
-        execute_state_b = execute_start(work, execute_run_root, "retroloc2-b", [execute_task("task-b", ["src/b.txt"])], plan_path=plan_path)
-
-        outside_retro = tmp / "retro-outside.md"
-        outside_retro.write_text(f"# Retrospective\n\n{question_id}: parked as whole run.\n")
-        refuse("pausing with a retrospective outside runs/ while a live, matching replacement is genuinely still nonterminal, off a completed kept link",
-               fsd(work, "close", str(state_path), "--retro", str(outside_retro)), reason="must be a path under")
-
-        inside_retro = fsd_run_dir / "retro-inside.md"
-        inside_retro.write_text(f"# Retrospective\n\n{question_id}: parked as whole run.\n")
-        must("pausing with a retrospective under runs/fsd, off a completed kept link with a live matching replacement", fsd(work, "close", str(state_path), "--retro", str(inside_retro)))
-        if read_json(state_path)["lifecycle"] != "paused":
-            failures.append("close did not pause despite an unanswered question, with a live matching replacement still nonterminal")
-
-# ---------------------------------------------------------------------------
-# Scenario 9: guard is clean while execute is entered but has no run there yet (the ordinary window before `execute start` runs), and not clean -- pointing at `attach` -- once its association is ambiguous.
-# `_stage_association_detail` only needs two new directories with a `state.json` inside to read as ambiguous; their content is irrelevant to that check, so placeholders are enough here.
-
-def _section_scenario9_guard_clean_no_run_yet_then_ambiguous():
+def _section_scenario9_guard_clean_no_run_yet_then_unreadable():
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         work = (tmp / "repo").resolve()
@@ -1285,20 +1006,19 @@ def _section_scenario9_guard_clean_no_run_yet_then_ambiguous():
         must("entering execute with no run there yet", fsd(work, "enter", str(state_path), "execute"))
         guard_none = json.loads(fsd(work, "guard", str(state_path)).stdout)
         if not guard_none["clean"]:
-            failures.append(f"guard was not clean while execute is entered with no run there yet: {guard_none}")
+            failures.append(f"guard was not clean while execute is entered with no kept link there yet: {guard_none}")
 
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        for slug in ("one", "two"):
-            run_dir = execute_run_root / f"260101-000000-{slug}"
-            run_dir.mkdir(parents=True)
-            write(run_dir / "state.json", {"placeholder": True})
-        guard_ambiguous = json.loads(fsd(work, "guard", str(state_path)).stdout)
-        if guard_ambiguous["clean"]:
-            failures.append("guard was clean over an ambiguous execute association")
-        if "reason" not in guard_ambiguous or "attach" not in guard_ambiguous["reason"]:
-            failures.append(f"guard's ambiguous-association failure did not point at attach: {guard_ambiguous}")
-        refuse("closing while execute's association is ambiguous", fsd(work, "close", str(state_path), "--retro", str(work / "no-such.md")),
-               reason="ambiguous")
+        execute_state = execute_start(work, execute_run_root, "guardassoc", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        execute_state.unlink()
+        guard_unreadable = json.loads(fsd(work, "guard", str(state_path)).stdout)
+        if guard_unreadable["clean"]:
+            failures.append("guard was clean over a kept association it cannot actually read")
+        if "reason" not in guard_unreadable or "attach" not in guard_unreadable["reason"]:
+            failures.append(f"guard's unreadable-association failure did not point at attach: {guard_unreadable}")
+        refuse("closing while execute's kept association cannot be read", fsd(work, "close", str(state_path), "--retro", str(work / "no-such.md")),
+               reason="could not be read")
 
 # ---------------------------------------------------------------------------
 # Scenario 10: gap and status do not raise on unreadable stage evidence -- a missing or corrupt associated file yields no row rather than an exception, and status stays readable.
@@ -1315,7 +1035,8 @@ def _section_scenario10_gap_status_tolerate_unreadable_evidence():
         state_path = require_path(result)
         must("entering execute for the corrupt-evidence case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "corrupt", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "corrupt", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the corrupt-evidence case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
 
         execute_state.write_text("{ this is not valid json")
         gap_corrupt = fsd(work, "gap", str(state_path))
@@ -1361,13 +1082,16 @@ def _section_scenario11_interview_aborted_closeout_row():
         interview_dir = interview_run_root / "260101-000000-intaborted"
         interview_dir.mkdir(parents=True)
         ledger = interview_dir / "ledger.md"
+        # Attached explicitly while still active, simulating what the post-bash hook does automatically from `ocs validate interview ledger <path>` -- interview's own aborted shape drops `output_path` entirely, so nothing would otherwise confirm this same ledger belongs once it aborts.
+        write_active_ledger(ledger, "260101-000000-intaborted", work, work, work / "req-intaborted.md")
+        must("attaching the interview ledger while still active", fsd(work, "attach", str(state_path), "interview", str(ledger)))
         write_aborted_ledger(ledger)
         gap_int_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
         if not gap_int_aborted["gap"] or gap_int_aborted["next"] != "closeout" or gap_int_aborted["completed"] != "interview":
             failures.append(f"gap did not report the interview-aborted -> closeout row: {gap_int_aborted}")
 
 # ---------------------------------------------------------------------------
-# Scenario 12: the execute aborted-receipt -> closeout gap row, and the blocked-with-no-parked-task, unanswered-whole-run-question -> closeout gap row.
+# Scenario 12: an aborted execute run, by itself, is never evidence of a stage-to-stage gap any more -- no closeout row fires, whether or not a restart is actually coming (see `gap`'s own docstring for why: the two cases are indistinguishable in fsd's own recorded-at-creation state, so `gap` no longer guesses at either). `close` still refuses over it, naming it aborted rather than completed, so a genuine give-up still reaches `halt` through the ordinary path -- the lead's own `closeout` call, not a hook nudge. Also covers the blocked-with-no-parked-task, unanswered-whole-run-question -> closeout gap row.
 
 def _section_scenario12_execute_aborted_receipt_closeout_row():
     with tempfile.TemporaryDirectory() as tmp:
@@ -1381,7 +1105,9 @@ def _section_scenario12_execute_aborted_receipt_closeout_row():
         state_path = require_path(result)
         must("entering execute for the execute-aborted case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "execaborted", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "execaborted", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        # Attached while the run is still nonterminal -- the run's own aborted receipt, built by hand just below, carries no `input` field at all, so nothing would otherwise confirm this same run belongs once it compacts.
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         aborted_source = read_json(execute_state)
         aborted_candidate = {
             "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": aborted_source["run_id"],
@@ -1392,8 +1118,10 @@ def _section_scenario12_execute_aborted_receipt_closeout_row():
         write(aborted_path, aborted_candidate)
         must("aborting the execute run", execute(work, "checkpoint", str(execute_state), str(aborted_path)))
         gap_exec_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
-        if not gap_exec_aborted["gap"] or gap_exec_aborted["next"] != "closeout" or gap_exec_aborted["completed"] != "execute":
-            failures.append(f"gap did not report the execute-aborted-receipt -> closeout row: {gap_exec_aborted}")
+        if gap_exec_aborted["gap"]:
+            failures.append(f"gap reported a gap over a plain aborted execute run, with no replacement in sight: {gap_exec_aborted}")
+        # The lead's own judgment, not a hook nudge, is what reaches closeout for a genuine give-up: `closeout` can always be invoked directly.
+        must("entering closeout on the lead's own judgment that this run will not be restarted", fsd(work, "closeout", str(state_path)))
         # close does not treat an aborted execute run as done: fsd's own completion means the change was actually delivered, which an aborted execute run did not do.
         must("recording an assumption so the retrospective has something to cite", fsd(work, "assume", str(state_path),
              "--stage", "execute", "--decision", "d", "--chosen", "c", "--alternatives", "x", "--reversal-cost", "r", "--where", "w"))
@@ -1401,6 +1129,9 @@ def _section_scenario12_execute_aborted_receipt_closeout_row():
         retro_for_aborted.write_text("A1 covered; nothing else to close over here.\n")
         refuse("closing over an aborted (not completed) execute run", fsd(work, "close", str(state_path), "--retro", str(retro_for_aborted)),
                reason="execute is aborted, not completed")
+        must("halting the run close refused", fsd(work, "halt", str(state_path), "--reason", "execute is aborted, not completed"))
+        if read_json(state_path)["lifecycle"] != "halted":
+            failures.append("halt did not set the halted lifecycle for the genuinely given-up execute run")
 
 def _section_scenario12_blocked_no_parked_whole_run_question_row():
     with tempfile.TemporaryDirectory() as tmp:
@@ -1415,7 +1146,8 @@ def _section_scenario12_blocked_no_parked_whole_run_question_row():
         must("entering execute for the whole-run-blocked case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
         # A single pending task is neither write-active nor parked, so "no task is write-active" and "no parked task" both hold trivially once the run is checkpointed blocked.
-        execute_state = execute_start(work, execute_run_root, "wholerun", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "wholerun", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the whole-run-blocked case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         must("checkpointing to blocked with nothing dispatched", execute_checkpoint(work, execute_state, lambda s: s.update(
             {"lifecycle": "blocked", "phase": "blocked", "next_action": "blocked: a whole-run decision is needed before anything can be dispatched"})))
         must("recording the whole-run question", fsd(work, "question", str(state_path), "--stage", "execute",
@@ -1443,7 +1175,8 @@ def _section_scenario13_nonterminal_lifecycle_short_circuit():
         state_path = require_path(result)
         must("entering execute for the short-circuit case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "shortcircuit", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "shortcircuit", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the short-circuit case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         must("dispatching task-001 for the short-circuit case", execute(work, "dispatch", str(execute_state), "task-001"))
         qid = must("recording the parking question for the short-circuit case", fsd(work, "question", str(state_path),
             "--stage", "execute", "--question", "q", "--options", "a,b", "--recommended", "a",
@@ -1516,7 +1249,8 @@ def _section_scenario15_retro_location_enforced():
         state_path = require_path(result)
         must("entering execute for the retro-location case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "retroloc", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "retroloc", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the retro-location case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         must("dispatching task-001 for the retro-location case", execute(work, "dispatch", str(execute_state), "task-001"))
         qid = must("recording the parking question for the retro-location case", fsd(work, "question", str(state_path),
             "--stage", "execute", "--question", "q", "--options", "a,b", "--recommended", "a",
@@ -1559,7 +1293,9 @@ def _section_scenario16_execute_never_started_precedence():
         ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
         ralplan_dest = ralplan_run_root / "260101-000000-neverexec" / "state.json"
         must("starting the ralplan run for the execute-never-started case",
-             ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+             ralplan(work, "start", str(ralplan_dest), "--input", str(approved_requirements), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        # Pinned explicitly while still nonterminal: ralplan's own aborted receipt drops `input` (and everything else but the reason) entirely, so nothing would otherwise confirm this same run belongs once it aborts.
+        must("attaching the ralplan run while still nonterminal", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
         must("aborting the ralplan run", ralplan(work, "abort", str(ralplan_dest), "--reason", "a blocking ground the owner has to rule on"))
 
         gap_ralplan_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
@@ -1589,7 +1325,7 @@ def _section_scenario16_execute_never_started_precedence():
         resumed = read_json(state_path)
         if resumed["lifecycle"] != "active":
             failures.append(f"resume did not move the run back to active: {resumed['lifecycle']}")
-        if resumed["stages"]["execute"] != {"status": "pending", "snapshot": [], "run": None}:
+        if resumed["stages"]["execute"] != {"status": "pending", "run": None}:
             failures.append(f"resume touched execute's stage even though its association was absent: {resumed['stages']['execute']}")
         if resumed["stages"]["closeout"]["status"] != "pending":
             failures.append("resume did not reset closeout back to pending")
@@ -1631,7 +1367,9 @@ def _section_scenario17_retro_already_at_durable_path():
         state_path = require_path(result)
         must("entering execute for the already-durable case", fsd(work, "enter", str(state_path), "execute"))
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "alreadydurable", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "alreadydurable", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        # Attached while the run is still nonterminal -- the completed receipt this drives toward next is free to leave `input.reference` null, so nothing would otherwise confirm this same run belongs afterward.
+        must("attaching the already-durable case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         drive_task_to_acceptance(work, execute_state, "task-001")
         must("entering final_audit for the already-durable case", execute_to_final_audit(work, execute_state))
         must("completing the already-durable case's execute run", execute_complete(work, execute_state, ["task-001"]))
@@ -1707,33 +1445,71 @@ def _section_scenario18_blocked_rows_mutually_exclusive_b():
             failures.append(f"gap reported true for a parked task whose own ref is answered alongside an unrelated, unanswered whole-run question: {gap_answered_ref_plus_whole_run}")
 
 # ---------------------------------------------------------------------------
-# Scenario 19: the resumed-rather-than-created association for a stage with no worktree claim of its own -- ralplan's scan-based branch, which reads its `repository` field rather than execute's claim file.
-# A pre-existing, nonterminal ralplan run for this repository is associated directly at `enter`, the same as scenario 6 proved for execute through a different mechanism.
+# Scenario 19: a pre-existing ralplan run is never associated on its own, matching or not -- `enter` no longer discovers or adopts anything at all; only `attach` (or, in the ordinary path, `post-bash`, proven in check-fsd-hooks) records an association. A matching run still needs an explicit `attach` before it counts.
 
-def _section_scenario19_ralplan_resumed_run_adopted():
+def _section_scenario19_ralplan_pre_existing_run_never_auto_associated():
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         work = (tmp / "repo").resolve()
         init_repo(work)
         ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
-        pre_existing_plan = work / "plan-preexisting.md"
-        write_plan(pre_existing_plan, "Draft", "drafted", "v0")
-        pre_existing_dest = ralplan_run_root / "260101-000000-preexisting" / "state.json"
-        must("starting the pre-existing ralplan run", ralplan(work, "start", str(pre_existing_dest), "--plan", str(pre_existing_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
-
         fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
         approved_requirements = work / "req-preexisting.md"
         write_requirements(approved_requirements, "Approved")
-        result = must("starting the ralplan-resumed-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ralplanresumed", "--input", str(approved_requirements), "--worktree", str(work)))
+
+        # The pre-existing ralplan run is started against the *same* requirements document this fsd run is about to classify (`--input approved_requirements`) -- its own `input.reference` is what `_ralplan_candidate_belongs` would match against the fsd input, if anything ever checked.
+        matching_plan = work / "plan-preexisting.md"
+        write_plan(matching_plan, "Draft", "drafted", "v0")
+        matching_dest = ralplan_run_root / "260101-000000-preexisting" / "state.json"
+        must("starting the matching pre-existing ralplan run", ralplan(work, "start", str(matching_dest), "--plan", str(matching_plan),
+             "--input", str(approved_requirements), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+
+        result = must("starting the ralplan-pre-existing-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ralplanpre", "--input", str(approved_requirements), "--worktree", str(work)))
         state_path = require_path(result)
         if read_json(state_path)["entry"] != "ralplan":
-            failures.append("the ralplan-resumed-run fixture did not enter at ralplan")
-        must("entering ralplan over a pre-existing run", fsd(work, "enter", str(state_path), "ralplan"))
-        status_ralplan_resumed = json.loads(fsd(work, "status", str(state_path)).stdout)
-        if status_ralplan_resumed["stages"]["ralplan"]["run"] != str(pre_existing_dest) or status_ralplan_resumed["stages"]["ralplan"]["association"] != "kept":
-            failures.append(f"enter did not associate the pre-existing nonterminal ralplan run directly: {status_ralplan_resumed['stages']['ralplan']}")
-        if read_json(state_path)["stages"]["ralplan"]["snapshot"]:
-            failures.append("enter snapshotted ralplan's run root even though a unique nonterminal run was already there to resume")
+            failures.append("the ralplan-pre-existing-run fixture did not enter at ralplan")
+        must("entering ralplan over a matching pre-existing run", fsd(work, "enter", str(state_path), "ralplan"))
+        status_before_attach = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_before_attach["stages"]["ralplan"]["association"] != "none" or status_before_attach["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"enter associated a pre-existing ralplan run on its own, without any attach: {status_before_attach['stages']['ralplan']}")
+
+        must("attaching the matching pre-existing run explicitly", fsd(work, "attach", str(state_path), "ralplan", str(matching_dest)))
+        status_after_attach = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after_attach["stages"]["ralplan"]["run"] != str(matching_dest) or status_after_attach["stages"]["ralplan"]["association"] != "kept":
+            failures.append(f"attach did not pin the matching pre-existing ralplan run: {status_after_attach['stages']['ralplan']}")
+
+# Scenario 19b: a mismatched pre-existing ralplan run -- for the same repository, but started against a different requirements document entirely -- is refused by `attach`'s own strict check (still applicable: the run is nonterminal and this flow's own expected reference, its own `--input`, is already known), and stays wholly unassociated either way. This is one of the required cases: a non-matching pre-existing ralplan run is never associated.
+
+def _section_scenario19b_ralplan_mismatched_run_never_associated():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        other_requirements = work / "req-other.md"
+        write_requirements(other_requirements, "Approved")
+        mismatched_plan = work / "plan-mismatched.md"
+        write_plan(mismatched_plan, "Draft", "drafted", "v0")
+        mismatched_dest = ralplan_run_root / "260101-000000-mismatched" / "state.json"
+        must("starting the mismatched pre-existing ralplan run", ralplan(work, "start", str(mismatched_dest), "--plan", str(mismatched_plan),
+             "--input", str(other_requirements), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+
+        approved_requirements = work / "req-scenario19b.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting the ralplan-mismatched-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ralplanmismatched", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering ralplan over a mismatched pre-existing run", fsd(work, "enter", str(state_path), "ralplan"))
+        status_before_attach = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_before_attach["stages"]["ralplan"]["association"] != "none" or status_before_attach["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"enter associated a mismatched pre-existing ralplan run on its own: {status_before_attach['stages']['ralplan']}")
+
+        refuse("attaching a pre-existing ralplan run started against a different requirements document",
+               fsd(work, "attach", str(state_path), "ralplan", str(mismatched_dest)), reason="does not belong")
+        status_after_refusal = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after_refusal["stages"]["ralplan"]["association"] != "none" or status_after_refusal["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"a refused attach still recorded an association: {status_after_refusal['stages']['ralplan']}")
 
 # ---------------------------------------------------------------------------
 # Scenario 20: guard normalizes an absolute-path scope entry and a `..`-bearing relative one before checking whether they cover AGENTS.md -- both forms `execute start` itself accepts.
@@ -1767,7 +1543,8 @@ def _section_scenario20_guard_normalizes_scope_entries():
             execute_task("task-dotdot", ["docs/../AGENTS.md"]),
             execute_task("task-docs", ["docs/"]),
         ]
-        execute_start(work, execute_run_root, "normalize", tasks)
+        execute_state = execute_start(work, execute_run_root, "normalize", tasks, plan_path=plan_path)
+        must("attaching the scope-normalization case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         result = fsd(work, "guard", str(state_path))
         guard_result = json.loads(result.stdout)
         if result.returncode == 0:
@@ -1804,7 +1581,8 @@ def _section_scenario21_unresolved_worktree_symlink_scope():
             execute_task("task-unresolved-root-slash", [str(unresolved_work) + "/"]),
             execute_task("task-unresolved-agents", [str(unresolved_work / "AGENTS.md")]),
         ]
-        execute_start(unresolved_work, execute_run_root, "symlink", tasks)
+        execute_state = execute_start(unresolved_work, execute_run_root, "symlink", tasks, plan_path=plan_path)
+        must("attaching the symlinked-tempdir case's execute run while still nonterminal", fsd(unresolved_work, "attach", str(state_path), "execute", str(execute_state)))
         result = fsd(unresolved_work, "guard", str(state_path))
         guard_result = json.loads(result.stdout)
         if result.returncode == 0:
@@ -1850,12 +1628,550 @@ def _section_scenario22_execute_aborted_unanswered_question_pauses():
         if paused_state["lifecycle"] != "paused":
             failures.append(f"close did not pause over an aborted execute run with an unanswered question: {paused_state['lifecycle']}")
 
+# ---------------------------------------------------------------------------
+# Scenario 23: an execute run that appears in the run root after `enter`, but that nothing ever attached, is never associated -- there is no snapshot-diff left to accidentally adopt it, live or once it reaches a terminal receipt of its own. This is one of the required cases: an unrelated run appearing after `enter` is never associated.
+
+def _section_scenario23_unrelated_run_never_associated():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        plan_path = work / "plan-scenario23.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting the unrelated-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario23", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering execute", fsd(work, "enter", str(state_path), "execute"))
+        if read_json(state_path)["stages"]["execute"]["run"] is not None:
+            failures.append("enter associated a run on its own; this fixture proves nothing")
+
+        other_plan = work / "plan-scenario23-other.md"
+        write_plan(other_plan, "Approved", "an unrelated run")
+        unrelated_run = execute_start(work, execute_run_root, "scenario23-other", [execute_task("task-x", ["README.md"])], plan_path=other_plan)
+
+        # A live, plan-kind run for a different plan is refused by `attach`'s own strict check (still applicable: the run is nonterminal and this flow's own expected reference, its own `--input`, is already known) -- required case: an unrelated run (plan-kind, another plan) started in the worktree is never attached.
+        refuse("attaching a live, unrelated plan-kind run for a different plan", fsd(work, "attach", str(state_path), "execute", str(unrelated_run)),
+               reason="does not belong")
+
+        status_unrelated_live = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_unrelated_live["stages"]["execute"]["association"] != "none" or status_unrelated_live["stages"]["execute"]["run"] is not None:
+            failures.append(f"status associated an unrelated, still-live run that appeared after enter, though nothing ever attached it: {status_unrelated_live['stages']['execute']}")
+        gap_unrelated_live = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_unrelated_live["gap"] and gap_unrelated_live.get("completed") == "execute":
+            failures.append(f"gap treated a still-live, unrelated, never-attached run as this flow's own execute stage: {gap_unrelated_live}")
+
+        # The unrelated run reaches a completed receipt of its own, with its own `input.reference` deliberately preserved (unlike `execute_complete`'s own fixture, which nulls it) rather than nulled out -- a real completed receipt is free to keep it, and this is the one shape that lets a terminal, compacted receipt still prove a mismatch instead of merely lacking evidence, so the case actually exercises the mismatch rather than the ordinary "compaction erased it" tolerance every other completed-execute scenario here relies on.
+        drive_task_to_acceptance(work, unrelated_run, "task-x")
+        must("entering final_audit for the unrelated run", execute_to_final_audit(work, unrelated_run))
+        unrelated_source = read_json(unrelated_run)
+        unrelated_completed = {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": unrelated_source["run_id"],
+            "lifecycle": "completed", "completed_at": STAMP,
+            "input": {"reference": str(other_plan), "sha256": unrelated_source["input"]["sha256"]},
+            "worktree": {"root": unrelated_source["worktree"]["root"], "final_fingerprint": "auto"},
+            "accepted_tasks": [{"id": "task-x", "title": "task-x", "completion_condition": "task-x done", "carried_findings": []}],
+            "final_verification": unrelated_source["latest_verification"], "final_audit": unrelated_source["final_audit"], "carried_findings": [],
+        }
+        unrelated_completed_path = tmp / "unrelated-completed.json"
+        write(unrelated_completed_path, unrelated_completed)
+        must("completing the unrelated run, its own mismatched reference preserved", execute(work, "checkpoint", str(unrelated_run), str(unrelated_completed_path)))
+
+        status_unrelated_completed = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_unrelated_completed["stages"]["execute"]["association"] != "none" or status_unrelated_completed["stages"]["execute"]["run"] is not None:
+            failures.append(f"status associated an unrelated run's own completed receipt as this flow's own execute run: {status_unrelated_completed['stages']['execute']}")
+        gap_unrelated_completed = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_unrelated_completed["gap"] and gap_unrelated_completed.get("completed") == "execute":
+            failures.append(f"gap read an unrelated run's own completed receipt as this flow's own execute stage ending: {gap_unrelated_completed}")
+
+        retro_path = tmp / "retro-scenario23.md"
+        retro_path.write_text("# Retrospective\n\nNothing recorded.\n")
+        refuse("closing while execute has no association at all, only an unrelated run's own completed receipt elsewhere",
+               fsd(work, "close", str(state_path), "--retro", str(retro_path)), reason="not completed")
 
 # ---------------------------------------------------------------------------
-# Section registry and CLI driver -- `--list` prints the section names below in the order they
-# run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a
-# dependency map names, though every scenario here is self-contained and needs none); neither
-# flag runs every section in order exactly as running this file always has.
+# Scenario 23b: a `--kind brief` stranger -- a run whose own `input.reference` is `null` from the moment it starts, never a present-but-differing value the way scenario 23's above does -- never belongs to a plan-driven flow, live or once it has aborted or completed, and `attach` refuses it outright. This is the literal case the strict rule names: "a run with no reference never belongs, live or terminal" -- and one of the required cases: an unrelated (brief-kind) run started in the worktree is never attached.
+
+def _section_scenario23b_brief_kind_stranger_never_belongs():
+    def check_terminal_shape(label, build_terminal_candidate):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            work = (tmp / "repo").resolve()
+            init_repo(work)
+            fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+            execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+            plan_path = work / "plan-scenario23b.md"
+            write_plan(plan_path, "Approved")
+            result = must(f"starting the brief-kind-stranger case ({label})", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", f"scenario23b-{label}", "--input", str(plan_path), "--worktree", str(work)))
+            state_path = require_path(result)
+            must(f"entering execute ({label})", fsd(work, "enter", str(state_path), "execute"))
+
+            # No `plan_path=` at all -- a `--kind brief` run, whose own `input.reference` is `null` from the start.
+            brief_run = execute_start(work, execute_run_root, f"scenario23b-{label}-brief", [execute_task("task-x", ["README.md"])])
+            if read_json(brief_run)["input"]["reference"] is not None:
+                failures.append(f"the brief-kind fixture ({label}) carries a reference; this case proves nothing")
+
+            refuse(f"attaching a live --kind brief stranger with no reference at all ({label})",
+                   fsd(work, "attach", str(state_path), "execute", str(brief_run)), reason="does not belong")
+            status_live = json.loads(fsd(work, "status", str(state_path)).stdout)
+            if status_live["stages"]["execute"]["association"] != "none" or status_live["stages"]["execute"]["run"] is not None:
+                failures.append(f"status associated a live --kind brief stranger with no reference at all ({label}): {status_live['stages']['execute']}")
+            gap_live = json.loads(fsd(work, "gap", str(state_path)).stdout)
+            if gap_live["gap"] and gap_live.get("completed") == "execute":
+                failures.append(f"gap treated a live --kind brief stranger as this flow's own execute stage ({label}): {gap_live}")
+
+            build_terminal_candidate(work, brief_run)
+
+            status_terminal = json.loads(fsd(work, "status", str(state_path)).stdout)
+            if status_terminal["stages"]["execute"]["association"] != "none" or status_terminal["stages"]["execute"]["run"] is not None:
+                failures.append(f"status associated a --kind brief stranger's own terminal receipt ({label}): {status_terminal['stages']['execute']}")
+            gap_terminal = json.loads(fsd(work, "gap", str(state_path)).stdout)
+            if gap_terminal["gap"] and gap_terminal.get("completed") == "execute":
+                failures.append(f"gap read a --kind brief stranger's own terminal receipt as this flow's own execute stage ending ({label}): {gap_terminal}")
+
+            retro_path = work.parent / f"retro-scenario23b-{label}.md"
+            retro_path.write_text("# Retrospective\n\nNothing recorded.\n")
+            refuse(f"closing while execute has no association at all, only a --kind brief stranger's own terminal receipt elsewhere ({label})",
+                   fsd(work, "close", str(state_path), "--retro", str(retro_path)), reason="not completed")
+
+    def abort_it(work, brief_run):
+        source = read_json(brief_run)
+        aborted_candidate = {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": source["run_id"],
+            "lifecycle": "aborted", "aborted_at": STAMP,
+            "worktree_root": source["worktree"]["root"], "reason": "unrelated to this flow",
+        }
+        aborted_path = work.parent / "aborted-scenario23b.json"
+        write(aborted_path, aborted_candidate)
+        must("aborting the brief-kind stranger", execute(work, "checkpoint", str(brief_run), str(aborted_path)))
+
+    def complete_it(work, brief_run):
+        drive_task_to_acceptance(work, brief_run, "task-x")
+        must("entering final_audit for the brief-kind stranger", execute_to_final_audit(work, brief_run))
+        must("completing the brief-kind stranger", execute_complete(work, brief_run, ["task-x"]))
+
+    check_terminal_shape("aborted", abort_it)
+    check_terminal_shape("completed", complete_it)
+
+# ---------------------------------------------------------------------------
+# Scenario 24: a completed execute receipt is refused by `attach` outright, terminal alone being reason enough -- and this one also carries a surviving `input.reference` that names a different, real plan this flow never asked for, so it would still be refused even by the reference comparison alone. Required case: attach of a completed foreign-plan receipt is refused.
+
+def _section_scenario24_attach_refuses_completed_foreign_plan_receipt():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        this_plan = work / "plan-scenario24-this.md"
+        write_plan(this_plan, "Approved")
+        result = must("starting the foreign-plan-receipt case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario24", "--input", str(this_plan), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering execute for the foreign-plan-receipt case", fsd(work, "enter", str(state_path), "execute"))
+
+        # A genuinely different plan, driven to a real completed receipt in the same worktree -- its own `input.reference` still names that other plan.
+        foreign_plan = work / "plan-scenario24-foreign.md"
+        write_plan(foreign_plan, "Approved", "a foreign plan entirely")
+        foreign_run = execute_start(work, execute_run_root, "scenario24-foreign", [execute_task("task-f", ["README.md"])], plan_path=foreign_plan)
+        drive_task_to_acceptance(work, foreign_run, "task-f")
+        must("entering final_audit for the foreign plan", execute_to_final_audit(work, foreign_run))
+        must("completing the foreign plan's own run", execute_complete(work, foreign_run, ["task-f"]))
+        if read_json(foreign_run)["input"]["reference"] != str(foreign_plan):
+            failures.append("the foreign-plan-receipt fixture did not actually preserve a contradicting reference; this case proves nothing")
+
+        refuse("attaching a completed receipt whose own reference names a different, real plan",
+               fsd(work, "attach", str(state_path), "execute", str(foreign_run)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["execute"]["association"] != "none" or status_after["stages"]["execute"]["run"] is not None:
+            failures.append(f"attach accepted a completed foreign-plan receipt: {status_after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 24b: unlike scenario 24's foreign-plan receipt, this one is driven to completion against *this flow's own plan* -- its own surviving `input.reference` and `worktree.root` both genuinely match what `_execute_candidate_belongs` expects -- so the terminal/live-only check is the only thing left standing between this candidate and a match. Required case: deleting that check turns this one, and only this one among the execute cases, from refused to accepted.
+
+def _section_scenario24b_attach_refuses_completed_matching_plan_receipt():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        plan_path = work / "plan-scenario24b.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting the matching-plan-receipt case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario24b", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering execute for the matching-plan-receipt case", fsd(work, "enter", str(state_path), "execute"))
+
+        # Driven to a real completed receipt against the *same* plan this flow itself executes, never attached while live.
+        own_run = execute_start(work, execute_run_root, "scenario24b-own", [execute_task("task-m", ["README.md"])], plan_path=plan_path)
+        drive_task_to_acceptance(work, own_run, "task-m")
+        must("entering final_audit for scenario24b", execute_to_final_audit(work, own_run))
+        must("completing scenario24b's own run", execute_complete(work, own_run, ["task-m"]))
+        completed = read_json(own_run)
+        if completed["input"]["reference"] != str(plan_path):
+            failures.append("the scenario24b fixture did not preserve a genuinely matching input.reference on its own completed receipt; this case proves nothing")
+        if completed["worktree"]["root"] != str(work):
+            failures.append("the scenario24b fixture did not preserve a genuinely matching worktree.root on its own completed receipt; this case proves nothing")
+
+        refuse("attaching a completed receipt whose own reference and worktree root both genuinely match this flow's plan",
+               fsd(work, "attach", str(state_path), "execute", str(own_run)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["execute"]["association"] != "none" or status_after["stages"]["execute"]["run"] is not None:
+            failures.append(f"attach accepted a completed receipt merely because its own reference and root matched: {status_after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 25: an aborted execute receipt from a genuinely different repository is refused -- terminal alone already refuses it, before its own `worktree_root` (the flat field an aborted receipt carries in place of the nested `worktree.root` every other execute shape uses) is ever read at all. Required case: attach of an aborted receipt from another repository is refused.
+
+def _section_scenario25_attach_refuses_aborted_receipt_other_repository():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        other = (tmp / "other-repo").resolve()
+        init_repo(other)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        other_execute_run_root = other / ".agents" / "kein" / "runs" / "execute"
+
+        this_plan = work / "plan-scenario25.md"
+        write_plan(this_plan, "Approved")
+        result = must("starting the aborted-other-repository case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario25", "--input", str(this_plan), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering execute for the aborted-other-repository case", fsd(work, "enter", str(state_path), "execute"))
+
+        other_plan = other / "plan-scenario25-other.md"
+        write_plan(other_plan, "Approved", "a plan in a different repository")
+        other_run = execute_start(other, other_execute_run_root, "scenario25-other", [execute_task("task-o", ["README.md"])], plan_path=other_plan)
+        other_source = read_json(other_run)
+        aborted_candidate = {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": other_source["run_id"],
+            "lifecycle": "aborted", "aborted_at": STAMP,
+            "worktree_root": other_source["worktree"]["root"], "reason": "cancelled",
+        }
+        aborted_path = tmp / "aborted-scenario25.json"
+        write(aborted_path, aborted_candidate)
+        must("aborting the other-repository run through checkpoint", execute(other, "checkpoint", str(other_run), str(aborted_path)))
+        if read_json(other_run)["worktree_root"] == str(work):
+            failures.append("the aborted-other-repository fixture's own worktree_root coincides with this flow's worktree; this case proves nothing")
+
+        refuse("attaching an aborted receipt whose own worktree_root names a different repository",
+               fsd(work, "attach", str(state_path), "execute", str(other_run)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["execute"]["association"] != "none" or status_after["stages"]["execute"]["run"] is not None:
+            failures.append(f"attach accepted an aborted receipt from a different repository: {status_after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 26: `_same_plan_reference` resolves each side against its own root, not both against the flow's own worktree. A ralplan run started in a second repository, against a plan with the identical *relative* filename this flow's own plan happens to have, must not read as a match purely because a relative candidate reference used to get joined onto the flow's own worktree root regardless of where the run that produced it actually lived.
+
+def _section_scenario26_ralplan_same_relative_name_second_repository():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        other = (tmp / "other-repo").resolve()
+        init_repo(other)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = other / ".agents" / "kein" / "runs" / "ralplan"
+
+        # A Draft-status plan as fsd's own --input: entry lands on ralplan with input.kind "plan", so `_expected_ralplan_field` compares `plan.path`, the field a candidate's own relative spelling is joined onto its own root to resolve.
+        (work / "plan-samename.md").write_text("placeholder")
+        write_plan(work / "plan-samename.md", "Draft", "first cut", "v0")
+        result = must("starting fsd with a relative-spelling --input", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario26", "--input", "plan-samename.md", "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "ralplan" or read_json(state_path)["input"]["kind"] != "plan":
+            failures.append("the same-relative-name fixture did not enter ralplan over a plan-kind input; this case proves nothing")
+
+        # A different repository, holding a *different* file that happens to share the same relative filename.
+        write_plan(other / "plan-samename.md", "Draft", "an unrelated plan in a different repository", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario26" / "state.json"
+        must("starting a ralplan run in the second repository with the same relative plan filename",
+             ralplan(other, "start", str(ralplan_dest), "--plan", "plan-samename.md", "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        if read_json(ralplan_dest)["plan"]["path"] != "plan-samename.md":
+            failures.append("the second-repository fixture did not actually store an unresolved relative plan.path; this case proves nothing")
+
+        must("entering ralplan over the second repository's own run", fsd(work, "enter", str(state_path), "ralplan"))
+        refuse("attaching a second repository's own ralplan run over the identical relative plan filename",
+               fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["ralplan"]["association"] != "none" or status_after["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"attach matched a second repository's own run purely on an identical relative plan filename: {status_after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 27: a ralplan run started with no --input at all has a permanently null input.reference, so post-bash's own strict check can never link it when this flow's own expected field is `input` -- the lead has to `attach` it explicitly. `status` names which stage has no association and what would have linked it, so a lead reading status after compaction (with no memory of which stage never got auto-linked) knows to attach rather than wait.
+
+def _section_scenario27_ralplan_no_input_status_names_association_reason():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+
+        approved_requirements = work / "req-scenario27.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting the ralplan-no-input case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario27", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "ralplan":
+            failures.append("the ralplan-no-input fixture did not enter at ralplan; this case proves nothing")
+        must("entering ralplan for the no-input case", fsd(work, "enter", str(state_path), "ralplan"))
+
+        no_input_plan = work / "plan-scenario27.md"
+        write_plan(no_input_plan, "Draft", "drafted", "v0")
+        no_input_dest = ralplan_run_root / "260101-000000-scenario27" / "state.json"
+        # No --input at all: its own input.reference is null from the start, not merely unconfirmed, so the strict test can never match it against a requirements-kind expected reference no matter which requirements document it actually concerns.
+        must("starting a ralplan run with no --input at all", ralplan(work, "start", str(no_input_dest), "--plan", str(no_input_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        if read_json(no_input_dest)["input"]["reference"] is not None:
+            failures.append("the no-input ralplan fixture carries a reference; this case proves nothing")
+
+        status_result = json.loads(fsd(work, "status", str(state_path)).stdout)
+        ralplan_status = status_result["stages"]["ralplan"]
+        if ralplan_status["association"] != "none":
+            failures.append(f"the no-input ralplan case's own association was not 'none': {ralplan_status}")
+        reason = ralplan_status.get("association_reason", "")
+        if "ralplan start" not in reason or "attach" not in reason:
+            failures.append(f"status did not explain what would have linked ralplan or name the attach command: {ralplan_status}")
+
+        # The live candidate's own `input` key is present but null (not dropped), so the strict test still applies and still refuses it as a confirmed mismatch -- attach is not a way past that, even called explicitly. This is what actually makes the run unlinkable while live, which is exactly the situation `status` has to explain.
+        refuse("attaching the no-input ralplan run explicitly while it is still live",
+               fsd(work, "attach", str(state_path), "ralplan", str(no_input_dest)), reason="does not belong")
+
+# ---------------------------------------------------------------------------
+# Scenario 28: a completed ralplan receipt that genuinely carries this flow's own plan path on `plan.path` -- the exact field the old strict test used to accept once completed -- is still refused, because it is terminal: `post-bash` links a stage's run at creation, while it is still live, so a receipt that completed before this flow ever attached it has nothing left here to rescue it, whatever its own surviving fields say. Required case: attach of any terminal run is refused, even one whose own surviving reference matches.
+# `complete()` drops `repository` from its own compact field set entirely, so an *ordinary* completed receipt already fails the root check inside `_same_plan_reference` on its own, whether or not the terminal/live-only check in `_ralplan_candidate_belongs` is even there -- that would not actually isolate the lifecycle gate this case exists to prove. The receipt below is hand-patched, straight on disk (bypassing `ralplan`'s own checkpoint validation, which enforces the exact compact field set and would refuse an extra key), to carry `repository` through anyway, so `plan.path` and `repository` both genuinely match this flow and the terminal check is the only thing left standing between this candidate and a match.
+
+def _section_scenario28_ralplan_completed_matching_receipt_refused():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+
+        plan_path = work / "plan-scenario28.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario28" / "state.json"
+        must("starting a ralplan run against the plan this flow will later classify, never attached while live",
+             ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("opening round 1 for scenario28", ralplan(work, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving round 1 for scenario28", ralplan(work, "approve", str(ralplan_dest)))
+        must("completing the matching ralplan run before this flow ever attaches it", ralplan(work, "complete", str(ralplan_dest)))
+        if read_json(ralplan_dest)["plan"]["path"] != str(plan_path):
+            failures.append("the scenario28 fixture did not preserve a genuinely matching plan.path on its own completed receipt; this case proves nothing")
+        if "repository" in read_json(ralplan_dest):
+            failures.append("the scenario28 fixture's own completed receipt already carries repository; the hand-patch below proves nothing")
+
+        # Hand-patched, not through `ralplan checkpoint`: a completed receipt carrying `repository` fails `ralplan`'s own exact-field-set validation, so this writes the extra field straight to the file the way a strict-test-only comparison (fsd's own unvalidated `_load`) would still read it.
+        patched = read_json(ralplan_dest)
+        patched["repository"] = str(work)
+        write(ralplan_dest, patched)
+
+        # fsd classifies the identical plan path, re-written Draft so entry lands on ralplan rather than execute.
+        write_plan(plan_path, "Draft", "second cut", "v1")
+        result = must("starting the scenario28 case against the same plan path",
+                      fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario28", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "ralplan" or read_json(state_path)["input"]["kind"] != "plan":
+            failures.append("the scenario28 fixture did not enter ralplan over a plan-kind input; this case proves nothing")
+        must("entering ralplan over the matching-but-already-completed receipt", fsd(work, "enter", str(state_path), "ralplan"))
+
+        refuse("attaching a completed ralplan receipt whose own plan.path and repository both genuinely match this flow",
+               fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["ralplan"]["association"] != "none" or status_after["stages"]["ralplan"]["run"] is not None:
+            failures.append(f"attach accepted a terminal ralplan receipt merely because its own reference and root matched: {status_after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 29: an active interview ledger whose own `repository` names a different repository entirely is never linked -- interview carries fsd no reference of its own to compare a candidate against, so the worktree check is the only thing standing between "the first well-formed ledger attach sees" and "this flow's own ledger". Required case: another repository's active interview ledger not linked.
+
+def _section_scenario29_interview_other_repository_not_linked():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        other = (tmp / "other-repo").resolve()
+        init_repo(other)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the interview-other-repository case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario29", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering interview for the other-repository case", fsd(work, "enter", str(state_path), "interview"))
+
+        other_interview_dir = other / ".agents" / "kein" / "runs" / "interview" / "260101-000000-scenario29"
+        other_interview_dir.mkdir(parents=True)
+        other_ledger = other_interview_dir / "ledger.md"
+        # A genuinely well-formed active ledger -- its own repository just names the other repository, not this flow's.
+        write_active_ledger(other_ledger, "260101-000000-scenario29", other, other, other / "req-scenario29.md")
+
+        refuse("attaching an active ledger from a different repository", fsd(work, "attach", str(state_path), "interview", str(other_ledger)),
+               reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["interview"]["association"] != "none" or status_after["stages"]["interview"]["run"] is not None:
+            failures.append(f"attach linked an active ledger from a different repository: {status_after['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 29b: a hand-authored completed ledger that genuinely carries this flow's own `repository` and an `output_path` resolving inside this flow's own worktree -- the two fields `_interview_candidate_belongs` checks once its own live-only gate is passed -- is still refused, because it is terminal: `post-bash` links a stage's run at creation, while it is still live, so a ledger that completed before this flow ever attached it has nothing left here to rescue it, whatever its own surviving fields say. An ordinary `write_completed_ledger` fixture drops both fields entirely, so an ordinary completed-ledger case already fails the repository/output_path checks on its own, whether or not the live-only gate is even there -- that would not actually isolate it. This one is hand-authored to carry both fields through anyway, isolating the live-only gate the same way scenario 28 does for ralplan. Required case: deleting that gate turns this one, and only this one among the interview cases, from refused to accepted.
+
+def _section_scenario29b_interview_completed_matching_ledger_refused():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the completed-matching-ledger case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario29b", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering interview for the completed-matching-ledger case", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-scenario29b"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / "req-scenario29b.md"
+        output_path = interview_dir / "output.md"
+        output_path.write_text("placeholder")
+        # Hand-authored straight to its completed shape, but carrying `repository` and `output_path` -- the two fields an ordinary `write_completed_ledger` drops entirely -- so both genuinely match this flow's own worktree, and the live-only status check is the only thing left refusing it.
+        ledger.write_text(
+            "---\n"
+            "status: completed\n"
+            f'requirements_path: "{requirements_path}"\n'
+            f'repository: "{work}"\n'
+            f'output_path: "{output_path}"\n'
+            f'completed_at: "{STAMP}"\n'
+            "---\n"
+        )
+
+        refuse("attaching a completed ledger whose own repository and output_path both genuinely match this flow",
+               fsd(work, "attach", str(state_path), "interview", str(ledger)), reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["interview"]["association"] != "none" or status_after["stages"]["interview"]["run"] is not None:
+            failures.append(f"attach accepted a completed ledger merely because its own repository and output_path matched: {status_after['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 30: once an interview stage has a kept link, a second active ledger in the same repository never replaces it -- `attach` refuses a different path outright, and re-attaching the exact same already-kept path is a harmless no-op that writes nothing. Required case: a same-repository second ledger does not replace the kept interview link.
+
+def _section_scenario30_interview_second_ledger_never_replaces_kept_link():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the second-ledger case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario30", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering interview for the second-ledger case", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_run_root = work / ".agents" / "kein" / "runs" / "interview"
+        first_ledger = interview_run_root / "260101-000000-scenario30-first" / "ledger.md"
+        first_ledger.parent.mkdir(parents=True)
+        write_active_ledger(first_ledger, "260101-000000-scenario30-first", work, work, work / "req-scenario30-first.md")
+        must("attaching the first ledger while active", fsd(work, "attach", str(state_path), "interview", str(first_ledger)))
+
+        second_ledger = interview_run_root / "260101-000000-scenario30-second" / "ledger.md"
+        second_ledger.parent.mkdir(parents=True)
+        write_active_ledger(second_ledger, "260101-000000-scenario30-second", work, work, work / "req-scenario30-second.md")
+
+        refuse("attaching a second, equally well-formed active ledger in the same repository",
+               fsd(work, "attach", str(state_path), "interview", str(second_ledger)), reason="a kept link is never replaced")
+        status_after_second = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after_second["stages"]["interview"]["run"] != str(first_ledger):
+            failures.append(f"a refused second attach still moved the kept link off the first ledger: {status_after_second['stages']['interview']}")
+
+        must("attaching the first ledger again, the exact same path, is a no-op", fsd(work, "attach", str(state_path), "interview", str(first_ledger)))
+        status_after_repeat = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after_repeat["stages"]["interview"]["run"] != str(first_ledger):
+            failures.append(f"attaching the exact same already-kept path moved the association: {status_after_repeat['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 31: a ralplan run started with `--repository` left to default to `Path.cwd()`, from a subdirectory of the repository rather than its root, still links -- `_same_plan_reference` canonicalizes the candidate's own root through `_execute.canonical_worktree` before comparing it to this flow's own (already-canonical) worktree, rather than comparing raw paths. Required case: ralplan started from a subdirectory cwd links.
+
+def _section_scenario31_ralplan_subdirectory_cwd_links():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        subdir = work / "sub"
+        subdir.mkdir()
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+
+        approved_requirements = work / "req-scenario31.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting the ralplan-subdirectory case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario31", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering ralplan for the subdirectory case", fsd(work, "enter", str(state_path), "ralplan"))
+
+        plan_path = work / "plan-scenario31.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario31" / "state.json"
+        # cwd is the subdirectory, and --repository is left unset, so ralplan's own `start` stores it exactly as `Path.cwd()` returns there: the subdirectory, not the repository root.
+        must("starting the ralplan run from a subdirectory cwd, --repository left to default",
+             ralplan(subdir, "start", str(ralplan_dest), "--input", str(approved_requirements), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        if read_json(ralplan_dest)["repository"] != str(subdir):
+            failures.append("the subdirectory-cwd fixture did not actually store the subdirectory as its own repository; this case proves nothing")
+
+        must("attaching the subdirectory-started ralplan run", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["ralplan"]["association"] != "kept" or status_after["stages"]["ralplan"]["run"] != str(ralplan_dest):
+            failures.append(f"attach refused a ralplan run whose own repository was an unresolved subdirectory of this flow's worktree: {status_after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 32: a resumed, pending execute stage whose kept link is also the worktree's own current occupant -- the ordinary shape a parked task's own pause/answer/resume cycle leaves behind -- must not read as a mismatched stranger to abort even when the strict belonging test on it would newly fail (a transient read problem, or evidence the run's own file no longer carries the way it did when it was first attached): `_execute_occupant_block` trusts an occupant equal to the kept link outright, the identical shortcut `enter` already takes, without ever re-running `_execute_candidate_belongs` on it. Required case: the occupant-abort row does not fire over the flow's own kept, still-live run.
+
+def _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_row():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        plan_path = work / "plan-scenario32.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting the resumed-kept-occupant case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario32", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "execute":
+            failures.append("the scenario32 fixture did not enter directly at execute; this case proves nothing")
+        must("entering execute for scenario32", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_state = execute_start(work, execute_run_root, "scenario32", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+
+        must("dispatching task-001 for scenario32", execute(work, "dispatch", str(execute_state), "task-001"))
+        q = must("recording the irreversible question for scenario32",
+                 fsd(work, "question", str(state_path), "--stage", "execute", "--question", "which persisted format?",
+                     "--options", "json,csv", "--recommended", "json", "--why-irreversible", "list item 1: a persisted format read outside the repo",
+                     "--parks", "task-001"))
+        question_id = q.stdout.strip()
+        must("parking task-001 for scenario32", execute(work, "park", str(execute_state), "task-001", "--question", "which format?", "--ref", question_id))
+        must("checkpointing execute to blocked for scenario32", execute_checkpoint(work, execute_state, lambda s: s.update(
+            {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {question_id}: task-001 parked"})))
+
+        must("entering closeout for scenario32", fsd(work, "closeout", str(state_path)))
+        draft_retro = state_path.parent / "retro-draft-scenario32.md"
+        draft_retro.write_text(f"# Retrospective\n\n{question_id}: parked.\n")
+        must("closing while unanswered for scenario32", fsd(work, "close", str(state_path), "--retro", str(draft_retro)))
+        must("answering the question for scenario32", fsd(work, "answer", str(state_path), question_id, "--text", "json"))
+        must("resuming for scenario32", fsd(work, "resume", str(state_path)))
+        resumed = read_json(state_path)
+        if resumed["stages"]["execute"]["status"] != "pending" or resumed["stages"]["execute"]["run"] != str(execute_state):
+            failures.append(f"the scenario32 fixture did not land on a resumed, pending, kept execute run; this case proves nothing: {resumed['stages']['execute']}")
+
+        # The kept run is still the worktree's own current occupant -- nothing else is live -- so `_execute_occupant_block` is asked about exactly the flow's own run. Hand-corrupt its own `input.reference` directly on disk, bypassing `execute`'s own checkpoint validation entirely, so the strict belonging test would now read it as a stranger if it were ever re-run on it.
+        corrupted = read_json(execute_state)
+        corrupted["input"]["reference"] = str(work / "plan-scenario32-not-this-flow.md")
+        write(execute_state, corrupted)
+
+        gap_after = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if not gap_after["gap"] or gap_after["next"] != "execute":
+            failures.append(f"gap did not report the ordinary resumed execute-pending row: {gap_after}")
+        action = gap_after.get("action", "")
+        if "occupies the worktree" in action or "abort it" in action or "python3 -c" in action:
+            failures.append(f"gap treated the flow's own kept, still-live execute run as a mismatched occupant to abort, once its own strict test would newly fail: {action!r}")
+        if "invoke /kein:execute" not in action or str(plan_path) not in action:
+            failures.append(f"gap did not print the ordinary invoke-execute action for the resumed, still-blocked run: {action!r}")
+
+# ---------------------------------------------------------------------------
+# Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every scenario here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
     ("scenario1-input-classification", (), _section_scenario1_input_classification),
@@ -1864,21 +2180,13 @@ SECTIONS = [
     ("scenario3-agentsmd-drift-across-pause", (), _section_scenario3_agentsmd_drift_across_pause),
     ("scenario4-guard-scope-violations", (), _section_scenario4_guard_scope_violations),
     ("scenario5-blocked-null-decision-ref", (), _section_scenario5_blocked_null_decision_ref),
-    ("scenario5-ambiguous-association-attach", (), _section_scenario5_ambiguous_association_attach),
-    ("scenario6-resumed-run-adopted-matching-plan", (), _section_scenario6_resumed_run_adopted_matching_plan),
-    ("scenario6b-refuse-unrelated-occupant-mismatch", (), _section_scenario6b_refuse_unrelated_occupant_mismatch),
-    ("scenario6c-ralplan-led-matching-occupant-adopted", (), _section_scenario6c_ralplan_led_matching_occupant_adopted),
-    ("scenario6c-ralplan-led-mismatched-occupant-refused", (), _section_scenario6c_ralplan_led_mismatched_occupant_refused),
     ("scenario6d-path-spelling-relative-vs-absolute", (), _section_scenario6d_path_spelling_relative_vs_absolute),
     ("scenario6e-no-expected-reference-yet", (), _section_scenario6e_no_expected_reference_yet),
     ("scenario6f-unresolved-worktree-symlink-spelling", (), _section_scenario6f_unresolved_worktree_symlink_spelling),
     ("scenario7-ralplan-non-convergence-deferrals", (), _section_scenario7_ralplan_non_convergence_deferrals),
     ("scenario8-guard-action-clears-failure-restart", (), _section_scenario8_guard_action_clears_failure_restart),
-    ("scenario8b-stale-completed-kept-link-vs-live-replacement", (), _section_scenario8b_stale_completed_kept_link_vs_live_replacement),
-    ("scenario8c-unrelated-occupant-alongside-completed-kept-link", (), _section_scenario8c_unrelated_occupant_alongside_completed_kept_link),
     ("scenario8d-guard-action-literal-recovery-text", (), _section_scenario8d_guard_action_literal_recovery_text),
-    ("scenario8e-close-retro-location-reads-live-replacement", (), _section_scenario8e_close_retro_location_reads_live_replacement),
-    ("scenario9-guard-clean-no-run-yet-then-ambiguous", (), _section_scenario9_guard_clean_no_run_yet_then_ambiguous),
+    ("scenario9-guard-clean-no-run-yet-then-unreadable", (), _section_scenario9_guard_clean_no_run_yet_then_unreadable),
     ("scenario10-gap-status-tolerate-unreadable-evidence", (), _section_scenario10_gap_status_tolerate_unreadable_evidence),
     ("scenario11-interview-aborted-closeout-row", (), _section_scenario11_interview_aborted_closeout_row),
     ("scenario12-execute-aborted-receipt-closeout-row", (), _section_scenario12_execute_aborted_receipt_closeout_row),
@@ -1890,10 +2198,24 @@ SECTIONS = [
     ("scenario17-retro-already-at-durable-path", (), _section_scenario17_retro_already_at_durable_path),
     ("scenario18-blocked-rows-mutually-exclusive-a", (), _section_scenario18_blocked_rows_mutually_exclusive_a),
     ("scenario18-blocked-rows-mutually-exclusive-b", (), _section_scenario18_blocked_rows_mutually_exclusive_b),
-    ("scenario19-ralplan-resumed-run-adopted", (), _section_scenario19_ralplan_resumed_run_adopted),
+    ("scenario19-ralplan-pre-existing-run-never-auto-associated", (), _section_scenario19_ralplan_pre_existing_run_never_auto_associated),
+    ("scenario19b-ralplan-mismatched-run-never-associated", (), _section_scenario19b_ralplan_mismatched_run_never_associated),
     ("scenario20-guard-normalizes-scope-entries", (), _section_scenario20_guard_normalizes_scope_entries),
     ("scenario21-unresolved-worktree-symlink-scope", (), _section_scenario21_unresolved_worktree_symlink_scope),
     ("scenario22-execute-aborted-unanswered-question-pauses", (), _section_scenario22_execute_aborted_unanswered_question_pauses),
+    ("scenario23-unrelated-run-never-associated", (), _section_scenario23_unrelated_run_never_associated),
+    ("scenario23b-brief-kind-stranger-never-belongs", (), _section_scenario23b_brief_kind_stranger_never_belongs),
+    ("scenario24-attach-refuses-completed-foreign-plan-receipt", (), _section_scenario24_attach_refuses_completed_foreign_plan_receipt),
+    ("scenario24b-attach-refuses-completed-matching-plan-receipt", (), _section_scenario24b_attach_refuses_completed_matching_plan_receipt),
+    ("scenario25-attach-refuses-aborted-receipt-other-repository", (), _section_scenario25_attach_refuses_aborted_receipt_other_repository),
+    ("scenario26-ralplan-same-relative-name-second-repository", (), _section_scenario26_ralplan_same_relative_name_second_repository),
+    ("scenario27-ralplan-no-input-status-names-association-reason", (), _section_scenario27_ralplan_no_input_status_names_association_reason),
+    ("scenario28-ralplan-completed-matching-receipt-refused", (), _section_scenario28_ralplan_completed_matching_receipt_refused),
+    ("scenario29-interview-other-repository-not-linked", (), _section_scenario29_interview_other_repository_not_linked),
+    ("scenario29b-interview-completed-matching-ledger-refused", (), _section_scenario29b_interview_completed_matching_ledger_refused),
+    ("scenario30-interview-second-ledger-never-replaces-kept-link", (), _section_scenario30_interview_second_ledger_never_replaces_kept_link),
+    ("scenario31-ralplan-subdirectory-cwd-links", (), _section_scenario31_ralplan_subdirectory_cwd_links),
+    ("scenario32-resumed-kept-occupant-strict-test-failure-no-occupant-row", (), _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_row),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
@@ -1902,9 +2224,7 @@ SCRIPT_NAME = "check-fsd-state"
 
 
 def _section_closure(requested):
-    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering
-    # `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run
-    # order on its own, with no separate topological sort needed.
+    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run order on its own, with no separate topological sort needed.
     needed = set()
     stack = list(requested)
     while stack:
