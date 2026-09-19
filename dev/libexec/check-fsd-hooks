@@ -1123,7 +1123,7 @@ def _section_postbash_non_start_command_noop():
                 failures.append(f"post-bash changed state.json for a command it should not have matched: {command!r}")
 
 # ---------------------------------------------------------------------------
-# Case: an interview ledger path holding a space, quoted the way a real shell call must quote it, still attaches -- post-bash tokenizes the command with `shlex.split`, which un-quotes the argument back to its own literal text (space intact), rather than the old bare `(\S+)` capture that would have stopped at the first space.
+# Case: an interview ledger path holding a space, quoted the way a real shell call must quote it, still attaches -- post-bash tokenizes the command with a punctuation-aware `shlex.shlex`, which un-quotes the argument back to its own literal text (space intact), rather than the old bare `(\S+)` capture that would have stopped at the first space.
 
 def _section_postbash_ledger_path_with_space_attaches():
     with tempfile.TemporaryDirectory() as tmp:
@@ -1150,7 +1150,7 @@ def _section_postbash_ledger_path_with_space_attaches():
             failures.append(f"post-bash did not attach an interview ledger path holding a space: {after['stages']['interview']}")
 
 # ---------------------------------------------------------------------------
-# Case: a chained `ocs state execute start ... && ocs state execute dispatch ...` still attaches from the `start` segment's own destination -- post-bash tokenizes the whole line and splits it on the literal `&&` token `shlex.split` leaves behind, matching each segment against the command prefixes it watches rather than searching the raw text for a lookalike substring, and reads the candidate off the stdout line that actually names an existing state.json rather than unconditionally the chain's last line.
+# Case: a chained `ocs state execute start ... && ocs state execute dispatch ...` still attaches from the `start` segment's own destination -- post-bash tokenizes the whole line with a punctuation-aware `shlex.shlex` pass that splits `&&` into its own token wherever it appears, matching each segment against the command prefixes it watches rather than searching the raw text for a lookalike substring, and reads the candidate off the stdout line that actually names an existing state.json rather than unconditionally the chain's last line.
 
 def _section_postbash_chained_start_then_dispatch_attaches():
     with tempfile.TemporaryDirectory() as tmp:

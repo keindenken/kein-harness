@@ -424,11 +424,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     elif len(candidate_spans) > len(previous_spans) and not (
         previous.get("lifecycle") == "paused" and candidate.get("lifecycle") == "active"
     ):
-        # `resume` is the only builder that ever opens a new span, and it only ever does so on the one
-        # transition it makes, paused -> active; a hand-authored checkpoint candidate that appends a span
-        # anywhere else -- including active -> active -- would let a fabricated hash stand in for
-        # `close`'s own comparison against AGENTS.md's current bytes, so this refuses it outright rather
-        # than trusting a span's own shape to prove when it was legitimately opened.
+        # `resume` is the only builder that ever opens a new span, and it only ever does so on the one transition it makes, paused -> active; a hand-authored checkpoint candidate that appends a span anywhere else -- including active -> active -- would let a fabricated hash stand in for `close`'s own comparison against AGENTS.md's current bytes, so this refuses it outright rather than trusting a span's own shape to prove when it was legitimately opened.
         errors.append("a new agents_md span may only be appended on a paused -> active transition")
     if previous.get("halt") is not None and candidate.get("halt") != previous.get("halt"):
         errors.append("halt facts cannot change once recorded")
@@ -542,9 +538,7 @@ def _expected_execute_plan_reference(state: Dict[str, Any]) -> Optional[str]:
     stored = state["stages"]["ralplan"].get("resolved_reference")
     if stored:
         return stored
-    # Falls back to today's logic -- re-reading the completed receipt's own (possibly relative,
-    # possibly subdirectory-relative) `plan.path` -- only for a state written before `resolved_reference`
-    # existed, or for a stage `attach` linked without ever managing to compute one.
+    # Falls back to today's logic -- re-reading the completed receipt's own (possibly relative, possibly subdirectory-relative) `plan.path` -- only for a state written before `resolved_reference` existed, or for a stage `attach` linked without ever managing to compute one.
     return payload.get("plan", {}).get("path")
 
 
@@ -929,10 +923,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
             if run_path is not None:
                 payload = _parse_ledger(run_path.read_text())
                 if payload.get("status") == "completed":
-                    # `stages.interview.resolved_reference`, stored absolute at attach time, takes precedence over
-                    # a raw re-read of the completed ledger's own `requirements_path` -- possibly relative to a
-                    # subdirectory `working_directory` the completed shape itself drops -- so a subdirectory-started
-                    # interview's own row still names a path that actually opens.
+                    # `stages.interview.resolved_reference`, stored absolute at attach time, takes precedence over a raw re-read of the completed ledger's own `requirements_path` -- possibly relative to a subdirectory `working_directory` the completed shape itself drops -- so a subdirectory-started interview's own row still names a path that actually opens.
                     requirements_reference = stages["interview"].get("resolved_reference") or payload.get("requirements_path")
                     if requirements_reference and _requirements_status(Path(requirements_reference)) == "Approved":
                         return {"gap": True, "completed": "interview", "next": "ralplan",
@@ -945,8 +936,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
             if run_path is not None:
                 payload = _load(run_path)
                 if payload.get("lifecycle") == "completed":
-                    # Same precedence as above, over ralplan's own completed `plan.path`, which the same
-                    # subdirectory problem afflicts once `working_directory` drops out of the completed shape.
+                    # Same precedence as above, over ralplan's own completed `plan.path`, which the same subdirectory problem afflicts once `working_directory` drops out of the completed shape.
                     plan_reference = stages["ralplan"].get("resolved_reference") or payload.get("plan", {}).get("path")
                     blocked = _execute_occupant_block(state)
                     if blocked is not None:
@@ -1534,7 +1524,7 @@ def main() -> int:
     gap_parser = commands.add_parser("gap", help="print {gap, completed, next, action}")
     gap_parser.add_argument("state", type=Path)
 
-    status_parser = commands.add_parser("status", help="lifecycle, per-stage association, and gap, all live-resolved")
+    status_parser = commands.add_parser("status", help="lifecycle, per-stage association (the stage's kept link), and gap")
     status_parser.add_argument("state", type=Path)
 
     assume_parser = commands.add_parser("assume", help="record a reversible decision taken on its recommended option")

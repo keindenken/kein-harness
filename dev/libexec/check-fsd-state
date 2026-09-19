@@ -667,7 +667,7 @@ def _section_scenario4_guard_scope_violations():
         refuse("halting an already-halted run", fsd(work, "halt", str(state_path), "--reason", "again"))
 
 # ---------------------------------------------------------------------------
-# Scenario 5: a blocked run with a parked task whose decision_ref is null gives no gap (no positive evidence); ambiguous stage association gives no gap either, and `status` reports it as ambiguous; `attach` pins an association past that ambiguity.
+# Scenario 5: an execute stage entered with no kept link gives no gap -- there is no association for gap to read at all, so the blocked run underneath, with its parked task's null decision_ref, is never reached.
 
 def _section_scenario5_blocked_null_decision_ref():
     with tempfile.TemporaryDirectory() as tmp:
@@ -676,7 +676,7 @@ def _section_scenario5_blocked_null_decision_ref():
         init_repo(work)
         fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
 
-        # An approved-plan input classifies straight to execute, with interview and ralplan already `skipped` from `start` -- this case is about the blocked-row evidence, not about re-proving the classification path already covered in scenario 1.
+        # An approved-plan input classifies straight to execute, with interview and ralplan already `skipped` from `start`. `enter` below runs before `execute_start` ever creates a run to occupy the worktree, and nothing here calls `attach`, so execute ends up entered with no kept link at all -- gap reads that as unresolved and allows by default, without ever reaching the blocked run or its parked task's null decision_ref set up below.
         approved_plan = work / "plan-nullref.md"
         write_plan(approved_plan, "Approved")
         result = must("starting the null-ref case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "nullref", "--input", str(approved_plan), "--worktree", str(work)))
@@ -2481,9 +2481,7 @@ def _section_scenario41_checkpoint_refuses_new_destination_with_run():
         template_path = require_path(result)
         template = read_json(template_path)
 
-        # A hand-authored candidate, shaped like a legitimate initial checkpoint (lifecycle active, one
-        # agents_md span) but carrying a stage `run` no `start` ever produced -- exactly what `checkpoint`
-        # must refuse to promote onto a destination `start` never created.
+        # A hand-authored candidate, shaped like a legitimate initial checkpoint (lifecycle active, one agents_md span) but carrying a stage `run` no `start` ever produced -- exactly what `checkpoint` must refuse to promote onto a destination `start` never created.
         fake_ledger = work / "fake-ledger-scenario41.md"
         fake_ledger.write_text("not a real ledger\n")
         candidate = json.loads(json.dumps(template))

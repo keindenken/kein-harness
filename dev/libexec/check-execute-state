@@ -135,9 +135,7 @@ def set_round(task_id, status, round_number, **fields):
 
 
 def _work_paths(tmp):
-    """The first run's fixed derived paths, rebuilt from the shared temp root -- deterministic, so
-    any section after `derive-and-reconcile` recomputes the same `work`/`destination`/`candidate`
-    it built rather than needing them threaded in as extra state."""
+    """The first run's fixed derived paths, rebuilt from the shared temp root -- deterministic, so any section after `derive-and-reconcile` recomputes the same `work`/`destination`/`candidate` it built rather than needing them threaded in as extra state."""
     work = (Path(tmp) / "repo").resolve()
     runs = work / ".agents" / "kein" / "runs" / "execute" / "260101-000000-check"
     return work, runs / "state.json", runs / "candidate.json"
@@ -149,10 +147,7 @@ def _split_state_path(tmp):
 
 
 def _checkpoint_helpers(work, state_path, candidate_path):
-    """Build the `current`/`attempt`/`must`/`refuse` quartet bound to one state file and one
-    scratch candidate file -- the same shape section 3 first built for the initial run's own
-    `destination`, and section 6 for the split run's `split_state`, kept identical so a mutation to
-    one path's driving logic is not a divergent copy of a mutation to the other's."""
+    """Build the `current`/`attempt`/`must`/`refuse` quartet bound to one state file and one scratch candidate file -- the same shape section 3 first built for the initial run's own `destination`, and section 6 for the split run's `split_state`, kept identical so a mutation to one path's driving logic is not a divergent copy of a mutation to the other's."""
     def current():
         return json.loads(state_path.read_text())
 
