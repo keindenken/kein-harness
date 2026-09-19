@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -1325,7 +1326,7 @@ def _section_scenario16_execute_never_started_precedence():
         resumed = read_json(state_path)
         if resumed["lifecycle"] != "active":
             failures.append(f"resume did not move the run back to active: {resumed['lifecycle']}")
-        if resumed["stages"]["execute"] != {"status": "pending", "run": None}:
+        if resumed["stages"]["execute"] != {"status": "pending", "run": None, "resolved_reference": None}:
             failures.append(f"resume touched execute's stage even though its association was absent: {resumed['stages']['execute']}")
         if resumed["stages"]["closeout"]["status"] != "pending":
             failures.append("resume did not reset closeout back to pending")
@@ -2245,6 +2246,262 @@ def _section_scenario34_ralplan_subdirectory_relative_input_links():
             failures.append(f"attach refused a ralplan run started from a subdirectory with a relative --input typed relative to that same subdirectory: {status_after['stages']['ralplan']}")
 
 # ---------------------------------------------------------------------------
+# Scenario 35: the chain breaking one stage later. Scenario 34 proves the ralplan stage's own belonging test accepts a subdirectory-started run with a relative --input/--plan; this scenario carries that same run through to completion, where its own completed receipt keeps `plan.path` exactly as typed -- relative to a `working_directory` the completed shape drops entirely -- and proves the fix survives past that point: `attach` (scenario 34's own call) already stored the plan's resolved absolute path on `stages.ralplan.resolved_reference`, computed while the run was still live and its own `working_directory` still readable, so `gap`'s own printed action and `_expected_execute_plan_reference` both read that stored absolute rather than re-resolving the completed receipt's own relative `plan.path` against the wrong root (this flow's worktree, not the subdirectory). An execute run started against the plan's own absolute spelling -- exactly what a lead copying gap's own corrected action would type -- therefore still strictly belongs: it links via `attach`, and `_execute_occupant_block` never mistakes it for a foreign occupant once it already occupies the worktree unattached. Required case: a subdirectory-started ralplan run completes, and an execute run started with the plan's absolute path links, with gap naming no occupant.
+
+def _section_scenario35_ralplan_subdirectory_completes_execute_links():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        subdir = work / "sub"
+        subdir.mkdir()
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        approved_requirements = work / "req-scenario35.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting the scenario35 case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario35", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering ralplan for scenario35", fsd(work, "enter", str(state_path), "ralplan"))
+
+        plan_path = work / "plan-scenario35.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario35" / "state.json"
+        # cwd is the subdirectory; --input and --plan are typed relative to it, and --repository/--working-directory are both left unset so they default to that same subdirectory -- the ordinary way a lead standing in `sub/` would type them.
+        relative_input = os.path.relpath(approved_requirements, subdir)
+        relative_plan = os.path.relpath(plan_path, subdir)
+        must("starting the ralplan run from a subdirectory cwd with relative --input and --plan for scenario35",
+             ralplan(subdir, "start", str(ralplan_dest), "--input", relative_input, "--plan", relative_plan, "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("attaching the subdirectory-started ralplan run for scenario35", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+
+        stored_reference = read_json(state_path)["stages"]["ralplan"].get("resolved_reference")
+        if stored_reference != str(plan_path.resolve()):
+            failures.append(f"attach did not store ralplan's own plan path resolved absolute against its working_directory: {stored_reference!r} != {plan_path.resolve()}")
+
+        must("opening ralplan round 1 for scenario35", ralplan(subdir, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for scenario35", ralplan(subdir, "approve", str(ralplan_dest)))
+        must("completing ralplan for scenario35", ralplan(subdir, "complete", str(ralplan_dest)))
+        completed_ralplan = read_json(ralplan_dest)
+        if "working_directory" in completed_ralplan:
+            failures.append("ralplan's own completed receipt unexpectedly still carries working_directory; this case's premise (the completed shape drops it) no longer holds")
+
+        gap_before_execute = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if not gap_before_execute["gap"] or gap_before_execute["next"] != "execute" or gap_before_execute["completed"] != "ralplan":
+            failures.append(f"gap did not report the ralplan -> execute row for scenario35: {gap_before_execute}")
+        expected_action = f"invoke /kein:execute {shlex.quote(str(plan_path.resolve()))}"
+        if gap_before_execute["action"] != expected_action:
+            failures.append(f"gap's own printed action did not name the plan's resolved absolute path: {gap_before_execute['action']!r} != {expected_action!r}")
+
+        # The execute run is started against the plan's own absolute spelling, from the repository root -- not the subdirectory ralplan itself ran from -- exactly how a lead invoking /kein:execute with gap's own printed path would. Not attached yet, so this occupies the worktree's own per-worktree claim while execute's own fsd stage is still `pending`, which is exactly the moment `_execute_occupant_block` gets asked about it.
+        execute_state = execute_start(work, execute_run_root, "scenario35", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+
+        gap_with_unattached_occupant = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_with_unattached_occupant["action"] != expected_action:
+            failures.append(f"gap treated the genuinely-belonging, not-yet-attached execute run as a foreign occupant: {gap_with_unattached_occupant}")
+
+        must("entering execute for scenario35", fsd(work, "enter", str(state_path), "execute"))
+        must("attaching the scenario35 execute run started with the plan's absolute path", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        status_execute = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_execute["stages"]["execute"]["association"] != "kept" or status_execute["stages"]["execute"]["run"] != str(execute_state):
+            failures.append(f"attach refused an execute run started with the plan's own absolute path, once the ralplan stage that produced it was started from a subdirectory: {status_execute['stages']['execute']}")
+
+        gap_after_execute = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_after_execute["gap"]:
+            failures.append(f"gap reported a gap while execute is genuinely running with no evidence yet: {gap_after_execute}")
+
+# ---------------------------------------------------------------------------
+# Scenario 36: `enter execute` links a belonging occupant that has no kept link yet -- a resumed occupant (a prior session's own `execute start` already claimed the worktree against this flow's own plan, but no `post-bash` call in this session ever saw that `start` to attach it) is linked in the very same commit that marks execute entered, without a separate `attach` call. Required case: enter links a belonging occupant with no kept link.
+
+def _section_scenario36_enter_links_belonging_occupant_no_kept_link():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-scenario36.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting scenario36", fsd(work, "start", "--run-root", str(run_root), "--slug", "scenario36", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+
+        # An execute run against this same plan already occupies the worktree -- e.g. a prior session's own `execute start` that no post-bash hook in this session ever attached -- so the worktree's own per-worktree claim is held while fsd's own kept link is still null.
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        occupant = execute_start(work, execute_run_root, "scenario36", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        before = read_json(state_path)
+        if before["stages"]["execute"]["run"] is not None:
+            failures.append("the scenario36 fixture already carries a kept execute link; this case proves nothing")
+
+        must("entering execute for scenario36, with a belonging occupant and no kept link", fsd(work, "enter", str(state_path), "execute"))
+        after = read_json(state_path)
+        if after["stages"]["execute"]["status"] != "entered":
+            failures.append(f"enter did not mark execute entered: {after['stages']['execute']}")
+        if after["stages"]["execute"]["run"] != str(occupant):
+            failures.append(f"enter did not link the belonging occupant in the same commit that marked execute entered: {after['stages']['execute']}")
+
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["execute"]["association"] != "kept" or status_after["stages"]["execute"]["run"] != str(occupant):
+            failures.append(f"the association after enter did not read as kept: {status_after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 37: `ocs state fsd checkpoint` refuses a candidate that changes a stage's own `run` -- the escape hatch is not a second way to pin an association, bypassing the belonging test `attach` and `post-bash` always run first. Required case: checkpoint refuses a run change.
+
+def _section_scenario37_checkpoint_refuses_run_change():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting scenario37", fsd(work, "start", "--run-root", str(run_root), "--slug", "scenario37", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+
+        fake_ledger = work / "fake-ledger.md"
+        fake_ledger.write_text("not a real ledger\n")
+        candidate = read_json(state_path)
+        candidate["stages"]["interview"]["run"] = str(fake_ledger)
+        candidate_path = state_path.parent / "candidate-run-change.json"
+        write(candidate_path, candidate)
+
+        refuse("checkpointing a candidate that changes a stage's run directly", fsd(work, "checkpoint", str(state_path), str(candidate_path)),
+               reason="checkpoint cannot change stage")
+        unchanged = read_json(state_path)
+        if unchanged["stages"]["interview"]["run"] is not None:
+            failures.append("checkpoint applied a run change it should have refused")
+
+# ---------------------------------------------------------------------------
+# Scenario 38: `ocs state fsd checkpoint` refuses a candidate that appends an `agents_md` span on a transition other than `paused -> active` -- an active -> active checkpoint here, the ordinary shape of every other fsd write -- so a hand-authored candidate cannot fabricate a span with a hash `close`'s own AGENTS.md comparison would then trust. Required case: checkpoint refuses an added span on active -> active.
+
+def _section_scenario38_checkpoint_refuses_added_span_not_paused_to_active():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting scenario38", fsd(work, "start", "--run-root", str(run_root), "--slug", "scenario38", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+
+        candidate = read_json(state_path)
+        if candidate["lifecycle"] != "active":
+            failures.append("the scenario38 fixture is not active; this case proves nothing")
+        candidate["agents_md"] = list(candidate["agents_md"]) + [{"span_started_at": STAMP, "sha256": None}]
+        candidate_path = state_path.parent / "candidate-span-active.json"
+        write(candidate_path, candidate)
+
+        refuse("checkpointing a candidate that appends an agents_md span on an active -> active transition",
+               fsd(work, "checkpoint", str(state_path), str(candidate_path)), reason="paused -> active")
+        unchanged = read_json(state_path)
+        if len(unchanged["agents_md"]) != 1:
+            failures.append("checkpoint applied an agents_md span addition it should have refused")
+
+# ---------------------------------------------------------------------------
+# Scenario 39: `resolved_reference` is written the moment `attach` links ralplan, while that run is still live, not only once it completes -- so `_expected_execute_plan_reference` must still gate on the kept ralplan run's own current lifecycle before ever trusting the stored value, exactly as it gated on a raw re-read before `resolved_reference` existed. An execute run started against the same plan while ralplan is still open (Draft, not yet approved) must not belong, regardless of how confidently the absolute reference was already computed and stored. Required case: an execute run started/attached while its own ralplan is still live is refused.
+
+def _section_scenario39_execute_refused_while_ralplan_live():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        approved_requirements = work / "req-scenario39.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting scenario39", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario39", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering ralplan for scenario39", fsd(work, "enter", str(state_path), "ralplan"))
+
+        plan_path = work / "plan-scenario39.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario39" / "state.json"
+        must("starting the ralplan run for scenario39", ralplan(work, "start", str(ralplan_dest), "--input", str(approved_requirements), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("attaching the still-live ralplan run for scenario39", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+
+        stored_reference = read_json(state_path)["stages"]["ralplan"].get("resolved_reference")
+        if not stored_reference:
+            failures.append("attach did not store ralplan's own resolved_reference while linking; this case proves nothing")
+        if read_json(ralplan_dest)["lifecycle"] == "completed":
+            failures.append("the scenario39 fixture's own ralplan run is already completed; this case proves nothing")
+
+        # An execute run against the same plan, started (but never attached) while ralplan is still Draft -- not yet approved, let alone completed.
+        execute_state = execute_start(work, execute_run_root, "scenario39", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        refuse("attaching an execute run while its own ralplan is still live", fsd(work, "attach", str(state_path), "execute", str(execute_state)),
+               reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["execute"]["association"] != "not entered":
+            failures.append(f"an execute run started while ralplan is still live somehow read as associated: {status_after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 40: the identical gate one stage earlier -- `resolved_reference` is written the moment `attach` links interview, while the ledger is still `active`, not only once it completes, so `_expected_ralplan_reference` must gate on the kept ledger's own current `status` before trusting the stored value. A ralplan run started against the same requirements path while interview is still active must not belong. Required case: a ralplan run attached while its own interview is still active is refused.
+
+def _section_scenario40_ralplan_refused_while_interview_active():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+
+        result = must("starting scenario40", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario40", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering interview for scenario40", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-scenario40"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "scenario40.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_active_ledger(ledger, "260101-000000-scenario40", work, work, requirements_path)
+        must("attaching the still-active interview ledger for scenario40", fsd(work, "attach", str(state_path), "interview", str(ledger)))
+
+        stored_reference = read_json(state_path)["stages"]["interview"].get("resolved_reference")
+        if not stored_reference:
+            failures.append("attach did not store interview's own resolved_reference while linking; this case proves nothing")
+        if read_json(state_path)["stages"]["interview"]["status"] != "entered":
+            failures.append("the scenario40 fixture's own interview stage was not entered; this case proves nothing")
+
+        # The requirements document is written well-formed enough for ralplan's own artifact validator, but the interview ledger itself stays `active`, never `completed` -- ralplan must not belong yet, however confidently `resolved_reference` was already computed at attach time.
+        write_requirements(requirements_path, "Approved")
+        must("entering ralplan for scenario40", fsd(work, "enter", str(state_path), "ralplan"))
+        plan_path = work / "plan-scenario40.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario40" / "state.json"
+        must("starting the ralplan run for scenario40", ralplan(work, "start", str(ralplan_dest), "--input", str(requirements_path), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+
+        refuse("attaching a ralplan run while its own interview is still active", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)),
+               reason="does not belong")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["ralplan"]["association"] != "none":
+            failures.append(f"a ralplan run started while interview is still active somehow read as associated: {status_after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
+# Scenario 41: `checkpoint`'s own per-stage `run`/`resolved_reference` guard (scenario 37) only has a `previous` state to compare against once `destination` already exists -- a first candidate to a destination `start` never created has nothing to compare against, and would otherwise commit whatever `run` it named exactly as given: the identical bypass scenario 37 closes, reached by never having a destination instead of by changing one on an existing run. `start` is the one builder of a new fsd run, so `checkpoint` refuses a nonexistent destination outright, before ever loading the candidate for anything but that check, and points at `start`. Required case: checkpoint to a new destination carrying a run is refused.
+
+def _section_scenario41_checkpoint_refuses_new_destination_with_run():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting scenario41's own template run", fsd(work, "start", "--run-root", str(run_root), "--slug", "scenario41-template", "--input", "an idea", "--worktree", str(work)))
+        template_path = require_path(result)
+        template = read_json(template_path)
+
+        # A hand-authored candidate, shaped like a legitimate initial checkpoint (lifecycle active, one
+        # agents_md span) but carrying a stage `run` no `start` ever produced -- exactly what `checkpoint`
+        # must refuse to promote onto a destination `start` never created.
+        fake_ledger = work / "fake-ledger-scenario41.md"
+        fake_ledger.write_text("not a real ledger\n")
+        candidate = json.loads(json.dumps(template))
+        candidate["run_id"] = "260101-000000-scenario41-new"
+        candidate["stages"]["interview"]["run"] = str(fake_ledger)
+        candidate_path = template_path.parent / "candidate-new-destination.json"
+        write(candidate_path, candidate)
+
+        new_destination = run_root / "260101-000000-scenario41-new" / "state.json"
+        if new_destination.exists():
+            failures.append("the scenario41 fixture's own new destination already exists; this case proves nothing")
+
+        refuse("checkpointing a run field straight onto a destination start never created", fsd(work, "checkpoint", str(new_destination), str(candidate_path)),
+               reason="does not exist")
+        if new_destination.exists():
+            failures.append("checkpoint created a new destination it should have refused to create")
+
+# ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every scenario here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
@@ -2292,6 +2549,13 @@ SECTIONS = [
     ("scenario32-resumed-kept-occupant-strict-test-failure-no-occupant-row", (), _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_row),
     ("scenario33-attach-same-kept-path-after-terminal-is-noop", (), _section_scenario33_attach_same_kept_path_after_terminal_is_noop),
     ("scenario34-ralplan-subdirectory-relative-input-links", (), _section_scenario34_ralplan_subdirectory_relative_input_links),
+    ("scenario35-ralplan-subdirectory-completes-execute-links", (), _section_scenario35_ralplan_subdirectory_completes_execute_links),
+    ("scenario36-enter-links-belonging-occupant-no-kept-link", (), _section_scenario36_enter_links_belonging_occupant_no_kept_link),
+    ("scenario37-checkpoint-refuses-run-change", (), _section_scenario37_checkpoint_refuses_run_change),
+    ("scenario38-checkpoint-refuses-added-span-not-paused-to-active", (), _section_scenario38_checkpoint_refuses_added_span_not_paused_to_active),
+    ("scenario39-execute-refused-while-ralplan-live", (), _section_scenario39_execute_refused_while_ralplan_live),
+    ("scenario40-ralplan-refused-while-interview-active", (), _section_scenario40_ralplan_refused_while_interview_active),
+    ("scenario41-checkpoint-refuses-new-destination-with-run", (), _section_scenario41_checkpoint_refuses_new_destination_with_run),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
