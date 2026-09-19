@@ -444,6 +444,7 @@ printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$disp
 elapsed=0
 status=''
 said_unsignalled=0
+report_seen=''
 while [ "$elapsed" -lt "$timeout" ]; do
   shown=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null)
   status=$(printf '%s' "$shown" | json_field dispatch.status)
@@ -454,7 +455,9 @@ while [ "$elapsed" -lt "$timeout" ]; do
   # without the other -- the first measured run wrote its report and then narrated its stop in prose,
   # so this loop had nothing to break on and held the terminal for the rest of the timeout. Say it
   # once when it happens: no further waiting can settle a dispatch the worker never signalled.
-  if [ "$said_unsignalled" -eq 0 ] && [ -s "$report" ]; then
+  # Only after the report has sat unsettled for 30 s: a worker writes the report and then signals, so a poll landing between the two is the normal path, and warning on it made every successful lane look like a failure (measured 2026-09-19, twice in a row).
+  if [ -s "$report" ] && [ -z "$report_seen" ]; then report_seen=$elapsed; fi
+  if [ "$said_unsignalled" -eq 0 ] && [ -n "$report_seen" ] && [ $((elapsed - report_seen)) -ge 30 ]; then
     said_unsignalled=1
     printf 'ocs team: the report exists and the dispatch has not settled.\n' >&2
     printf '  the worker wrote %s without signalling completion; waiting cannot settle that.\n' "$report" >&2
@@ -462,6 +465,22 @@ while [ "$elapsed" -lt "$timeout" ]; do
   sleep 10
   elapsed=$((elapsed + 10))
 done
+
+# The same `worker_done` that settled the dispatch also lands in this lane's Run inbox, and Orca later nudges the lead's terminal with "You have 1 orchestration message" for a lane that is already over.
+# Consumed here so the nudge never comes. `check` only reads the Run the calling terminal is currently bound to, and each `run-create` rebinds it, so a lane whose Run was superseded by a later concurrent lane gets `consumer_fenced` and leaves its message alone.
+# Acknowledged only when every message in the delivery is this dispatch's `worker_done`: a delivery is acked whole, and anything else in it is the lead's to read.
+case "$status" in
+  completed|failed)
+    delivery=$(orca orchestration check --run "$run_id" --types worker_done --json 2>/dev/null | python3 -c 'import json,sys
+try: r=json.load(sys.stdin).get("result") or {}
+except Exception: r={}
+msgs=r.get("messages") or []
+def own(m):
+    try: return json.loads(m.get("payload") or "{}").get("dispatchId")==sys.argv[1]
+    except Exception: return False
+print(r.get("deliveryId") or "" if msgs and all(own(m) for m in msgs) else "")' "$dispatch" 2>/dev/null)
+    [ -z "$delivery" ] || orca orchestration check --run "$run_id" --ack "$delivery" --json >/dev/null 2>&1 || true ;;
+esac
 
 if [ "$status" != "completed" ]; then
   [ -n "$status" ] || status='unknown'

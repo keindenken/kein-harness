@@ -212,3 +212,12 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 - `~/Documents/wiki_deprecated/_raw/note/260802-consensus-round-lessons.md`, `260803-parallel-verification-lane-operation.md`, `260804-lead-prescriptions-and-truncated-populations.md`, `260805-attribution-by-capability-and-neighbouring-claims.md`, `260806-a-red-gate-in-a-world-that-cannot-happen.md`: lessons from running verification lanes on descvi. Much of this already shaped `plugin/rules/` and the execute and ralplan skills through the 260810 prompt revision; what has not been checked is which of it did not land.
 - `~/Documents/wiki_deprecated/_raw/note/260809-rewriting-standing-agent-prompts-on-measurement.md`: the test for whether an instruction is worth its tokens. `plugin/rules/standing-prompt.md` is its descendant; whether anything was lost in the move is unchecked.
 - `260819-Building Docs for Agents, Not Humans Inside OpenWiki.md`, in `~/Documents/wiki` snapshot `28e2385` under `_raw/`: how to write repository docs for an agent reader, which is what the `instructions` skill does to AGENTS.md.
+
+## `ocs team` rebinds the lead's terminal to a new Run on every lane
+
+`orca orchestration run-create` binds the terminal that calls it, and Orca refuses to let one terminal act as another (`run-create --from <worker terminal>` answers `consumer_fenced`, measured 2026-09-19 on orca 1.4.205). So every `ocs team` invocation moves the lead's binding to that lane's Run. Two consequences, neither yet observed in a real run:
+
+- A lead that is itself an Orca coordinator — bound to its own Run and waiting on `check --wait` — loses that binding the moment it starts a lane, and its own workers' messages stop reaching it until it runs `run-use` again.
+- With several lanes started concurrently, only the last Run stays bound. `ocs team` consumes its own `worker_done` only while its Run is still the bound one, so an earlier lane's message stays in its inbox and may nudge the lead later. Whether Orca nudges for an unbound Run at all is unmeasured.
+
+The Orca model is one coordinator, one Run, a whole wave inside it. Moving `ocs team` onto the lead's existing Run would fix the first, but then every lane shares one inbox with whatever else the lead coordinates, and consuming a `worker_done` there means filtering by dispatch rather than draining. Not worth doing until a lead actually coordinates an Orca Run and starts a lane from it.
