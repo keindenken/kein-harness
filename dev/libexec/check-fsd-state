@@ -667,7 +667,7 @@ def _section_scenario4_guard_scope_violations():
         refuse("halting an already-halted run", fsd(work, "halt", str(state_path), "--reason", "again"))
 
 # ---------------------------------------------------------------------------
-# Scenario 5: an execute stage entered with no kept link gives no gap -- there is no association for gap to read at all, so the blocked run underneath, with its parked task's null decision_ref, is never reached.
+# Scenario 5: a blocked run with a parked task whose decision_ref is null gives no gap (no positive evidence).
 
 def _section_scenario5_blocked_null_decision_ref():
     with tempfile.TemporaryDirectory() as tmp:
@@ -676,7 +676,7 @@ def _section_scenario5_blocked_null_decision_ref():
         init_repo(work)
         fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
 
-        # An approved-plan input classifies straight to execute, with interview and ralplan already `skipped` from `start`. `enter` below runs before `execute_start` ever creates a run to occupy the worktree, and nothing here calls `attach`, so execute ends up entered with no kept link at all -- gap reads that as unresolved and allows by default, without ever reaching the blocked run or its parked task's null decision_ref set up below.
+        # An approved-plan input classifies straight to execute, with interview and ralplan already `skipped` from `start` -- this case is about the blocked-row evidence, not about re-proving the classification path already covered in scenario 1.
         approved_plan = work / "plan-nullref.md"
         write_plan(approved_plan, "Approved")
         result = must("starting the null-ref case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "nullref", "--input", str(approved_plan), "--worktree", str(work)))
@@ -684,7 +684,8 @@ def _section_scenario5_blocked_null_decision_ref():
         must("entering execute for the null-ref case", fsd(work, "enter", str(state_path), "execute"))
 
         execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-        execute_state = execute_start(work, execute_run_root, "nullref", [execute_task("task-001", ["README.md"])])
+        execute_state = execute_start(work, execute_run_root, "nullref", [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
+        must("attaching the null-ref case's execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
         must("dispatching task-001 for the null-ref case", execute(work, "dispatch", str(execute_state), "task-001"))
         must("parking task-001 with no ref", execute(work, "park", str(execute_state), "task-001", "--question", "an unrecorded decision"))
         must("checkpointing to blocked for the null-ref case", execute_checkpoint(work, execute_state, lambda s: s.update(
