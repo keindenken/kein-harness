@@ -151,8 +151,10 @@ for override in $(codex_plugin_overrides "$codex_home"); do
 done
 set -- "$@" -C "$PWD" -o "$last" "$prompt"
 
+# stdin is closed because `codex exec` appends a non-terminal stdin to the prompt and reads it to EOF first, even when the prompt is an argument.
+# A caller's stdin that never closes therefore hangs the lane before any model call: measured 2026-09-19, a lane started as a Claude Code background command sat 28 minutes at 0.05 s of CPU with fd 0 a unix socket, no usage spent and no trace written; the same call with an open pipe waited exactly as long as the pipe stayed open.
 status=0
-CODEX_HOME="$codex_home" "$@" >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
+CODEX_HOME="$codex_home" "$@" </dev/null >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
 
 if [ "$trace" -eq 1 ]; then
   dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/ask)/$(date +%y%m%d-%H%M%S)-$role"
