@@ -238,10 +238,8 @@ def _scope_content_digest(path: Path, scope: List[str]) -> Dict[str, str]:
     return digest
 
 
-def _scope_digest_diff(current: Any, dispatched: Any) -> List[str]:
-    """The scope paths whose content differs between two digests, sorted; empty when they agree everywhere `_scope_content_digest` could report a difference (a changed path, an added one, or a removed one)."""
-    if not isinstance(current, dict) or not isinstance(dispatched, dict):
-        return sorted(set(current) | set(dispatched)) if isinstance(current, dict) or isinstance(dispatched, dict) else ["<unreadable>"]
+def _scope_digest_diff(current: Dict[str, str], dispatched: Dict[str, str]) -> List[str]:
+    """The scope paths whose content differs between two digests, sorted; empty when they agree everywhere `_scope_content_digest` could report a difference (a changed path, an added one, or a removed one). Both arguments are always dicts at the one call site (`_scope_content_digest`'s own return shape, and a `dispatch_scope_fingerprint` already checked `isinstance(..., dict)` before this is called), so there is no other shape to fall back on here."""
     return sorted(path for path in set(current) | set(dispatched) if current.get(path) != dispatched.get(path))
 
 
@@ -773,21 +771,13 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
             errors.append("Nonterminal state requires at least one task")
             tasks = []
         identifiers = []
-        active_indexes = []
-        for index, task in enumerate(tasks):
+        for task in tasks:
             errors.extend(_validate_task(task, current_fingerprint, inherited))
             if isinstance(task, dict):
                 identifiers.append(task.get("id"))
-                if task.get("status") in WRITE_ACTIVE_STATUSES:
-                    active_indexes.append(index)
         if len(identifiers) != len(set(identifiers)):
             errors.append("Task ids must be unique")
-        # Tasks are written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs. Everything else about order is the plan's to say.
-        if active_indexes and len(identifiers) == len(set(identifiers)):
-            active_ids = [tasks[index]["id"] for index in active_indexes]
-            for collision in _scope_collisions(tasks, active_ids):
-                left, right = collision["tasks"]
-                errors.append(f"{left} and {right} cannot both be under way: their scopes meet at {', '.join(collision['paths'])}")
+        # The active-scope collision rule (tasks written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs) is checked in `validate_transition`, not here, and only against tasks a transition newly dispatches or reopens into a write-active status -- see the comment there. Checking it as a standing fact about a snapshot in isolation would strand a run whose already-active tasks predate the root-scope reading `_scopes_collide` now gives an empty-parts entry (`.`, `./`, `""`): `validate_state` runs on the predecessor of every transition, including `abort`, so a run in that shape could never be checkpointed again, not even to end it.
         if payload.get("current_task_id") is not None and payload.get("current_task_id") not in identifiers:
             errors.append("current_task_id must identify a task")
         if type(payload.get("current_round")) is not int or payload["current_round"] < 0:
@@ -907,6 +897,14 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 from_status = parked_info.get("from") if isinstance(parked_info, dict) else None
                 if from_status != "pending":
                     errors.append(f"{task_id} cannot park from {from_status} on the initial checkpoint; nothing has dispatched it yet")
+        # Every write-active task on an initial checkpoint is, by construction, one this very checkpoint is what dispatches it -- there is no predecessor for any of them to have been write-active in already -- so the active-scope collision rule applies to every one of them here, the same as it applies to a later transition that newly dispatches a task (see the comment below).
+        initial_active_ids = [task["id"] for task in candidate.get("tasks", [])
+                               if isinstance(task, dict) and "id" in task and task.get("status") in WRITE_ACTIVE_STATUSES]
+        initial_ids = [task.get("id") for task in candidate.get("tasks", []) if isinstance(task, dict)]
+        if initial_active_ids and len(initial_ids) == len(set(initial_ids)):
+            for collision in _scope_collisions(candidate.get("tasks", []), initial_active_ids):
+                left, right = collision["tasks"]
+                errors.append(f"{left} and {right} cannot both be under way: their scopes meet at {', '.join(collision['paths'])}")
         return errors
     previous_errors = validate_state(previous, Path("state.json"), inherited)
     if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
@@ -940,6 +938,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             if not isinstance(appended, dict) or appended.get("status") != "pending" or appended.get("round") != 0:
                 errors.append("Newly appended tasks must begin pending at round zero")
         previous_tasks = {task["id"]: task for task in previous_task_list if isinstance(task, dict) and "id" in task}
+        newly_active_ids = []
         for task in candidate.get("tasks", []):
             if not isinstance(task, dict) or task.get("id") not in previous_tasks:
                 continue
@@ -948,6 +947,8 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             new_status = task.get("status")
             if new_status not in TASK_TRANSITIONS.get(old_status, frozenset()):
                 errors.append(f"Task status transition {old_status} -> {new_status} is not allowed")
+            if new_status in WRITE_ACTIVE_STATUSES and old_status not in WRITE_ACTIVE_STATUSES:
+                newly_active_ids.append(task["id"])
             old_round = old.get("round", 0)
             new_round = task.get("round", 0)
             entering_correction = new_status == "correcting" and old_status != "correcting"
@@ -982,6 +983,11 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 old_seal = old.get("dispatch_scope_fingerprint")
                 if old_status in {"implementing", "correcting"} and (not isinstance(old_seal, dict) or _is_legacy_dispatch_seal(old_seal)):
                     errors.append(f"{task['id']} cannot park from {old_status}: it was dispatched without a seal")
+        # Tasks are written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs (`_scope_collisions`). This is checked here, against the tasks this transition newly makes write-active -- a fresh dispatch (`pending -> implementing`) or a reopened correction (`accepted -> correcting`) -- rather than as a standing fact `validate_state` re-checks about every snapshot regardless of what changed: a task already write-active before this correction changed what an empty-parts scope entry (`.`, `./`, `""`) collides with -- everything now, where it used to collide with nothing -- is left exactly as it was, so a run in that shape is not stranded on every later checkpoint, including `abort`, over a rule that postdates it. `split-check` answers the same "could these dispatch together" question independently, on request rather than on every checkpoint.
+        if newly_active_ids and len(candidate_ids) == len(set(candidate_ids)):
+            for collision in _scope_collisions(candidate_task_list, newly_active_ids):
+                left, right = collision["tasks"]
+                errors.append(f"{left} and {right} cannot both be under way: their scopes meet at {', '.join(collision['paths'])}")
         if candidate_phase in {"simplifying", "regression_verifying", "final_audit"} and any(
             isinstance(task, dict) and task.get("status") == "parked" for task in candidate_task_list
         ):
@@ -1261,7 +1267,7 @@ def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
                 old_status, new_status, scope = old_task.get("status"), task.get("status"), task.get("scope")
                 if not isinstance(scope, list):
                     continue
-                # A `pending -> implementing` checkpoint may carry a `dispatch_scope_fingerprint` that is absent (the legacy path, case (c)) or exactly what this checkpoint computes; nothing else, so a candidate cannot forge a seal or carry one held over from a stale read.
+                # `_autofill` already seals a fresh `dispatch_scope_fingerprint` on every `pending -> implementing` candidate that leaves the field unset, so by the time a candidate reaches here it always carries one; this only re-checks a value the candidate supplied explicitly, and it must be exactly what this checkpoint computes -- nothing else -- so a candidate cannot forge a seal or carry one held over from a stale read. A task carrying no seal at all is a different fact about a *later* checkpoint: case (c) is a task already `implementing` in a state written before the field existed, which cannot park from a write-active status, not a task dispatching now.
                 if old_status == "pending" and new_status == "implementing" and task.get("dispatch_scope_fingerprint") is not None:
                     fresh = _scope_content_digest(root, scope)
                     if fresh != task["dispatch_scope_fingerprint"]:

@@ -572,6 +572,47 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"a genuine pending-only initial checkpoint was refused: {result.stderr.strip()}")
 
+    # Repro 3 (final-audit correction, round 2, item 5) - the `initial_active_ids` collision check the initial checkpoint's own no-predecessor branch of `validate_transition` runs (added alongside `checkpoint`'s equivalent check for a later transition) is otherwise untested: a revision-0 candidate declaring two tasks already `implementing`, with colliding scopes, has no predecessor for the ordinary newly-active check to compare against, so it needs its own check on the initial checkpoint. A dedicated, untouched repo, the same way the first two bypass repros needed one -- `bypass_repo` already carries a nonterminal run from the "Sanity" checkpoint above, and a second nonterminal run in the same worktree would be refused as occupied before ever reaching the collision check this repro means to isolate.
+    bypass_collision_repo = Path(tmp) / "bypass-collision"
+    bypass_collision_repo.mkdir()
+    bypass_collision_repo = bypass_collision_repo.resolve()
+    git(bypass_collision_repo, "init", "-q")
+    git(bypass_collision_repo, "config", "user.email", "check@example.invalid")
+    git(bypass_collision_repo, "config", "user.name", "check")
+    (bypass_collision_repo / "seed.txt").write_text("seed\n")
+    git(bypass_collision_repo, "add", "-A")
+    git(bypass_collision_repo, "commit", "-qm", "seed")
+    bypass_collision_common = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                                              cwd=bypass_collision_repo, capture_output=True, text=True).stdout.strip()
+    bypass_collision_run = bypass_collision_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000005-bypass-collision"
+    bypass_collision_run.mkdir(parents=True, exist_ok=True)
+    bypass_collision_state = bypass_collision_run / "state.json"
+    bypass_collision_cand = bypass_collision_run / "cand.json"
+    write(bypass_collision_cand, {
+        "schema_version": 1, "revision": 0, "workflow": "execute", "run_id": bypass_collision_run.name,
+        "lifecycle": "active",
+        "input": {"kind": "brief", "reference": None, "summary": "bypass collision fixture",
+                  "sha256": hashlib.sha256(b"bypass collision fixture").hexdigest(), "declared_status": None},
+        "worktree": {"root": str(bypass_collision_repo), "git_common_dir": bypass_collision_common, "baseline": "auto", "observed": "auto"},
+        "phase": "task",
+        "tasks": [
+            {"id": "bypass-4a", "title": "b4a", "scope": ["shared/"], "completion_condition": "b4a",
+             "verification_path": ["check b4a"], "rationale": "fixture", "status": "implementing", "round": 0,
+             "latest_verification": [], "unresolved_findings": [], "acceptance": None},
+            {"id": "bypass-4b", "title": "b4b", "scope": ["shared/x.txt"], "completion_condition": "b4b",
+             "verification_path": ["check b4b"], "rationale": "fixture", "status": "implementing", "round": 0,
+             "latest_verification": [], "unresolved_findings": [], "acceptance": None},
+        ],
+        "current_task_id": "bypass-4a", "current_round": 0,
+        "latest_verification": [], "unresolved_findings": [], "final_audit": [],
+        "next_action": "n/a",
+    })
+    result = run(bypass_collision_repo, "checkpoint", str(bypass_collision_state), str(bypass_collision_cand))
+    if result.returncode == 0:
+        failures.append("an initial checkpoint declaring two implementing tasks with colliding scopes was accepted and must not be")
+    elif "scopes meet" not in result.stderr:
+        failures.append(f"an initial checkpoint with two colliding implementing tasks was refused for the wrong reason: {result.stderr.strip()}")
+
     # 9 - individual task parking (U1): `pending | implementing | correcting -> parked`, the restored-scope rule read on the scope's actual content rather than a diff against HEAD, `dispatch_scope_fingerprint` sealed by `dispatch` before any executor starts and verified rather than trusted, the collision rule a parked task carries the same as a pending one, and the finalization refusal while one is parked.
     park_tasks = {
         "task-006": ["park/a.txt"], "task-007": ["park/b.txt"], "task-008": ["park/c.txt"],
@@ -1167,6 +1208,59 @@ with tempfile.TemporaryDirectory() as tmp:
     result = run(root_repo, "dispatch", str(root_state), "root-late")
     if result.returncode != 0:
         failures.append(f"dispatching root-late once both earlier tasks were accepted was refused: {result.stderr.strip()}")
+
+    # Final-audit correction, item 6 - `_scopes_collide`'s root-scope reading (a `.`-scoped entry now meets every other entry, including another one shaped the same way) made a pre-existing state with two already-write-active tasks, one of them root-scoped, fail `validate_state` -- and since `validate_transition` re-validates the predecessor on every checkpoint, that failure stranded such a run: not even `abort` could ever checkpoint it again. A state in that exact shape cannot be produced by any live transition any more (dispatching a second `.`-scoped task alongside a write-active one is refused, proven just above), so this one is written directly, bypassing `checkpoint`, the same way the file's other pre-U1 and legacy-seal fixtures are.
+    legacy_root_repo = Path(tmp) / "legacy-root-scope"
+    legacy_root_repo.mkdir()
+    legacy_root_repo = legacy_root_repo.resolve()
+    git(legacy_root_repo, "init", "-q")
+    git(legacy_root_repo, "config", "user.email", "check@example.invalid")
+    git(legacy_root_repo, "config", "user.name", "check")
+    (legacy_root_repo / "seed.txt").write_text("seed\n")
+    git(legacy_root_repo, "add", "-A")
+    git(legacy_root_repo, "commit", "-qm", "seed")
+    legacy_common = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                                    cwd=legacy_root_repo, capture_output=True, text=True).stdout.strip()
+    legacy_run = legacy_root_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000005-legacy-root"
+    legacy_run.mkdir(parents=True, exist_ok=True)
+    legacy_state = legacy_run / "state.json"
+    legacy_summary = "pre-U1 root-scope fixture"
+    legacy_payload = {
+        "schema_version": 1, "revision": 0, "workflow": "execute", "run_id": legacy_run.name,
+        "lifecycle": "active",
+        "input": {"kind": "brief", "reference": None, "summary": legacy_summary,
+                  "sha256": hashlib.sha256(legacy_summary.encode("utf-8")).hexdigest(), "declared_status": None},
+        "worktree": {"root": str(legacy_root_repo), "git_common_dir": legacy_common,
+                     "baseline": state_module().worktree_fingerprint(legacy_root_repo),
+                     "observed": state_module().worktree_fingerprint(legacy_root_repo)},
+        "phase": "task",
+        "tasks": [
+            {"id": "legacy-dot", "title": "dot", "scope": ["."], "completion_condition": "dot",
+             "verification_path": ["check dot"], "rationale": "pre-U1 fixture", "status": "implementing",
+             "round": 0, "latest_verification": [], "unresolved_findings": [], "acceptance": None},
+            {"id": "legacy-other", "title": "other", "scope": ["other.txt"], "completion_condition": "other",
+             "verification_path": ["check other"], "rationale": "pre-U1 fixture", "status": "implementing",
+             "round": 0, "latest_verification": [], "unresolved_findings": [], "acceptance": None},
+        ],
+        "current_task_id": "legacy-dot", "current_round": 0,
+        "latest_verification": [], "unresolved_findings": [], "final_audit": [],
+        "next_action": "pre-U1 fixture: two write-active tasks, one root-scoped",
+    }
+    write(legacy_state, legacy_payload)
+    result = run(legacy_root_repo, "validate", str(legacy_state))
+    if result.returncode != 0:
+        failures.append(f"a legacy pre-U1 state with two write-active tasks, one root-scoped, failed to validate: {result.stderr.strip()}")
+
+    legacy_aborted = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": legacy_payload["run_id"],
+        "lifecycle": "aborted", "aborted_at": STAMP,
+        "worktree_root": str(legacy_root_repo), "reason": "legacy root-scope collision fixture aborted",
+    }
+    legacy_cand = legacy_run / "cand.json"
+    write(legacy_cand, legacy_aborted)
+    result = run(legacy_root_repo, "checkpoint", str(legacy_state), str(legacy_cand))
+    if result.returncode != 0:
+        failures.append(f"a legacy pre-U1 state with a root-scope collision could not be checkpointed to aborted: {result.stderr.strip()}")
 
     # Correction round 2, item 1, failure A - the seal is content, not a diff, so a commit that sweeps a task's own draft into HEAD without reverting it must still refuse parking: the bytes are still there, committed or not. Only once the draft is genuinely undone does parking succeed.
     result = run(work, "dispatch", str(split_state), "task-018")

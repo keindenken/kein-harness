@@ -148,10 +148,13 @@ def _requirements_status(path: Path) -> Optional[str]:
 
 def classify_input(raw_input: str, root: Path) -> Dict[str, Any]:
     """Mechanical classification, in the order U3 fixes: requirements shape first, then plan shape, else an idea.
+    A relative `raw_input` is joined onto `root` -- the canonical worktree, not the process's current working directory, which `start --worktree` may point somewhere else entirely -- with a plain `Path` join and no further `.resolve()` call; that joined path, exactly as constructed, is what a matching classification stores as `reference`.
     A file is read as a requirements document when it passes interview's own artifact validator regardless of its declared status; only then does the Status line decide whether the entry is `ralplan` (Approved) or `interview` (still Draft).
     Failing that, the same two-step test runs against ralplan's own plan-text validator.
     Anything else -- free text, or a path that is neither shape -- is an idea and starts at `interview`."""
     candidate = Path(raw_input)
+    if not candidate.is_absolute():
+        candidate = root / candidate
     if candidate.is_file():
         text = candidate.read_text()
         if not _interview_validate.validate_requirements(candidate):
@@ -540,9 +543,61 @@ def _run_belongs_to_worktree(stage: str, run_path: Path, worktree_root: Path) ->
     return isinstance(repository, str) and repository != "none" and Path(repository).resolve() == worktree_root.resolve()
 
 
+def _expected_execute_plan_reference(state: Dict[str, Any]) -> Optional[str]:
+    """The plan path this flow is driving `execute` against, established without reading the occupying run's own file at all: the fsd input's own `reference` when `execute` is the entry stage -- the only classification that reaches `execute` directly, and one that always carries a plan reference (`classify_input`'s plan branch) -- or, when `ralplan` led here instead, the plan path recorded on `ralplan`'s own completed receipt (`plan.path`, the same field `gap` reads for its ralplan-completed row). `None` when neither can be read: too little evidence to call any occupant a match, so `enter` treats that the same as a mismatch rather than guessing either way."""
+    if state["entry"] == "execute":
+        return state["input"].get("reference")
+    run_path = _resolve_association(state, "ralplan")
+    if run_path is None:
+        return None
+    try:
+        payload = _load(run_path)
+    except Exception:
+        return None
+    if payload.get("lifecycle") != "completed":
+        return None
+    return payload.get("plan", {}).get("path")
+
+
+def _same_plan_reference(candidate_reference: Any, expected_reference: Any, worktree_root: Path) -> bool:
+    """Whether two plan references name the same file, compared as paths rather than as the raw strings each side happened to store: `execute start` and `ralplan start` keep an `--input`/`--plan` reference exactly as given, relative or absolute, and `classify_input` joins a relative one onto the worktree root without ever calling `.resolve()` on the result, so the same plan can be spelled two different ways -- relative here, absolute there, a `..`-bearing path, or an absolute spelling `os.path.realpath` has not touched (macOS's own `/var` -> `/private/var`, the same gap `_normalize_scope_entry` accounts for in `guard`). A relative side is joined onto `worktree_root` before both sides are run through `Path.resolve()`, which does not require the file to exist. `resolve()` can also raise for reasons that have nothing to do with a genuine mismatch -- a symlink loop raises `RuntimeError` on some Python versions, `OSError` on others -- so the catch here is broad by design: every caller of this function, directly or through `_occupying_execute_run`, reads its answer as ordinary evidence rather than expecting it to raise, `guard_check` among them, and a caller left to catch a resolution failure itself would refuse to run at all rather than simply not calling this pair a match. Neither side may be `None`: two absent references are not treated as a match, since there would be nothing there to compare."""
+    if not isinstance(candidate_reference, str) or not isinstance(expected_reference, str):
+        return False
+    def _resolved(value: str) -> Path:
+        path = Path(value)
+        if not path.is_absolute():
+            path = worktree_root / path
+        try:
+            return path.resolve()
+        except Exception:
+            return path
+    return _resolved(candidate_reference) == _resolved(expected_reference)
+
+
+def _occupying_execute_run(state: Dict[str, Any], exclude: Optional[Path]) -> Optional[Path]:
+    """The nonterminal execute run currently occupying the worktree, other than `exclude`, whose own `input.reference` names the same plan this flow is executing (`_expected_execute_plan_reference`, compared with `_same_plan_reference`) -- reusing execute's own per-worktree claim (`find_occupying_run`) to find the occupant, but never treating a merely-different one as this flow's own replacement. That match is what keeps an operator's unrelated `/kein:execute` run from ever being read by `guard`, or from ever standing in for a finished `execute` stage in `gap` or `close`: only a run that is actually this flow's own continuation does that, the same run `enter` would adopt directly were it not already occupying the worktree when `enter` first ran. It is also what keeps this reading correct through the window `_guard_action`'s abort-then-restart recovery opens: the replacement execute run holds the claim from the moment `execute start` returns, before `attach` repoints `stages.execute.run` at it, so for exactly that long the kept association still names the just-aborted run while a different, live, matching one actually occupies the worktree. A read failure, or no expected reference to compare against, reads as no matching occupant, the same as everywhere else here that treats an unreadable or absent file as no evidence rather than raising."""
+    root = Path(state["worktree"])
+    runs_dir = root / ".agents" / "kein" / "runs"
+    try:
+        occupant = _execute.find_occupying_run(runs_dir, root, exclude=exclude)
+    except Exception:
+        return None
+    if occupant is None:
+        return None
+    expected = _expected_execute_plan_reference(state)
+    if expected is None:
+        return None
+    try:
+        occupant_reference = _load(occupant).get("input", {}).get("reference")
+    except Exception:
+        return None
+    return occupant if _same_plan_reference(occupant_reference, expected, root) else None
+
+
 def enter(destination: Path, stage: str) -> bool:
     """Marks `stage` entered. Idempotent once entered; keeps a resume-kept association untouched.
     Otherwise either directly associates a uniquely resumed pre-existing run, or snapshots the stage's run root for a later reader to diff.
+    For `execute`, a uniquely resumed run is adopted only when its own `input.reference` names the same plan this flow is executing (`_expected_execute_plan_reference`, compared as a resolved path by `_same_plan_reference` rather than as the raw string each side happened to store); an occupant that does not match -- someone else's `/kein:execute` run left occupying the same worktree -- is refused by name and lifecycle, the same way `start` refuses an occupying fsd run, rather than silently claimed as this flow's own or silently stepped around (a snapshot would still hit the same run when `execute start` itself refuses the still-occupied worktree, but only later and less clearly than naming it here). The refusal is worded differently for the two ways a match can fail to be established: when the plan this flow executes cannot even be read yet -- `ralplan` has not completed, or its receipt is unreadable -- the refusal says so and names `attach` as the way past a false negative, for the case the occupant genuinely is this flow's own run; when both references are known and simply differ, the refusal names both and tells the lead to finish or abort the occupying run before rerunning `enter`, without suggesting `attach` -- a confirmed mismatch is not a spelling the comparison merely failed to resolve.
     Returns whether it wrote anything."""
     if stage not in ("interview", "ralplan", "execute"):
         raise ValueError("enter names interview, ralplan, or execute; use `closeout` for the closeout stage")
@@ -560,6 +615,29 @@ def enter(destination: Path, stage: str) -> bool:
         root = Path(candidate["worktree"])
         run_root = _stage_run_root(root, stage)
         resumed = _find_unique_nonterminal_stage_run(stage, run_root, root)
+        if resumed is not None and stage == "execute":
+            expected_reference = _expected_execute_plan_reference(candidate)
+            try:
+                occupant_payload = _load(resumed)
+            except (OSError, UnicodeError, json.JSONDecodeError, ValueError):
+                occupant_payload = {}
+            occupant_reference = occupant_payload.get("input", {}).get("reference")
+            occupant_lifecycle = occupant_payload.get("lifecycle", "?")
+            if expected_reference is None:
+                raise ValueError(
+                    "a nonterminal execute run already occupies the worktree at "
+                    f"{resumed} ({occupant_lifecycle}), but the plan this flow executes could not be "
+                    "established -- ralplan has not completed yet, or its receipt could not be read; wait "
+                    "for ralplan to complete, or if this occupant genuinely is the flow's own run, pin it "
+                    f"with `ocs state fsd attach {destination} execute {resumed}`"
+                )
+            if not _same_plan_reference(occupant_reference, expected_reference, root):
+                raise ValueError(
+                    "a nonterminal execute run already occupies the worktree at "
+                    f"{resumed} ({occupant_lifecycle}), but its own input.reference ({occupant_reference!r}) "
+                    f"does not match the plan this flow executes ({expected_reference!r}); finish or abort "
+                    f"{resumed} before rerunning enter"
+                )
         if resumed is not None:
             candidate_stage["run"] = str(resumed)
         else:
@@ -625,7 +703,8 @@ def _parked_question_unanswered(state: Dict[str, Any], task: Dict[str, Any]) -> 
 def gap(state: Dict[str, Any]) -> Dict[str, Any]:
     """`{gap, completed, next, action}`. Rows are evaluated in the table's own order and the first satisfied row wins.
     A nonterminal fsd lifecycle is checked before any stage row, so a paused, completed, halted, or aborted run always reports no gap regardless of what the underlying stage evidence would otherwise read -- this is what keeps the last row and the execute-derived row mutually exclusive once `close` has paused.
-    Every row past the first reads a file this script did not just write -- an associated run's state or ledger, or the requirements document it names -- so each row's read is wrapped, and any failure (missing, unreadable, malformed) is treated the same as "an unfinished or unreadable stage gives no row": that row does not fire, and evaluation continues to the next one, rather than the whole check raising."""
+    Every row past the first reads a file this script did not just write -- an associated run's state or ledger, or the requirements document it names -- so each row's read is wrapped, and any failure (missing, unreadable, malformed) is treated the same as "an unfinished or unreadable stage gives no row": that row does not fire, and evaluation continues to the next one, rather than the whole check raising.
+    The execute-derived closeout row also does not fire while a different nonterminal execute run occupies the worktree than the one `stages.execute.run` names (`_occupying_execute_run`): between `_guard_action`'s own `checkpoint ... aborted` and the `attach` that repoints the kept association at the replacement, the kept link still names the just-aborted run while the replacement already holds the claim, and reading the stale link as if execute's side of the flow had ended would open a false closeout window for exactly that long."""
     if state["lifecycle"] != "active":
         return {"gap": False, "completed": None, "next": None, "action": "no gap"}
     stages = state["stages"]
@@ -670,7 +749,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
                 continue
         try:
             execute_run = _resolve_association(state, "execute")
-            if execute_run is not None:
+            if execute_run is not None and _occupying_execute_run(state, execute_run) is None:
                 payload = _load(execute_run)
                 lifecycle = payload.get("lifecycle")
                 if lifecycle in {"completed", "aborted"}:
@@ -723,22 +802,29 @@ def _normalize_scope_entry(entry: str, worktree_root: Path) -> str:
 
 def _covers_agents_md(entry: str, worktree_root: Path) -> bool:
     """A root-covers-everything reading this keeps for itself rather than delegating: a scope entry that normalizes to the repository root has no path parts at all, and is treated as covering AGENTS.md unconditionally, before `_scopes_collide` is ever asked about it -- so this does not depend on how `_scopes_collide` happens to read an empty-parts entry on either side of it, only on what `_scope_parts` reports.
-    Everything with at least one path part defers to execute's own reading, over the entry normalized relative to the worktree root."""
+    Everything with at least one path part defers to execute's own reading, over the entry normalized relative to the worktree root, folded to lowercase before the comparison: `agents.md`, `Agents.MD`, and every other case variant name the same file AGENTS.md does on the case-insensitive filesystems this repository already has to account for elsewhere (macOS's own `/var` -> `/private/var` symlink, handled just above), so the comparison is case-insensitive unconditionally rather than only where the host filesystem happens to require it."""
     normalized = _normalize_scope_entry(entry, worktree_root)
     if not _execute._scope_parts(normalized):
         return True
-    return _execute._scopes_collide(normalized, "AGENTS.md")
+    return _execute._scopes_collide(normalized.lower(), "AGENTS.md".lower())
 
 
-GUARD_ACTION = (
-    "an existing task's scope cannot change and tasks cannot be removed, and parking the task does "
-    "not clear this: its scope is unchanged while parked, so guard keeps failing and close keeps "
-    "refusing. The fix is to abort the execute run (ocs state execute checkpoint <state.json> "
-    "<aborted-candidate.json>) and start a new one without the task (ocs state execute start "
-    "--run-root <runs/execute> --slug <s> --kind <plan|brief> ... --tasks <ledger without it>), then "
-    "ocs state fsd attach <state.json> execute <new-state.json> and rerun guard. If the run cannot be "
-    "restarted, close will keep refusing and the run ends halted"
-)
+def _guard_action(state: Dict[str, Any]) -> str:
+    """The recovery `guard` names when it finds a violation, naming the actual plan this flow is executing (`_expected_execute_plan_reference`) as the restart's `--input` rather than a `<plan|brief>` placeholder: this flow always executes a plan, and a `--kind brief` replacement stores `input.reference: null`, which `_same_plan_reference` can never call a match against that plan -- exactly the gap that would reopen the false-closeout and vacuous-guard windows `_occupying_execute_run` exists to close, between this abort and the `attach` the same recovery ends with. When the plan cannot be read (should not happen once `guard` has already read a real ledger, but guarded against regardless), a placeholder names what the lead must supply instead of a guess. `--worktree` is likewise the run's own actual worktree rather than a placeholder: `execute start` requires it, so the printed command would fail as given without it."""
+    plan_reference = _expected_execute_plan_reference(state)
+    plan_argument = plan_reference if plan_reference is not None else "<the plan this flow executes>"
+    return (
+        "an existing task's scope cannot change and tasks cannot be removed, and parking the task does "
+        "not clear this: its scope is unchanged while parked, so guard keeps failing and close keeps "
+        "refusing. The fix is to abort the execute run (ocs state execute checkpoint <state.json> "
+        "<aborted-candidate.json>) and start a new one without the task (ocs state execute start "
+        f"--run-root <runs/execute> --slug <s> --kind plan --input {plan_argument} --worktree "
+        f"{state['worktree']} --tasks <ledger without it>), then ocs state fsd attach <state.json> "
+        "execute <new-state.json> and rerun guard. If the run cannot be restarted, close will keep "
+        "refusing and the run ends halted"
+    )
+
+
 GUARD_NO_ASSOCIATION = (
     "execute is entered but its association is {detail}; guard cannot read a run it cannot find, so "
     "run `ocs state fsd attach <state.json> execute <path>` (or `enter`, if the ambiguity was a "
@@ -755,7 +841,8 @@ def _guard_failure_message(guard_result: Dict[str, Any]) -> str:
 
 def guard_check(state: Dict[str, Any]) -> Dict[str, Any]:
     """Clean when execute is not yet entered, or entered but has no run there yet (`none`) -- the ordinary transient window between `enter execute` and the skill's own `execute start`, where there is genuinely nothing to check.
-    Once execute is entered, an `ambiguous` association (more than one candidate, so no read is safe) or an associated run this cannot actually read is *not* silently clean: it is a check that could not run, and says so, pointing at `attach`, rather than letting the absence of evidence read as the absence of a problem."""
+    Once execute is entered, an `ambiguous` association (more than one candidate, so no read is safe) or an associated run this cannot actually read is *not* silently clean: it is a check that could not run, and says so, pointing at `attach`, rather than letting the absence of evidence read as the absence of a problem.
+    Before reading tasks, the kept association is checked against `_occupying_execute_run`: while `_guard_action`'s own abort-then-restart recovery is between its `checkpoint ... aborted` and its `attach`, the kept link still names the just-aborted run, but a different, live replacement already holds the worktree's claim -- `guard` reads that live run's own tasks instead, so a task the lead already restarted without is never the reason a still-stale link fails it."""
     stage_state = state["stages"]["execute"]
     if stage_state["status"] != "entered":
         return {"clean": True, "violations": []}
@@ -764,6 +851,9 @@ def guard_check(state: Dict[str, Any]) -> Dict[str, Any]:
         if detail == "ambiguous":
             return {"clean": False, "violations": [], "reason": GUARD_NO_ASSOCIATION.format(detail=detail)}
         return {"clean": True, "violations": []}
+    live_run = _occupying_execute_run(state, execute_run)
+    if live_run is not None:
+        execute_run = live_run
     try:
         payload = _load(execute_run)
     except Exception:
@@ -776,7 +866,7 @@ def guard_check(state: Dict[str, Any]) -> Dict[str, Any]:
                 violations.append({"task": task.get("id"), "scope_entry": entry})
     result: Dict[str, Any] = {"clean": not violations, "violations": violations}
     if violations:
-        result["action"] = GUARD_ACTION
+        result["action"] = _guard_action(state)
     return result
 
 
@@ -827,10 +917,12 @@ def _execute_stage_reachable(state: Dict[str, Any]) -> bool:
 
 def _execute_side_done(state: Dict[str, Any]) -> bool:
     """Whether `execute`'s side of the flow is done for `close`'s purposes: either its associated run is a completed receipt, or it never started at all because interview or ralplan aborted first, so the flow was never going to reach it.
-    An `execute` run that itself aborted, or one that is simply absent while nothing upstream aborted (execute has not been reached yet), is not done."""
+    An `execute` run that itself aborted, or one that is simply absent while nothing upstream aborted (execute has not been reached yet), is not done. Nor is it done while a different nonterminal execute run occupies the worktree than the one associated (`_occupying_execute_run`) -- the same abort-then-restart window `gap`'s execute-derived closeout row guards against, so `close` cannot read a stale kept link as a finished execute stage while its replacement is still live."""
     execute_run = _resolve_association(state, "execute")
     if execute_run is None:
         return not _execute_stage_reachable(state)
+    if _occupying_execute_run(state, execute_run) is not None:
+        return False
     try:
         payload = _load(execute_run)
     except Exception:
@@ -838,14 +930,41 @@ def _execute_side_done(state: Dict[str, Any]) -> bool:
     return payload.get("lifecycle") == "completed"
 
 
-def _execute_lifecycle_or_none(state: Dict[str, Any]) -> Optional[str]:
+def _close_execute_run(state: Dict[str, Any]) -> Optional[Path]:
+    """The execute run `close` and `halt` should actually read: the live, matching occupant `_occupying_execute_run` finds in place of a stale kept link -- the same substitution `guard` makes -- or the kept association itself when there is no such occupant. Preferring the live run here is what keeps the retrospective-location rule below applying correctly while a matching replacement is genuinely still nonterminal, even though the kept link it has not yet been `attach`ed over reads as an already-terminal receipt."""
     execute_run = _resolve_association(state, "execute")
+    if execute_run is None:
+        return None
+    live_run = _occupying_execute_run(state, execute_run)
+    return live_run if live_run is not None else execute_run
+
+
+def _execute_lifecycle_or_none(state: Dict[str, Any]) -> Optional[str]:
+    execute_run = _close_execute_run(state)
     if execute_run is None:
         return None
     try:
         return _load(execute_run).get("lifecycle")
     except Exception:
         return None
+
+
+def _execute_not_done_message(state: Dict[str, Any]) -> str:
+    """`close`'s and `halt`'s refusal text naming execute's current status. The status itself is read the way `_execute_lifecycle_or_none` reads it -- off the live, matching occupant in place of a stale kept link when `_occupying_execute_run` finds one -- and the message is extended with that run's own path and an `attach` pointer exactly when such a substitution happened, so the refusal also names what to do about it rather than only a lifecycle word that, on its own, would describe a run the flow has already moved past."""
+    kept_run = _resolve_association(state, "execute")
+    live_run = _occupying_execute_run(state, kept_run) if kept_run is not None else None
+    read_run = live_run if live_run is not None else kept_run
+    try:
+        status = (_load(read_run).get("lifecycle") if read_run is not None else None) or "not started"
+    except Exception:
+        status = "not started"
+    message = f"execute is {status}, not completed"
+    if live_run is not None:
+        message += (
+            f"; a matching execute run is live at {live_run}, but fsd's own association still names "
+            f"{kept_run} -- run `ocs state fsd attach <state.json> execute {live_run}` and retry"
+        )
+    return message
 
 
 def close(destination: Path, retro_path: Path, next_action: Optional[str]) -> None:
@@ -910,8 +1029,7 @@ def close(destination: Path, retro_path: Path, next_action: Optional[str]) -> No
                 durable.replace(retro_path)
             raise
     else:
-        blocking_status = _execute_lifecycle_or_none(state) or "not started"
-        raise ValueError(f"execute is {blocking_status}, not completed")
+        raise ValueError(_execute_not_done_message(state))
 
 
 def _structural_close_blocker(state: Dict[str, Any]) -> Optional[str]:
@@ -927,8 +1045,7 @@ def _structural_close_blocker(state: Dict[str, Any]) -> Optional[str]:
     unanswered = any(item.get("answer") is None for item in state["questions"])
     if _execute_side_done(state) or unanswered:
         return None
-    blocking_status = _execute_lifecycle_or_none(state) or "not started"
-    return f"execute is {blocking_status}, not completed"
+    return _execute_not_done_message(state)
 
 
 def halt(destination: Path, reason: str, next_action: Optional[str]) -> None:
