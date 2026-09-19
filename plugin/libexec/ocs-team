@@ -459,6 +459,8 @@ fi
 # `--worktree` names the terminal's tree, because Orca otherwise checks a reused terminal against the coordinator pane's worktree and refuses any other with `terminal_worktree_mismatch`.
 # Measured 2026-09-19: without it, every `--worktree <path>` and `--worktree new` lane stopped here, since both put the terminal outside the pane's tree; `$PWD` does not move the check, because the pane's identity comes from Orca and not from the shell.
 started=$(orca orchestration worker-start --task "$task_id" --terminal "$handle" --worktree "path:$worktree" --run "$run_id" --json 2>/dev/null || true)
+# Kept whole: its `state` and `turnStart` are Orca's own account of whether the brief was submitted, and the one lane that stalled with its brief unsent left nothing to read afterwards.
+printf '%s' "$started" > "$dir/worker-start.json"
 dispatch=$(printf '%s' "$started" | json_field dispatchId)
 if [ -z "$dispatch" ]; then
   # The refusal is in the JSON body, and it is the only line that names the cause. Dropping it made this read like a transient hiccup, and the retry it invited stranded a second terminal and task.
@@ -485,7 +487,15 @@ fi
 # most needs a record is the one that failed, and every failure path above this point exited before
 # reaching it -- so the flag that was supposed to make a lane recoverable produced nothing in exactly
 # the case it was for.
-printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\n' "$run_id" "$task_id" "$dispatch" "$handle" >> "$dir/command.txt"
+printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\nturn_start=%s\n' "$run_id" "$task_id" "$dispatch" "$handle" "$(printf '%s' "$started" | json_field turnStart)" >> "$dir/command.txt"
+
+# Orca pastes the brief into the worker's composer and presses Enter separately, and the Enter can be lost: a lane on 2026-09-19 sat 14 minutes with its brief unsent until the operator pressed it by hand. Orca's own receipt names this state ("holding the task unsent in its composer") but can also miss it.
+# `terminal read --screen` reports the composer's unsent text as `draft`, and nobody types into a worker's composer, so a draft still there one poll later is stuck input rather than input in flight. Enter alone submits it (measured the same day on a codex TUI holding a typed prompt).
+composer_draft() {
+  orca terminal read --terminal "$handle" --screen --json 2>/dev/null | python3 -c 'import json,sys
+try: print("yes" if (((json.load(sys.stdin).get("result") or {}).get("terminal") or {}).get("draft") or "").strip() else "")
+except Exception: print("")' 2>/dev/null
+}
 
 # Poll the dispatch rather than wait on the Run mailbox.
 # `worker-show` takes the dispatch id directly, so nothing here depends on which Run this terminal happens to be bound to.
@@ -493,6 +503,8 @@ elapsed=0
 status=''
 said_unsignalled=0
 report_seen=''
+draft_seen=0
+nudges=0
 while [ "$elapsed" -lt "$timeout" ]; do
   shown=$(orca orchestration worker-show --dispatch "$dispatch" --json 2>/dev/null)
   status=$(printf '%s' "$shown" | json_field dispatch.status)
@@ -509,6 +521,17 @@ while [ "$elapsed" -lt "$timeout" ]; do
     said_unsignalled=1
     printf 'ocs team: the report exists and the dispatch has not settled.\n' >&2
     printf '  the worker wrote %s without signalling completion; waiting cannot settle that.\n' "$report" >&2
+  fi
+  if [ -n "$(composer_draft)" ]; then
+    draft_seen=$((draft_seen + 1))
+    if [ "$draft_seen" -ge 2 ] && [ "$nudges" -lt 3 ]; then
+      nudges=$((nudges + 1))
+      draft_seen=0
+      orca terminal send --terminal "$handle" --enter --json >/dev/null 2>&1 || true
+      printf 'ocs team: the worker held unsent input in its composer after %ss; pressed Enter (%s of 3).\n' "$elapsed" "$nudges" | tee -a "$dir/command.txt" >&2
+    fi
+  else
+    draft_seen=0
   fi
   sleep 10
   elapsed=$((elapsed + 10))
