@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#: Prove the execute state machine derives what it can and still refuses a stale candidate.
+#: Prove the execute state machine derives what it can and still refuses a stale candidate; --list prints its sections and --only <name>[,<name>...] runs just those, with whatever earlier sections they depend on.
 #
 # `checkpoint` recomputes the revision counter and every worktree fingerprint in order to check the
 # candidate against them, so a candidate may write `"auto"` and let it fill them in. What must not
@@ -8,6 +8,11 @@
 #
 # Written because nothing else exercises this file. The one recorded execute run is a compacted
 # receipt, so no leftover candidate shows what a live loop actually costs.
+#
+# The sections below share one worktree and one checkpoint chain up through `disjoint-scope-acceptance`, so a
+# later section in that chain declares the earlier ones as dependencies in the `SECTIONS` list near the end of
+# this file; the seal-bypass, collision-bypass, root-scope, legacy-root-scope, and isolated-completion sections
+# each build their own throwaway repository and declare no dependency at all.
 import hashlib
 import importlib.util
 import json
@@ -74,9 +79,115 @@ def _load_json(path):
 
 def write(path, payload):
     path.write_text(json.dumps(payload, indent=2))
+# ---------------------------------------------------------------------------
+# Shared fixtures and pure helpers -- hoisted here, rather than left where the section that first
+# needed them once defined them inline, because several sections below need them and the sections
+# now run as separate functions with no shared enclosing scope. `STAMP`, `finding`, `verdict`, and
+# `_carried_findings` were section 3's own locals; `by_id`, `set_status`, `both`, `split_verdict`,
+# `split_verification`, and `set_round` were section 6's. Every one of them is a pure function of
+# its arguments (or of `STAMP`), so hoisting them changes nothing about what any section asserts.
+
+STAMP = "2026-01-01T00:00:00+09:00"
+
+_INITIAL_VERIFICATION = {"command": "run the check", "exit_code": 0, "observed_at": STAMP, "round": 1, "worktree_fingerprint": "auto"}
 
 
-with tempfile.TemporaryDirectory() as tmp:
+def finding(role, severity, blocks, **extra):
+    return {"reviewer_role": role, "claim": "c", "evidence": "e", "impact": "i", "required_correction": "r",
+            "severity": severity, "confidence": "high", "blocks": blocks, **extra}
+
+
+def verdict(role, word):
+    return {"reviewer_role": role, "verdict": word, "task_id": "task-001", "round": 1, "worktree_fingerprint": "auto",
+            "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+
+def _carried_findings():
+    return [finding("code-reviewer", "minor", None),
+            finding("code-reviewer", "important", None, carried_because="a wording defect in a docblock the next task rewrites"),
+            finding("code-reviewer", "critical", None, carried_because="outside this task's scope; task-002 appended for it")]
+
+
+def by_id(state, task_id):
+    return next(t for t in state["tasks"] if t["id"] == task_id)
+
+
+def set_status(task_id, status, **fields):
+    def mutate(state):
+        state["phase"] = "task"
+        by_id(state, task_id).update({"status": status, "round": 1, **fields})
+    return mutate
+
+
+def both(*mutations):
+    def mutate(state):
+        for m in mutations:
+            m(state)
+    return mutate
+
+
+def split_verdict(task_id, word="PASS", round_number=1):
+    return {"reviewer_role": "code-reviewer", "verdict": word, "task_id": task_id, "round": round_number, "worktree_fingerprint": "auto",
+            "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+
+def split_verification(task_id, round_number=1):
+    return {"command": f"check {task_id}", "exit_code": 0, "observed_at": STAMP, "round": round_number, "worktree_fingerprint": "auto"}
+
+
+def set_round(task_id, status, round_number, **fields):
+    def mutate(state):
+        state["phase"] = "task"
+        by_id(state, task_id).update({"status": status, "round": round_number, **fields})
+    return mutate
+
+
+def _work_paths(tmp):
+    """The first run's fixed derived paths, rebuilt from the shared temp root -- deterministic, so
+    any section after `derive-and-reconcile` recomputes the same `work`/`destination`/`candidate`
+    it built rather than needing them threaded in as extra state."""
+    work = (Path(tmp) / "repo").resolve()
+    runs = work / ".agents" / "kein" / "runs" / "execute" / "260101-000000-check"
+    return work, runs / "state.json", runs / "candidate.json"
+
+
+def _split_state_path(tmp):
+    work, _, _ = _work_paths(tmp)
+    return work / ".agents" / "kein" / "runs" / "execute" / "260101-000001-split" / "state.json"
+
+
+def _checkpoint_helpers(work, state_path, candidate_path):
+    """Build the `current`/`attempt`/`must`/`refuse` quartet bound to one state file and one
+    scratch candidate file -- the same shape section 3 first built for the initial run's own
+    `destination`, and section 6 for the split run's `split_state`, kept identical so a mutation to
+    one path's driving logic is not a divergent copy of a mutation to the other's."""
+    def current():
+        return json.loads(state_path.read_text())
+
+    def attempt(mutate):
+        state = current()
+        state["revision"] = "auto"
+        state["worktree"]["observed"] = "auto"
+        mutate(state)
+        write(candidate_path, state)
+        return run(work, "checkpoint", str(state_path), str(candidate_path))
+
+    def must(label, mutate):
+        result = attempt(mutate)
+        if result.returncode != 0:
+            failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
+
+    def refuse(label, mutate, reason=None):
+        result = attempt(mutate)
+        if result.returncode == 0:
+            failures.append(f"{label} was accepted and must not be")
+        elif reason and reason not in result.stderr:
+            failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
+
+    return current, attempt, must, refuse
+
+
+def _section_derive_and_reconcile(tmp):
     # Resolved, because `canonical_worktree` resolves both paths and macOS puts the temp directory
     # behind a symlink; an unresolved root here fails as "does not match the canonical worktree".
     work = Path(tmp) / "repo"
@@ -137,6 +248,10 @@ with tempfile.TemporaryDirectory() as tmp:
         failures.append("an untracked file outside the ledger did not register as drift")
     (work / "stray.txt").unlink()
 
+
+def _section_revision_guard(tmp):
+    work, destination, candidate = _work_paths(tmp)
+
     # 2 - the next one derives revision 1 without being told.
     second = state_for(work, "auto", next_action="dispatch task-002")
     second["worktree"]["baseline"] = json.loads(destination.read_text())["worktree"]["baseline"]
@@ -176,46 +291,19 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode == 0:
         failures.append("a stale observed fingerprint was accepted and must not be")
 
+
+def _section_review_and_amend_gate(tmp):
+    work, destination, candidate = _work_paths(tmp)
     # 6 - what a review may say, and what acceptance may stand over.
     #
     #     `severity` is the role's calibration and was never read; `blocks` is the workflow's question and cites the task's own completion condition. A `REVISE` accepts and carries its findings; a `BLOCK` does not accept; the verdict word has to agree with the role's own findings; and a carried `critical` owes a reason for not becoming a task.
-    STAMP = "2026-01-01T00:00:00+09:00"
 
-    def current():
-        return json.loads(destination.read_text())
-
-    def attempt(mutate):
-        state = current()
-        state["revision"] = "auto"
-        state["worktree"]["observed"] = "auto"
-        mutate(state)
-        write(candidate, state)
-        return run(work, "checkpoint", str(destination), str(candidate))
-
-    def must(label, mutate):
-        result = attempt(mutate)
-        if result.returncode != 0:
-            failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
-
-    def refuse(label, mutate, reason=None):
-        result = attempt(mutate)
-        if result.returncode == 0:
-            failures.append(f"{label} was accepted and must not be")
-        elif reason and reason not in result.stderr:
-            failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
+    current, attempt, must, refuse = _checkpoint_helpers(work, destination, candidate)
 
     def task(state):
         return state["tasks"][0]
 
-    def finding(role, severity, blocks, **extra):
-        return {"reviewer_role": role, "claim": "c", "evidence": "e", "impact": "i", "required_correction": "r",
-                "severity": severity, "confidence": "high", "blocks": blocks, **extra}
-
-    def verdict(role, word):
-        return {"reviewer_role": role, "verdict": word, "task_id": "task-001", "round": 1, "worktree_fingerprint": "auto",
-                "reviewed_at": STAMP, "fresh": True, "independent": True}
-
-    verification = {"command": "run the check", "exit_code": 0, "observed_at": STAMP, "round": 1, "worktree_fingerprint": "auto"}
+    verification = _INITIAL_VERIFICATION
 
     def to_status(status, **fields):
         def mutate(state):
@@ -257,9 +345,7 @@ with tempfile.TemporaryDirectory() as tmp:
         unresolved_findings=[finding("code-reviewer", "important", None)],
         acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}),
         reason="carried_because")
-    carried = [finding("code-reviewer", "minor", None),
-               finding("code-reviewer", "important", None, carried_because="a wording defect in a docblock the next task rewrites"),
-               finding("code-reviewer", "critical", None, carried_because="outside this task's scope; task-002 appended for it")]
+    carried = _carried_findings()
     must("acceptance carrying a REVISE lane's findings", to_status("accepted",
         unresolved_findings=carried,
         acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "REVISE")]}))
@@ -339,6 +425,12 @@ with tempfile.TemporaryDirectory() as tmp:
         state["input"]["sha256"] = hashlib.sha256(moved.encode()).hexdigest()
     refuse("an input change with no amendment recorded", silently, reason="amend --reason")
 
+
+def _section_final_audit_receipt(tmp):
+    work, destination, candidate = _work_paths(tmp)
+    current, attempt, must, refuse = _checkpoint_helpers(work, destination, candidate)
+    carried = _carried_findings()
+    verification = _INITIAL_VERIFICATION
     # 7 - the receipt carries what the run carried, so the reader who inherits the tree inherits the findings.
     def to_final_audit(state):
         # The whole-change audit binds to the run's own round, not the task's.
@@ -368,6 +460,10 @@ with tempfile.TemporaryDirectory() as tmp:
     result = run(work, "checkpoint", str(destination), str(candidate))
     if result.returncode != 0:
         failures.append(f"the receipt carrying the findings was refused: {result.stderr.strip()}")
+
+
+def _section_split_check_report(tmp):
+    work, _, candidate = _work_paths(tmp)
 
     # 7 - split-check answers whether pending tasks can be dispatched now, together, on the scopes the
     #     ledger wrote: a directory covers what is under it, a task under way counts, an earlier pending
@@ -404,59 +500,14 @@ with tempfile.TemporaryDirectory() as tmp:
         if result.returncode == 0:
             failures.append("an unknown task id was accepted")
 
+
+def _section_disjoint_scope_acceptance(tmp):
+    work, _, candidate = _work_paths(tmp)
+    split_state = _split_state_path(tmp)
     # 8 - two tasks whose scopes do not meet are written at once, each bound to its own scope's fingerprint;
     #     a task whose scope meets one under way, or an earlier pending one, is refused; and a write inside a
     #     reviewed scope after its review still unseats the acceptance while a write elsewhere does not.
-    def split_current():
-        return json.loads(split_state.read_text())
-
-    def split_attempt(mutate):
-        state = split_current()
-        state["revision"] = "auto"
-        state["worktree"]["observed"] = "auto"
-        mutate(state)
-        write(candidate, state)
-        return run(work, "checkpoint", str(split_state), str(candidate))
-
-    def split_must(label, mutate):
-        result = split_attempt(mutate)
-        if result.returncode != 0:
-            failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
-
-    def split_refuse(label, mutate, reason=None):
-        result = split_attempt(mutate)
-        if result.returncode == 0:
-            failures.append(f"{label} was accepted and must not be")
-        elif reason and reason not in result.stderr:
-            failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
-
-    def by_id(state, task_id):
-        return next(t for t in state["tasks"] if t["id"] == task_id)
-
-    def set_status(task_id, status, **fields):
-        def mutate(state):
-            state["phase"] = "task"
-            by_id(state, task_id).update({"status": status, "round": 1, **fields})
-        return mutate
-
-    def both(*mutations):
-        def mutate(state):
-            for m in mutations:
-                m(state)
-        return mutate
-
-    def split_verdict(task_id, word="PASS", round_number=1):
-        return {"reviewer_role": "code-reviewer", "verdict": word, "task_id": task_id, "round": round_number, "worktree_fingerprint": "auto",
-                "reviewed_at": STAMP, "fresh": True, "independent": True}
-
-    def split_verification(task_id, round_number=1):
-        return {"command": f"check {task_id}", "exit_code": 0, "observed_at": STAMP, "round": round_number, "worktree_fingerprint": "auto"}
-
-    def set_round(task_id, status, round_number, **fields):
-        def mutate(state):
-            state["phase"] = "task"
-            by_id(state, task_id).update({"status": status, "round": round_number, **fields})
-        return mutate
+    split_current, split_attempt, split_must, split_refuse = _checkpoint_helpers(work, split_state, candidate)
 
     split_must("dispatching task-001", set_status("task-001", "implementing"))
     split_refuse("dispatching task-003 over task-002's pending directory scope", set_status("task-003", "implementing"), reason="scopes meet")
@@ -507,6 +558,8 @@ with tempfile.TemporaryDirectory() as tmp:
         failures.append(f"(l) a pre-U1 state with neither new field failed to validate: {result.stderr.strip()}")
     write(split_state, original_before_l)
 
+
+def _section_initial_checkpoint_seal_bypass(tmp):
     # Correction round 5, item 1 - the initial checkpoint (revision 0, no predecessor) bypassed every seal and restored-scope check: `validate_transition` returned early before the per-task loop, and `validate_external_state` skipped every task since there was no prior task to read. A dedicated, untouched repo, since this needs a genuinely first checkpoint.
     bypass_repo = Path(tmp) / "bypass"
     bypass_repo.mkdir()
@@ -572,6 +625,8 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"a genuine pending-only initial checkpoint was refused: {result.stderr.strip()}")
 
+
+def _section_initial_checkpoint_collision_bypass(tmp):
     # Repro 3 (final-audit correction, round 2, item 5) - the `initial_active_ids` collision check the initial checkpoint's own no-predecessor branch of `validate_transition` runs (added alongside `checkpoint`'s equivalent check for a later transition) is otherwise untested: a revision-0 candidate declaring two tasks already `implementing`, with colliding scopes, has no predecessor for the ordinary newly-active check to compare against, so it needs its own check on the initial checkpoint. A dedicated, untouched repo, the same way the first two bypass repros needed one -- `bypass_repo` already carries a nonterminal run from the "Sanity" checkpoint above, and a second nonterminal run in the same worktree would be refused as occupied before ever reaching the collision check this repro means to isolate.
     bypass_collision_repo = Path(tmp) / "bypass-collision"
     bypass_collision_repo.mkdir()
@@ -612,6 +667,12 @@ with tempfile.TemporaryDirectory() as tmp:
         failures.append("an initial checkpoint declaring two implementing tasks with colliding scopes was accepted and must not be")
     elif "scopes meet" not in result.stderr:
         failures.append(f"an initial checkpoint with two colliding implementing tasks was refused for the wrong reason: {result.stderr.strip()}")
+
+
+def _section_park_lifecycle(tmp):
+    work, _, candidate = _work_paths(tmp)
+    split_state = _split_state_path(tmp)
+    split_current, split_attempt, split_must, split_refuse = _checkpoint_helpers(work, split_state, candidate)
 
     # 9 - individual task parking (U1): `pending | implementing | correcting -> parked`, the restored-scope rule read on the scope's actual content rather than a diff against HEAD, `dispatch_scope_fingerprint` sealed by `dispatch` before any executor starts and verified rather than trusted, the collision rule a parked task carries the same as a pending one, and the finalization refusal while one is parked.
     park_tasks = {
@@ -1062,6 +1123,8 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"parking task-028 once the tracked file was restored to its dispatch content was refused: {result.stderr.strip()}")
 
+
+def _section_root_scope_collision(tmp):
     # Correction round 4, item 2 - a scope entry with no path parts (`.`, `./`) must meet every other scope, not just cover the whole tree for its own digest: `_scopes_collide` used to answer False for an empty side regardless of the other path, so a root-scoped task could dispatch alongside a write-active sibling (sealing the sibling's partial files as its own dispatch content) and never held a later task back, or waited behind an earlier one. A dedicated, isolated repo keeps this fixture's three tasks' statuses exactly controlled -- the shared fixture above has too many lingering write-active and parked tasks by this point to show a clean before/after collision.
     root_repo = Path(tmp) / "root-scope"
     root_repo.mkdir()
@@ -1209,6 +1272,8 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"dispatching root-late once both earlier tasks were accepted was refused: {result.stderr.strip()}")
 
+
+def _section_legacy_root_scope_collision(tmp):
     # Final-audit correction, item 6 - `_scopes_collide`'s root-scope reading (a `.`-scoped entry now meets every other entry, including another one shaped the same way) made a pre-existing state with two already-write-active tasks, one of them root-scoped, fail `validate_state` -- and since `validate_transition` re-validates the predecessor on every checkpoint, that failure stranded such a run: not even `abort` could ever checkpoint it again. A state in that exact shape cannot be produced by any live transition any more (dispatching a second `.`-scoped task alongside a write-active one is refused, proven just above), so this one is written directly, bypassing `checkpoint`, the same way the file's other pre-U1 and legacy-seal fixtures are.
     legacy_root_repo = Path(tmp) / "legacy-root-scope"
     legacy_root_repo.mkdir()
@@ -1261,6 +1326,12 @@ with tempfile.TemporaryDirectory() as tmp:
     result = run(legacy_root_repo, "checkpoint", str(legacy_state), str(legacy_cand))
     if result.returncode != 0:
         failures.append(f"a legacy pre-U1 state with a root-scope collision could not be checkpointed to aborted: {result.stderr.strip()}")
+
+
+def _section_park_lifecycle_continued(tmp):
+    work, _, candidate = _work_paths(tmp)
+    split_state = _split_state_path(tmp)
+    split_current, split_attempt, split_must, split_refuse = _checkpoint_helpers(work, split_state, candidate)
 
     # Correction round 2, item 1, failure A - the seal is content, not a diff, so a commit that sweeps a task's own draft into HEAD without reverting it must still refuse parking: the bytes are still there, committed or not. Only once the draft is genuinely undone does parking succeed.
     result = run(work, "dispatch", str(split_state), "task-018")
@@ -1337,6 +1408,8 @@ with tempfile.TemporaryDirectory() as tmp:
     if result.returncode != 0:
         failures.append(f"parking task-025, untouched, after task-024's overlapping work was committed, was refused: {result.stderr.strip()}")
 
+
+def _section_isolated_completion(tmp):
     # Correction round 2, item 5 - an isolated fixture where every task but the parked one is a genuine, fully valid acceptance, so completion's refusal can only be coming from the parked task. The shared fixture above carries many tasks that are non-accepted for reasons that have nothing to do with parking, and would pass this assertion even if a parked task were wrongly treated as complete.
     iso_root = Path(tmp) / "isolated"
     iso_root.mkdir()
@@ -1449,10 +1522,94 @@ with tempfile.TemporaryDirectory() as tmp:
             for unrelated in ("final_audit phase", "final verification", "final audit PASS"):
                 if unrelated in result.stderr:
                     failures.append(f"completion refusal cited an unrelated invariant ({unrelated!r}) that this fixture supplied directly; the case does not isolate the parked-task refusal: {result.stderr.strip()}")
+# ---------------------------------------------------------------------------
+# Section registry and CLI driver -- `--list` prints the section names below in the order they
+# run; `--only <name>[,<name>...]` runs just those sections together with whatever earlier ones
+# the declared dependency map names (a shared fixture an earlier section built -- the first run's
+# own checkpoint chain, or the split run's -- is rebuilt exactly as it would be on a full run);
+# neither flag runs every section in order exactly as running this file always has.
+
+SECTIONS = [
+    ("derive-and-reconcile", (), _section_derive_and_reconcile),
+    ("revision-guard", ("derive-and-reconcile",), _section_revision_guard),
+    ("review-and-amend-gate", ("revision-guard",), _section_review_and_amend_gate),
+    ("final-audit-receipt", ("review-and-amend-gate",), _section_final_audit_receipt),
+    ("split-check-report", ("final-audit-receipt",), _section_split_check_report),
+    ("disjoint-scope-acceptance", ("split-check-report",), _section_disjoint_scope_acceptance),
+    ("initial-checkpoint-seal-bypass", (), _section_initial_checkpoint_seal_bypass),
+    ("initial-checkpoint-collision-bypass", (), _section_initial_checkpoint_collision_bypass),
+    ("park-lifecycle", ("disjoint-scope-acceptance",), _section_park_lifecycle),
+    ("root-scope-collision", (), _section_root_scope_collision),
+    ("legacy-root-scope-collision", (), _section_legacy_root_scope_collision),
+    ("park-lifecycle-continued", ("park-lifecycle",), _section_park_lifecycle_continued),
+    ("isolated-completion", (), _section_isolated_completion),
+]
+SECTION_NAMES = [name for name, _, _ in SECTIONS]
+SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
+SECTION_FUNCS = {name: func for name, _, func in SECTIONS}
+SCRIPT_NAME = "check-execute-state"
 
 
-if failures:
-    for failure in failures:
-        print(f"check-execute-state: {failure}", file=sys.stderr)
-    raise SystemExit(1)
-print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint, and a task parks only once its dispatch seal -- taken before any executor starts and read on content rather than HEAD -- shows its scope restored")
+def _section_closure(requested):
+    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering
+    # `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run
+    # order on its own, with no separate topological sort needed.
+    needed = set()
+    stack = list(requested)
+    while stack:
+        name = stack.pop()
+        if name in needed:
+            continue
+        needed.add(name)
+        stack.extend(SECTION_DEPS[name])
+    return [name for name in SECTION_NAMES if name in needed]
+
+
+def _parse_argv(argv):
+    if not argv:
+        return None, None
+    if argv == ["--list"]:
+        return "list", None
+    if len(argv) == 2 and argv[0] == "--only":
+        return "only", [n.strip() for n in argv[1].split(",") if n.strip()]
+    print(f"{SCRIPT_NAME}: usage: {SCRIPT_NAME} [--list | --only <name>[,<name>...]]", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def main():
+    mode, names = _parse_argv(sys.argv[1:])
+
+    if mode == "list":
+        for name in SECTION_NAMES:
+            print(name)
+        return
+
+    if mode == "only":
+        unknown = [n for n in names if n not in SECTION_DEPS]
+        if not names or unknown:
+            if unknown:
+                print(f"{SCRIPT_NAME}: unknown section(s): {', '.join(unknown)}", file=sys.stderr)
+            else:
+                print(f"{SCRIPT_NAME}: --only needs at least one section name", file=sys.stderr)
+            print(f"{SCRIPT_NAME}: valid sections: {', '.join(SECTION_NAMES)}", file=sys.stderr)
+            raise SystemExit(1)
+        run_order = _section_closure(names)
+    else:
+        run_order = list(SECTION_NAMES)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        for name in run_order:
+            SECTION_FUNCS[name](tmp)
+
+    if failures:
+        for failure in failures:
+            print(f"{SCRIPT_NAME}: {failure}", file=sys.stderr)
+        raise SystemExit(1)
+    if mode == "only":
+        print(f"{SCRIPT_NAME}: ran {', '.join(run_order)}")
+    else:
+        print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint, and a task parks only once its dispatch seal -- taken before any executor starts and read on content rather than HEAD -- shows its scope restored")
+
+
+if __name__ == "__main__":
+    main()

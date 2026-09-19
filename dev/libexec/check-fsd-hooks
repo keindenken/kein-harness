@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-#: Feed fsd's stage-transition hook synthetic Stop/PreToolUse/PostToolUse JSON against fixture states built with the real `ocs state fsd` and `ocs state execute` commands, and fail if any case U4's Acceptance lists stops holding.
+#: Feed fsd's stage-transition hook synthetic Stop/PreToolUse/PostToolUse JSON against fixture states built with the real `ocs state fsd` and `ocs state execute` commands, and fail if any case U4's Acceptance lists stops holding; --list prints its cases and --only <name>[,<name>...] runs just those.
 #
-# `hook.py` reads a live `fsd` `state.json` and calls `fsd`'s own `gap()`; nothing here re-derives what counts as a gap (`check-fsd-state` already owns that). This check drives real fixtures the way a live run would produce them -- `fsd start`/`enter`, `execute`'s CLI, `ralplan`'s CLI, and a couple of hand-authored ledgers for shapes neither CLI builds -- then pipes synthetic hook stdin into `hook.py` as a subprocess (never by importing it: a hook only ever runs as a subprocess, and its own top-level exception guard is part of what this check has to prove). `CLAUDE_PROJECT_DIR` and `CLAUDE_CONFIG_DIR` are pinned into each subprocess's environment so the check never reads or writes this machine's real `~/.claude`, and every fixture is disposed of with its own `tempfile.TemporaryDirectory()` -- every scratch path this file creates, including `run_hook`'s default config directory and `execute_start`/`execute_checkpoint`'s candidate files, is minted under that same enclosing directory rather than the system temp root, so nothing here leaks. Nothing here weakens a case to make it pass; a failure here means `hook.py` is wrong, not the fixture.
+# `hook.py` reads a live `fsd` `state.json` and calls `fsd`'s own `gap()`; nothing here re-derives what counts as a gap (`check-fsd-state` already owns that). This check drives real fixtures the way a live run would produce them -- `fsd start`/`enter`, `execute`'s CLI, `ralplan`'s CLI, and a couple of hand-authored ledgers for shapes neither CLI builds -- then pipes synthetic hook stdin into `hook.py` as a subprocess (never by importing it: a hook only ever runs as a subprocess, and its own top-level exception guard is part of what this check has to prove). `CLAUDE_PROJECT_DIR` and `CLAUDE_CONFIG_DIR` are pinned into each subprocess's environment so the check never reads or writes this machine's real `~/.claude`, and every fixture is disposed of with its own `tempfile.TemporaryDirectory()` -- every scratch path this file creates, including `run_hook`'s default config directory and `execute_start`/`execute_checkpoint`'s candidate files, is minted under that same enclosing directory rather than the system temp root, so nothing here leaks. Nothing here weakens a case to make it pass; a failure here means `hook.py` is wrong, not the fixture. Every case below is an independent, self-contained function -- its own fixture, its own worktree -- registered in the `SECTIONS` list near the end of this file, so `--only` never needs a dependency to name.
 import json
 import os
 import subprocess
@@ -316,417 +316,526 @@ def assert_postskill_silent(label, work, skill, config_dir=None):
 # ---------------------------------------------------------------------------
 # Case: entry stage still pending (gap row 1) blocks Stop and denies pre-write Write, naming the same gap action in both reasons; every other tool is allowed on the same gap; entering the stage clears the gap and both hooks allow.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "row1", "an idea")
-    row1_action = "invoke /kein:interview"
+def _section_entry_stage_pending():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "row1", "an idea")
+        row1_action = "invoke /kein:interview"
 
-    assert_stop_blocks("row1 entry stage still pending", work, row1_action)
-    assert_pretool_denies("row1 pre-write denies Write on the same gap", work, row1_action, "Write")
-    assert_pretool_denies("row1 pre-write denies Edit on the same gap", work, row1_action, "Edit")
-    assert_pretool_denies("row1 pre-write denies MultiEdit on the same gap", work, row1_action, "MultiEdit")
-    assert_pretool_denies("row1 pre-write denies NotebookEdit on the same gap", work, row1_action, "NotebookEdit")
-    for other_tool in ("Bash", "Read", "Skill", "Agent"):
-        assert_pretool_allows(f"row1 pre-write allows {other_tool} on the same gap", work, other_tool)
+        assert_stop_blocks("row1 entry stage still pending", work, row1_action)
+        assert_pretool_denies("row1 pre-write denies Write on the same gap", work, row1_action, "Write")
+        assert_pretool_denies("row1 pre-write denies Edit on the same gap", work, row1_action, "Edit")
+        assert_pretool_denies("row1 pre-write denies MultiEdit on the same gap", work, row1_action, "MultiEdit")
+        assert_pretool_denies("row1 pre-write denies NotebookEdit on the same gap", work, row1_action, "NotebookEdit")
+        for other_tool in ("Bash", "Read", "Skill", "Agent"):
+            assert_pretool_allows(f"row1 pre-write allows {other_tool} on the same gap", work, other_tool)
 
-    must("entering interview for row1", fsd(work, "enter", str(state_path), "interview"))
-    assert_stop_allows("row1 interview entered, running stage, no gap evidence", work)
-    assert_pretool_allows("row1 pre-write allows Write once the stage is running", work, "Write")
+        must("entering interview for row1", fsd(work, "enter", str(state_path), "interview"))
+        assert_stop_allows("row1 interview entered, running stage, no gap evidence", work)
+        assert_pretool_allows("row1 pre-write allows Write once the stage is running", work, "Write")
 
 # ---------------------------------------------------------------------------
 # Case: interview completed with an Approved requirements document (gap row 2) blocks Stop naming ralplan.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "row2", "an idea")
-    must("entering interview for row2", fsd(work, "enter", str(state_path), "interview"))
+def _section_interview_completed_approved():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "row2", "an idea")
+        must("entering interview for row2", fsd(work, "enter", str(state_path), "interview"))
 
-    interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row2"
-    interview_dir.mkdir(parents=True)
-    ledger = interview_dir / "ledger.md"
-    requirements_path = work / ".agents" / "kein" / "requirements" / "row2.md"
-    requirements_path.parent.mkdir(parents=True)
-    write_requirements(requirements_path, "Approved")
-    write_completed_ledger(ledger, requirements_path)
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row2"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "row2.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Approved")
+        write_completed_ledger(ledger, requirements_path)
 
-    assert_stop_blocks("row2 interview completed, requirements Approved", work, "invoke /kein:ralplan")
+        assert_stop_blocks("row2 interview completed, requirements Approved", work, "invoke /kein:ralplan")
 
 # ---------------------------------------------------------------------------
 # Case: a completed ralplan run (gap row 3) blocks Stop naming execute.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "row3", "an idea")
-    # entry is `interview` for an idea input, so its own row (gap row 1) is checked before ralplan's.
-    # Entering it, with no ledger evidence at all, clears that row without satisfying row 2's interview-completed condition, which only fires while `stages.ralplan.status` is still pending.
-    must("entering interview for row3", fsd(work, "enter", str(state_path), "interview"))
-    must("entering ralplan for row3", fsd(work, "enter", str(state_path), "ralplan"))
+def _section_ralplan_completed():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "row3", "an idea")
+        # entry is `interview` for an idea input, so its own row (gap row 1) is checked before ralplan's.
+        # Entering it, with no ledger evidence at all, clears that row without satisfying row 2's interview-completed condition, which only fires while `stages.ralplan.status` is still pending.
+        must("entering interview for row3", fsd(work, "enter", str(state_path), "interview"))
+        must("entering ralplan for row3", fsd(work, "enter", str(state_path), "ralplan"))
 
-    plan_path = work / ".agents" / "kein" / "plans" / "row3.md"
-    plan_path.parent.mkdir(parents=True)
-    write_plan(plan_path, "Draft", "first cut", "v0")
-    ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-row3" / "state.json"
-    must("starting the ralplan run for row3", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
-         "--summary", "check", "--lanes", "architect@claude,critic@claude"))
-    must("opening ralplan round 1 for row3", ralplan(work, "open", str(ralplan_dest)))
-    write_plan(plan_path, "Approved", "good", "v0")
-    must("approving ralplan round 1 for row3", ralplan(work, "approve", str(ralplan_dest)))
-    must("completing ralplan for row3", ralplan(work, "complete", str(ralplan_dest)))
+        plan_path = work / ".agents" / "kein" / "plans" / "row3.md"
+        plan_path.parent.mkdir(parents=True)
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-row3" / "state.json"
+        must("starting the ralplan run for row3", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
+             "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("opening ralplan round 1 for row3", ralplan(work, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for row3", ralplan(work, "approve", str(ralplan_dest)))
+        must("completing ralplan for row3", ralplan(work, "complete", str(ralplan_dest)))
 
-    assert_stop_blocks("row3 ralplan completed", work, "invoke /kein:execute")
+        assert_stop_blocks("row3 ralplan completed", work, "invoke /kein:execute")
 
 # ---------------------------------------------------------------------------
 # Case: an aborted interview ledger (gap row 4) blocks Stop naming closeout, with the resolved state.json path substituted for the `<state>` placeholder `fsd`'s own `gap()` writes.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "row4", "an idea")
-    must("entering interview for row4", fsd(work, "enter", str(state_path), "interview"))
+def _section_interview_aborted():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "row4", "an idea")
+        must("entering interview for row4", fsd(work, "enter", str(state_path), "interview"))
 
-    interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row4"
-    interview_dir.mkdir(parents=True)
-    write_aborted_ledger(interview_dir / "ledger.md")
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-row4"
+        interview_dir.mkdir(parents=True)
+        write_aborted_ledger(interview_dir / "ledger.md")
 
-    assert_stop_blocks("row4 interview aborted", work, f"run ocs state fsd closeout {state_path}")
+        assert_stop_blocks("row4 interview aborted", work, f"run ocs state fsd closeout {state_path}")
 
 # ---------------------------------------------------------------------------
 # Case: execute blocked with a parked, unanswered task (gap row 5) blocks Stop naming closeout, with the same `<state>` substitution. Then closeout, pause, answer, resume, and a post-skill `kein:execute` call: the execute run is still blocked, since its lead has not yet written the checkpoint that leaves it, so this is a running stage and not a finished one -- Stop and pre-write Write both allow.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    approved_plan = work / "plan-row5.md"
-    write_plan(approved_plan, "Approved")
-    state_path = fsd_start(work, run_root, "row5", str(approved_plan))
-    must("entering execute for row5", fsd(work, "enter", str(state_path), "execute"))
+def _section_execute_blocked_parked():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-row5.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "row5", str(approved_plan))
+        must("entering execute for row5", fsd(work, "enter", str(state_path), "execute"))
 
-    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-    execute_state = execute_start(work, execute_run_root, "row5", [execute_task("task-001", ["README.md"])])
-    must("dispatching task-001 for row5", execute(work, "dispatch", str(execute_state), "task-001"))
-    q = must("recording the irreversible question for row5",
-             fsd(work, "question", str(state_path), "--stage", "execute", "--question", "which persisted format?",
-                 "--options", "json,csv", "--recommended", "json",
-                 "--why-irreversible", "list item 1: a persisted format read outside the repo", "--parks", "task-001"))
-    question_id = q.stdout.strip()
-    must("parking task-001 for row5", execute(work, "park", str(execute_state), "task-001", "--question", "which format?", "--ref", question_id))
-    must("checkpointing execute to blocked for row5", execute_checkpoint(work, execute_state, lambda s: s.update(
-        {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {question_id}: task-001 parked"})))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "row5", [execute_task("task-001", ["README.md"])])
+        must("dispatching task-001 for row5", execute(work, "dispatch", str(execute_state), "task-001"))
+        q = must("recording the irreversible question for row5",
+                 fsd(work, "question", str(state_path), "--stage", "execute", "--question", "which persisted format?",
+                     "--options", "json,csv", "--recommended", "json",
+                     "--why-irreversible", "list item 1: a persisted format read outside the repo", "--parks", "task-001"))
+        question_id = q.stdout.strip()
+        must("parking task-001 for row5", execute(work, "park", str(execute_state), "task-001", "--question", "which format?", "--ref", question_id))
+        must("checkpointing execute to blocked for row5", execute_checkpoint(work, execute_state, lambda s: s.update(
+            {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {question_id}: task-001 parked"})))
 
-    assert_stop_blocks("row5 execute blocked, task parked and unanswered", work, f"run ocs state fsd closeout {state_path}")
+        assert_stop_blocks("row5 execute blocked, task parked and unanswered", work, f"run ocs state fsd closeout {state_path}")
 
-    must("entering closeout for row5", fsd(work, "closeout", str(state_path)))
-    retro = state_path.parent / "retro.md"
-    retro.write_text(f"{question_id} pending.\n")
-    must("pausing row5 on the unanswered question", fsd(work, "close", str(state_path), "--retro", str(retro)))
-    must("answering row5's question", fsd(work, "answer", str(state_path), question_id, "--text", "json"))
-    must("resuming row5 once answered", fsd(work, "resume", str(state_path)))
+        must("entering closeout for row5", fsd(work, "closeout", str(state_path)))
+        retro = state_path.parent / "retro.md"
+        retro.write_text(f"{question_id} pending.\n")
+        must("pausing row5 on the unanswered question", fsd(work, "close", str(state_path), "--retro", str(retro)))
+        must("answering row5's question", fsd(work, "answer", str(state_path), question_id, "--text", "json"))
+        must("resuming row5 once answered", fsd(work, "resume", str(state_path)))
 
-    assert_postskill_silent("row5 post-skill kein:execute after resume", work, "kein:execute")
-    after_post_skill = read_json(state_path)
-    if after_post_skill["stages"]["execute"]["status"] != "entered" or after_post_skill["stages"]["execute"]["run"] != str(execute_state):
-        failures.append("post-skill kein:execute after resume did not re-enter execute with the kept association")
+        assert_postskill_silent("row5 post-skill kein:execute after resume", work, "kein:execute")
+        after_post_skill = read_json(state_path)
+        if after_post_skill["stages"]["execute"]["status"] != "entered" or after_post_skill["stages"]["execute"]["run"] != str(execute_state):
+            failures.append("post-skill kein:execute after resume did not re-enter execute with the kept association")
 
-    assert_stop_allows("row5 post-resume, execute still blocked -- a running stage, not a finished one", work)
-    assert_pretool_allows("row5 pre-write allows the lead's checkpoint candidate", work, "Write")
+        assert_stop_allows("row5 post-resume, execute still blocked -- a running stage, not a finished one", work)
+        assert_pretool_allows("row5 pre-write allows the lead's checkpoint candidate", work, "Write")
 
 # ---------------------------------------------------------------------------
 # Case: post-skill for `kein:ralplan` records the stage entry, and the next Stop allows. Run twice -- the qualified form and the bare form -- since a real Skill-tool call was measured to leave either one verbatim in the hook's `tool_input.skill` (docs/skills/fsd/260919-hook-probe.md).
 
-for slug, skill_name in (("ps-ralplan-qualified", "kein:ralplan"), ("ps-ralplan-bare", "ralplan")):
-    with tempfile.TemporaryDirectory() as tmp:
-        work = (Path(tmp) / "repo").resolve()
-        init_repo(work)
-        run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        state_path = fsd_start(work, run_root, slug, "an idea")
-        must(f"entering interview for {slug}", fsd(work, "enter", str(state_path), "interview"))
+def _section_postskill_ralplan_forms():
+    for slug, skill_name in (("ps-ralplan-qualified", "kein:ralplan"), ("ps-ralplan-bare", "ralplan")):
+        with tempfile.TemporaryDirectory() as tmp:
+            work = (Path(tmp) / "repo").resolve()
+            init_repo(work)
+            run_root = work / ".agents" / "kein" / "runs" / "fsd"
+            state_path = fsd_start(work, run_root, slug, "an idea")
+            must(f"entering interview for {slug}", fsd(work, "enter", str(state_path), "interview"))
 
-        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / f"260101-000000-{slug}"
-        interview_dir.mkdir(parents=True)
-        requirements_path = work / ".agents" / "kein" / "requirements" / f"{slug}.md"
-        requirements_path.parent.mkdir(parents=True)
-        write_requirements(requirements_path, "Approved")
-        write_completed_ledger(interview_dir / "ledger.md", requirements_path)
+            interview_dir = work / ".agents" / "kein" / "runs" / "interview" / f"260101-000000-{slug}"
+            interview_dir.mkdir(parents=True)
+            requirements_path = work / ".agents" / "kein" / "requirements" / f"{slug}.md"
+            requirements_path.parent.mkdir(parents=True)
+            write_requirements(requirements_path, "Approved")
+            write_completed_ledger(interview_dir / "ledger.md", requirements_path)
 
-        assert_stop_blocks(f"{slug} before post-skill", work, "invoke /kein:ralplan")
-        assert_postskill_silent(f"{slug} post-skill {skill_name!r}", work, skill_name)
+            assert_stop_blocks(f"{slug} before post-skill", work, "invoke /kein:ralplan")
+            assert_postskill_silent(f"{slug} post-skill {skill_name!r}", work, skill_name)
 
-        after = read_json(state_path)
-        if after["stages"]["ralplan"]["status"] != "entered":
-            failures.append(f"{slug}: post-skill {skill_name!r} did not record the ralplan stage entry")
+            after = read_json(state_path)
+            if after["stages"]["ralplan"]["status"] != "entered":
+                failures.append(f"{slug}: post-skill {skill_name!r} did not record the ralplan stage entry")
 
-        assert_stop_allows(f"{slug} next stop after post-skill", work)
+            assert_stop_allows(f"{slug} next stop after post-skill", work)
 
 # ---------------------------------------------------------------------------
 # Case: three genuinely live, running stages -- not merely "entered with no association yet" the way row1's second half is, but a real nonterminal run the association resolves to -- all give no gap, so Stop and pre-write Write both allow. Together these are what "allows in every running stage" (U4's Acceptance) means for a stage that already has a live run behind it, as opposed to one that was just entered.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    approved_plan = work / "plan-live-execute.md"
-    write_plan(approved_plan, "Approved")
-    state_path = fsd_start(work, run_root, "live-execute", str(approved_plan))
-    must("entering execute for live-execute", fsd(work, "enter", str(state_path), "execute"))
-    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-    execute_state = execute_start(work, execute_run_root, "live-execute", [execute_task("task-001", ["README.md"])])
-    must("dispatching task-001 for live-execute", execute(work, "dispatch", str(execute_state), "task-001"))
-
-    assert_stop_allows("live-execute: active run, task-001 implementing, no gap evidence", work)
-    assert_pretool_allows("live-execute: pre-write allows Write while execute is genuinely running", work, "Write")
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "live-ralplan", "an idea")
-    must("entering interview for live-ralplan", fsd(work, "enter", str(state_path), "interview"))
-    must("entering ralplan for live-ralplan", fsd(work, "enter", str(state_path), "ralplan"))
-
-    plan_path = work / ".agents" / "kein" / "plans" / "live-ralplan.md"
-    plan_path.parent.mkdir(parents=True)
-    write_plan(plan_path, "Draft", "first cut", "v0")
-    ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-live-ralplan" / "state.json"
-    must("starting the ralplan run for live-ralplan", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
-         "--summary", "check", "--lanes", "architect@claude,critic@claude"))
-    must("opening ralplan round 1 for live-ralplan", ralplan(work, "open", str(ralplan_dest)))
-
-    assert_stop_allows("live-ralplan: active run, phase reviewing, no gap evidence", work)
-    assert_pretool_allows("live-ralplan: pre-write allows Write while ralplan is genuinely running", work, "Write")
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "live-interview", "an idea")
-    must("entering interview for live-interview", fsd(work, "enter", str(state_path), "interview"))
-
-    interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-live-interview"
-    interview_dir.mkdir(parents=True)
-    requirements_path = work / ".agents" / "kein" / "requirements" / "live-interview.md"
-    write_active_ledger(interview_dir / "ledger.md", "260101-000000-live-interview", work, work, requirements_path)
-
-    assert_stop_allows("live-interview: active ledger, association resolved, no gap evidence", work)
-    assert_pretool_allows("live-interview: pre-write allows Write while interview is genuinely running", work, "Write")
-
-# ---------------------------------------------------------------------------
-# Case: post-skill's own off-switch guard. With the marker present, a skill name that would otherwise enter a real stage changes nothing at all -- not just "does not block", but leaves `state.json` byte-for-byte the state it read. Deleting the guard from `mode_post_skill` would still exit 0 and print nothing, so the silence alone cannot catch its absence; only the unchanged state can.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "post-skill-off-switch", "an idea")
-    before = read_json(state_path)
-
-    config_dir = Path(tmp) / "config"
-    (config_dir / "kein" / "fsd").mkdir(parents=True)
-    (config_dir / "kein" / "fsd" / "hooks-off").touch()
-
-    assert_postskill_silent("post-skill off-switch: allows silently", work, "kein:interview", config_dir=config_dir)
-    after = read_json(state_path)
-    if after != before:
-        failures.append("post-skill off-switch: state.json changed although the off-switch marker was present -- the marker did not suppress `enter`")
-    if after["stages"]["interview"]["status"] != "pending":
-        failures.append(f"post-skill off-switch: interview status moved off pending despite the marker: {after['stages']['interview']['status']}")
-
-# ---------------------------------------------------------------------------
-# Case: post-skill never blocks even when `enter` itself would refuse -- a skill named for a stage that is `skipped` for this run (entry=execute skips interview and ralplan). Silent allow, and the skipped stage's status is untouched.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    approved_plan = work / "plan-skip.md"
-    write_plan(approved_plan, "Approved")
-    state_path = fsd_start(work, run_root, "skip-case", str(approved_plan))
-
-    assert_postskill_silent("post-skill on a skipped stage still allows silently", work, "kein:interview")
-    after = read_json(state_path)
-    if after["stages"]["interview"]["status"] != "skipped":
-        failures.append("post-skill on a skipped stage changed its status; it must never block or mutate on refusal")
-
-    assert_postskill_silent("post-skill on an unrecognized skill name is a no-op", work, "kein:explore")
-
-# ---------------------------------------------------------------------------
-# Case: Stop always allows when `stop_hook_active` is true, even on a real gap.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    fsd_start(work, run_root, "active-twice", "an idea")
-
-    assert_stop_allows("stop_hook_active true allows despite a real gap", work, stop_hook_active=True)
-
-# ---------------------------------------------------------------------------
-# Case: the off-switch marker allows despite a real gap; removing it restores the block.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    fsd_start(work, run_root, "off-switch", "an idea")
-
-    config_dir = Path(tmp) / "config"
-    (config_dir / "kein" / "fsd").mkdir(parents=True)
-    (config_dir / "kein" / "fsd" / "hooks-off").touch()
-    assert_stop_allows("off-switch marker present allows despite a real gap", work, config_dir=config_dir)
-
-    (config_dir / "kein" / "fsd" / "hooks-off").unlink()
-    assert_stop_blocks("off-switch marker removed restores the block", work, "invoke /kein:interview", config_dir=config_dir)
-
-# ---------------------------------------------------------------------------
-# Case: no fsd run at all (not even `runs/fsd/`) allows.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-
-    assert_stop_allows("no fsd run at all allows", work)
-    assert_pretool_allows("no fsd run at all allows a Write too", work, "Write")
-
-# ---------------------------------------------------------------------------
-# Case: a state.json that is not even valid JSON allows -- `fsd`'s own `_find_nonterminal_fsd_run` skips it, so the hook finds no association at all.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "corrupt-case", "an idea")
-    state_path.write_text("{ this is not valid json")
-
-    assert_stop_allows("unparseable state.json allows", work)
-
-# ---------------------------------------------------------------------------
-# Case: a state.json that parses and matches the worktree, but is malformed in a way that makes `gap()` itself raise (an `entry` naming no real stage) -- distinct from the unparseable-JSON case above, this exercises `hook.py`'s own top-level exception guard rather than `fsd`'s association lookup. Allows.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    state_path = fsd_start(work, run_root, "raise-case", "an idea")
-    state = read_json(state_path)
-    state["entry"] = "not-a-real-stage"
-    write(state_path, state)
-
-    assert_stop_allows("a state gap() itself raises on allows (hook.py's own guard)", work)
-
-# ---------------------------------------------------------------------------
-# Case: stdin that does not parse as a JSON object at all -- garbage text, and valid JSON that is not an object -- allows outright in `stop`, on a real gap, rather than falling through to an under-specified `{}` stand-in that could still resolve the gap and block.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    fsd_start(work, run_root, "garbage-stdin", "an idea")
-
-    assert_raw_stdin_allows("unparseable garbage stdin to stop on a real gap allows", work, "stop", "not json at all { garbage")
-    assert_raw_stdin_allows("a JSON array (not an object) stdin to stop on a real gap allows", work, "stop", "[1, 2, 3]")
-    assert_raw_stdin_allows("a JSON string (not an object) stdin to stop on a real gap allows", work, "stop", '"just a string"')
-    assert_raw_stdin_allows("empty stdin to stop on a real gap allows", work, "stop", "")
-
-# ---------------------------------------------------------------------------
-# Case: pre-write's own off-switch. The marker allows a Write despite a real gap, the same way it already does for Stop.
-
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    fsd_start(work, run_root, "pre-write-off-switch", "an idea")
-
-    config_dir = Path(tmp) / "config"
-    (config_dir / "kein" / "fsd").mkdir(parents=True)
-    (config_dir / "kein" / "fsd" / "hooks-off").touch()
-    assert_pretool_allows("pre-write off-switch marker present allows Write despite a real gap", work, "Write", config_dir=config_dir)
-
-# ---------------------------------------------------------------------------
-# Case: post-skill for `kein:interview` (and the bare `interview` form, in a separate fixture) records the interview stage entry from a fresh run whose entry stage is still pending, and the next Stop allows -- the same shape as the ralplan case above, but for the entry stage itself, where the gap row post-skill has to clear is row 1, not row 2.
-
-for slug, skill_name in (("ps-interview-qualified", "kein:interview"), ("ps-interview-bare", "interview")):
+def _section_live_running_stages():
     with tempfile.TemporaryDirectory() as tmp:
         work = (Path(tmp) / "repo").resolve()
         init_repo(work)
         run_root = work / ".agents" / "kein" / "runs" / "fsd"
-        state_path = fsd_start(work, run_root, slug, "an idea")
+        approved_plan = work / "plan-live-execute.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "live-execute", str(approved_plan))
+        must("entering execute for live-execute", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "live-execute", [execute_task("task-001", ["README.md"])])
+        must("dispatching task-001 for live-execute", execute(work, "dispatch", str(execute_state), "task-001"))
 
-        assert_stop_blocks(f"{slug} before post-skill", work, "invoke /kein:interview")
-        assert_postskill_silent(f"{slug} post-skill {skill_name!r}", work, skill_name)
+        assert_stop_allows("live-execute: active run, task-001 implementing, no gap evidence", work)
+        assert_pretool_allows("live-execute: pre-write allows Write while execute is genuinely running", work, "Write")
 
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "live-ralplan", "an idea")
+        must("entering interview for live-ralplan", fsd(work, "enter", str(state_path), "interview"))
+        must("entering ralplan for live-ralplan", fsd(work, "enter", str(state_path), "ralplan"))
+
+        plan_path = work / ".agents" / "kein" / "plans" / "live-ralplan.md"
+        plan_path.parent.mkdir(parents=True)
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-live-ralplan" / "state.json"
+        must("starting the ralplan run for live-ralplan", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
+             "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("opening ralplan round 1 for live-ralplan", ralplan(work, "open", str(ralplan_dest)))
+
+        assert_stop_allows("live-ralplan: active run, phase reviewing, no gap evidence", work)
+        assert_pretool_allows("live-ralplan: pre-write allows Write while ralplan is genuinely running", work, "Write")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "live-interview", "an idea")
+        must("entering interview for live-interview", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-live-interview"
+        interview_dir.mkdir(parents=True)
+        requirements_path = work / ".agents" / "kein" / "requirements" / "live-interview.md"
+        write_active_ledger(interview_dir / "ledger.md", "260101-000000-live-interview", work, work, requirements_path)
+
+        assert_stop_allows("live-interview: active ledger, association resolved, no gap evidence", work)
+        assert_pretool_allows("live-interview: pre-write allows Write while interview is genuinely running", work, "Write")
+
+# ---------------------------------------------------------------------------
+# Case: post-skill's own off-switch guard. With the marker present, a skill name that would otherwise enter a real stage changes nothing at all -- not just "does not block", but leaves `state.json` byte-for-byte the state it read. Deleting the guard from `mode_post_skill` would still exit 0 and print nothing, so the silence alone cannot catch its absence; only the unchanged state can.
+
+def _section_postskill_off_switch():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "post-skill-off-switch", "an idea")
+        before = read_json(state_path)
+
+        config_dir = Path(tmp) / "config"
+        (config_dir / "kein" / "fsd").mkdir(parents=True)
+        (config_dir / "kein" / "fsd" / "hooks-off").touch()
+
+        assert_postskill_silent("post-skill off-switch: allows silently", work, "kein:interview", config_dir=config_dir)
         after = read_json(state_path)
-        if after["stages"]["interview"]["status"] != "entered":
-            failures.append(f"{slug}: post-skill {skill_name!r} did not record the interview stage entry")
+        if after != before:
+            failures.append("post-skill off-switch: state.json changed although the off-switch marker was present -- the marker did not suppress `enter`")
+        if after["stages"]["interview"]["status"] != "pending":
+            failures.append(f"post-skill off-switch: interview status moved off pending despite the marker: {after['stages']['interview']['status']}")
 
-        assert_stop_allows(f"{slug} next stop after post-skill", work)
+# ---------------------------------------------------------------------------
+# Case: post-skill never blocks even when `enter` itself would refuse -- a skill named for a stage that is `skipped` for this run (entry=execute skips interview and ralplan). Silent allow, and the skipped stage's status is untouched.
+
+def _section_postskill_skipped_stage():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-skip.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "skip-case", str(approved_plan))
+
+        assert_postskill_silent("post-skill on a skipped stage still allows silently", work, "kein:interview")
+        after = read_json(state_path)
+        if after["stages"]["interview"]["status"] != "skipped":
+            failures.append("post-skill on a skipped stage changed its status; it must never block or mutate on refusal")
+
+        assert_postskill_silent("post-skill on an unrecognized skill name is a no-op", work, "kein:explore")
+
+# ---------------------------------------------------------------------------
+# Case: Stop always allows when `stop_hook_active` is true, even on a real gap.
+
+def _section_stop_hook_active_bypass():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        fsd_start(work, run_root, "active-twice", "an idea")
+
+        assert_stop_allows("stop_hook_active true allows despite a real gap", work, stop_hook_active=True)
+
+# ---------------------------------------------------------------------------
+# Case: the off-switch marker allows despite a real gap; removing it restores the block.
+
+def _section_stop_off_switch():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        fsd_start(work, run_root, "off-switch", "an idea")
+
+        config_dir = Path(tmp) / "config"
+        (config_dir / "kein" / "fsd").mkdir(parents=True)
+        (config_dir / "kein" / "fsd" / "hooks-off").touch()
+        assert_stop_allows("off-switch marker present allows despite a real gap", work, config_dir=config_dir)
+
+        (config_dir / "kein" / "fsd" / "hooks-off").unlink()
+        assert_stop_blocks("off-switch marker removed restores the block", work, "invoke /kein:interview", config_dir=config_dir)
+
+# ---------------------------------------------------------------------------
+# Case: no fsd run at all (not even `runs/fsd/`) allows.
+
+def _section_no_fsd_run():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+
+        assert_stop_allows("no fsd run at all allows", work)
+        assert_pretool_allows("no fsd run at all allows a Write too", work, "Write")
+
+# ---------------------------------------------------------------------------
+# Case: a state.json that is not even valid JSON allows -- `fsd`'s own `_find_nonterminal_fsd_run` skips it, so the hook finds no association at all.
+
+def _section_corrupt_state_json():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "corrupt-case", "an idea")
+        state_path.write_text("{ this is not valid json")
+
+        assert_stop_allows("unparseable state.json allows", work)
+
+# ---------------------------------------------------------------------------
+# Case: a state.json that parses and matches the worktree, but is malformed in a way that makes `gap()` itself raise (an `entry` naming no real stage) -- distinct from the unparseable-JSON case above, this exercises `hook.py`'s own top-level exception guard rather than `fsd`'s association lookup. Allows.
+
+def _section_gap_raises_hook_guard():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "raise-case", "an idea")
+        state = read_json(state_path)
+        state["entry"] = "not-a-real-stage"
+        write(state_path, state)
+
+        assert_stop_allows("a state gap() itself raises on allows (hook.py's own guard)", work)
+
+# ---------------------------------------------------------------------------
+# Case: stdin that does not parse as a JSON object at all -- garbage text, and valid JSON that is not an object -- allows outright in `stop`, on a real gap, rather than falling through to an under-specified `{}` stand-in that could still resolve the gap and block.
+
+def _section_garbage_stdin():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        fsd_start(work, run_root, "garbage-stdin", "an idea")
+
+        assert_raw_stdin_allows("unparseable garbage stdin to stop on a real gap allows", work, "stop", "not json at all { garbage")
+        assert_raw_stdin_allows("a JSON array (not an object) stdin to stop on a real gap allows", work, "stop", "[1, 2, 3]")
+        assert_raw_stdin_allows("a JSON string (not an object) stdin to stop on a real gap allows", work, "stop", '"just a string"')
+        assert_raw_stdin_allows("empty stdin to stop on a real gap allows", work, "stop", "")
+
+# ---------------------------------------------------------------------------
+# Case: pre-write's own off-switch. The marker allows a Write despite a real gap, the same way it already does for Stop.
+
+def _section_prewrite_off_switch():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        fsd_start(work, run_root, "pre-write-off-switch", "an idea")
+
+        config_dir = Path(tmp) / "config"
+        (config_dir / "kein" / "fsd").mkdir(parents=True)
+        (config_dir / "kein" / "fsd" / "hooks-off").touch()
+        assert_pretool_allows("pre-write off-switch marker present allows Write despite a real gap", work, "Write", config_dir=config_dir)
+
+# ---------------------------------------------------------------------------
+# Case: post-skill for `kein:interview` (and the bare `interview` form, in a separate fixture) records the interview stage entry from a fresh run whose entry stage is still pending, and the next Stop allows -- the same shape as the ralplan case above, but for the entry stage itself, where the gap row post-skill has to clear is row 1, not row 2.
+
+def _section_postskill_interview_forms():
+    for slug, skill_name in (("ps-interview-qualified", "kein:interview"), ("ps-interview-bare", "interview")):
+        with tempfile.TemporaryDirectory() as tmp:
+            work = (Path(tmp) / "repo").resolve()
+            init_repo(work)
+            run_root = work / ".agents" / "kein" / "runs" / "fsd"
+            state_path = fsd_start(work, run_root, slug, "an idea")
+
+            assert_stop_blocks(f"{slug} before post-skill", work, "invoke /kein:interview")
+            assert_postskill_silent(f"{slug} post-skill {skill_name!r}", work, skill_name)
+
+            after = read_json(state_path)
+            if after["stages"]["interview"]["status"] != "entered":
+                failures.append(f"{slug}: post-skill {skill_name!r} did not record the interview stage entry")
+
+            assert_stop_allows(f"{slug} next stop after post-skill", work)
 
 # ---------------------------------------------------------------------------
 # Case: the closeout path end to end. A completed execute receipt (the other half of the closeout row -- row5 above covers the blocked-with-parked-task half) blocks Stop and denies pre-write Write, both naming the same substituted closeout command; entering closeout then clears the gap and both hooks allow.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    approved_plan = work / "plan-closeout.md"
-    write_plan(approved_plan, "Approved")
-    state_path = fsd_start(work, run_root, "closeout-path", str(approved_plan))
-    must("entering execute for closeout-path", fsd(work, "enter", str(state_path), "execute"))
+def _section_closeout_path_end_to_end():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-closeout.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "closeout-path", str(approved_plan))
+        must("entering execute for closeout-path", fsd(work, "enter", str(state_path), "execute"))
 
-    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-    execute_state = execute_start(work, execute_run_root, "closeout-path", [execute_task("task-001", ["README.md"])])
-    drive_task_to_acceptance(work, execute_state, "task-001")
-    must("entering final_audit for closeout-path", execute_to_final_audit(work, execute_state))
-    must("completing execute for closeout-path", execute_complete(work, execute_state, ["task-001"]))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "closeout-path", [execute_task("task-001", ["README.md"])])
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for closeout-path", execute_to_final_audit(work, execute_state))
+        must("completing execute for closeout-path", execute_complete(work, execute_state, ["task-001"]))
 
-    closeout_action = f"run ocs state fsd closeout {state_path}"
-    assert_stop_blocks("closeout-path: execute completed, stop blocks naming closeout", work, closeout_action)
-    assert_pretool_denies("closeout-path: execute completed, pre-write denies Write naming closeout", work, closeout_action, "Write")
+        closeout_action = f"run ocs state fsd closeout {state_path}"
+        assert_stop_blocks("closeout-path: execute completed, stop blocks naming closeout", work, closeout_action)
+        assert_pretool_denies("closeout-path: execute completed, pre-write denies Write naming closeout", work, closeout_action, "Write")
 
-    must("entering closeout for closeout-path", fsd(work, "closeout", str(state_path)))
-    assert_stop_allows("closeout-path: after entering closeout, stop allows", work)
-    assert_pretool_allows("closeout-path: after entering closeout, pre-write allows Write", work, "Write")
+        must("entering closeout for closeout-path", fsd(work, "closeout", str(state_path)))
+        assert_stop_allows("closeout-path: after entering closeout, stop allows", work)
+        assert_pretool_allows("closeout-path: after entering closeout, pre-write allows Write", work, "Write")
 
 # ---------------------------------------------------------------------------
 # Case: a paused fsd run allows regardless of the evidence underneath it -- `gap()`'s very first check is the run's own lifecycle, ahead of any stage row.
 
-with tempfile.TemporaryDirectory() as tmp:
-    work = (Path(tmp) / "repo").resolve()
-    init_repo(work)
-    run_root = work / ".agents" / "kein" / "runs" / "fsd"
-    approved_plan = work / "plan-paused.md"
-    write_plan(approved_plan, "Approved")
-    state_path = fsd_start(work, run_root, "paused-case", str(approved_plan))
-    must("entering execute for paused-case", fsd(work, "enter", str(state_path), "execute"))
+def _section_paused_lifecycle():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-paused.md"
+        write_plan(approved_plan, "Approved")
+        state_path = fsd_start(work, run_root, "paused-case", str(approved_plan))
+        must("entering execute for paused-case", fsd(work, "enter", str(state_path), "execute"))
 
-    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
-    execute_state = execute_start(work, execute_run_root, "paused-case", [execute_task("task-001", ["README.md"])])
-    drive_task_to_acceptance(work, execute_state, "task-001")
-    must("entering final_audit for paused-case", execute_to_final_audit(work, execute_state))
-    must("completing execute for paused-case", execute_complete(work, execute_state, ["task-001"]))
-    must("recording a whole-run question for paused-case", fsd(work, "question", str(state_path), "--stage", "closeout",
-         "--question", "does this lesson belong in AGENTS.md?", "--options", "yes,no", "--recommended", "yes",
-         "--why-irreversible", "an AGENTS.md edit is never taken by the flow itself", "--parks", "whole run"))
-    must("entering closeout for paused-case", fsd(work, "closeout", str(state_path)))
-    retro = state_path.parent / "retro.md"
-    retro.write_text("Q1 pending.\n")
-    must("pausing paused-case", fsd(work, "close", str(state_path), "--retro", str(retro)))
-    paused_state = read_json(state_path)
-    if paused_state["lifecycle"] != "paused":
-        failures.append(f"paused-case fixture did not actually pause, so the hook assertions below would be vacuous: lifecycle is {paused_state['lifecycle']!r}")
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "paused-case", [execute_task("task-001", ["README.md"])])
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for paused-case", execute_to_final_audit(work, execute_state))
+        must("completing execute for paused-case", execute_complete(work, execute_state, ["task-001"]))
+        must("recording a whole-run question for paused-case", fsd(work, "question", str(state_path), "--stage", "closeout",
+             "--question", "does this lesson belong in AGENTS.md?", "--options", "yes,no", "--recommended", "yes",
+             "--why-irreversible", "an AGENTS.md edit is never taken by the flow itself", "--parks", "whole run"))
+        must("entering closeout for paused-case", fsd(work, "closeout", str(state_path)))
+        retro = state_path.parent / "retro.md"
+        retro.write_text("Q1 pending.\n")
+        must("pausing paused-case", fsd(work, "close", str(state_path), "--retro", str(retro)))
+        paused_state = read_json(state_path)
+        if paused_state["lifecycle"] != "paused":
+            failures.append(f"paused-case fixture did not actually pause, so the hook assertions below would be vacuous: lifecycle is {paused_state['lifecycle']!r}")
 
-    assert_stop_allows("paused-case: lifecycle paused allows regardless of the evidence underneath", work)
-    assert_pretool_allows("paused-case: lifecycle paused allows Write regardless of the evidence underneath", work, "Write")
+        assert_stop_allows("paused-case: lifecycle paused allows regardless of the evidence underneath", work)
+        assert_pretool_allows("paused-case: lifecycle paused allows Write regardless of the evidence underneath", work, "Write")
 
 
-if failures:
-    for failure in failures:
-        print(f"check-fsd-hooks: {failure}", file=sys.stderr)
-    raise SystemExit(1)
-print("check-fsd-hooks: stop blocks on every gap row -- both flavors of the closeout row, execute completed and execute blocked with a parked task -- with the resolved state path substituted into the reason, and allows in every running stage, a freshly entered one, one with a live nonterminal run behind it, and a paused lifecycle regardless of the evidence underneath; unparseable or non-object stdin allows outright rather than falling through to an under-specified payload; pre-write denies only the write tools on a gap and names the same gap action the paired Stop assertion does, and its own off-switch allows a Write despite a real gap; post-skill records both the qualified and bare skill-name forms for both the entry stage and a downstream one, never blocks including through a skipped stage, and its own off-switch leaves state.json untouched; and the pause -> answer -> resume -> post-skill(execute) sequence with the run still blocked allows both hooks")
+# ---------------------------------------------------------------------------
+# Section registry and CLI driver -- `--list` prints the section names below in the order they
+# run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a
+# dependency map names, though every section here is self-contained and needs none); neither flag
+# runs every section in order exactly as running this file always has.
+
+SECTIONS = [
+    ("entry-stage-pending", (), _section_entry_stage_pending),
+    ("interview-completed-approved", (), _section_interview_completed_approved),
+    ("ralplan-completed", (), _section_ralplan_completed),
+    ("interview-aborted", (), _section_interview_aborted),
+    ("execute-blocked-parked", (), _section_execute_blocked_parked),
+    ("postskill-ralplan-forms", (), _section_postskill_ralplan_forms),
+    ("live-running-stages", (), _section_live_running_stages),
+    ("postskill-off-switch", (), _section_postskill_off_switch),
+    ("postskill-skipped-stage", (), _section_postskill_skipped_stage),
+    ("stop-hook-active-bypass", (), _section_stop_hook_active_bypass),
+    ("stop-off-switch", (), _section_stop_off_switch),
+    ("no-fsd-run", (), _section_no_fsd_run),
+    ("corrupt-state-json", (), _section_corrupt_state_json),
+    ("gap-raises-hook-guard", (), _section_gap_raises_hook_guard),
+    ("garbage-stdin", (), _section_garbage_stdin),
+    ("prewrite-off-switch", (), _section_prewrite_off_switch),
+    ("postskill-interview-forms", (), _section_postskill_interview_forms),
+    ("closeout-path-end-to-end", (), _section_closeout_path_end_to_end),
+    ("paused-lifecycle", (), _section_paused_lifecycle),
+]
+SECTION_NAMES = [name for name, _, _ in SECTIONS]
+SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
+SECTION_FUNCS = {name: func for name, _, func in SECTIONS}
+SCRIPT_NAME = "check-fsd-hooks"
+
+
+def _section_closure(requested):
+    # A dependency always appears earlier in `SECTIONS` than whatever names it, so filtering
+    # `SECTION_NAMES` down to the requested sections plus their dependencies keeps a valid run
+    # order on its own, with no separate topological sort needed.
+    needed = set()
+    stack = list(requested)
+    while stack:
+        name = stack.pop()
+        if name in needed:
+            continue
+        needed.add(name)
+        stack.extend(SECTION_DEPS[name])
+    return [name for name in SECTION_NAMES if name in needed]
+
+
+def _parse_argv(argv):
+    if not argv:
+        return None, None
+    if argv == ["--list"]:
+        return "list", None
+    if len(argv) == 2 and argv[0] == "--only":
+        return "only", [n.strip() for n in argv[1].split(",") if n.strip()]
+    print(f"{SCRIPT_NAME}: usage: {SCRIPT_NAME} [--list | --only <name>[,<name>...]]", file=sys.stderr)
+    raise SystemExit(2)
+
+
+def main():
+    mode, names = _parse_argv(sys.argv[1:])
+
+    if mode == "list":
+        for name in SECTION_NAMES:
+            print(name)
+        return
+
+    if mode == "only":
+        unknown = [n for n in names if n not in SECTION_DEPS]
+        if not names or unknown:
+            if unknown:
+                print(f"{SCRIPT_NAME}: unknown section(s): {', '.join(unknown)}", file=sys.stderr)
+            else:
+                print(f"{SCRIPT_NAME}: --only needs at least one section name", file=sys.stderr)
+            print(f"{SCRIPT_NAME}: valid sections: {', '.join(SECTION_NAMES)}", file=sys.stderr)
+            raise SystemExit(1)
+        run_order = _section_closure(names)
+    else:
+        run_order = list(SECTION_NAMES)
+
+    for name in run_order:
+        SECTION_FUNCS[name]()
+
+    if failures:
+        for failure in failures:
+            print(f"{SCRIPT_NAME}: {failure}", file=sys.stderr)
+        raise SystemExit(1)
+    if mode == "only":
+        print(f"{SCRIPT_NAME}: ran {', '.join(run_order)}")
+    else:
+        print("check-fsd-hooks: stop blocks on every gap row -- both flavors of the closeout row, execute completed and execute blocked with a parked task -- with the resolved state path substituted into the reason, and allows in every running stage, a freshly entered one, one with a live nonterminal run behind it, and a paused lifecycle regardless of the evidence underneath; unparseable or non-object stdin allows outright rather than falling through to an under-specified payload; pre-write denies only the write tools on a gap and names the same gap action the paired Stop assertion does, and its own off-switch allows a Write despite a real gap; post-skill records both the qualified and bare skill-name forms for both the entry stage and a downstream one, never blocks including through a skipped stage, and its own off-switch leaves state.json untouched; and the pause -> answer -> resume -> post-skill(execute) sequence with the run still blocked allows both hooks")
+
+
+if __name__ == "__main__":
+    main()
