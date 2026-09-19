@@ -1,0 +1,1369 @@
+#!/usr/bin/env python3
+#: Drive the fsd state machine through real fixture states -- built with the real interview, ralplan, and execute state commands -- and fail if any invariant stops holding.
+#
+# fsd chains three workflows it does not own, so this check builds fixtures the same way a live run would produce them: an interview ledger written by hand (interview has no state.py to call), a ralplan run driven through its own CLI, and an execute run driven through its own CLI plus a few hand-authored checkpoints for the transitions execute has no builder for.
+# Nothing here weakens a case to make it pass; a failure here means `state.py` is wrong, not the fixture.
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import tempfile
+from datetime import datetime
+from pathlib import Path
+
+ROOT = Path(os.environ["KEIN_ROOT"])
+FSD = ROOT / "skills" / "fsd" / "scripts" / "state.py"
+EXECUTE = ROOT / "skills" / "execute" / "scripts" / "state.py"
+RALPLAN = ROOT / "skills" / "ralplan" / "scripts" / "state.py"
+failures = []
+STAMP = "2026-01-01T00:00:00+09:00"
+
+REQUIREMENTS_HEADINGS = (
+    "## Context", "## Desired outcome", "## Scope", "### In scope", "### Out of scope",
+    "## Requirements", "## Constraints", "## Decision boundaries", "## Acceptance criteria",
+    "## Decisions and rationale", "## Relevant system evidence", "## Assumptions and risks", "## Deferred items",
+)
+
+
+def _run(script, work, *args):
+    return subprocess.run([sys.executable, str(script), *args], cwd=str(work), capture_output=True, text=True)
+
+
+def fsd(work, *args):
+    return _run(FSD, work, *args)
+
+
+def execute(work, *args):
+    return _run(EXECUTE, work, *args)
+
+
+def ralplan(work, *args):
+    return _run(RALPLAN, work, *args)
+
+
+def git(work, *args):
+    subprocess.run(["git", *args], cwd=str(work), check=True, capture_output=True)
+
+
+def read_json(path):
+    return json.loads(Path(path).read_text())
+
+
+def write(path, payload):
+    Path(path).write_text(json.dumps(payload))
+
+
+def must(label, result):
+    if result.returncode != 0:
+        failures.append(f"{label} was refused and should not be: {result.stderr.strip()}")
+    return result
+
+
+def refuse(label, result, reason=None):
+    if result.returncode == 0:
+        failures.append(f"{label} was accepted and must not be")
+    elif reason and reason not in result.stderr:
+        failures.append(f"{label} was refused for the wrong reason: {result.stderr.strip()}")
+    return result
+
+
+def require_path(result):
+    # A setup call this scenario depends on (a `must(...)` immediately before this) is expected to print exactly one absolute path on success.
+    # `Path("")` resolves to `.`, the process's cwd -- so silently continuing past a failure here would turn every later fixture path in this scenario into one relative to wherever the check happened to be invoked from, rather than the temp directory it belongs under.
+    # This stops the whole check immediately instead, after printing every failure accumulated so far.
+    text = result.stdout.strip()
+    if result.returncode != 0 or not text:
+        for failure in failures:
+            print(f"check-fsd-state: {failure}", file=sys.stderr)
+        print("check-fsd-state: a setup call this scenario depends on did not print a path; stopping before any fixture path could resolve relative to the process's cwd", file=sys.stderr)
+        raise SystemExit(1)
+    return Path(text)
+
+
+def init_repo(work):
+    work.mkdir(parents=True, exist_ok=True)
+    git(work, "init", "-q")
+    git(work, "config", "user.email", "check@example.invalid")
+    git(work, "config", "user.name", "check")
+    (work / "AGENTS.md").write_text("# AGENTS\n")
+    (work / "README.md").write_text("hello\n")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "first")
+
+
+def write_requirements(path, status):
+    lines = ["# Check requirements", "", f"Status: {status}", "Date: 2026-01-01", ""]
+    for heading in REQUIREMENTS_HEADINGS:
+        lines += [heading, "", "- item", ""]
+    if status == "Draft":
+        lines += ["## Blocking gaps", "", "- something unresolved", ""]
+    Path(path).write_text("\n".join(lines) + "\n")
+
+
+def write_plan(path, status, reason="reason", body="body"):
+    Path(path).write_text(f"# Check plan\n\nStatus: {status} — {reason}\n\n---\n\n{body}\n")
+
+
+def write_active_ledger(path, run_id, working_directory, repository, output_path):
+    Path(path).write_text(
+        "---\n"
+        "status: active\n"
+        f'run_id: "{run_id}"\n'
+        f'working_directory: "{working_directory}"\n'
+        f'repository: "{repository}"\n'
+        f'output_path: "{output_path}"\n'
+        "---\n\n"
+        "# Interview Ledger: check\n\n"
+        "## Original request\n\nrequest\n\n"
+        "## Confirmed decisions\n\n- d\n\n"
+        "## Constraints and non-goals\n\n- c\n\n"
+        "## Decision boundaries\n\n- b\n\n"
+        "## Repository evidence\n\n- e\n\n"
+        "## Open questions\n\n- q\n\n"
+        "## Explicit deferrals\n\n- f\n"
+    )
+
+
+def write_completed_ledger(path, requirements_path):
+    Path(path).write_text(
+        "---\n"
+        "status: completed\n"
+        f'requirements_path: "{requirements_path}"\n'
+        f'completed_at: "{STAMP}"\n'
+        "---\n"
+    )
+
+
+def write_aborted_ledger(path):
+    Path(path).write_text(f'---\nstatus: aborted\naborted_at: "{STAMP}"\nreason: "cancelled"\n---\n')
+
+
+def execute_task(task_id, scope):
+    return {"id": task_id, "title": task_id, "scope": scope, "completion_condition": f"{task_id} done",
+            "verification_path": ["true"], "rationale": "fixture"}
+
+
+def execute_start(work, run_root, slug, tasks, worktree=None):
+    tasks_path = Path(tempfile.mkdtemp()) / "tasks.json"
+    tasks_path.write_text(json.dumps(tasks))
+    result = must(f"starting execute run {slug}",
+                  execute(work, "start", "--run-root", str(run_root), "--slug", slug, "--kind", "brief",
+                          "--summary", f"check {slug}", "--worktree", str(worktree or work), "--tasks", str(tasks_path)))
+    return require_path(result)
+
+
+def by_id(state, task_id):
+    return next(t for t in state["tasks"] if t["id"] == task_id)
+
+
+def verdict(role, word, task_id, round_number, fingerprint="auto"):
+    return {"reviewer_role": role, "verdict": word, "task_id": task_id, "round": round_number,
+            "worktree_fingerprint": fingerprint, "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+
+def verification(command, round_number, fingerprint="auto"):
+    return {"command": command, "exit_code": 0, "observed_at": STAMP, "round": round_number, "worktree_fingerprint": fingerprint}
+
+
+def execute_checkpoint(work, state_path, mutate):
+    state = read_json(state_path)
+    state["revision"] = "auto"
+    state["worktree"]["observed"] = "auto"
+    mutate(state)
+    candidate_path = Path(tempfile.mkdtemp()) / "candidate.json"
+    write(candidate_path, state)
+    return execute(work, "checkpoint", str(state_path), str(candidate_path))
+
+
+def durable_retro_path(state):
+    worktree = Path(state["worktree"])
+    slug = state["run_id"].split("-", 2)[2]
+    today = datetime.now().astimezone().strftime("%y%m%d")
+    return worktree / ".agents" / "kein" / "retros" / f"{today}-{slug}.md"
+
+
+def execute_complete(work, state_path, task_ids):
+    state = read_json(state_path)
+    receipt = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": state["run_id"],
+        "lifecycle": "completed", "completed_at": STAMP,
+        "input": {"reference": None, "sha256": state["input"]["sha256"]},
+        "worktree": {"root": state["worktree"]["root"], "final_fingerprint": "auto"},
+        "accepted_tasks": [{"id": t["id"], "title": t["title"], "completion_condition": t["completion_condition"], "carried_findings": []}
+                           for t in state["tasks"] if t["id"] in task_ids],
+        "final_verification": state["latest_verification"], "final_audit": state["final_audit"],
+        "carried_findings": [],
+    }
+    candidate_path = Path(tempfile.mkdtemp()) / "receipt.json"
+    write(candidate_path, receipt)
+    return execute(work, "checkpoint", str(state_path), str(candidate_path))
+
+
+def drive_task_to_acceptance(work, state_path, task_id):
+    # `dispatch` (the CLI builder) does not touch `round` -- it stays at the task's opening 0, and nothing in the ordinary verify/review/accept run moves it either: only an initial dispatch or a correction round is allowed to advance it.
+    # So this drive stays at round 0 throughout.
+    must(f"dispatching {task_id}", execute(work, "dispatch", str(state_path), task_id))
+    must(f"verifying {task_id}", execute_checkpoint(work, state_path, lambda s: by_id(s, task_id).update(
+        {"status": "verifying", "round": 0, "latest_verification": [verification("true", 0)]})))
+    must(f"reviewing {task_id}", execute_checkpoint(work, state_path, lambda s: by_id(s, task_id).update({"status": "reviewing"})))
+    must(f"accepting {task_id}", execute_checkpoint(work, state_path, lambda s: by_id(s, task_id).update(
+        {"status": "accepted", "acceptance": {"round": 0, "worktree_fingerprint": "auto", "reviewers": [verdict("code-reviewer", "PASS", task_id, 0)]}})))
+
+
+def execute_to_final_audit(work, state_path):
+    def mutate(state):
+        state["phase"] = "final_audit"
+        state["latest_verification"] = [verification("true", state["current_round"])]
+        state["final_audit"] = [verdict("code-reviewer", "PASS", "whole-change", state["current_round"])]
+    return execute_checkpoint(work, state_path, mutate)
+
+
+# ---------------------------------------------------------------------------
+# Scenario 1: the five input classifications, `start`'s refusal over an existing nonterminal run, and `report`'s `None.` sections on a freshly started run.
+
+with tempfile.TemporaryDirectory() as tmp:
+    work = (Path(tmp) / "repo").resolve()
+    init_repo(work)
+    run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+    result = must("starting the idea case", fsd(work, "start", "--run-root", str(run_root), "--slug", "idea", "--input", "add a --verbose flag", "--worktree", str(work)))
+    idea_state = require_path(result)
+    if read_json(idea_state)["entry"] != "interview":
+        failures.append("free-text idea input did not classify to interview")
+
+    report_text = fsd(work, "report", str(idea_state)).stdout
+    if report_text.count("None.") != 4:
+        failures.append(f"report on a fresh run did not print four `None.` sections: {report_text!r}")
+    if "## Halted" in report_text:
+        failures.append("report printed a Halted section for a non-halted run")
+
+    refuse("starting a second fsd run for an occupied worktree", fsd(work, "start", "--run-root", str(run_root), "--slug", "idea2", "--input", "another idea", "--worktree", str(work)),
+           reason="a nonterminal fsd run already exists")
+    must("aborting the idea case to free the worktree", fsd(work, "abort", str(idea_state), "--reason", "onto the next classification case"))
+    gap_aborted = json.loads(fsd(work, "gap", str(idea_state)).stdout)
+    if gap_aborted["gap"]:
+        failures.append(f"gap reported true on an aborted run: {gap_aborted}")
+
+    approved_requirements = work / "req-approved.md"
+    write_requirements(approved_requirements, "Approved")
+    result = must("starting the approved-requirements case",
+                  fsd(work, "start", "--run-root", str(run_root), "--slug", "reqok", "--input", str(approved_requirements), "--worktree", str(work)))
+    reqok_state = require_path(result)
+    if read_json(reqok_state)["entry"] != "ralplan":
+        failures.append("an approved requirements input did not classify to ralplan")
+    must("aborting the reqok case", fsd(work, "abort", str(reqok_state), "--reason", "onto the next classification case"))
+
+    draft_requirements = work / "req-draft.md"
+    write_requirements(draft_requirements, "Draft")
+    result = must("starting the draft-requirements case",
+                  fsd(work, "start", "--run-root", str(run_root), "--slug", "reqdraft", "--input", str(draft_requirements), "--worktree", str(work)))
+    reqdraft_state = require_path(result)
+    if read_json(reqdraft_state)["entry"] != "interview":
+        failures.append("a draft requirements input did not classify to interview")
+    must("aborting the reqdraft case", fsd(work, "abort", str(reqdraft_state), "--reason", "onto the next classification case"))
+
+    approved_plan = work / "plan-approved.md"
+    write_plan(approved_plan, "Approved")
+    result = must("starting the approved-plan case",
+                  fsd(work, "start", "--run-root", str(run_root), "--slug", "planok", "--input", str(approved_plan), "--worktree", str(work)))
+    planok_state = require_path(result)
+    if read_json(planok_state)["entry"] != "execute":
+        failures.append("an approved plan input did not classify to execute")
+    must("aborting the planok case", fsd(work, "abort", str(planok_state), "--reason", "onto the next classification case"))
+
+    draft_plan = work / "plan-draft.md"
+    write_plan(draft_plan, "In Review")
+    result = must("starting the in-review-plan case",
+                  fsd(work, "start", "--run-root", str(run_root), "--slug", "plandraft", "--input", str(draft_plan), "--worktree", str(work)))
+    plandraft_state = require_path(result)
+    if read_json(plandraft_state)["entry"] != "ralplan":
+        failures.append("an in-review plan input did not classify to ralplan")
+
+# ---------------------------------------------------------------------------
+# Scenario 2: the full drive -- idea -> interview -> ralplan -> execute, a task parked on an irreversible decision, close pausing with the retrospective kept under runs/fsd (settlement 4), the resumed execute run's reconcile proving no drift, resume/close precedence once the question is answered but execute is still blocked (settlement 3), then driving the task to acceptance and closing the run completed.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    result = must("starting the full-flow run", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "flow", "--input", "do the thing", "--worktree", str(work)))
+    fsd_state = require_path(result)
+    fsd_run_dir = fsd_state.parent
+
+    gap0 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if not gap0["gap"] or gap0["next"] != "interview":
+        failures.append(f"gap did not fire for the not-yet-entered entry stage: {gap0}")
+
+    must("entering interview", fsd(work, "enter", str(fsd_state), "interview"))
+    before_reenter = read_json(fsd_state)
+    must("entering interview a second time is idempotent", fsd(work, "enter", str(fsd_state), "interview"))
+    if read_json(fsd_state) != before_reenter:
+        failures.append("entering an already-entered stage a second time changed the state")
+    gap1 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap1["gap"]:
+        failures.append("gap fired while interview is a running stage with no evidence")
+
+    interview_run_root = work / ".agents" / "kein" / "runs" / "interview"
+    interview_dir = interview_run_root / "260101-000000-flow"
+    interview_dir.mkdir(parents=True)
+    ledger = interview_dir / "ledger.md"
+    requirements_path = work / ".agents" / "kein" / "requirements" / "flow.md"
+    requirements_path.parent.mkdir(parents=True)
+    write_active_ledger(ledger, "260101-000000-flow", work, work, requirements_path)
+    status1 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+    if status1["stages"]["interview"]["association"] != "resolved" or status1["stages"]["interview"]["run"] != str(ledger):
+        failures.append(f"interview association did not resolve to the new ledger: {status1['stages']['interview']}")
+
+    write_requirements(requirements_path, "Draft")
+    gap2 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap2["gap"]:
+        failures.append("gap fired before the interview ledger was completed")
+
+    write_requirements(requirements_path, "Approved")
+    write_completed_ledger(ledger, requirements_path)
+    gap3 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if not gap3["gap"] or gap3["next"] != "ralplan" or gap3["completed"] != "interview":
+        failures.append(f"gap did not report the interview -> ralplan row: {gap3}")
+
+    must("entering ralplan", fsd(work, "enter", str(fsd_state), "ralplan"))
+    gap4 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap4["gap"]:
+        failures.append("gap fired while ralplan is a running stage with no evidence")
+
+    plan_path = work / ".agents" / "kein" / "plans" / "flow.md"
+    plan_path.parent.mkdir(parents=True)
+    write_plan(plan_path, "Draft", "first cut", "v0")
+    ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+    ralplan_dest = ralplan_run_root / "260101-000000-flow" / "state.json"
+    must("starting the ralplan run", ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+    status2 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+    if status2["stages"]["ralplan"]["run"] != str(ralplan_dest):
+        failures.append(f"ralplan association did not resolve: {status2['stages']['ralplan']}")
+
+    must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
+    write_plan(plan_path, "Approved", "good", "v0")
+    must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
+    must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
+
+    gap5 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if not gap5["gap"] or gap5["next"] != "execute" or gap5["completed"] != "ralplan":
+        failures.append(f"gap did not report the ralplan -> execute row: {gap5}")
+
+    must("entering execute", fsd(work, "enter", str(fsd_state), "execute"))
+    gap6 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap6["gap"]:
+        failures.append("gap fired while execute is a running stage with no evidence")
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "flow", [execute_task("task-001", ["README.md"])])
+    status3 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+    if status3["stages"]["execute"]["run"] != str(execute_state):
+        failures.append(f"execute association did not resolve: {status3['stages']['execute']}")
+
+    must("dispatching task-001", execute(work, "dispatch", str(execute_state), "task-001"))
+    q1 = must("recording the irreversible question", fsd(work, "question", str(fsd_state), "--stage", "execute",
+              "--question", "which persisted format does task-001 write?", "--options", "json,csv",
+              "--recommended", "json", "--why-irreversible", "list item 1: a persisted format read outside the repo",
+              "--parks", "task-001"))
+    question_id = q1.stdout.strip()
+    if question_id != "Q1":
+        failures.append(f"the first question was not minted Q1: {question_id!r}")
+    must("parking task-001", execute(work, "park", str(execute_state), "task-001", "--question", "which format?", "--ref", question_id))
+    must("checkpointing execute to blocked", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {question_id}: task-001 parked"})))
+
+    gap7 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if not gap7["gap"] or gap7["next"] != "closeout" or gap7["completed"] != "execute":
+        failures.append(f"gap did not report the blocked-with-parked-unanswered row: {gap7}")
+
+    must("entering closeout", fsd(work, "closeout", str(fsd_state)))
+    gap_closeout_entered = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap_closeout_entered["gap"]:
+        failures.append(f"gap reported true right after closeout was entered, though it is now the running stage: {gap_closeout_entered}")
+    draft_retro = fsd_run_dir / "retro-draft.md"
+    draft_retro.write_text(f"# Retrospective\n\n{question_id}: which persisted format does task-001 write? Parked.\n")
+    must("closing while a question is unanswered", fsd(work, "close", str(fsd_state), "--retro", str(draft_retro)))
+    paused_state = read_json(fsd_state)
+    if paused_state["lifecycle"] != "paused":
+        failures.append(f"close did not pause the run while a question was unanswered: {paused_state['lifecycle']}")
+    if paused_state["retrospective"] != str(draft_retro):
+        failures.append("close moved the draft retrospective although the run only paused")
+    if not draft_retro.is_file():
+        failures.append("close removed the draft retrospective although the run only paused")
+
+    reconciled = json.loads(execute(work, "reconcile", str(execute_state)).stdout)
+    if reconciled.get("required_action") != f"blocked on {question_id}: task-001 parked":
+        failures.append(f"execute reconcile on the resumed run reported drift instead of the blocked run's own next_action: {reconciled}")
+    if not reconciled.get("worktree_matches"):
+        failures.append("the draft retrospective under runs/fsd polluted execute's own worktree fingerprint")
+
+    refuse("resuming while a question is unanswered", fsd(work, "resume", str(fsd_state)), reason="unanswered")
+    must("answering the question", fsd(work, "answer", str(fsd_state), question_id, "--text", "json"))
+    must("resuming once answered", fsd(work, "resume", str(fsd_state)))
+    resumed_state = read_json(fsd_state)
+    if resumed_state["lifecycle"] != "active":
+        failures.append(f"resume did not move the run back to active: {resumed_state['lifecycle']}")
+    if resumed_state["stages"]["execute"]["run"] != str(execute_state):
+        failures.append("resume did not keep execute's association to the same run path")
+    if resumed_state["stages"]["execute"]["status"] != "pending":
+        failures.append("resume did not reset the still-blocked execute stage back to pending")
+    if resumed_state["stages"]["closeout"]["status"] != "pending":
+        failures.append("resume did not reset closeout back to pending")
+    if len(resumed_state["agents_md"]) != 2:
+        failures.append(f"resume did not open a second agents_md span: {len(resumed_state['agents_md'])}")
+
+    must("re-entering execute after resume", fsd(work, "enter", str(fsd_state), "execute"))
+    status4 = json.loads(fsd(work, "status", str(fsd_state)).stdout)
+    if status4["stages"]["execute"]["run"] != str(execute_state) or status4["stages"]["execute"]["association"] != "kept":
+        failures.append(f"the association after resume + enter execute did not stay the same run path, kept: {status4['stages']['execute']}")
+
+    # Repeat the reconcile assertion after resume + enter execute: the fresh agents_md span and the fsd state.json writes resume itself made are also outside execute's tracked scope, so the still-blocked execute run must still reconcile clean, reporting its own next_action.
+    reconciled_after_resume = json.loads(execute(work, "reconcile", str(execute_state)).stdout)
+    if reconciled_after_resume.get("required_action") != f"blocked on {question_id}: task-001 parked":
+        failures.append(f"execute reconcile after resume + enter execute reported drift instead of the blocked run's own next_action: {reconciled_after_resume}")
+    if not reconciled_after_resume.get("worktree_matches"):
+        failures.append("resume's own writes (a fresh agents_md span, fsd's state.json) polluted execute's worktree fingerprint")
+
+    gap8 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap8["gap"]:
+        failures.append(f"gap stayed true after the question was answered, though execute is still blocked: {gap8}")
+
+    refuse("closing while execute is still blocked with nothing left unanswered", fsd(work, "close", str(fsd_state), "--retro", str(draft_retro)),
+           reason="execute is blocked, not completed")
+
+    must("checkpointing execute back to task phase", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "active", "phase": "task", "next_action": "resume task-001"})))
+    must("unparking task-001", execute(work, "unpark", str(execute_state), "task-001"))
+    drive_task_to_acceptance(work, execute_state, "task-001")
+    must("entering final_audit", execute_to_final_audit(work, execute_state))
+    must("completing the execute run", execute_complete(work, execute_state, ["task-001"]))
+
+    gap9 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if not gap9["gap"] or gap9["next"] != "closeout" or gap9["completed"] != "execute":
+        failures.append(f"gap did not report the execute-completed -> closeout row: {gap9}")
+
+    must("re-entering closeout after execute completed", fsd(work, "closeout", str(fsd_state)))
+    gap_closeout_entered_again = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
+    if gap_closeout_entered_again["gap"]:
+        failures.append(f"gap reported true right after closeout was re-entered following execute's completion: {gap_closeout_entered_again}")
+    must("recording an assumption", fsd(work, "assume", str(fsd_state), "--stage", "execute", "--decision", "log format",
+         "--chosen", "json lines", "--alternatives", "csv,xml", "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+    must("recording a lesson", fsd(work, "lesson", str(fsd_state), "--line", "run check-fsd-state before every fsd change",
+         "--why", "nothing else exercises this file"))
+
+    # Halt is refused here: AGENTS.md is unchanged, guard is clean, execute is completed, and every question is answered, so close would succeed given any valid retrospective.
+    refuse("halting a run close would complete", fsd(work, "halt", str(fsd_state), "--reason", "premature"), reason="close would succeed")
+
+    no_id_retro = fsd_run_dir / "retro-no-id.md"
+    no_id_retro.write_text("# Retrospective\n\nProse that cites no recorded decision by its identifier.\n")
+    refuse("closing with a retrospective that cites no id", fsd(work, "close", str(fsd_state), "--retro", str(no_id_retro)),
+           reason="does not cite every assumption, question, and lesson id")
+
+    # The retrospective is the durable copy of every id this run minted, not just one of them: with three ids on record (A1, Q1, L1), a retro citing only one of them is refused the same way, and the refusal names the ones it left out.
+    partial_id_retro = fsd_run_dir / "retro-partial-id.md"
+    partial_id_retro.write_text("# Retrospective\n\nOnly A1 is mentioned here.\n")
+    partial_result = refuse("closing with a retrospective that cites only one of three recorded ids", fsd(work, "close", str(fsd_state), "--retro", str(partial_id_retro)),
+                            reason="does not cite every assumption, question, and lesson id")
+    if "Q1" not in partial_result.stderr or "L1" not in partial_result.stderr:
+        failures.append(f"the partial-id refusal did not name the ids it was missing: {partial_result.stderr.strip()}")
+
+    final_retro = fsd_run_dir / "retro-final.md"
+    final_retro.write_text("# Retrospective\n\nA1, Q1, L1 all covered.\n")
+    must("closing the completed flow", fsd(work, "close", str(fsd_state), "--retro", str(final_retro)))
+    completed_state = read_json(fsd_state)
+    if completed_state["lifecycle"] != "completed":
+        failures.append(f"close did not complete the fully-answered, fully-accepted run: {completed_state['lifecycle']}")
+    if not completed_state["retrospective"] or "retros" not in completed_state["retrospective"]:
+        failures.append(f"close did not relocate the retrospective to the durable retros/ path: {completed_state['retrospective']}")
+    if not Path(completed_state["retrospective"]).is_file():
+        failures.append("the durable retrospective file does not exist")
+    if final_retro.exists():
+        failures.append("close left the retrospective at its draft path as well as the durable one")
+
+    report_text = fsd(work, "report", str(fsd_state)).stdout
+    for needed in ("A1", "Q1", "L1"):
+        if needed not in report_text:
+            failures.append(f"report did not print {needed}")
+
+# ---------------------------------------------------------------------------
+# Scenario 3: AGENTS.md drift across a pause. Edited while paused, then resume: close succeeds and both spans survive. Edited after resume: close refuses.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    tasks = [execute_task("task-001", ["README.md"])]
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+    # entry=execute directly, via an approved plan, keeps the fixture short.
+    approved_plan = work / f"plan-agentsmd.md"
+    write_plan(approved_plan, "Approved")
+    result = must("starting agentsmd-a", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "agentsmd-a", "--input", str(approved_plan), "--worktree", str(work)))
+    state_a = require_path(result)
+    must("entering execute for agentsmd-a", fsd(work, "enter", str(state_a), "execute"))
+    execute_state_a = execute_start(work, execute_run_root, "agentsmd-a", tasks)
+    drive_task_to_acceptance(work, execute_state_a, "task-001")
+    must("entering final_audit for agentsmd-a", execute_to_final_audit(work, execute_state_a))
+    must("completing agentsmd-a", execute_complete(work, execute_state_a, ["task-001"]))
+    must("recording a whole-run question for agentsmd-a", fsd(work, "question", str(state_a), "--stage", "closeout",
+         "--question", "does this lesson belong in AGENTS.md?", "--options", "yes,no", "--recommended", "yes",
+         "--why-irreversible", "an AGENTS.md edit is never taken by the flow itself", "--parks", "whole run"))
+    must("entering closeout for agentsmd-a", fsd(work, "closeout", str(state_a)))
+    retro_a = state_a.parent / "retro.md"
+    retro_a.write_text("Q1 pending.\n")
+    must("pausing agentsmd-a on the whole-run question", fsd(work, "close", str(state_a), "--retro", str(retro_a)))
+    if read_json(state_a)["lifecycle"] != "paused":
+        failures.append("agentsmd-a did not pause on its whole-run question")
+
+    (work / "AGENTS.md").write_text("# AGENTS\n\nedited while paused\n")
+    must("answering agentsmd-a's question", fsd(work, "answer", str(state_a), "Q1", "--text", "yes"))
+    must("resuming agentsmd-a after an AGENTS.md edit taken while paused", fsd(work, "resume", str(state_a)))
+    resumed_a = read_json(state_a)
+    if len(resumed_a["agents_md"]) != 2:
+        failures.append("resume did not open a fresh span over the AGENTS.md edit taken while paused")
+    # Settlement 3's execute-completed branch: execute's associated run is a completed receipt, so resume leaves its stage exactly as it was (still `entered`, its association untouched) rather than resetting it to `pending` -- there is nothing left there to re-enter -- and only `closeout` resets, so the next gap reads the execute-completed -> closeout row again rather than sending the flow back into execute.
+    if resumed_a["stages"]["execute"]["status"] != "entered":
+        failures.append(f"resume reset execute's stage even though its associated run is a completed receipt: {resumed_a['stages']['execute']}")
+    status_after_resume_a = json.loads(fsd(work, "status", str(state_a)).stdout)
+    if status_after_resume_a["stages"]["execute"]["run"] != str(execute_state_a):
+        failures.append(f"the association after resume did not still resolve to the completed execute run: {status_after_resume_a['stages']['execute']}")
+    if resumed_a["stages"]["closeout"]["status"] != "pending":
+        failures.append("resume did not reset closeout back to pending")
+    gap_after_resume_a = json.loads(fsd(work, "gap", str(state_a)).stdout)
+    if not gap_after_resume_a["gap"] or gap_after_resume_a["next"] != "closeout" or gap_after_resume_a["completed"] != "execute":
+        failures.append(f"gap after resume did not read the execute-completed -> closeout row again: {gap_after_resume_a}")
+
+    retro_a2 = state_a.parent / "retro2.md"
+    retro_a2.write_text("Q1 answered.\n")
+    must("closing agentsmd-a after resume", fsd(work, "close", str(state_a), "--retro", str(retro_a2)))
+    closed_a = read_json(state_a)
+    if closed_a["lifecycle"] != "completed":
+        failures.append(f"agentsmd-a did not complete once resumed over the paused-time edit: {closed_a['lifecycle']}")
+    if len(closed_a["agents_md"]) != 2:
+        failures.append("the completed state did not keep both agents_md spans")
+
+    # agentsmd-b: the same shape, but AGENTS.md is edited AFTER resume -- close must refuse.
+    result = must("starting agentsmd-b", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "agentsmd-b", "--input", str(approved_plan), "--worktree", str(work)))
+    state_b = require_path(result)
+    must("entering execute for agentsmd-b", fsd(work, "enter", str(state_b), "execute"))
+    execute_state_b = execute_start(work, execute_run_root, "agentsmd-b", tasks)
+    drive_task_to_acceptance(work, execute_state_b, "task-001")
+    must("entering final_audit for agentsmd-b", execute_to_final_audit(work, execute_state_b))
+    must("completing agentsmd-b", execute_complete(work, execute_state_b, ["task-001"]))
+    must("recording a whole-run question for agentsmd-b", fsd(work, "question", str(state_b), "--stage", "closeout",
+         "--question", "does this lesson belong in AGENTS.md?", "--options", "yes,no", "--recommended", "yes",
+         "--why-irreversible", "an AGENTS.md edit is never taken by the flow itself", "--parks", "whole run"))
+    must("entering closeout for agentsmd-b", fsd(work, "closeout", str(state_b)))
+    retro_b = state_b.parent / "retro.md"
+    retro_b.write_text("Q1 pending.\n")
+    must("pausing agentsmd-b", fsd(work, "close", str(state_b), "--retro", str(retro_b)))
+    must("answering agentsmd-b's question", fsd(work, "answer", str(state_b), "Q1", "--text", "yes"))
+    must("resuming agentsmd-b", fsd(work, "resume", str(state_b)))
+    (work / "AGENTS.md").write_text("# AGENTS\n\nedited after resume\n")
+    retro_b2 = state_b.parent / "retro2.md"
+    retro_b2.write_text("Q1 answered.\n")
+    refuse("closing agentsmd-b after an AGENTS.md edit taken after resume", fsd(work, "close", str(state_b), "--retro", str(retro_b2)),
+           reason="AGENTS.md changed")
+
+# ---------------------------------------------------------------------------
+# Scenario 4: guard -- a root-normalizing scope and a literal AGENTS.md scope both fail it, a docs/ scope passes; guard's failure names the lead's action; close refuses and halt then sets halted; report opens with the Halted section naming the task.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    (work / "docs").mkdir()
+    (work / "docs" / "x.md").write_text("x\n")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "docs")
+
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-guard.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the guard case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "guard", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the guard case", fsd(work, "enter", str(state_path), "execute"))
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    tasks = [
+        execute_task("task-a", ["AGENTS.md"]),
+        execute_task("task-b", ["."]),
+        execute_task("task-c", ["docs/"]),
+    ]
+    execute_state = execute_start(work, execute_run_root, "guard", tasks)
+    result = fsd(work, "guard", str(state_path))
+    guard_result = json.loads(result.stdout)
+    if result.returncode == 0:
+        failures.append("guard exited 0 although task-a and task-b scope AGENTS.md")
+    guarded_tasks = {v["task"] for v in guard_result["violations"]}
+    if guarded_tasks != {"task-a", "task-b"}:
+        failures.append(f"guard did not flag exactly task-a (literal AGENTS.md scope) and task-b (root scope): {guarded_tasks}")
+    if "action" not in guard_result or "park" not in guard_result["action"] or "abort" not in guard_result["action"]:
+        failures.append(f"guard's failure output did not state the lead's action: {guard_result}")
+
+    refuse("closing while guard fails", fsd(work, "close", str(state_path), "--retro", str(work / "no-such-retro.md")), reason="guard failed")
+    must("halting once guard fails", fsd(work, "halt", str(state_path), "--reason", "guard failed: task-a and task-b scope AGENTS.md"))
+    halted_state = read_json(state_path)
+    if halted_state["lifecycle"] != "halted":
+        failures.append("halt did not set the halted lifecycle")
+    gap_halted = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_halted["gap"]:
+        failures.append(f"gap reported true on a halted run: {gap_halted}")
+    report_text = fsd(work, "report", str(state_path)).stdout
+    if not report_text.startswith("## Halted") or "task-a" not in report_text:
+        failures.append(f"report on a halted run did not open with a Halted section naming the task: {report_text[:200]!r}")
+    refuse("halting an already-halted run", fsd(work, "halt", str(state_path), "--reason", "again"))
+
+# ---------------------------------------------------------------------------
+# Scenario 5: a blocked run with a parked task whose decision_ref is null gives no gap (no positive evidence); ambiguous stage association gives no gap either, and `status` reports it as ambiguous; `attach` pins an association past that ambiguity.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+    # An approved-plan input classifies straight to execute, with interview and ralplan already `skipped` from `start` -- this case is about the blocked-row evidence, not about re-proving the classification path already covered in scenario 1.
+    approved_plan = work / "plan-nullref.md"
+    write_plan(approved_plan, "Approved")
+    result = must("starting the null-ref case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "nullref", "--input", str(approved_plan), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the null-ref case", fsd(work, "enter", str(state_path), "execute"))
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "nullref", [execute_task("task-001", ["README.md"])])
+    must("dispatching task-001 for the null-ref case", execute(work, "dispatch", str(execute_state), "task-001"))
+    must("parking task-001 with no ref", execute(work, "park", str(execute_state), "task-001", "--question", "an unrecorded decision"))
+    must("checkpointing to blocked for the null-ref case", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": "blocked, no ref recorded"})))
+    gap_null = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_null["gap"]:
+        failures.append(f"gap fired for a parked task whose decision_ref names no fsd question: {gap_null}")
+
+# Ambiguous association, and `attach` past it.
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    result = must("starting the ambiguous case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ambiguous", "--input", "an idea", "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering interview for the ambiguous case", fsd(work, "enter", str(state_path), "interview"))
+    interview_run_root = work / ".agents" / "kein" / "runs" / "interview"
+    for name in ("260101-000000-one", "260101-000001-two"):
+        run_dir = interview_run_root / name
+        run_dir.mkdir(parents=True)
+        write_active_ledger(run_dir / "ledger.md", name, work, work, work / "req.md")
+    status_amb = json.loads(fsd(work, "status", str(state_path)).stdout)
+    if status_amb["stages"]["interview"]["association"] != "ambiguous":
+        failures.append(f"two new run directories did not read as an ambiguous association: {status_amb['stages']['interview']}")
+    write_requirements(work / "req.md", "Approved")
+    write_completed_ledger(interview_run_root / "260101-000000-one" / "ledger.md", work / "req.md")
+    gap_amb = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_amb["gap"]:
+        failures.append(f"gap fired over an ambiguous association: {gap_amb}")
+
+    must("attaching past the ambiguity", fsd(work, "attach", str(state_path), "interview", str(interview_run_root / "260101-000000-one" / "ledger.md")))
+    status_att = json.loads(fsd(work, "status", str(state_path)).stdout)
+    if status_att["stages"]["interview"]["association"] != "kept" or status_att["stages"]["interview"]["run"] != str(interview_run_root / "260101-000000-one" / "ledger.md"):
+        failures.append(f"attach did not pin the interview association: {status_att['stages']['interview']}")
+    gap_att = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_att["gap"] or gap_att["next"] != "ralplan":
+        failures.append(f"gap did not read the attached, completed interview run: {gap_att}")
+
+# ---------------------------------------------------------------------------
+# Scenario 6: at `enter`, a stage run that already exists, nonterminal, for the worktree is resumed rather than snapshotted -- the settlement-2 case, proven for execute (whose worktree claim makes it unique) since that is what the state shape names explicitly.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    pre_existing = execute_start(work, execute_run_root, "preexisting", [execute_task("task-001", ["README.md"])])
+
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    approved_plan = work / "plan-resumed.md"
+    write_plan(approved_plan, "Approved")
+    result = must("starting the resumed-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "resumed", "--input", str(approved_plan), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute over a pre-existing run", fsd(work, "enter", str(state_path), "execute"))
+    status_res = json.loads(fsd(work, "status", str(state_path)).stdout)
+    if status_res["stages"]["execute"]["run"] != str(pre_existing) or status_res["stages"]["execute"]["association"] != "kept":
+        failures.append(f"enter did not associate the pre-existing nonterminal execute run directly: {status_res['stages']['execute']}")
+    if read_json(state_path)["stages"]["execute"]["snapshot"]:
+        failures.append("enter snapshotted the run root even though a unique nonterminal run was already there to resume")
+
+# ---------------------------------------------------------------------------
+# Scenario 7: the ralplan non-convergence exit needs no ralplan change -- five official rounds each blocked then revised, round 6 approved with two deferrals (an architecture ground and a safety ground), the receipt completes carrying both, and approve immediately after block in the same round is refused.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    plan_path = work / "plan.md"
+    state_path = work / "state.json"
+    F = '"lane":"critic@claude","claim":"c","evidence":"e","impact":"i","required_correction":"r"'
+
+    def header(status, reason, body):
+        write_plan(plan_path, status, reason, body)
+
+    header("Draft", "drafted", "v0")
+    must("starting the non-convergence ralplan run", ralplan(work, "start", str(state_path), "--plan", str(plan_path), "--summary", "s", "--lanes", "architect@claude,critic@claude"))
+    body_version = 0
+    for round_number in range(1, 6):
+        header("In Review", f"reviewing round {round_number}", f"v{body_version}")
+        must(f"opening round {round_number}", ralplan(work, "open", str(state_path)))
+        findings_path = tmp / f"f{round_number}.json"
+        findings_path.write_text(f"[{{{F},\"blocking\":\"safety\"}}]")
+        must(f"blocking round {round_number}", ralplan(work, "block", str(state_path), "--findings", str(findings_path)))
+        refuse(f"approving right after block in round {round_number}", ralplan(work, "approve", str(state_path)), reason="official reviewing round")
+        body_version += 1
+        header("In Review", "revised", f"v{body_version}")
+        must(f"revising round {round_number}", ralplan(work, "revised", str(state_path)))
+
+    header("In Review", "reviewing round 6", f"v{body_version}")
+    must("opening round 6", ralplan(work, "open", str(state_path)))
+    deferred_path = tmp / "f6.json"
+    deferred_path.write_text(json.dumps([
+        {"lane": "architect@claude", "claim": "c1", "evidence": "e1", "impact": "i1", "required_correction": "r1",
+         "blocking": "architecture", "deferral": {"reason": "does not hold for an unattended run", "caught_by": "fsd assumption A1; execute final audit"}},
+        {"lane": "critic@claude", "claim": "c2", "evidence": "e2", "impact": "i2", "required_correction": "r2",
+         "blocking": "safety", "deferral": {"reason": "the ground names an irreversible decision", "caught_by": "fsd question Q1; tasks from story U-1 start parked"}},
+    ]))
+    header("Approved", "approved at round 6 with deferrals", f"v{body_version}")
+    must("approving round 6 with deferrals", ralplan(work, "approve", str(state_path), "--findings", str(deferred_path)))
+    must("completing the non-convergence run", ralplan(work, "complete", str(state_path)))
+    receipt = read_json(state_path)
+    if receipt.get("lifecycle") != "completed":
+        failures.append("the non-convergence receipt did not complete")
+    grounds = {f.get("blocking") for f in receipt.get("findings", [])}
+    if grounds != {"architecture", "safety"}:
+        failures.append(f"the completed receipt did not carry both deferred grounds: {grounds}")
+    if any(not f.get("deferral") for f in receipt.get("findings", [])):
+        failures.append("the completed receipt lost a deferral")
+
+# ---------------------------------------------------------------------------
+# Scenario 8: guard's action actually clears the failure.
+# Parking the offending task does not, since its scope is unchanged while parked and guard reads every task regardless of status; the fix is to abort the execute run (its own escape hatch, `checkpoint`, since execute has no `abort` builder), start a new one without the task, and `attach` fsd's association to it before rerunning guard.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-restart.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the restart case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "restart", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the restart case", fsd(work, "enter", str(state_path), "execute"))
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    bad_tasks = [execute_task("task-good", ["README.md"]), execute_task("task-bad", ["AGENTS.md"])]
+    execute_state_1 = execute_start(work, execute_run_root, "restart-1", bad_tasks)
+    guard_1 = json.loads(fsd(work, "guard", str(state_path)).stdout)
+    if guard_1["clean"]:
+        failures.append("guard reported clean over a task scoped to AGENTS.md")
+
+    must("dispatching task-bad before parking it", execute(work, "dispatch", str(execute_state_1), "task-bad"))
+    must("parking task-bad", execute(work, "park", str(execute_state_1), "task-bad", "--question", "does this belong in the ledger at all?"))
+    guard_2 = json.loads(fsd(work, "guard", str(state_path)).stdout)
+    if guard_2["clean"]:
+        failures.append("guard reported clean over a parked task whose scope still names AGENTS.md; parking does not clear a scope violation")
+
+    aborted_source = read_json(execute_state_1)
+    aborted_candidate = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": aborted_source["run_id"],
+        "lifecycle": "aborted", "aborted_at": STAMP,
+        "worktree_root": aborted_source["worktree"]["root"], "reason": "task-bad scopes AGENTS.md; restarting without it",
+    }
+    aborted_path = tmp / "aborted.json"
+    write(aborted_path, aborted_candidate)
+    must("aborting the bad execute run through checkpoint (execute has no abort builder)", execute(work, "checkpoint", str(execute_state_1), str(aborted_path)))
+
+    execute_state_2 = execute_start(work, execute_run_root, "restart-2", [execute_task("task-good", ["README.md"])])
+    must("attaching the restarted execute run", fsd(work, "attach", str(state_path), "execute", str(execute_state_2)))
+    status_restart = json.loads(fsd(work, "status", str(state_path)).stdout)
+    if status_restart["stages"]["execute"]["run"] != str(execute_state_2):
+        failures.append(f"attach did not repoint execute's association at the restarted run: {status_restart['stages']['execute']}")
+
+    guard_3 = json.loads(fsd(work, "guard", str(state_path)).stdout)
+    if not guard_3["clean"]:
+        failures.append(f"guard did not read clean once attached to the restarted run without the bad task: {guard_3}")
+
+# ---------------------------------------------------------------------------
+# Scenario 9: guard is clean while execute is entered but has no run there yet (the ordinary window before `execute start` runs), and not clean -- pointing at `attach` -- once its association is ambiguous.
+# `_stage_association_detail` only needs two new directories with a `state.json` inside to read as ambiguous; their content is irrelevant to that check, so placeholders are enough here.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-guardassoc.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the guard-association case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "guardassoc", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute with no run there yet", fsd(work, "enter", str(state_path), "execute"))
+    guard_none = json.loads(fsd(work, "guard", str(state_path)).stdout)
+    if not guard_none["clean"]:
+        failures.append(f"guard was not clean while execute is entered with no run there yet: {guard_none}")
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    for slug in ("one", "two"):
+        run_dir = execute_run_root / f"260101-000000-{slug}"
+        run_dir.mkdir(parents=True)
+        write(run_dir / "state.json", {"placeholder": True})
+    guard_ambiguous = json.loads(fsd(work, "guard", str(state_path)).stdout)
+    if guard_ambiguous["clean"]:
+        failures.append("guard was clean over an ambiguous execute association")
+    if "reason" not in guard_ambiguous or "attach" not in guard_ambiguous["reason"]:
+        failures.append(f"guard's ambiguous-association failure did not point at attach: {guard_ambiguous}")
+    refuse("closing while execute's association is ambiguous", fsd(work, "close", str(state_path), "--retro", str(work / "no-such.md")),
+           reason="ambiguous")
+
+# ---------------------------------------------------------------------------
+# Scenario 10: gap and status do not raise on unreadable stage evidence -- a missing or corrupt associated file yields no row rather than an exception, and status stays readable.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-corrupt.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the corrupt-evidence case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "corrupt", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the corrupt-evidence case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "corrupt", [execute_task("task-001", ["README.md"])])
+
+    execute_state.write_text("{ this is not valid json")
+    gap_corrupt = fsd(work, "gap", str(state_path))
+    if gap_corrupt.returncode != 0:
+        failures.append(f"gap raised over a corrupt associated file instead of reporting no gap: {gap_corrupt.stderr.strip()}")
+    else:
+        parsed = json.loads(gap_corrupt.stdout)
+        if parsed["gap"]:
+            failures.append(f"gap reported true by reading a corrupt associated file: {parsed}")
+    status_corrupt = fsd(work, "status", str(state_path))
+    if status_corrupt.returncode != 0:
+        failures.append(f"status raised over a corrupt associated file: {status_corrupt.stderr.strip()}")
+    else:
+        json.loads(status_corrupt.stdout)  # must at least parse as JSON
+
+    execute_state.unlink()
+    gap_missing = fsd(work, "gap", str(state_path))
+    if gap_missing.returncode != 0:
+        failures.append(f"gap raised over a missing associated file instead of reporting no gap: {gap_missing.stderr.strip()}")
+    else:
+        parsed = json.loads(gap_missing.stdout)
+        if parsed["gap"]:
+            failures.append(f"gap reported true by reading a missing associated file: {parsed}")
+    status_missing = fsd(work, "status", str(state_path))
+    if status_missing.returncode != 0:
+        failures.append(f"status raised over a missing associated file: {status_missing.stderr.strip()}")
+    else:
+        json.loads(status_missing.stdout)
+
+# ---------------------------------------------------------------------------
+# Scenario 11: the interview-aborted -> closeout gap row.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    result = must("starting the interview-aborted case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "intaborted", "--input", "an idea", "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering interview for the interview-aborted case", fsd(work, "enter", str(state_path), "interview"))
+    interview_run_root = work / ".agents" / "kein" / "runs" / "interview"
+    interview_dir = interview_run_root / "260101-000000-intaborted"
+    interview_dir.mkdir(parents=True)
+    ledger = interview_dir / "ledger.md"
+    write_aborted_ledger(ledger)
+    gap_int_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_int_aborted["gap"] or gap_int_aborted["next"] != "closeout" or gap_int_aborted["completed"] != "interview":
+        failures.append(f"gap did not report the interview-aborted -> closeout row: {gap_int_aborted}")
+
+# ---------------------------------------------------------------------------
+# Scenario 12: the execute aborted-receipt -> closeout gap row, and the blocked-with-no-parked-task, unanswered-whole-run-question -> closeout gap row.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-execaborted.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the execute-aborted case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "execaborted", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the execute-aborted case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "execaborted", [execute_task("task-001", ["README.md"])])
+    aborted_source = read_json(execute_state)
+    aborted_candidate = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": aborted_source["run_id"],
+        "lifecycle": "aborted", "aborted_at": STAMP,
+        "worktree_root": aborted_source["worktree"]["root"], "reason": "the fixture aborts this run outright",
+    }
+    aborted_path = tmp / "aborted.json"
+    write(aborted_path, aborted_candidate)
+    must("aborting the execute run", execute(work, "checkpoint", str(execute_state), str(aborted_path)))
+    gap_exec_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_exec_aborted["gap"] or gap_exec_aborted["next"] != "closeout" or gap_exec_aborted["completed"] != "execute":
+        failures.append(f"gap did not report the execute-aborted-receipt -> closeout row: {gap_exec_aborted}")
+    # close does not treat an aborted execute run as done: fsd's own completion means the change was actually delivered, which an aborted execute run did not do.
+    must("recording an assumption so the retrospective has something to cite", fsd(work, "assume", str(state_path),
+         "--stage", "execute", "--decision", "d", "--chosen", "c", "--alternatives", "x", "--reversal-cost", "r", "--where", "w"))
+    retro_for_aborted = state_path.parent / "retro.md"
+    retro_for_aborted.write_text("A1 covered; nothing else to close over here.\n")
+    refuse("closing over an aborted (not completed) execute run", fsd(work, "close", str(state_path), "--retro", str(retro_for_aborted)),
+           reason="execute is aborted, not completed")
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-wholerun.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the whole-run-blocked case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "wholerun", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the whole-run-blocked case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    # A single pending task is neither write-active nor parked, so "no task is write-active" and "no parked task" both hold trivially once the run is checkpointed blocked.
+    execute_state = execute_start(work, execute_run_root, "wholerun", [execute_task("task-001", ["README.md"])])
+    must("checkpointing to blocked with nothing dispatched", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": "blocked: a whole-run decision is needed before anything can be dispatched"})))
+    must("recording the whole-run question", fsd(work, "question", str(state_path), "--stage", "execute",
+         "--question", "which downstream format does the whole change need to target?", "--options", "a,b",
+         "--recommended", "a", "--why-irreversible", "list item 2: a public interface downstream consumers read",
+         "--parks", "whole run"))
+    gap_wholerun = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_wholerun["gap"] or gap_wholerun["next"] != "closeout" or gap_wholerun["completed"] != "execute":
+        failures.append(f"gap did not report the blocked-no-parked-task-whole-run-question -> closeout row: {gap_wholerun}")
+
+# ---------------------------------------------------------------------------
+# Scenario 13: the nonterminal-lifecycle short-circuit actually matters.
+# A freshly paused run whose underlying blocked-execute evidence would otherwise satisfy the closeout row must still report no gap -- closeout is deliberately left `pending` here (never entered) so the only thing keeping the row from firing is `gap` checking fsd's own lifecycle first.
+# Deleting that check would leave this case green for the wrong reason if the row's own evidence were also false; it is not, here.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-shortcircuit.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the short-circuit case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "shortcircuit", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the short-circuit case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "shortcircuit", [execute_task("task-001", ["README.md"])])
+    must("dispatching task-001 for the short-circuit case", execute(work, "dispatch", str(execute_state), "task-001"))
+    qid = must("recording the parking question for the short-circuit case", fsd(work, "question", str(state_path),
+        "--stage", "execute", "--question", "q", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 1", "--parks", "task-001")).stdout.strip()
+    must("parking task-001 for the short-circuit case", execute(work, "park", str(execute_state), "task-001", "--question", "q", "--ref", qid))
+    must("checkpointing to blocked for the short-circuit case", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {qid}"})))
+
+    gap_before_pause = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_before_pause["gap"] or gap_before_pause["next"] != "closeout":
+        failures.append(f"the fixture's own evidence did not satisfy the closeout row before pausing, so this case proves nothing: {gap_before_pause}")
+
+    # `close` needs no prior `closeout` entry -- it does not itself check `stages.closeout.status` -- so calling it directly leaves `closeout` still `pending` while the run becomes `paused`.
+    draft_retro = state_path.parent / "retro-draft.md"
+    draft_retro.write_text(f"{qid} pending.\n")
+    must("pausing directly without ever entering closeout", fsd(work, "close", str(state_path), "--retro", str(draft_retro)))
+    paused = read_json(state_path)
+    if paused["lifecycle"] != "paused":
+        failures.append(f"the short-circuit fixture did not pause: {paused['lifecycle']}")
+    if paused["stages"]["closeout"]["status"] != "pending":
+        failures.append("closeout was entered somewhere in this fixture, so it no longer isolates the lifecycle short-circuit")
+
+    gap_after_pause = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_after_pause["gap"]:
+        failures.append(f"gap reported true on a paused run whose blocked-execute evidence would satisfy the closeout row: {gap_after_pause}")
+
+# ---------------------------------------------------------------------------
+# Scenario 14: a write-active task alongside a parked, unanswered one keeps the blocked-row's "no task is write-active" clause from being vacuous.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-writeactive.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the write-active case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "writeactive", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the write-active case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "writeactive",
+        [execute_task("task-a", ["README.md"]), execute_task("task-b", ["src/b.py"])])
+    must("dispatching task-a", execute(work, "dispatch", str(execute_state), "task-a"))
+    must("verifying task-a, leaving it write-active", execute_checkpoint(work, execute_state, lambda s: by_id(s, "task-a").update(
+        {"status": "verifying", "round": 0, "latest_verification": [verification("true", 0)]})))
+    qid = must("recording task-b's parking question", fsd(work, "question", str(state_path),
+        "--stage", "execute", "--question", "q", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 1", "--parks", "task-b")).stdout.strip()
+    must("parking task-b", execute(work, "park", str(execute_state), "task-b", "--question", "q", "--ref", qid))
+    must("checkpointing to blocked while task-a is still write-active", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {qid}, though task-a is still being verified"})))
+
+    gap_write_active = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_write_active["gap"]:
+        failures.append(f"gap reported true for a blocked run with a write-active task alongside a parked, unanswered one: {gap_write_active}")
+
+# ---------------------------------------------------------------------------
+# Scenario 15: the retrospective location is enforced mechanically, not left to the caller's discipline -- `close` refuses a `--retro` path outside `.agents/kein/runs/` while pausing over an unanswered question with execute still nonterminal.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-retroloc.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the retro-location case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "retroloc", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the retro-location case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "retroloc", [execute_task("task-001", ["README.md"])])
+    must("dispatching task-001 for the retro-location case", execute(work, "dispatch", str(execute_state), "task-001"))
+    qid = must("recording the parking question for the retro-location case", fsd(work, "question", str(state_path),
+        "--stage", "execute", "--question", "q", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 1", "--parks", "task-001")).stdout.strip()
+    must("parking task-001 for the retro-location case", execute(work, "park", str(execute_state), "task-001", "--question", "q", "--ref", qid))
+    must("checkpointing to blocked for the retro-location case", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": f"blocked on {qid}"})))
+
+    outside_retro = work / "retro-outside.md"
+    outside_retro.write_text(f"{qid} pending.\n")
+    refuse("pausing with a retrospective outside .agents/kein/runs/ while execute is still blocked",
+           fsd(work, "close", str(state_path), "--retro", str(outside_retro)), reason="must be a path under")
+    if read_json(state_path)["lifecycle"] != "active":
+        failures.append("the refused close still moved the run out of active")
+
+    inside_retro = state_path.parent / "retro-inside.md"
+    inside_retro.write_text(f"{qid} pending.\n")
+    must("pausing with a retrospective under runs/fsd", fsd(work, "close", str(state_path), "--retro", str(inside_retro)))
+
+# ---------------------------------------------------------------------------
+# Scenario 16: the precedence settlement's "execute never started" branch.
+# `ralplan` aborts before `execute` is ever entered; a whole-run question is recorded; `close` pauses on it (not "execute is not started, not completed" -- unanswered is checked first); after answer + resume the association fsd keeps for `execute` is untouched (there was never one), only `closeout` resets, and `gap` reads the same interview/ralplan-aborted row again; `close` then reaches `completed` once nothing is unanswered, since `ralplan` aborting first means the flow was never going to reach `execute` at all.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    approved_requirements = work / "req-neverexec.md"
+    write_requirements(approved_requirements, "Approved")
+    result = must("starting the execute-never-started case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "neverexec", "--input", str(approved_requirements), "--worktree", str(work)))
+    state_path = require_path(result)
+    if read_json(state_path)["entry"] != "ralplan":
+        failures.append("the execute-never-started fixture did not enter at ralplan")
+    must("entering ralplan for the execute-never-started case", fsd(work, "enter", str(state_path), "ralplan"))
+
+    plan_path = work / "plan-neverexec.md"
+    write_plan(plan_path, "Draft", "drafted", "v0")
+    ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+    ralplan_dest = ralplan_run_root / "260101-000000-neverexec" / "state.json"
+    must("starting the ralplan run for the execute-never-started case",
+         ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+    must("aborting the ralplan run", ralplan(work, "abort", str(ralplan_dest), "--reason", "a blocking ground the owner has to rule on"))
+
+    gap_ralplan_aborted = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_ralplan_aborted["gap"] or gap_ralplan_aborted["next"] != "closeout" or gap_ralplan_aborted["completed"] != "ralplan":
+        failures.append(f"gap did not report the ralplan-aborted -> closeout row: {gap_ralplan_aborted}")
+    if read_json(state_path)["stages"]["execute"]["status"] != "pending":
+        failures.append("execute's stage status moved even though it was never entered")
+
+    must("entering closeout for the execute-never-started case", fsd(work, "closeout", str(state_path)))
+    gap_neverexec_closeout_entered = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_neverexec_closeout_entered["gap"]:
+        failures.append(f"gap reported true right after closeout was entered in the execute-never-started case: {gap_neverexec_closeout_entered}")
+    qid = must("recording the whole-run question before execute ever started", fsd(work, "question", str(state_path),
+        "--stage", "closeout", "--question", "does the owner want to retry with different constraints?",
+        "--options", "retry,abandon", "--recommended", "retry",
+        "--why-irreversible", "the owner's ruling is not something the flow can infer", "--parks", "whole run")).stdout.strip()
+
+    draft_retro = state_path.parent / "retro-draft.md"
+    draft_retro.write_text(f"{qid} pending; execute never started.\n")
+    must("pausing on the whole-run question with execute never started", fsd(work, "close", str(state_path), "--retro", str(draft_retro)))
+    paused = read_json(state_path)
+    if paused["lifecycle"] != "paused":
+        failures.append(f"close did not pause with execute never started and a question unanswered: {paused['lifecycle']}")
+
+    must("answering the whole-run question", fsd(work, "answer", str(state_path), qid, "--text", "retry"))
+    must("resuming with execute never started", fsd(work, "resume", str(state_path)))
+    resumed = read_json(state_path)
+    if resumed["lifecycle"] != "active":
+        failures.append(f"resume did not move the run back to active: {resumed['lifecycle']}")
+    if resumed["stages"]["execute"] != {"status": "pending", "snapshot": [], "run": None}:
+        failures.append(f"resume touched execute's stage even though its association was absent: {resumed['stages']['execute']}")
+    if resumed["stages"]["closeout"]["status"] != "pending":
+        failures.append("resume did not reset closeout back to pending")
+    if len(resumed["agents_md"]) != 2:
+        failures.append("resume did not open a second agents_md span")
+
+    gap_after_resume = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if not gap_after_resume["gap"] or gap_after_resume["next"] != "closeout" or gap_after_resume["completed"] != "ralplan":
+        failures.append(f"gap after resume did not read the same ralplan-aborted -> closeout row: {gap_after_resume}")
+
+    must("re-entering closeout after resume", fsd(work, "closeout", str(state_path)))
+    gap_neverexec_closeout_reentered = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_neverexec_closeout_reentered["gap"]:
+        failures.append(f"gap reported true right after closeout was re-entered in the execute-never-started case: {gap_neverexec_closeout_reentered}")
+    final_retro = state_path.parent / "retro-final.md"
+    final_retro.write_text(f"{qid} answered retry; execute was never reached.\n")
+    must("closing now that nothing is unanswered and execute was never reached", fsd(work, "close", str(state_path), "--retro", str(final_retro)))
+    closed = read_json(state_path)
+    if closed["lifecycle"] != "completed":
+        failures.append(f"close did not complete once ralplan aborted, execute was never reached, and nothing was left unanswered: {closed['lifecycle']}")
+    if not closed["retrospective"] or "retros" not in closed["retrospective"]:
+        failures.append(f"close did not relocate the retrospective on this completion: {closed['retrospective']}")
+    gap_after_completed = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_after_completed["gap"]:
+        failures.append(f"gap reported true on a completed run: {gap_after_completed}")
+
+# ---------------------------------------------------------------------------
+# Scenario 17: `close` treats a `--retro` path that already is the durable path as already relocated, rather than refusing it as a pre-existing collision or trying to replace it with itself.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-alreadydurable.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the already-durable case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "alreadydurable", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the already-durable case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "alreadydurable", [execute_task("task-001", ["README.md"])])
+    drive_task_to_acceptance(work, execute_state, "task-001")
+    must("entering final_audit for the already-durable case", execute_to_final_audit(work, execute_state))
+    must("completing the already-durable case's execute run", execute_complete(work, execute_state, ["task-001"]))
+    must("recording an assumption for the already-durable case", fsd(work, "assume", str(state_path),
+         "--stage", "execute", "--decision", "d", "--chosen", "c", "--alternatives", "x", "--reversal-cost", "r", "--where", "w"))
+
+    durable = durable_retro_path(read_json(state_path))
+    durable.parent.mkdir(parents=True, exist_ok=True)
+    durable.write_text("A1 covered, written straight to the durable path.\n")
+    must("closing with --retro already at the durable path", fsd(work, "close", str(state_path), "--retro", str(durable)))
+    closed = read_json(state_path)
+    if closed["lifecycle"] != "completed":
+        failures.append(f"close did not complete with --retro already at the durable path: {closed['lifecycle']}")
+    if closed["retrospective"] != str(durable):
+        failures.append(f"close did not record the durable path as the retrospective: {closed['retrospective']}")
+    if not durable.is_file():
+        failures.append("close removed the retrospective instead of leaving it at the durable path it already was")
+
+# ---------------------------------------------------------------------------
+# Scenario 18: the blocked-with-no-parked-task, whole-run-question row and the blocked-with-parked-tasks row are mutually exclusive.
+# A parked task present (whatever its decision_ref) must keep the whole-run-question clause from firing on its own -- dropping `and not parked` from that clause would let a parked task coexist with an unrelated whole-run question and still report a gap, which is not positive evidence for either of the two named rows.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-rowexcl.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the row-exclusivity case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "rowexcl", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the row-exclusivity case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "rowexcl", [execute_task("task-001", ["README.md"])])
+    must("dispatching task-001 for the row-exclusivity case", execute(work, "dispatch", str(execute_state), "task-001"))
+    must("parking task-001 with no ref", execute(work, "park", str(execute_state), "task-001", "--question", "an unrecorded decision"))
+    must("checkpointing to blocked for the row-exclusivity case", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": "blocked, task-001 parked with no ref, and a whole-run question also stands"})))
+    must("recording an unrelated whole-run question", fsd(work, "question", str(state_path),
+        "--stage", "closeout", "--question", "an unrelated whole-run decision", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 4", "--parks", "whole run"))
+    gap_null_ref_plus_whole_run = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_null_ref_plus_whole_run["gap"]:
+        failures.append(f"gap reported true for a parked task with no ref alongside an unrelated whole-run question: {gap_null_ref_plus_whole_run}")
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-rowexcl2.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the second row-exclusivity case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "rowexcl2", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the second row-exclusivity case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "rowexcl2", [execute_task("task-001", ["README.md"])])
+    must("dispatching task-001 for the second row-exclusivity case", execute(work, "dispatch", str(execute_state), "task-001"))
+    qid = must("recording task-001's own parking question", fsd(work, "question", str(state_path),
+        "--stage", "execute", "--question", "does task-001 depend on the format decision?", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 1", "--parks", "task-001")).stdout.strip()
+    must("parking task-001 against its own question", execute(work, "park", str(execute_state), "task-001", "--question", "q", "--ref", qid))
+    must("answering task-001's own parking question", fsd(work, "answer", str(state_path), qid, "--text", "a"))
+    must("checkpointing to blocked for the second row-exclusivity case", execute_checkpoint(work, execute_state, lambda s: s.update(
+        {"lifecycle": "blocked", "phase": "blocked", "next_action": "blocked, task-001's own question answered but an unrelated whole-run question also stands"})))
+    must("recording an unrelated, still-unanswered whole-run question", fsd(work, "question", str(state_path),
+        "--stage", "closeout", "--question", "a second, unrelated whole-run decision", "--options", "a,b", "--recommended", "a",
+        "--why-irreversible", "list item 4", "--parks", "whole run"))
+    gap_answered_ref_plus_whole_run = json.loads(fsd(work, "gap", str(state_path)).stdout)
+    if gap_answered_ref_plus_whole_run["gap"]:
+        failures.append(f"gap reported true for a parked task whose own ref is answered alongside an unrelated, unanswered whole-run question: {gap_answered_ref_plus_whole_run}")
+
+# ---------------------------------------------------------------------------
+# Scenario 19: the resumed-rather-than-created association for a stage with no worktree claim of its own -- ralplan's scan-based branch, which reads its `repository` field rather than execute's claim file.
+# A pre-existing, nonterminal ralplan run for this repository is associated directly at `enter`, the same as scenario 6 proved for execute through a different mechanism.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+    pre_existing_plan = work / "plan-preexisting.md"
+    write_plan(pre_existing_plan, "Draft", "drafted", "v0")
+    pre_existing_dest = ralplan_run_root / "260101-000000-preexisting" / "state.json"
+    must("starting the pre-existing ralplan run", ralplan(work, "start", str(pre_existing_dest), "--plan", str(pre_existing_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    approved_requirements = work / "req-preexisting.md"
+    write_requirements(approved_requirements, "Approved")
+    result = must("starting the ralplan-resumed-run case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "ralplanresumed", "--input", str(approved_requirements), "--worktree", str(work)))
+    state_path = require_path(result)
+    if read_json(state_path)["entry"] != "ralplan":
+        failures.append("the ralplan-resumed-run fixture did not enter at ralplan")
+    must("entering ralplan over a pre-existing run", fsd(work, "enter", str(state_path), "ralplan"))
+    status_ralplan_resumed = json.loads(fsd(work, "status", str(state_path)).stdout)
+    if status_ralplan_resumed["stages"]["ralplan"]["run"] != str(pre_existing_dest) or status_ralplan_resumed["stages"]["ralplan"]["association"] != "kept":
+        failures.append(f"enter did not associate the pre-existing nonterminal ralplan run directly: {status_ralplan_resumed['stages']['ralplan']}")
+    if read_json(state_path)["stages"]["ralplan"]["snapshot"]:
+        failures.append("enter snapshotted ralplan's run root even though a unique nonterminal run was already there to resume")
+
+# ---------------------------------------------------------------------------
+# Scenario 20: guard normalizes an absolute-path scope entry and a `..`-bearing relative one before checking whether they cover AGENTS.md -- both forms `execute start` itself accepts.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    (work / "docs").mkdir()
+    (work / "docs" / "x.md").write_text("x\n")
+    git(work, "add", "-A")
+    git(work, "commit", "-qm", "docs")
+
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-normalize.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the scope-normalization case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "normalize", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the scope-normalization case", fsd(work, "enter", str(state_path), "execute"))
+
+    # AGENTS.md itself may be a symlink -- `os.path.realpath` on the whole absolute entry would follow it to its target instead of staying "AGENTS.md" relative to the worktree, which is exactly why `_normalize_scope_entry` resolves only the entry's parent and leaves its own final component (the symlink itself) unresolved.
+    (work / "AGENTS-target.md").write_text("the real content behind the symlink\n")
+    (work / "AGENTS.md").unlink()
+    os.symlink(work / "AGENTS-target.md", work / "AGENTS.md")
+
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    tasks = [
+        execute_task("task-abs-root", [str(work)]),
+        execute_task("task-abs-agents", [str(work / "AGENTS.md")]),
+        execute_task("task-dotdot", ["docs/../AGENTS.md"]),
+        execute_task("task-docs", ["docs/"]),
+    ]
+    execute_start(work, execute_run_root, "normalize", tasks)
+    result = fsd(work, "guard", str(state_path))
+    guard_result = json.loads(result.stdout)
+    if result.returncode == 0:
+        failures.append("guard exited 0 although an absolute-path and a `..`-relative scope both name AGENTS.md")
+    guarded_tasks = {v["task"] for v in guard_result["violations"]}
+    if guarded_tasks != {"task-abs-root", "task-abs-agents", "task-dotdot"}:
+        failures.append(f"guard did not normalize the absolute-path and `..`-relative scope entries correctly, including an absolute path to a symlinked AGENTS.md: {guarded_tasks}")
+
+# ---------------------------------------------------------------------------
+# Scenario 21: an absolute scope entry may use an unresolved spelling of the worktree root -- on macOS a TemporaryDirectory sits under `/var/...`, itself a symlink to `/private/var/...`, and `execute start` accepts and stores a scope entry exactly as given, unresolved, while `state["worktree"]` is always the resolved form.
+# This fixture deliberately does not call `.resolve()` on the fixture path before building the scope entries from it, so it fails without `_normalize_scope_entry`'s `os.path.realpath` step even where the earlier scenario (whose `work` is pre-resolved) would not catch the gap.
+
+with tempfile.TemporaryDirectory() as tmp:
+    unresolved_work = Path(tmp) / "repo"
+    unresolved_work.mkdir()
+    if str(unresolved_work) == str(unresolved_work.resolve()):
+        failures.append("this platform's TemporaryDirectory did not exercise the symlink case scenario 21 needs, so it proves nothing here")
+    init_repo(unresolved_work)
+
+    fsd_run_root = unresolved_work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = unresolved_work / "plan-symlink.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the symlinked-tempdir case", fsd(unresolved_work, "start", "--run-root", str(fsd_run_root), "--slug", "symlink", "--input", str(plan_path), "--worktree", str(unresolved_work)))
+    state_path = require_path(result)
+    must("entering execute for the symlinked-tempdir case", fsd(unresolved_work, "enter", str(state_path), "execute"))
+    stored_worktree = read_json(state_path)["worktree"]
+    if stored_worktree == str(unresolved_work):
+        failures.append("this fixture's worktree was not actually resolved, so it cannot exercise the mismatch scenario 21 needs")
+
+    execute_run_root = unresolved_work / ".agents" / "kein" / "runs" / "execute"
+    tasks = [
+        execute_task("task-unresolved-root", [str(unresolved_work)]),
+        execute_task("task-unresolved-root-slash", [str(unresolved_work) + "/"]),
+        execute_task("task-unresolved-agents", [str(unresolved_work / "AGENTS.md")]),
+    ]
+    execute_start(unresolved_work, execute_run_root, "symlink", tasks)
+    result = fsd(unresolved_work, "guard", str(state_path))
+    guard_result = json.loads(result.stdout)
+    if result.returncode == 0:
+        failures.append("guard exited 0 over unresolved-tempdir-spelling scope entries naming the repository root and AGENTS.md")
+    guarded_tasks = {v["task"] for v in guard_result["violations"]}
+    if guarded_tasks != {"task-unresolved-root", "task-unresolved-root-slash", "task-unresolved-agents"}:
+        failures.append(f"guard did not normalize the unresolved tempdir spelling of the root and of AGENTS.md: {guarded_tasks}")
+
+# ---------------------------------------------------------------------------
+# Scenario 22: an execute run that itself aborted, with an fsd question still unanswered, still pauses rather than completing or refusing -- mirroring scenarios 3 and 16's absent/completed cases, but for the third case `_execute_side_done` treats as genuinely unfinished (aborted, upstream never aborted).
+# Unanswered is checked first regardless of execute's own state.
+
+with tempfile.TemporaryDirectory() as tmp:
+    tmp = Path(tmp)
+    work = (tmp / "repo").resolve()
+    init_repo(work)
+    fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+    plan_path = work / "plan-execaborted-unanswered.md"
+    write_plan(plan_path, "Approved")
+    result = must("starting the execute-aborted-unanswered case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "execabortedq", "--input", str(plan_path), "--worktree", str(work)))
+    state_path = require_path(result)
+    must("entering execute for the execute-aborted-unanswered case", fsd(work, "enter", str(state_path), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, "execabortedq", [execute_task("task-001", ["README.md"])])
+    aborted_source = read_json(execute_state)
+    aborted_candidate = {
+        "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": aborted_source["run_id"],
+        "lifecycle": "aborted", "aborted_at": STAMP,
+        "worktree_root": aborted_source["worktree"]["root"], "reason": "the fixture aborts this run while a question is still open",
+    }
+    aborted_path = tmp / "aborted.json"
+    write(aborted_path, aborted_candidate)
+    must("aborting the execute run while a question is unanswered", execute(work, "checkpoint", str(execute_state), str(aborted_path)))
+    qid = must("recording an unanswered question for the execute-aborted-unanswered case", fsd(work, "question", str(state_path),
+        "--stage", "closeout", "--question", "does the aborted attempt need a different approach?", "--options", "retry,abandon",
+        "--recommended", "retry", "--why-irreversible", "the owner's ruling is not something the flow can infer", "--parks", "whole run")).stdout.strip()
+    must("entering closeout for the execute-aborted-unanswered case", fsd(work, "closeout", str(state_path)))
+    retro_path = state_path.parent / "retro.md"
+    retro_path.write_text(f"{qid} pending; the execute run aborted.\n")
+    must("closing over an aborted execute run while a question is unanswered", fsd(work, "close", str(state_path), "--retro", str(retro_path)))
+    paused_state = read_json(state_path)
+    if paused_state["lifecycle"] != "paused":
+        failures.append(f"close did not pause over an aborted execute run with an unanswered question: {paused_state['lifecycle']}")
+
+if failures:
+    for failure in failures:
+        print(f"check-fsd-state: {failure}", file=sys.stderr)
+    raise SystemExit(1)
+print("check-fsd-state: classification, gap, guard, close/resume precedence over an unanswered "
+      "question and a still-blocked execute run, the retrospective staying out of execute's "
+      "fingerprint until completion, and the ralplan non-convergence exit all hold")
