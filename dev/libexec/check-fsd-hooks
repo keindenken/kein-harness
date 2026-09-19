@@ -1187,6 +1187,136 @@ def _section_postbash_chained_start_then_dispatch_attaches():
             failures.append(f"post-bash did not attach the execute run from the start segment of a chained command: {after['stages']['execute']}")
 
 # ---------------------------------------------------------------------------
+# Case: a `;` glued straight onto the previous word (`cd <work>;` with no space before it, unlike every other case here which always writes `cd <work>; ...`) still separates `cd <work>` from the `ocs state execute start ...` segment that follows -- post-bash tokenizes the command with a punctuation-aware `shlex.shlex` pass rather than a plain `shlex.split`, which would otherwise leave the glued `;` stuck to `<work>` as one token that matches nothing.
+
+def _section_postbash_glued_semicolon_before_start_attaches():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-postbash-glued.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "postbash-glued", str(plan_path))
+        must("entering execute for postbash-glued", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks_path = Path(tmp) / "postbash-glued-tasks.json"
+        tasks_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        start_result = must("starting the execute run for postbash-glued",
+                            execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-glued",
+                                    "--kind", "plan", "--input", str(plan_path), "--worktree", str(work), "--tasks", str(tasks_path)))
+        execute_dest = Path(start_result.stdout.strip())
+
+        # No space before the `;` -- it sits glued straight onto `{work}`, the way `cd x; command` is ordinarily typed, rather than `{work} ; ocs ...` with a space on both sides.
+        glued_command = (
+            f"cd {work}; ocs state execute start --run-root {execute_run_root} --slug postbash-glued "
+            f"--kind plan --input {plan_path} --worktree {work} --tasks {tasks_path}"
+        )
+        if f"{work}; ocs" not in glued_command or f"{work} ;" in glued_command:
+            failures.append(f"postbash-glued: the fixture's own command does not actually glue ; onto the previous word; this case proves nothing: {glued_command!r}")
+
+        assert_postbash_silent("postbash-glued: cd <work>; ocs state execute start (; glued to the previous word)", work,
+                                glued_command, stdout=start_result.stdout)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["execute"]["association"] != "kept" or after["stages"]["execute"]["run"] != str(execute_dest):
+            failures.append(f"post-bash did not attach the execute run from a start segment following a ; glued to the previous word: {after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Case: `ocs validate interview ledger <path>` on its own later line -- not the first line of the Bash call, and joined to nothing before it by `&&`/`;`/`|` at all -- still attaches, since post-bash splits the command text on its own literal newlines before tokenizing each line for the commands it watches.
+
+def _section_postbash_newline_separated_validate_attaches():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "postbash-newline", "an idea")
+        must("entering interview for postbash-newline", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-postbash-newline"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "postbash-newline.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Draft")
+        write_active_ledger(ledger, "260101-000000-postbash-newline", work, work, requirements_path)
+
+        newline_command = f"echo about to validate the ledger\nocs validate interview ledger {ledger}"
+        if "\n" not in newline_command:
+            failures.append("postbash-newline: the fixture's own command carries no newline at all; this case proves nothing")
+
+        assert_postbash_silent("postbash-newline: ocs validate interview ledger on a later line, no chaining operator at all", work, newline_command)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["interview"]["association"] != "kept" or after["stages"]["interview"]["run"] != str(ledger):
+            failures.append(f"post-bash did not attach the interview ledger validated on a later, newline-separated line: {after['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
+# Case: a heredoc whose own body happens to contain text that would otherwise look like a watched command (`ocs state execute start ...`, verbatim) does not attach from that body line -- post-bash skips every line of a heredoc body (`<<'EOF'` through its own terminator) before tokenizing anything, so only the real `ocs state execute start ...` on the line after the heredoc's own terminator is ever considered.
+
+def _section_postbash_heredoc_then_start_attaches():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        plan_path = work / "plan-postbash-heredoc.md"
+        write_plan(plan_path, "Approved")
+        state_path = fsd_start(work, run_root, "postbash-heredoc", str(plan_path))
+        must("entering execute for postbash-heredoc", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks_path = Path(tmp) / "postbash-heredoc-tasks.json"
+        tasks_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        start_result = must("starting the execute run for postbash-heredoc",
+                            execute(work, "start", "--run-root", str(execute_run_root), "--slug", "postbash-heredoc",
+                                    "--kind", "plan", "--input", str(plan_path), "--worktree", str(work), "--tasks", str(tasks_path)))
+        execute_dest = Path(start_result.stdout.strip())
+
+        heredoc_command = (
+            "cat <<'EOF'\n"
+            "ocs state execute start --run-root fake --slug fake-from-heredoc-body --kind plan --input fake --worktree fake --tasks fake\n"
+            "EOF\n"
+            f"ocs state execute start --run-root {execute_run_root} --slug postbash-heredoc "
+            f"--kind plan --input {plan_path} --worktree {work} --tasks {tasks_path}"
+        )
+
+        assert_postbash_silent("postbash-heredoc: heredoc body line looks like a watched command, real start follows on a later line", work,
+                                heredoc_command, stdout=start_result.stdout)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["execute"]["association"] != "kept" or after["stages"]["execute"]["run"] != str(execute_dest):
+            failures.append(f"post-bash did not attach the real execute run started after a heredoc: {after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
+# Case: a heredoc terminator line that only reduces to the delimiter after stripping surrounding whitespace (an indented `  EOF`) does not end a plain `<<EOF` heredoc -- POSIX requires the terminator line to equal the delimiter exactly, with no leading or trailing whitespace tolerated, unlike `<<-EOF`, which alone strips leading tabs -- so a real `ocs validate interview ledger ...` line sitting between that indented false terminator and the heredoc's own genuine (unindented) one is still inside the body and is never read as a command at all.
+
+def _section_postbash_heredoc_indented_false_terminator_not_attached():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        state_path = fsd_start(work, run_root, "postbash-heredoc-indented", "an idea")
+        must("entering interview for postbash-heredoc-indented", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-postbash-heredoc-indented"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / ".agents" / "kein" / "requirements" / "postbash-heredoc-indented.md"
+        requirements_path.parent.mkdir(parents=True)
+        write_requirements(requirements_path, "Draft")
+        write_active_ledger(ledger, "260101-000000-postbash-heredoc-indented", work, work, requirements_path)
+
+        heredoc_command = (
+            "cat > README.md <<EOF\n"
+            "Documentation body.\n"
+            "  EOF\n"
+            f"ocs validate interview ledger {ledger}\n"
+            "EOF"
+        )
+
+        assert_postbash_silent("postbash-heredoc-indented: an indented line that only reduces to the delimiter under stripping does not terminate <<EOF", work, heredoc_command)
+        after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if after["stages"]["interview"]["association"] != "none" or after["stages"]["interview"]["run"] is not None:
+            failures.append(f"post-bash attached an interview ledger from a line still inside a heredoc body, an indented false terminator making it look like a real command: {after['stages']['interview']}")
+
+# ---------------------------------------------------------------------------
 # Case: a paused fsd run allows regardless of the evidence underneath it -- `gap()`'s very first check is the run's own lifecycle, ahead of any stage row.
 
 def _section_paused_lifecycle():
@@ -1251,6 +1381,10 @@ SECTIONS = [
     ("postbash-non-start-command-noop", (), _section_postbash_non_start_command_noop),
     ("postbash-ledger-path-with-space-attaches", (), _section_postbash_ledger_path_with_space_attaches),
     ("postbash-chained-start-then-dispatch-attaches", (), _section_postbash_chained_start_then_dispatch_attaches),
+    ("postbash-glued-semicolon-before-start-attaches", (), _section_postbash_glued_semicolon_before_start_attaches),
+    ("postbash-newline-separated-validate-attaches", (), _section_postbash_newline_separated_validate_attaches),
+    ("postbash-heredoc-then-start-attaches", (), _section_postbash_heredoc_then_start_attaches),
+    ("postbash-heredoc-indented-false-terminator-not-attached", (), _section_postbash_heredoc_indented_false_terminator_not_attached),
     ("paused-lifecycle", (), _section_paused_lifecycle),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]

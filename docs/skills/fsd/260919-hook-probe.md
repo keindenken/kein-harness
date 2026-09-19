@@ -98,3 +98,20 @@ A parallel read of the installed `claude` CLI's own bundled schemas (not documen
 **Frontmatter.** (a) and (c) both hold, so U4's Gate G1 "If (a) or (c) fails" branch is not taken and the flow does not fall back to `hooks.json`. (b) also holds — the binding addition even establishes it holds *stronger* than U4's own alternate-path text worried about ("if only (b) fails"): the exact skill string is available on the frontmatter `PostToolUse` `Skill` hook in both the qualified and bare forms, verbatim, so `hook.py`'s `post-skill` mode is built to accept both directly from `tool_input.skill` rather than requiring the lead to run `ocs state fsd enter <stage>` unconditionally before every stage invocation. This matches Decision 1 in `fsd.md` (one session, hooks in `fsd`'s own frontmatter) and needs no revision from this gate. `claude plugin validate probe-plugin --strict` passing (`✔ Validation passed`) is evidence that this exact `hooks:` shape is one `claude plugin validate --strict` accepts, not yet the plugin-wide check U4 asks this gate to also produce: `claude plugin validate plugin --strict` against this repository's own `plugin/` is unaffected either way right now, since `plugin/skills/fsd/SKILL.md` does not exist yet (U5's file), and that check must be re-run once U5 writes it with this frontmatter block in place.
 
 No result here falls into G1's "Unexpected result" branch: frontmatter hooks did fire after invocation, consistent with the 2026-09-19 probe, and `--strict` accepted the plugin. U4 and `hook.py` proceed on the frontmatter placement.
+
+## `post-bash`'s own measurement — a frontmatter `PostToolUse` `Bash` hook, probed 2026-09-19
+
+`post-bash` is built on one further claim: a frontmatter `PostToolUse` hook with matcher `Bash` receives the exact command text a Bash tool call ran, as `tool_input.command`, and that command's own captured stdout, as `tool_response.stdout` — the two fields `post-bash` reads to find and confirm a stage's run. This was probed the same way as the rest of this file: a throwaway plugin declared a frontmatter `PostToolUse` hook, matcher `Bash`, pointed at a logging script, and the model was directed to run exactly one Bash command, `echo /tmp/fake-run/state.json`, and nothing else. `claude --version` was `2.1.278 (Claude Code)` for this run.
+
+The hook fired once, and its own logged input carried exactly these fields (session id and every path stripped out below; nothing else was trimmed):
+
+```json
+{
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Bash",
+  "tool_input": {"command": "echo /tmp/fake-run/state.json", "description": "Print a file path"},
+  "tool_response": {"stdout": "/tmp/fake-run/state.json", "stderr": "", "interrupted": false, "isImage": false, "noOutputExpected": false}
+}
+```
+
+`tool_input.command` is the literal shell text the model ran, unexpanded and unquoted-by-the-hook — exactly the string `post-bash` tokenizes to find a watched command. `tool_response.stdout` is that command's own real captured stdout, with the trailing newline `echo` itself writes already stripped, which is what lets `post-bash` read a `start` call's own printed state.json path straight off it without any further trimming of its own. Both fields land on the same top-level shape every other frontmatter hook in this file already uses — `hook_event_name`, `tool_name`, `tool_input`, alongside `tool_response` — so `post-bash` needs no handling beyond what `mode_stop`/`mode_pre_write`/`mode_post_skill` already establish for reading a frontmatter hook's own JSON stdin.

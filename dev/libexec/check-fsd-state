@@ -2171,6 +2171,42 @@ def _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_ro
             failures.append(f"gap did not print the ordinary invoke-execute action for the resumed, still-blocked run: {action!r}")
 
 # ---------------------------------------------------------------------------
+# Scenario 33: re-attaching a stage's own already-kept path, after the run behind it has gone terminal (completed, here), is a harmless no-op -- exit 0, nothing written -- the same promise scenario 30 above proves while the kept run is still live. `attach` checks the exact-same-resolved-path case before it ever asks the strict belonging test (`_candidate_belongs`) about the candidate, which is what keeps that check from refusing the very run whose kept link already answers the question: `_candidate_belongs` refuses any terminal candidate outright, live-only being the whole point of the strict test, so asking it first would turn this into a refusal instead of the no-op the kept link's own presence already settles. Required case: attach of the kept path after its own run went terminal is a no-op.
+
+def _section_scenario33_attach_same_kept_path_after_terminal_is_noop():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+
+        plan_path = work / "plan-scenario33.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting the terminal-reattach case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario33", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering execute for scenario33", fsd(work, "enter", str(state_path), "execute"))
+
+        execute_state = execute_start(work, execute_run_root, "scenario33", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching the execute run while still nonterminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        before = read_json(state_path)
+        if before["stages"]["execute"]["run"] != str(execute_state):
+            failures.append(f"the scenario33 fixture did not actually pin the kept link before completing the run; this case proves nothing: {before['stages']['execute']}")
+
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for scenario33", execute_to_final_audit(work, execute_state))
+        must("completing execute for scenario33", execute_complete(work, execute_state, ["task-001"]))
+        if read_json(execute_state)["lifecycle"] != "completed":
+            failures.append("the scenario33 fixture's own execute run did not actually reach a completed, terminal lifecycle; this case proves nothing")
+
+        must("re-attaching the exact same already-kept path after its own run went terminal", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        after = read_json(state_path)
+        if after["stages"]["execute"]["run"] != str(execute_state):
+            failures.append(f"re-attaching the exact same already-kept path after its run went terminal moved the association: {after['stages']['execute']}")
+        if after != before:
+            failures.append(f"re-attaching the exact same already-kept path after its run went terminal wrote something to fsd's own state: before={before['stages']['execute']} after={after['stages']['execute']}")
+
+# ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every scenario here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
@@ -2216,6 +2252,7 @@ SECTIONS = [
     ("scenario30-interview-second-ledger-never-replaces-kept-link", (), _section_scenario30_interview_second_ledger_never_replaces_kept_link),
     ("scenario31-ralplan-subdirectory-cwd-links", (), _section_scenario31_ralplan_subdirectory_cwd_links),
     ("scenario32-resumed-kept-occupant-strict-test-failure-no-occupant-row", (), _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_row),
+    ("scenario33-attach-same-kept-path-after-terminal-is-noop", (), _section_scenario33_attach_same_kept_path_after_terminal_is_noop),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}

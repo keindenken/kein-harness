@@ -534,12 +534,11 @@ def _execute_candidate_reference(payload: Dict[str, Any]) -> Any:
 
 
 def _execute_candidate_root(payload: Dict[str, Any]) -> Optional[str]:
-    """The candidate's own idea of where it lives, read from `worktree.root` -- present on every nonterminal execute run, the only shape `_execute_candidate_belongs` ever reads this from."""
+    """The candidate's own idea of where it lives, read from `worktree.root` -- present on every nonterminal execute run, the only shape `_execute_candidate_belongs` ever calls this with (it checks `lifecycle` first and returns before this is ever reached otherwise). The flat `worktree_root` field a *terminal* aborted receipt carries in its place is never read here: this function never sees one."""
     worktree = payload.get("worktree")
     if isinstance(worktree, dict) and isinstance(worktree.get("root"), str):
         return worktree["root"]
-    root = payload.get("worktree_root")
-    return root if isinstance(root, str) else None
+    return None
 
 
 def _execute_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
@@ -715,7 +714,7 @@ def _kept_link_still_live(stage: str, kept_path: Path) -> bool:
 def attach(destination: Path, stage: str, run_path: Path) -> None:
     """Pins a stage's association explicitly. This is the only writer of a kept link besides the `post-bash` hook, which calls this same function once it has already run the identical strict check on its own (see `hook.py`); the lead uses it directly whenever no bash command the hook watches produced the run.
     Applies the same strict belonging test `post-bash` applies, and no other (`_candidate_belongs`): the candidate must be live -- nonterminal -- its own identifying field known, and it must match this flow's own expected reference by resolved path, each side resolved against its own canonical worktree. A candidate that fails it is refused outright, by name -- there is no looser fallback left to reach for; a run this cannot verify, whether because it has already gone terminal or because it is genuinely not this flow's own, has nothing left here to rescue it.
-    A kept link is never replaced while its own referent is still live: once `stages.<stage>.run` is set, a call naming a different path is refused as long as the run currently sitting there is still nonterminal (`_kept_link_still_live`) -- protecting a kept link the flow is still actively relying on from being silently swapped out, which is exactly what a same-repository second interview ledger, still active, would otherwise do. A call naming the exact same path -- resolved, so an equivalent relative and absolute spelling both count -- is always a no-op that writes nothing, live or not. Once the currently kept run has itself gone terminal (or can no longer be read at all), a call naming a different, live, correctly-belonging path is accepted, moving the kept link there instead: this is what lets `guard`'s own abort-then-restart recovery -- which necessarily starts its replacement at a new path, since `execute start` refuses to reuse an existing one -- reach the replacement at all, and what lets an unreadable kept association (`GUARD_NO_ASSOCIATION`) be repaired with a plain `attach` rather than staying stuck forever."""
+    A kept link is never replaced while its own referent is still live: once `stages.<stage>.run` is set, a call naming a different path is refused as long as the run currently sitting there is still nonterminal (`_kept_link_still_live`) -- protecting a kept link the flow is still actively relying on from being silently swapped out, which is exactly what a same-repository second interview ledger, still active, would otherwise do. A call naming the exact same path -- resolved, so an equivalent relative and absolute spelling both count -- is always a no-op that writes nothing, live or not: that same-path check runs before `_candidate_belongs` is ever asked about the candidate, which is what actually makes it "whether or not that run is live" true rather than aspirational -- `_candidate_belongs` itself refuses a terminal candidate outright, so checking it first would turn re-attaching an already-kept run that has since gone terminal into a refusal instead of the no-op the kept link's own presence already answers. Once the currently kept run has itself gone terminal (or can no longer be read at all), a call naming a different, live, correctly-belonging path is accepted, moving the kept link there instead: this is what lets `guard`'s own abort-then-restart recovery -- which necessarily starts its replacement at a new path, since `execute start` refuses to reuse an existing one -- reach the replacement at all, and what lets an unreadable kept association (`GUARD_NO_ASSOCIATION`) be repaired with a plain `attach` rather than staying stuck forever."""
     if stage not in ("interview", "ralplan", "execute"):
         raise ValueError("attach names interview, ralplan, or execute")
     state = _load(destination)
@@ -723,14 +722,7 @@ def attach(destination: Path, stage: str, run_path: Path) -> None:
         raise ValueError("Terminal state cannot transition")
     if not run_path.is_file():
         raise ValueError(f"{run_path} does not exist")
-    if not _candidate_belongs(state, stage, run_path):
-        raise ValueError(
-            f"{run_path} does not belong to this flow's {stage} stage: it must be a live run of this flow "
-            "whose own reference matches this flow's by resolved path, in this flow's own canonical worktree"
-        )
     stage_state = state["stages"][stage]
-    if stage_state["status"] == "skipped":
-        raise ValueError(f"{stage} is skipped for this run")
     kept = stage_state.get("run")
     if kept:
         try:
@@ -739,8 +731,15 @@ def attach(destination: Path, stage: str, run_path: Path) -> None:
             same_path = kept == str(run_path)
         if same_path:
             return
-        if _kept_link_still_live(stage, Path(kept)):
-            raise ValueError(f"{stage} already has a kept link at {kept}, still live; a kept link is never replaced while it is still live")
+    if not _candidate_belongs(state, stage, run_path):
+        raise ValueError(
+            f"{run_path} does not belong to this flow's {stage} stage: it must be a live run of this flow "
+            "whose own reference matches this flow's by resolved path, in this flow's own canonical worktree"
+        )
+    if stage_state["status"] == "skipped":
+        raise ValueError(f"{stage} is skipped for this run")
+    if kept and _kept_link_still_live(stage, Path(kept)):
+        raise ValueError(f"{stage} already has a kept link at {kept}, still live; a kept link is never replaced while it is still live")
     candidate = copy.deepcopy(state)
     candidate_stage = candidate["stages"][stage]
     candidate_stage["run"] = str(run_path)
@@ -883,7 +882,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def _none_association_reason(state: Dict[str, Any], stage: str) -> str:
-    """What `status` reports alongside a stage whose association is `"none"` -- entered, or `pending` with no kept link at all, but with no run linked yet. This is the one thing status can actually tell a lead who has no memory of what already happened to this run (a fresh session after compaction, say): the command that links this stage automatically the moment it creates or first validates a matching run, with the specific argument this flow's own strict test actually reads -- for `ralplan`, `--plan <plan-path>` when this flow's own reference is a plan document, `--input <requirements-path>` when it is a requirements document (`_expected_ralplan_field`) -- and that `attach` pins nothing this same test would refuse: it works only on a live run of this flow, never a terminal one and never a stranger, so a run whose own reference genuinely contradicts this flow's is refused by `attach` too, exactly as it is by `post-bash`."""
+    """What `status` reports alongside a stage whose association is `"none"` -- entered, but with no run linked yet (`_flow_stage_run`'s own `"none"` reading). A stage that is `pending` with no kept link at all is not this case: `_flow_stage_run` reads that as `"not entered"` instead, which `status` does not attach an `association_reason` to at all, so a lead sees this text only once the stage has actually been entered. This is the one thing status can actually tell a lead who has no memory of what already happened to this run (a fresh session after compaction, say): the command that links this stage automatically the moment it creates or first validates a matching run, with the specific argument this flow's own strict test actually reads -- for `ralplan`, `--plan <plan-path>` when this flow's own reference is a plan document, `--input <requirements-path>` when it is a requirements document (`_expected_ralplan_field`) -- and that `attach` pins nothing this same test would refuse: it works only on a live run of this flow, never a terminal one and never a stranger, so a run whose own reference genuinely contradicts this flow's is refused by `attach` too, exactly as it is by `post-bash`."""
     if stage == "interview":
         command = ("ocs validate interview ledger <path>, run against an active ledger whose own "
                    "repository is this flow's canonical worktree and whose output_path resolves inside it")
@@ -943,7 +942,7 @@ def _covers_agents_md(entry: str, worktree_root: Path) -> bool:
 
 def _guard_action(state: Dict[str, Any], execute_run: Path) -> str:
     """The recovery `guard` names when it finds a violation in `execute_run`'s own tasks: abort this run and start its replacement, without the offending task, joined into one Bash call with `&&` so no hook ever observes the run aborted with no replacement yet -- the `post-bash` hook attaches the replacement automatically, once it strictly belongs, from that same `execute start` call's own printed stdout, so no separate `attach` step is named here at all. Chaining the two commands into a single tool call is what actually closes the abort-to-replacement window this action opens: `PostToolUse`/`PreToolUse`/`Stop` fire around whole tool calls, never in the middle of one shell line, so nothing reads fsd's own state between the abort landing and the replacement's association being attached.
-    The `--input` names the actual plan this flow is executing (`_expected_execute_plan_reference`) rather than a `<plan|brief>` placeholder: this flow always executes a plan, and a `--kind brief` replacement would store a `null` `input.reference`, which `_same_plan_reference` can never call a match -- exactly the gap this design closes. When the plan cannot be read (should not happen once `guard` has already read a real ledger, but guarded against regardless), a placeholder names what the lead must supply instead of a guess. `--worktree` is likewise the run's own actual worktree rather than a placeholder: `execute start` requires it, so the printed command would fail as given without it. Both real, substituted values -- the plan reference and the worktree -- are `shlex.quote`d so the line still runs as printed when either path holds a space; the angle-bracket placeholders the lead still has to fill in (`<state.json>`, `<s>`, and the rest) are left bare, since they are not values this substitutes at all."""
+    The `--input` names the actual plan this flow is executing (`_expected_execute_plan_reference`) rather than a `<plan|brief>` placeholder: this flow always executes a plan, and a `--kind brief` replacement would store a `null` `input.reference`, which `_same_plan_reference` can never call a match -- exactly the gap this design closes. When the plan cannot be read (should not happen once `guard` has already read a real ledger, but guarded against regardless), a placeholder names what the lead must supply instead of a guess. `--worktree` is likewise the run's own actual worktree rather than a placeholder: `execute start` requires it, so the printed command would fail as given without it. The checkpoint call's own first argument is `execute_run` itself -- the very state.json `guard` already read to find the violation, and so already knows without asking the lead to name it. All three real, substituted values -- `execute_run`, the plan reference, and the worktree -- are `shlex.quote`d so the line still runs as printed when any of their paths holds a space; the angle-bracket placeholders the lead still has to fill in (`<aborted-candidate.json>`, `<s>`, and the rest) are left bare, since they are not values this substitutes at all."""
     plan_reference = _expected_execute_plan_reference(state)
     plan_argument = shlex.quote(plan_reference) if plan_reference is not None else "<the plan this flow executes>"
     return (
@@ -951,7 +950,7 @@ def _guard_action(state: Dict[str, Any], execute_run: Path) -> str:
         "not clear this: its scope is unchanged while parked, so guard keeps failing and close keeps "
         "refusing. The fix is to abort this execute run and start its replacement, without the offending "
         "task, in the same Bash tool call, joined with && so no hook ever observes the run aborted with "
-        "no replacement yet: ocs state execute checkpoint <state.json> <aborted-candidate.json> && "
+        f"no replacement yet: ocs state execute checkpoint {shlex.quote(str(execute_run))} <aborted-candidate.json> && "
         "ocs state execute start --run-root <runs/execute> --slug <s> --kind plan --input "
         f"{plan_argument} --worktree {shlex.quote(state['worktree'])} --tasks <replacement-tasks-ledger.json, "
         "without the offending task>. The post-bash hook attaches the replacement automatically once it "

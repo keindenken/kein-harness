@@ -3,7 +3,7 @@
 
 Every mode allows by default and only ever acts on positive evidence. `stop` and `pre-write` act on `fsd`'s own `gap()`, imported here read-only exactly as `fsd/scripts/state.py` itself imports `execute`'s and `ralplan`'s internals -- nothing here re-derives what counts as a gap. `post-skill` and `post-bash` act on `fsd`'s own `enter`/`attach`, imported the same way -- nothing here re-derives what counts as a stage entry or a belonging association. Every path exits 0: `stop` blocks by printing `{"decision": "block", "reason": ...}`, `pre-write` denies by printing `hookSpecificOutput.permissionDecision: "deny"`, and every other outcome -- allow, an off-switch, no run, a corrupt or unreadable state, any exception -- is silent success. A block or deny reason that names `ocs state fsd closeout <state>` has `<state>` substituted with the resolved state.json path before it is printed, so the reason is a command the lead can run as-is rather than a template.
 
-`post-bash` is what records a stage's association the moment its run is created, instead of `fsd`'s own state machine inferring it afterward from a directory listing or a worktree claim (see `state.py`'s "Stage association" section comment). It watches every Bash call for three commands: `ocs state ralplan start ...` and `ocs state execute start ...`, whose own stdout on success is exactly the new run's state.json path (`fsd/scripts/state.py`'s own `start` command prints the identical shape for itself); and `ocs validate interview ledger <path>`, since interview has no `start` builder of its own -- its ledger is written directly by the interview skill -- and this validator is the one command `interview/SKILL.md`'s own `<Ledger>` section says always runs against it, both before relying on an active ledger and before accepting a terminal receipt, so its own `<path>` argument stands in for a printed destination. The command text is tokenized with `shlex.split` and split again on the literal `&&`/`;` tokens that survive it, so a chained command (`checkpoint ... && ... start ...`, `state.py`'s own `_guard_action`) is matched segment by segment against each command's own leading tokens rather than a substring search of the whole line, and a quoted argument -- a ledger path holding a space -- comes back unquoted the way the shell itself would hand it to the underlying command. A relative argument is resolved against the cwd that Bash call actually ran in, falling back to the project root only when that cwd is unusable; a shell-substituted argument (`$(...)`, a backtick, `$VAR`/`${VAR}`) names its value only at the shell's own hands, never in the literal command text, so it cannot be resolved at all and the command yields no candidate. Each candidate is checked with `fsd`'s own strict belonging test (`_candidate_belongs`) before ever being attached; a candidate that fails it -- an unrelated run, a `--kind brief` stranger, a ralplan or interview run for a different document entirely -- is left exactly as unassociated as if `post-bash` had never run at all. `post-bash` never blocks and never raises.
+`post-bash` is what records a stage's association the moment its run is created, instead of `fsd`'s own state machine inferring it afterward from a directory listing or a worktree claim (see `state.py`'s "Stage association" section comment). It watches every Bash call for three commands: `ocs state ralplan start ...` and `ocs state execute start ...`, whose own stdout on success is exactly the new run's state.json path (`fsd/scripts/state.py`'s own `start` command prints the identical shape for itself); and `ocs validate interview ledger <path>`, since interview has no `start` builder of its own -- its ledger is written directly by the interview skill -- and this validator is the one command `interview/SKILL.md`'s own `<Ledger>` section says always runs against it, both before relying on an active ledger and before accepting a terminal receipt, so its own `<path>` argument stands in for a printed destination. The command text is split on its own literal newlines first, with each heredoc body (`<<'EOF'`/`<<EOF` through its own terminator line) skipped outright rather than read as commands, and each remaining line is tokenized with a punctuation-aware `shlex.shlex` pass (`punctuation_chars=True`, `whitespace_split=True`) that splits `;`, `&&`, `||`, and `|` into their own tokens wherever they appear in the line -- including one glued straight onto the previous word (`cd x; ocs ...`), which a plain `shlex.split` pass leaves stuck to its neighbour instead of surfacing as its own token. A chained command (`checkpoint ... && ... start ...`, `state.py`'s own `_guard_action`) is matched segment by segment against each command's own leading tokens, after a segment's own leading `VAR=value` assignments are stripped, rather than a substring search of the whole line; a quoted argument -- a ledger path holding a space -- comes back unquoted the way the shell itself would hand it to the underlying command; and every matching segment across the whole command is considered, in order, not only the first one found. A relative argument is resolved against the cwd that Bash call actually ran in, falling back to the project root only when that cwd is unusable; a shell-substituted argument (`$(...)`, a backtick, `$VAR`/`${VAR}`) names its value only at the shell's own hands, never in the literal command text, so it cannot be resolved at all and the command yields no candidate. Each candidate is checked with `fsd`'s own strict belonging test (`_candidate_belongs`) before ever being attached; a candidate that fails it -- an unrelated run, a `--kind brief` stranger, a ralplan or interview run for a different document entirely -- is left exactly as unassociated as if `post-bash` had never run at all. `post-bash` never blocks and never raises.
 """
 from __future__ import annotations
 
@@ -35,21 +35,67 @@ _INTERVIEW_LEDGER_TOKENS = ("ocs", "validate", "interview", "ledger")
 # A shell construct -- command substitution (`$(...)`, a backtick) or a variable expansion (`$VAR`, `${VAR}`) -- whose actual value is filled in by the shell that ran this command, never present in `tool_input.command`'s own literal text.
 _SHELL_SUBSTITUTION = re.compile(r"\$\(|`|\$\{|\$[A-Za-z_][A-Za-z0-9_]*")
 
+# A heredoc's own opening marker -- `<<EOF`, `<<-EOF`, `<<'EOF'`, `<<"EOF"`, with or without the space either side commonly carries -- captured so its own body's lines (through the line that repeats the delimiter alone) can be skipped rather than read as commands of their own. Group 1 is the `-` of `<<-`, present or not; group 3 is the delimiter word itself.
+_HEREDOC_MARKER = re.compile(r"<<(-)?\s*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\2")
+
+# A leading `VAR=value` assignment -- one or more of which a shell strips off the front of a segment before running the command itself, the same way `env FOO=1 BAR=2 real-command` or a bare `FOO=1 real-command` line never reads `FOO=1` as the command's own first word.
+_VAR_ASSIGNMENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
+
 
 def _looks_shell_substituted(token: str) -> bool:
     """Whether `token` carries a shell construct whose value this function can never read from the literal command text alone. Such a token cannot be resolved at all, so the command it names a candidate for yields no candidate rather than a wrong one."""
     return bool(_SHELL_SUBSTITUTION.search(token))
 
 
-def _chain_segments(tokens):
-    """Splits one shlex-tokenized command line into its `&&`/`;`-separated segments, in execution order. Neither separator is special to `shlex.split` -- each survives as its own literal token, apart from its neighbours by whitespace the way a real chained command always writes it -- so this is a second, plain split over the already-tokenized list rather than a second shlex pass."""
+def _lines_without_heredoc_bodies(command: str):
+    """`command`'s own lines, in order, with every heredoc body dropped outright: once a line's own text matches `_HEREDOC_MARKER`, every following line is skipped -- unparsed, never tokenized -- through and including the terminator line, since that body is data a command reads, never a command of its own. The heredoc's own opening line (`cat <<'EOF'`, say) is kept and tokenized normally; only the body and its own terminator line are dropped. Terminator matching follows POSIX, not a loose `.strip()`: for a plain `<<DELIM`, `<<'DELIM'`, or `<<\"DELIM\"` marker, the terminator is a line *exactly* equal to `DELIM` -- no leading or trailing whitespace tolerated, so an indented line that merely reduces to the delimiter under stripping (`  EOF`) does not end the heredoc and its own body -- which can otherwise read exactly like one of the three commands `post-bash` watches -- is correctly still skipped. Only `<<-DELIM` strips leading whitespace at all, and only *tabs*, never spaces, from each candidate terminator line before comparing it to `DELIM`, matching the one shell feature `<<-` actually provides. A heredoc whose terminator never appears -- a command still being typed, or one this file cannot fully make sense of -- reads as the rest of `command` simply having no more lines rather than raising."""
+    lines = command.splitlines()
+    kept = []
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        kept.append(line)
+        marker = _HEREDOC_MARKER.search(line)
+        if marker is not None:
+            strip_leading_tabs = marker.group(1) is not None
+            delimiter = marker.group(3)
+            index += 1
+            while index < len(lines):
+                candidate = lines[index].lstrip("\t") if strip_leading_tabs else lines[index]
+                if candidate == delimiter:
+                    break
+                index += 1
+            index += 1  # also drop the terminator line itself, once found; past the end is a harmless no-op
+            continue
+        index += 1
+    return kept
+
+
+def _strip_leading_assignments(segment):
+    """`segment` with its own leading `VAR=value` tokens removed, so a segment such as `KEIN_STATE_ROOT=/tmp ocs state execute start ...` is still matched by its own actual command's leading tokens rather than by the assignment sitting in front of them."""
+    index = 0
+    while index < len(segment) and _VAR_ASSIGNMENT.match(segment[index]):
+        index += 1
+    return segment[index:]
+
+
+def _chain_segments(command: str):
+    """Every `;`/`&&`/`||`/`|`-separated segment of `command`, in execution order, with each segment's own leading `VAR=value` assignments already stripped. `command` is split on its own literal newlines first (`_lines_without_heredoc_bodies`, which also drops every heredoc body outright, since a heredoc body's own lines are never commands), and each remaining line is tokenized on its own with a punctuation-aware `shlex.shlex` pass (`punctuation_chars=True`, `whitespace_split=True`) rather than the plain `shlex.split` an earlier version used: punctuation-aware tokenizing splits `;`, `&&`, `||`, and `|` into their own tokens wherever they appear in the line, including one glued straight onto the previous word (`cd x; ocs ...`), which `shlex.split` instead leaves stuck to its neighbour as one token (`x;`) that never matches anything. A line whose own quoting is unbalanced is not a command this function can ever match, so that one line simply contributes no segments rather than raising and losing every other line's own segments with it."""
     segments = [[]]
-    for token in tokens:
-        if token in ("&&", ";"):
-            segments.append([])
-        else:
-            segments[-1].append(token)
-    return [segment for segment in segments if segment]
+    for line in _lines_without_heredoc_bodies(command):
+        try:
+            lexer = shlex.shlex(line, posix=True, punctuation_chars=True)
+            lexer.whitespace_split = True
+            tokens = list(lexer)
+        except ValueError:
+            continue
+        for token in tokens:
+            if token in ("&&", ";", "||", "|"):
+                segments.append([])
+            else:
+                segments[-1].append(token)
+        segments.append([])  # a line break is itself a segment boundary, the same as a `;` would be
+    return [_strip_leading_assignments(segment) for segment in segments if segment]
 
 
 def _segment_candidate(segment):
@@ -65,17 +111,11 @@ def _segment_candidate(segment):
     return None, None
 
 
-def _matched_segment(command: str):
-    """`(stage, ledger_path_token | None)` for the first chain segment of `command` that names one of the three commands `post-bash` watches, or `None` when no segment does. Tokenized with `shlex.split` first -- which un-quotes a quoted argument (a ledger path holding a space) back to its own literal text -- and split again on the literal `&&`/`;` tokens that survive it, so a chained command is checked segment by segment rather than as one line searched for a lookalike substring. Unbalanced quoting is not a command this function can ever match, so it reads as no match rather than raising."""
-    try:
-        tokens = shlex.split(command)
-    except ValueError:
-        return None
-    for segment in _chain_segments(tokens):
-        stage, ledger_token = _segment_candidate(segment)
-        if stage is not None:
-            return stage, ledger_token
-    return None
+def _matched_segments(command: str):
+    """`[(stage, ledger_path_token | None), ...]` for every chain segment of `command` that names one of the three commands `post-bash` watches, in the order those segments appear -- `[]` when none does. `mode_post_bash` tries each in turn rather than stopping at the first, since a command can genuinely carry more than one watched segment (two chained `ocs validate interview ledger` calls, say) and the first is not guaranteed to be the one that actually belongs."""
+    return [(stage, ledger_token) for stage, ledger_token in (
+        _segment_candidate(segment) for segment in _chain_segments(command)
+    ) if stage is not None]
 
 
 def _resolve_relative_argument(text: str, execute_module, payload: Dict[str, Any]) -> Path:
@@ -266,30 +306,38 @@ def mode_post_bash(payload: Dict[str, Any]) -> None:
     command = (payload.get("tool_input") or {}).get("command")
     if not isinstance(command, str):
         _allow()
-    matched = _matched_segment(command)
-    if matched is None:
+    matches = _matched_segments(command)
+    if not matches:
         _allow()
-    stage, ledger_token = matched
     tool_response = payload.get("tool_response") or {}
     stdout = tool_response.get("stdout")
     stdout = stdout if isinstance(stdout, str) else None
     try:
         fsd_module, execute_module = _load_fsd_and_execute()
-        candidate_path: Optional[Path] = None
-        if ledger_token is not None:
-            if not _looks_shell_substituted(ledger_token):
-                candidate_path = _resolve_relative_argument(ledger_token, execute_module, payload)
-        else:
-            candidate_path = _stdout_state_json_line(stdout, execute_module, payload)
-        if candidate_path is not None:
-            state_path = _find_active_state_path(fsd_module, execute_module, payload)
-            if state_path is not None:
+        # Every matching segment is tried, in order, until one actually attaches -- not only the first match found -- since a command can genuinely carry more than one watched segment and the first is not guaranteed to be the one that belongs.
+        for stage, ledger_token in matches:
+            try:
+                candidate_path: Optional[Path] = None
+                if ledger_token is not None:
+                    if not _looks_shell_substituted(ledger_token):
+                        candidate_path = _resolve_relative_argument(ledger_token, execute_module, payload)
+                else:
+                    candidate_path = _stdout_state_json_line(stdout, execute_module, payload)
+                if candidate_path is None:
+                    continue
+                state_path = _find_active_state_path(fsd_module, execute_module, payload)
+                if state_path is None:
+                    continue
                 state = fsd_module._load(state_path)
                 # The strict belonging test runs here, before `attach` is ever called, so a non-belonging candidate -- an unrelated run, a `--kind brief` stranger, a ralplan or interview run for a different document -- is never attached; `attach` applies the identical test to a lead's own explicit call, with no looser fallback of its own to reach for either.
                 if candidate_path.is_file() and fsd_module._candidate_belongs(state, stage, candidate_path):
                     fsd_module.attach(state_path, stage, candidate_path)
+                    break
+            except Exception:
+                # A refusal from `attach` (the stage is skipped, or the state is terminal) lands here too, and stays swallowed on purpose, the same as `post-skill`'s own `enter` refusal: this one segment's own candidate is simply left exactly as unassociated as if it had never matched, and the next matching segment, if any, still gets its own turn.
+                continue
     except Exception:
-        # A refusal from `attach` (the stage is skipped, or the state is terminal) lands here too, and stays swallowed on purpose, the same as `post-skill`'s own `enter` refusal: the stage's association is simply left exactly as it was.
+        # A failure loading `fsd`'s own state machine at all -- nothing here to try any segment against.
         pass
     _allow()
 
