@@ -2207,6 +2207,44 @@ def _section_scenario33_attach_same_kept_path_after_terminal_is_noop():
             failures.append(f"re-attaching the exact same already-kept path after its run went terminal wrote something to fsd's own state: before={before['stages']['execute']} after={after['stages']['execute']}")
 
 # ---------------------------------------------------------------------------
+# Scenario 34: a ralplan run started from a subdirectory of the repository, with `--input` and `--plan` given relative to that subdirectory's own cwd rather than absolute -- the ordinary way a lead standing in a subdirectory would type them -- still links. Scenario 31 above proves the subdirectory-root canonicalization alone; it types `--input` absolute, so a relative reference resolved against the wrong root never shows up. This scenario is what actually exercises `_same_plan_reference` resolving a ralplan candidate's own relative reference against the run's own `working_directory` rather than against the candidate's canonicalized repository root: a relative `--input` typed from `sub/` points at a file one level up, and only resolving it against `sub/` itself (not against the canonicalized repository root, a different directory the file is not relative to) lands back on the same file the flow's own absolute reference names. Required case: a subdirectory-started ralplan run with relative --input and --plan links.
+
+def _section_scenario34_ralplan_subdirectory_relative_input_links():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        subdir = work / "sub"
+        subdir.mkdir()
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+
+        approved_requirements = work / "req-scenario34.md"
+        write_requirements(approved_requirements, "Approved")
+        result = must("starting the ralplan-subdirectory-relative case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "scenario34", "--input", str(approved_requirements), "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering ralplan for the subdirectory-relative case", fsd(work, "enter", str(state_path), "ralplan"))
+
+        plan_path = work / "plan-scenario34.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        ralplan_dest = ralplan_run_root / "260101-000000-scenario34" / "state.json"
+        # cwd is the subdirectory; --input and --plan are typed relative to it, exactly as a lead standing there would type them, and --repository/--working-directory are both left unset so they default to that same subdirectory.
+        relative_input = os.path.relpath(approved_requirements, subdir)
+        relative_plan = os.path.relpath(plan_path, subdir)
+        must("starting the ralplan run from a subdirectory cwd with relative --input and --plan",
+             ralplan(subdir, "start", str(ralplan_dest), "--input", relative_input, "--plan", relative_plan, "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        stored = read_json(ralplan_dest)
+        if stored["repository"] != str(subdir) or stored["working_directory"] != str(subdir):
+            failures.append(f"the subdirectory-relative fixture did not actually store the subdirectory as its own repository and working_directory; this case proves nothing: {stored}")
+        if stored["input"]["reference"] != relative_input:
+            failures.append(f"the subdirectory-relative fixture did not store --input exactly as typed; this case proves nothing: {stored['input']}")
+
+        must("attaching the subdirectory-started ralplan run with a relative --input", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["ralplan"]["association"] != "kept" or status_after["stages"]["ralplan"]["run"] != str(ralplan_dest):
+            failures.append(f"attach refused a ralplan run started from a subdirectory with a relative --input typed relative to that same subdirectory: {status_after['stages']['ralplan']}")
+
+# ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every scenario here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
@@ -2253,6 +2291,7 @@ SECTIONS = [
     ("scenario31-ralplan-subdirectory-cwd-links", (), _section_scenario31_ralplan_subdirectory_cwd_links),
     ("scenario32-resumed-kept-occupant-strict-test-failure-no-occupant-row", (), _section_scenario32_resumed_kept_occupant_strict_test_failure_no_occupant_row),
     ("scenario33-attach-same-kept-path-after-terminal-is-noop", (), _section_scenario33_attach_same_kept_path_after_terminal_is_noop),
+    ("scenario34-ralplan-subdirectory-relative-input-links", (), _section_scenario34_ralplan_subdirectory_relative_input_links),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
