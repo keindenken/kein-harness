@@ -2,7 +2,8 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+#   ocs team <provider> --agent <role> [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+#   ocs team close <run-dir> [--discard]
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
 #
@@ -13,6 +14,13 @@
 # What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
 # Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
 set -eu
+
+# The worktree a lane created is this command's to remove, and removing it takes a check Orca does not make, so it lives beside the command that made it.
+if [ "${1:-}" = close ]; then
+  shift
+  . "$KEIN_ROOT/libexec/lib/team-close.sh"
+  exit
+fi
 
 # Adding a provider is one entry here and no change at any call site.
 PROVIDERS='codex'
@@ -42,12 +50,18 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+       ocs team close <run-dir> [--discard]
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them
   --worktree: where the worker writes. Default is here. \`new\` creates an
               Orca-managed worktree for this lane; a path uses an existing one.
+  --branch:  with \`--worktree new\`, the lane's branch name (default: Orca's).
+  close:     remove a worktree this command created, once its branch is merged
+             into the branch it was created from and nothing is left uncommitted.
+             The lane's report and run directory are kept in the caller's state
+             directory. --discard removes it regardless and loses what is there.
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
   --timeout: seconds to wait for the worker (default: 3600)
@@ -73,6 +87,7 @@ timeout=3600
 keep=0
 check=0
 worktree_arg=''
+branch=''
 task=''
 task_file=''
 
@@ -81,6 +96,8 @@ while [ $# -gt 0 ]; do
     --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs team: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
     --agent=*) role=${1#--agent=}; shift ;;
     --keep) keep=1; shift ;;
+    --branch) branch=${2:-}; [ -n "$branch" ] || { printf 'ocs team: missing name after --branch\n' >&2; exit 1; }; shift 2 ;;
+    --branch=*) branch=${1#--branch=}; shift ;;
     --check) check=1; shift ;;
     --worktree) worktree_arg=${2:-}; [ -n "$worktree_arg" ] || { printf 'ocs team: missing value after --worktree\n' >&2; exit 1; }; shift 2 ;;
     --worktree=*) worktree_arg=${1#--worktree=}; shift ;;
@@ -179,6 +196,25 @@ lead_main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/
 # Resolved before the trust check and before the run directory, because both have to name the tree the
 # worker will actually hold rather than the one the lead is standing in.
 here=$PWD
+created_worktree=''
+base_branch=''
+if [ -n "$branch" ]; then
+  [ "$worktree_arg" = new ] || { printf 'ocs team: --branch names the branch of a worktree this command creates, so it needs `--worktree new`.\n' >&2; exit 1; }
+  git check-ref-format --branch "$branch" >/dev/null 2>&1 || { printf "ocs team: '%s' is not a valid branch name\n" "$branch" >&2; exit 1; }
+  ! git show-ref --verify --quiet "refs/heads/$branch" || { printf "ocs team: branch '%s' already exists\n" "$branch" >&2; exit 1; }
+fi
+
+# A lane worktree that is created and then orphaned by a later refusal is the leak this guards: every exit after creation names it and how to close it.
+lane_worktree_notice() {
+  [ -n "$created_worktree" ] || return 0
+  if [ -s "${dir:-/nonexistent}/command.txt" ]; then
+    printf 'ocs team: this lane created %s. Once its branch is merged: ocs team close %s\n' "$created_worktree" "$dir" >&2
+  else
+    printf 'ocs team: this lane created %s and stopped before recording it; remove it with orca worktree rm --worktree path:%s --force\n' "$created_worktree" "$created_worktree" >&2
+  fi
+}
+trap lane_worktree_notice EXIT
+
 case "$worktree_arg" in
   ''|current|.) worktree=$here ;;
   new)
@@ -191,8 +227,9 @@ case "$worktree_arg" in
     # is what leaves the worker able to run gates instead of landing in a tree with no dependencies.
     repo_selector="path:${lead_main:-$here}"
     base_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+    [ "$base_branch" != HEAD ] || base_branch=''
     worktree=$(
-      orca worktree create --name "kein-$role-$stamp" --repo "$repo_selector" \
+      orca worktree create --name "${branch:-kein-$role-$stamp}" --repo "$repo_selector" \
         ${base_branch:+--base-branch "$base_branch"} --setup run --json 2>/dev/null |
       python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("result") or d).get("worktree",{}).get("path",""))' 2>/dev/null
     )
@@ -201,7 +238,13 @@ case "$worktree_arg" in
       printf '  Check `orca worktree list` and that the Orca app is reachable.\n' >&2
       exit 1
     }
-    printf 'ocs team: lane worktree %s\n' "$worktree" >&2 ;;
+    created_worktree=$worktree
+    # Orca prefixes the branch with the operator's namespace and flattens `/`, so a name like `feat/slug` cannot be asked for; it is renamed here instead.
+    # Measured 2026-09-19: Orca keeps addressing the worktree by path after the rename, and `orca worktree rm` deletes the renamed branch.
+    if [ -n "$branch" ]; then
+      git -C "$worktree" branch -m "$branch" 2>/dev/null || { printf "ocs team: could not rename the lane branch to '%s'\n" "$branch" >&2; exit 1; }
+    fi
+    printf 'ocs team: lane worktree %s on %s\n' "$worktree" "$(git -C "$worktree" branch --show-current)" >&2 ;;
   /*) worktree=$worktree_arg
       [ -d "$worktree" ] || { printf 'ocs team: --worktree %s is not a directory\n' "$worktree" >&2; exit 1; }
       git -C "$worktree" rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
@@ -388,6 +431,11 @@ task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2
 {
   printf 'CODEX_HOME=%s\n' "$codex_home"
   printf 'cwd=%s\n' "$worktree"
+  if [ -n "$created_worktree" ]; then
+    printf 'created_worktree=%s\n' "$created_worktree"
+    printf 'branch=%s\n' "$(git -C "$created_worktree" branch --show-current)"
+    printf 'base=%s\n' "$base_branch"
+  fi
   printf '%s\n' "$launch"
 } > "$dir/command.txt"
 
