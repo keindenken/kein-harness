@@ -52,9 +52,9 @@ After one human session at the front, a flow carries work from idea to audited c
 - AGENTS.md is not modified during the flow.
 - Prompt prose names no model; tiers come from `agents.json`.
 - Run state lives under `ocs state-dir`.
-- Any hook that enforces stage transitions allows by default and blocks only on positive evidence of a gap between stages (one stage's receipt complete, the next stage's run not started). Quiescence inside a running stage is never judged, so a stage waiting on its own lanes is never blocked.
+- Any hook that enforces stage transitions allows by default and blocks only on positive evidence of a gap between stages (one stage's receipt complete, the next stage's run not started). Quiescence inside a running stage is never judged, so a stage waiting on its own lanes is never blocked. (Superseded 2026-09-23 by `.agents/kein/plans/260923-fsd-run-fixes.md` S1, after the first live run lost about eight hours to a lead that ended its turn waiting on a lane that had silently stopped: the Stop hook now blocks once when a run is active and no gap exists, excepting the interview stage, and tells a waiting lead to check its lane is alive.)
 - A Stop hook never blocks twice in a row: when its input's `stop_hook_active` is true, it allows. One nudge catches a turn that announced an action without taking it; a legitimate wait costs one extra turn, not a loop.
-- A block's reason names an action whose single invocation clears the condition (invoking the next stage's skill, whose entry records its run). A condition the model cannot satisfy immediately is not used to block.
+- A block's reason names an action whose single invocation clears the condition (invoking the next stage's skill, whose entry records its run). A condition the model cannot satisfy immediately is not used to block. (Superseded for the mid-stage block by the same S1: its reason names a demand and two exits rather than one action, and says which of its commands to run and when.)
 - A PreToolUse gate denies only writing tools, never the Skill tool, reads, or agent dispatch.
 - The hooks carry an off-switch of their own.
 - Hooks declared in `fsd`'s frontmatter do not survive a new process (`claude -c`, `--resume`, an app restart), so resuming a run means invoking `/kein:fsd` again, which re-arms them.

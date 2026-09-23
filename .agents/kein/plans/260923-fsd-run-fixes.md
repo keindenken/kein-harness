@@ -34,7 +34,7 @@ Throughout, "verified" means read in this repository at f0f582a.
 
 Scope: `plugin/skills/fsd/scripts/hook.py`, `dev/libexec/check-fsd-hooks`.
 
-Change: in `mode_stop`, when `_resolve` yields a state and `gap()` reports no gap, block once anyway if the run's `lifecycle` is `active`, **except** while the `interview` stage's own status is the one that is running. The interview is the one stage that is supposed to wait for the user, so it keeps the present allow. The reason text names the run's own `next_action`, the diagnosis S2 adds when there is one, and the two ways out: reach a terminal outcome (`closeout`, then `close` or `halt`), or create the off-switch.
+Change: in `mode_stop`, when `_resolve` yields a state and `gap()` reports no gap, block once anyway if the run's `lifecycle` is `active`, **except** while the `interview` stage's own status is the one that is running. The interview is the one stage that is supposed to wait for the user, so it keeps the present allow. The reason text names the run's own `next_action`, the diagnosis S2 adds when there is one, and the two ways out: reach a terminal outcome (`closeout`, then `close` or `halt`), or create the off-switch. (Superseded in the run: the off-switch disables every hook mode for every fsd run on the machine, so it was dropped, and the two ways out became pausing the run for the user or ending it, sharing one tail -- if `close` refuses, `halt`; if `halt` says close would succeed, fix what close named. A waiting lead is also told to check its lane is alive.)
 
 Why this cannot loop: `stop_hook_active` already returns allow before any of this, so a blocked stop that comes straight back is allowed through. This is the same guarantee the existing gap block relies on.
 
@@ -62,7 +62,7 @@ Verification path: `dev/kein-dev check-fsd-state --only gap` and `--only attach`
 
 Scope: `plugin/skills/execute/scripts/state.py`, `plugin/skills/execute/references/state-schema.md`, `dev/libexec/check-execute-state`.
 
-Change: a write-active task whose scope diverges from `dispatch_scope_fingerprint` may still park when its scope is **clean against HEAD** — no staged or unstaged modification under the scope's own pathspec, the run ledger excluded exactly as the existing fingerprint readers exclude it. The question the seal exists to answer is "does this task still hold writes nobody has accepted", and a scope clean against HEAD answers it directly, so this is a second sound route to the same answer rather than an exemption to it. The park record says which route it took and lists the paths that diverged from the seal.
+Change: a write-active task whose scope diverges from `dispatch_scope_fingerprint` may still park when its scope is **clean against HEAD** — no staged or unstaged modification under the scope's own pathspec, the run ledger excluded exactly as the existing fingerprint readers exclude it. (Refined in the run: nothing visibly untracked under it either, and the question is asked per path -- a path blocks only when it both differs from the seal and is dirty against HEAD -- because a whole-scope reading let an unchanged untracked file keep the stall this story exists to close.) The question the seal exists to answer is "does this task still hold writes nobody has accepted", and a scope clean against HEAD answers it directly, so this is a second sound route to the same answer rather than an exemption to it. The park record says which route it took and lists the paths that diverged from the seal.
 
 The seal route stays first: a scope that matches its dispatch seal parks as it does today, without reading HEAD. A scope that matches neither is refused as it is today, and the refusal now names both routes.
 
@@ -90,12 +90,12 @@ Scope: `plugin/skills/execute/references/review-contract.md`, `plugin/skills/exe
 
 Change (the lead writes this prose, not an executor):
 - The final audit becomes a sequence with a contract. The first pass is what it is today. Every later pass receives the previous pass's findings **and their dispositions**, and answers two questions only: are these dispositions sound, and is there a defect of a class not yet raised.
-- After the second pass, a new finding is registered rather than fixed in this run, unless it is a regression this run itself introduced. Registration is the existing `kein-findings` route, and the receipt's residual risk names it.
+- After the second pass, a new finding is carried rather than fixed in this run, unless it cites a task's completion condition or is a regression this run itself introduced. Carrying is the disposition the contract already has: the finding lands in the run-level `carried_findings`, with its `carried_because`, and the receipt's residual risk names it. (Corrected from this plan's first draft, which said the registration route was `kein-findings`. That plugin records how an agent runtime behaves, not a defect in the work under review, and execute's own receipt already carries residual risk.)
 - A lane's prescription is not applied without re-deriving it; a pass that only repeats an earlier lane's claim does not license the edit.
 - The audit brief asks for substantive findings first and the convention sweep as an appendix.
 - Carried over from the fsd plan's U2, in the same edit because it is the same file: delete "Then advance serially." from Task Loop step 7, name `dispatch` in step 1, and say that a task parks rather than blocking the run.
 
-Completion condition: `review-contract.md`'s Final Audit section states the per-pass contract, the registration default and its one exception; `SKILL.md`'s Finalization names it; `SKILL.md` no longer says "Then advance serially."; `docs/skills/execute/open.md` §1 no longer quotes a sentence that is not in `SKILL.md`.
+Completion condition: `review-contract.md`'s Final Audit section states the per-pass contract, the carrying default and its two exceptions (corrected in the run from 'registration' and 'one exception'); `SKILL.md`'s Finalization names it; `SKILL.md` no longer says "Then advance serially."; `docs/skills/execute/open.md` §1 no longer quotes a sentence that is not in `SKILL.md`.
 
 Verification path: `claude plugin validate plugin --strict`; `/kein:instructions --check` over both files; a grep that "Then advance serially" is gone.
 
@@ -119,6 +119,6 @@ S1 depends on S2's diagnosis text, so S2 lands first. S3 and S4 are independent 
 
 ## Pre-mortem
 
-- **The stop block fires where a lead legitimately has nothing to do.** Most likely at the very end, between `close` and the final report. Caught by: the lifecycle is no longer `active` once `close` or `halt` lands, so the block cannot reach the report; and the reason text names the off-switch.
-- **The HEAD-clean park route hides a real partial write.** A file written but also committed would pass. Caught by: committing a task's partial work is itself outside what execute's loop does, and the park record names the diverging paths, so the receipt carries them.
+- **The stop block fires where a lead legitimately has nothing to do.** Most likely at the very end, between `close` and the final report. Caught by: the lifecycle is no longer `active` once `close` or `halt` lands, so the block cannot reach the report; and, as it turned out, not by the off-switch, which the run removed from the reason.
+- **The HEAD-clean park route hides a real partial write.** A file written but also committed would pass. Caught by: committing a task's partial work is itself outside what execute's loop does, and the park record names the diverging paths. (Corrected after the run: the receipt does not carry them -- `unpark` drops the record and a parked task never reaches the receipt -- so the record lives only until the next unpark.)
 - **The audit stopping rule ships a known defect.** That is the trade: pass 12's own finding was real. Caught by: registration is a record, not a silence, and the receipt's residual risk names every registered item.
