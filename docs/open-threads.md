@@ -259,3 +259,15 @@ A Codex worker started by `ocs team` sometimes cited the `superpowers` plugin or
 The split so far is by home: the owner's own Codex runs under `~/.codex-orca` (the `orcodex` function in `~/.zshrc`), and a lane runs under `~/.codex` or `KEIN_CODEX_HOME`. That split has the same weakness as `claude-kein`: anything that launches plain `codex`, Orca included, lands in whichever home is the default. The direction is to make a lane vanilla through the flags `ocs ask` and `ocs team` pass (`-c` overrides for memories, instructions and the like), so whatever launches the operator's own session no longer matters.
 
 The same earlier thread measured one such override, `plugins."<name>".enabled=false`, as inert. So check each override with `codex debug prompt-input` rather than trust that it parses.
+
+## `ralplan` and `execute`: a fix that does not need another review, and run flags — raised 2026-09-24
+
+**Fix, then approve without a re-review.** The owner wants a verdict that means "this needs correcting, but not another round" — the corrected artifact is approved without a fresh lane — as oh-my-claudecode had. The two skills are not in the same place. `execute` already has it for `REVISE`: step 7 lets a `REVISE` finding be "fixed before [acceptance] with the verification path re-run and no fresh lane". `ralplan` does not, and the reason is structural rather than a missing word: `REVISE` findings are carried into the approval unfixed, and fixing one changes the review hash, which invalidates every verdict. So the question in `ralplan` is whether some content change may be made after the last blind round without reopening it — which is exactly the drift the two hashes exist to catch — and not whether a new verdict word is needed. A `BLOCK` that the lead thinks is small still has only two exits, a revision round or a deferral.
+
+**Invocation flags.** Wanted on both skills:
+
+- `--primed`: a re-review does not go to a new blind lane; the previous reviewer runs the closure check only. Today a primed closure check exists in both contracts but "cannot approve", so this flag inverts a rule both review contracts state, not only a default.
+- `--quick`: review runs faster. Not yet defined — fewer lanes, a lighter tier, or a shorter rubric are three different things.
+- `--round <n>`: run only the n-th round.
+
+Suggestions to weigh alongside, not yet discussed with the owner: `--max-rounds <n>` to stop at a bound and hand back `Draft` instead of re-arming the five-round trigger; `--lanes`/`--reviewer` presets such as a single-lane run; `--dry-run` that stops after the round-1 package is assembled so the package itself can be inspected (which would also answer the `Status` leak in `docs/skills/ralplan/open.md`); and `--resume <run>` if resuming is not already implicit in the ledger.
