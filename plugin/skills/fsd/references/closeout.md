@@ -21,5 +21,5 @@ In this order:
    - **Lessons proposed:** every L<n>.
 
    `close` refuses a retrospective that leaves any id out.
-4. `ocs state fsd close <state> --retro <path>`. It pauses the run when a question is unanswered, and completes it when `execute` completed. When it refuses over the retrospective (a missing file or missing ids), fix the retrospective and close again. On any other refusal, run `ocs state fsd halt <state> --reason <its refusal>` and repair nothing afterwards.
+4. `ocs state fsd close <state> --retro <path>`. It pauses the run when a question is unanswered, and completes it when `execute` completed. When it refuses, run `ocs state fsd halt <state> --reason <its refusal>`. `halt` is refused exactly when `close` would succeed once its own complaint is fixed -- a missing file, missing ids, a retrospective outside `.agents/kein/runs/` while a question is unanswered and `execute` is still live, a durable path already taken -- so if `halt` answers that close would succeed, fix what `close` named and close again. Otherwise the run is halted, and nothing is repaired afterwards.
 5. Print `ocs state fsd report <state>` verbatim as the final message. Do this whatever the outcome. A paused run's report already says how to answer, by re-invoking `/kein:fsd Q1=<answer> …`.

@@ -74,9 +74,13 @@ TASK_FIELDS = frozenset({
 # `dispatch_scope_fingerprint` is a different shape, not this one: a map from a scope-relative path to the sha256 of that path's own content, read straight off the index and the worktree with no HEAD in it anywhere (`_scope_content_digest`). It is sealed once by `dispatch` on the `pending -> implementing` checkpoint that dispatches the task, before its executor is told to start, and never changed after that checkpoint while the task stays write-active.
 # A task without it, or with one written in the pre-correction `worktree_fingerprint` shape (`_is_legacy_dispatch_seal`), cannot park from a write-active status.
 # `parked` carries `question`, `from`, `decision_ref`, `at`: required exactly when `status` is `parked`, refused otherwise. Both optional so a state written before either existed still validates.
+# `route` and `diverged_paths` are a further, optional pair on top of that: they exist only for a park that left `implementing` or `correcting` by the second route into a park -- one or more paths in the scope no longer hash to their `dispatch_scope_fingerprint` entry, but every path that does not is clean against HEAD, carrying no staged or unstaged modification and nothing visibly untracked, so `checkpoint` parks it anyway and the record says which route it took and which paths still differ from the seal. A park whose scope matched its seal outright never diverged from anything to report, and a park `from` `pending` never held a seal to diverge from in the first place, so neither field appears on those; both are optional together, never one without the other, and a state written before this pair existed still validates.
 TASK_OPTIONAL = frozenset({"scope_fingerprint", "dispatch_scope_fingerprint", "parked"})
 PARKED_FIELDS = frozenset({"question", "from", "decision_ref", "at"})
+PARKED_OPTIONAL = frozenset({"route", "diverged_paths"})
 PARKED_FROM_VALUES = frozenset({"pending", "implementing", "correcting"})
+# The one route this field ever names. A scope that matches its dispatch seal outright parks without this field at all, so `route` being present is itself the record that the seal comparison failed somewhere and the second question -- are the paths that failed it clean against HEAD right now -- was asked of those paths and answered yes.
+PARKED_ROUTE_VALUES = frozenset({"clean_against_head"})
 VERIFICATION_FIELDS = frozenset({"command", "exit_code", "observed_at", "round", "worktree_fingerprint"})
 VERDICT_FIELDS = frozenset({
     "reviewer_role", "verdict", "task_id", "round", "worktree_fingerprint",
@@ -241,6 +245,35 @@ def _scope_content_digest(path: Path, scope: List[str]) -> Dict[str, str]:
 def _scope_digest_diff(current: Dict[str, str], dispatched: Dict[str, str]) -> List[str]:
     """The scope paths whose content differs between two digests, sorted; empty when they agree everywhere `_scope_content_digest` could report a difference (a changed path, an added one, or a removed one). Both arguments are always dicts at the one call site (`_scope_content_digest`'s own return shape, and a `dispatch_scope_fingerprint` already checked `isinstance(..., dict)` before this is called), so there is no other shape to fall back on here."""
     return sorted(path for path in set(current) | set(dispatched) if current.get(path) != dispatched.get(path))
+
+
+def _scope_head_status(root: Path, scope: List[str]) -> Tuple[List[str], List[str]]:
+    """The scope's paths that are not clean against HEAD right now, split into what carries a staged or unstaged modification (`modified`) and what is visibly untracked under it (`untracked`) -- a plain `git diff` stays silent over the second kind, which is exactly what makes a bare "not clean against HEAD" refusal unhelpful without naming it. Both lists exclude the run ledger under `.agents/kein/runs/`, the same as `_scope_content_digest` excludes it -- belt and braces since the caller's intersection already rules a ledger path out, because `_scope_content_digest` excludes it from the seal comparison too and so it can never be among the paths this is narrowed to; the exclusion stays here so the answer means the same thing at any later call site, not because this one needs it, and both are read with `-z` and split on the null byte, the way `_scope_content_digest` and `worktree_fingerprint` read every other git path list here -- `ls-files` beside these `diff` calls already did -- so a path holding a newline is not misread as two.
+
+    This is what `checkpoint` reads to decide the second route a write-active task's park may take once one or more of its scope's paths no longer hash to their entry in `dispatch_scope_fingerprint`, and to say what is blocking when neither route holds. The seal exists to answer one question -- does this task still hold writes nobody has accepted -- by comparing the scope's content now against its content at dispatch, and a rebase moves that content for reasons that have nothing to do with unfinished writes: a `correcting` task split off after a rebase landed could never satisfy the seal at all, and its run stayed active with no route out. A path answers the very same question directly, without needing the seal, once it is clean against HEAD: there is nothing left there that HEAD does not already hold, so there is no unaccepted write sitting there either, seal or no seal. That is why this is a second sound route to the same answer rather than an exemption from it -- and why `park` still records the paths that diverged from the seal even when it takes this route, since "clean against HEAD" and "matches what was dispatched" are two different facts about the same path. The caller reads this over the whole scope and then keeps only the paths this also names as differing from the seal: a path this call reports dirty but the seal comparison still matches is answering a question the park was never asking about that path, which is exactly what let a scope's own untracked-but-unchanged file, or its own run ledger under a whole-tree scope, block a park that had nothing to do with either.
+
+    A visibly untracked file under the scope counts as unclean here, for the same reason `_scope_content_digest` folds it into the content it hashes rather than skipping it: a file nobody has committed is exactly the unaccepted write this question is asking about, whether `git` is tracking it yet or not.
+
+    This is a read of `git diff` and `git ls-files`, not of the index entries themselves, so it shares `git diff`'s own blind spot: a path an operator has marked with `git update-index --assume-unchanged` or `--skip-worktree` reads clean here even while its worktree bytes have moved, because both flags exist to make `git diff` stop looking at that path. Nothing in this harness sets either flag, so the gap is not one a normal dispatch, write, or park can open on its own, and `worktree_fingerprint` is blind the same way for the same reason. Closing it would mean reading `git ls-files -v` for the flagged state directly; this function does not, so the gap stands as a documented limit rather than a silent one.
+    """
+    pathspec = _scope_pathspec(scope)
+
+    def _paths(args: List[str]) -> List[str]:
+        result = []
+        for relative_bytes in _git_bytes(root, args).split(b"\0"):
+            if not relative_bytes:
+                continue
+            relative = relative_bytes.decode("utf-8", "surrogateescape")
+            if not relative.startswith(LEDGER_PREFIX):
+                result.append(relative)
+        return result
+
+    modified = sorted(set(
+        _paths(["diff", "--cached", "--name-only", "--no-ext-diff", "-z", *pathspec])
+        + _paths(["diff", "--name-only", "--no-ext-diff", "-z", *pathspec])
+    ))
+    untracked = sorted(_paths(["ls-files", "--others", "--exclude-standard", "-z", *pathspec]))
+    return modified, untracked
 
 
 def _scope_parts(entry: str) -> Tuple[str, ...]:
@@ -470,6 +503,18 @@ def _blocking(findings: Any) -> bool:
     )
 
 
+def _uncaptioned_carry(findings: Any) -> bool:
+    """An `important` or `critical` finding kept rather than fixed, promoted to a task, or shown to be blocking, with no reason recorded for keeping it.
+
+    Carrying is the disposition that costs the least now and the most later, so it is the one that owes a reason once the finding is above minor -- the same rule `_validate_task` already applies to a task's own findings at acceptance. This is written once and reused everywhere a list of findings is what gets carried forward past a gate rather than copied at each site: a task's `unresolved_findings` at acceptance, the run-level `unresolved_findings` at completion, and a completed receipt's own `carried_findings`.
+    """
+    return isinstance(findings, list) and any(
+        isinstance(f, dict) and f.get("severity") in {"critical", "important"} and f.get("blocks") is None
+        and not f.get("carried_because")
+        for f in findings
+    )
+
+
 def _verdict_coherence(reviewers: Any, findings: Any) -> List[str]:
     """A verdict is a summary of the role's own findings, and the state can re-derive that summary.
 
@@ -559,8 +604,8 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
         errors.append("Task round must be non-negative")
     parked = task.get("parked")
     if task.get("status") == "parked":
-        if not isinstance(parked, dict) or set(parked) != PARKED_FIELDS:
-            errors.append(_field_set_error(f"Task {task.get('id', '?')} parked must use the exact field set", parked, PARKED_FIELDS))
+        if not isinstance(parked, dict) or set(parked) - PARKED_OPTIONAL != PARKED_FIELDS:
+            errors.append(_field_set_error(f"Task {task.get('id', '?')} parked must use the exact field set", parked, PARKED_FIELDS, PARKED_OPTIONAL))
         else:
             if not isinstance(parked.get("question"), str) or not parked["question"].strip():
                 errors.append("Task parked requires a non-empty question")
@@ -571,6 +616,18 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
                 errors.append("Task parked.decision_ref must be null or non-empty text")
             if not _valid_time(parked.get("at")):
                 errors.append("Task parked requires a timezone-aware at")
+            # `route` and `diverged_paths` name the second route into this park: present together or not at all, and only where a seal comparison could have happened to diverge from in the first place -- never on a park `from` `pending`, which held no seal.
+            has_route, has_diverged = "route" in parked, "diverged_paths" in parked
+            if has_route != has_diverged:
+                errors.append(f"Task {task.get('id', '?')} parked.route and parked.diverged_paths must appear together or not at all")
+            elif has_route:
+                if parked.get("from") == "pending":
+                    errors.append(f"Task {task.get('id', '?')} parked.route cannot appear on a park from pending: pending held no seal to diverge from")
+                if parked.get("route") not in PARKED_ROUTE_VALUES:
+                    errors.append(f"Task {task.get('id', '?')} parked.route must be one of {', '.join(sorted(PARKED_ROUTE_VALUES))}")
+                diverged_paths = parked.get("diverged_paths")
+                if not isinstance(diverged_paths, list) or not diverged_paths or not all(isinstance(p, str) and p for p in diverged_paths):
+                    errors.append(f"Task {task.get('id', '?')} parked.diverged_paths must be a non-empty list of non-empty strings")
     elif parked is not None:
         errors.append("Only a parked task may carry parked facts")
     verification = task.get("latest_verification")
@@ -646,12 +703,8 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
     if task.get("status") == "accepted":
         if _blocking(findings):
             errors.append("Accepted task cannot retain a finding that blocks its completion condition")
-        # Carrying is the disposition that costs the least now and the most later, so it is the one that owes a reason once the finding is above minor. The severity the role assigned finally has a consumer: it prices the carry, and it never gates the acceptance.
-        if isinstance(findings, list) and any(
-            isinstance(f, dict) and f.get("severity") in {"critical", "important"} and f.get("blocks") is None
-            and not f.get("carried_because")
-            for f in findings
-        ):
+        # Carrying is the disposition that costs the least now and the most later, so it is the one that owes a reason once the finding is above minor. The severity the role assigned finally has a consumer: it prices the carry, and it never gates the acceptance. `_uncaptioned_carry` is the same predicate `validate_transition` applies to the run-level list at completion and `validate_state` applies to a receipt's `carried_findings`.
+        if _uncaptioned_carry(findings):
             errors.append("Accepted task carrying an important or critical finding must record carried_because, fix it before acceptance, or promote it to a task")
     if task.get("status") != "accepted" and acceptance is not None:
         errors.append("Only an accepted task may retain acceptance facts")
@@ -852,17 +905,22 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         errors.extend(_validate_findings(payload.get("carried_findings")))
         if _blocking(payload.get("carried_findings")):
             errors.append("Completed receipt cannot carry a blocking finding")
+        # The same reason-for-carrying rule a task's acceptance owes, and completion owes the run-level list it freezes here: a receipt is what the next reader inherits, so an above-minor finding sitting in it with no stated reason is the exact silence `carried_because` exists to end, whether the receipt came from a live completion or was hand-authored directly.
+        if _uncaptioned_carry(payload.get("carried_findings")):
+            errors.append("Completed receipt carrying an important or critical finding must record carried_because")
         final_audit = payload.get("final_audit")
         if not isinstance(final_audit, list) or not final_audit:
-            errors.append("Completed receipt requires final audit PASS facts")
+            errors.append("Completed receipt requires final audit PASS or coherent REVISE facts")
         else:
             for verdict in final_audit:
                 round_number = verdict.get("round", -1) if isinstance(verdict, dict) else -1
                 errors.extend(_validate_verdict(verdict, "whole-change", round_number, fingerprint))
                 if isinstance(verdict, dict) and not (
-                    verdict.get("verdict") == "PASS" and verdict.get("fresh") is True and verdict.get("independent") is True
+                    verdict.get("verdict") in {"PASS", "REVISE"} and verdict.get("fresh") is True and verdict.get("independent") is True
                 ):
-                    errors.append("Final audit requires fresh independent PASS verdicts")
+                    errors.append("Final audit requires fresh independent PASS or coherent REVISE verdicts")
+            # A final-audit REVISE is held to the same coherence `_verdict_coherence` already gives an acceptance verdict, read here against the receipt's own run-level list rather than a task's: `PASS` stands only where none of that role's findings are in `carried_findings`, `REVISE` only where at least one is and none of them blocks. `BLOCK` can never pass this either way, because a blocking finding can never reach `carried_findings` in the first place -- `_blocking` above already refuses that.
+            errors.extend(_verdict_coherence(final_audit, payload.get("carried_findings")))
     elif lifecycle == "aborted":
         if set(payload) != ABORTED_FIELDS:
             errors.append(_field_set_error("Aborted receipt must use the exact compact field set", payload, ABORTED_FIELDS))
@@ -909,6 +967,9 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     previous_errors = validate_state(previous, Path("state.json"), inherited)
     if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
         errors.append("Completion cannot retain a blocking finding")
+    # The acceptance-level rule that an important or critical carry owes `carried_because` applies here too: the run-level `unresolved_findings` this checkpoint is about to freeze into the receipt's `carried_findings` is exactly the list an above-minor carry's cost-control reason is about, and the final audit's own stopping rule now ends every long audit by carrying findings at this level, which is what makes a stated reason here load-bearing rather than optional.
+    if candidate.get("lifecycle") == "completed" and _uncaptioned_carry(previous.get("unresolved_findings")):
+        errors.append("Completion carrying an important or critical run-level finding must record carried_because, fix it before completion, or promote it to a task")
     if previous_errors:
         return [f"Previous state is invalid: {error}" for error in previous_errors] + errors
     for key in ("schema_version", "workflow", "run_id"):
@@ -983,6 +1044,9 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 old_seal = old.get("dispatch_scope_fingerprint")
                 if old_status in {"implementing", "correcting"} and (not isinstance(old_seal, dict) or _is_legacy_dispatch_seal(old_seal)):
                     errors.append(f"{task['id']} cannot park from {old_status}: it was dispatched without a seal")
+            # `parked -> parked` is the self-loop every status carries so a checkpoint that only moves other tasks can still restate this one unchanged; nothing legitimately rewrites what a park recorded while the task stays parked -- `unpark` drops the record entirely rather than editing it, and a later `park` only ever runs after that -- so the record is frozen here the same way `dispatch_scope_fingerprint` is frozen above except where a fresh dispatch or an unpark explicitly permits it to move.
+            if old_status == "parked" and new_status == "parked" and old.get("parked") != task.get("parked"):
+                errors.append(f"{task['id']} parked record cannot change while parked")
         # Tasks are written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs (`_scope_collisions`). This is checked here, against the tasks this transition newly makes write-active -- a fresh dispatch (`pending -> implementing`) or a reopened correction (`accepted -> correcting`) -- rather than as a standing fact `validate_state` re-checks about every snapshot regardless of what changed: a task already write-active before this correction changed what an empty-parts scope entry (`.`, `./`, `""`) collides with -- everything now, where it used to collide with nothing -- is left exactly as it was, so a run in that shape is not stranded on every later checkpoint, including `abort`, over a rule that postdates it. `split-check` answers the same "could these dispatch together" question independently, on request rather than on every checkpoint.
         if newly_active_ids and len(candidate_ids) == len(set(candidate_ids)):
             for collision in _scope_collisions(candidate_task_list, newly_active_ids):
@@ -1029,12 +1093,16 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Completion requires checkpointed final verification")
         previous_audit = previous.get("final_audit", [])
         if not previous_audit or any(
-            not isinstance(item, dict) or item.get("verdict") != "PASS"
+            not isinstance(item, dict) or item.get("verdict") not in {"PASS", "REVISE"}
             or item.get("fresh") is not True or item.get("independent") is not True
             or item.get("worktree_fingerprint") != final_fingerprint
             for item in previous_audit
         ):
-            errors.append("Completion requires checkpointed final audit PASS")
+            errors.append("Completion requires checkpointed final audit PASS or coherent REVISE")
+        # A final-audit verdict binds to completion the same way an acceptance verdict binds to a task, and `_verdict_coherence` already derives that binding from a reviewer list and a finding list: `PASS` needs none of the role's own findings present, `REVISE` needs at least one and none that blocks, `BLOCK` needs one that does. Reusing it here, against the run-level `unresolved_findings` rather than a task's, is what lets the final audit's stopping rule (`review-contract.md`, "Final Audit") end a sequence on a `REVISE` that carries a non-blocking finding instead of relabelling it `PASS` to get past this gate. `BLOCK` still cannot complete: the check above already refuses any verdict word outside `{PASS, REVISE}`, and a blocking finding can never reach this point in `unresolved_findings` to begin with -- `validate_state` already refuses one at the final_audit phase.
+        #
+        # This duplicates the coherence check `validate_state` already ran on the candidate itself, at the top of this function (`errors = validate_state(candidate, ...)`), once the candidate's own `lifecycle` is `completed` (`_verdict_coherence(final_audit, payload.get("carried_findings"))` under the completed branch there): completion's own projection invariants below force `candidate.final_audit` to equal `previous_audit` and `candidate.carried_findings` to equal `previous.unresolved_findings`, so under those invariants the two calls read identical values and this one never disagrees with the other. The call stays anyway. It is what would still catch an incoherent verdict at the transition itself, before a receipt is ever produced, if the projection invariants below were ever loosened to let a completion candidate diverge from what it completes.
+        errors.extend(_verdict_coherence(previous_audit, previous.get("unresolved_findings", [])))
         expected_tasks = [
             {**{key: task.get(key) for key in ACCEPTED_TASK_FIELDS - {"carried_findings"}},
              "carried_findings": task.get("unresolved_findings", []),
@@ -1218,6 +1286,26 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
             freshly_dispatched = previous_status.get(task.get("id")) == "pending" and task.get("status") == "implementing"
             if scoped_ok and (seal == AUTO or (freshly_dispatched and not isinstance(seal, dict))):
                 task["dispatch_scope_fingerprint"] = _scope_content_digest(root, list(scope))
+            # `parked.route` and `parked.diverged_paths` fill the same way the seal above does: `park` marks both `"auto"` on a park that leaves `implementing` or `correcting`, because the command itself never reads the worktree -- only this checkpoint, which already has `seal` and `scope` in hand from the fill just above, does. This is not the same read as the seal fill above, and on a park it is usually the only read `_autofill` makes: `seal` here is already a dict carried forward from dispatch, not `"auto"`, so the seal-fill block's own guard skips it, and this block runs its own fresh `_scope_content_digest` call to decide what to write. A scope that still hashes to its seal took the first route and needs neither field, so autofill drops them; a scope that has moved gets the second route's fields filled from that fresh call. A hand-authored candidate that leaves both fields unset entirely is filled the same way `dispatch_scope_fingerprint` is for a `checkpoint` that never mentions it -- a park reaching this transition must not quietly fail only because these two derived fields were left for the checkpoint to work out. `validate_external_state` is the one that then checks, against the live tree, that the route these name is actually true -- reading the tree a further time, independently, rather than trusting what this fill wrote -- so a tree that moved between the two reads is refused as a mismatch, not trusted to agree; counting the seal's own original read at dispatch, a park's route rests on three separate reads of the tree, never one shared computation.
+            parked_info = task.get("parked")
+            route_unresolved = isinstance(parked_info, dict) and (
+                parked_info.get("route") == AUTO or parked_info.get("diverged_paths") == AUTO
+                or ("route" not in parked_info and "diverged_paths" not in parked_info)
+            )
+            if (isinstance(parked_info, dict) and task.get("status") == "parked"
+                    and previous_status.get(task.get("id")) in {"implementing", "correcting"}
+                    and route_unresolved):
+                if scoped_ok and isinstance(seal, dict) and not _is_legacy_dispatch_seal(seal):
+                    differing = _scope_digest_diff(_scope_content_digest(root, list(scope)), seal)
+                    if differing:
+                        parked_info["route"] = "clean_against_head"
+                        parked_info["diverged_paths"] = differing
+                    else:
+                        parked_info.pop("route", None)
+                        parked_info.pop("diverged_paths", None)
+                else:
+                    parked_info.pop("route", None)
+                    parked_info.pop("diverged_paths", None)
             scoped = task.get("scope_fingerprint")
             fill(task, scoped["fingerprint"] if isinstance(scoped, dict) and _valid_hash(scoped.get("fingerprint")) else combined)
     fill(candidate, combined)
@@ -1272,13 +1360,40 @@ def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
                     fresh = _scope_content_digest(root, scope)
                     if fresh != task["dispatch_scope_fingerprint"]:
                         raise ValueError(f"{task['id']} dispatch_scope_fingerprint does not match the scope's content at this checkpoint")
-                # `implementing | correcting -> parked` may leave only once the scope's actual content is back at what `dispatch` sealed; `validate_transition` already refused a task with no seal, or a legacy-shaped one, to compare against.
+                # `implementing | correcting -> parked` leaves on either of two routes; `validate_transition` already refused a task with no seal, or a legacy-shaped one, to compare against. The first route -- the scope's actual content matches what `dispatch` sealed everywhere -- needs nothing from HEAD at all, so it is checked first and stays cheap: when it holds, `parked.route` and `parked.diverged_paths` must not appear either, since a scope that matches its seal outright never diverged from anything to report and a candidate carrying them anyway is claiming a route it never took. Only once the seal comparison fails somewhere does the second route get asked, and it is asked per path, not of the whole scope: the seal answers "this task did not write here" and `_scope_head_status` (whose docstring carries the argument for why HEAD-clean is a sound second answer) answers "whatever is here is already accepted", and either answer clears a path on its own -- a path is evidence of unaccepted work only where it fails both. That is why an untracked path the seal already holds unchanged -- present at dispatch, never touched since -- never blocks: it clears on the seal answer alone and the HEAD question is never asked of it. `route` still carries only the one value even though the check is now per path, because there is still only one further question a failed seal comparison can raise -- clean against HEAD -- asked over however many paths did not clear the seal; nothing about answering it per path adds a second kind of route, only a narrower set of paths the question is asked over. Neither route holding is the only refusal, and it names only the paths that actually block -- diverging from the seal and not clean against HEAD -- not every path that merely diverges, and, since a plain `git diff` stays silent over a new untracked file, which of those blocking paths are untracked rather than modified.
                 if new_status == "parked" and old_status in {"implementing", "correcting"}:
                     dispatched_scope = old_task.get("dispatch_scope_fingerprint")
                     if isinstance(dispatched_scope, dict) and not _is_legacy_dispatch_seal(dispatched_scope):
                         differing = _scope_digest_diff(_scope_content_digest(root, scope), dispatched_scope)
+                        parked_info = task.get("parked")
+                        recorded_route = parked_info.get("route") if isinstance(parked_info, dict) else None
+                        recorded_diverged = parked_info.get("diverged_paths") if isinstance(parked_info, dict) else None
                         if differing:
-                            raise ValueError(f"{task['id']} cannot park from {old_status}: {', '.join(differing)} still differs from its dispatch content")
+                            # `_scope_head_status` is still read over the whole scope -- it has no notion of "the paths that diverged" to read it over -- but what blocks is only the intersection with `differing`: a path outside `differing` still matches its sealed content, so whatever `git` says about it answers a question this park is not asking.
+                            modified_now, untracked_now = _scope_head_status(root, scope)
+                            blocking_modified = sorted(set(differing) & set(modified_now))
+                            blocking_untracked = sorted(set(differing) & set(untracked_now))
+                            if blocking_modified or blocking_untracked:
+                                blocking = sorted(set(blocking_modified) | set(blocking_untracked))
+                                detail = (
+                                    f"{task['id']} cannot park from {old_status}: {', '.join(blocking)} still differs "
+                                    f"from its dispatch content, and is not clean against HEAD either"
+                                )
+                                if blocking_untracked:
+                                    detail += f" ({', '.join(blocking_untracked)} untracked)"
+                                raise ValueError(detail)
+                            # The second route held: no path that diverged from the seal is still dirty against HEAD. `parked.route` and `parked.diverged_paths` must name it and every path this checkpoint's own fresh read of the tree just found diverging -- not merely the ones that were briefly dirty and are now committed clean -- so a hand-authored candidate can neither claim this route over a seal it did not actually clear nor forge which paths it names.
+                            if recorded_route != "clean_against_head" or recorded_diverged != differing:
+                                raise ValueError(
+                                    f"{task['id']} parks clean against HEAD but its parked.route and parked.diverged_paths "
+                                    f"do not record that route and {', '.join(differing)}"
+                                )
+                        # The seal matched outright: nothing diverged from it, so `parked.route` and `parked.diverged_paths` have nothing to report and a candidate carrying either one is forging a second route it never needed and never took.
+                        elif recorded_route is not None or recorded_diverged is not None:
+                            raise ValueError(
+                                f"{task['id']} parks with its scope matching its dispatch seal outright; "
+                                f"parked.route and parked.diverged_paths must not appear"
+                            )
         elif lifecycle == "completed":
             assert root is not None
             actual = worktree_fingerprint(root)["fingerprint"]
@@ -1506,7 +1621,7 @@ def dispatch(destination: Path, task_ids: List[str], next_action: Optional[str])
 
 
 def park(destination: Path, task_ids: List[str], question: str, ref: Optional[str], next_action: Optional[str]) -> None:
-    """`pending | implementing | correcting -> parked`. A write-active task parks only once its scope is restored to its dispatch content; `checkpoint`'s transition check names the scope paths still differing when it is not."""
+    """`pending | implementing | correcting -> parked`. A write-active task parks once every path in its scope is either restored to its dispatch content or, for whichever paths are not, clean against HEAD -- no staged or unstaged modification, and nothing untracked sitting there either. This command does not read the worktree to tell which route applies, or which paths hold either answer; `checkpoint`'s external-state check does that live comparison per path and names the paths still blocking, and both routes, when neither holds for some path."""
     state = _load(destination)
     if state.get("lifecycle") in TERMINAL_LIFECYCLES:
         raise ValueError("Terminal state cannot transition")
@@ -1525,7 +1640,12 @@ def park(destination: Path, task_ids: List[str], question: str, ref: Optional[st
         if task.get("id") in task_ids:
             from_status = by_id[task["id"]]["status"]
             task["status"] = "parked"
-            task["parked"] = {"question": question.strip(), "from": from_status, "decision_ref": ref, "at": at}
+            parked_record = {"question": question.strip(), "from": from_status, "decision_ref": ref, "at": at}
+            # `route` and `diverged_paths` are marked `"auto"` only where a seal comparison could apply at all -- a park leaving `implementing` or `correcting`. This command has no worktree open to read which route the scope will resolve to, or whether either does; `_autofill` fills both from the live tree at the checkpoint that actually promotes this candidate, and drops them again if the scope turns out to match its seal outright.
+            if from_status in {"implementing", "correcting"}:
+                parked_record["route"] = AUTO
+                parked_record["diverged_paths"] = AUTO
+            task["parked"] = parked_record
             task["latest_verification"] = []
             task["acceptance"] = None
     candidate["next_action"] = next_action or f"blocked on {ref or question.strip()}: {', '.join(task_ids)} parked"
@@ -1593,7 +1713,7 @@ def main() -> int:
     dispatch_parser.add_argument("task_ids", nargs="+", metavar="task-id")
     dispatch_parser.add_argument("--next", dest="next_action", default=None)
 
-    park_parser = commands.add_parser("park", help="pending|implementing|correcting -> parked; refuses a write-active task whose scope is not yet restored to its dispatch content")
+    park_parser = commands.add_parser("park", help="pending|implementing|correcting -> parked; refuses a write-active task whose scope is not yet restored to its dispatch content and not clean against HEAD either")
     park_parser.add_argument("destination", type=Path)
     park_parser.add_argument("task_ids", nargs="+", metavar="task-id")
     park_parser.add_argument("--question", required=True, help="the decision, as asked")

@@ -26,7 +26,7 @@ hooks:
 
 # FSD
 
-The user takes part once, at the front, in the interview and its approval, and once at the end, in the report. Between the two, this flow runs the stages that already exist, `interview` → `ralplan` → `execute`, adds a closeout, and asks nothing. `ocs state fsd` records where the run stands. The hooks this skill arms catch a stage transition that was announced but not taken, and link each stage's run to the flow when it is created.
+The user takes part once, at the front, in the interview and its approval, and once at the end, in the report. Between the two, this flow runs the stages that already exist, `interview` → `ralplan` → `execute`, adds a closeout, and asks nothing. `ocs state fsd` records where the run stands. The hooks this skill arms catch a stage transition that was announced but not taken, keep a turn from ending while the run is still live — the interview stage alone may end one, since waiting on the user is its job — and link each stage's run to the flow when it is created.
 
 ## At entry
 
@@ -68,7 +68,7 @@ The hooks read the Bash commands you run and their output, so they see only what
 
 When `status` shows a stage with no association, its `association_reason` names the command that would have linked it. `ocs state fsd attach <state> <stage> <run>` links a run of this flow that is still live.
 
-When a hook blocks, its reason names one command. Run that command.
+A command printed inside a block reason is not, by that alone, a command to run: the reason says whether to run it, and when. Read that.
 
 ## After compaction
 
@@ -77,5 +77,3 @@ Run `ocs state fsd status <state>` and the current stage's own `reconcile` befor
 ## Finishing
 
 Follow [closeout.md](references/closeout.md). The last message of the run is `ocs state fsd report <state>` printed verbatim, whatever the outcome: completed, paused on a question, or halted.
-
-The hooks stop acting while `${CLAUDE_CONFIG_DIR:-$HOME/.claude}/kein/fsd/hooks-off` exists.

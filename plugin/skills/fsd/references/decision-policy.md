@@ -35,18 +35,32 @@ ocs state execute park <execute state> <task>... --question <the same question> 
 ```
 
 - Park every task that depends on the decision, including ones whose scope does not touch it.
-- A task already under way first has its scope restored to its content at dispatch; `park` refuses until it is.
+- A task already under way parks by either of `park`'s two routes: its scope restored to its content at dispatch, or its scope clean against HEAD with nothing untracked under it. `park` refuses until one of them holds, and its refusal names both.
 - Tasks that do not depend on the decision go on to acceptance.
 - `execute` blocked for any other reason is a question with `--parks 'whole run'`.
 
 ## What this flow never does
 
-- **Another operator's run.** When `gap` names an execute run that is not this flow's own, do not run the abort it prints. Aborting someone else's run destroys work Git does not hold. Record a question with `--parks 'whole run'`, then run `ocs state fsd closeout <state>`.
+- **An occupying execute run.** When `gap` names an execute run that is not this flow's own, it prints that run's id, whichever of its start, last checkpoint, phase and accepted-task count it can read, and an abort command. Those facts identify the run and say how far it got; they never establish that its work is safe to discard. Read that from `git log` and `git status`: whether what the run produced is committed here, and pushed. A run whose tasks are accepted and whose work this worktree already holds, with nothing live behind it, is this worktree's own stale occupant and may be aborted, with that evidence recorded as an assumption. Never infer staleness from the start or the last checkpoint alone: an old timestamp is what a long run and an abandoned one have in common. Anything left unsettled is someone's live work, so do not run the abort -- it destroys work Git does not hold. Record a question with `--parks 'whole run'`, then run `ocs state fsd closeout <state>`.
 - **AGENTS.md.** No task in the execute ledger may have AGENTS.md in its scope. A story that would edit it becomes a lesson (`ocs state fsd lesson`). If other stories need that edit to exist first, it becomes a question that names the lesson. After `execute start` and after every appended task, run `ocs state fsd guard <state>`; when it fails, do what its output says.
 
 ## When `ralplan` does not converge
 
 `ralplan` treats about five unsuccessful rounds as a moment to reassess with the user, and says "Do not manufacture approval from repetition." Inside this flow there is no user to reassess with, so this section takes precedence at that trigger. It does not manufacture approval: every standing ground is recorded against a named catcher, and nothing irreversible is approved.
+
+When the standing grounds keep coming from one story while the others have settled, split before the round count matters. Removing a story edits the plan, which moves the review hash, so the round under way cannot resolve over the remainder -- `approve` is refused from a moved hash, and the only way past an edited plan is another round. The split costs that round and buys back every one after it:
+
+1. Record an assumption naming what the removal defers and what the remaining stories still cover.
+2. `ocs state ralplan block <state> --findings <file>`, which is what clears the round's verdicts; `revised` does not, and a candidate that leaves `reviewing` carrying a standing verdict is refused.
+3. Remove the story from the plan.
+4. `ocs state ralplan revised <state>`, which moves to `drafted` and drops the findings.
+5. `ocs state ralplan open <state>` with fresh lanes over the trimmed plan.
+
+The prohibition on `block` below belongs to the round-5 exit alone, where the point is to reach `approve` without another round. Here another round is the price, so `block` is the right first step.
+
+The split story goes back through its own requirements-and-plan pass after this run rather than holding the settled ones behind it.
+
+That is a different situation from grounds that move across stories as each is fixed. Those are what the round count is for, and the exit below applies to them.
 
 When an official round numbered 5 or higher resolves with a standing BLOCK:
 

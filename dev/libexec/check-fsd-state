@@ -11,13 +11,14 @@ import shlex
 import subprocess
 import sys
 import tempfile
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(os.environ["KEIN_ROOT"])
 FSD = ROOT / "skills" / "fsd" / "scripts" / "state.py"
 EXECUTE = ROOT / "skills" / "execute" / "scripts" / "state.py"
 RALPLAN = ROOT / "skills" / "ralplan" / "scripts" / "state.py"
+INTERVIEW_VALIDATE = ROOT / "skills" / "interview" / "scripts" / "validate_artifacts.py"
 failures = []
 STAMP = "2026-01-01T00:00:00+09:00"
 
@@ -42,6 +43,10 @@ def execute(work, *args):
 
 def ralplan(work, *args):
     return _run(RALPLAN, work, *args)
+
+
+def interview_validate(work, kind, path):
+    return _run(INTERVIEW_VALIDATE, work, kind, str(path))
 
 
 def git(work, *args):
@@ -1782,11 +1787,15 @@ def _section_scenario24_attach_refuses_completed_foreign_plan_receipt():
         if read_json(foreign_run)["input"]["reference"] != str(foreign_plan):
             failures.append("the foreign-plan-receipt fixture did not actually preserve a contradicting reference; this case proves nothing")
 
-        refuse("attaching a completed receipt whose own reference names a different, real plan",
+        foreign_refused = refuse("attaching a completed receipt whose own reference names a different, real plan",
                fsd(work, "attach", str(state_path), "execute", str(foreign_run)), reason="does not belong")
         status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
         if status_after["stages"]["execute"]["association"] != "none" or status_after["stages"]["execute"]["run"] is not None:
             failures.append(f"attach accepted a completed foreign-plan receipt: {status_after['stages']['execute']}")
+        # Finding 3: the execute branch of `_candidate_terminal_but_matches`, and the sentence `_attach_refusal_follow_up` builds from it, were entirely unasserted for message content -- nothing before this checked the refusal's own stderr text for an execute candidate, so replacing the whole execute branch with `return True` left the suite green. This asserts the absence side: a foreign plan's own completed receipt, refused for a reference mismatch, keeps the cause-only text. Mutation proof: replacing the execute branch with `return True` turns this assertion RED, since every terminal execute candidate would then get the sentence regardless of whether its own reference matches this flow's plan.
+        foreign_message = foreign_refused.stderr
+        if "unlinked for the rest of this run" in foreign_message or "invoke the next stage directly" in foreign_message:
+            failures.append(f"a completed foreign-plan execute receipt wrongly carried the consequence-and-way-forward sentence: {foreign_message!r}")
 
 # ---------------------------------------------------------------------------
 # Scenario 24b: unlike scenario 24's foreign-plan receipt, this one is driven to completion against *this flow's own plan* -- its own surviving `input.reference` and `worktree.root` both genuinely match what `_execute_candidate_belongs` expects -- so the terminal/live-only check is the only thing left standing between this candidate and a match. Required case: deleting that check turns this one, and only this one among the execute cases, from refused to accepted.
@@ -1816,11 +1825,15 @@ def _section_scenario24b_attach_refuses_completed_matching_plan_receipt():
         if completed["worktree"]["root"] != str(work):
             failures.append("the scenario24b fixture did not preserve a genuinely matching worktree.root on its own completed receipt; this case proves nothing")
 
-        refuse("attaching a completed receipt whose own reference and worktree root both genuinely match this flow's plan",
+        own_refused = refuse("attaching a completed receipt whose own reference and worktree root both genuinely match this flow's plan",
                fsd(work, "attach", str(state_path), "execute", str(own_run)), reason="does not belong")
         status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
         if status_after["stages"]["execute"]["association"] != "none" or status_after["stages"]["execute"]["run"] is not None:
             failures.append(f"attach accepted a completed receipt merely because its own reference and root matched: {status_after['stages']['execute']}")
+        # Finding 3: the positive side of the same unasserted branch -- a completed receipt genuinely this flow's own gets the sentence, with the execute wording (`_attach_refusal_follow_up`'s own execute branch: no document to name, only the path already in hand, since execute has no next stage of this flow's own that takes a document). Mutation proof: replacing the execute branch of `_candidate_terminal_but_matches` with `return False` turns this assertion RED, and so does replacing its own execute wording in `_attach_refusal_follow_up` with `XXX`. The `completed` gate itself is kept, but not because a mutation here proves it necessary: it is redundant by schema, the same way scenario24's own aborted-execute case would be -- `ABORTED_FIELDS` drops `input` entirely, so an aborted receipt already fails `_execute_candidate_matches`'s own reference comparison regardless of which gate is checked, and a live, still-matching candidate never reaches this function at all, since `_candidate_belongs` already accepts it first.
+        own_message = own_refused.stderr
+        if "unlinked for the rest of this run" not in own_message or "invoke the next stage directly with the path already in hand" not in own_message:
+            failures.append(f"a completed execute receipt genuinely matching this flow's own plan did not get the execute wording's consequence-and-way-forward sentence: {own_message!r}")
 
 # ---------------------------------------------------------------------------
 # Scenario 25: an aborted execute receipt from a genuinely different repository is refused -- terminal alone already refuses it, before its own `worktree_root` (the flat field an aborted receipt carries in place of the nested `worktree.root` every other execute shape uses) is ever read at all. Required case: attach of an aborted receipt from another repository is refused.
@@ -2464,11 +2477,15 @@ def _section_scenario40_ralplan_refused_while_interview_active():
         ralplan_dest = ralplan_run_root / "260101-000000-scenario40" / "state.json"
         must("starting the ralplan run for scenario40", ralplan(work, "start", str(ralplan_dest), "--input", str(requirements_path), "--plan", str(plan_path), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
 
-        refuse("attaching a ralplan run while its own interview is still active", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)),
+        scenario40_refused = refuse("attaching a ralplan run while its own interview is still active", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)),
                reason="does not belong")
         status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
         if status_after["stages"]["ralplan"]["association"] != "none":
             failures.append(f"a ralplan run started while interview is still active somehow read as associated: {status_after['stages']['ralplan']}")
+        # Finding 3(b): this candidate is live, not terminal, so it must keep the cause-only text -- asserting only the cause (as this section always has) leaves the consequence-and-way-forward sentence unasserted on its *absence* side, and the whole suite stays green even if `_candidate_terminal_but_matches`'s own ralplan liveness gate were deleted entirely. Mutation proof: removing the `if payload.get("lifecycle") != "completed": return False` gate from `_candidate_terminal_but_matches`'s ralplan branch turns this assertion RED, since the live Draft plan above still carries `plan.path` and sits inside this flow's own worktree with no `resolved_reference` yet pinned -- exactly what the gate alone stands between it and the sentence.
+        scenario40_message = scenario40_refused.stderr
+        if "unlinked for the rest of this run" in scenario40_message or "invoke the next stage directly" in scenario40_message:
+            failures.append(f"a live ralplan candidate refused only because its own interview link is not yet completed wrongly carried the consequence-and-way-forward sentence: {scenario40_message!r}")
 
 # ---------------------------------------------------------------------------
 # Scenario 41: `checkpoint`'s own per-stage `run`/`resolved_reference` guard (scenario 37) only has a `previous` state to compare against once `destination` already exists -- a first candidate to a destination `start` never created has nothing to compare against, and would otherwise commit whatever `run` it named exactly as given: the identical bypass scenario 37 closes, reached by never having a destination instead of by changing one on an existing run. `start` is the one builder of a new fsd run, so `checkpoint` refuses a nonexistent destination outright, before ever loading the candidate for anything but that check, and points at `start`. Required case: checkpoint to a new destination carrying a run is refused.
@@ -2499,6 +2516,611 @@ def _section_scenario41_checkpoint_refuses_new_destination_with_run():
                reason="does not exist")
         if new_destination.exists():
             failures.append("checkpoint created a new destination it should have refused to create")
+
+# ---------------------------------------------------------------------------
+# Section "gap" (issue 1a): an entered stage whose association still reads "none" now carries a diagnosis on gap's own no-gap result -- the stage's name paired with the identical reason text `status` already shows beside it (`_none_association_reason`, read once and reused, never re-derived) -- so a lead no longer has to read `status` by hand to learn what `gap` itself could already see. `gap` still reports no gap throughout: a stage that is merely still running, with its ledger not yet completed, must never read as a gap of its own. Once the only entered stage is linked, the diagnosis clears to null. Registered under the literal name "gap" so `--only gap` runs just this section.
+
+def _section_gap_diagnosis_field():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the gap-diagnosis case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "gapdiag", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+
+        # Finding 4: `diagnosis` is a fixed key on every return `gap()` makes, `gap: True` rows included, even though every `gap: True` row commits it `null`. Nothing above ever checked the key was actually there on a `gap: True` row -- dropping it entirely would still leave every existing assertion here green, since none of them ever read `"diagnosis" in result` on this branch. The entry-stage pending row (idea input, interview not yet entered) is the first `gap: True` row this flow ever produces.
+        gap_pending_entry = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if not gap_pending_entry.get("gap"):
+            failures.append(f"the entry-stage row was not a gap before interview was ever entered: {gap_pending_entry}")
+        if "diagnosis" not in gap_pending_entry:
+            failures.append(f"a gap: True row carried no diagnosis key at all: {gap_pending_entry}")
+        elif gap_pending_entry["diagnosis"] is not None:
+            failures.append(f"a gap: True row's diagnosis was not null: {gap_pending_entry}")
+
+        must("entering interview for the gap-diagnosis case", fsd(work, "enter", str(state_path), "interview"))
+
+        gap_unlinked = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_unlinked["gap"]:
+            failures.append(f"gap fired for an entered-but-unlinked interview stage, which is not a gap on its own: {gap_unlinked}")
+        status_unlinked = json.loads(fsd(work, "status", str(state_path)).stdout)
+        expected_reason = status_unlinked["stages"]["interview"].get("association_reason")
+        if not expected_reason:
+            failures.append(f"status carried no association_reason to compare gap's diagnosis against: {status_unlinked['stages']['interview']}")
+        if gap_unlinked.get("diagnosis") != {"interview": expected_reason}:
+            failures.append(f"gap's no-gap diagnosis did not name the entered-but-unlinked interview stage with status's own reason text: {gap_unlinked.get('diagnosis')!r} vs {{'interview': {expected_reason!r}}}")
+        # `status` computes its own diagnosis field by merging `gap(state)` over the same state, so comparing `status_unlinked["diagnosis"]` against `gap_unlinked["diagnosis"]` is one expression checked twice and cannot fail. What the merge actually introduces is redundancy between two fields that now say the same thing on the same response: `status`'s own per-stage `association_reason` and its merged `diagnosis`.
+        diagnosis_reason = (status_unlinked.get("diagnosis") or {}).get("interview")
+        if not expected_reason or not diagnosis_reason or expected_reason != diagnosis_reason:
+            failures.append(f"status's own per-stage association_reason and its merged diagnosis diverged, though both describe the identical fact: {expected_reason!r} vs {diagnosis_reason!r}")
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-gapdiag"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        write_active_ledger(ledger, "260101-000000-gapdiag", work, work, work / "req-gapdiag.md")
+        must("attaching the interview ledger for the gap-diagnosis case", fsd(work, "attach", str(state_path), "interview", str(ledger)))
+
+        gap_linked = json.loads(fsd(work, "gap", str(state_path)).stdout)
+        if gap_linked["gap"]:
+            failures.append(f"gap fired while interview is a running, now-linked stage with no completed evidence: {gap_linked}")
+        if gap_linked.get("diagnosis") is not None:
+            failures.append(f"gap's diagnosis was not null once the only entered stage was linked: {gap_linked.get('diagnosis')!r}")
+        status_linked = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_linked.get("diagnosis") is not None:
+            failures.append(f"status's own merged diagnosis was not null once the only entered stage was linked: {status_linked.get('diagnosis')!r}")
+
+        # Finding 4's other unasserted behaviour: `gap`'s own early return (any lifecycle other than `active`) only ever carries a diagnosis for `paused` -- a `completed`, `halted`, or `aborted` run is terminal, and making that unconditional (handing a diagnosis to a terminal run's own lead) would leave the whole suite green, since nothing above ever drove a run past `active` while a stage was still entered and unlinked. A fresh flow, own temp directory, proves both ends of that split for real: interview entered and never linked (unanswered `resolved_reference`, exactly the incident's own shape), paused over an unrelated whole-run question -- `diagnosis` must still name interview -- then aborted from there -- `diagnosis` must clear to null even though the very same entered-but-unlinked stage is still sitting there, since a terminal lifecycle's own lead has no door left to act through.
+        with tempfile.TemporaryDirectory() as tmp2:
+            tmp2 = Path(tmp2)
+            work2 = (tmp2 / "repo").resolve()
+            init_repo(work2)
+            fsd_run_root2 = work2 / ".agents" / "kein" / "runs" / "fsd"
+
+            result2 = must("starting the paused/terminal diagnosis case", fsd(work2, "start", "--run-root", str(fsd_run_root2), "--slug", "gapdiaglife", "--input", "an idea", "--worktree", str(work2)))
+            state_path2 = require_path(result2)
+            must("entering interview for the paused/terminal diagnosis case", fsd(work2, "enter", str(state_path2), "interview"))
+
+            status_unlinked2 = json.loads(fsd(work2, "status", str(state_path2)).stdout)
+            expected_reason2 = status_unlinked2["stages"]["interview"].get("association_reason")
+            if not expected_reason2:
+                failures.append(f"the paused/terminal diagnosis case carried no association_reason to compare against: {status_unlinked2['stages']['interview']}")
+
+            qid = must("recording a whole-run question for the paused/terminal diagnosis case", fsd(work2, "question", str(state_path2),
+                "--stage", "interview", "--question", "does this idea still need interview?", "--options", "yes,no",
+                "--recommended", "yes", "--why-irreversible", "the owner's ruling is not something the flow can infer",
+                "--parks", "whole run")).stdout.strip()
+            retro_path2 = state_path2.parent / "retro.md"
+            retro_path2.write_text(f"{qid} pending; the flow paused before interview ever linked.\n")
+            must("closing over an unanswered whole-run question to reach paused", fsd(work2, "close", str(state_path2), "--retro", str(retro_path2)))
+            paused_state2 = read_json(state_path2)
+            if paused_state2["lifecycle"] != "paused":
+                failures.append(f"close did not pause over an unanswered whole-run question: {paused_state2['lifecycle']}")
+
+            gap_paused = json.loads(fsd(work2, "gap", str(state_path2)).stdout)
+            if gap_paused["gap"]:
+                failures.append(f"gap fired for a paused run: {gap_paused}")
+            if gap_paused.get("diagnosis") != {"interview": expected_reason2}:
+                failures.append(f"a paused run's own diagnosis did not name its entered-but-unlinked interview stage: {gap_paused.get('diagnosis')!r} vs {{'interview': {expected_reason2!r}}}")
+
+            must("aborting the paused run to reach a terminal lifecycle", fsd(work2, "abort", str(state_path2), "--reason", "the paused/terminal diagnosis case is done with this run"))
+            aborted_state2 = read_json(state_path2)
+            if aborted_state2["lifecycle"] != "aborted":
+                failures.append(f"abort did not reach the aborted lifecycle from paused: {aborted_state2['lifecycle']}")
+
+            gap_aborted = json.loads(fsd(work2, "gap", str(state_path2)).stdout)
+            if gap_aborted["gap"]:
+                failures.append(f"gap fired for a terminal (aborted) run: {gap_aborted}")
+            if gap_aborted.get("diagnosis") is not None:
+                failures.append(f"a terminal (aborted) run's own diagnosis was not null, though the same entered-but-unlinked interview stage was still sitting there: {gap_aborted.get('diagnosis')!r}")
+
+        # Finding 6: `diagnosis` is a fixed key on every `gap()` return, `gap: True` rows included, though every `gap: True` row commits it `null` -- asserted above only for the entry-stage pending row, which leaves every other `gap: True` row's own key unproven. The aborted-stage closeout row is exactly the one finding 6 found unproven: dropping the key from that one return statement alone left the whole suite green, since nothing anywhere already read `"diagnosis" in result` on it. A third, separate worktree, since `state_path`'s own flow above stays active throughout the rest of this section and `work2` has already been driven to aborted for a different row.
+        with tempfile.TemporaryDirectory() as tmp3:
+            tmp3 = Path(tmp3)
+            work3 = (tmp3 / "repo").resolve()
+            init_repo(work3)
+            fsd_run_root3 = work3 / ".agents" / "kein" / "runs" / "fsd"
+
+            result3 = must("starting the aborted-stage-closeout-row diagnosis case", fsd(work3, "start", "--run-root", str(fsd_run_root3), "--slug", "gapdiagcloseout", "--input", "an idea", "--worktree", str(work3)))
+            state_path3 = require_path(result3)
+            must("entering interview for the aborted-stage-closeout-row diagnosis case", fsd(work3, "enter", str(state_path3), "interview"))
+            interview_dir3 = work3 / ".agents" / "kein" / "runs" / "interview" / "260101-000000-gapdiagcloseout"
+            interview_dir3.mkdir(parents=True)
+            ledger3 = interview_dir3 / "ledger.md"
+            write_active_ledger(ledger3, "260101-000000-gapdiagcloseout", work3, work3, work3 / "req-gapdiagcloseout.md")
+            must("attaching the interview ledger while still active for the aborted-stage-closeout-row diagnosis case",
+                 fsd(work3, "attach", str(state_path3), "interview", str(ledger3)))
+            write_aborted_ledger(ledger3)
+
+            gap_closeout_row = json.loads(fsd(work3, "gap", str(state_path3)).stdout)
+            if not gap_closeout_row["gap"] or gap_closeout_row["next"] != "closeout" or gap_closeout_row["completed"] != "interview":
+                failures.append(f"the aborted-stage-closeout-row diagnosis fixture did not reach the row this case needs; this case proves nothing: {gap_closeout_row}")
+            if "diagnosis" not in gap_closeout_row:
+                failures.append(f"the aborted-stage closeout row carried no diagnosis key at all: {gap_closeout_row}")
+            elif gap_closeout_row["diagnosis"] is not None:
+                failures.append(f"the aborted-stage closeout row's diagnosis was not null: {gap_closeout_row}")
+
+        # Finding 1 (a regression this run introduced): `_gap_diagnosis` used to tolerate a malformed `stages` map the same way every other row past `gap`'s own first reads its evidence -- a read failure answers "nothing to report," not "raise out of `gap` itself." Four shapes probe that: `stages` absent entirely, `stages: null`, a stage key removed from an otherwise-present `stages` dict, and a stage value that is a bare string rather than a dict -- each raises a `KeyError`, `TypeError`, or `AttributeError` out of `state["stages"][stage]` or `stage_state.get("run")` inside `_flow_stage_run`, none of which `main`'s own `gap` command catches (it only ever catches `OSError`, `UnicodeError`, `json.JSONDecodeError`, and `ValueError`), so a crash here means an uncaught traceback and a nonzero exit rather than a clean refusal. `_load` only requires the file to parse as a JSON object, so a minimal hand-authored `{"lifecycle": "paused", "stages": ...}` is enough to reach `gap`'s own paused branch without going through a full valid state at all. Mutation proof: reverting `_gap_diagnosis` to the unwrapped loop it used to be turns every one of the four cases below RED, since `fsd gap` would then exit on an uncaught exception instead of printing `{"gap": false, ..., "diagnosis": null}`.
+        malformed_stages_shapes = {
+            "stages absent": {"lifecycle": "paused"},
+            "stages null": {"lifecycle": "paused", "stages": None},
+            "a stage key removed": {
+                "lifecycle": "paused",
+                "stages": {
+                    "interview": {"status": "pending", "run": None, "resolved_reference": None},
+                    "ralplan": {"status": "pending", "run": None, "resolved_reference": None},
+                    "closeout": {"status": "pending", "run": None, "resolved_reference": None},
+                },
+            },
+            "a stage value a string": {
+                "lifecycle": "paused",
+                "stages": {
+                    "interview": "not a dict",
+                    "ralplan": {"status": "pending", "run": None, "resolved_reference": None},
+                    "execute": {"status": "pending", "run": None, "resolved_reference": None},
+                    "closeout": {"status": "pending", "run": None, "resolved_reference": None},
+                },
+            },
+        }
+        for label, malformed_payload in malformed_stages_shapes.items():
+            malformed_path = tmp / f"malformed-{label.replace(' ', '-')}.json"
+            write(malformed_path, malformed_payload)
+            malformed_result = fsd(work, "gap", str(malformed_path))
+            if malformed_result.returncode != 0:
+                failures.append(f"gap over a paused state with {label} did not tolerate the malformed stages map -- it exited {malformed_result.returncode} instead of reporting no gap: {malformed_result.stderr!r}")
+            else:
+                malformed_gap = json.loads(malformed_result.stdout)
+                if malformed_gap.get("gap") is not False or malformed_gap.get("diagnosis") is not None:
+                    failures.append(f"gap over a paused state with {label} did not read as gap: false with a null diagnosis: {malformed_gap}")
+
+# ---------------------------------------------------------------------------
+# Section "attach" (issue 1a, corrected on review round 3, and again on round 4): attaching a terminal -- already-completed -- candidate still refuses, exactly as before, but when that candidate is genuinely this flow's own, the refusal now names the consequence alongside the cause: the stage stays unlinked for the rest of this run, so the lead's actual way forward is to invoke the next stage directly rather than retry attach against a candidate that will never pass -- this is the fixture the live incident actually left behind: the interview ledger's own validation had already completed by the time anything tried to link it, so the only candidate ever available to attach was this one. Finding 1 (blocking, corrected on round 3): the ledger below is now the real compact shape `ocs validate interview ledger` accepts -- {status, requirements_path, completed_at} only -- not the five-key shape this section used to hand-author, which that same validator refuses and which no real interview run could ever produce (a completed ledger drops `repository` and `output_path` entirely). Round 3 gates the sentence on `status`/`lifecycle == "completed"` explicitly rather than on "not live", so an *aborted* ledger or receipt -- genuinely this flow's own file, genuinely under its worktree, but never a run this flow finished -- is now asserted to keep the cause-only text too, alongside the completed candidate that does get the sentence. Round 3 also asserts the `resolved_reference` cross-check both ways, once a prior live attach has actually pinned one. Every other belonging failure -- unreadable, or a candidate whose own file lives outside this flow's canonical worktree -- keeps the cause-only text it always had, proven here by a genuine completed ledger sitting under a different repository entirely, and by one sitting under a git repository nested inside this flow's own worktree (round 4, finding 2). Round 4's finding 1 also adds a subdirectory-started completed ralplan receipt, whose own `plan.path` survives compaction as a bare relative spelling with no `working_directory` left to resolve it against -- the refusal must fall back to the pathless prose rather than confidently naming a path that does not exist. Registered under the literal name "attach" so `--only attach` runs just this section.
+
+def _section_attach_terminal_candidate_message():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the attach-terminal-candidate case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "attachterm", "--input", "an idea", "--worktree", str(work)))
+        state_path = require_path(result)
+        must("entering interview for the attach-terminal-candidate case", fsd(work, "enter", str(state_path), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        requirements_path = work / "req-attachterm.md"
+        # The real compact shape a completed ledger actually has -- {status, requirements_path, completed_at} only. This is what makes it "genuinely this flow's own" for the corrected `_candidate_terminal_but_matches`: the ledger file itself sits under this flow's own worktree (`work`), which is all that function has left to ask once `repository` and `output_path` are gone -- this stage was never linked before this call, so there is no `resolved_reference` on record yet to cross-check a named document against either.
+        write_completed_ledger(ledger, requirements_path)
+        must("validating the completed ledger this section attaches, the same validator post-bash relies on",
+             interview_validate(work, "ledger", ledger))
+
+        attach_refused = refuse("attaching a completed interview ledger", fsd(work, "attach", str(state_path), "interview", str(ledger)), reason="does not belong")
+        message = attach_refused.stderr
+        if "unlinked for the rest of this run" not in message:
+            failures.append(f"the terminal-candidate refusal did not name the consequence -- the stage staying unlinked for the rest of this run: {message!r}")
+        if "invoke the next stage directly" not in message:
+            failures.append(f"the terminal-candidate refusal did not point at invoking the next stage directly: {message!r}")
+        # Finding 2 (corrected on round 3): a real completed ledger drops `repository`, so `_resolved_reference_for_attach` can never resolve `output_path` from it -- but it does still carry `requirements_path`, the same field `_candidate_terminal_but_matches` already reads off this exact candidate, so the refusal now falls back to naming that surviving field, resolved against this flow's own worktree, rather than the wordier prose that names no path at all. This branch used to be dead for every genuine candidate on the false premise that a completed ledger carries nothing usable; it is not dead once the fallback reads the field the compact shape actually keeps.
+        expected_document = str(requirements_path.resolve())
+        if f"invoke the next stage directly with {expected_document}, the document this run produced" not in message:
+            failures.append(f"the terminal-candidate refusal over a genuine completed ledger did not name its own surviving requirements_path as the document: {message!r}")
+        status_after = json.loads(fsd(work, "status", str(state_path)).stdout)
+        if status_after["stages"]["interview"]["association"] != "none" or status_after["stages"]["interview"]["run"] is not None:
+            failures.append(f"attach linked a terminal candidate despite refusing it: {status_after['stages']['interview']}")
+
+        # Finding 1 (blocking) + finding 3(a): an *aborted* ledger must not get the sentence either -- it was never this flow's completed run, and pointing the lead at "invoke the next stage" over one would send them to a document that run never produced. Mutation proof: reverting `_candidate_terminal_but_matches`'s interview gate from `status == "completed"` back to `status != "active"` turns this assertion RED, since an aborted ledger clears "not active" just as readily as a completed one does.
+        aborted_interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-aborted"
+        aborted_interview_dir.mkdir(parents=True)
+        aborted_ledger = aborted_interview_dir / "ledger.md"
+        write_aborted_ledger(aborted_ledger)
+        aborted_ledger_refused = refuse("attaching an aborted interview ledger", fsd(work, "attach", str(state_path), "interview", str(aborted_ledger)), reason="does not belong")
+        aborted_ledger_message = aborted_ledger_refused.stderr
+        if "unlinked for the rest of this run" in aborted_ledger_message or "invoke the next stage directly" in aborted_ledger_message:
+            failures.append(f"an aborted interview ledger wrongly carried the consequence-and-way-forward sentence, though it was never this flow's own completed run: {aborted_ledger_message!r}")
+
+        # Finding 1 (blocking) + finding 3(a), the ralplan half: an aborted ralplan receipt commits no `plan` key at all (`ABORTED_FIELDS`), so it must not get the sentence either. Mutation proof: reverting the same gate for ralplan back to `lifecycle not in NONTERMINAL_LIFECYCLES` turns this assertion RED.
+        aborted_ralplan_requirements = work / "req-attachterm-ralplan-aborted.md"
+        write_requirements(aborted_ralplan_requirements, "Approved")
+        aborted_ralplan_plan = work / "plan-attachterm-ralplan-aborted.md"
+        write_plan(aborted_ralplan_plan, "Draft", "first cut", "v0")
+        aborted_ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-attachterm-ralplan-aborted" / "state.json"
+        must("starting the ralplan run to abort for the attach-terminal-candidate case",
+             ralplan(work, "start", str(aborted_ralplan_dest), "--input", str(aborted_ralplan_requirements), "--plan", str(aborted_ralplan_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("aborting the ralplan run for the attach-terminal-candidate case",
+             ralplan(work, "abort", str(aborted_ralplan_dest), "--reason", "cancelled"))
+        aborted_ralplan_refused = refuse("attaching an aborted ralplan receipt", fsd(work, "attach", str(state_path), "ralplan", str(aborted_ralplan_dest)), reason="does not belong")
+        aborted_ralplan_message = aborted_ralplan_refused.stderr
+        if "unlinked for the rest of this run" in aborted_ralplan_message or "invoke the next stage directly" in aborted_ralplan_message:
+            failures.append(f"an aborted ralplan receipt wrongly carried the consequence-and-way-forward sentence, though it commits no plan key at all and was never this flow's own completed run: {aborted_ralplan_message!r}")
+
+        # Finding 2 (corrected, round 4): the worktree-location check had no oracle of its own -- deleting it, or weakening it to a textual `Path.relative_to`, left the whole suite green, because the one fixture exercising it (the other-repository case below) used to run after the crosscheck block past this point had already pinned interview's own `resolved_reference`, so a location failure and a stored-document mismatch were confounded on the same assertion. Both cases here run first, against this same `state_path` while `stages.interview.resolved_reference` is still null -- the `pre_pin` check just below proves that -- so `stored` reads falsy inside `_candidate_terminal_but_matches` and the worktree-location check alone decides the outcome, with nothing left to confound it. Mutation proof: deleting the corrected `_candidate_terminal_but_matches`'s own worktree-location check (folding it back to "always true once terminal and readable") turns both refusals below from cause-only to carrying the sentence. The nested-repository case adds what the other-repository case alone cannot prove: weakening the check to a plain `Path.relative_to` in place of `_execute.canonical_worktree` would still refuse a genuinely different repository (its path is not textually inside `work` at all), but would wrongly accept a git repository nested inside this flow's own worktree, since `<work>/vendor/nested` is textually relative to `work` even though its own git toplevel is not the same canonical root.
+        pre_pin = read_json(state_path)["stages"]["interview"].get("resolved_reference")
+        if pre_pin:
+            failures.append(f"interview's own resolved_reference was already pinned before the location checks ran; this case proves nothing: {pre_pin!r}")
+
+        other = (tmp / "other-repo").resolve()
+        init_repo(other)
+        other_interview_dir = other / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-other"
+        other_interview_dir.mkdir(parents=True)
+        mismatched_ledger = other_interview_dir / "ledger.md"
+        mismatched_requirements_path = other / "req-attachterm-other.md"
+        write_completed_ledger(mismatched_ledger, mismatched_requirements_path)
+        must("validating the other-repository completed ledger", interview_validate(other, "ledger", mismatched_ledger))
+        mismatch_refused = refuse("attaching a completed ledger whose own file lives under a genuinely different repository",
+                                   fsd(work, "attach", str(state_path), "interview", str(mismatched_ledger)), reason="does not belong")
+        mismatch_message = mismatch_refused.stderr
+        if "unlinked for the rest of this run" in mismatch_message or "invoke the next stage directly" in mismatch_message:
+            failures.append(f"a location-mismatch refusal carried the consequence-and-way-forward sentence, which belongs only to a candidate whose own file lives inside this flow's worktree: {mismatch_message!r}")
+
+        nested = work / "vendor" / "nested"
+        init_repo(nested)
+        nested_interview_dir = nested / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-nested"
+        nested_interview_dir.mkdir(parents=True)
+        nested_ledger = nested_interview_dir / "ledger.md"
+        nested_requirements_path = nested / "req-attachterm-nested.md"
+        write_completed_ledger(nested_ledger, nested_requirements_path)
+        must("validating the nested-repository completed ledger", interview_validate(nested, "ledger", nested_ledger))
+        nested_refused = refuse("attaching a completed ledger whose own file lives under a git repository nested inside this flow's worktree",
+                                 fsd(work, "attach", str(state_path), "interview", str(nested_ledger)), reason="does not belong")
+        nested_message = nested_refused.stderr
+        if "unlinked for the rest of this run" in nested_message or "invoke the next stage directly" in nested_message:
+            failures.append(f"a nested-repository refusal carried the consequence-and-way-forward sentence, though its own file's git toplevel is a different, nested repository rather than this flow's own worktree: {nested_message!r}")
+
+        # Finding 4: an absolute document path is not enough on its own to earn the follow-up sentence's confidence -- it also has to resolve inside this flow's own worktree, or resolve to a file that genuinely exists; a hand-authored completed ledger is free to name any absolute path at all, real or not, and the old check trusted the spelling alone. This candidate's own file lives inside `work` (so it clears `_candidate_terminal_but_matches`'s worktree-location check the same way the genuine completed ledger at the top of this section does -- interview's own `resolved_reference` is still null at this point in the section, the same `pre_pin` fact the location checks above already proved), but the document it names is an absolute path under a sibling directory outside `work` entirely, and this fixture never writes anything there. Mutation proof: reverting the trustworthiness check in `_attach_refusal_follow_up` back to `Path(raw_document).is_absolute() or (resolved is not None and resolved.is_file())` turns this assertion RED, naming the outside-worktree path below as though this flow's own interview stage had produced it.
+        untrusted_interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-untrusted"
+        untrusted_interview_dir.mkdir(parents=True)
+        untrusted_ledger = untrusted_interview_dir / "ledger.md"
+        outside_document = (tmp / "outside-attachterm-untrusted.md").resolve()
+        if outside_document.exists():
+            failures.append(f"the untrustworthy-absolute-document fixture's own outside path unexpectedly exists on disk; this case proves nothing: {outside_document}")
+        write_completed_ledger(untrusted_ledger, outside_document)
+        must("validating the untrustworthy-absolute-document ledger", interview_validate(work, "ledger", untrusted_ledger))
+        untrusted_refused = refuse("attaching a completed ledger naming an absolute, nonexistent, out-of-worktree document",
+                                    fsd(work, "attach", str(state_path), "interview", str(untrusted_ledger)), reason="does not belong")
+        untrusted_message = untrusted_refused.stderr
+        if "unlinked for the rest of this run" not in untrusted_message:
+            failures.append(f"the untrustworthy-absolute-document refusal did not name the consequence -- the stage staying unlinked for the rest of this run: {untrusted_message!r}")
+        if "invoke the next stage directly with the document this run produced, not this run's own path" not in untrusted_message:
+            failures.append(f"the untrustworthy-absolute-document refusal did not fall back to the pathless prose, though its own named document neither exists nor lives inside this flow's own worktree: {untrusted_message!r}")
+        if str(outside_document) in untrusted_message:
+            failures.append(f"the untrustworthy-absolute-document refusal confidently named a document outside this flow's own worktree that nothing on disk backs: {untrusted_message!r}")
+
+        # Finding 3(c) (corrected, finding 2): the `resolved_reference` cross-check, both ways. Once interview is genuinely linked and `resolved_reference` is pinned at one requirements path, a second completed ledger naming that exact path is a `_candidate_terminal_but_matches` yes (it is, as far as the evidence goes, the same document this run already produced), and one naming a different path is not -- sharing the worktree alone is not enough once a sharper answer is on record. Interview is already linked here, so a `_candidate_terminal_but_matches` yes reaches `_attach_refusal_follow_up`'s kept-link branch, not its unlinked one -- the mismatch case's own refusal is plain cause-only text either way this comparison comes out, ending "...in this flow's own canonical worktree." exactly like every other belonging refusal in this section, and neither "unlinked for the rest of this run" nor "invoke the next stage directly" ever appears on it whether the comparison holds or not, so an assertion that checks only for those two strings proves nothing here: it stayed green when this comparison was folded away to "worktree location alone decides" during review, because the wrongly-admitted mismatch candidate would then reach the *kept-link* branch, not the unlinked one. The string that actually discriminates is "stays linked to the run already kept at", the one the match case above already asserts it earns for the identical document -- the mismatch case must never earn it too. Mutation proof: making `_candidate_terminal_but_matches` return `True` as soon as the completed and worktree-location gates pass -- folding the `stored`/`resolved_document` comparison away -- turns the assertion below RED, since the mismatched ledger then also reaches the kept-link branch and its message picks up that same sentence. A later class of defect lives right here, not in that comparison: `_candidate_terminal_but_matches` says yes for exactly this match case precisely because interview is *already* linked -- live -- to `crosscheck_ledger`, which is the only reason `resolved_reference` was there to cross-check against at all. The refusal's follow-up sentence must not then claim interview goes unlinked; it stays linked to `crosscheck_ledger`, unaffected by this second, terminal candidate naming the same document. The match case below asserts that true wording and its oracle: a terminal candidate refused while the stage still has a kept link must never carry "unlinked for the rest of this run" or "invoke the next stage directly". Mutation proof: reverting `_attach_refusal_follow_up`'s kept-link gate (deleting its own early `if kept: return ...`) turns that oracle RED, since the old unlinked wording would then reach a stage that is, in fact, still linked.
+        crosscheck_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-crosscheck"
+        crosscheck_dir.mkdir(parents=True)
+        crosscheck_ledger = crosscheck_dir / "ledger.md"
+        crosscheck_requirements = work / "req-attachterm-crosscheck.md"
+        write_active_ledger(crosscheck_ledger, "260101-000000-attachterm-crosscheck", work, work, crosscheck_requirements)
+        must("attaching the live ledger that pins resolved_reference for the crosscheck case",
+             fsd(work, "attach", str(state_path), "interview", str(crosscheck_ledger)))
+        pinned_reference = read_json(state_path)["stages"]["interview"].get("resolved_reference")
+        if not pinned_reference:
+            failures.append("attach did not pin interview's own resolved_reference for the crosscheck case; this case proves nothing")
+
+        match_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-crosscheck-match"
+        match_dir.mkdir(parents=True)
+        match_ledger = match_dir / "ledger.md"
+        write_completed_ledger(match_ledger, crosscheck_requirements)
+        must("validating the matching completed ledger for the crosscheck case", interview_validate(work, "ledger", match_ledger))
+        match_refused = refuse("attaching a completed ledger naming the same requirements path already pinned",
+                                fsd(work, "attach", str(state_path), "interview", str(match_ledger)), reason="does not belong")
+        match_message = match_refused.stderr
+        kept_crosscheck_run = read_json(state_path)["stages"]["interview"].get("run")
+        if not kept_crosscheck_run:
+            failures.append("interview's own kept run was not on record before the match case ran; this case proves nothing")
+        if "unlinked for the rest of this run" in match_message or "invoke the next stage directly" in match_message:
+            failures.append(f"a completed ledger naming the same requirements path already pinned wrongly claimed interview goes unlinked, though interview already has a kept, live link at {kept_crosscheck_run}: {match_message!r}")
+        if f"stays linked to the run already kept at {kept_crosscheck_run}" not in match_message:
+            failures.append(f"a completed ledger naming the same requirements path already pinned did not get the stays-linked sentence naming interview's own kept run: {match_message!r}")
+
+        mismatch_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachterm-crosscheck-mismatch"
+        mismatch_dir.mkdir(parents=True)
+        mismatch_own_ledger = mismatch_dir / "ledger.md"
+        different_requirements = work / "req-attachterm-crosscheck-different.md"
+        write_completed_ledger(mismatch_own_ledger, different_requirements)
+        must("validating the mismatching completed ledger for the crosscheck case", interview_validate(work, "ledger", mismatch_own_ledger))
+        crosscheck_mismatch_refused = refuse("attaching a completed ledger naming a different requirements path than the one already pinned",
+                                              fsd(work, "attach", str(state_path), "interview", str(mismatch_own_ledger)), reason="does not belong")
+        crosscheck_mismatch_message = crosscheck_mismatch_refused.stderr
+        if "unlinked for the rest of this run" in crosscheck_mismatch_message or "invoke the next stage directly" in crosscheck_mismatch_message:
+            failures.append(f"a completed ledger naming a different requirements path than the one already pinned wrongly carried the consequence-and-way-forward sentence: {crosscheck_mismatch_message!r}")
+        if f"stays linked to the run already kept at {kept_crosscheck_run}" in crosscheck_mismatch_message:
+            failures.append(f"a completed ledger naming a different requirements path than the one already pinned wrongly earned the stays-linked sentence the match case above already earns for the identical document, though this one names a different requirements path entirely: {crosscheck_mismatch_message!r}")
+
+        # Finding 1 (blocking, corrected on round 4): a ralplan run started from a subdirectory of the repository, with `--input` and `--plan` given relative to that subdirectory's own cwd, driven straight to a completed receipt without ever being attached while it was still live -- so `stages.ralplan.resolved_reference` is still null when this call is made, and the completed receipt's own surviving `plan.path` is the bare subdirectory-relative spelling `ralplan start` was given, with no `working_directory` left in the compacted shape to resolve it against. `_resolved_reference_for_attach` returns `None` for this candidate, since the live field it needs is already gone, so the old fallback joined that raw relative path onto this flow's own worktree root instead of the subdirectory it was actually typed relative to, and named the wrong, nonexistent file with full confidence. Mutation proof: reverting the trustworthiness gate in `_attach_refusal_follow_up` back to trusting any non-empty raw value turns this assertion RED, naming a path under `work` this fixture never wrote.
+        ralplan_run_root_sub = work / ".agents" / "kein" / "runs" / "ralplan"
+        sub = work / "sub-attachterm"
+        sub.mkdir()
+        sub_requirements = sub / "req-attachterm-sub.md"
+        write_requirements(sub_requirements, "Approved")
+        sub_plan = sub / "plan-attachterm-sub.md"
+        write_plan(sub_plan, "Draft", "first cut", "v0")
+        sub_ralplan_dest = ralplan_run_root_sub / "260101-000000-attachterm-sub" / "state.json"
+        relative_sub_input = os.path.relpath(sub_requirements, sub)
+        relative_sub_plan = os.path.relpath(sub_plan, sub)
+        must("starting the subdirectory ralplan run for the pathless-fallback case",
+             ralplan(sub, "start", str(sub_ralplan_dest), "--input", relative_sub_input, "--plan", relative_sub_plan, "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("opening the subdirectory ralplan run's round 1", ralplan(sub, "open", str(sub_ralplan_dest)))
+        write_plan(sub_plan, "Approved", "good", "v0")
+        must("approving the subdirectory ralplan run's round 1", ralplan(sub, "approve", str(sub_ralplan_dest)))
+        must("completing the subdirectory ralplan run, never attached while it was live", ralplan(sub, "complete", str(sub_ralplan_dest)))
+        completed_sub = read_json(sub_ralplan_dest)
+        if completed_sub.get("plan", {}).get("path") != relative_sub_plan:
+            failures.append(f"the subdirectory-completed-ralplan fixture did not preserve the bare relative plan.path this case needs; this case proves nothing: {completed_sub.get('plan')}")
+        if (work / relative_sub_plan).exists():
+            failures.append(f"joining the bare relative plan.path onto this flow's own worktree root coincidentally resolves to a real file, so this fixture cannot prove the wrong-root join is untrustworthy: {work / relative_sub_plan}")
+
+        sub_refused = refuse("attaching a completed ralplan receipt started from a subdirectory, never attached while live",
+                              fsd(work, "attach", str(state_path), "ralplan", str(sub_ralplan_dest)), reason="does not belong")
+        sub_message = sub_refused.stderr
+        if "unlinked for the rest of this run" not in sub_message:
+            failures.append(f"the subdirectory-completed-ralplan refusal did not name the consequence -- the stage staying unlinked for the rest of this run: {sub_message!r}")
+        if "invoke the next stage directly with the document this run produced, not this run's own path" not in sub_message:
+            failures.append(f"the subdirectory-completed-ralplan refusal did not fall back to the pathless prose, though its own surviving plan.path cannot be trusted without the working_directory compaction dropped: {sub_message!r}")
+        if str(work / relative_sub_plan) in sub_message:
+            failures.append(f"the subdirectory-completed-ralplan refusal confidently named a path built by joining the bare relative plan.path onto this flow's own worktree root, which is not where that file lives: {sub_message!r}")
+
+        # Finding 5: `_terminal_candidate_document`'s ralplan branch -- the completed receipt's own surviving `plan.path` -- is otherwise exercised only by the subdirectory pathless-fallback case just above, which never actually reads the field's value, only that it fails to resolve trustworthily. A genuine match needs a completed ralplan receipt whose own `plan.path` a lead really could invoke: started with an absolute `--plan`, driven to completed without ever being attached while live (so `stages.ralplan.run` is still null, the same precondition the subdirectory case establishes), and never attached against this same `state_path` before now (ralplan's own kept `run` has been null for `state_path` throughout this whole section -- every earlier ralplan attach against it was a `refuse`, never a `must`). `_resolved_reference_for_attach` still returns `None` for it (the completed shape has already dropped `working_directory`, the field that function needs), so the refusal has to fall back to `_terminal_candidate_document` alone, and this fixture's own plan file is never deleted, so the trustworthiness check (finding 4) clears it too. Mutation proof: replacing `_terminal_candidate_document`'s ralplan branch with `return None` turns this assertion RED, since the refusal would then fall back to the pathless prose instead of naming the plan this ralplan run actually completed against.
+        genuine_ralplan_requirements = work / "req-attachterm-ralplan-genuine.md"
+        write_requirements(genuine_ralplan_requirements, "Approved")
+        genuine_ralplan_plan = work / "plan-attachterm-ralplan-genuine.md"
+        write_plan(genuine_ralplan_plan, "Draft", "first cut", "v0")
+        genuine_ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-attachterm-ralplan-genuine" / "state.json"
+        must("starting the genuine completed ralplan run for the named-document case",
+             ralplan(work, "start", str(genuine_ralplan_dest), "--input", str(genuine_ralplan_requirements), "--plan", str(genuine_ralplan_plan), "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("opening the genuine completed ralplan run's round 1", ralplan(work, "open", str(genuine_ralplan_dest)))
+        write_plan(genuine_ralplan_plan, "Approved", "good", "v0")
+        must("approving the genuine completed ralplan run's round 1", ralplan(work, "approve", str(genuine_ralplan_dest)))
+        must("completing the genuine completed ralplan run, never attached while it was live", ralplan(work, "complete", str(genuine_ralplan_dest)))
+        completed_genuine = read_json(genuine_ralplan_dest)
+        if completed_genuine.get("plan", {}).get("path") != str(genuine_ralplan_plan):
+            failures.append(f"the genuine-completed-ralplan fixture did not preserve the absolute plan.path this case needs; this case proves nothing: {completed_genuine.get('plan')}")
+        if not genuine_ralplan_plan.is_file():
+            failures.append(f"the genuine-completed-ralplan fixture's own plan file went missing; this case proves nothing: {genuine_ralplan_plan}")
+
+        genuine_refused = refuse("attaching a genuine completed ralplan receipt, never attached while live",
+                                  fsd(work, "attach", str(state_path), "ralplan", str(genuine_ralplan_dest)), reason="does not belong")
+        genuine_message = genuine_refused.stderr
+        expected_genuine_document = str(genuine_ralplan_plan.resolve())
+        if f"invoke the next stage directly with {expected_genuine_document}, the document this run produced" not in genuine_message:
+            failures.append(f"the genuine completed ralplan refusal did not name its own surviving plan.path as the document: {genuine_message!r}")
+
+        # Finding 3: a deliberately skipped stage's own attach refusal has to name the skip itself, not the terminal-candidate follow-up sentence a candidate that merely looks like a completed match would otherwise earn -- the skipped check has to run before `_candidate_belongs` ever gets a chance to call `_candidate_terminal_but_matches`. A skipped stage's own `resolved_reference` is always null, since it was never linked at all, so a genuinely completed, in-worktree ledger reads as a `_candidate_terminal_but_matches` yes regardless of the stage's own status unless the skipped check pre-empts it -- this needs a fresh worktree of its own, since fsd itself allows only one nonterminal run per worktree and `state_path`'s own flow above never reaches a terminal lifecycle within this section. Mutation proof: moving the skipped check back below the belonging-refusal block in `attach` turns this assertion RED, since the completed ledger below is genuinely inside this flow's own worktree with no `resolved_reference` pinned yet, so `_candidate_terminal_but_matches` reads it as a match and `_attach_refusal_follow_up` fires.
+        skipped_work = (tmp / "repo-skipped").resolve()
+        init_repo(skipped_work)
+        skipped_fsd_run_root = skipped_work / ".agents" / "kein" / "runs" / "fsd"
+        skipped_plan_path = skipped_work / "plan-attachterm-skipped.md"
+        write_plan(skipped_plan_path, "Draft")
+        skipped_result = must("starting the skipped-interview-stage case",
+                              fsd(skipped_work, "start", "--run-root", str(skipped_fsd_run_root), "--slug", "attachtermskip", "--input", str(skipped_plan_path), "--worktree", str(skipped_work)))
+        skipped_state_path = require_path(skipped_result)
+        skipped_state = read_json(skipped_state_path)
+        if skipped_state["entry"] != "ralplan" or skipped_state["stages"]["interview"]["status"] != "skipped":
+            failures.append(f"the skipped-interview fixture did not skip interview; this case proves nothing: entry {skipped_state['entry']!r}, interview {skipped_state['stages']['interview']}")
+
+        skipped_interview_dir = skipped_work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-attachtermskip"
+        skipped_interview_dir.mkdir(parents=True)
+        skipped_ledger = skipped_interview_dir / "ledger.md"
+        write_completed_ledger(skipped_ledger, skipped_work / "req-attachtermskip.md")
+        must("validating the completed ledger offered to a deliberately skipped interview stage", interview_validate(skipped_work, "ledger", skipped_ledger))
+        skipped_refused = refuse("attaching a completed ledger to a deliberately skipped interview stage",
+                                  fsd(skipped_work, "attach", str(skipped_state_path), "interview", str(skipped_ledger)), reason="interview is skipped for this run")
+        skipped_message = skipped_refused.stderr
+        if "unlinked for the rest of this run" in skipped_message or "invoke the next stage directly" in skipped_message:
+            failures.append(f"a skipped stage's attach refusal wrongly carried the terminal-candidate follow-up sentence instead of naming the skip itself: {skipped_message!r}")
+
+# ---------------------------------------------------------------------------
+# Occupant: `_execute_occupant_block` prints the facts decision-policy.md's occupying-execute-run rule judges a foreign occupant on -- run id, start, last checkpoint, phase, and task statuses -- before its abort command, so a lead has more than the occupant's bare path and lifecycle to tell "mine, stale" from "someone else's, live" (issue 4's diagnosis half: the message used to print neither, framing the whole thing as "decisions for whoever owns that occupant"). A readable occupant prints every fact; a fact this cannot read is left out of the block entirely rather than guessed, and the block still fires, over a genuinely foreign occupant (a brief-kind execute run with no plan at all, so `_execute_candidate_matches` refuses it outright: a `None` reference from `_execute_candidate_reference` never compares equal to anything), a hand-authored one that never went through `execute start` (a run id with no YYMMDD-HHMMSS prefix to parse, a payload with no `phase` or `tasks` key at all -- the minimal shape `find_occupying_run` itself needs to discover an occupant, `lifecycle` and `worktree.root`, and nothing past it), and a hand-authored one whose `phase` and `tasks` are present but empty rather than missing (an empty string, an empty list) -- the shape that tells a guard relaxed to a bare `is None`/`return` from the correct type-and-nonempty check apart from one that still reads `None` either way. The readable occupant's own run id is renamed onto a `YYMMDD-HHMMSS` prefix three days back, and its own last checkpoint separately aged two days back with `os.utime`, both before `gap` ever reads it, and the assertions below check the printed start and last-checkpoint against those two exact stamps rather than against a window or against each other: aging only the file's mtime, as an earlier round of this section did, never touches the run id `_execute_occupant_started_at` actually parses, so `started` and "now" stayed the same fixture instant regardless of the mtime move, and a reader that ignored `run_id` entirely and returned `datetime.now()` passed unnoticed; renaming the directory is what a reader has to actually consult the run id for, and aging the checkpoint to a different day than the renamed start is what stops a reader that swapped one source for the other -- mtime for started, the run id's prefix for last checkpoint -- from landing on the right value by accident. `os.utime` also takes atime and mtime as separate values here rather than the same instant twice, so a reader of `st_atime` (which `os.utime` would otherwise always agree with `st_mtime` on, and which a `noatime` mount may never advance past creation) prints the wrong stamp rather than passing by coincidence. Required cases: every fact fires on a readable occupant, before the abort command, with last checkpoint matching its aged mtime exactly and start matching its renamed run id's own prefix, and the accepted count read as `== "accepted"` and not as any other predicate over the same payload (two accepted against one pending and one implementing is the smallest distribution where every other reading prints a different count); a malformed run id and a missing phase or tasks key are each left out on their own rather than guessed, with the block still firing and every other fact still present; an empty phase and an empty tasks list are each left out the same way, rather than printed as `phase ` or `tasks 0/0 accepted`; the block names where git log and git status settle what the facts cannot, right after the fact list; the parked branch names the closeout step in full.
+
+def _occupant_facts_list(action):
+    """The occupant block's own comma-joined fact list, pulled out by the separators `_execute_occupant_block` itself writes around it -- `"), "` opening and `"; these facts identify the run and say how far it got"` closing -- rather than by any bare substring or an ordering-dependent regex on the fact text itself, so a reword of the surrounding prose or a reordering of the facts cannot turn this extraction into a false match the way `"started " in action` or `re.search(r"started (\\S+?)[,;]", action)` each could. `None` when the block's own wrapping prose is not present at all."""
+    match = re.search(r"\), (.*?); these facts identify the run and say how far it got", action)
+    return match.group(1).split(", ") if match else None
+
+
+def _section_occupant_facts():
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        work = (tmp / "repo").resolve()
+        init_repo(work)
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        # A foreign occupant: a brief-kind execute run against no plan at all, so it can never strictly belong to any plan-driven fsd flow. Its own phase is moved off the `start`-opened `initializing` so the phase assertion below cannot pass merely because `initializing` happens to be both the fixture's starting phase and a plausible guess. Four tasks, hand-written directly onto the occupant's own file on disk (bypassing execute's own checkpoint validation entirely, the same way scenario 32 hand-corrupts a live occupant's `input.reference`): two `accepted`, one left at its opening `pending`, and one moved to `implementing`. The counts are what make the assertion discriminate, and they have to differ from each other in both directions: two statuses alone (`accepted`, `pending`) cannot tell `status == "accepted"` apart from a looser `status != "pending"`, and one task of each status cannot tell it apart from `== "pending"` or `== "implementing"` either, since every such reading would print the same count. Two accepted against one of each of the others is the smallest distribution where the correct guard prints `2/4` and every other predicate over this payload prints something else.
+        occupant_state = execute_start(work, execute_run_root, "occupant-readable",
+                                        [execute_task("task-001", ["README.md"]), execute_task("task-002", ["OTHER.md"]), execute_task("task-003", ["THIRD.md"]), execute_task("task-004", ["FOURTH.md"])])
+        must("moving the readable occupant to its task phase", execute_checkpoint(work, occupant_state, lambda s: s.update({"phase": "task"})))
+        occupant_payload = read_json(occupant_state)
+        occupant_payload["tasks"][0]["status"] = "accepted"
+        occupant_payload["tasks"][1]["status"] = "accepted"
+        occupant_payload["tasks"][3]["status"] = "implementing"
+        write(occupant_state, occupant_payload)
+
+        # Renamed onto a run id whose own `YYMMDD-HHMMSS` prefix reads three days back, before `gap` ever reads it: `_execute_occupant_started_at` parses that prefix straight off the directory name, never off the file's own mtime, so this is the one move that actually shifts what it reads. Aging only the file's mtime, as an earlier round of this section did, never touches the run id at all -- `started` and "now" stayed the same fixture instant regardless, which is what let a reader that ignored `run_id` entirely and returned `datetime.now()` (or a fixed offset from it) pass unnoticed. The last checkpoint is aged separately, two days back rather than three, so the two facts land on different days and a reader that swapped one source for the other -- mtime for started, the run id's own prefix for last checkpoint -- prints a value that matches neither assertion rather than passing by coincidence.
+        now = datetime.now().astimezone().replace(microsecond=0)
+        aged_start = now - timedelta(days=3)
+        aged_checkpoint = now - timedelta(days=2)
+        old_occupant_dir = occupant_state.parent
+        slug_suffix = old_occupant_dir.name.split("-", 2)[2]
+        renamed_occupant_dir = old_occupant_dir.parent / f"{aged_start.strftime('%y%m%d-%H%M%S')}-{slug_suffix}"
+        old_occupant_dir.rename(renamed_occupant_dir)
+        occupant_state = renamed_occupant_dir / "state.json"
+        occupant_run_id = renamed_occupant_dir.name
+
+        # `os.utime` takes atime and mtime as two separate values rather than the same instant twice: giving atime the untouched "now" and mtime the aged checkpoint stamp is what stops a reader of `st_atime` -- which `os.utime` would otherwise always leave agreeing with `st_mtime`, and which a `noatime` mount may never advance past creation -- from passing by coincidence.
+        aged_checkpoint_ts = aged_checkpoint.timestamp()
+        os.utime(occupant_state, (now.timestamp(), aged_checkpoint_ts))
+        expected_last_checkpoint = aged_checkpoint.isoformat(timespec="seconds")
+
+        # A separate fsd flow, entered directly at execute over a plan the occupant does not execute, its own execute stage left `pending`: `enter` refuses outright over a non-belonging occupant (see `enter`'s own docstring), so the entry-stage gap row is where `_execute_occupant_block` fires without ever calling it.
+        plan_path = work / "plan-occupant-readable.md"
+        write_plan(plan_path, "Approved")
+        result = must("starting the occupant-readable fsd case", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "occreadable", "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "execute":
+            failures.append("the occupant-readable fixture did not enter directly at execute; this case proves nothing")
+
+        gap_payload = json.loads(must("gap over the occupant-readable fsd case", fsd(work, "gap", str(state_path))).stdout)
+        action = gap_payload.get("action", "")
+        if not gap_payload["gap"] or gap_payload["next"] != "execute":
+            failures.append(f"gap did not report the entry-stage row while blocked on a foreign occupant: {gap_payload}")
+        if "occupies the worktree" not in action or "python3 -c" not in action:
+            failures.append(f"gap's action did not read as the occupant block at all: {action!r}")
+
+        facts = _occupant_facts_list(action)
+        if facts is None:
+            failures.append(f"the occupant block's own fact list could not be found between its wrapping prose: {action!r}")
+        else:
+            # `occupant_run_id`'s own YYMMDD-HHMMSS prefix, parsed by slicing rather than by the regex-and-strptime read `_execute_occupant_started_at` itself applies, so this assertion cannot share a bug with the implementation it checks.
+            prefix = occupant_run_id[:13]
+            expected_started = f"20{prefix[0:2]}-{prefix[2:4]}-{prefix[4:6]}T{prefix[7:9]}:{prefix[9:11]}:{prefix[11:13]}"
+            expected_facts = [
+                f"run id {occupant_run_id}",
+                f"started {expected_started} (the run id's own local wall clock)",
+                f"last checkpoint {expected_last_checkpoint}",
+                "phase task",
+                "tasks 2/4 accepted",
+            ]
+            if facts != expected_facts:
+                failures.append(f"the readable occupant's facts did not read as expected, in order: got {facts!r}, expected {expected_facts!r}")
+
+        # Finding 3: right after the fact list, before the "it is not this flow's own run" prose, the block has to say that these facts do not settle whether the occupant's work is committed and pushed, and name git log and git status as where that reads from -- decision-policy.md's own occupying-execute-run rule carries that sentence, and this message is the only text guaranteed in front of the lead at the moment the row fires.
+        facts_end = action.find("; these facts identify the run and say how far it got")
+        git_pointer_index = action.find("git log")
+        not_this_flow_index = action.find("It is not this flow's own run")
+        if facts_end == -1 or git_pointer_index == -1 or not_this_flow_index == -1:
+            failures.append(f"the occupant block did not point at git log and git status for whether the run's work is committed and pushed: {action!r}")
+        elif not (facts_end < git_pointer_index < not_this_flow_index):
+            failures.append(f"the git log/git status pointer did not sit right after the fact list and before the rest of the message: {action!r}")
+        if "git status" not in action:
+            failures.append(f"the occupant block named git log but not git status for whether the run's work is committed and pushed: {action!r}")
+
+        if "with --parks 'whole run', then run ocs state fsd closeout <state>." not in action:
+            failures.append(f"the occupant block's parked branch did not name the closeout step decision-policy.md continues with: {action!r}")
+
+        abort_index = action.find("python3 -c")
+        for label in (f"run id {occupant_run_id}", "started ", "last checkpoint ", "phase task", "tasks 2/4 accepted"):
+            fact_index = action.find(label)
+            if fact_index == -1 or fact_index > abort_index:
+                failures.append(f"the occupant block did not print {label!r} before its abort command: {action!r}")
+
+        # A second, separate worktree for the partial-occupant half below, rather than reusing `work`: the first occupant above is still `active` (this section never aborts it -- there is no `execute abort` builder, and doing it by hand would only be proving this same block against a run this section already exercised), and `find_occupying_run` would otherwise keep finding it ahead of the hand-authored one this half needs to be the sole occupant of its own worktree.
+        work_partial = (tmp / "repo-partial").resolve()
+        init_repo(work_partial)
+        execute_run_root_partial = work_partial / ".agents" / "kein" / "runs" / "execute"
+        fsd_run_root_partial = work_partial / ".agents" / "kein" / "runs" / "fsd"
+
+        # A hand-authored occupant, never run through `execute start` at all: its own directory name carries no YYMMDD-HHMMSS prefix for `_execute_occupant_started_at` to parse, and its payload carries no `phase` or `tasks` key at all -- nothing past the two fields `find_occupying_run` itself needs to discover it (`lifecycle`, `worktree.root`). This exercises only the missing-key branch of each guard: `payload.get(...)` reads `None` here regardless of how strict the guard around it is, so it cannot by itself tell a correct guard apart from one relaxed to a bare `is None`/`return` -- the empty-but-present occupant below closes that gap. Mutation proof: reverting `_execute_occupant_phase`, `_execute_occupant_started_at`, or `_execute_occupant_tasks` to return a placeholder instead of `None` on their own failure turns the matching assertion below RED; reverting `_execute_occupant_last_checkpoint` to `datetime.now()` instead of its own mtime read turns the readable occupant's exact-facts assertion above RED, since the printed value would then land two days off the aged checkpoint stamp; reverting `_execute_occupant_started_at` to `datetime.now()` (or any fixed offset from it) instead of parsing the run id's own prefix turns that same assertion RED, since the printed value would then land three days off the renamed run id's own prefix; reverting `_execute_occupant_block` to drop `_execute_occupant_facts` from its message entirely turns every assertion in this section RED, including this one's `run id` and `last checkpoint` checks.
+        occupant_dir = execute_run_root_partial / "hand-authored-occupant"
+        occupant_dir.mkdir(parents=True)
+        occupant_state_partial = occupant_dir / "state.json"
+        write(occupant_state_partial, {"lifecycle": "active", "worktree": {"root": str(work_partial)}})
+
+        plan_path_partial = work_partial / "plan-occupant-partial.md"
+        write_plan(plan_path_partial, "Approved")
+        result_partial = must("starting the occupant-partial fsd case", fsd(work_partial, "start", "--run-root", str(fsd_run_root_partial), "--slug", "occpartial", "--input", str(plan_path_partial), "--worktree", str(work_partial)))
+        state_path_partial = require_path(result_partial)
+        if read_json(state_path_partial)["entry"] != "execute":
+            failures.append("the occupant-partial fixture did not enter directly at execute; this case proves nothing")
+
+        gap_payload_partial = json.loads(must("gap over the occupant-partial fsd case", fsd(work_partial, "gap", str(state_path_partial))).stdout)
+        action_partial = gap_payload_partial.get("action", "")
+        if not gap_payload_partial["gap"] or gap_payload_partial["next"] != "execute":
+            failures.append(f"gap did not still block on the hand-authored occupant: {gap_payload_partial}")
+        if "occupies the worktree" not in action_partial or "python3 -c" not in action_partial:
+            failures.append(f"a hand-authored occupant did not still produce the occupant block: {action_partial!r}")
+
+        facts_partial = _occupant_facts_list(action_partial)
+        if facts_partial is None:
+            failures.append(f"the hand-authored occupant block's own fact list could not be found between its wrapping prose: {action_partial!r}")
+        else:
+            if facts_partial[0] != "run id hand-authored-occupant":
+                failures.append(f"the occupant block did not name the hand-authored occupant's own directory name as its run id: {facts_partial!r}")
+            if any(fact.startswith("started ") for fact in facts_partial):
+                failures.append(f"the occupant block guessed a start for a run id with no YYMMDD-HHMMSS prefix to parse: {facts_partial!r}")
+            if any(fact.startswith("phase ") for fact in facts_partial):
+                failures.append(f"the occupant block guessed a phase for a payload that never carried one: {facts_partial!r}")
+            if any(fact.startswith("tasks ") for fact in facts_partial):
+                failures.append(f"the occupant block guessed task statuses for a payload that never carried a tasks list: {facts_partial!r}")
+            if not any(fact.startswith("last checkpoint ") for fact in facts_partial):
+                failures.append(f"the occupant block did not name the last checkpoint of a hand-authored file that is, itself, perfectly stat-able: {facts_partial!r}")
+
+        if "with --parks 'whole run', then run ocs state fsd closeout <state>." not in action_partial:
+            failures.append(f"the partial occupant block's parked branch did not name the closeout step decision-policy.md continues with: {action_partial!r}")
+
+        # A third, separate worktree: a hand-authored occupant whose `phase` and `tasks` are present, not missing -- an empty string and an empty list. The missing-key occupant above reads `None` for both regardless of how strict the guard around it is, so it cannot tell a correct guard apart from `_execute_occupant_phase`'s string-and-nonempty check relaxed to a bare `return phase`, or `_execute_occupant_tasks`'s list-and-nonempty check relaxed to `is None`: both relaxed forms still read `None` off a missing key and stay green. An empty string and an empty list are each present, so a relaxed guard reads past them where the correct one does not. Mutation proof: relaxing `_execute_occupant_phase` to `return phase` turns the phase assertion below RED, since it would then print `phase ` for this occupant's empty string; relaxing `_execute_occupant_tasks`'s guard to `if tasks is None: return None` turns the tasks assertion below RED, since it would then print `tasks 0/0 accepted` for this occupant's empty list.
+        work_partial_empty = (tmp / "repo-partial-empty").resolve()
+        init_repo(work_partial_empty)
+        execute_run_root_partial_empty = work_partial_empty / ".agents" / "kein" / "runs" / "execute"
+        fsd_run_root_partial_empty = work_partial_empty / ".agents" / "kein" / "runs" / "fsd"
+
+        occupant_dir_empty = execute_run_root_partial_empty / "hand-authored-occupant-empty"
+        occupant_dir_empty.mkdir(parents=True)
+        occupant_state_partial_empty = occupant_dir_empty / "state.json"
+        write(occupant_state_partial_empty, {"lifecycle": "active", "worktree": {"root": str(work_partial_empty)}, "phase": "", "tasks": []})
+
+        plan_path_partial_empty = work_partial_empty / "plan-occupant-partial-empty.md"
+        write_plan(plan_path_partial_empty, "Approved")
+        result_partial_empty = must("starting the occupant-partial-empty fsd case", fsd(work_partial_empty, "start", "--run-root", str(fsd_run_root_partial_empty), "--slug", "occpartialempty", "--input", str(plan_path_partial_empty), "--worktree", str(work_partial_empty)))
+        state_path_partial_empty = require_path(result_partial_empty)
+        if read_json(state_path_partial_empty)["entry"] != "execute":
+            failures.append("the occupant-partial-empty fixture did not enter directly at execute; this case proves nothing")
+
+        gap_payload_partial_empty = json.loads(must("gap over the occupant-partial-empty fsd case", fsd(work_partial_empty, "gap", str(state_path_partial_empty))).stdout)
+        action_partial_empty = gap_payload_partial_empty.get("action", "")
+        if not gap_payload_partial_empty["gap"] or gap_payload_partial_empty["next"] != "execute":
+            failures.append(f"gap did not still block on the empty-typed hand-authored occupant: {gap_payload_partial_empty}")
+        if "occupies the worktree" not in action_partial_empty or "python3 -c" not in action_partial_empty:
+            failures.append(f"an empty-typed hand-authored occupant did not still produce the occupant block: {action_partial_empty!r}")
+
+        facts_partial_empty = _occupant_facts_list(action_partial_empty)
+        if facts_partial_empty is None:
+            failures.append(f"the empty-typed occupant block's own fact list could not be found between its wrapping prose: {action_partial_empty!r}")
+        else:
+            if any(fact.startswith("phase ") for fact in facts_partial_empty):
+                failures.append(f"the occupant block printed a phase fact for an empty, present-but-blank phase string: {facts_partial_empty!r}")
+            if any(fact.startswith("tasks ") for fact in facts_partial_empty):
+                failures.append(f"the occupant block printed a task-status fact for an empty, present-but-blank tasks list: {facts_partial_empty!r}")
+
+        if "with --parks 'whole run', then run ocs state fsd closeout <state>." not in action_partial_empty:
+            failures.append(f"the empty-typed occupant block's parked branch did not name the closeout step decision-policy.md continues with: {action_partial_empty!r}")
+
+        # Finding 7: `_execute_occupant_started_at`'s anchoring -- `re.match(r"^(\d{6}-\d{6})-", run_id)` is already anchored at the string's own start, but nothing above proves that anchoring is load-bearing: both negative fixtures so far ("hand-authored-occupant", "hand-authored-occupant-empty") carry no digits in their directory name at all, so an unanchored `re.search` in its place would read `None` from either one too, for the same reason the correct anchored `re.match` does, and that mutation would pass unnoticed. A directory name carrying a `YYMMDD-HHMMSS` stamp after its own start, never at position 0, is what tells the two readings apart: `re.match` still refuses it (nothing at the very start is a stamp), while an unanchored `re.search` would find the embedded stamp and print a guessed start for a run id this flow never wrote as one. Mutation proof: replacing the anchored `re.match` with an unanchored `re.search` over the identical pattern turns this assertion RED, printing a `started ` fact for the directory name below.
+        work_partial_unanchored = (tmp / "repo-partial-unanchored").resolve()
+        init_repo(work_partial_unanchored)
+        execute_run_root_partial_unanchored = work_partial_unanchored / ".agents" / "kein" / "runs" / "execute"
+        fsd_run_root_partial_unanchored = work_partial_unanchored / ".agents" / "kein" / "runs" / "fsd"
+
+        occupant_dir_unanchored = execute_run_root_partial_unanchored / "hand-authored-occupant-260101-000000-not-at-start"
+        occupant_dir_unanchored.mkdir(parents=True)
+        occupant_state_partial_unanchored = occupant_dir_unanchored / "state.json"
+        write(occupant_state_partial_unanchored, {"lifecycle": "active", "worktree": {"root": str(work_partial_unanchored)}})
+
+        plan_path_partial_unanchored = work_partial_unanchored / "plan-occupant-partial-unanchored.md"
+        write_plan(plan_path_partial_unanchored, "Approved")
+        result_partial_unanchored = must("starting the occupant-partial-unanchored fsd case",
+                                          fsd(work_partial_unanchored, "start", "--run-root", str(fsd_run_root_partial_unanchored), "--slug", "occpartialunanchored", "--input", str(plan_path_partial_unanchored), "--worktree", str(work_partial_unanchored)))
+        state_path_partial_unanchored = require_path(result_partial_unanchored)
+        if read_json(state_path_partial_unanchored)["entry"] != "execute":
+            failures.append("the occupant-partial-unanchored fixture did not enter directly at execute; this case proves nothing")
+
+        gap_payload_partial_unanchored = json.loads(must("gap over the occupant-partial-unanchored fsd case", fsd(work_partial_unanchored, "gap", str(state_path_partial_unanchored))).stdout)
+        action_partial_unanchored = gap_payload_partial_unanchored.get("action", "")
+        if not gap_payload_partial_unanchored["gap"] or gap_payload_partial_unanchored["next"] != "execute":
+            failures.append(f"gap did not still block on the unanchored-stamp hand-authored occupant: {gap_payload_partial_unanchored}")
+        if "occupies the worktree" not in action_partial_unanchored or "python3 -c" not in action_partial_unanchored:
+            failures.append(f"an unanchored-stamp hand-authored occupant did not still produce the occupant block: {action_partial_unanchored!r}")
+
+        facts_partial_unanchored = _occupant_facts_list(action_partial_unanchored)
+        if facts_partial_unanchored is None:
+            failures.append(f"the unanchored-stamp occupant block's own fact list could not be found between its wrapping prose: {action_partial_unanchored!r}")
+        elif any(fact.startswith("started ") for fact in facts_partial_unanchored):
+            failures.append(f"the occupant block guessed a start from a YYMMDD-HHMMSS stamp that sits after the run id's own start, not at it: {facts_partial_unanchored!r}")
+
+        if "with --parks 'whole run', then run ocs state fsd closeout <state>." not in action_partial_unanchored:
+            failures.append(f"the unanchored-stamp occupant block's parked branch did not name the closeout step decision-policy.md continues with: {action_partial_unanchored!r}")
 
 # ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every scenario here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
@@ -2555,6 +3177,9 @@ SECTIONS = [
     ("scenario39-execute-refused-while-ralplan-live", (), _section_scenario39_execute_refused_while_ralplan_live),
     ("scenario40-ralplan-refused-while-interview-active", (), _section_scenario40_ralplan_refused_while_interview_active),
     ("scenario41-checkpoint-refuses-new-destination-with-run", (), _section_scenario41_checkpoint_refuses_new_destination_with_run),
+    ("gap", (), _section_gap_diagnosis_field),
+    ("attach", (), _section_attach_terminal_candidate_message),
+    ("occupant", (), _section_occupant_facts),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}

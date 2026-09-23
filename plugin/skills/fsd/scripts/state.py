@@ -579,31 +579,36 @@ def _ralplan_candidate_reference(state: Dict[str, Any], payload: Dict[str, Any])
 
 
 def _execute_candidate_reference(payload: Dict[str, Any]) -> Any:
-    """`input.reference` from a candidate's own nonterminal shape, the only shape `_execute_candidate_belongs` ever reads this from -- present, though possibly `null` for a `--kind brief` run's own copy. `None` either way, since neither an absent nor a `null` reference ever compares equal to a real one."""
+    """`input.reference` from a candidate's own payload, present, though possibly `null` for a `--kind brief` run's own copy, on both the shapes this is ever called with: a nonterminal run's own `NONTERMINAL_FIELDS` shape (`_execute_candidate_belongs`, which checks `lifecycle` first), and a completed run's own compact `COMPLETED_FIELDS` shape (`_candidate_terminal_but_matches`, which keeps `input` too -- unlike interview's and ralplan's own completed shapes, execute's never drops the field this needs). Never called with an *aborted* receipt: `ABORTED_FIELDS` drops `input` entirely, and both callers gate on `lifecycle` before ever reaching here. `None` when the field is absent either way, since neither an absent nor a `null` reference ever compares equal to a real one."""
     input_field = payload.get("input")
     return input_field.get("reference") if isinstance(input_field, dict) else None
 
 
 def _execute_candidate_root(payload: Dict[str, Any]) -> Optional[str]:
-    """The candidate's own idea of where it lives, read from `worktree.root` -- present on every nonterminal execute run, the only shape `_execute_candidate_belongs` ever calls this with (it checks `lifecycle` first and returns before this is ever reached otherwise). The flat `worktree_root` field a *terminal* aborted receipt carries in its place is never read here: this function never sees one."""
+    """The candidate's own idea of where it lives, read from `worktree.root` -- present on both shapes this is ever called with, the same nonterminal-or-completed split `_execute_candidate_reference` reads (`_execute_candidate_belongs` checks `lifecycle` first for the one, `_candidate_terminal_but_matches` for the other; a completed run's own `COMPLETED_FIELDS` still nests `root` under `worktree`, same as a nonterminal run's own `NONTERMINAL_FIELDS` does). The flat `worktree_root` field a *terminal aborted* receipt carries in its place is never read here: both callers gate on `lifecycle` before ever reaching this function with one."""
     worktree = payload.get("worktree")
     if isinstance(worktree, dict) and isinstance(worktree.get("root"), str):
         return worktree["root"]
     return None
 
 
-def _execute_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
-    """Strict, and the only belonging test ever applied to an `execute` candidate: it must be live -- nonterminal -- with its own `input.reference` known and matching this flow's own expected reference by resolved path, each side resolved against its own canonical root (`_same_plan_reference`). A terminal receipt, completed or aborted, never belongs here, however faithfully its own surviving fields might still match: `post-bash` links a run at creation, while it is still live, so there is nothing left for a terminal reading to rescue. A `None` reference -- a `--kind brief` run, which this flow, always executing a plan, never starts as its own -- is likewise a non-match, not merely unconfirmed evidence: refusing it is what keeps an operator's own unrelated execute run from ever being read as this flow's own."""
+def _execute_candidate_matches(state: Dict[str, Any], payload: Dict[str, Any]) -> bool:
+    """Whether an already-loaded execute candidate's own `input.reference` matches this flow's own expected reference by resolved path, each side resolved against its own canonical root (`_same_plan_reference`) -- judged apart from whether the candidate is still live, which `_execute_candidate_belongs` checks separately before ever reaching here. Factored out so `attach`'s own refusal message can ask the identical reference question of a candidate it already knows has failed the liveness check, to tell "genuinely this flow's own run, just terminal" from "never this flow's run to begin with" (`_candidate_terminal_but_matches`). A `None` reference -- a `--kind brief` run, which this flow, always executing a plan, never starts as its own -- is a non-match, not merely unconfirmed evidence: refusing it is what keeps an operator's own unrelated execute run from ever being read as this flow's own."""
     expected = _expected_execute_plan_reference(state)
     if expected is None:
         return False
+    return _same_plan_reference(_execute_candidate_reference(payload), _execute_candidate_root(payload), expected, Path(state["worktree"]))
+
+
+def _execute_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
+    """Strict, and the only belonging test ever applied to an `execute` candidate: it must be live -- nonterminal -- with its own `input.reference` known and matching this flow's own expected reference by resolved path (`_execute_candidate_matches`). A terminal receipt, completed or aborted, never belongs here, however faithfully its own surviving fields might still match: `post-bash` links a run at creation, while it is still live, so there is nothing left for a terminal reading to rescue."""
     try:
         payload = _load(run_path)
     except Exception:
         return False
     if payload.get("lifecycle") not in _execute.NONTERMINAL_LIFECYCLES:
         return False
-    return _same_plan_reference(_execute_candidate_reference(payload), _execute_candidate_root(payload), expected, Path(state["worktree"]))
+    return _execute_candidate_matches(state, payload)
 
 
 def _ralplan_candidate_root(payload: Dict[str, Any]) -> Optional[str]:
@@ -622,19 +627,23 @@ def _ralplan_resolved_plan_reference(payload: Dict[str, Any]) -> Optional[Path]:
     return _resolve_reference_path(plan_path, Path(working_directory))
 
 
-def _ralplan_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
-    """Strict, over whichever of a candidate's own fields `_expected_ralplan_field` names, and live -- nonterminal -- only, the same reasoning `_execute_candidate_belongs` applies. `ralplan`'s own completed and aborted receipts never belong here, whatever they still carry: `post-bash` links a ralplan run at creation, while it is still live, so there is nothing left for a terminal reading to rescue.
-    Passes the candidate's own `working_directory` through to `_same_plan_reference` -- present on every nonterminal ralplan run, required non-empty by `validate_state` -- so a relative candidate reference resolves against the literal directory `ralplan start` actually ran from rather than against that run's canonicalized repository root, a different directory once the run started below the repository's top level."""
+def _ralplan_candidate_matches(state: Dict[str, Any], payload: Dict[str, Any]) -> bool:
+    """Whether an already-loaded ralplan candidate's own reference (whichever of its fields `_expected_ralplan_field` names) matches this flow's own expected reference by resolved path, judged apart from whether the candidate is still live -- `_ralplan_candidate_belongs` checks liveness separately before ever reaching here. Factored out for the identical reason `_execute_candidate_matches` is: so `attach`'s own refusal message can ask this same question of a candidate that has already failed the liveness check (`_candidate_terminal_but_matches`). Passes the candidate's own `working_directory` through to `_same_plan_reference` -- present on every nonterminal ralplan run, required non-empty by `validate_state`, but absent from a completed or aborted receipt -- so a relative candidate reference resolves against the literal directory `ralplan start` actually ran from rather than against that run's canonicalized repository root, a different directory once the run started below the repository's top level."""
     expected = _expected_ralplan_reference(state)
     if expected is None:
         return False
+    return _same_plan_reference(_ralplan_candidate_reference(state, payload), _ralplan_candidate_root(payload), expected, Path(state["worktree"]), payload.get("working_directory"))
+
+
+def _ralplan_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
+    """Strict, and live -- nonterminal -- only, the same reasoning `_execute_candidate_belongs` applies. `ralplan`'s own completed and aborted receipts never belong here, whatever they still carry: `post-bash` links a ralplan run at creation, while it is still live, so there is nothing left for a terminal reading to rescue."""
     try:
         payload = _load(run_path)
     except Exception:
         return False
     if payload.get("lifecycle") not in _ralplan.NONTERMINAL_LIFECYCLES:
         return False
-    return _same_plan_reference(_ralplan_candidate_reference(state, payload), _ralplan_candidate_root(payload), expected, Path(state["worktree"]), payload.get("working_directory"))
+    return _ralplan_candidate_matches(state, payload)
 
 
 def _interview_output_reference(ledger: Dict[str, str], candidate_root: Path) -> Optional[Path]:
@@ -647,14 +656,8 @@ def _interview_output_reference(ledger: Dict[str, str], candidate_root: Path) ->
     return _resolve_reference_path(output_path, root)
 
 
-def _interview_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
-    """Interview carries fsd no reference of its own to check a candidate against -- an idea input, the only one that ever leads here, has a `null` `input.reference` -- so there is no expected value to match, only whether this ledger is genuinely this flow's own: `active` (live; a `completed` ledger is terminal and never belongs here, whatever `requirements_path` it still carries -- the same live-only rule execute's and ralplan's own candidates follow), its own `repository` canonicalizing to this flow's canonical worktree (`_execute.canonical_worktree`, the same root check `_same_plan_reference` applies elsewhere, since a hand-authored `repository` line is not guaranteed to already be canonical), and its own `output_path` (`_interview_output_reference`, resolved against the ledger's own `working_directory`) resolving to a path inside that same worktree. The expected reference for an interview is simply "none yet", so the first ledger to clear all three checks is accepted -- there is nothing further to rank candidates by."""
-    try:
-        ledger = _parse_ledger(run_path.read_text())
-    except (OSError, UnicodeError):
-        return False
-    if ledger.get("status") != "active":
-        return False
+def _interview_candidate_matches(state: Dict[str, Any], ledger: Dict[str, str]) -> bool:
+    """Whether an already-parsed interview ledger is genuinely this flow's own, factored apart from whether it is still `active` so `_interview_candidate_belongs` can check liveness first and short-circuit before ever reading these two fields: its own `repository` canonicalizing to this flow's canonical worktree (`_execute.canonical_worktree`, the same root check `_same_plan_reference` applies elsewhere, since a hand-authored `repository` line is not guaranteed to already be canonical), and its own `output_path` (`_interview_output_reference`, resolved against the ledger's own `working_directory`) resolving to a path inside that same worktree. Unlike `_execute_candidate_matches`, this is not also reused by `_candidate_terminal_but_matches`: a real `completed` ledger drops both `repository` and `output_path` entirely (`_parse_ledger`'s five-key active shape compacts to the three-key `{status, requirements_path, completed_at}` completed shape), so this function can never answer anything once a ledger has gone terminal -- `_candidate_terminal_but_matches` asks a different, cheaper question of a terminal candidate instead (`_terminal_candidate_document`, this file's own worktree-location and stored-reference check)."""
     repository = ledger.get("repository")
     if not isinstance(repository, str) or not repository or repository == "none":
         return False
@@ -675,6 +678,17 @@ def _interview_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
     return True
 
 
+def _interview_candidate_belongs(state: Dict[str, Any], run_path: Path) -> bool:
+    """Interview carries fsd no reference of its own to check a candidate against -- an idea input, the only one that ever leads here, has a `null` `input.reference` -- so there is no expected value to match, only whether this ledger is genuinely this flow's own: `active` (live; a `completed` ledger is terminal and never belongs here, whatever `requirements_path` it still carries -- the same live-only rule execute's and ralplan's own candidates follow), and `_interview_candidate_matches`. The expected reference for an interview is simply "none yet", so the first ledger to clear both checks is accepted -- there is nothing further to rank candidates by."""
+    try:
+        ledger = _parse_ledger(run_path.read_text())
+    except (OSError, UnicodeError):
+        return False
+    if ledger.get("status") != "active":
+        return False
+    return _interview_candidate_matches(state, ledger)
+
+
 def _candidate_belongs(state: Dict[str, Any], stage: str, run_path: Path) -> bool:
     """The strict belonging test: what `post-bash` checks before ever attaching a run it watched a Bash command create, and the only test `attach` applies -- there is no looser fallback left to reach for. A candidate that fails it is not this flow's, full stop, regardless of who is asking or what else is true about it."""
     if stage == "execute":
@@ -682,6 +696,71 @@ def _candidate_belongs(state: Dict[str, Any], stage: str, run_path: Path) -> boo
     if stage == "ralplan":
         return _ralplan_candidate_belongs(state, run_path)
     return _interview_candidate_belongs(state, run_path)
+
+
+def _terminal_candidate_document(stage: str, run_path: Path) -> Optional[str]:
+    """The document a completed interview or ralplan candidate still names on its own surviving compact fields -- the ledger's own `requirements_path`, or the ralplan receipt's own `plan.path` -- read straight off `run_path` with no resolution against any root yet. Two callers resolve this raw value the identical way, against the flow's own worktree: `_candidate_terminal_but_matches`, to cross-check it against an already-pinned `resolved_reference`, and `_attach_refusal_follow_up`, to name it in a refusal message. Factored out once here so those two questions can never read the field two different ways. `None` on any read failure, or when the candidate's own compact shape does not actually carry the field -- `execute` never calls this: its own completed shape still keeps `worktree.root` and `input.reference`, the same fields the live test already reads, so `_execute_candidate_matches` alone answers both of this function's callers for that stage."""
+    if stage == "ralplan":
+        try:
+            payload = _load(run_path)
+        except Exception:
+            return None
+        plan = payload.get("plan")
+        return plan.get("path") if isinstance(plan, dict) else None
+    try:
+        ledger = _parse_ledger(run_path.read_text())
+    except (OSError, UnicodeError):
+        return None
+    return ledger.get("requirements_path")
+
+
+def _candidate_terminal_but_matches(state: Dict[str, Any], stage: str, run_path: Path) -> bool:
+    """Whether `run_path` fails `_candidate_belongs` solely because it has already gone terminal, judged by a test this function alone applies -- never `_candidate_belongs`, never `attach`'s own link, and never anything `post-bash` calls. It answers one question only: does `attach`'s own refusal get to append the consequence-and-way-forward sentence (`_attach_refusal_follow_up`, issue 1a)? Because that is all that is ever at stake -- a sentence in an error message, not a link -- the evidence this asks for may be, and for `interview` and `ralplan` has to be, weaker than the belonging test itself: strong enough that it never fires for a stranger, not strong enough to ever be mistaken for belonging.
+    `execute` keeps the strict field comparison unchanged: a completed execute receipt's own compact shape still carries `worktree.root` and `input.reference`, the identical fields the live test reads, so `_execute_candidate_matches` still answers this correctly once its own lifecycle is checked separately -- this is the one shape of the six that already reached the sentence correctly, and reusing the same field-exact test here is what keeps a genuinely foreign completed receipt sitting in the same worktree (a different real plan, still refused, still without the sentence) from ever being confused with this flow's own. Gated on `lifecycle == "completed"` explicitly, not on "not live": an aborted execute receipt happens to fail the reference comparison anyway, since `ABORTED_FIELDS` drops `input` entirely, but that was never this function's own gate doing the work, and stating it explicitly is what finding 1 asked for rather than leaving it to a coincidence of a different schema.
+    `interview` and `ralplan` cannot reuse their own live tests at all: `_interview_candidate_matches` needs `repository`, and `_ralplan_candidate_matches` needs `working_directory` alongside it, and both fields are dropped from every terminal shape either stage ever compacts to -- completed or aborted alike -- so the live test refuses every terminal interview or ralplan candidate a real flow could ever produce, sentence included, before it is ever asked whether the sentence belongs. That was finding 1's own blocking defect: gating on "not live" rather than on `status`/`lifecycle == "completed"` let an *aborted* ledger or receipt clear this function too -- a candidate this flow never finished, pointing the lead at a document that run never produced. Gating on completed explicitly closes that: `interview`'s own `status` and `ralplan`'s own `lifecycle` must read `"completed"`, not merely "anything other than active/nonterminal", before either stage's document is ever consulted.
+    Once a candidate has cleared that completed gate, this asks a second, cheaper question: is the candidate's own file (`run_path`'s own parent directory, read through `_execute.canonical_worktree` -- the same git-toplevel resolution every other root comparison in this file already applies, rather than a plain `relative_to`) genuinely inside this flow's own canonical worktree (`state["worktree"]`)? `relative_to` alone answers only "is this path textually nested under that one," which a nested repository's own toplevel -- a git repo at `<worktree>/vendor/nested` with its own completed ledger -- would also pass; canonicalizing the candidate's own directory is what tells that nested repository's own run apart from a run that is genuinely part of this flow's worktree, the same distinction `canonical_worktree` already draws for every other candidate's own root. On its own even that is too weak to ever call belonging -- any terminal run genuinely inside the worktree would pass it -- but it is exactly the evidence the incident itself left behind: an interview or ralplan stage this flow never linked at all carries no `resolved_reference` yet (`stages.<stage>.resolved_reference` is still `None`, since that field is only ever written alongside a kept `run`), so there is nothing sharper on record to ask, and the worktree test alone decides. Once a `resolved_reference` has actually been pinned -- an earlier attach genuinely linked a run here, while it was still live, before it went stale or a replacement candidate showed up -- a sharper question is available and this asks it too: the document this new terminal candidate itself names (`_terminal_candidate_document`: the ledger's own `requirements_path`, the ralplan receipt's own `plan.path`, read straight off the candidate's surviving compact fields, resolved against the flow's own worktree since neither the ledger's `working_directory` nor the receipt's own `working_directory` survives compaction) must resolve to that same stored path. A candidate that shares the worktree but names a different document than the one already on record is refused without the sentence.
+    `False` for every read failure, for a candidate that is not actually terminal -- `_candidate_belongs` already accepted a live match, so this is only ever asked about a refusal -- and for a still-live candidate refused for an unrelated reason (a ralplan run begun while its own interview is still active, say, or a stranger from another flow entirely): those candidates were never confirmed as this flow's own, and pointing a lead at "invoke the next stage" over one of them would send them chasing a stage that candidate never actually fed."""
+    if stage == "execute":
+        try:
+            payload = _load(run_path)
+        except Exception:
+            return False
+        if payload.get("lifecycle") != "completed":
+            return False
+        return _execute_candidate_matches(state, payload)
+    if stage == "ralplan":
+        try:
+            payload = _load(run_path)
+        except Exception:
+            return False
+        if payload.get("lifecycle") != "completed":
+            return False
+    else:
+        try:
+            ledger = _parse_ledger(run_path.read_text())
+        except (OSError, UnicodeError):
+            return False
+        if ledger.get("status") != "completed":
+            return False
+    try:
+        flow_root = Path(state["worktree"]).resolve()
+    except Exception:
+        return False
+    try:
+        candidate_root, _ = _execute.canonical_worktree(run_path.parent)
+    except Exception:
+        return False
+    if candidate_root != flow_root:
+        return False
+    stored = state["stages"][stage].get("resolved_reference")
+    if not stored:
+        return True
+    document = _terminal_candidate_document(stage, run_path)
+    resolved_document = _resolve_reference_path(document, flow_root)
+    resolved_stored = _resolve_reference_path(stored, flow_root)
+    if resolved_document is None or resolved_stored is None:
+        return False
+    return resolved_document == resolved_stored
 
 
 def _resolved_reference_for_attach(stage: str, run_path: Path) -> Optional[str]:
@@ -805,9 +884,46 @@ def _kept_link_still_live(stage: str, kept_path: Path) -> bool:
         return False
 
 
+def _attach_refusal_follow_up(state: Dict[str, Any], stage: str, run_path: Path) -> str:
+    """The consequence-and-way-forward sentence appended to `attach`'s own refusal, and only when `_candidate_terminal_but_matches` says this candidate is genuinely this flow's own `stage` run, refused solely because it has already gone terminal (issue 1a). Every other refusal -- unreadable, a candidate whose own file lives outside this flow's canonical worktree, or (once a `resolved_reference` is already on record) one whose own document does not resolve to it -- keeps the cause-only text `attach` always had: a candidate this flow could never confirm as its own gives a lead nothing to invoke next.
+    `_candidate_terminal_but_matches` can say yes here while `stage` already has a kept `run` of its own, and does so routinely rather than as an edge case: the interview/ralplan branch reaches its own `resolved_reference` cross-check only once `stored` is truthy, and a pinned `resolved_reference` never exists without a kept `run` alongside it (`validate_state` refuses `resolved_reference` set while `run` is not, though the reverse -- a kept `run` with no `resolved_reference` -- is legal and is `execute`'s own ordinary shape, which carries no `resolved_reference` of its own at all), so every candidate that clears that branch is being judged against a stage that is already linked; the execute branch carries no such gate at all, and a kept `run` can already sit there from `enter` pinning a belonging occupant before this candidate was ever offered to `attach`. Saying the stage goes unlinked, and prescribing the next stage as though nothing already feeds it, is false in exactly that shape -- a second, later terminal candidate that merely names the same document never unlinks the run this flow is already relying on; the flow's own rows keep reading the kept link precisely as before. So this checks for a kept `run` first, ahead of anything about the refused candidate: with one on record, the sentence below says only that the stage stays linked to it and this candidate is not replacing it, and drops the "invoke the next stage" prescription entirely, since the flow's own rows already fire correctly off the kept link. Only once there is no kept `run` to protect does this go on to work out the actual way forward for a stage that is genuinely left with nothing.
+    Names the actual document the next stage takes -- interview's own `output_path`, or ralplan's own `plan.path` -- resolved absolute against the terminal candidate's own recorded directory while it is still readable (`_resolved_reference_for_attach`, the identical resolution a live candidate gets at the moment `attach` links it), never `run_path` itself: the next stage never takes fsd's own ledger or receipt path, only the document it names. That live-field resolution is never actually available for a genuine completed candidate -- both terminal shapes drop the one field (`repository` for interview, `working_directory` for ralplan) it needs, an absolute reference exactly as much as a relative one -- so this falls back to the candidate's own surviving compact field instead (`_terminal_candidate_document`: the ledger's own `requirements_path`, or the ralplan receipt's own `plan.path`), resolved against `state["worktree"]` the identical way `_candidate_terminal_but_matches` already resolves it to cross-check a pinned `resolved_reference` (finding 2, corrected on round 3: that branch used to be unreachable for every genuine candidate on exactly this false premise, always falling through to the wordier prose below instead) -- but only once that resolved value is trustworthy without the very directory compaction dropped: it must resolve to a file that genuinely exists on disk, or, failing that, the raw field must already be absolute and resolve to a path inside this flow's own worktree. An absolute spelling alone no longer clears it on its own: a hand-authored completed ledger is free to name any absolute path at all, real or not, and trusting the spelling alone printed a document outside this repository, that nothing here ever produced, as "the document this run produced" (finding 4). A relative `plan.path` surviving from a subdirectory-started ralplan run resolves against this flow's worktree root instead of the subdirectory `working_directory` recorded it relative to, once that field is gone with the rest of the candidate's live shape -- and a confidently wrong path misleads a lead worse than naming none at all (finding 1, blocking, corrected on round 4). A raw value that resolves to no existing file and is either relative or resolves outside this flow's own worktree, or a candidate that carries neither the live fields nor the compact one at all -- unreadable, or a shape no real run ever produces -- reaches that same pathless prose fallback, naming no path at all. `execute` has no next stage of this flow's own that takes a document at all -- closeout is invoked against the fsd state path itself, which a lead calling `attach` already has in hand -- so its own wording never claims a document exists to name, and the sentence below never claims a specific flag either: the row that reads a linked `execute`'s own value is closeout's `run ocs state fsd closeout <state>`, which takes no `--input` of its own the way the next stage after `interview` or `ralplan` does."""
+    kept = state["stages"][stage].get("run")
+    if kept:
+        return (
+            f" {stage} stays linked to the run already kept at {kept} -- this candidate is not replacing it, and "
+            "the rows that read its link keep firing from that kept run, not from this one."
+        )
+    if stage == "execute":
+        way_forward = "invoke the next stage directly with the path already in hand"
+    else:
+        document = _resolved_reference_for_attach(stage, run_path)
+        if document is None:
+            raw_document = _terminal_candidate_document(stage, run_path)
+            if raw_document:
+                worktree_root = Path(state["worktree"]).resolve()
+                resolved = _resolve_reference_path(raw_document, worktree_root)
+                trustworthy = resolved is not None and resolved.is_file()
+                if not trustworthy and resolved is not None and Path(raw_document).is_absolute():
+                    try:
+                        resolved.relative_to(worktree_root)
+                        trustworthy = True
+                    except ValueError:
+                        trustworthy = False
+                document = str(resolved) if trustworthy and resolved is not None else None
+        if document:
+            way_forward = f"invoke the next stage directly with {document}, the document this run produced"
+        else:
+            way_forward = "invoke the next stage directly with the document this run produced, not this run's own path"
+    return (
+        f" Refusing it leaves {stage} unlinked for the rest of this run -- the rows that read its link will not "
+        f"fire -- so the way forward is to {way_forward}, not to retry attach against this same candidate."
+    )
+
+
 def attach(destination: Path, stage: str, run_path: Path) -> None:
     """Pins a stage's association explicitly. This is the only writer of a kept link besides the `post-bash` hook, which calls this same function once it has already run the identical strict check on its own (see `hook.py`); the lead uses it directly whenever no bash command the hook watches produced the run.
-    Applies the same strict belonging test `post-bash` applies, and no other (`_candidate_belongs`): the candidate must be live -- nonterminal -- its own identifying field known, and it must match this flow's own expected reference by resolved path, each side resolved against its own canonical worktree. A candidate that fails it is refused outright, by name -- there is no looser fallback left to reach for; a run this cannot verify, whether because it has already gone terminal or because it is genuinely not this flow's own, has nothing left here to rescue it.
+    Applies the same strict belonging test `post-bash` applies, and no other (`_candidate_belongs`): the candidate must be live -- nonterminal -- its own identifying field known, and it must match this flow's own expected reference by resolved path, each side resolved against its own canonical worktree. A candidate that fails it is refused outright, by name -- there is no looser fallback left to reach for; a run this cannot verify, whether because it has already gone terminal or because it is genuinely not this flow's own, has nothing left here to rescue it. Only when the candidate is readable, is this flow's own run, and fails *solely* that live check does the refusal also name the consequence and the actual way forward (`_attach_refusal_follow_up`, issue 1a) -- and what that consequence actually is depends on whether `stage` already has a kept `run`: with none, the stage genuinely stays unlinked for the rest of this run, so the lead invokes the next stage directly rather than retrying attach against a candidate that will never pass; with one already on record, the stage was never at risk of going unlinked at all, so the sentence says only that it stays linked to the run it already has and drops the next-stage prescription, since the flow's own rows keep firing from that kept link regardless of what this refused candidate was. Every other refusal -- unreadable, or a reference that never matched, whether or not the candidate is live -- keeps the cause-only text, since pointing at "the next stage" would send the lead chasing a stage this candidate never actually fed (a ralplan run started while its own interview is still active, say, or a stranger from another flow entirely).
     A kept link is never replaced while its own referent is still live: once `stages.<stage>.run` is set, a call naming a different path is refused as long as the run currently sitting there is still nonterminal (`_kept_link_still_live`) -- protecting a kept link the flow is still actively relying on from being silently swapped out, which is exactly what a same-repository second interview ledger, still active, would otherwise do. A call naming the exact same path -- resolved, so an equivalent relative and absolute spelling both count -- is always a no-op that writes nothing, live or not: that same-path check runs before `_candidate_belongs` is ever asked about the candidate, which is what actually makes it "whether or not that run is live" true rather than aspirational -- `_candidate_belongs` itself refuses a terminal candidate outright, so checking it first would turn re-attaching an already-kept run that has since gone terminal into a refusal instead of the no-op the kept link's own presence already answers. Once the currently kept run has itself gone terminal (or can no longer be read at all), a call naming a different, live, correctly-belonging path is accepted, moving the kept link there instead: this is what lets `guard`'s own abort-then-restart recovery -- which necessarily starts its replacement at a new path, since `execute start` refuses to reuse an existing one -- reach the replacement at all, and what lets an unreadable kept association (`GUARD_NO_ASSOCIATION`) be repaired with a plain `attach` rather than staying stuck forever.
     Alongside `run`, an interview or ralplan candidate's own `resolved_reference` is pinned in the same commit (`_resolved_reference_for_attach`) -- the ledger's `output_path`, or the ralplan run's own `plan.path`, each resolved absolute against the candidate's own recorded directory while that directory is still readable. This is what lets `_expected_ralplan_reference` and `_expected_execute_plan_reference` compare against the right file even after the candidate itself has compacted to a terminal shape that drops the very directory a relative reference needed: computing it now, against evidence that still exists, is the only chance there ever is. `execute` carries no `resolved_reference` of its own -- nothing downstream of it in this flow ever needs one -- so `_resolved_reference_for_attach` always returns `None` for it, and the field commits `null`."""
     if stage not in ("interview", "ralplan", "execute"):
@@ -818,6 +934,9 @@ def attach(destination: Path, stage: str, run_path: Path) -> None:
     if not run_path.is_file():
         raise ValueError(f"{run_path} does not exist")
     stage_state = state["stages"][stage]
+    if stage_state["status"] == "skipped":
+        # Checked before the belonging test ever runs, not after: a skipped stage never carries a `run` (`validate_state` forbids it), so this can never pre-empt the `kept`-path no-op just below, but it does pre-empt `_candidate_terminal_but_matches` -- a completed candidate genuinely inside this flow's worktree, with no `resolved_reference` pinned yet because the stage was never linked at all, reads as a match to that function regardless of the stage's own status, and would otherwise earn the terminal-candidate follow-up sentence ("stays unlinked for the rest of this run ... invoke the next stage directly") over a stage the flow deliberately skipped, burying the accurate "is skipped for this run" refusal three lines below where nothing ever reaches it (finding 3).
+        raise ValueError(f"{stage} is skipped for this run")
     kept = stage_state.get("run")
     if kept:
         try:
@@ -827,12 +946,13 @@ def attach(destination: Path, stage: str, run_path: Path) -> None:
         if same_path:
             return
     if not _candidate_belongs(state, stage, run_path):
-        raise ValueError(
+        message = (
             f"{run_path} does not belong to this flow's {stage} stage: it must be a live run of this flow "
-            "whose own reference matches this flow's by resolved path, in this flow's own canonical worktree"
+            "whose own reference matches this flow's by resolved path, in this flow's own canonical worktree."
         )
-    if stage_state["status"] == "skipped":
-        raise ValueError(f"{stage} is skipped for this run")
+        if _candidate_terminal_but_matches(state, stage, run_path):
+            message += _attach_refusal_follow_up(state, stage, run_path)
+        raise ValueError(message)
     if kept and _kept_link_still_live(stage, Path(kept)):
         raise ValueError(f"{stage} already has a kept link at {kept}, still live; a kept link is never replaced while it is still live")
     candidate = copy.deepcopy(state)
@@ -882,8 +1002,75 @@ def _execute_occupant_abort_command(occupant: Path) -> str:
     )
 
 
+def _execute_occupant_run_id(occupant: Path) -> str:
+    """The occupant's own run id, read the way `start` itself set it (`run_id = destination.parent.name`, in `execute/scripts/state.py`'s own `start`) rather than from a field inside the file: the run directory's own name. This never needs the file to be readable at all -- there is no read here, only a `Path` attribute -- so it is the one occupant fact `_execute_occupant_facts` can always report, even over a missing, truncated, or otherwise unreadable receipt."""
+    return occupant.parent.name
+
+
+def _execute_occupant_started_at(run_id: str) -> Optional[str]:
+    """The start `run_id` itself encodes, parsed back out of its own `YYMMDD-HHMMSS` prefix -- the same encoding `mint_run_dir` writes and every sibling state.py already documents as authoritative ("`run_id` carries the start to the second") -- rather than read from a field no nonterminal execute state actually carries: `NONTERMINAL_FIELDS` has no `started_at` of its own to read. The prefix carries no UTC offset, so this reads back as a naive local wall-clock stamp, exact to the second but not anchored to a zone; that is enough to place one run three days before another without claiming a precision the encoding itself never kept. `None` when the prefix does not parse -- a hand-authored or otherwise malformed run id -- so a guessed start is never printed in its place."""
+    match = re.match(r"^(\d{6}-\d{6})-", run_id)
+    if match is None:
+        return None
+    try:
+        parsed = datetime.strptime(match.group(1), "%y%m%d-%H%M%S")
+    except ValueError:
+        return None
+    return parsed.isoformat(timespec="seconds")
+
+
+def _execute_occupant_last_checkpoint(occupant: Path) -> Optional[str]:
+    """The time of the occupant's own last write, read off the file's own mtime -- the same fact every sibling state.py already documents as authoritative ("the file's mtime is the last write"), since `checkpoint`'s atomic same-directory replace touches it on every write and a nonterminal state carries no separate `last_checkpoint_at` field of its own. This does not require the file's own JSON to parse, only that it can be stat'd, so a last-checkpoint time can still be reported over a corrupted-but-present receipt even where `_execute_occupant_phase` below cannot read anything out of it. `None` on any stat failure -- a moved, deleted, or permission-denied occupant -- rather than a guessed time."""
+    try:
+        return datetime.fromtimestamp(occupant.stat().st_mtime).astimezone().isoformat(timespec="seconds")
+    except OSError:
+        return None
+
+
+def _execute_occupant_phase(occupant: Path) -> Optional[str]:
+    """The occupant's own `phase` -- present on every nonterminal execute state (`NONTERMINAL_FIELDS`) -- read straight off the file. Unlike the other three facts here, this one does need the file to parse as JSON, so it is the fact most likely to go missing over a truncated or mid-write occupant. `None` on any read failure, or when the field is absent or not a non-empty string, rather than a guessed phase."""
+    try:
+        payload = _load(occupant)
+    except Exception:
+        return None
+    phase = payload.get("phase")
+    return phase if isinstance(phase, str) and phase else None
+
+
+def _execute_occupant_tasks(occupant: Path) -> Optional[str]:
+    """The fifth fact `_execute_occupant_block` prints: the occupant's own task ledger, read as an accepted count against its total (`tasks 1/2 accepted`) -- the "task statuses in brief" the plan named alongside phase, and the one fact here that can actually speak to the abort test the block's own message states: a run "whose tasks are accepted, branch pushed, nothing live behind it" may be aborted, and none of run id, start, last checkpoint or phase alone says whether the occupant's tasks were ever accepted. Counted straight off the occupant's own `tasks` list -- present on every nonterminal execute state alongside `phase` -- rather than any derived or cached field, the same way `_execute_occupant_phase` reads `phase` off the same payload. `None` when the file does not parse, or `tasks` is missing, not a list, or empty, exactly as every other fact that needs the file to parse is omitted rather than guessed over the same failures. "Branch pushed" is not a fact any occupant reader can print -- git history, not the occupant's own state, settles that half of the abort test -- and stays the lead's own check, which `decision-policy.md` covers."""
+    try:
+        payload = _load(occupant)
+    except Exception:
+        return None
+    tasks = payload.get("tasks")
+    if not isinstance(tasks, list) or not tasks:
+        return None
+    accepted = sum(1 for task in tasks if isinstance(task, dict) and task.get("status") == "accepted")
+    return f"tasks {accepted}/{len(tasks)} accepted"
+
+
+def _execute_occupant_facts(occupant: Path) -> str:
+    """The comma-joined facts `_execute_occupant_block` prints before its abort command: run id, start, last checkpoint, phase, and task statuses, in that order, each read by one of the five functions just above. Run id is never missing (it costs no read at all); the other four are each included only when their own reader actually answers, so a fact this function cannot read is left out of the joined text entirely rather than standing in as `unknown` or any other placeholder -- an omission a reader can tell apart from a fact that was read and happened to be short, which a guessed placeholder sitting in the same list could not be told apart from. Start is printed marked as the run id's own local wall clock rather than bare: the run id carries no zone at all, while last checkpoint's own mtime read does, so a reader comparing the two unmarked would be invited to subtract them as though they shared one."""
+    run_id = _execute_occupant_run_id(occupant)
+    facts = [f"run id {run_id}"]
+    started_at = _execute_occupant_started_at(run_id)
+    if started_at is not None:
+        facts.append(f"started {started_at} (the run id's own local wall clock)")
+    last_checkpoint = _execute_occupant_last_checkpoint(occupant)
+    if last_checkpoint is not None:
+        facts.append(f"last checkpoint {last_checkpoint}")
+    phase = _execute_occupant_phase(occupant)
+    if phase is not None:
+        facts.append(f"phase {phase}")
+    tasks = _execute_occupant_tasks(occupant)
+    if tasks is not None:
+        facts.append(tasks)
+    return ", ".join(facts)
+
+
 def _execute_occupant_block(state: Dict[str, Any]) -> Optional[str]:
-    """The reason a `gap` row that would otherwise say `invoke /kein:execute ...` must say instead, when a nonterminal execute run already occupies the worktree and does not execute this flow's own plan: invoking `/kein:execute` again would only be refused a second time by execute's own per-worktree claim, and a binding requirement (`.agents/kein/requirements/260918-unattended-flow.md` Constraints: "A block's reason names an action whose single invocation clears the condition") rules out naming an action whose one invocation cannot clear what is actually blocking. This is worded as a decision about someone else's run, not this flow's own: the occupant is not this flow's, and finishing it or aborting it -- outside this flow's own judgment either way -- are the two options; aborting is the one this names an actual command for, since it is the one that clears this row (it releases the claim `/kein:execute` needs, after which the ordinary row resolves again on its own), and that command is the single chained Bash call `_execute_occupant_abort_command` builds, runnable as printed even while `pre-write` is denying every Write-tool call over this same row (see that function's own docstring for why a separate Write step would deadlock here). `None` when no occupant is in the way, or the occupant already belongs to this flow -- an occupant equal to the kept link belongs without re-running the strict test at all, the identical shortcut `enter` takes (`_occupant_is_kept_link`), which is what keeps a resumed, pending, still-live kept run from reading as a stranger to abort merely because the strict test happens to be momentarily unable to confirm it -- the ordinary case, where naming `/kein:execute` is exactly the action that clears the row. Only `execute` ever needs this: neither `ralplan` nor `interview` refuses to start on an occupied worktree, so their own pending-entry rows never open the gap this closes. This is the one place `_execute_occupant` is read for anything other than association -- purely to word this message, never to attach or substitute a run."""
+    """The reason a `gap` row that would otherwise say `invoke /kein:execute ...` must say instead, when a nonterminal execute run already occupies the worktree and does not execute this flow's own plan: invoking `/kein:execute` again would only be refused a second time by execute's own per-worktree claim, and a binding requirement (`.agents/kein/requirements/260918-unattended-flow.md` Constraints: "A block's reason names an action whose single invocation clears the condition") rules out naming an action whose one invocation cannot clear what is actually blocking. Whether to finish or abort the occupant is the lead's own judgment call, not this flow's own automated one, so this names the facts the lead's occupying-execute-run rule (`decision-policy.md`) judges that call on -- run id, start, last checkpoint, phase, and task statuses (`_execute_occupant_facts`) -- rather than leaving the lead to tell "mine, stale" from "someone else's, live" with nothing but the occupant's path and lifecycle on hand: those two facts alone are exactly what the incident this message exists to fix showed to be not enough, and phase alone still cannot settle the rule's own "tasks accepted" half -- task statuses is the fact that closes that gap. None of the five facts speaks to the rule's other two conjuncts, "branch pushed" and "nothing live behind it": right after the fact list this now says so in as many words -- that these facts identify the run and say how far it got, not whether its work is safe to discard -- and names `git log` and `git status` as where that reads from, the identical pointer `decision-policy.md`'s own occupying-execute-run rule carries; this message is the only text guaranteed in front of the lead at the moment the row fires, so the pointer has to live here too, not only in the reference the lead may or may not have open. Aborting is the one option this names an actual command for, since it is the one that clears this row (it releases the claim `/kein:execute` needs, after which the ordinary row resolves again on its own), and that command is the single chained Bash call `_execute_occupant_abort_command` builds, runnable as printed even while `pre-write` is denying every Write-tool call over this same row (see that function's own docstring for why a separate Write step would deadlock here) -- it stays last, after every fact, so the facts are read before the command that acts on them. The branch that does not abort names `decision-policy.md`'s own next step, `ocs state fsd closeout <state>`, in full, rather than stopping at the parked question -- stopping there would leave the run active with no closeout, exactly the gap `decision-policy.md`'s own continuation exists to close. `None` when no occupant is in the way, or the occupant already belongs to this flow -- an occupant equal to the kept link belongs without re-running the strict test at all, the identical shortcut `enter` takes (`_occupant_is_kept_link`), which is what keeps a resumed, pending, still-live kept run from reading as a stranger to abort merely because the strict test happens to be momentarily unable to confirm it -- the ordinary case, where naming `/kein:execute` is exactly the action that clears the row. Only `execute` ever needs this: neither `ralplan` nor `interview` refuses to start on an occupied worktree, so their own pending-entry rows never open the gap this closes. This is the one place `_execute_occupant` is read for anything other than association -- purely to word this message, never to attach or substitute a run."""
     occupant = _execute_occupant(Path(state["worktree"]))
     if occupant is None or _occupant_is_kept_link(state, occupant) or _execute_candidate_belongs(state, occupant):
         return None
@@ -892,31 +1079,53 @@ def _execute_occupant_block(state: Dict[str, Any]) -> Optional[str]:
     except Exception:
         lifecycle = "?"
     return (
-        f"a nonterminal execute run already occupies the worktree at {occupant} ({lifecycle}); it is not this "
-        "flow's own run, so invoking /kein:execute would only be refused again by execute's own per-worktree "
-        "claim, and finishing it or aborting it are decisions for whoever owns that occupant, not for this "
-        "flow. To abort it, run this single Bash command, which builds the aborted candidate and checkpoints "
-        f"it in one call: {_execute_occupant_abort_command(occupant)}"
+        f"a nonterminal execute run already occupies the worktree at {occupant} ({lifecycle}), {_execute_occupant_facts(occupant)}; "
+        "these facts identify the run and say how far it got -- they do not say whether its work is safe to discard. "
+        "Read that from git log and git status: whether what the run produced is committed here, and pushed. It is not "
+        "this flow's own run, so invoking /kein:execute would only be refused again by execute's own per-worktree claim. "
+        "Judge it on these facts, per this flow's own occupying-execute-run rule: a run whose work this worktree "
+        "already holds -- its tasks accepted, its branch pushed, nothing live behind it -- is this worktree's own stale "
+        "occupant and may be aborted, with the evidence recorded as an assumption; anything these facts do not settle is "
+        "someone's live work, so do not run the abort below -- it destroys work Git does not hold -- and record a question "
+        "with --parks 'whole run', then run ocs state fsd closeout <state>. To abort it instead, run this single Bash "
+        f"command, which builds the aborted candidate and checkpoints it in one call: {_execute_occupant_abort_command(occupant)}"
     )
 
 
+def _gap_diagnosis(state: Dict[str, Any]) -> Optional[Dict[str, str]]:
+    """What a no-gap `gap()` result adds beside its four existing fields: every entered stage whose association still reads `"none"` from `_flow_stage_run` -- entered, but with no run linked yet -- mapped to the identical text `status` already shows beside it (`_none_association_reason`, called here rather than re-derived, so the two callers can never drift onto two different explanations of the same fact). A stage that was never entered reads `"not entered"`, not `"none"`, from that same resolver, so it is not this case and contributes nothing here -- the distinction `_none_association_reason`'s own docstring draws. `closeout` is left out of the scan entirely: it always reads `"not applicable"`, never `"none"`. `None` when no entered stage has this problem, so a caller can tell "checked, found nothing" from "found one or more" with a single truthiness test, the same convention every other optional field on this dict already uses.
+    This is called from `gap`'s own `lifecycle != "active"` early return, which reaches it for `paused`, so it has to tolerate a malformed `stages` map the same way `gap`'s own docstring already promises for every row past the first: each read is wrapped, and a failure here reads as "nothing to report" rather than raising out of `gap` itself. `state["stages"][stage]` and everything downstream of it (`_flow_stage_run`, `_none_association_reason`) all assume the shape `validate_state` enforces on a freshly loaded state, which a `paused` checkpoint on disk may not actually have if it was hand-edited or corrupted after the fact; `None` on any such read failure, the same reading `_flow_stage_run`'s own sibling readers give an unreadable evidence file elsewhere in this module."""
+    diagnosis: Dict[str, str] = {}
+    try:
+        for stage in ("interview", "ralplan", "execute"):
+            _, detail = _flow_stage_run(state, stage)
+            if detail == "none":
+                diagnosis[stage] = _none_association_reason(state, stage)
+    except Exception:
+        return None
+    return diagnosis or None
+
+
 def gap(state: Dict[str, Any]) -> Dict[str, Any]:
-    """`{gap, completed, next, action}`. Rows are evaluated in the table's own order and the first satisfied row wins.
-    A nonterminal fsd lifecycle is checked before any stage row, so a paused, completed, halted, or aborted run always reports no gap regardless of what the underlying stage evidence would otherwise read.
+    """`{gap, completed, next, action, diagnosis}` -- a fixed key set on every return this function makes, though `diagnosis` carries content only on the two `gap: False` returns below and is `null` everywhere else. Rows are evaluated in the table's own order and the first satisfied row wins.
+    A nonterminal fsd lifecycle is checked before any stage row, so a paused, completed, halted, or aborted run always reports no gap regardless of what the underlying stage evidence would otherwise read. `diagnosis` on that same early return is narrower still: only `paused`, the one nonterminal-but-inactive lifecycle a lead can still act on, ever carries one -- a `completed`, `halted`, or `aborted` run is terminal, and `attach` refuses a terminal state outright before its own belonging test is ever reached, so handing a terminal run's own lead a stage to go remediate would be advice pointed at a door already closed.
     Every row past the first reads a file this script did not just write -- an associated run's state or ledger, or the requirements document it names -- so each row's read is wrapped, and any failure (missing, unreadable, malformed) is treated the same as "an unfinished or unreadable stage gives no row": that row does not fire, and evaluation continues to the next one, rather than the whole check raising.
     Neither row that would otherwise say `invoke /kein:execute ...` -- the entry-stage row and the ralplan-completed row -- fires that action while a nonterminal execute run already occupies the worktree without belonging to this flow: invoking `/kein:execute` again would only be refused by execute's own per-worktree claim, which a single invocation of that action could never clear, so `_execute_occupant_block` names the occupant and the command that does clear it instead (`.agents/kein/requirements/260918-unattended-flow.md` Constraints).
-    The execute-derived closeout row fires only for a `completed` execute lifecycle, never for `aborted`. This is a deliberate narrowing, not an oversight: once `guard`'s own recovery can abort a violating execute run and start its replacement (see `_guard_action`), an aborted receipt with nothing live yet to replace it is inherently ambiguous between "a restart is about to start" and "the lead has given up on execute altogether" -- both leave the exact same tasks-less aborted receipt behind, with nothing left in fsd's own recorded-at-creation state to tell them apart without reintroducing some form of inference. Rather than guess, `gap` simply does not treat an aborted execute, by itself, as evidence of a stage-to-stage gap; this is also what keeps the guard-recovery window (between the abort and the replacement's `start`) from ever producing a false closeout push, since the very same reading covers both cases uniformly. A genuine give-up still reaches a terminal outcome through the ordinary path: the lead (or fsd's own orchestrating skill, watching for it) invokes `ocs state fsd closeout <state>` on its own judgment once it decides execute will not be restarted; `close` then refuses correctly -- `_execute_side_done` requires a `completed` lifecycle, never `aborted` -- naming execute as aborted, not completed, and the lead calls `halt`."""
+    The execute-derived closeout row fires only for a `completed` execute lifecycle, never for `aborted`. This is a deliberate narrowing, not an oversight: once `guard`'s own recovery can abort a violating execute run and start its replacement (see `_guard_action`), an aborted receipt with nothing live yet to replace it is inherently ambiguous between "a restart is about to start" and "the lead has given up on execute altogether" -- both leave the exact same tasks-less aborted receipt behind, with nothing left in fsd's own recorded-at-creation state to tell them apart without reintroducing some form of inference. Rather than guess, `gap` simply does not treat an aborted execute, by itself, as evidence of a stage-to-stage gap; this is also what keeps the guard-recovery window (between the abort and the replacement's `start`) from ever producing a false closeout push, since the very same reading covers both cases uniformly. A genuine give-up still reaches a terminal outcome through the ordinary path: the lead (or fsd's own orchestrating skill, watching for it) invokes `ocs state fsd closeout <state>` on its own judgment once it decides execute will not be restarted; `close` then refuses correctly -- `_execute_side_done` requires a `completed` lifecycle, never `aborted` -- naming execute as aborted, not completed, and the lead calls `halt`.
+    `diagnosis` (`_gap_diagnosis`) carries content only on the two `gap: False` returns below -- every `gap: True` return commits it as `null` -- and that split is deliberate rather than an oversight. Every `gap: True` row already carries its own actionable `action` naming exactly what to do next; a stage that is merely still running -- the ordinary case behind most of those rows -- has nothing wrong with it for `diagnosis` to report, and adding an unrelated second fact to a row that already has a clear next step would only invite a reader to chase the stage `diagnosis` names instead of the one `action` already points at. `gap` itself stays `False` for the case `diagnosis` exists to surface: a stage that is merely still running must never block a write or a stop through this same path, so an entered-but-unlinked stage is a diagnosis riding along on a no-gap answer, not a new row that would turn "still running" into a gap of its own. A no-gap result has no action of its own to protect from that confusion, and no-gap is exactly the reading issue 1a exposed as silent: `gap` answered "no gap" while `status`, read separately by hand, was the only place that still showed `association: none`. `status` merges this whole dict in (`result.update(gap(state))`), so `diagnosis` reaches it too, for free and without a second copy of this logic -- deliberate, since a lead reading `status` after a compaction wants the same summary `gap` would have given standing alone, not a narrower one. The key itself is fixed across every return this function makes, `gap: True` or `gap: False` alike, exactly like `completed`, `next`, and `action` already were: a caller can read `result["diagnosis"]` without first checking which row answered, the same convention every other field on this dict already keeps. This is a different fact than `status`'s own per-stage `association_reason`: that field describes the stage row it sits beside, read once per stage regardless of whether anything is wrong; `diagnosis` is advice, offered only for the stage `gap` itself judges worth flagging."""
     if state["lifecycle"] != "active":
-        return {"gap": False, "completed": None, "next": None, "action": "no gap"}
+        # `paused` is the only nonterminal-but-inactive lifecycle here; `completed`, `halted`, and `aborted` are all terminal, and `attach` refuses a terminal state outright before its own belonging test is ever reached (see `attach`'s own early return), so a diagnosis handed to a terminal run's lead would name remediation for a door already closed. `status`'s own per-stage `association_reason` is a different fact and is left exactly as it is: it describes the stage row it sits beside, read once per stage regardless of lifecycle, while `diagnosis` here is advice, offered only where the run is still live enough to act on it.
+        diagnosis = _gap_diagnosis(state) if state["lifecycle"] == "paused" else None
+        return {"gap": False, "completed": None, "next": None, "action": "no gap", "diagnosis": diagnosis}
     stages = state["stages"]
     entry = state["entry"]
     if stages[entry]["status"] == "pending":
         if entry == "execute":
             blocked = _execute_occupant_block(state)
             if blocked is not None:
-                return {"gap": True, "completed": None, "next": entry, "action": blocked}
+                return {"gap": True, "completed": None, "next": entry, "action": blocked, "diagnosis": None}
         target = state["input"].get("reference") or state["input"].get("summary")
-        return {"gap": True, "completed": None, "next": entry, "action": f"invoke /kein:{entry} {shlex.quote(target)}"}
+        return {"gap": True, "completed": None, "next": entry, "action": f"invoke /kein:{entry} {shlex.quote(target)}", "diagnosis": None}
     if stages["ralplan"]["status"] == "pending":
         try:
             run_path = _resolve_association(state, "interview")
@@ -927,7 +1136,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
                     requirements_reference = stages["interview"].get("resolved_reference") or payload.get("requirements_path")
                     if requirements_reference and _requirements_status(Path(requirements_reference)) == "Approved":
                         return {"gap": True, "completed": "interview", "next": "ralplan",
-                                "action": f"invoke /kein:ralplan {shlex.quote(requirements_reference)}"}
+                                "action": f"invoke /kein:ralplan {shlex.quote(requirements_reference)}", "diagnosis": None}
         except Exception:
             pass
     if stages["execute"]["status"] == "pending":
@@ -940,9 +1149,9 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
                     plan_reference = stages["ralplan"].get("resolved_reference") or payload.get("plan", {}).get("path")
                     blocked = _execute_occupant_block(state)
                     if blocked is not None:
-                        return {"gap": True, "completed": "ralplan", "next": "execute", "action": blocked}
+                        return {"gap": True, "completed": "ralplan", "next": "execute", "action": blocked, "diagnosis": None}
                     return {"gap": True, "completed": "ralplan", "next": "execute",
-                            "action": f"invoke /kein:execute {shlex.quote(plan_reference)}"}
+                            "action": f"invoke /kein:execute {shlex.quote(plan_reference)}", "diagnosis": None}
         except Exception:
             pass
     if stages["closeout"]["status"] == "pending":
@@ -954,7 +1163,7 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
                 payload = _parse_ledger(run_path.read_text()) if stage == "interview" else _load(run_path)
                 key = "status" if stage == "interview" else "lifecycle"
                 if payload.get(key) == "aborted":
-                    return {"gap": True, "completed": stage, "next": "closeout", "action": "run ocs state fsd closeout <state>"}
+                    return {"gap": True, "completed": stage, "next": "closeout", "action": "run ocs state fsd closeout <state>", "diagnosis": None}
             except Exception:
                 continue
         try:
@@ -963,20 +1172,20 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
                 payload = _load(execute_run)
                 lifecycle = payload.get("lifecycle")
                 if lifecycle == "completed":
-                    return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>"}
+                    return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>", "diagnosis": None}
                 if lifecycle == "blocked":
                     tasks = payload.get("tasks", [])
                     write_active = any(task.get("status") in _execute.WRITE_ACTIVE_STATUSES for task in tasks)
                     parked = [task for task in tasks if task.get("status") == "parked"]
                     if not write_active and parked and all(_parked_question_unanswered(state, task) for task in parked):
-                        return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>"}
+                        return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>", "diagnosis": None}
                     if not write_active and not parked:
                         whole_run = [q for q in state["questions"] if q.get("parks") == "whole run" and q.get("answer") is None]
                         if whole_run:
-                            return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>"}
+                            return {"gap": True, "completed": "execute", "next": "closeout", "action": "run ocs state fsd closeout <state>", "diagnosis": None}
         except Exception:
             pass
-    return {"gap": False, "completed": None, "next": None, "action": "no gap"}
+    return {"gap": False, "completed": None, "next": None, "action": "no gap", "diagnosis": _gap_diagnosis(state)}
 
 
 def _none_association_reason(state: Dict[str, Any], stage: str) -> str:
@@ -1521,7 +1730,7 @@ def main() -> int:
     attach_parser.add_argument("stage", choices=("interview", "ralplan", "execute"))
     attach_parser.add_argument("path", type=Path)
 
-    gap_parser = commands.add_parser("gap", help="print {gap, completed, next, action}")
+    gap_parser = commands.add_parser("gap", help="print {gap, completed, next, action, diagnosis}")
     gap_parser.add_argument("state", type=Path)
 
     status_parser = commands.add_parser("status", help="lifecycle, per-stage association (the stage's kept link), and gap")

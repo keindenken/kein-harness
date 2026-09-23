@@ -1,5 +1,8 @@
 .DS_Store
 node_modules/
 
+# Bytecode the checks themselves produce: they import the state machines under test, so without this the run's own verification moves the worktree fingerprint it just sealed.
+__pycache__/
+
 # Transient run state. Deliverables under .agents/kein/ are tracked.
 .agents/kein/runs/

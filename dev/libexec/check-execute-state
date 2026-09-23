@@ -426,6 +426,150 @@ def _section_final_audit_receipt(tmp):
         state["final_audit"] = [dict(verdict("code-reviewer", "PASS"), task_id="whole-change", round=state["current_round"])]
     must("entering final audit", to_final_audit)
     accepted = current()
+
+    # 7a - completion binds a final-audit verdict to the run-level `unresolved_findings` the same way acceptance binds a task's verdict to the task's own findings, and reuses `_verdict_coherence` to do it: `PASS` stands only where none of that role's findings are there, `REVISE` stands only where at least one is and none of them cites. This is what lets the stopping rule in `review-contract.md` end an audit on a `REVISE` that carries a non-blocking finding, instead of relabelling it `PASS` to get past completion.
+    whole_change_verdict = accepted["final_audit"][0]
+    task_carried = accepted["tasks"][0]["unresolved_findings"]
+    fingerprint = accepted["worktree"]["observed"]["fingerprint"]
+
+    def whole_change_verdict_for(role, word):
+        # A concrete `worktree_fingerprint`, not `"auto"`: the receipt-only `validate` path this fixture also feeds (7b, below) runs no autofill, so a verdict from a role other than `whole_change_verdict`'s own must already carry the fingerprint that path would otherwise never fill in.
+        return {"reviewer_role": role, "verdict": word, "task_id": "whole-change", "round": accepted["current_round"],
+                "worktree_fingerprint": fingerprint, "reviewed_at": STAMP, "fresh": True, "independent": True}
+
+    def completion_candidate(prev, over):
+        return {
+            "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": prev["run_id"],
+            "lifecycle": "completed", "completed_at": STAMP,
+            "input": {"reference": None, "sha256": prev["input"]["sha256"],
+                      **({"amendments": prev["input"]["amendments"]} if prev["input"].get("amendments") else {})},
+            "worktree": {"root": prev["worktree"]["root"], "final_fingerprint": "auto"},
+            "accepted_tasks": [{"id": "task-001", "title": "the only task", "completion_condition": "it does the thing",
+                                 "carried_findings": task_carried}],
+            "final_verification": prev["latest_verification"], "final_audit": prev["final_audit"],
+            "carried_findings": over,
+        }
+
+    def try_completion(prev, over):
+        write(destination, prev)
+        write(candidate, completion_candidate(prev, over))
+        return run(work, "checkpoint", str(destination), str(candidate))
+
+    revise_audit = [dict(whole_change_verdict, verdict="REVISE")]
+    revise_finding = [finding("code-reviewer", "minor", None, carried_because="a known trade-off; tracked, not fixed")]
+
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=revise_finding), revise_finding)
+    if result.returncode != 0:
+        failures.append(f"completion over a REVISE final audit carrying a non-blocking finding of the same role was refused: {result.stderr.strip()}")
+
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=[]), [])
+    if result.returncode == 0:
+        failures.append("completion over a REVISE final audit with no finding of its own was accepted and must not be")
+    elif "code-reviewer returned REVISE with no finding of its own" not in result.stderr:
+        failures.append(f"completion over a REVISE final audit with no finding of its own was refused for the wrong reason: {result.stderr.strip()}")
+
+    citing_finding = [finding("code-reviewer", "minor", "it does the other thing")]
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=citing_finding), citing_finding)
+    if result.returncode == 0:
+        failures.append("completion over a REVISE final audit whose finding cites a completion condition was accepted and must not be")
+    elif "blocking finding" not in result.stderr:
+        failures.append(f"completion over a REVISE final audit whose finding cites a completion condition was refused for the wrong reason: {result.stderr.strip()}")
+
+    pass_audit = [whole_change_verdict]
+    pass_over_finding = [finding("code-reviewer", "minor", None)]
+    result = try_completion(dict(accepted, final_audit=pass_audit, unresolved_findings=pass_over_finding), pass_over_finding)
+    if result.returncode == 0:
+        failures.append("completion over a PASS final audit while a run-level finding of the same role sits unresolved was accepted and must not be")
+    elif "code-reviewer returned PASS over its own recorded finding" not in result.stderr:
+        failures.append(f"completion over a PASS final audit while a same-role run-level finding sits unresolved was refused for the wrong reason: {result.stderr.strip()}")
+
+    # 7a-ii - correction round 1, finding 1: `_verdict_coherence` scopes a role's own findings to `reviewer_role == role`, and nothing before this proved it -- every fixture above uses one reviewer role. A `code-reviewer` REVISE beside only a non-blocking `architect` finding must still be refused (the REVISE has no finding of its own; the architect finding cannot stand in for it), and the same architect finding beside a `code-reviewer` PASS plus an added `architect` REVISE must complete. Mutating the role filter to match findings of any role survives every fixture above -- all single-role -- and only this one catches it: with the filter widened, the architect finding would launder the code-reviewer REVISE.
+    architect_finding = [finding("architect", "minor", None)]
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=architect_finding), architect_finding)
+    if result.returncode == 0:
+        failures.append("completion over a code-reviewer REVISE with no code-reviewer finding, beside an unrelated architect finding, was accepted and must not be")
+    elif "code-reviewer returned REVISE with no finding of its own" not in result.stderr:
+        failures.append(f"completion over a code-reviewer REVISE laundered through an architect finding was refused for the wrong reason: {result.stderr.strip()}")
+
+    architect_revise_audit = [whole_change_verdict, whole_change_verdict_for("architect", "REVISE")]
+    result = try_completion(dict(accepted, final_audit=architect_revise_audit, unresolved_findings=architect_finding), architect_finding)
+    if result.returncode != 0:
+        failures.append(f"completion over a code-reviewer PASS beside an architect REVISE carrying its own non-blocking finding was refused: {result.stderr.strip()}")
+
+    # 7a-iii - correction round 1, finding 2: the acceptance-level rule that an important or critical carry owes `carried_because` (`_uncaptioned_carry`, applied to a task's own findings at acceptance) applies to the run-level list at completion too, reused rather than copied. The final audit's own stopping rule now ends every long audit by carrying findings at this level, so an above-minor carry with no stated reason is exactly the silence that rule was meant to cost.
+    uncaptioned_important = [finding("code-reviewer", "important", None)]
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=uncaptioned_important), uncaptioned_important)
+    if result.returncode == 0:
+        failures.append("completion carrying an important run-level finding with no carried_because was accepted and must not be")
+    elif "carried_because" not in result.stderr:
+        failures.append(f"completion over an uncaptioned important run-level finding was refused for the wrong reason: {result.stderr.strip()}")
+
+    captioned_important = [finding("code-reviewer", "important", None, carried_because="a known trade-off; tracked, not fixed")]
+    result = try_completion(dict(accepted, final_audit=revise_audit, unresolved_findings=captioned_important), captioned_important)
+    if result.returncode != 0:
+        failures.append(f"completion carrying an important run-level finding with carried_because recorded was refused: {result.stderr.strip()}")
+
+    write(destination, accepted)
+
+    # 7b - the completed receipt is validated on its own, with no predecessor to read, so it holds the same coherence rule as a standing fact about itself rather than as a transition check.
+    def receipt_with(final_audit_list, carried):
+        return {
+            "schema_version": 1, "revision": 1, "workflow": "execute", "run_id": accepted["run_id"],
+            "lifecycle": "completed", "completed_at": STAMP,
+            "input": {"reference": None, "sha256": accepted["input"]["sha256"]},
+            "worktree": {"root": accepted["worktree"]["root"], "final_fingerprint": fingerprint},
+            "accepted_tasks": [{"id": "task-001", "title": "the only task", "completion_condition": "it does the thing",
+                                 "carried_findings": task_carried}],
+            "final_verification": accepted["latest_verification"],
+            "final_audit": final_audit_list,
+            "carried_findings": carried,
+        }
+
+    write(candidate, receipt_with(revise_audit, revise_finding))
+    result = run(work, "validate", str(candidate))
+    if result.returncode != 0:
+        failures.append(f"a receipt with a REVISE final audit carrying a non-blocking finding of the same role failed to validate: {result.stderr.strip()}")
+
+    write(candidate, receipt_with(revise_audit, []))
+    result = run(work, "validate", str(candidate))
+    if result.returncode == 0:
+        failures.append("a receipt with a REVISE final audit and no run-level finding of its own validated and must not have")
+    elif "code-reviewer returned REVISE with no finding of its own" not in result.stderr:
+        failures.append(f"a receipt with a REVISE final audit and no finding of its own was refused for the wrong reason: {result.stderr.strip()}")
+
+    write(candidate, receipt_with(pass_audit, pass_over_finding))
+    result = run(work, "validate", str(candidate))
+    if result.returncode == 0:
+        failures.append("a receipt with a PASS final audit while a run-level finding of the same role remained validated and must not have")
+    elif "code-reviewer returned PASS over its own recorded finding" not in result.stderr:
+        failures.append(f"a receipt with a PASS final audit over a same-role finding was refused for the wrong reason: {result.stderr.strip()}")
+
+    # 7b-ii - correction round 1, finding 1, the same multi-role proof against the standalone receipt: a code-reviewer REVISE beside only a non-blocking architect finding must fail to validate, and the same finding beside a code-reviewer PASS plus an architect REVISE must validate.
+    write(candidate, receipt_with(revise_audit, architect_finding))
+    result = run(work, "validate", str(candidate))
+    if result.returncode == 0:
+        failures.append("a receipt with a code-reviewer REVISE and no code-reviewer finding, beside an unrelated architect finding, validated and must not have")
+    elif "code-reviewer returned REVISE with no finding of its own" not in result.stderr:
+        failures.append(f"a receipt with a code-reviewer REVISE laundered through an architect finding was refused for the wrong reason: {result.stderr.strip()}")
+
+    write(candidate, receipt_with(architect_revise_audit, architect_finding))
+    result = run(work, "validate", str(candidate))
+    if result.returncode != 0:
+        failures.append(f"a receipt with a code-reviewer PASS beside an architect REVISE carrying its own non-blocking finding failed to validate: {result.stderr.strip()}")
+
+    # 7b-iii - correction round 1, finding 2, the same carried_because proof against the standalone receipt's `carried_findings`.
+    write(candidate, receipt_with(revise_audit, uncaptioned_important))
+    result = run(work, "validate", str(candidate))
+    if result.returncode == 0:
+        failures.append("a receipt carrying an important finding with no carried_because validated and must not have")
+    elif "carried_because" not in result.stderr:
+        failures.append(f"a receipt with an uncaptioned important carried finding was refused for the wrong reason: {result.stderr.strip()}")
+
+    write(candidate, receipt_with(revise_audit, captioned_important))
+    result = run(work, "validate", str(candidate))
+    if result.returncode != 0:
+        failures.append(f"a receipt carrying an important finding with carried_because recorded failed to validate: {result.stderr.strip()}")
+
     receipt = {
         "schema_version": 1, "revision": "auto", "workflow": "execute", "run_id": accepted["run_id"],
         "lifecycle": "completed", "completed_at": STAMP,
@@ -661,7 +805,7 @@ def _section_park_lifecycle(tmp):
     split_state = _split_state_path(tmp)
     split_current, split_attempt, split_must, split_refuse = _checkpoint_helpers(work, split_state, candidate)
 
-    # 9 - individual task parking (U1): `pending | implementing | correcting -> parked`, the restored-scope rule read on the scope's actual content rather than a diff against HEAD, `dispatch_scope_fingerprint` sealed by `dispatch` before any executor starts and verified rather than trusted, the collision rule a parked task carries the same as a pending one, and the finalization refusal while one is parked.
+    # 9 - individual task parking (U1): `pending | implementing | correcting -> parked`, the restored-scope rule read on the scope's actual content rather than a diff against HEAD, `dispatch_scope_fingerprint` sealed by `dispatch` before any executor starts and verified rather than trusted, the collision rule a parked task carries the same as a pending one, and the finalization refusal while one is parked. S3 extends this with the second route into a park that leaves the seal unmatched but the scope clean against HEAD -- exercised on task-018 and task-028 below, alongside the refusal it does not rescue -- and, on task-032 through task-037 and a rewrite of task-028's own record, every way a hand-authored candidate can try to forge or corrupt that route rather than genuinely take it.
     park_tasks = {
         "task-006": ["park/a.txt"], "task-007": ["park/b.txt"], "task-008": ["park/c.txt"],
         "task-009": ["park/d.txt"], "task-010": ["park/e.txt"], "task-011": ["park/f.txt"],
@@ -672,6 +816,13 @@ def _section_park_lifecycle(tmp):
         "task-023": ["park/i.txt"], "task-024": ["overlap/"], "task-025": ["overlap/shared.txt"],
         "task-026": ["park/legacy.txt"], "task-028": ["tracked-item2.txt"],
         "task-029": ["forge2/y.txt"], "task-031": ["autofill-seal/pre.txt"],
+        "task-032": ["route-forge/one.txt"], "task-033": ["route-forge/two.txt"],
+        "task-034": ["route-forge/three.txt"], "task-035": ["route-forge/four.txt"],
+        "task-036": ["route-forge/five.txt"], "task-037": ["route-forge/six.txt"],
+        "task-038": ["staged-item.txt"],
+        "task-039": ["route-forge/eight.txt"],
+        "task-040": ["mixed/a.txt", "mixed/notes.txt"],
+        "task-041": ["mixed2/x.txt", "mixed2/y.txt"],
     }
     appended_state = split_current()
     appended_state["revision"] = "auto"
@@ -1090,25 +1241,200 @@ def _section_park_lifecycle(tmp):
     elif "revision" not in result.stderr:
         failures.append(f"a stale pre-interleaving candidate was refused for the wrong reason: {result.stderr.strip()}")
 
-    # Correction round 3, item 2 - a mutation that hashed `git diff HEAD` instead of the path's actual bytes must turn this RED: task-028's scope is a tracked file that already existed, committed, before dispatch, so the path is present on both sides of the comparison and only the content is at stake. Modifying it after dispatch and committing the modification -- never reverting it -- makes a diff-against-HEAD digest go quiet the moment the modification is committed, while the bytes on disk are still the modified ones; a genuine content digest still disagrees.
+    # Correction round 3, item 2, extended for S3 - a mutation that hashed `git diff HEAD` instead of the path's actual bytes must still turn this RED: task-028's scope is a tracked file that already existed, committed, before dispatch, so the path is present on both sides of the comparison and only the content is at stake. Modifying it after dispatch and leaving the modification uncommitted still differs from the seal and is not clean against HEAD either, so `park` refuses, naming both routes. Committing that same modification without reverting it makes a diff-against-HEAD digest go quiet -- exactly the shape a rebase moves content in -- but the scope's own content still differs from what `dispatch` sealed, so a genuine content digest still disagrees and the second route, not a false read of the first, is what parks it: the record names the route it took and the path that diverged.
     (work / "tracked-item2.txt").write_text("committed before task-028 is ever dispatched\n")
     git(work, "add", "tracked-item2.txt")
     git(work, "commit", "-qm", "seed task-028's scope with tracked, committed content")
     result = run(work, "dispatch", str(split_state), "task-028")
     if result.returncode != 0:
         failures.append(f"dispatching task-028 was refused: {result.stderr.strip()}")
-    (work / "tracked-item2.txt").write_text("modified after dispatch, then committed, never reverted\n")
+    (work / "tracked-item2.txt").write_text("modified after dispatch, left uncommitted\n")
+    result = run(work, "park", str(split_state), "task-028", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-028 over an uncommitted modification to an already-tracked file was accepted and must not be")
+    else:
+        if "tracked-item2.txt" not in result.stderr:
+            failures.append(f"parking over an uncommitted modification to a tracked file was refused without naming it: {result.stderr.strip()}")
+        if "dispatch content" not in result.stderr or "HEAD" not in result.stderr:
+            failures.append(f"the refusal with neither route open did not name both routes: {result.stderr.strip()}")
     git(work, "add", "tracked-item2.txt")
     git(work, "commit", "-qm", "commit task-028's modification without reverting it")
     result = run(work, "park", str(split_state), "task-028", "--question", "q")
-    if result.returncode == 0:
-        failures.append("parking task-028 over a committed-but-not-reverted modification to an already-tracked file was accepted and must not be")
-    elif "tracked-item2.txt" not in result.stderr:
-        failures.append(f"parking over a committed modification to a tracked file was refused without naming it: {result.stderr.strip()}")
-    git(work, "checkout", "HEAD~1", "--", "tracked-item2.txt")
-    result = run(work, "park", str(split_state), "task-028", "--question", "q")
     if result.returncode != 0:
-        failures.append(f"parking task-028 once the tracked file was restored to its dispatch content was refused: {result.stderr.strip()}")
+        failures.append(f"parking task-028 once its modification was committed, clean against HEAD though still differing from its dispatch seal, was refused: {result.stderr.strip()}")
+    else:
+        parked_028 = by_id(split_current(), "task-028").get("parked", {})
+        if parked_028.get("route") != "clean_against_head":
+            failures.append(f"task-028 parked via the HEAD-clean route but its record does not name it: {parked_028!r}")
+        if parked_028.get("diverged_paths") != ["tracked-item2.txt"]:
+            failures.append(f"task-028's parked record does not name the path that diverged from its seal: {parked_028!r}")
+
+    # Correction round 2, finding 1 - task-028 just above only ever exercised the unstaged half of `_scope_head_status`'s HEAD-clean check: a plain, uncommitted edit sitting in the worktree. A modification staged with `git add` but never committed never went through that comparison, so deleting the `--cached` term from `_scope_head_status`'s own `git diff` call left this section green. task-038's scope is an already-committed tracked file; staging a modification without committing it must refuse parking on the same grounds as an unstaged one, naming the path and both routes.
+    (work / "staged-item.txt").write_text("committed before task-038 is ever dispatched\n")
+    git(work, "add", "staged-item.txt")
+    git(work, "commit", "-qm", "seed task-038's scope with tracked, committed content")
+    result = run(work, "dispatch", str(split_state), "task-038")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-038 was refused: {result.stderr.strip()}")
+    (work / "staged-item.txt").write_text("modified and staged, never committed\n")
+    git(work, "add", "staged-item.txt")
+    result = run(work, "park", str(split_state), "task-038", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-038 over a staged-but-uncommitted modification was accepted and must not be")
+    else:
+        if "staged-item.txt" not in result.stderr:
+            failures.append(f"parking over a staged modification to a tracked file was refused without naming it: {result.stderr.strip()}")
+        if "dispatch content" not in result.stderr or "HEAD" not in result.stderr:
+            failures.append(f"the refusal with a staged-only modification did not name both routes: {result.stderr.strip()}")
+
+    # S3, finding 1 - a park whose scope still matches its dispatch seal outright never diverged from anything to report, so a candidate that stamps `parked.route` and `parked.diverged_paths` onto it anyway is claiming a route it never took. Nothing about task-032's scope ever changes between dispatch and this candidate, so the seal comparison holds outright and the forged pair must be refused on its own, not merely accepted because each field's own shape passes `_validate_task`.
+    result = run(work, "dispatch", str(split_state), "task-032")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-032 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-032").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP,
+                   "route": "clean_against_head", "diverged_paths": ["route-forge/one.txt"]},
+        "latest_verification": [], "acceptance": None,
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a forged parked.route on a park whose scope still matches its dispatch seal was accepted and must not be")
+    elif "matching its dispatch seal outright" not in result.stderr:
+        failures.append(f"a forged route on a seal-matched park was refused for the wrong reason: {result.stderr.strip()}")
+
+    # S3, finding 1 - the second route's `diverged_paths` must be exactly what this same checkpoint computes, not whatever a hand-authored candidate claims: task-033 genuinely diverges from its seal (a new file swept into HEAD without ever being in the dispatch seal) and is genuinely clean against HEAD, so the route itself is legitimate, but the candidate names the wrong path.
+    result = run(work, "dispatch", str(split_state), "task-033")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-033 was refused: {result.stderr.strip()}")
+    (work / "route-forge").mkdir(exist_ok=True)
+    (work / "route-forge" / "two.txt").write_text("swept into HEAD without ever being in the dispatch seal\n")
+    git(work, "add", "route-forge/two.txt")
+    git(work, "commit", "-qm", "commit task-033's new file into HEAD")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-033").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP,
+                   "route": "clean_against_head", "diverged_paths": ["route-forge/wrong.txt"]},
+        "latest_verification": [], "acceptance": None,
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("a parked.diverged_paths that does not match what the checkpoint computes was accepted and must not be")
+    elif "do not record that route" not in result.stderr or "route-forge/two.txt" not in result.stderr:
+        failures.append(f"a forged diverged_paths was refused for the wrong reason: {result.stderr.strip()}")
+
+    # S3, finding 2 - the four shape refusals `_validate_task` owns outright, none of which need a real dispatch to exercise: a lone `route` without its pair, a `route` on a park `from` `pending` (which held no seal to diverge from in the first place), an unknown `route` value, and an empty `diverged_paths`.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-034").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "pending", "decision_ref": None, "at": STAMP, "route": "clean_against_head"},
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parked.route without parked.diverged_paths was accepted and must not be")
+    elif "must appear together or not at all" not in result.stderr:
+        failures.append(f"a lone parked.route was refused for the wrong reason: {result.stderr.strip()}")
+
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-035").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "pending", "decision_ref": None, "at": STAMP,
+                   "route": "clean_against_head", "diverged_paths": ["route-forge/four.txt"]},
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("parked.route on a park from pending was accepted and must not be")
+    elif "cannot appear on a park from pending" not in result.stderr:
+        failures.append(f"parked.route on a park from pending was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Correction round 2, finding 4 - task-036 and task-037 below claim `parked.from: "implementing"` without ever having been dispatched, a shape no genuine park could reach; dispatching each first makes that claim true, so the refusal below is the one guard each fixture names and nothing else.
+    result = run(work, "dispatch", str(split_state), "task-036")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-036 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-036").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP,
+                   "route": "sideways", "diverged_paths": ["route-forge/five.txt"]},
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("an unknown parked.route value was accepted and must not be")
+    elif "parked.route must be one of" not in result.stderr:
+        failures.append(f"an unknown parked.route value was refused for the wrong reason: {result.stderr.strip()}")
+
+    result = run(work, "dispatch", str(split_state), "task-037")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-037 was refused: {result.stderr.strip()}")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-037").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP,
+                   "route": "clean_against_head", "diverged_paths": []},
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode == 0:
+        failures.append("an empty parked.diverged_paths was accepted and must not be")
+    elif "non-empty list of non-empty strings" not in result.stderr:
+        failures.append(f"an empty parked.diverged_paths was refused for the wrong reason: {result.stderr.strip()}")
+
+    # Final-audit correction, finding 4 - `_autofill`'s third disjunct (`"route" not in parked_info and "diverged_paths" not in parked_info`) has no case of its own: every fixture above either marks both fields `"auto"` the way `park` itself does, or supplies them outright the way a forgery does. task-039 hand-authors a `parked` record that omits both fields entirely, the shape a lead writing a checkpoint by hand rather than through `park` could produce, over a scope that genuinely diverges from its seal and is genuinely clean against HEAD. Without the disjunct, `_autofill` never resolves either field, and `validate_external_state` then refuses the park for not recording a route it did take; with it, this must succeed and both fields must be filled exactly as the live comparison finds them.
+    result = run(work, "dispatch", str(split_state), "task-039")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-039 was refused: {result.stderr.strip()}")
+    (work / "route-forge").mkdir(exist_ok=True)
+    (work / "route-forge" / "eight.txt").write_text("swept into HEAD without ever being in the dispatch seal\n")
+    git(work, "add", "route-forge/eight.txt")
+    git(work, "commit", "-qm", "commit task-039's new file into HEAD")
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    by_id(state, "task-039").update({
+        "status": "parked",
+        "parked": {"question": "q", "from": "implementing", "decision_ref": None, "at": STAMP},
+        "latest_verification": [], "acceptance": None,
+    })
+    write(candidate, state)
+    result = run(work, "checkpoint", str(split_state), str(candidate))
+    if result.returncode != 0:
+        failures.append(f"parking task-039 with parked.route and parked.diverged_paths left entirely unset was refused, though the checkpoint should autofill both: {result.stderr.strip()}")
+    else:
+        parked_039 = by_id(split_current(), "task-039").get("parked", {})
+        if parked_039.get("route") != "clean_against_head":
+            failures.append(f"task-039's omitted parked.route was not autofilled to clean_against_head: {parked_039!r}")
+        if parked_039.get("diverged_paths") != ["route-forge/eight.txt"]:
+            failures.append(f"task-039's omitted parked.diverged_paths was not autofilled to the path that diverged: {parked_039!r}")
+
+    # S3, finding 1 - the parked record is frozen across parked -> parked the way dispatch_scope_fingerprint is frozen across every transition but a fresh dispatch or an unpark: task-028 is already parked above with a genuine route and diverged_paths, and a later checkpoint that only rewrites those fields, the task's status never leaving parked, must be refused rather than silently accepted as a routine restatement.
+    state = split_current()
+    state["revision"] = "auto"; state["worktree"]["observed"] = "auto"
+    task_028_record = by_id(state, "task-028").get("parked")
+    if not isinstance(task_028_record, dict):
+        # Round 2 finding 5 - an earlier park in this section that got refused (a mutant, or a fixture reordered ahead of this one) leaves task-028 without a `parked` object at all; reading it unguarded crashed the whole section with `KeyError: 'parked'` and skipped this fixture along with every one of `park-lifecycle-continued`'s. A missing record is itself something this fixture cannot prove its point without, so it fails here and moves on instead of raising.
+        failures.append("task-028 carries no parked record to test the parked -> parked freeze against; an earlier park in this section must have been refused")
+    else:
+        rewritten_028 = dict(task_028_record)
+        rewritten_028["diverged_paths"] = ["a/forged/path.txt"]
+        by_id(state, "task-028")["parked"] = rewritten_028
+        write(candidate, state)
+        result = run(work, "checkpoint", str(split_state), str(candidate))
+        if result.returncode == 0:
+            failures.append("a parked -> parked checkpoint that rewrites the parked record was accepted and must not be")
+        elif "parked record cannot change while parked" not in result.stderr:
+            failures.append(f"a parked -> parked rewrite was refused for the wrong reason: {result.stderr.strip()}")
 
 
 def _section_root_scope_collision(tmp):
@@ -1320,23 +1646,32 @@ def _section_park_lifecycle_continued(tmp):
     split_state = _split_state_path(tmp)
     split_current, split_attempt, split_must, split_refuse = _checkpoint_helpers(work, split_state, candidate)
 
-    # Correction round 2, item 1, failure A - the seal is content, not a diff, so a commit that sweeps a task's own draft into HEAD without reverting it must still refuse parking: the bytes are still there, committed or not. Only once the draft is genuinely undone does parking succeed.
+    # Correction round 2, item 1, failure A, extended for S3 - the seal is content, not a diff, so an uncommitted draft in a task's own scope still refuses parking: the bytes are there and HEAD does not clear them either, so neither route is open and the refusal names both. Once that same draft is swept into HEAD by a commit that never reverts it, the scope no longer matches what `dispatch` sealed but it is clean against HEAD -- nothing staged, nothing unstaged, nothing untracked sitting under it -- so the second route parks it anyway, and the record names the route and the path that diverged.
     result = run(work, "dispatch", str(split_state), "task-018")
     if result.returncode != 0:
         failures.append(f"dispatching task-018 was refused: {result.stderr.strip()}")
     (work / "src" / "v").mkdir(parents=True, exist_ok=True)
+    (work / "src" / "v" / "mine.txt").write_text("a draft, still uncommitted\n")
+    result = run(work, "park", str(split_state), "task-018", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-018 was accepted while its own draft sat uncommitted in its scope, and must not be")
+    else:
+        if "src/v/mine.txt" not in result.stderr:
+            failures.append(f"parking over an uncommitted draft was refused without naming the path: {result.stderr.strip()}")
+        if "dispatch content" not in result.stderr or "HEAD" not in result.stderr:
+            failures.append(f"the refusal with neither route open did not name both routes: {result.stderr.strip()}")
     (work / "src" / "v" / "mine.txt").write_text("a draft that gets committed, not reverted\n")
     git(work, "add", "src/v/mine.txt")
     git(work, "commit", "-qm", "sweep task-018's own draft into HEAD without reverting it")
     result = run(work, "park", str(split_state), "task-018", "--question", "q")
-    if result.returncode == 0:
-        failures.append("parking task-018 was accepted though its own committed draft is still sitting there, and must not be")
-    elif "src/v/mine.txt" not in result.stderr:
-        failures.append(f"parking over a committed-but-not-reverted draft was refused for the wrong reason: {result.stderr.strip()}")
-    (work / "src" / "v" / "mine.txt").unlink()
-    result = run(work, "park", str(split_state), "task-018", "--question", "q")
     if result.returncode != 0:
-        failures.append(f"parking task-018 once the draft was actually undone was refused: {result.stderr.strip()}")
+        failures.append(f"parking task-018 once its committed draft left the scope clean against HEAD was refused: {result.stderr.strip()}")
+    else:
+        parked_018 = by_id(split_current(), "task-018").get("parked", {})
+        if parked_018.get("route") != "clean_against_head":
+            failures.append(f"task-018 parked via the HEAD-clean route but its record does not name it: {parked_018!r}")
+        if parked_018.get("diverged_paths") != ["src/v/mine.txt"]:
+            failures.append(f"task-018's parked record does not name the path that diverged from its seal: {parked_018!r}")
 
     # Correction round 2, item 1 - a commit of content outside the scope, while the scope itself is genuinely restored, does not stand in the way: HEAD moved, but nothing this task owns changed.
     result = run(work, "dispatch", str(split_state), "task-020")
@@ -1394,6 +1729,100 @@ def _section_park_lifecycle_continued(tmp):
     result = run(work, "park", str(split_state), "task-025", "--question", "q")
     if result.returncode != 0:
         failures.append(f"parking task-025, untouched, after task-024's overlapping work was committed, was refused: {result.stderr.strip()}")
+
+    # Final-audit correction, finding 1 - the second route asked whether the *whole scope* was clean against HEAD, so a scope holding an untracked path that was present and unchanged at dispatch -- recorded in the seal, never touched since -- defeated a park whose only genuine divergence was a different, already-committed path. task-040's scope holds both: `mixed/notes.txt` sits untracked before dispatch and stays that way for good, while `mixed/a.txt` is committed, tracked content at dispatch and is later modified and committed again, diverging from its seal but clean against HEAD. Before this correction, `_scope_head_status` read over the whole scope reported `mixed/notes.txt` as still untracked and refused the park on that alone, though `mixed/notes.txt` never diverged from its seal at all.
+    (work / "mixed").mkdir(exist_ok=True)
+    (work / "mixed" / "a.txt").write_text("committed before task-040 is ever dispatched\n")
+    git(work, "add", "mixed/a.txt")
+    git(work, "commit", "-qm", "seed task-040's scope with tracked, committed content")
+    (work / "mixed" / "notes.txt").write_text("an untracked file already sitting in the scope at dispatch\n")
+    result = run(work, "dispatch", str(split_state), "task-040")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-040 was refused: {result.stderr.strip()}")
+    (work / "mixed" / "a.txt").write_text("modified after dispatch, then committed, never reverted\n")
+    git(work, "add", "mixed/a.txt")
+    git(work, "commit", "-qm", "commit task-040's modification without reverting it")
+    result = run(work, "park", str(split_state), "task-040", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-040 was refused though its only genuine divergence, mixed/a.txt, is clean against HEAD, and the untracked mixed/notes.txt never changed since dispatch: {result.stderr.strip()}")
+    else:
+        parked_040 = by_id(split_current(), "task-040").get("parked", {})
+        if parked_040.get("route") != "clean_against_head":
+            failures.append(f"task-040 parked via the HEAD-clean route but its record does not name it: {parked_040!r}")
+        if parked_040.get("diverged_paths") != ["mixed/a.txt"]:
+            failures.append(f"task-040's parked record names something other than the path that actually diverged: {parked_040!r}")
+
+    # Final-audit correction, finding 2 - the neither-route refusal named every path that differed from the seal, not only the ones actually blocking, so a scope holding one path that genuinely blocks (still dirty against HEAD) alongside another that diverged but is already committed clean named both, and following the message literally on the clean one -- restoring it to its dispatch content -- would revert a commit that already answered the seal's own question for that path. task-041's scope holds both: `mixed2/y.txt` diverges from its seal and is swept into HEAD without ever being restored (clean, not the obstacle); `mixed2/x.txt` diverges and is left modified, uncommitted (the actual obstacle).
+    (work / "mixed2").mkdir(exist_ok=True)
+    (work / "mixed2" / "x.txt").write_text("committed before task-041 is ever dispatched\n")
+    (work / "mixed2" / "y.txt").write_text("committed before task-041 is ever dispatched\n")
+    git(work, "add", "mixed2/x.txt", "mixed2/y.txt")
+    git(work, "commit", "-qm", "seed task-041's scope with tracked, committed content")
+    result = run(work, "dispatch", str(split_state), "task-041")
+    if result.returncode != 0:
+        failures.append(f"dispatching task-041 was refused: {result.stderr.strip()}")
+    (work / "mixed2" / "y.txt").write_text("swept into HEAD without ever being restored\n")
+    git(work, "add", "mixed2/y.txt")
+    git(work, "commit", "-qm", "commit task-041's y.txt without reverting it")
+    (work / "mixed2" / "x.txt").write_text("modified after dispatch, left uncommitted\n")
+    result = run(work, "park", str(split_state), "task-041", "--question", "q")
+    if result.returncode == 0:
+        failures.append("parking task-041 was accepted while mixed2/x.txt sat modified and uncommitted, and must not be")
+    else:
+        if "mixed2/x.txt" not in result.stderr:
+            failures.append(f"parking task-041 was refused without naming the path that actually blocks, mixed2/x.txt: {result.stderr.strip()}")
+        if "mixed2/y.txt" in result.stderr:
+            failures.append(f"parking task-041 named mixed2/y.txt as blocking though it diverged from its seal and is already clean against HEAD, not the obstacle: {result.stderr.strip()}")
+    git(work, "add", "mixed2/x.txt")
+    git(work, "commit", "-qm", "commit task-041's x.txt too, clearing the actual obstacle")
+    result = run(work, "park", str(split_state), "task-041", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking task-041 once both diverged paths were committed clean was refused: {result.stderr.strip()}")
+    else:
+        parked_041 = by_id(split_current(), "task-041").get("parked", {})
+        if parked_041.get("diverged_paths") != ["mixed2/x.txt", "mixed2/y.txt"]:
+            failures.append(f"task-041's parked record does not name both paths that diverged from its seal: {parked_041!r}")
+
+    # Final-audit correction, finding 3 - `_scope_head_status`'s own run-ledger exclusion has no fixture reaching it: every scope above is narrow enough that its `git` pathspec never touches `.agents/`. A scope entry with no path parts covers the whole tree with no pathspec restriction at all, so a root-scoped task is the one shape whose `_scope_head_status` call actually reads the run's own ledger -- untracked in a fixture repo with no `.gitignore` for it. A dedicated isolated repo, since a `.`-scoped task collides with every task above.
+    root_park_repo = Path(tmp) / "root-scope-park"
+    root_park_repo.mkdir()
+    root_park_repo = root_park_repo.resolve()
+    git(root_park_repo, "init", "-q")
+    git(root_park_repo, "config", "user.email", "check@example.invalid")
+    git(root_park_repo, "config", "user.name", "check")
+    (root_park_repo / "seed.txt").write_text("seed\n")
+    git(root_park_repo, "add", "-A")
+    git(root_park_repo, "commit", "-qm", "seed")
+    root_park_run = root_park_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000006-root-park"
+    root_park_run.parent.mkdir(parents=True, exist_ok=True)
+    root_park_tasks_path = root_park_run.parent / "tasks.json"
+    write(root_park_tasks_path, [
+        {"id": "root-park", "title": "root park", "scope": ["."], "completion_condition": "root park",
+         "verification_path": ["check root-park"], "rationale": "root-scope park fixture"},
+    ])
+    root_park_state = root_park_run / "state.json"
+    result = run(root_park_repo, "start", str(root_park_state), "--kind", "brief", "--summary", "root-scope park fixture",
+                 "--worktree", str(root_park_repo), "--tasks", str(root_park_tasks_path))
+    if result.returncode != 0:
+        failures.append(f"the root-scope park fixture did not start: {result.stderr.strip()}")
+    result = run(root_park_repo, "dispatch", str(root_park_state), "root-park")
+    if result.returncode != 0:
+        failures.append(f"dispatching root-park was refused: {result.stderr.strip()}")
+    # root-park's own scope covers the whole tree, so its seal already holds seed.txt; moving it by an uncommitted-then-committed edit is the same rebase shape task-028 and task-018 prove, just over a `.`-scoped task where `_scope_head_status`'s own pathspec has nothing to restrict it away from the run's ledger.
+    (root_park_repo / "seed.txt").write_text("moved by a commit while root-park is under way\n")
+    git(root_park_repo, "add", "seed.txt")
+    git(root_park_repo, "commit", "-qm", "sweep root-park's own draft into HEAD without reverting it")
+    result = run(root_park_repo, "park", str(root_park_state), "root-park", "--question", "q")
+    if result.returncode != 0:
+        failures.append(f"parking the root-scoped task via the HEAD-clean route was refused, though the run's own ledger sitting untracked under the same whole-tree scope has nothing to do with what diverged: {result.stderr.strip()}")
+    else:
+        root_park_final = json.loads(root_park_state.read_text())
+        root_park_task = next(t for t in root_park_final["tasks"] if t["id"] == "root-park")
+        root_parked = root_park_task.get("parked", {})
+        if root_parked.get("route") != "clean_against_head":
+            failures.append(f"root-park parked via the HEAD-clean route but its record does not name it: {root_parked!r}")
+        if root_parked.get("diverged_paths") != ["seed.txt"]:
+            failures.append(f"root-park's parked record does not name exactly the path that diverged, seed.txt: {root_parked!r}")
 
 
 def _section_isolated_completion(tmp):
@@ -1589,7 +2018,7 @@ def main():
     if mode == "only":
         print(f"{SCRIPT_NAME}: ran {', '.join(run_order)}")
     else:
-        print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint, and a task parks only once its dispatch seal -- taken before any executor starts and read on content rather than HEAD -- shows its scope restored")
+        print("check-execute-state: derived values fill in, neither a stale revision nor a stale fingerprint passes, and acceptance carries what a REVISE found and refuses what a BLOCK cites, and tasks with disjoint scopes are written at once, each accepted at its own scope's fingerprint, and a task parks once its dispatch seal -- taken before any executor starts and read on content rather than HEAD -- shows its scope restored, or, failing that, once its scope is clean against HEAD, with the record naming which route it took and refusing to forge either one")
 
 
 if __name__ == "__main__":
