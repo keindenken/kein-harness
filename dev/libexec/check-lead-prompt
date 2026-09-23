@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+#: Run the lead-prompt hook under each entrypoint and override, and fail if the prompt reaches a session it must not or misses one it must.
+#
+# The hook decides from the environment alone, so every case is a synthetic environment. What it cannot cover is whether Claude Code still sets `CLAUDE_CODE_ENTRYPOINT` to `cli` and `sdk-cli`; that is a live measurement, recorded in the findings store.
+set -eu
+
+HOOK="${KEIN_ROOT:?}/hooks/lead-prompt.py"
+failures=0
+marker="$(head -1 "$KEIN_ROOT/prompts/lead.md")"
+
+run() { env -u CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS -u KEIN_LEAD_PROMPT "$@" python3 "$HOOK" </dev/null; }
+fail() { printf 'check-lead-prompt: %s\n' "$1" >&2; failures=$((failures + 1)); }
+field() { python3 -c 'import json,sys; d=json.loads(sys.stdin.read() or "{}"); print(d.get("hookSpecificOutput",{}).get("additionalContext","") if sys.argv[1]=="context" else d.get("systemMessage",""))' "$1"; }
+
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli)
+printf '%s' "$out" | field context | grep -qF "$marker" || fail "an interactive session did not get the lead prompt"
+[ -z "$(printf '%s' "$out" | field notice)" ] || fail "an interactive session without agent teams got a notice"
+
+for entry in sdk-cli sdk-ts sdk-py claude-vscode ""; do
+  [ -z "$(run CLAUDE_CODE_ENTRYPOINT="$entry")" ] || fail "entrypoint '$entry' got output and must get none"
+done
+[ -z "$(env -u CLAUDE_CODE_ENTRYPOINT -u KEIN_LEAD_PROMPT python3 "$HOOK" </dev/null)" ] || fail "an unset entrypoint got output"
+
+[ -z "$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none)" ] || fail "KEIN_LEAD_PROMPT=none still injected"
+
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+printf 'PINNED_MARKER\n' > "$tmp/pinned.md"
+run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/pinned.md" | field context | grep -qx PINNED_MARKER || fail "a pinned KEIN_LEAD_PROMPT was not used"
+
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md")
+printf '%s' "$out" | field notice | grep -q 'no lead prompt' || fail "a missing prompt file was not reported"
+[ -z "$(printf '%s' "$out" | field context)" ] || fail "a missing prompt file still produced context"
+
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+printf '%s' "$out" | field notice | grep -q 'AGENT_TEAMS' || fail "agent teams on produced no notice"
+printf '%s' "$out" | field context | grep -qF "$marker" || fail "agent teams on dropped the prompt"
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-lead-prompt: %d case(s) failed\n' "$failures" >&2
+  exit 1
+fi
+echo "check-lead-prompt: ok"

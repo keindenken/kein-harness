@@ -138,7 +138,7 @@ Two measurements it makes possible, neither taken:
 
 And the plainer one: whether any of the plan-quality results move when the lead is not bare. Every number in the programme was produced under a lead with no standing prompt at all, which is not the configuration anyone actually works in.
 
-Two things to expect when turning it on, both recorded in `resolve_lead_prompt`. `prompts/lead.md` ends with a Korean-language rule that exists specifically because a `CLAUDE.md` would carry it into every headless `claude -p` — and an arm is a headless `claude -p`. Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin that arm does not have. Neither applies to a `--variant` pair, which is the cleaner place to take the first reading.
+Two things to expect when turning it on, both recorded in `resolve_lead_prompt`. `plugin/prompts/lead.md` ends with a Korean-language rule that exists specifically because a `CLAUDE.md` would carry it into every headless `claude -p` — and an arm is a headless `claude -p`. Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin that arm does not have. Neither applies to a `--variant` pair, which is the cleaner place to take the first reading.
 
 ## A default eval run does not record which harness it ran
 
@@ -222,18 +222,18 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 
 The Orca model is one coordinator, one Run, a whole wave inside it. Moving `ocs team` onto the lead's existing Run would fix the first, but then every lane shares one inbox with whatever else the lead coordinates, and consuming a `worker_done` there means filtering by dispatch rather than draining. Not worth doing until a lead actually coordinates an Orca Run and starts a lane from it.
 
-## The lead prompt reaches a session only through a launcher Orca does not use
+## The lead prompt reaches a session only through a launcher Orca does not use — closed 2026-09-23
 
-`prompts/lead.md` reaches a session through `~/.local/bin/claude-kein`, which runs `claude --append-system-prompt-file` on it and unsets `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`. Orca restarts a session with the command its settings name (`claude --dangerously-skip-permissions ...`), so getting the lead prompt into an Orca session means closing the pane, relaunching with `claude-kein` and `/resume`-ing. The owner's direction (2026-09-23) is to move the prompt into a plugin hook and retire the launcher.
+`prompts/lead.md` reached a session through `~/.local/bin/claude-kein`, which ran `claude --append-system-prompt-file` on it and unset `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`. Orca restarts a session with the command its settings name (`claude --dangerously-skip-permissions ...`), so getting the lead prompt into an Orca session meant closing the pane, relaunching with `claude-kein` and `/resume`-ing. By then the launcher was also broken: its default path pointed at the hub's `prompts/`, which no longer exists.
 
-The launcher is already broken. Its default path is `$HOME/Documents/workspace/dev/kein-harness/prompts/lead.md`, and the hub now holds only `eval/` and `main/`, so without `KEIN_LEAD_PROMPT` it exits with "no lead prompt".
+Moved to a plugin SessionStart hook, `plugin/hooks/lead-prompt.py`, with the prompt at `plugin/prompts/lead.md`. Why each objection to a hook turned out not to apply, all measured on Claude Code 2.1.280 (findings `260923-sessionstart-reaches-only-interactive-main-session.md`):
 
-What the move has to settle:
+- Subagents: SessionStart does not fire for them. A subagent fires SubagentStart, with `agent_id` and `agent_type`, so no git-guard-style inversion is needed.
+- Headless `claude -p`: SessionStart does fire, but `CLAUDE_CODE_ENTRYPOINT` is `sdk-cli` there and `cli` in an interactive session. The hook injects only on `cli`, so a script's `claude -p`, a future Codex harness calling a Claude reviewer, and every eval arm stay bare. That makes per-project scoping unnecessary: eval arms are `claude -p` (`dev/eval/run.py` `launch_command`), and `--lead-prompt` still appends the prompt on purpose.
+- Clear, compact and resume each fire SessionStart again, and the hook re-injects every time. After resume the prompt is in the transcript twice.
+- Agent teams: a hook cannot unset the variable. This Orca launch (1.4.207) did not set it, so the hook only shows the user a notice when the variable is on. The launcher's comment said Orca sets it itself, which is not true on this path.
 
-- A plugin hook fires in every session with kein enabled, including the headless `claude -p` runs a script spawns and every `with-skill` eval arm. The Language section ends by saying it lives outside `CLAUDE.md` precisely to stay out of those. The hook has to tell a lead session apart from the rest, or the Korean rule has to move somewhere else.
-- The unset of `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` has no hook equivalent. Orca sets the variable at launch, and the prompt's "messages land at the next tool round" is true only without it. Either Orca's launch command drops the variable or the prompt stops assuming it is absent.
-- Hook-injected context is not an appended system prompt. Check with `/kein-findings:findings` which event fires on startup, resume, clear and compact, and for subagents, before choosing one.
-- `kein-dev eval --lead-prompt` exists to append the prompt to an arm on purpose (see "The lead prompt can now be an arm's" above). Once the plugin injects it, every `with-skill` arm gets it unasked and the control arm does not, which changes what the default pair measures.
+Still open: an interactive Claude worker that Orca orchestration launches in its own pane would be `cli` too and would get the lead prompt. No flow launches one today, since `ocs team` starts Codex, and what tells such a worker apart is unmeasured. `~/.local/bin/claude-kein` sits outside the repository and is the owner's to delete.
 
 ## `writer` and `designer` roles
 

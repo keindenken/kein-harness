@@ -595,7 +595,7 @@ def worktree_instruction_names(worktree):
 def resolve_lead_prompt(value):
     """Turn `--lead-prompt` into a path or into nothing, and refuse anything in between.
 
-    Real use reaches a lead through a launcher that injects a standing prompt; every run measured so far reached one bare. That gap is worth measuring, and it must not be closed by default: switching it on silently would make every past run incomparable to every later one while both still say `kein-dev eval` at the top.
+    Real use reaches a lead with a standing prompt, which the plugin's SessionStart hook injects into an interactive session only; an arm is a `claude -p`, so the hook leaves it out and every run measured so far reached one bare. That gap is worth measuring, and it must not be closed by default: switching it on silently would make every past run incomparable to every later one while both still say `kein-dev eval` at the top.
 
     So it is an axis with `none` as its default, and the run records which side it was on.
 
@@ -603,7 +603,7 @@ def resolve_lead_prompt(value):
 
     Two things to know before turning it on, neither of which is a reason not to:
 
-    `prompts/lead.md` ends with a rule to talk to the user in Korean, which is there precisely because a `CLAUDE.md` would carry it into every headless `claude -p`. An arm *is* a headless `claude -p`, with no user and an artifact as its output, and `graded.py`'s judge has already been seen obeying a language instruction over its own reply format. Watch what the arms write, not only what they do.
+    `plugin/prompts/lead.md` ends with a rule to talk to the user in Korean, which is there precisely because a `CLAUDE.md` would carry it into every headless `claude -p`. An arm *is* a headless `claude -p`, with no user and an artifact as its output, and `graded.py`'s judge has already been seen obeying a language instruction over its own reply format. Watch what the arms write, not only what they do.
 
     Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin the control arm does not have. That is the harness's own recorded failure mode — an instruction naming an ungranted capability fails silently and reads as disobedience. Against `--variant` arms, where both sides carry the plugin, neither concern applies.
     """
