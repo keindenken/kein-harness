@@ -40,3 +40,18 @@ Carried in that run's receipt; the run record is `260923-audit-stopping-rule.md`
 - **`reviewer_role` is matched as an exact string.** The final-audit coherence rule, and acceptance's before it, compares roles verbatim, and runs on disk already spell them both `kein:critic` and `critic`. A PASS under the other spelling passes silently over its own role's carried findings — the relabel the rule exists to stop. Normalise the role before comparing, or validate it against `agents.json`.
 - **`check-execute-state` outlasts a tool call.** At about four and a half minutes it cannot finish inside one call, so a lane briefed to run it backgrounds it and returns early. Either the suite gets faster or briefs keep naming its runtime and leaving the full run to the lead.
 
+
+## A codex worker could be resumed rather than respawned — raised 2026-09-24
+
+For a native worker the lead already chooses: continue the subagent that did the investigation, or dispatch a fresh one, and step 5 names that choice for a correction ("choose the original or a fresh Executor"). A codex worker from `ocs team` gets no choice: the invocation ends, the terminal is closed, and a correction to its own work is a new worker that has to re-learn the tree.
+
+The owner's point is that it need not be. `ocs team` launches the interactive `codex` TUI (the `launch=` line in `plugin/libexec/ocs-team`), not `codex exec --ephemeral` as `ocs ask` does, so the session is presumably written under the pinned `CODEX_HOME` like any other and `codex resume` should reach it. If that holds, the lead could get the same continue-or-fresh choice for a codex Executor.
+
+What it would take, found by reading and not tried:
+
+- **Nothing records the session id.** `ocs team` writes `spec.txt` and `command.txt` to its run directory, but no session or rollout reference, so there is nothing to resume by. Capturing it is the first piece.
+- **`--keep` is half of this already.** It leaves the worker terminal open after completion, and a live session can be given the follow-up with `orca terminal send` without any resume at all. Resume is only needed once the terminal has been closed.
+- **Completion is per invocation.** Each `ocs team` call creates one Orca run and task and reads completion from that dispatch and its report file. A resumed session needs a new task to report into, or it finishes with nobody reading it.
+- **The worktree has to outlive the first invocation.** A `--worktree new` lane's tree is removed by `ocs team close`, and a resume into a removed tree is meaningless.
+- **Only for writers.** Review lanes stay fresh by construction, and `ocs ask`'s `--ephemeral` is what gives them that; this is about `ocs team`'s Executor.
+- **Unverified:** that `codex resume` on a session started with `developer_instructions`, a pinned `CODEX_HOME` and the per-launch `-c` overrides comes back with the same role layer, model, effort and sandbox, or whether those have to be passed again. Measure before building on it, and record the answer with `/kein-findings:findings`.
