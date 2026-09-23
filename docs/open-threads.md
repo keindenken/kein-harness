@@ -221,3 +221,41 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 - With several lanes started concurrently, only the last Run stays bound. `ocs team` consumes its own `worker_done` only while its Run is still the bound one, so an earlier lane's message stays in its inbox and may nudge the lead later. Whether Orca nudges for an unbound Run at all is unmeasured.
 
 The Orca model is one coordinator, one Run, a whole wave inside it. Moving `ocs team` onto the lead's existing Run would fix the first, but then every lane shares one inbox with whatever else the lead coordinates, and consuming a `worker_done` there means filtering by dispatch rather than draining. Not worth doing until a lead actually coordinates an Orca Run and starts a lane from it.
+
+## The lead prompt reaches a session only through a launcher Orca does not use
+
+`prompts/lead.md` reaches a session through `~/.local/bin/claude-kein`, which runs `claude --append-system-prompt-file` on it and unsets `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`. Orca restarts a session with the command its settings name (`claude --dangerously-skip-permissions ...`), so getting the lead prompt into an Orca session means closing the pane, relaunching with `claude-kein` and `/resume`-ing. The owner's direction (2026-09-23) is to move the prompt into a plugin hook and retire the launcher.
+
+The launcher is already broken. Its default path is `$HOME/Documents/workspace/dev/kein-harness/prompts/lead.md`, and the hub now holds only `eval/` and `main/`, so without `KEIN_LEAD_PROMPT` it exits with "no lead prompt".
+
+What the move has to settle:
+
+- A plugin hook fires in every session with kein enabled, including the headless `claude -p` runs a script spawns and every `with-skill` eval arm. The Language section ends by saying it lives outside `CLAUDE.md` precisely to stay out of those. The hook has to tell a lead session apart from the rest, or the Korean rule has to move somewhere else.
+- The unset of `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS` has no hook equivalent. Orca sets the variable at launch, and the prompt's "messages land at the next tool round" is true only without it. Either Orca's launch command drops the variable or the prompt stops assuming it is absent.
+- Hook-injected context is not an appended system prompt. Check with `/kein-findings:findings` which event fires on startup, resume, clear and compact, and for subagents, before choosing one.
+- `kein-dev eval --lead-prompt` exists to append the prompt to an arm on purpose (see "The lead prompt can now be an arm's" above). Once the plugin injects it, every `with-skill` arm gets it unasked and the control arm does not, which changes what the default pair measures.
+
+## `writer` and `designer` roles
+
+Two roles to add, raised 2026-09-23. Both are meant to consult other material and produce the single best version from it, not to generate from scratch.
+
+- `writer`: tuned for now to writing prompts, where "prompt" covers skills, `AGENTS.md` and every other instruction file. The rules it would work to already exist: `plugin/rules/standing-prompt.md`, `docs/project/prompt-edit-rules/`, and the `instructions`, `deliberate` and `sharpen` skills. A general prose-writing role may come later, and whether it shares this prompt is open.
+- `designer`: UI/UX.
+
+The route is the usual one: body in `agents/<name>.md`, tier and sandbox_mode in `agents.json`, then `dev/kein-dev render-agents` and `check-agents`. Settle each role's reason to exist with `/kein:deliberate` before writing it, above all what `writer` does that a lead running `instructions` or `sharpen` does not.
+
+## Per-directory `AGENTS.md` for subagents
+
+oh-my-claudecode had a skill (probably `deepinit`) that writes an `AGENTS.md` into subdirectories such as `src/`, plus a hook that feeds them to the agent. The idea, raised 2026-09-23, is that these would help subagents most.
+
+What is known: Claude Code loads a subdirectory's `CLAUDE.md` on its own but not an `AGENTS.md`. The owner has confirmed that Codex does not load a subdirectory's `AGENTS.md` automatically either. So these files are read only if something feeds them in: a hook on the Claude side, and the lane package on the `ocs team` side, since the harness puts no hook on a vendor lane.
+
+Open: how omc's hook chose the file and when it fired (the source is worth reading before designing anything); whether generated per-directory docs stay accurate or become one more thing to keep up to date; and whether this belongs in the `instructions` skill, which already writes the root `AGENTS.md`.
+
+## A Codex lane's vanilla state should come from its launch command, not a separate home
+
+A Codex worker started by `ocs team` sometimes cited the `superpowers` plugin or answered in Korean. The owner traced both to Codex memories and has turned memories off (2026-09-23). That contradicts the last paragraph of "A vendor lane cannot be isolated from the operator's home" above, which says the home's memories do not mention `superpowers`. Reconcile the two when this is picked up.
+
+The split so far is by home: the owner's own Codex runs under `~/.codex-orca` (the `orcodex` function in `~/.zshrc`), and a lane runs under `~/.codex` or `KEIN_CODEX_HOME`. That split has the same weakness as `claude-kein`: anything that launches plain `codex`, Orca included, lands in whichever home is the default. The direction is to make a lane vanilla through the flags `ocs ask` and `ocs team` pass (`-c` overrides for memories, instructions and the like), so whatever launches the operator's own session no longer matters.
+
+The same earlier thread measured one such override, `plugins."<name>".enabled=false`, as inert. So check each override with `codex debug prompt-input` rather than trust that it parses.
