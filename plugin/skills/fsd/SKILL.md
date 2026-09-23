@@ -24,7 +24,7 @@ hooks:
           command: 'python3 "${CLAUDE_PLUGIN_ROOT}/skills/fsd/scripts/hook.py" post-bash'
 ---
 
-# FSD
+# FSD—Full Self Driving
 
 The user takes part once, at the front, in the interview and its approval, and once at the end, in the report. Between the two, this flow runs the stages that already exist, `interview` → `ralplan` → `execute`, adds a closeout, and asks nothing. `ocs state fsd` records where the run stands. The hooks this skill arms catch a stage transition that was announced but not taken, keep a turn from ending while the run is still live — the interview stage alone may end one, since waiting on the user is its job — and link each stage's run to the flow when it is created.
 
