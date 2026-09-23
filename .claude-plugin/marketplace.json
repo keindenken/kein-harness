@@ -5,12 +5,12 @@
   "owner": {
     "name": "kein"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "plugins": [
     {
       "name": "kein",
       "description": "Personal Claude Code harness: agents, skills, and vendor bridges.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "source": "./plugin",
       "category": "productivity",
       "tags": [

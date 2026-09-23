@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "kein",
   "displayName": "Kein",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Personal Claude Code harness: agents, skills, and vendor bridges.",
   "author": {
     "name": "kein"
