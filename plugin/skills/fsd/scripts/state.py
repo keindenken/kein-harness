@@ -1542,10 +1542,18 @@ def report(state: Dict[str, Any]) -> str:
         lines.append("None.")
     lines += ["", "## Parked questions", ""]
     if state["questions"]:
+        # `answer()` refuses every terminal lifecycle (`TERMINAL_LIFECYCLES`), so an unanswered question on a
+        # terminal run -- most concretely one `halt` recorded after a structural refusal ended a pause attempt --
+        # cannot actually be answered by re-invoking /kein:fsd; the invitation below is withheld precisely where
+        # `answer()` itself would refuse, rather than only for `halted` by name.
+        terminal = state["lifecycle"] in TERMINAL_LIFECYCLES
         for item in state["questions"]:
+            unanswered = not item.get("answer")
             state_word = f"answered: {item['answer']}" if item.get("answer") else "unanswered"
-            lines.append(f"- {item['id']} ({item['stage']}): {item['question']} -- {state_word}; parks {item['parks']}. "
-                         "Answer by re-invoking /kein:fsd with the answers.")
+            line = f"- {item['id']} ({item['stage']}): {item['question']} -- {state_word}; parks {item['parks']}."
+            if unanswered and not terminal:
+                line += " Answer by re-invoking /kein:fsd with the answers."
+            lines.append(line)
     else:
         lines.append("None.")
     lines += ["", "## Lesson proposals", ""]

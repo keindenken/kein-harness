@@ -235,10 +235,12 @@ def _active_no_gap_reason(state_path: Path, state: Dict[str, Any], running_stage
     # `closeout` is skipped on both exits below when it is itself the stage already running: naming it again would print a command that, run a second time, returns `False` without writing anything.
     closeout_step = "" if running_stage == "closeout" else f"`ocs state fsd closeout {quoted_state}`, then "
     reason += (
-        f" Do not end this turn here: keep the running stage moving -- if you are waiting on another lane, check "
-        f"it is still alive before anything else. If the run should not continue, bring it to rest on the record "
-        f"instead of ending it unresolved -- two exits that share one tail, differing only in whether a question "
-        f"is recorded first. To pause it for the user: first record the open question (`ocs state fsd question "
+        f" Do not end this turn here for its own sake: keep the running stage moving -- if you are waiting on "
+        f"another lane, check it is still alive before anything else, then ending this turn to wait for its "
+        f"notification is fine and is not the same as ending it unresolved. If the run should not continue for "
+        f"any other reason, bring it to rest on the record instead of ending it unresolved -- two exits that "
+        f"share one tail, differing only in whether a question is recorded first. To pause it for the user: "
+        f"first record the open question (`ocs state fsd question "
         f"{quoted_state} --stage {running_stage} --question <text> --recommended <text> --why-irreversible <text> "
         f"--parks 'whole run'`), unless a question parking the whole run is already unanswered. To end it "
         f"outright: skip that. Then, either way: {closeout_step}`ocs state fsd close {quoted_state} --retro "

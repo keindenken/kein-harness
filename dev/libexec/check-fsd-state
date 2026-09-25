@@ -622,7 +622,7 @@ def _section_scenario3_agentsmd_drift_across_pause():
                reason="AGENTS.md changed")
 
 # ---------------------------------------------------------------------------
-# Scenario 4: guard -- a root-normalizing scope and a literal AGENTS.md scope both fail it, a docs/ scope passes; guard's failure names the lead's action; close refuses and halt then sets halted; report opens with the Halted section naming the task.
+# Scenario 4: guard -- a root-normalizing scope and a literal AGENTS.md scope both fail it, a docs/ scope passes; guard's failure names the lead's action; close refuses and halt then sets halted; report opens with the Halted section naming the task. Also covers `docs/skills/fsd/open.md`'s "a halted run's report invites an answer nothing can accept": a whole-run question parked before the structural refusal stays unanswered once `halt` lands, and `report` must still list it -- unanswered -- without inviting an answer `answer()` itself would refuse on a terminal lifecycle.
 
 def _section_scenario4_guard_scope_violations():
     with tempfile.TemporaryDirectory() as tmp:
@@ -660,6 +660,12 @@ def _section_scenario4_guard_scope_violations():
         if "action" not in guard_result or "park" not in guard_result["action"] or "abort" not in guard_result["action"]:
             failures.append(f"guard's failure output did not state the lead's action: {guard_result}")
 
+        # Recorded while the run is still active, before the structural refusal that ends the pause attempt below --
+        # `question()` itself refuses on a terminal lifecycle, so this must land before `halt` does.
+        question_id = must("recording a whole-run question before the structural refusal", fsd(work, "question", str(state_path),
+             "--stage", "execute", "--question", "does the guard failure change the plan's scope?", "--options", "a,b",
+             "--recommended", "a", "--why-irreversible", "guard already refused close", "--parks", "whole run")).stdout.strip()
+
         refuse("closing while guard fails", fsd(work, "close", str(state_path), "--retro", str(work / "no-such-retro.md")), reason="guard failed")
         must("halting once guard fails", fsd(work, "halt", str(state_path), "--reason", "guard failed: task-a and task-b scope AGENTS.md"))
         halted_state = read_json(state_path)
@@ -671,6 +677,16 @@ def _section_scenario4_guard_scope_violations():
         report_text = fsd(work, "report", str(state_path)).stdout
         if not report_text.startswith("## Halted") or "task-a" not in report_text:
             failures.append(f"report on a halted run did not open with a Halted section naming the task: {report_text[:200]!r}")
+        # docs/skills/fsd/open.md: "a halted run's report invites an answer nothing can accept" -- `answer()`
+        # refuses every terminal lifecycle, `halted` included, so the still-unanswered question above must stay
+        # named as unanswered without the "Answer by re-invoking /kein:fsd" invitation that only a nonterminal
+        # run could actually act on.
+        if f"{question_id} (execute)" not in report_text or "unanswered" not in report_text:
+            failures.append(f"report on a halted run dropped the still-unanswered parked question: {report_text!r}")
+        if "Answer by re-invoking" in report_text:
+            failures.append(f"report on a halted run still invites an answer that answer() itself would refuse: {report_text!r}")
+        refuse("answering a question on a halted run", fsd(work, "answer", str(state_path), question_id, "--text", "a"),
+               reason="Terminal state cannot transition")
         refuse("halting an already-halted run", fsd(work, "halt", str(state_path), "--reason", "again"))
 
 # ---------------------------------------------------------------------------
