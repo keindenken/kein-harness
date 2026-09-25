@@ -18,7 +18,7 @@ A vendor suffixed `:advisory` records a verdict and contributes findings without
 Every unsuffixed lane blocks, which is the rule the skill body already states for the native pair.
 
 Planner takes no vendor.
-`ocs ask` serves read-only roles only, and a remote vendor authoring the canonical artifact would be writing with no workflow around the write.
+`ocs ask` runs the vendor in a read-only sandbox and refuses the write-capable `planner` role, and a remote vendor authoring the canonical artifact would be writing with no workflow around the write.
 Refuse `--planner <vendor>` and say so rather than silently planning natively.
 
 ## Mechanism
@@ -30,7 +30,7 @@ ocs ask codex --agent <role> --trace --task-file <the lane package>
 Write the package to a file and name it. A review package is a document — the first measured cross-vendor round wrote 646 lines and a wrapper script to get it through `argv`, which is what `--task-file` replaces. `-` reads standard input.
 
 The mechanism is not a choice to make.
-`ocs ask` serves exactly the roles whose canonical `sandbox_mode` is read-only, which is every review lane here.
+`ocs ask` runs the vendor in a read-only sandbox and refuses a write-capable role for `--agent`; Architect and Critic are both read-only, so every review lane here goes through it.
 
 `ocs ask` pins the vendor home to `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex`, so a lane reads the skills that home's plugins publish, its `AGENTS.md` and its memories along with its role prompt.
 
