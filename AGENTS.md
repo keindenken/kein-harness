@@ -21,7 +21,7 @@ Claude Code용 `kein` 하네스를 만드는 리포다. 설치 방법, 로딩 �
 
 ## 스킬과 프롬프트 개선
 
-- 규칙을 더하거나 뺄지는 `/kein:deliberate`로 판단하고, 문구를 런 결과로 바꿀지는 `/sharpen`으로 판정한다. 둘 다 편집은 하지 않는다.
+- 규칙을 더하거나 뺄지는 `/kein:deliberate`로 판단한다. 이 스킬은 편집은 하지 않는다.
 - eval은 `dev/kein-dev eval --case <name>`으로 돌리고, 케이스는 `dev/eval/cases/`에 있다.
 - eval 실행 디렉터리는 허브의 `../eval/`에 생긴다. 리포 밖이어야 이 파일이 arm에 들어가지 않기 때문이다. 허브나 그 상위에 CLAUDE.md가 생기면 eval이 실행을 거부한다.
 
