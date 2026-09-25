@@ -150,3 +150,101 @@ Done as the owner proposed: both bridges launch with `codex_vanilla_args` (`plug
 Two things still reach a lane. `hooks.json` stays on purpose, since Orca reads a worker's state through it. The home `AGENTS.md` stays because no config key separates it from the repository's; it is the operator's writing rules and does no harm today, but it is the one piece of the home a lane cannot shed.
 
 On the memories contradiction noted above: the owner found the `superpowers` references and the Korean in the memory folder and cleared it, which is why the folder on 2026-09-26 mentions neither. The 2026-08-29 note above found no mention in the folder at that time. Memories do reach a lane when on (it quoted the summary), and the folder still holds summaries of other runs and a skill memories wrote.
+
+## How far to cut `execute`'s verification rounds
+
+Closed 2026-09-26: the owner settled it with three changes instead of measuring a live round — a `REVISE` finding is fixed with no fresh lane (8f3593c for ralplan; `execute` already had this through its own fix-it route), and `--primed` and `--max-rounds` bound review cost on both skills (8f3593c ralplan, 4a41c57 execute).
+
+The obsolescence argument says fewer. The invariant that a gate must be able to go RED says a round without a failable gate is the one to cut, not rounds in general. Resolve by measurement on a real round rather than in advance.
+
+## The isolation check that caught a lane reaching live work no longer runs
+
+Closed 2026-09-26: d06aa8d — each fixture arm and each `--case` replicate now records `sessions_outside` over its own config home, read before the home is retired, so `check_plumbing`'s `record["visited_outside"]` reads a real value instead of a field nothing ever wrote.
+
+`run.py` defines `sessions_outside`, which reads the project-slug directories under a run's config home and names every working directory the run opened a session in. `check_plumbing` reports on `record["visited_outside"]`. Nothing writes that key, so the check reads a missing field, finds an empty list, and passes on every run.
+
+It is not a hypothetical check. Its docstring records what it found the one time it ran: *"A first run left a directory for the origin fixture repository, meaning a lane had been pointed at live work rather than at its detached copy."* A lane reaching outside its arm can read, and in principle write, work that is not a fixture — and it would also invalidate the comparison silently, which is the failure mode this whole harness is built to refuse.
+
+Reviving it is small: call `sessions_outside(config_home, [<the arm worktrees>])` where the record is assembled and store the result. The awkward part is `--case` mode, where each replicate has its own home and its own single permitted worktree, so the allowed set differs per replicate rather than per arm.
+
+Retiring config homes at the end of a run does not block this — the slugs move to `transcripts/` intact, which is why the move preserves them rather than flattening — but it does mean a revival has to read them before the retirement or from their new home.
+
+## A pinned `--plugin-dir` loses `ocs` when the launching shell already has one
+
+Closed 2026-09-26: eeda04d — `ocs` now refuses to run, naming both trees, when a second kein harness tree's `ocs` is also on PATH (R8.3, amended to check PATH rather than `CLAUDE_PLUGIN_ROOT`, which the Bash tool is never given). d06aa8d strips the operator's plugin `bin/` directories from an eval arm's environment and re-appends the arm's own, so an eval arm is not itself caught by the same mix.
+
+`--plugin-dir <path>` pins everything it should. Measured 2026-08-20 against the descvi fixture, where `enabledPlugins` has `kein@skills-dir: false`: without the flag no kein skill is invocable at all, with it the skills load, and from a clean `PATH` `ocs` resolves inside the pinned directory.
+
+It stops being true when the launching shell already carries `~/.claude/skills/kein/bin`, which any session launched from inside a kein-loaded session does. That entry precedes the pinned one on `PATH`, so the skills come from the pinned tree and `ocs` comes from wherever the symlink points — currently `dev/kein-harness/plugin`, i.e. main. Two harness versions in one session, and nothing says so.
+
+Harmless while the trees are identical, which they are. It bites the first time an experiment pins an older or a branch build to compare against main, since that is precisely when the two differ and precisely when the result would be attributed to the pinned tree.
+
+No fix chosen. The cheap mitigation is to launch from a shell that has never loaded kein and check `command -v ocs` before starting; the real fix is either for the flag to prepend rather than append, which is not this repository's to make, or for `ocs` to refuse when its own path is outside `CLAUDE_PLUGIN_ROOT`.
+
+## A default eval run does not record which harness it ran
+
+Closed 2026-09-26: d06aa8d (R7.3) — each treatment arm, including the default with-skill/without-skill pair, now records the harness repository's resolved commit and whether the tree was dirty, beside the plugin path. `--variant` arms already named their commit. The section's own point that this unlocks dropping the plugin copy is carried forward as a live remainder in `docs/open-threads.md`, "A default eval run's plugin copy could now be dropped".
+
+`--variant` arms record their resolved commit in the manifest, so the plugin copy each one launched under is reproducible. The default `with-skill`/`without-skill` pair records only a path: `arms_spec.with-skill.plugin` points at `<run>/plugin`, and nothing anywhere says which commit that copy came from.
+
+That makes the copy the only record of what actually ran, which is why it is still kept — six runs on disk depend on it. It also means the six cannot be compared against a later run except by reading their plugin trees, and that a run whose copy is lost is unattributable.
+
+The fix is one line where `prepare_plugin` is called without a `source`: resolve `HEAD` of the harness repository and put it in the manifest beside the path. `prepare_plugin` also re-renders agents onto one model, so the commit alone does not reproduce the copy — the manifest already records `model`, and the pair does.
+
+Doing it unlocks dropping the copy, which is ~800K of a default run and ~1.4M of a `--variant` one. Not urgent on its own; worth doing next time the manifest shape is touched.
+
+## A plan correction ends the run, and the question it forces is per-task
+
+Closed 2026-09-26: 4a41c57 (R4) — each acceptance now records the input hash (the plan revision) it was made under, and after `amend` a task accepted under an earlier revision keeps the run from completing until a fresh, independent lane re-confirms it against the amended plan; a task that lane does not confirm returns to correcting. That answers the per-task question this section leaves open: an amendment touching the very condition a task was accepted under no longer carries that acceptance forward unexamined. `docs/skills/execute/open.md`, "A completion condition's own wording cannot be corrected inside a run", is the neighbouring, still-open question and is unaffected by this closure.
+
+`execute` binds a run to its input by hash. `validate_transition` refuses a nonterminal transition that changes input identity, and `reconcile` answers a changed input with `block and reassess the changed input before resuming`. That is what stops a plan being swapped under a live ledger, and it is not the thing to loosen.
+
+It collides with the repository's own rule. descvi's `AGENTS.md` requires the plan to be updated in the same change when reality forces a departure from it, and `task-ledger-template.md` blesses the smaller half of that already — a factual correction may update a task when it stays inside the authorized outcome and its rationale is recorded. So a correction that the work forces is required, and making it ends the run.
+
+Measured on the phase-47 execute run: story one of five forced two plan corrections (acceptance 24's element-keyed reading, part 2's band removal). The run was aborted with a reason naming the one accepted task, and a second run opened carrying the remaining four. One story, one split.
+
+The lead gave two reasons and only the first holds. The input hash is immutable within a run, which is true and decisive. The second was that task-001's acceptance was bound to a fingerprint that HEAD has since moved past, so re-asserting it would be an unmeasured claim — but that is not how acceptance is validated. `_validate_acceptance` checks each reviewer verdict against the acceptance's **own** recorded fingerprint and never against the current worktree, so an acceptance is a sealed, self-describing record and a later worktree move does not touch it. Nothing in the machine would have refused carrying task-001 forward as accepted.
+
+What would have been wrong is subtler and is the actual thread. One of the two corrections changed acceptance 24 — the condition task-001 was accepted against. So the question is not "is this acceptance stale" but "did this correction touch what that task was accepted for", and that is a per-task question the input hash answers for the whole ledger at once. A run that corrects a plan section no accepted task depended on is split for nothing; a run that corrects the very condition a task passed under must not carry it, and today both get the same answer.
+
+Not acted on. The cheap-looking fix — a transition that records old hash, new hash and a reason while keeping the run — moves the judgement to whoever writes the reason, which is the lead, which is the one agent in the loop no lane reviews. Worth deciding only with more than one run's evidence; the remaining four stories will produce it, since the same rule fires on every correction they force.
+
+
+**State as of 2026-09-18.** The evidence came in and the cheap-looking fix shipped. The remaining phase-47 stories retired three more runs on the same rule, one of them over four amendments, and phase-48 retired two. `3841bc2` (2026-09-05) added `amend --reason`: it records `{at, reason, from, to}` in `input.amendments` and keeps the run, and the completed receipt carries them, so the reason the lead writes is at least inherited by the next reader. No lane reviews it, which was the objection above, and that objection still stands.
+
+The per-task half is unchanged and now sharper. An amendment keeps every accepted task accepted, including one whose condition the amendment touched, where before the abort at least dropped it. The template sentence quoted above was narrowed in `30b7136`: a correction may change a task's title, verification path or rationale, never its scope or completion condition. oh-my-claudecode 5.x answers this half by binding each completion claim and approval to the criteria revision it was made under; `docs/skills/execute/open.md` records why its companion route, replacing a criterion inside the run, was not taken here.
+
+## `ocs team` rebinds the lead's terminal to a new Run on every lane
+
+Closed 2026-09-26: eeda04d — `ocs home-run` binds a lead's pane to a Run of its own, independent of any lane's Run. `ocs team` rebinds the lead to home as soon as its dispatch attaches, and again on exit after acking its own `worker_done` on the lane Run, so a lane no longer leaves the lead's binding on a Run that ended with the lane.
+
+`orca orchestration run-create` binds the terminal that calls it, and Orca refuses to let one terminal act as another (`run-create --from <worker terminal>` answers `consumer_fenced`, measured 2026-09-19 on orca 1.4.205). So every `ocs team` invocation moves the lead's binding to that lane's Run. Two consequences, neither yet observed in a real run:
+
+- A lead that is itself an Orca coordinator — bound to its own Run and waiting on `check --wait` — loses that binding the moment it starts a lane, and its own workers' messages stop reaching it until it runs `run-use` again.
+- With several lanes started concurrently, only the last Run stays bound. `ocs team` consumes its own `worker_done` only while its Run is still the bound one, so an earlier lane's message stays in its inbox and may nudge the lead later. Whether Orca nudges for an unbound Run at all is unmeasured.
+
+The Orca model is one coordinator, one Run, a whole wave inside it. Moving `ocs team` onto the lead's existing Run would fix the first, but then every lane shares one inbox with whatever else the lead coordinates, and consuming a `worker_done` there means filtering by dispatch rather than draining. Not worth doing until a lead actually coordinates an Orca Run and starts a lane from it.
+
+Observed 2026-09-25, and not a defect after all: mail another session addressed to a lead's terminal handle landed in the Run of that lead's last `ocs team` lane. That Run is the lead's current inbox (the lead is its coordinator), so Orca nudged the lead with "You have 1 orchestration message. Run `orca orchestration check --run <lane run>`" and the lead read it. The only open part is latency: the nudge came 96 seconds after the send, and only after other input had already started a turn (findings `260925-orca-messaging-between-peer-claude-sessions.md`). Orca 1.4.207 has no verb to unbind a terminal, only `run-use` to rebind it. EnterWorktree is not a factor: the two leads made 60 `orca` calls while worktree-isolated and none was refused.
+
+## `ralplan` and `execute`: a fix that does not need another review, and run flags — raised 2026-09-24
+
+Closed 2026-09-26: 8f3593c (ralplan) and 4a41c57 (execute) — both review contracts now word `REVISE` as accept-and-disposition rather than revise-and-review; ralplan gained the fix-it route execute already had (`fix` after `approve`, with both the reviewed and the post-fix hash recorded and the lead reading the diff); and `--primed` and `--max-rounds <n>` ship on both skills. `--quick` was dropped rather than built — a lane told to review fast returned a review under two minutes that did not look read. `--round <n>` was folded into `--max-rounds`. The other suggestions weighed alongside — `--lanes`/`--reviewer` presets, `--dry-run`, and `--resume <run>` — were not taken.
+
+**Fix, then approve without a re-review.** The owner wants a verdict that means "this needs correcting, but not another round" — the corrected artifact is approved without a fresh lane — as oh-my-claudecode had. The two skills are not in the same place. `execute` already has it for `REVISE`: step 7 lets a `REVISE` finding be "fixed before [acceptance] with the verification path re-run and no fresh lane". `ralplan` does not, and the reason is structural rather than a missing word: `REVISE` findings are carried into the approval unfixed, and fixing one changes the review hash, which invalidates every verdict. So the question in `ralplan` is whether some content change may be made after the last blind round without reopening it — which is exactly the drift the two hashes exist to catch — and not whether a new verdict word is needed. A `BLOCK` that the lead thinks is small still has only two exits, a revision round or a deferral.
+
+**Invocation flags.** Wanted on both skills:
+
+- `--primed`: a re-review does not go to a new blind lane; the previous reviewer runs the closure check only. Today a primed closure check exists in both contracts but "cannot approve", so this flag inverts a rule both review contracts state, not only a default.
+- `--quick`: review runs faster. Not yet defined — fewer lanes, a lighter tier, or a shorter rubric are three different things.
+- `--round <n>`: run only the n-th round.
+
+Suggestions to weigh alongside, not yet discussed with the owner: `--max-rounds <n>` to stop at a bound and hand back `Draft` instead of re-arming the five-round trigger; `--lanes`/`--reviewer` presets such as a single-lane run; `--dry-run` that stops after the round-1 package is assembled so the package itself can be inspected (which would not have caught the `Status` leak in `docs/skills/ralplan/open.md`, since that one bypassed the package); and `--resume <run>` if resuming is not already implicit in the ledger.
+
+## A lead that never started an `ocs team` lane cannot be nudged by mail
+
+Closed 2026-09-26: eeda04d (R8.1, R8.2) — `ocs home-run` gives a lead a home Run from session start, through the SessionStart hook, for the interactive entrypoint, so mail sent before any `ocs team` lane is delivered and nudged. `ocs team` rebinds the lead to that home Run once a lane's dispatch attaches and again on exit, so the lead stays reachable after starting a lane too.
+
+Measured 2026-09-25 (findings `260925-orca-messaging-between-peer-claude-sessions.md`): Orca types its "You have N orchestration message(s)" nudge into a pane about a second after mail arrives, but only when that pane is bound to a Run and has been seen idle. A busy pane gets it at its next idle, and a pane bound to no Run got none in twelve minutes. A lead is bound only as a side effect of its first `ocs team` lane, so before that, mail another session sends it just sits there.
+
+The direction is a home Run per lead: bound once at session start, so the lead is reachable from the first minute. Where to create it is open. The SessionStart hook runs before any Orca pane identity is known to be stable, and a lane's `run-create` would still move the binding off it (Orca 1.4.207 has no unbind, only `run-use`). So `ocs team` would also have to rebind to the home Run after starting its lane, and its `worker_done` cleanup, which assumes it is bound to the lane Run, would have to change with it. The cleanup is also not stopping the late nudges it exists to stop: the two descvi leads received 40 across their lanes, often two per lane.
