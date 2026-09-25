@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04340",
+  "file": "corpus/kwakseongjae_oh-my-design__.codex_agents_omd-kr-writer.toml",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".codex/agents/omd-kr-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04341",
+  "file": "corpus/kwakseongjae_oh-my-design__.codex_agents_omd-ux-writer.toml",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".codex/agents/omd-ux-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04342",
+  "file": "corpus/kzagoris_winmtr-remaster__.github_agents_docs-agent.md",
+  "repo": "kzagoris/winmtr-remaster",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04343",
+  "file": "corpus/lailtonjunior_fiscalzen-project__.github_agents_documentation-writer.md",
+  "repo": "lailtonjunior/fiscalzen-project",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04344",
+  "file": "corpus/lalitm0428_temp__.github_agents_Temp_Report_Architect.agent.md",
+  "repo": "lalitm0428/temp",
+  "path": ".github/agents/Temp_Report_Architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04345",
+  "file": "corpus/lambage_NodeSpireTD__.github_agents_multiplayer-authority-architect.agent.md",
+  "repo": "lambage/NodeSpireTD",
+  "path": ".github/agents/multiplayer-authority-architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04346",
+  "file": "corpus/laurenjXD_dyna-serv-wims__.claude_agents_documentation-writer.md",
+  "repo": "laurenjXD/dyna-serv-wims",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04347",
+  "file": "corpus/laurierloi_filare__agents_prompts_docs-ci.md",
+  "repo": "laurierloi/filare",
+  "path": "agents/prompts/docs-ci.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04348",
+  "file": "corpus/lauz9888_throughline__.claude_agents_quality-reporter.md",
+  "repo": "lauz9888/throughline",
+  "path": ".claude/agents/quality-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04349",
+  "file": "corpus/lauz9888_untangle__.claude_agents_report-generator.md",
+  "repo": "lauz9888/untangle",
+  "path": ".claude/agents/report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

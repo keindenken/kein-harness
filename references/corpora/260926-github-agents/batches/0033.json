@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00330",
+  "file": "corpus/EffortlessMetrics_tokmd__.github_agents_build-author.agent.md",
+  "repo": "EffortlessMetrics/tokmd",
+  "path": ".github/agents/build-author.agent.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00331",
+  "file": "corpus/EffortlessMetrics_tokmd__agents_shared_roles_author.md",
+  "repo": "EffortlessMetrics/tokmd",
+  "path": "agents/shared/roles/author.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00332",
+  "file": "corpus/brunobracaioli_meta-agents-v4__.claude_agents_copywriter.md",
+  "repo": "brunobracaioli/meta-agents-v4",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00333",
+  "file": "corpus/brunobracaioli_meta-agents-v4__.claude_agents_lp-copywriter.md",
+  "repo": "brunobracaioli/meta-agents-v4",
+  "path": ".claude/agents/lp-copywriter.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00334",
+  "file": "corpus/mars-mx_vibesaas__.claude_agents_conversion-copywriter.md",
+  "repo": "mars-mx/vibesaas",
+  "path": ".claude/agents/conversion-copywriter.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00335",
+  "file": "corpus/saitarrun_Devforge-ai__agents_technical-writer.md",
+  "repo": "saitarrun/Devforge-ai",
+  "path": "agents/technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00336",
+  "file": "corpus/fugazi_playwright-automation-shop-app__.github_agents_docs-agent.agent.md",
+  "repo": "fugazi/playwright-automation-shop-app",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00337",
+  "file": "corpus/Genocs_genocs-library__.github_agents_documentation-writer.agent.md",
+  "repo": "Genocs/genocs-library",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00338",
+  "file": "corpus/JohnMichaelMiller_ai-practitioner-resources__.github_agents_blog-author.agent.md",
+  "repo": "JohnMichaelMiller/ai-practitioner-resources",
+  "path": ".github/agents/blog-author.agent.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00339",
+  "file": "corpus/SaebaRyoo_ibuy-portal-backend__.claude_agents_documentation-writer.md",
+  "repo": "SaebaRyoo/ibuy-portal-backend",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ }
+]

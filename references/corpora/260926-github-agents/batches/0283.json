@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02830",
+  "file": "corpus/EffortlessMetrics_demo-swarm__.claude_agents_bdd-author.md",
+  "repo": "EffortlessMetrics/demo-swarm",
+  "path": ".claude/agents/bdd-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02831",
+  "file": "corpus/EggProject_easter-skills-hack-to-hermes__.codex_agents_docs-scribe.toml",
+  "repo": "EggProject/easter-skills-hack-to-hermes",
+  "path": ".codex/agents/docs-scribe.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02832",
+  "file": "corpus/El-Mountassir_villa-thaifa__.claude_agents_html-report-generator.md",
+  "repo": "El-Mountassir/villa-thaifa",
+  "path": ".claude/agents/html-report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02833",
+  "file": "corpus/EladRab1106_dynamic-multi-agent-handoff-system__agents_researcher_google-cloud-sdk_lib_googlecloudsdk_schemas_certificatemanager_v1_CertificateAuthorityServiceConfig.yaml",
+  "repo": "EladRab1106/dynamic-multi-agent-handoff-system",
+  "path": "agents/researcher/google-cloud-sdk/lib/googlecloudsdk/schemas/certificatemanager/v1/CertificateAuthorityServiceConfig.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02834",
+  "file": "corpus/EladRab1106_dynamic-multi-agent-handoff-system__agents_researcher_google-cloud-sdk_lib_googlecloudsdk_schemas_gkeonprem_v1_Authorization.yaml",
+  "repo": "EladRab1106/dynamic-multi-agent-handoff-system",
+  "path": "agents/researcher/google-cloud-sdk/lib/googlecloudsdk/schemas/gkeonprem/v1/Authorization.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02835",
+  "file": "corpus/EladRab1106_dynamic-multi-agent-handoff-system__agents_researcher_google-cloud-sdk_lib_googlecloudsdk_schemas_networksecurity_v1_AuthorizationPolicy.yaml",
+  "repo": "EladRab1106/dynamic-multi-agent-handoff-system",
+  "path": "agents/researcher/google-cloud-sdk/lib/googlecloudsdk/schemas/networksecurity/v1/AuthorizationPolicy.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02836",
+  "file": "corpus/EldwinPr_uangsaku__.claude_agents_workbook-xlsx-author.md",
+  "repo": "EldwinPr/uangsaku",
+  "path": ".claude/agents/workbook-xlsx-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02837",
+  "file": "corpus/EldwinPr_uangsaku__.opencode_agent_bpmn-drawio-author.md",
+  "repo": "EldwinPr/uangsaku",
+  "path": ".opencode/agent/bpmn-drawio-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02838",
+  "file": "corpus/EldwinPr_uangsaku__.opencode_agent_diagram-drawio-author.md",
+  "repo": "EldwinPr/uangsaku",
+  "path": ".opencode/agent/diagram-drawio-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02839",
+  "file": "corpus/Eliran-Turgeman_blog_src__agents_editor.md",
+  "repo": "Eliran-Turgeman/blog_src",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

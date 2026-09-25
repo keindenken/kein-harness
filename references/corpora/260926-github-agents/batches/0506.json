@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05060",
+  "file": "corpus/travisjneuman_.claude__agents_technical-writer.md",
+  "repo": "travisjneuman/.claude",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05061",
+  "file": "corpus/tre-dnv_ado-backlog-author__.github_agents_backlog-author.agent.md",
+  "repo": "tre-dnv/ado-backlog-author",
+  "path": ".github/agents/backlog-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05062",
+  "file": "corpus/tribalthirst_tribalthirst__.github_agents_HugoEditor.agent.md",
+  "repo": "tribalthirst/tribalthirst",
+  "path": ".github/agents/HugoEditor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05063",
+  "file": "corpus/trio-translate_trio-specification__.codex_agents_trio_spec_editor.toml",
+  "repo": "trio-translate/trio-specification",
+  "path": ".codex/agents/trio_spec_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05064",
+  "file": "corpus/trmckinzie_aurelia-os__.claude_agents_generator-engine-editor.md",
+  "repo": "trmckinzie/aurelia-os",
+  "path": ".claude/agents/generator-engine-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05065",
+  "file": "corpus/trsdn_learning-platform__.github_agents_docs-specialist.agent.md",
+  "repo": "trsdn/learning-platform",
+  "path": ".github/agents/docs-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05066",
+  "file": "corpus/trsdn_meta-strategy__.github_agents_documentation-agent.agent.md",
+  "repo": "trsdn/meta-strategy",
+  "path": ".github/agents/documentation-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05067",
+  "file": "corpus/truffle-ai_dexto__agents_image-editor-agent_image-editor-agent.yml",
+  "repo": "truffle-ai/dexto",
+  "path": "agents/image-editor-agent/image-editor-agent.yml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05068",
+  "file": "corpus/trungdo9_ClauKit__.claude_agents_engineering_docs-manager.md",
+  "repo": "trungdo9/ClauKit",
+  "path": ".claude/agents/engineering/docs-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05069",
+  "file": "corpus/trustdan_zedkata__.claude_agents_zed-docs-scout.md",
+  "repo": "trustdan/zedkata",
+  "path": ".claude/agents/zed-docs-scout.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

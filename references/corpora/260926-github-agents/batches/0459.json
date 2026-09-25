@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04590",
+  "file": "corpus/nino-chavez_ai-champions-kit__agents_universal_technical-writer.md",
+  "repo": "nino-chavez/ai-champions-kit",
+  "path": "agents/universal/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04591",
+  "file": "corpus/nirholas_task-queue-system__.github_agents_prompt-writer.agent.md",
+  "repo": "nirholas/task-queue-system",
+  "path": ".github/agents/prompt-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04592",
+  "file": "corpus/nirholas_xspace-AI__.github_agents_docs.agent.md",
+  "repo": "nirholas/xspace-AI",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04593",
+  "file": "corpus/nishim_dotfiles__agents_claude_agents_issue-writer.md",
+  "repo": "nishim/dotfiles",
+  "path": "agents/claude/agents/issue-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04594",
+  "file": "corpus/nitinkc_copilot-agents-hub__.github_agents_fill-article-template.md",
+  "repo": "nitinkc/copilot-agents-hub",
+  "path": ".github/agents/fill-article-template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04595",
+  "file": "corpus/njdaniel_conch__.claude_agents_docs-agent.md",
+  "repo": "njdaniel/conch",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04596",
+  "file": "corpus/nmwael_ailbert__.opencode_agent_writer.md",
+  "repo": "nmwael/ailbert",
+  "path": ".opencode/agent/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04597",
+  "file": "corpus/noahwilliamshaffer_HollowMarch__.claude_agents_data-author.md",
+  "repo": "noahwilliamshaffer/HollowMarch",
+  "path": ".claude/agents/data-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04598",
+  "file": "corpus/noamsto_agent-smith__agents_editor.md",
+  "repo": "noamsto/agent-smith",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04599",
+  "file": "corpus/nociza_cuti__.codex_agents_docs-generator.toml",
+  "repo": "nociza/cuti",
+  "path": ".codex/agents/docs-generator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

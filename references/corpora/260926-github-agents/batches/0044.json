@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00440",
+  "file": "corpus/mattmacy_dotclaude__agents_docs-analyzer.md",
+  "repo": "mattmacy/dotclaude",
+  "path": "agents/docs-analyzer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00441",
+  "file": "corpus/mdmagnuson-creator_helm-ade-toolkit__agents_docs-writer.md",
+  "repo": "mdmagnuson-creator/helm-ade-toolkit",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00442",
+  "file": "corpus/mdmagnuson-creator_helm-ade-toolkit__agents_tools-writer.md",
+  "repo": "mdmagnuson-creator/helm-ade-toolkit",
+  "path": "agents/tools-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00443",
+  "file": "corpus/mickmartinez_clothing-inventory__.github_agents_spec-writer.md",
+  "repo": "mickmartinez/clothing-inventory",
+  "path": ".github/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00444",
+  "file": "corpus/microsoft_amplifier-bundle-stories__agents_technical-writer.md",
+  "repo": "microsoft/amplifier-bundle-stories",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00445",
+  "file": "corpus/minchanpark_taglow_survey_admin__.codex_agents_omd-kr-writer.toml",
+  "repo": "minchanpark/taglow_survey_admin",
+  "path": ".codex/agents/omd-kr-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00446",
+  "file": "corpus/moshesham_Data-Science-Analytical-Handbook__.github_agents_grant-writer.agent.md",
+  "repo": "moshesham/Data-Science-Analytical-Handbook",
+  "path": ".github/agents/grant-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00447",
+  "file": "corpus/natalinio_agentic-powerbi-squad__.github_agents_pbi-report.agent.md",
+  "repo": "natalinio/agentic-powerbi-squad",
+  "path": ".github/agents/pbi-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00448",
+  "file": "corpus/neverased_NeverBot__.codex_agents_08-business-product_content-quality-editor.toml",
+  "repo": "neverased/NeverBot",
+  "path": ".codex/agents/08-business-product/content-quality-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00449",
+  "file": "corpus/nikita-voloshyn_batch-creative-studio__.claude_agents_docs.md",
+  "repo": "nikita-voloshyn/batch-creative-studio",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

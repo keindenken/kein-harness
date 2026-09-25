@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00350",
+  "file": "corpus/Dragoon0x_studio__agents_copywriter.md",
+  "repo": "Dragoon0x/studio",
+  "path": "agents/copywriter.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00351",
+  "file": "corpus/FennexFox_NoOfficeDemandFix__.codex_agents_docs_verifier.toml",
+  "repo": "FennexFox/NoOfficeDemandFix",
+  "path": ".codex/agents/docs_verifier.toml",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00352",
+  "file": "corpus/RorroRojas3_enterprise-gpt__.claude_agents_se-technical-writer.md",
+  "repo": "RorroRojas3/enterprise-gpt",
+  "path": ".claude/agents/se-technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00353",
+  "file": "corpus/SufficientDaikon_aether__agents_workers_marketing_copywriter.agent.md",
+  "repo": "SufficientDaikon/aether",
+  "path": "agents/workers/marketing/copywriter.agent.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00354",
+  "file": "corpus/kanydao_ml-template__.codex_agents_branch-reporter.toml",
+  "repo": "kanydao/ml-template",
+  "path": ".codex/agents/branch-reporter.toml",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00355",
+  "file": "corpus/kanydao_ml-template__.codex_agents_checkpoint-writer.toml",
+  "repo": "kanydao/ml-template",
+  "path": ".codex/agents/checkpoint-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00356",
+  "file": "corpus/asleekgeek_claude-multiagent-catalogue__agents_gem-documentation-writer.md",
+  "repo": "asleekgeek/claude-multiagent-catalogue",
+  "path": "agents/gem-documentation-writer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00357",
+  "file": "corpus/deschutesdesigngroupllc_perscom-docs__.claude_agents_technical-writer.md",
+  "repo": "deschutesdesigngroupllc/perscom-docs",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00358",
+  "file": "corpus/michaellperry_aaad__.claude_agents_user-story-writer.md",
+  "repo": "michaellperry/aaad",
+  "path": ".claude/agents/user-story-writer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00359",
+  "file": "corpus/wiicode_odeshi__agents_senior-technical-writer-compact.md",
+  "repo": "wiicode/odeshi",
+  "path": "agents/senior-technical-writer-compact.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ }
+]

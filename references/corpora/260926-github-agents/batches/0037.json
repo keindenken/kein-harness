@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00370",
+  "file": "corpus/lgg3230_UnionSpill__.claude_agents_editor.md",
+  "repo": "lgg3230/UnionSpill",
+  "path": ".claude/agents/editor.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00371",
+  "file": "corpus/ms-mfg-community_ghcp-contoso-multiagent-demos__.github_agents_story-writer.agent.md",
+  "repo": "ms-mfg-community/ghcp-contoso-multiagent-demos",
+  "path": ".github/agents/story-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00372",
+  "file": "corpus/rjwalters_bucket-brigade__.claude_agents_anvil-report-reviser.md",
+  "repo": "rjwalters/bucket-brigade",
+  "path": ".claude/agents/anvil-report-reviser.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00373",
+  "file": "corpus/shalevamin_The-_Ultimate_agents__.claude_agents_data-analytics-reporter.md",
+  "repo": "shalevamin/The-_Ultimate_agents",
+  "path": ".claude/agents/data-analytics-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00374",
+  "file": "corpus/snoodleboot-io_pirn__.claude_agents_document-agent.md",
+  "repo": "snoodleboot-io/pirn",
+  "path": ".claude/agents/document-agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00375",
+  "file": "corpus/steveofficer_squadron__.github_agents_technical-writer.agent.md",
+  "repo": "steveofficer/squadron",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00376",
+  "file": "corpus/AEADataEditor_replication-template__.github_agents_transparency-editor.agent.md",
+  "repo": "AEADataEditor/replication-template",
+  "path": ".github/agents/transparency-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00377",
+  "file": "corpus/Abady001_TripHub__.claude_agents_i18n-editor.md",
+  "repo": "Abady001/TripHub",
+  "path": ".claude/agents/i18n-editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00378",
+  "file": "corpus/Aco-Lone_DBAnalysysMCP__.github_agents_subsystem-spec-author.agent.md",
+  "repo": "Aco-Lone/DBAnalysysMCP",
+  "path": ".github/agents/subsystem-spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00379",
+  "file": "corpus/Arka102202_zero-css__.claude_agents_technical-writer.md",
+  "repo": "Arka102202/zero-css",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

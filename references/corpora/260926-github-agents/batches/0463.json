@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04630",
+  "file": "corpus/obstreperous-ai_sql-loader-python__.github_agents_documentation.md",
+  "repo": "obstreperous-ai/sql-loader-python",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04631",
+  "file": "corpus/obstreperous-ai_sql-loader-python__.github_agents_python-code-editor.md",
+  "repo": "obstreperous-ai/sql-loader-python",
+  "path": ".github/agents/python-code-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04632",
+  "file": "corpus/oceanprotocol_ai-instructions__agents_technical-writer.md",
+  "repo": "oceanprotocol/ai-instructions",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04633",
+  "file": "corpus/oelite_coding-standards__agents_packs_documentation.md",
+  "repo": "oelite/coding-standards",
+  "path": "agents/packs/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04634",
+  "file": "corpus/okhaimie-dev_survivor_exchange__.opencode_agent_tech-docs-writer.md",
+  "repo": "okhaimie-dev/survivor_exchange",
+  "path": ".opencode/agent/tech-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04635",
+  "file": "corpus/olafkfreund_nixos_config__.claude_agents_documentation-sync.md",
+  "repo": "olafkfreund/nixos_config",
+  "path": ".claude/agents/documentation-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04636",
+  "file": "corpus/ole-techwood_AGPWorkbook__.github_agents_tech-writer.agent.md",
+  "repo": "ole-techwood/AGPWorkbook",
+  "path": ".github/agents/tech-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04637",
+  "file": "corpus/oletizi_writingcontrol.org__.claude_agents_documentation-engineer.md",
+  "repo": "oletizi/writingcontrol.org",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04638",
+  "file": "corpus/olibartfast_cpu-optimizations-lab__.codex_agents_lab-author.toml",
+  "repo": "olibartfast/cpu-optimizations-lab",
+  "path": ".codex/agents/lab-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04639",
+  "file": "corpus/ommishra0_openhack__.opencode_agent_report.md",
+  "repo": "ommishra0/openhack",
+  "path": ".opencode/agent/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

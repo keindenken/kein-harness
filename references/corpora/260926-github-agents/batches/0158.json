@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01580",
+  "file": "corpus/njt_powerups-requirements__agents_requirements-editor.md",
+  "repo": "njt/powerups-requirements",
+  "path": "agents/requirements-editor.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01581",
+  "file": "corpus/pillip_claude-dev-kit__agents_copywriter.md",
+  "repo": "pillip/claude-dev-kit",
+  "path": "agents/copywriter.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01582",
+  "file": "corpus/pillip_claude-dev-kit__agents_issue-writer.md",
+  "repo": "pillip/claude-dev-kit",
+  "path": "agents/issue-writer.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01583",
+  "file": "corpus/ralouta_ArcGIS-JavaScript-AI-Component__.github_agents_docs.agent.md",
+  "repo": "ralouta/ArcGIS-JavaScript-AI-Component",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01584",
+  "file": "corpus/rekby_obsidian-paste-transform__agents_update-documentation.md",
+  "repo": "rekby/obsidian-paste-transform",
+  "path": "agents/update-documentation.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01585",
+  "file": "corpus/thu-nics_mini-opd__.claude_agents_report.md",
+  "repo": "thu-nics/mini-opd",
+  "path": ".claude/agents/report.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01586",
+  "file": "corpus/zevtos_agentpipe__agents_docs.md",
+  "repo": "zevtos/agentpipe",
+  "path": "agents/docs.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01587",
+  "file": "corpus/CGSOG-JumpStarts_JumpStart-AutoNav__.github_agents_jumpstart-tech-writer.agent.md",
+  "repo": "CGSOG-JumpStarts/JumpStart-AutoNav",
+  "path": ".github/agents/jumpstart-tech-writer.agent.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01588",
+  "file": "corpus/InterCooperative-Network_icn__.github_agents_icn-docs-spec.md",
+  "repo": "InterCooperative-Network/icn",
+  "path": ".github/agents/icn-docs-spec.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01589",
+  "file": "corpus/InterCooperative-Network_icn__.github_agents_icn-pr-writer.md",
+  "repo": "InterCooperative-Network/icn",
+  "path": ".github/agents/icn-pr-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ }
+]

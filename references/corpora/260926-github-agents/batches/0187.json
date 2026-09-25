@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01870",
+  "file": "corpus/microsoft_amplifier-collection-recipes__agents_recipe-author.md",
+  "repo": "microsoft/amplifier-collection-recipes",
+  "path": "agents/recipe-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01871",
+  "file": "corpus/minjun0219_fe-quiz__.claude_agents_quiz-author.md",
+  "repo": "minjun0219/fe-quiz",
+  "path": ".claude/agents/quiz-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01872",
+  "file": "corpus/omsherikar_prompt-extraction-lab__.claude_agents_technical-writer.md",
+  "repo": "omsherikar/prompt-extraction-lab",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01873",
+  "file": "corpus/pascalvanderheiden_pascal-to-java-ai-dev-template-copilot__.github_agents_documentation-agent.md",
+  "repo": "pascalvanderheiden/pascal-to-java-ai-dev-template-copilot",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01874",
+  "file": "corpus/sentania-labs_vcf-content-factory__.claude_agents_dashboard-author.md",
+  "repo": "sentania-labs/vcf-content-factory",
+  "path": ".claude/agents/dashboard-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01875",
+  "file": "corpus/sentania-labs_vcf-content-factory__.claude_agents_mp-author.md",
+  "repo": "sentania-labs/vcf-content-factory",
+  "path": ".claude/agents/mp-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01876",
+  "file": "corpus/sentania-labs_vcf-content-factory__.claude_agents_report-author.md",
+  "repo": "sentania-labs/vcf-content-factory",
+  "path": ".claude/agents/report-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01877",
+  "file": "corpus/sentania-labs_vcf-content-factory__.claude_agents_view-author.md",
+  "repo": "sentania-labs/vcf-content-factory",
+  "path": ".claude/agents/view-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01878",
+  "file": "corpus/tiflis-io_tiflis-code__.opencode_agent_documentation-engineer.md",
+  "repo": "tiflis-io/tiflis-code",
+  "path": ".opencode/agent/documentation-engineer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01879",
+  "file": "corpus/vpaivag_skills__agents_qa-author.md",
+  "repo": "vpaivag/skills",
+  "path": "agents/qa-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

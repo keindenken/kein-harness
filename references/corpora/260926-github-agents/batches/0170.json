@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01700",
+  "file": "corpus/openshift_aws-vpce-operator__.claude_agents_docs-agent.md",
+  "repo": "openshift/aws-vpce-operator",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01701",
+  "file": "corpus/reasonkit_reasonkit-core__.github_agents_roles_technical-writer.md",
+  "repo": "reasonkit/reasonkit-core",
+  "path": ".github/agents/roles/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01702",
+  "file": "corpus/rebelopsio_claude-code-agents__agents_product-management_technical-writer.md",
+  "repo": "rebelopsio/claude-code-agents",
+  "path": "agents/product-management/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01703",
+  "file": "corpus/scotec-Software-Solutions-AB_Bim.FamilyManager__.github_agents_csharp-documentation.agent.md",
+  "repo": "scotec-Software-Solutions-AB/Bim.FamilyManager",
+  "path": ".github/agents/csharp-documentation.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01704",
+  "file": "corpus/scotec-Software-Solutions-AB_Bim.FamilyManager__.github_agents_documentation-writer.agent.md",
+  "repo": "scotec-Software-Solutions-AB/Bim.FamilyManager",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01705",
+  "file": "corpus/spumer_dramatiq-kombu-broker__.claude_agents_documentation-keeper.md",
+  "repo": "spumer/dramatiq-kombu-broker",
+  "path": ".claude/agents/documentation-keeper.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01706",
+  "file": "corpus/telerik_document-processing-docs__.github_agents_docs-editor.agent.md",
+  "repo": "telerik/document-processing-docs",
+  "path": ".github/agents/docs-editor.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01707",
+  "file": "corpus/uhstray-io_agent-cloud__agents_websmith_context_catalogs_stack-presets_domains_documentation.md",
+  "repo": "uhstray-io/agent-cloud",
+  "path": "agents/websmith/context/catalogs/stack-presets/domains/documentation.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01708",
+  "file": "corpus/vepo_issues__.claude_agents_docs-sync.md",
+  "repo": "vepo/issues",
+  "path": ".claude/agents/docs-sync.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01709",
+  "file": "corpus/vintasoftware_vinta-schedule-api__.claude_agents_migration-author.md",
+  "repo": "vintasoftware/vinta-schedule-api",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ }
+]

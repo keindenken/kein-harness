@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03290",
+  "file": "corpus/ShubhamSarda_dailydots__.github_agents_documentation-readme.agent.md",
+  "repo": "ShubhamSarda/dailydots",
+  "path": ".github/agents/documentation-readme.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03291",
+  "file": "corpus/Siddharthas-Aditi_Aditi-IT-Assist__agents_dev_documentation.md",
+  "repo": "Siddharthas-Aditi/Aditi-IT-Assist",
+  "path": "agents/dev/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03292",
+  "file": "corpus/SieczkoIT_Portfolio__.claude_agents_copywriter.md",
+  "repo": "SieczkoIT/Portfolio",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03293",
+  "file": "corpus/Simopich_unbound-translator__.codex_agents_docs-sync.toml",
+  "repo": "Simopich/unbound-translator",
+  "path": ".codex/agents/docs-sync.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03294",
+  "file": "corpus/Simplicitas-Studios_Demo.Sim.Faciem__.github_agents_faciem-editor.agent.md",
+  "repo": "Simplicitas-Studios/Demo.Sim.Faciem",
+  "path": ".github/agents/faciem-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03295",
+  "file": "corpus/Simplicitas-Studios_Demo.Sim.Faciem__.github_agents_faciem-internal-editor.agent.md",
+  "repo": "Simplicitas-Studios/Demo.Sim.Faciem",
+  "path": ".github/agents/faciem-internal-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03296",
+  "file": "corpus/Simplicitas-Studios_Demo.Sim.Faciem__.github_agents_material-editor.agent.md",
+  "repo": "Simplicitas-Studios/Demo.Sim.Faciem",
+  "path": ".github/agents/material-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03297",
+  "file": "corpus/SirGunther_dustin-thomason__agents_docs_wiki-spec-authoring.md",
+  "repo": "SirGunther/dustin-thomason",
+  "path": "agents/docs/wiki-spec-authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03298",
+  "file": "corpus/Smainer_smainer__.github_agents_marketing-copywriter.agent.md",
+  "repo": "Smainer/smainer",
+  "path": ".github/agents/marketing-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03299",
+  "file": "corpus/Smainer_smainer__.github_agents_technical-copywriter.agent.md",
+  "repo": "Smainer/smainer",
+  "path": ".github/agents/technical-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

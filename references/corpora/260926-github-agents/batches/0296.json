@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02960",
+  "file": "corpus/JavaLavadora_SaFona__.claude_agents_na-catalina-narrative-writer.md",
+  "repo": "JavaLavadora/SaFona",
+  "path": ".claude/agents/na-catalina-narrative-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02961",
+  "file": "corpus/JaviMontano_mao-discovery-framework__agents_technical-writer.md",
+  "repo": "JaviMontano/mao-discovery-framework",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02962",
+  "file": "corpus/JaviMontano_mao-pm-apex__agents_editorial-director.md",
+  "repo": "JaviMontano/mao-pm-apex",
+  "path": "agents/editorial-director.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02963",
+  "file": "corpus/JaydipGabani_agentkit__agents_gatekeeper-policy-author.agent.md",
+  "repo": "JaydipGabani/agentkit",
+  "path": "agents/gatekeeper-policy-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02964",
+  "file": "corpus/Jchinonso_Kenchiops__.claude_agents_docs-generator.md",
+  "repo": "Jchinonso/Kenchiops",
+  "path": ".claude/agents/docs-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02965",
+  "file": "corpus/Jdubrick_ai-hub__agents_technical-writer.toml",
+  "repo": "Jdubrick/ai-hub",
+  "path": "agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02966",
+  "file": "corpus/JessicaNathany_cafedebug-ui__.github_agents_documentation-monk.md",
+  "repo": "JessicaNathany/cafedebug-ui",
+  "path": ".github/agents/documentation-monk.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02967",
+  "file": "corpus/JeyrellT_PBI-QUEST__.claude_agents_docs-agent.md",
+  "repo": "JeyrellT/PBI-QUEST",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02968",
+  "file": "corpus/Jfhelin_hack__.github_agents_doc-writer.md",
+  "repo": "Jfhelin/hack",
+  "path": ".github/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02969",
+  "file": "corpus/Jieunsse_axbridge__.claude_agents_copywriter.md",
+  "repo": "Jieunsse/axbridge",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01640",
+  "file": "corpus/fabric-testbed_fabrictestbed-extensions__.claude_agents_doc-writer.md",
+  "repo": "fabric-testbed/fabrictestbed-extensions",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01641",
+  "file": "corpus/gwenwindflower_.charmschool__agents_shared_agents_writing-prose-editor.md",
+  "repo": "gwenwindflower/.charmschool",
+  "path": "agents/shared/agents/writing-prose-editor.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01642",
+  "file": "corpus/hishamkaram_claude-code-router__.codex_agents_docs-updater.toml",
+  "repo": "hishamkaram/claude-code-router",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01643",
+  "file": "corpus/hishamkaram_claude-code-router__agents_docs-updater.md",
+  "repo": "hishamkaram/claude-code-router",
+  "path": "agents/docs-updater.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01644",
+  "file": "corpus/ikovinski_Claude__agents_documentation_technical-writer.md",
+  "repo": "ikovinski/Claude",
+  "path": "agents/documentation/technical-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01645",
+  "file": "corpus/ilandahan_AID__agents_phase2-techspec-synthesizer.md",
+  "repo": "ilandahan/AID",
+  "path": "agents/phase2-techspec-synthesizer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01646",
+  "file": "corpus/ilandahan_AID__agents_phase3-spec-consolidator.md",
+  "repo": "ilandahan/AID",
+  "path": "agents/phase3-spec-consolidator.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01647",
+  "file": "corpus/ilandahan_AID__agents_prd-research-aggregator.md",
+  "repo": "ilandahan/AID",
+  "path": "agents/prd-research-aggregator.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01648",
+  "file": "corpus/ilandahan_AID__agents_prd-validator.md",
+  "repo": "ilandahan/AID",
+  "path": "agents/prd-validator.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01649",
+  "file": "corpus/ilandahan_AID__agents_prd-writer.md",
+  "repo": "ilandahan/AID",
+  "path": "agents/prd-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ }
+]

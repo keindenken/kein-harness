@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01050",
+  "file": "corpus/xiaobei930_cc-best__agents_tdd-guide.md",
+  "repo": "xiaobei930/cc-best",
+  "path": "agents/tdd-guide.md",
+  "stars": 49,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01051",
+  "file": "corpus/CodingCodingK_mas-pipeline__agents_writer.md",
+  "repo": "CodingCodingK/mas-pipeline",
+  "path": "agents/writer.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01052",
+  "file": "corpus/JosephHampton_awesome-gemini-cli-subagents__agents_developer-experience_documentation-writer.md",
+  "repo": "JosephHampton/awesome-gemini-cli-subagents",
+  "path": "agents/developer-experience/documentation-writer.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01053",
+  "file": "corpus/iSerter_laravel-claude-agents__agents_laravel-documentation-engineer.md",
+  "repo": "iSerter/laravel-claude-agents",
+  "path": "agents/laravel-documentation-engineer.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01054",
+  "file": "corpus/llcoolblaze_claude-boris__.claude_agents_doc-generator.md",
+  "repo": "llcoolblaze/claude-boris",
+  "path": ".claude/agents/doc-generator.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01055",
+  "file": "corpus/microsoft_rego-cpp__.github_agents_editor-lens.agent.md",
+  "repo": "microsoft/rego-cpp",
+  "path": ".github/agents/editor-lens.agent.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01056",
+  "file": "corpus/pgEdge_ai-dba-workbench__.claude_agents_documentation-writer.md",
+  "repo": "pgEdge/ai-dba-workbench",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 48,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01057",
+  "file": "corpus/rjmurillo_ai-agents__.claude_agents_explainer.md",
+  "repo": "rjmurillo/ai-agents",
+  "path": ".claude/agents/explainer.md",
+  "stars": 47,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01058",
+  "file": "corpus/TheAstrelo_Claude-Pipeline__.claude_agents_quality-docs.md",
+  "repo": "TheAstrelo/Claude-Pipeline",
+  "path": ".claude/agents/quality-docs.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01059",
+  "file": "corpus/hex0xdeadbeef_claude-kit__.claude_agents_project-researcher_examples_sample-report.md",
+  "repo": "hex0xdeadbeef/claude-kit",
+  "path": ".claude/agents/project-researcher/examples/sample-report.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ }
+]

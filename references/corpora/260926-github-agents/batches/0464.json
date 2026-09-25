@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04640",
+  "file": "corpus/omnivurse_crm-eco__.claude_agents_qa-reporter.md",
+  "repo": "omnivurse/crm-eco",
+  "path": ".claude/agents/qa-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04641",
+  "file": "corpus/onmax_pr-review-agent__.claude_agents_documentation.md",
+  "repo": "onmax/pr-review-agent",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04642",
+  "file": "corpus/onshoreoutsourcing_lighthouse-beacon__.claude_agents_documentation-generator.md",
+  "repo": "onshoreoutsourcing/lighthouse-beacon",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04643",
+  "file": "corpus/openkairos_openkairos.github.io__.github_agents_open-kairos-docs-author.agent.md",
+  "repo": "openkairos/openkairos.github.io",
+  "path": ".github/agents/open-kairos-docs-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04644",
+  "file": "corpus/openkairos_openkairos.github.io__.github_agents_open-kairos-docs-editor.agent.md",
+  "repo": "openkairos/openkairos.github.io",
+  "path": ".github/agents/open-kairos-docs-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04645",
+  "file": "corpus/openkairos_openkairos.github.io__.github_agents_open-kairos-openapi-editor.agent.md",
+  "repo": "openkairos/openkairos.github.io",
+  "path": ".github/agents/open-kairos-openapi-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04646",
+  "file": "corpus/openl-tablets_openl-tablets__.claude_agents_openl-java-openapi-docs.md",
+  "repo": "openl-tablets/openl-tablets",
+  "path": ".claude/agents/openl-java-openapi-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04647",
+  "file": "corpus/openshift_pagerduty-operator__.claude_agents_docs-agent.md",
+  "repo": "openshift/pagerduty-operator",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04648",
+  "file": "corpus/orchwang_orchwang.github.io__.claude_agents_deck-author.md",
+  "repo": "orchwang/orchwang.github.io",
+  "path": ".claude/agents/deck-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04649",
+  "file": "corpus/orieken_saturday-monorepo-csharp__.claude_agents_spec-writer.md",
+  "repo": "orieken/saturday-monorepo-csharp",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

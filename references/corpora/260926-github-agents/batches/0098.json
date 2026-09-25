@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00980",
+  "file": "corpus/nais_doc__.github_agents_technical-writer.agent.md",
+  "repo": "nais/doc",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 68,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00981",
+  "file": "corpus/sl-design-system_components__.github_agents_component-author.agent.md",
+  "repo": "sl-design-system/components",
+  "path": ".github/agents/component-author.agent.md",
+  "stars": 67,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00982",
+  "file": "corpus/sl-design-system_components__.github_agents_documentation-writer.agent.md",
+  "repo": "sl-design-system/components",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 67,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00983",
+  "file": "corpus/sl-design-system_components__.github_agents_storybook-author.agent.md",
+  "repo": "sl-design-system/components",
+  "path": ".github/agents/storybook-author.agent.md",
+  "stars": 67,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00984",
+  "file": "corpus/BRIKEV_twd__.claude_agents_docs-check.md",
+  "repo": "BRIKEV/twd",
+  "path": ".claude/agents/docs-check.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00985",
+  "file": "corpus/anchildress1_awesome-ai__docs_agents_hlbpa-docs.md",
+  "repo": "anchildress1/awesome-ai",
+  "path": "docs/agents/hlbpa-docs.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00986",
+  "file": "corpus/anchildress1_awesome-ai__docs_agents_instructionalist-docs.md",
+  "repo": "anchildress1/awesome-ai",
+  "path": "docs/agents/instructionalist-docs.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00987",
+  "file": "corpus/anchildress1_awesome-ai__docs_agents_logfather-docs.md",
+  "repo": "anchildress1/awesome-ai",
+  "path": "docs/agents/logfather-docs.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00988",
+  "file": "corpus/anchildress1_awesome-ai__docs_agents_pragmatist-docs.md",
+  "repo": "anchildress1/awesome-ai",
+  "path": "docs/agents/pragmatist-docs.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00989",
+  "file": "corpus/teaguesterling_duckdb_mcp__agents_specialized_duckdb-mcp-docs.md",
+  "repo": "teaguesterling/duckdb_mcp",
+  "path": "agents/specialized/duckdb-mcp-docs.md",
+  "stars": 66,
+  "copies_in_repos": 1
+ }
+]

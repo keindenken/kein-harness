@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02460",
+  "file": "corpus/hrhrkeee_my.github__.github_agents_diagram-editor.agent.md",
+  "repo": "hrhrkeee/my.github",
+  "path": ".github/agents/diagram-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02461",
+  "file": "corpus/imbafls_tokezly__.claude_agents_tokezly-documentation.md",
+  "repo": "imbafls/tokezly",
+  "path": ".claude/agents/tokezly-documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02462",
+  "file": "corpus/impresso_impresso-user-admin__.github_agents_documentation.md",
+  "repo": "impresso/impresso-user-admin",
+  "path": ".github/agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02463",
+  "file": "corpus/itchyshin_GLLVModels.jl__.codex_agents_documenter-editor.toml",
+  "repo": "itchyshin/GLLVModels.jl",
+  "path": ".codex/agents/documenter-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02464",
+  "file": "corpus/itchyshin_freqTLS__.claude_agents_pkgdown-editor.md",
+  "repo": "itchyshin/freqTLS",
+  "path": ".claude/agents/pkgdown-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02465",
+  "file": "corpus/j-wang_claude-writing-assistant__.claude_agents_copy-editor.md",
+  "repo": "j-wang/claude-writing-assistant",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02466",
+  "file": "corpus/james5101_tesla-checklist-pro__.claude_agents_checklist-editor.md",
+  "repo": "james5101/tesla-checklist-pro",
+  "path": ".claude/agents/checklist-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02467",
+  "file": "corpus/jarlbrak_ftk-mod-framework__.claude_agents_content-author.md",
+  "repo": "jarlbrak/ftk-mod-framework",
+  "path": ".claude/agents/content-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02468",
+  "file": "corpus/jarlbrak_ftk-mod-framework__.codex_agents_content-author.toml",
+  "repo": "jarlbrak/ftk-mod-framework",
+  "path": ".codex/agents/content-author.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02469",
+  "file": "corpus/javocsoft_linuxstreamdeck__.claude_agents_obs-action-author.md",
+  "repo": "javocsoft/linuxstreamdeck",
+  "path": ".claude/agents/obs-action-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

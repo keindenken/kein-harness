@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00210",
+  "file": "corpus/andersenqvistdev_mdlint-sandbox__.claude_agents_company_product_technical-writer.md",
+  "repo": "andersenqvistdev/mdlint-sandbox",
+  "path": ".claude/agents/company/product/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00211",
+  "file": "corpus/bramato_aimanager__.claude_agents_installer.docs.technical-writer.md",
+  "repo": "bramato/aimanager",
+  "path": ".claude/agents/installer.docs.technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00212",
+  "file": "corpus/deonmenezes_mantis-codex__.codex_agents_reporter.toml",
+  "repo": "deonmenezes/mantis-codex",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00213",
+  "file": "corpus/dscv101_cc-agents__.github_agents_technical-writer.md",
+  "repo": "dscv101/cc-agents",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00214",
+  "file": "corpus/iamcaominhtien_github-copilot-kit__.github_agents_documentation-curator.agent.md",
+  "repo": "iamcaominhtien/github-copilot-kit",
+  "path": ".github/agents/documentation-curator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00215",
+  "file": "corpus/illuminais_A05__.github_agents_editor-slides.agent.md",
+  "repo": "illuminais/A05",
+  "path": ".github/agents/editor-slides.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00216",
+  "file": "corpus/jasonmichaelbell78-creator_framework__.claude_agents_documentation-expert.md",
+  "repo": "jasonmichaelbell78-creator/framework",
+  "path": ".claude/agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00217",
+  "file": "corpus/k98co007_privatetrade__.github_agents_userstory-author.agent.md",
+  "repo": "k98co007/privatetrade",
+  "path": ".github/agents/userstory-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00218",
+  "file": "corpus/koala-man-64_asset-allocation__.github_agents_technical-writer-dev-advocate.agent.md",
+  "repo": "koala-man-64/asset-allocation",
+  "path": ".github/agents/technical-writer-dev-advocate.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00219",
+  "file": "corpus/manujoz_dards-game__.github_agents_Documentation.agent.md",
+  "repo": "manujoz/dards-game",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ }
+]

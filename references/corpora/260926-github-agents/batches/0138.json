@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01380",
+  "file": "corpus/hoangsonww_DevVerse-SWE-Blog__.claude_agents_devverse-content-editor.md",
+  "repo": "hoangsonww/DevVerse-SWE-Blog",
+  "path": ".claude/agents/devverse-content-editor.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01381",
+  "file": "corpus/kettleofketchup_DraftForge__.claude_agents_mkdocs-documentation.md",
+  "repo": "kettleofketchup/DraftForge",
+  "path": ".claude/agents/mkdocs-documentation.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01382",
+  "file": "corpus/klimPaskov_Agentic-HOI4-Modding__.opencode_agent_hoi4-documentation-curator.md",
+  "repo": "klimPaskov/Agentic-HOI4-Modding",
+  "path": ".opencode/agent/hoi4-documentation-curator.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01383",
+  "file": "corpus/komluk_scaffolding__agents_tech-writer.md",
+  "repo": "komluk/scaffolding",
+  "path": "agents/tech-writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01384",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_README-zh.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/README-zh.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01385",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-analyst.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-analyst.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01386",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-architect.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-architect.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01387",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-developer.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-developer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01388",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-orchestrator.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-orchestrator.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01389",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-planner.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-planner.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ }
+]

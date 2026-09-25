@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04210",
+  "file": "corpus/joaoemanuelzilli_legacy_code__.claude_agents_documentation-engineer.md",
+  "repo": "joaoemanuelzilli/legacy_code",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04211",
+  "file": "corpus/joealmond_skill__.github_agents_docs.agent.md",
+  "repo": "joealmond/skill",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04212",
+  "file": "corpus/johnsont1693_storygame-studio__.github_agents_game-editor.agent.md",
+  "repo": "johnsont1693/storygame-studio",
+  "path": ".github/agents/game-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04213",
+  "file": "corpus/johntheo_swarm__agents_swarm-copywriter.md",
+  "repo": "johntheo/swarm",
+  "path": "agents/swarm-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04214",
+  "file": "corpus/jomedinagomez_fabric-aifoundry-insurance-lab__agents_senior_underwriter_agent.md",
+  "repo": "jomedinagomez/fabric-aifoundry-insurance-lab",
+  "path": "agents/senior_underwriter_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04215",
+  "file": "corpus/jon-chun_test-pong-opencode__.opencode_agent_documentation-manager.md",
+  "repo": "jon-chun/test-pong-opencode",
+  "path": ".opencode/agent/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04216",
+  "file": "corpus/jon890_fos-blog__.codex_agents_fos-blog-docs-verifier.toml",
+  "repo": "jon890/fos-blog",
+  "path": ".codex/agents/fos-blog-docs-verifier.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04217",
+  "file": "corpus/jonbeckett_jonbeckett.github.io__.github_agents_editorial-manager.agent.md",
+  "repo": "jonbeckett/jonbeckett.github.io",
+  "path": ".github/agents/editorial-manager.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04218",
+  "file": "corpus/jonjaques_inertialref__.codex_agents_docs-curator.toml",
+  "repo": "jonjaques/inertialref",
+  "path": ".codex/agents/docs-curator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04219",
+  "file": "corpus/jonperron_mauve-viewer__.github_agents_documentation.agent.md",
+  "repo": "jonperron/mauve-viewer",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

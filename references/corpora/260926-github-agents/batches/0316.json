@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03160",
+  "file": "corpus/Orda-by-Move_webnovel-harness-plugin__agents_novel-editor.md",
+  "repo": "Orda-by-Move/webnovel-harness-plugin",
+  "path": "agents/novel-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03161",
+  "file": "corpus/Orda-by-Move_webnovel-harness-plugin__agents_novel-writer.md",
+  "repo": "Orda-by-Move/webnovel-harness-plugin",
+  "path": "agents/novel-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03162",
+  "file": "corpus/Org-EthereaLogic_OSA__.claude_agents_technical-writer.md",
+  "repo": "Org-EthereaLogic/OSA",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03163",
+  "file": "corpus/Orimadros_project-template__.codex_agents_editor.toml",
+  "repo": "Orimadros/project-template",
+  "path": ".codex/agents/editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03164",
+  "file": "corpus/Orimadros_project-template__.codex_agents_writer-critic.toml",
+  "repo": "Orimadros/project-template",
+  "path": ".codex/agents/writer-critic.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03165",
+  "file": "corpus/Os-Guri-do-Vibe_movivo__.claude_agents_17-bruno-redator-copywriter.md",
+  "repo": "Os-Guri-do-Vibe/movivo",
+  "path": ".claude/agents/17-bruno-redator-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03166",
+  "file": "corpus/OscarSwanros_diveShopOS__.claude_agents_dive-copywriter.md",
+  "repo": "OscarSwanros/diveShopOS",
+  "path": ".claude/agents/dive-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03167",
+  "file": "corpus/PABannier_PathView__.claude_agents_readme-reviser.md",
+  "repo": "PABannier/PathView",
+  "path": ".claude/agents/readme-reviser.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03168",
+  "file": "corpus/PRODYNA-YASM_.github__.github_agents_documentation-helper.md",
+  "repo": "PRODYNA-YASM/.github",
+  "path": ".github/agents/documentation-helper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03169",
+  "file": "corpus/PabloHurtadoGonzalo86_ferric-linux__.claude_agents_tech-writer.md",
+  "repo": "PabloHurtadoGonzalo86/ferric-linux",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00640",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_claude_agents_ap-scribe.md",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/claude/agents/ap-scribe.md",
+  "stars": 1292,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00641",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_claude_frameworks_docs.md",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/claude/frameworks/docs.md",
+  "stars": 1292,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00642",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_codex_agents_ap-scribe.toml",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/codex/agents/ap-scribe.toml",
+  "stars": 1292,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00643",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_contracts_frameworks_docs.md",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/contracts/frameworks/docs.md",
+  "stars": 1292,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00644",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_contracts_personas_ap-scribe.md",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/contracts/personas/ap-scribe.md",
+  "stars": 1292,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00645",
+  "file": "corpus/tintinweb_pi-subagents__test_fixtures_.pi_agents_disallow-alpha-write.md",
+  "repo": "tintinweb/pi-subagents",
+  "path": "test/fixtures/.pi/agents/disallow-alpha-write.md",
+  "stars": 1216,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00646",
+  "file": "corpus/tintinweb_pi-subagents__test_fixtures_.pi_agents_memory-denied-write.md",
+  "repo": "tintinweb/pi-subagents",
+  "path": "test/fixtures/.pi/agents/memory-denied-write.md",
+  "stars": 1216,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00647",
+  "file": "corpus/tintinweb_pi-subagents__test_fixtures_.pi_agents_memory-readwrite.md",
+  "repo": "tintinweb/pi-subagents",
+  "path": "test/fixtures/.pi/agents/memory-readwrite.md",
+  "stars": 1216,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00648",
+  "file": "corpus/NativePHP_mobile-air__.claude_agents_php-docs-writer.md",
+  "repo": "NativePHP/mobile-air",
+  "path": ".claude/agents/php-docs-writer.md",
+  "stars": 1186,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00649",
+  "file": "corpus/tombi-toml_tombi__.claude_agents_editor-integration.md",
+  "repo": "tombi-toml/tombi",
+  "path": ".claude/agents/editor-integration.md",
+  "stars": 1132,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00090",
+  "file": "corpus/im-hashim_automotive-claude-code-agents__agents_project-management_technical-writer.yaml",
+  "repo": "im-hashim/automotive-claude-code-agents",
+  "path": "agents/project-management/technical-writer.yaml",
+  "stars": 195,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00091",
+  "file": "corpus/Genocs_clean-architecture-template__.github_agents_Documentation Writer.agent.md",
+  "repo": "Genocs/clean-architecture-template",
+  "path": ".github/agents/Documentation Writer.agent.md",
+  "stars": 115,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00092",
+  "file": "corpus/attilaszasz_sdd-pilot__.github_agents__adr-author.md",
+  "repo": "attilaszasz/sdd-pilot",
+  "path": ".github/agents/_adr-author.md",
+  "stars": 97,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00093",
+  "file": "corpus/databrickslabs_coding-agents-databricks-apps__agents_prd-writer.md",
+  "repo": "databrickslabs/coding-agents-databricks-apps",
+  "path": "agents/prd-writer.md",
+  "stars": 40,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00094",
+  "file": "corpus/bookedsolidtech_helixir__.claude_agents_technical-writer.md",
+  "repo": "bookedsolidtech/helixir",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00095",
+  "file": "corpus/ImyvmCircle_ImyvmWorldGeo__agents_instructions_player-documentation-perspective.instructions.md",
+  "repo": "ImyvmCircle/ImyvmWorldGeo",
+  "path": "agents/instructions/player-documentation-perspective.instructions.md",
+  "stars": 4,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00096",
+  "file": "corpus/ALTEN-group_Gatelin__.github_agents_vitepress-docs.agent.md",
+  "repo": "ALTEN-group/Gatelin",
+  "path": ".github/agents/vitepress-docs.agent.md",
+  "stars": 2,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00097",
+  "file": "corpus/andkov_aim-2025-sandbox__.github_agents_report-composer.agent.md",
+  "repo": "andkov/aim-2025-sandbox",
+  "path": ".github/agents/report-composer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00098",
+  "file": "corpus/melnikov1512_sfdx-project-template__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "melnikov1512/sfdx-project-template",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00099",
+  "file": "corpus/APrettyCoolProgram_Dudelang__.github_agents_xml-documentation-csharp-agent.md",
+  "repo": "APrettyCoolProgram/Dudelang",
+  "path": ".github/agents/xml-documentation-csharp-agent.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ }
+]

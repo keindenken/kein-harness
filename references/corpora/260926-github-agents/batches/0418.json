@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04180",
+  "file": "corpus/jerhon_honlsoft-v2__.github_agents_blog-author.agent.md",
+  "repo": "jerhon/honlsoft-v2",
+  "path": ".github/agents/blog-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04181",
+  "file": "corpus/jerosanchez_clicknback__.claude_agents_docs-agent.md",
+  "repo": "jerosanchez/clicknback",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04182",
+  "file": "corpus/jetteim_platform-workstation-bootstrap__agents_skills_codex-curated_.system_openai-docs_references_official-docs.md",
+  "repo": "jetteim/platform-workstation-bootstrap",
+  "path": "agents/skills/codex-curated/.system/openai-docs/references/official-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04183",
+  "file": "corpus/jezweb_office-town-pack-comms__agents_newsletter-editor.md",
+  "repo": "jezweb/office-town-pack-comms",
+  "path": "agents/newsletter-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04184",
+  "file": "corpus/jezweb_office-town-pack-design__agents_copywriter.md",
+  "repo": "jezweb/office-town-pack-design",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04185",
+  "file": "corpus/jfa94_factory__agents_spec-generator.md",
+  "repo": "jfa94/factory",
+  "path": "agents/spec-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04186",
+  "file": "corpus/jflessenkemper_ASAP__.github_agents_copywriter.agent.md",
+  "repo": "jflessenkemper/ASAP",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04187",
+  "file": "corpus/jflessenkemper_ASAP-discord__.github_agents_copywriter.agent.md",
+  "repo": "jflessenkemper/ASAP-discord",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04188",
+  "file": "corpus/jflournoy_phd-unemployment-model__.claude_agents_report-quality-auditor.md",
+  "repo": "jflournoy/phd-unemployment-model",
+  "path": ".claude/agents/report-quality-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04189",
+  "file": "corpus/jflournoy_terrain-maker_v2__.claude_agents_reports_python-docs-audit-2025-11-20.md",
+  "repo": "jflournoy/terrain-maker_v2",
+  "path": ".claude/agents/reports/python-docs-audit-2025-11-20.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

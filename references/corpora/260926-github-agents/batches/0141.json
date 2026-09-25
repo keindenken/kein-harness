@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01410",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_adr-writer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/adr-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01411",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_de_documentation-engineer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/de/documentation-engineer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01412",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_documentation-engineer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/documentation-engineer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01413",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_es_documentation-engineer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/es/documentation-engineer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01414",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_fr_documentation-engineer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/fr/documentation-engineer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01415",
+  "file": "corpus/UitbreidenOS_UitKit__agents_roles_nl_documentation-engineer.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/roles/nl/documentation-engineer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01416",
+  "file": "corpus/UitbreidenOS_UitKit__agents_sdr_de_sdr-copywriter.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/sdr/de/sdr-copywriter.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01417",
+  "file": "corpus/UitbreidenOS_UitKit__agents_sdr_es_sdr-copywriter.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/sdr/es/sdr-copywriter.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01418",
+  "file": "corpus/UitbreidenOS_UitKit__agents_sdr_fr_sdr-copywriter.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/sdr/fr/sdr-copywriter.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01419",
+  "file": "corpus/UitbreidenOS_UitKit__agents_sdr_nl_sdr-copywriter.md",
+  "repo": "UitbreidenOS/UitKit",
+  "path": "agents/sdr/nl/sdr-copywriter.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ }
+]

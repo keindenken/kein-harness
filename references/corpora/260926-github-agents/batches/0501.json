@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05010",
+  "file": "corpus/the-lowercase-studio_ProjectLizard__.github_agents_documentation-standards-specialist.agent.md",
+  "repo": "the-lowercase-studio/ProjectLizard",
+  "path": ".github/agents/documentation-standards-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05011",
+  "file": "corpus/the-wbs-project_aec-integrations__.claude_agents_technical-writer.md",
+  "repo": "the-wbs-project/aec-integrations",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05012",
+  "file": "corpus/theaddresstech_modular-ddd__.claude_agents_ddd-documentation-specialist.md",
+  "repo": "theaddresstech/modular-ddd",
+  "path": ".claude/agents/ddd-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05013",
+  "file": "corpus/thebatclaudio_thebatcave__.opencode_agent_blog-writer.md",
+  "repo": "thebatclaudio/thebatcave",
+  "path": ".opencode/agent/blog-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05014",
+  "file": "corpus/thebobhuff_AtlasWriter__.github_agents_angle-editor.agent.md",
+  "repo": "thebobhuff/AtlasWriter",
+  "path": ".github/agents/angle-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05015",
+  "file": "corpus/thechelsuk_thechelsuk__.github_agents_docs.agent.md",
+  "repo": "thechelsuk/thechelsuk",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05016",
+  "file": "corpus/thedixitjain_the-mega-skill-library__agents_ai-agents-and-harness_copywriter.md",
+  "repo": "thedixitjain/the-mega-skill-library",
+  "path": "agents/ai-agents-and-harness/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05017",
+  "file": "corpus/thedixitjain_the-mega-skill-library__agents_docs-and-knowledge-mgmt_docs-researcher.md",
+  "repo": "thedixitjain/the-mega-skill-library",
+  "path": "agents/docs-and-knowledge-mgmt/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05018",
+  "file": "corpus/thedixitjain_the-mega-skill-library__agents_docs-and-knowledge-mgmt_technical-writer.md",
+  "repo": "thedixitjain/the-mega-skill-library",
+  "path": "agents/docs-and-knowledge-mgmt/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05019",
+  "file": "corpus/thefluxatlas_ceremony-field-catalog__.claude_agents_docs-analyst.md",
+  "repo": "thefluxatlas/ceremony-field-catalog",
+  "path": ".claude/agents/docs-analyst.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00030",
+  "file": "corpus/TituxMetal_sample-project__.opencode_agent_bmad-agent-bmm-tech-writer.md",
+  "repo": "TituxMetal/sample-project",
+  "path": ".opencode/agent/bmad-agent-bmm-tech-writer.md",
+  "stars": 1,
+  "copies_in_repos": 12
+ },
+ {
+  "id": "c00031",
+  "file": "corpus/ruvnet_ruflo__v3_@claude-flow_cli_.claude_agents_v3_claims-authorizer.md",
+  "repo": "ruvnet/ruflo",
+  "path": "v3/@claude-flow/cli/.claude/agents/v3/claims-authorizer.md",
+  "stars": 73257,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00032",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_podcast-creator-team_social-media-copywriter.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/podcast-creator-team/social-media-copywriter.md",
+  "stars": 31792,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00033",
+  "file": "corpus/vijaythecoder_awesome-claude-agents__agents_core_documentation-specialist.md",
+  "repo": "vijaythecoder/awesome-claude-agents",
+  "path": "agents/core/documentation-specialist.md",
+  "stars": 4388,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00034",
+  "file": "corpus/lst97_claude-code-sub-agents__agents_specialization_documentation-expert.md",
+  "repo": "lst97/claude-code-sub-agents",
+  "path": "agents/specialization/documentation-expert.md",
+  "stars": 1689,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00035",
+  "file": "corpus/SamarthaKV29_antigravity-god-mode__agents_documentation-writer.md",
+  "repo": "SamarthaKV29/antigravity-god-mode",
+  "path": "agents/documentation-writer.md",
+  "stars": 69,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00036",
+  "file": "corpus/The-XSS-Rat_BountySkiller__.claude_agents_report-writer.md",
+  "repo": "The-XSS-Rat/BountySkiller",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 51,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00037",
+  "file": "corpus/zhlhleo_codex-agent-automation__agents_technical-writer.toml",
+  "repo": "zhlhleo/codex-agent-automation",
+  "path": "agents/technical-writer.toml",
+  "stars": 22,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00038",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_wshobson_api-documenter.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/wshobson/api-documenter.md",
+  "stars": 15,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00039",
+  "file": "corpus/hotriluan_alkana-dashboard__.opencode_agent_journal-writer.md",
+  "repo": "hotriluan/alkana-dashboard",
+  "path": ".opencode/agent/journal-writer.md",
+  "stars": 2,
+  "copies_in_repos": 10
+ }
+]

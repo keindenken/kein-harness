@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03860",
+  "file": "corpus/dvdmrtnz15-afk_founders-lab-os__agents_docs.agent.md",
+  "repo": "dvdmrtnz15-afk/founders-lab-os",
+  "path": "agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03861",
+  "file": "corpus/dylanlangston_Roslyn-Stone__.github_agents_DocumentationExpert.agent.md",
+  "repo": "dylanlangston/Roslyn-Stone",
+  "path": ".github/agents/DocumentationExpert.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03862",
+  "file": "corpus/dylanpersonguy_dcc-website__.github_agents_Blog Creator.agent.md",
+  "repo": "dylanpersonguy/dcc-website",
+  "path": ".github/agents/Blog Creator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03863",
+  "file": "corpus/eappell_RetireMore-Marketing__.claude_agents_paid-copywriter.md",
+  "repo": "eappell/RetireMore-Marketing",
+  "path": ".claude/agents/paid-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03864",
+  "file": "corpus/ebmarquez_recipes__.github_agents_publishers-editor.agent.md",
+  "repo": "ebmarquez/recipes",
+  "path": ".github/agents/publishers-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03865",
+  "file": "corpus/ebmarquez_recipes__.github_agents_riley-cookbook-story-editor.agent.md",
+  "repo": "ebmarquez/recipes",
+  "path": ".github/agents/riley-cookbook-story-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03866",
+  "file": "corpus/ebyau_research-agent__agents_paper-editor.md",
+  "repo": "ebyau/research-agent",
+  "path": "agents/paper-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03867",
+  "file": "corpus/ecasilla_super-opencode__agents_technical-writer.md",
+  "repo": "ecasilla/super-opencode",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03868",
+  "file": "corpus/eddieir_Falcon-Automation__.claude_agents_technical-writer.md",
+  "repo": "eddieir/Falcon-Automation",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03869",
+  "file": "corpus/edjchapman_claude-code-config__agents_documentation-writer.md",
+  "repo": "edjchapman/claude-code-config",
+  "path": "agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

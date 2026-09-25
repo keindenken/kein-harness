@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02950",
+  "file": "corpus/JOHNNYWHITEMIKE_list__agents_llm_video_editor.md",
+  "repo": "JOHNNYWHITEMIKE/list",
+  "path": "agents/llm_video_editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02951",
+  "file": "corpus/JPineda95_claude-crew__.claude_agents_copywriter.md",
+  "repo": "JPineda95/claude-crew",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02952",
+  "file": "corpus/JSA-Partners_deckhand__agents_author.md",
+  "repo": "JSA-Partners/deckhand",
+  "path": "agents/author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02953",
+  "file": "corpus/Jaesung-Jung_FolderIconMaker__.codex_agents_code-writer.toml",
+  "repo": "Jaesung-Jung/FolderIconMaker",
+  "path": ".codex/agents/code-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02954",
+  "file": "corpus/Jaesung-Jung_FolderIconMaker__.codex_agents_docs-writer.toml",
+  "repo": "Jaesung-Jung/FolderIconMaker",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02955",
+  "file": "corpus/JaimeStill_revolutions__.claude_agents_domain_editor-agent.md",
+  "repo": "JaimeStill/revolutions",
+  "path": ".claude/agents/domain/editor-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02956",
+  "file": "corpus/Jamie-BitFlight_claude_skills__.claude_agents_plugin-docs-writer.md",
+  "repo": "Jamie-BitFlight/claude_skills",
+  "path": ".claude/agents/plugin-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02957",
+  "file": "corpus/Jamie-BitFlight_git-tree-project-structure-to-yaml__.claude_agents_documentation-generator.md",
+  "repo": "Jamie-BitFlight/git-tree-project-structure-to-yaml",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02958",
+  "file": "corpus/JasonMore_dotfiles__.github_agents_editorial-style.agent.md",
+  "repo": "JasonMore/dotfiles",
+  "path": ".github/agents/editorial-style.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02959",
+  "file": "corpus/Jatin5120_portfolio__.claude_agents_ux-copywriter.md",
+  "repo": "Jatin5120/portfolio",
+  "path": ".claude/agents/ux-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

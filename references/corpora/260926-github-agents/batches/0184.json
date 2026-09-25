@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01840",
+  "file": "corpus/Jack5316_novel-agent__.claude_agents_editor.md",
+  "repo": "Jack5316/novel-agent",
+  "path": ".claude/agents/editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01841",
+  "file": "corpus/JessicaNathany_cafedebug-backend.api__.github_agents_docs.agent.md",
+  "repo": "JessicaNathany/cafedebug-backend.api",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01842",
+  "file": "corpus/MicrosoftDocs_copilot-connectors__.github_agents_connector-content-writer.agent.md",
+  "repo": "MicrosoftDocs/copilot-connectors",
+  "path": ".github/agents/connector-content-writer.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01843",
+  "file": "corpus/QQQingyu_story-snack__agents_continuity-editor.md",
+  "repo": "QQQingyu/story-snack",
+  "path": "agents/continuity-editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01844",
+  "file": "corpus/Rumeasiyan_roomsmith__.claude_agents_design-author.md",
+  "repo": "Rumeasiyan/roomsmith",
+  "path": ".claude/agents/design-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01845",
+  "file": "corpus/SandboxServers_STBC-Reverse-Engineering__.claude_agents_documentation-writer.md",
+  "repo": "SandboxServers/STBC-Reverse-Engineering",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01846",
+  "file": "corpus/Sentry01_Copilot-CLI-Harness__.github_agents_CopyWriter.agent.md",
+  "repo": "Sentry01/Copilot-CLI-Harness",
+  "path": ".github/agents/CopyWriter.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01847",
+  "file": "corpus/Tiberriver256_Tiberriver256.GitHub.io__.github_agents_technical-editor.md",
+  "repo": "Tiberriver256/Tiberriver256.GitHub.io",
+  "path": ".github/agents/technical-editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01848",
+  "file": "corpus/TumbleOwlee_ferrowl__.claude_agents_spec-author.md",
+  "repo": "TumbleOwlee/ferrowl",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01849",
+  "file": "corpus/TyKonKet_BarcodeGenerator__.github_agents_docs.agent.md",
+  "repo": "TyKonKet/BarcodeGenerator",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

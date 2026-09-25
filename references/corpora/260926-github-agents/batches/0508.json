@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05080",
+  "file": "corpus/tungocvan_laravel-12__.codex_agents_documentation-writer.md",
+  "repo": "tungocvan/laravel-12",
+  "path": ".codex/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05081",
+  "file": "corpus/turbobeest_atomic-claude__agents_pipeline-agents_00-quality-assurance_document-guardian.md",
+  "repo": "turbobeest/atomic-claude",
+  "path": "agents/pipeline-agents/00-quality-assurance/document-guardian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05082",
+  "file": "corpus/turbobeest_atomic-claude__agents_pipeline-agents_02-discovery_prd-writer.md",
+  "repo": "turbobeest/atomic-claude",
+  "path": "agents/pipeline-agents/02-discovery/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05083",
+  "file": "corpus/turkananation_sovereign-conclave__agents_conclave-authoritarian.md",
+  "repo": "turkananation/sovereign-conclave",
+  "path": "agents/conclave-authoritarian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05084",
+  "file": "corpus/tutoOmar_Triple-M-Flutter-App__.github_agents_documentation.agent.md",
+  "repo": "tutoOmar/Triple-M-Flutter-App",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05085",
+  "file": "corpus/twardcox_tax-assist__.codex_agents_council-reporter.toml",
+  "repo": "twardcox/tax-assist",
+  "path": ".codex/agents/council-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05086",
+  "file": "corpus/twilson63_larry__.opencode_agent_ux-writer-documentation-specialist.md",
+  "repo": "twilson63/larry",
+  "path": ".opencode/agent/ux-writer-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05087",
+  "file": "corpus/tyson-swetnam_nifc-mcp__.claude_agents_documentation-writer.md",
+  "repo": "tyson-swetnam/nifc-mcp",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05088",
+  "file": "corpus/tzervas_bootdisk__.github_agents_documentation-workflow.md",
+  "repo": "tzervas/bootdisk",
+  "path": ".github/agents/documentation-workflow.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05089",
+  "file": "corpus/tzervas_embeddenator-core__.github_agents_documentation-writer.agent.md",
+  "repo": "tzervas/embeddenator-core",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

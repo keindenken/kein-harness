@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00200",
+  "file": "corpus/AReid987_sol-itaire__.opencode_agent_bmad-agent-bmm-tech-writer.md",
+  "repo": "AReid987/sol-itaire",
+  "path": ".opencode/agent/bmad-agent-bmm-tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00201",
+  "file": "corpus/DPG210_checkin-angularV2__.claude_agents_senior-technical-writer-agent.md",
+  "repo": "DPG210/checkin-angularV2",
+  "path": ".claude/agents/senior-technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00202",
+  "file": "corpus/JaNuArY-17th_React-Native-Boilerplate__.claude_agents_copywriter.md",
+  "repo": "JaNuArY-17th/React-Native-Boilerplate",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00203",
+  "file": "corpus/JailtonJunior94_DeveloperStore__.codex_agents_prd-writer.toml",
+  "repo": "JailtonJunior94/DeveloperStore",
+  "path": ".codex/agents/prd-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00204",
+  "file": "corpus/OrdinalDragons_ultimate-workflow__agents_docs-writer.md",
+  "repo": "OrdinalDragons/ultimate-workflow",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00205",
+  "file": "corpus/RemseyMailjard_superpowers__.github_agents_markdown-csv-reporter.agent.md",
+  "repo": "RemseyMailjard/superpowers",
+  "path": ".github/agents/markdown-csv-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00206",
+  "file": "corpus/RocketSurgeonsGuild_Specular__.codex_agents_dotnet-docs-generator.toml",
+  "repo": "RocketSurgeonsGuild/Specular",
+  "path": ".codex/agents/dotnet-docs-generator.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00207",
+  "file": "corpus/SyedAli1274_AI-Native-book__.claude_agents_hardware-spec-writer.md",
+  "repo": "SyedAli1274/AI-Native-book",
+  "path": ".claude/agents/hardware-spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00208",
+  "file": "corpus/YU-Kawasaki-05_Ardors-website__.codex_agents_docs_researcher.toml",
+  "repo": "YU-Kawasaki-05/Ardors-website",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00209",
+  "file": "corpus/abdvswmdr_smartseason__.github_agents_apim-policy-author.agent.md",
+  "repo": "abdvswmdr/smartseason",
+  "path": ".github/agents/apim-policy-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ }
+]

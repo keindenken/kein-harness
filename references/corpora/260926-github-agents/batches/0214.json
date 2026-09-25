@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02140",
+  "file": "corpus/SensLiao_AI-research-team__agents_manuscript-results-author.md",
+  "repo": "SensLiao/AI-research-team",
+  "path": "agents/manuscript-results-author.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02141",
+  "file": "corpus/SensLiao_AI-research-team__agents_manuscript-section-author.md",
+  "repo": "SensLiao/AI-research-team",
+  "path": "agents/manuscript-section-author.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02142",
+  "file": "corpus/ShipFail_fireprd__.claude_agents_docs-sync-updater.md",
+  "repo": "ShipFail/fireprd",
+  "path": ".claude/agents/docs-sync-updater.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02143",
+  "file": "corpus/Solonnikov_agent-skills__agents_software-development_technical-writer.md",
+  "repo": "Solonnikov/agent-skills",
+  "path": "agents/software-development/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02144",
+  "file": "corpus/SumitCodesAI_MachineLearningModel__.github_agents_TechnicalWriter.agent.md",
+  "repo": "SumitCodesAI/MachineLearningModel",
+  "path": ".github/agents/TechnicalWriter.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02145",
+  "file": "corpus/Swartdraak_Bibliophilarr__.github_agents_documentation-maintainer.agent.md",
+  "repo": "Swartdraak/Bibliophilarr",
+  "path": ".github/agents/documentation-maintainer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02146",
+  "file": "corpus/TrevorEdris_fellowship-of-the-workflows__agents_documentation-sync.md",
+  "repo": "TrevorEdris/fellowship-of-the-workflows",
+  "path": "agents/documentation-sync.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02147",
+  "file": "corpus/WebMCP-org_docs__.claude_agents_docs-writer.md",
+  "repo": "WebMCP-org/docs",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02148",
+  "file": "corpus/aaronflorey_agent-skills__agents_docs-writer.md",
+  "repo": "aaronflorey/agent-skills",
+  "path": "agents/docs-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02149",
+  "file": "corpus/aavaz-ai_enterpret-claude-plugins__agents_report-builder.md",
+  "repo": "aavaz-ai/enterpret-claude-plugins",
+  "path": "agents/report-builder.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04930",
+  "file": "corpus/snipeart007_mandala-workspace__.github_agents_research-docs.agent.md",
+  "repo": "snipeart007/mandala-workspace",
+  "path": ".github/agents/research-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04931",
+  "file": "corpus/snktibor_Nectar-TP-AI-Hackathon__.github_agents_docs-sync.md",
+  "repo": "snktibor/Nectar-TP-AI-Hackathon",
+  "path": ".github/agents/docs-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04932",
+  "file": "corpus/soapboxbuild_audette-skills__agents_subagents_audette-report-writer.md",
+  "repo": "soapboxbuild/audette-skills",
+  "path": "agents/subagents/audette-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04933",
+  "file": "corpus/soeg4b_SmartBuilding__.github_agents_documentation.agent.md",
+  "repo": "soeg4b/SmartBuilding",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04934",
+  "file": "corpus/sofiadonario_monitor-legislativo-v4__.claude_agents_technical-writer-agent.md",
+  "repo": "sofiadonario/monitor-legislativo-v4",
+  "path": ".claude/agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04935",
+  "file": "corpus/sondresjolyst_garge-api__.claude_agents_documentation.md",
+  "repo": "sondresjolyst/garge-api",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04936",
+  "file": "corpus/songbell_kernel-harness__.github_agents_ckh-profile-reporter.agent.md",
+  "repo": "songbell/kernel-harness",
+  "path": ".github/agents/ckh-profile-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04937",
+  "file": "corpus/songyinggoh_renovation-agent-monorepo__.claude_agents_copywriter.md",
+  "repo": "songyinggoh/renovation-agent-monorepo",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04938",
+  "file": "corpus/sophia860_Sleep-Well__.github_agents_editorial-content.agent.md",
+  "repo": "sophia860/Sleep-Well",
+  "path": ".github/agents/editorial-content.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04939",
+  "file": "corpus/sophia860_Sleep-Well__.github_agents_editors-studio.agent.md",
+  "repo": "sophia860/Sleep-Well",
+  "path": ".github/agents/editors-studio.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

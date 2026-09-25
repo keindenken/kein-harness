@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01550",
+  "file": "corpus/puzed_darkauth__agents_documentation-writer.agent.md",
+  "repo": "puzed/darkauth",
+  "path": "agents/documentation-writer.agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01551",
+  "file": "corpus/siemens_ix-docs__.github_agents_writer.agent.md",
+  "repo": "siemens/ix-docs",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01552",
+  "file": "corpus/uncscode_particula__.opencode_agent_adw-docs-notebook.md",
+  "repo": "uncscode/particula",
+  "path": ".opencode/agent/adw-docs-notebook.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01553",
+  "file": "corpus/uncscode_particula__.opencode_agent_adw-note-writer.md",
+  "repo": "uncscode/particula",
+  "path": ".opencode/agent/adw-note-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01554",
+  "file": "corpus/uncscode_particula__.opencode_agent_docs-validator.md",
+  "repo": "uncscode/particula",
+  "path": ".opencode/agent/docs-validator.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01555",
+  "file": "corpus/uncscode_particula__.opencode_agent_docs.md",
+  "repo": "uncscode/particula",
+  "path": ".opencode/agent/docs.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01556",
+  "file": "corpus/uncscode_particula__.opencode_agent_documentation.md",
+  "repo": "uncscode/particula",
+  "path": ".opencode/agent/documentation.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01557",
+  "file": "corpus/wahidyankf_ose-public__.claude_agents_docs_docs-software-engineering-separation-fixer.md",
+  "repo": "wahidyankf/ose-public",
+  "path": ".claude/agents/docs/docs-software-engineering-separation-fixer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01558",
+  "file": "corpus/whitebeardit_.cursor__agents_agt-dev-documentation.md",
+  "repo": "whitebeardit/.cursor",
+  "path": "agents/agt-dev-documentation.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01559",
+  "file": "corpus/yuribodo_mariocharts__agents_docs-page-architect.md",
+  "repo": "yuribodo/mariocharts",
+  "path": "agents/docs-page-architect.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02170",
+  "file": "corpus/careerchain-ys_stdd__.codex_agents_requirements-writer.toml",
+  "repo": "careerchain-ys/stdd",
+  "path": ".codex/agents/requirements-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02171",
+  "file": "corpus/chinmaygarde_impellerpy__.claude_agents_docs-auditor.md",
+  "repo": "chinmaygarde/impellerpy",
+  "path": ".claude/agents/docs-auditor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02172",
+  "file": "corpus/choconyam_chwi-ppo__.codex_agents_revision-editor.toml",
+  "repo": "choconyam/chwi-ppo",
+  "path": ".codex/agents/revision-editor.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02173",
+  "file": "corpus/clidxhk_Red-Blood__.codex_agents_style-writer.toml",
+  "repo": "clidxhk/Red-Blood",
+  "path": ".codex/agents/style-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02174",
+  "file": "corpus/d-oit_d-oit.github.io__.opencode_agent_common_documentation-maintainer.md",
+  "repo": "d-oit/d-oit.github.io",
+  "path": ".opencode/agent/common/documentation-maintainer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02175",
+  "file": "corpus/darthjee_azeroth__.claude_agents_docs.md",
+  "repo": "darthjee/azeroth",
+  "path": ".claude/agents/docs.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02176",
+  "file": "corpus/devinkbrown_onyx-server__.claude_agents_onyx-docs.md",
+  "repo": "devinkbrown/onyx-server",
+  "path": ".claude/agents/onyx-docs.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02177",
+  "file": "corpus/devinkbrown_onyx-server__.codex_agents_onyx-docs.toml",
+  "repo": "devinkbrown/onyx-server",
+  "path": ".codex/agents/onyx-docs.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02178",
+  "file": "corpus/doin-jack_youtube_auto__.claude_agents_report-writer.md",
+  "repo": "doin-jack/youtube_auto",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02179",
+  "file": "corpus/eclipse-hephaestus_hephaestus__.github_agents_workflow-author.agent.md",
+  "repo": "eclipse-hephaestus/hephaestus",
+  "path": ".github/agents/workflow-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

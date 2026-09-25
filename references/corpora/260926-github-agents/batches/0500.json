@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05000",
+  "file": "corpus/teamniteo_hakuto__agents_astro-file-editor.md",
+  "repo": "teamniteo/hakuto",
+  "path": "agents/astro-file-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05001",
+  "file": "corpus/tech-with-anthony_adventure_story__.claude_agents_content-editor.md",
+  "repo": "tech-with-anthony/adventure_story",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05002",
+  "file": "corpus/techriderscommunity_platform-tech-riders__.github_agents_mcpee-boost-mcpee-dba_agents_executive-report-exporter.agent.md",
+  "repo": "techriderscommunity/platform-tech-riders",
+  "path": ".github/agents/mcpee-boost-mcpee-dba/agents/executive-report-exporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05003",
+  "file": "corpus/teklund_barrel_file_lints__.github_agents_docs.agent.md",
+  "repo": "teklund/barrel_file_lints",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05004",
+  "file": "corpus/tellebma_The-Claude-Codex__.claude_agents_content-writer.md",
+  "repo": "tellebma/The-Claude-Codex",
+  "path": ".claude/agents/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05005",
+  "file": "corpus/tempont_small-opencode-orchestrator__agents_api-docs-researcher.md",
+  "repo": "tempont/small-opencode-orchestrator",
+  "path": "agents/api-docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05006",
+  "file": "corpus/terryso_bmad-tech-blog-pack__agents_copywriter.md",
+  "repo": "terryso/bmad-tech-blog-pack",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05007",
+  "file": "corpus/tgittos_scaffold__.claude_agents_copywriter.md",
+  "repo": "tgittos/scaffold",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05008",
+  "file": "corpus/thaoht2109_skill-soc_report__.github_agents_soc-report.agent.md",
+  "repo": "thaoht2109/skill-soc_report",
+  "path": ".github/agents/soc-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05009",
+  "file": "corpus/thapaliyabikendra_ai-artifacts__.claude_agents_architects_technical-writer.md",
+  "repo": "thapaliyabikendra/ai-artifacts",
+  "path": ".claude/agents/architects/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

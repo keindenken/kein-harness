@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03270",
+  "file": "corpus/Sarb0Z_colloid-swarm__.codex_agents_learning-reporter.toml",
+  "repo": "Sarb0Z/colloid-swarm",
+  "path": ".codex/agents/learning-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03271",
+  "file": "corpus/SatangBudsai_frontend-template__agents_sage_roles_role-writer.md",
+  "repo": "SatangBudsai/frontend-template",
+  "path": "agents/sage/roles/role-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03272",
+  "file": "corpus/Scaramcci_MCS_CUHK-SZ__agents_report-writer.md",
+  "repo": "Scaramcci/MCS_CUHK-SZ",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03273",
+  "file": "corpus/Schnick371_devsteps__.github_agents_devsteps-R4-worker-diataxis-author.agent.md",
+  "repo": "Schnick371/devsteps",
+  "path": ".github/agents/devsteps-R4-worker-diataxis-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03274",
+  "file": "corpus/SchwartzKamel_noteshard__.github_agents_card-author.md",
+  "repo": "SchwartzKamel/noteshard",
+  "path": ".github/agents/card-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03275",
+  "file": "corpus/Sebastian93BC_universal-ide-agents__.github_agents_Documentation Steward.agent.md",
+  "repo": "Sebastian93BC/universal-ide-agents",
+  "path": ".github/agents/Documentation Steward.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03276",
+  "file": "corpus/SebastienDegodez_skraft-plugin__.github_agents_skraft-docs-editorial-writer.agent.md",
+  "repo": "SebastienDegodez/skraft-plugin",
+  "path": ".github/agents/skraft-docs-editorial-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03277",
+  "file": "corpus/SebastienDegodez_skraft-plugin__.github_agents_skraft-docs-glossary-keeper.agent.md",
+  "repo": "SebastienDegodez/skraft-plugin",
+  "path": ".github/agents/skraft-docs-glossary-keeper.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03278",
+  "file": "corpus/Secful_deployment_ai_advisor__.claude_agents_reporter-agent.md",
+  "repo": "Secful/deployment_ai_advisor",
+  "path": ".claude/agents/reporter-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03279",
+  "file": "corpus/SeeingBlue_Vscode-Copilot-Template__.github_agents_docs-specialist.agent.md",
+  "repo": "SeeingBlue/Vscode-Copilot-Template",
+  "path": ".github/agents/docs-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

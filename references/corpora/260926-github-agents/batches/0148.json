@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01480",
+  "file": "corpus/stevessr_bug-v3__.claude_agents_doc-writer.md",
+  "repo": "stevessr/bug-v3",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01481",
+  "file": "corpus/unisone_openclaw-config__agents_content-writer.md",
+  "repo": "unisone/openclaw-config",
+  "path": "agents/content-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01482",
+  "file": "corpus/useblocks_sphinx-needs-demo__.github_agents_pharaoh.author.agent.md",
+  "repo": "useblocks/sphinx-needs-demo",
+  "path": ".github/agents/pharaoh.author.agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01483",
+  "file": "corpus/useblocks_sphinx-needs-demo__.github_agents_pharaoh.feat-draft-from-docs.agent.md",
+  "repo": "useblocks/sphinx-needs-demo",
+  "path": ".github/agents/pharaoh.feat-draft-from-docs.agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01484",
+  "file": "corpus/vchelaru_XnaFiddle__.claude_agents_docs-writer.md",
+  "repo": "vchelaru/XnaFiddle",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01485",
+  "file": "corpus/vinnie357_claudio__.claude_agents_claudio_documentation-user-guide-creator.md",
+  "repo": "vinnie357/claudio",
+  "path": ".claude/agents/claudio/documentation-user-guide-creator.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01486",
+  "file": "corpus/yfedoseev_meta_oxide__.claude_agents_technical-writer.md",
+  "repo": "yfedoseev/meta_oxide",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01487",
+  "file": "corpus/AdaCore_gnat-foundry-intersection__.codex_agents_architecture-editor.toml",
+  "repo": "AdaCore/gnat-foundry-intersection",
+  "path": ".codex/agents/architecture-editor.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01488",
+  "file": "corpus/AdaCore_gnat-foundry-intersection__.codex_agents_hlr-author.toml",
+  "repo": "AdaCore/gnat-foundry-intersection",
+  "path": ".codex/agents/hlr-author.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01489",
+  "file": "corpus/AdaCore_gnat-foundry-intersection__.codex_agents_llr-author.toml",
+  "repo": "AdaCore/gnat-foundry-intersection",
+  "path": ".codex/agents/llr-author.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

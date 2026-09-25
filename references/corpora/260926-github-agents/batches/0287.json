@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02870",
+  "file": "corpus/FrancoisMichell_ckm__.claude_agents_ux-mockup-author.md",
+  "repo": "FrancoisMichell/ckm",
+  "path": ".claude/agents/ux-mockup-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02871",
+  "file": "corpus/FredrikFolkeryd_obsidian-pa__.github_agents_tech-writer.md",
+  "repo": "FredrikFolkeryd/obsidian-pa",
+  "path": ".github/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02872",
+  "file": "corpus/FutureMUD_FutureMUD__.codex_agents_fm_docs_researcher.toml",
+  "repo": "FutureMUD/FutureMUD",
+  "path": ".codex/agents/fm_docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02873",
+  "file": "corpus/FutureRootsDE_legal-audit-de__.codex_agents_legal-text-writer-pro.md",
+  "repo": "FutureRootsDE/legal-audit-de",
+  "path": ".codex/agents/legal-text-writer-pro.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02874",
+  "file": "corpus/GMario83_007-Agentic-Approach__.github_agents_Batch Documentation Agent.agent.md",
+  "repo": "GMario83/007-Agentic-Approach",
+  "path": ".github/agents/Batch Documentation Agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02875",
+  "file": "corpus/GR3G0RY-CODER_devCrow__.github_agents_devcrown-expo-docs.agent.md",
+  "repo": "GR3G0RY-CODER/devCrow",
+  "path": ".github/agents/devcrown-expo-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02876",
+  "file": "corpus/Gabrielloopes33_utem1__.github_agents_copywriter-estrategico.agent.md",
+  "repo": "Gabrielloopes33/utem1",
+  "path": ".github/agents/copywriter-estrategico.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02877",
+  "file": "corpus/GainInsightDev_websites__.claude_agents_af-technical-writer-agent.md",
+  "repo": "GainInsightDev/websites",
+  "path": ".claude/agents/af-technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02878",
+  "file": "corpus/GamichPro_1cTicket__agents_03-api-documentation.md",
+  "repo": "GamichPro/1cTicket",
+  "path": "agents/03-api-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02879",
+  "file": "corpus/GauDan-2005_TERMINUS__.opencode_agent_tb3-task-author.md",
+  "repo": "GauDan-2005/TERMINUS",
+  "path": ".opencode/agent/tb3-task-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

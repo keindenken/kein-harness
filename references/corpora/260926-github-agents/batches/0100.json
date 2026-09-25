@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01000",
+  "file": "corpus/agross_dotfiles__agents_agents_skills_unslop_plans_015-per-author-silhouette-spike.md",
+  "repo": "agross/dotfiles",
+  "path": "agents/agents/skills/unslop/plans/015-per-author-silhouette-spike.md",
+  "stars": 61,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01001",
+  "file": "corpus/jgreathouse9_mlsynth__agents_agents_docs.md",
+  "repo": "jgreathouse9/mlsynth",
+  "path": "agents/agents_docs.md",
+  "stars": 61,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01002",
+  "file": "corpus/loiane_specs-driven-development-spring-angular__.claude_agents_spec-author.md",
+  "repo": "loiane/specs-driven-development-spring-angular",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 61,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01003",
+  "file": "corpus/tonedefdev_opendepot__.github_agents_documentation.agent.md",
+  "repo": "tonedefdev/opendepot",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 61,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01004",
+  "file": "corpus/CitizensFoundation_policy-synth__agents_docs_src_tools_generateDocumentation.md",
+  "repo": "CitizensFoundation/policy-synth",
+  "path": "agents/docs/src/tools/generateDocumentation.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01005",
+  "file": "corpus/XuanRanL_loamwright-SEO-Skill__agents_cta-writer.md",
+  "repo": "XuanRanL/loamwright-SEO-Skill",
+  "path": "agents/cta-writer.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01006",
+  "file": "corpus/XuanRanL_loamwright-SEO-Skill__agents_editor-in-chief.md",
+  "repo": "XuanRanL/loamwright-SEO-Skill",
+  "path": "agents/editor-in-chief.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01007",
+  "file": "corpus/XuanRanL_loamwright-SEO-Skill__agents_writer.md",
+  "repo": "XuanRanL/loamwright-SEO-Skill",
+  "path": "agents/writer.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01008",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_agent-cli-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/agent-cli-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01009",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_ai-provider-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/ai-provider-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02350",
+  "file": "corpus/Sandeeprdy1729_timps-swarm__.codex_agents_timps-sprint_reporter.toml",
+  "repo": "Sandeeprdy1729/timps-swarm",
+  "path": ".codex/agents/timps-sprint_reporter.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02351",
+  "file": "corpus/ScottGibb_Train-Driver-Firmware__.github_agents_documentation.agent.md",
+  "repo": "ScottGibb/Train-Driver-Firmware",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02352",
+  "file": "corpus/Sergey-Bar_Mjolnir__.github_agents_rule-author.agent.md",
+  "repo": "Sergey-Bar/Mjolnir",
+  "path": ".github/agents/rule-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02353",
+  "file": "corpus/Servant-Software-LLC_Charter__.claude_agents_charter-skill-author.md",
+  "repo": "Servant-Software-LLC/Charter",
+  "path": ".claude/agents/charter-skill-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02354",
+  "file": "corpus/Shadow-Candle-Studio_LiteProjects__.claude_agents_editor-dev-expert.md",
+  "repo": "Shadow-Candle-Studio/LiteProjects",
+  "path": ".claude/agents/editor-dev-expert.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02355",
+  "file": "corpus/Shivamshaiv_lvt-day4-code-demo__.claude_agents_doc-writer.md",
+  "repo": "Shivamshaiv/lvt-day4-code-demo",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02356",
+  "file": "corpus/Snoozer10_local-youtube-automation__.claude_agents_gem-documentation-writer.md",
+  "repo": "Snoozer10/local-youtube-automation",
+  "path": ".claude/agents/gem-documentation-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02357",
+  "file": "corpus/Stephen882-pixel_acocie-stores-ecommerce-api__.claude_agents_api-doc-writer.md",
+  "repo": "Stephen882-pixel/acocie-stores-ecommerce-api",
+  "path": ".claude/agents/api-doc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02358",
+  "file": "corpus/Sumit-Dwivedi_intel-bimanual-vla__.claude_agents_docs-writer.md",
+  "repo": "Sumit-Dwivedi/intel-bimanual-vla",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02359",
+  "file": "corpus/The-Notorious-Avengers_Claude-Code-Cursor-Skills__agents_api-docs-guardian.md",
+  "repo": "The-Notorious-Avengers/Claude-Code-Cursor-Skills",
+  "path": "agents/api-docs-guardian.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

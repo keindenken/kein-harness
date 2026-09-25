@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03530",
+  "file": "corpus/anshul-garg27_claude-enhancement-suite__.claude_agents_editor.md",
+  "repo": "anshul-garg27/claude-enhancement-suite",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03531",
+  "file": "corpus/antinguyen_AI-Agent__.github_agents_technical-writer.agent.md",
+  "repo": "antinguyen/AI-Agent",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03532",
+  "file": "corpus/antonchirikalov_claude-quiz__.github_agents_question-writer.agent.md",
+  "repo": "antonchirikalov/claude-quiz",
+  "path": ".github/agents/question-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03533",
+  "file": "corpus/antonchirikalov_prism__.github_agents_requirements_writer.agent.md",
+  "repo": "antonchirikalov/prism",
+  "path": ".github/agents/requirements_writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03534",
+  "file": "corpus/antoniogomezgallardo_devToolsKit__.claude_agents_analytics-reporter.md",
+  "repo": "antoniogomezgallardo/devToolsKit",
+  "path": ".claude/agents/analytics-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03535",
+  "file": "corpus/anuraag2601_enhanced-claude-sub-agents__agents_documentation-generator.md",
+  "repo": "anuraag2601/enhanced-claude-sub-agents",
+  "path": "agents/documentation-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03536",
+  "file": "corpus/anuragkanwar_learning__.opencode_agent_learningWriter.md",
+  "repo": "anuragkanwar/learning",
+  "path": ".opencode/agent/learningWriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03537",
+  "file": "corpus/anyproto_anytype-heart__.claude_agents_document-component.md",
+  "repo": "anyproto/anytype-heart",
+  "path": ".claude/agents/document-component.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03538",
+  "file": "corpus/aolenin_fullstack-ai-orchestrator-workspace__.claude_agents_technical-writer.md",
+  "repo": "aolenin/fullstack-ai-orchestrator-workspace",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03539",
+  "file": "corpus/apenugon_clasp__agents_swarm_full_05-full-stack_FS-016-add-compiler-known-authorization-requirements-and-proof-carrying-access-for-routes-pages-actions-queries-and-tools.md",
+  "repo": "apenugon/clasp",
+  "path": "agents/swarm/full/05-full-stack/FS-016-add-compiler-known-authorization-requirements-and-proof-carrying-access-for-routes-pages-actions-queries-and-tools.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

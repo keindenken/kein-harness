@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00000",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__.claude_agents_writer.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": ".claude/agents/writer.md",
+  "stars": 25438,
+  "copies_in_repos": 130
+ },
+ {
+  "id": "c00001",
+  "file": "corpus/cyberpapiii_chipotlai-max__.opencode_agent_docs.md",
+  "repo": "cyberpapiii/chipotlai-max",
+  "path": ".opencode/agent/docs.md",
+  "stars": 1565,
+  "copies_in_repos": 99
+ },
+ {
+  "id": "c00002",
+  "file": "corpus/darrenhinde_OpenAgentsControl__.opencode_agent_subagents_core_documentation.md",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": ".opencode/agent/subagents/core/documentation.md",
+  "stars": 4879,
+  "copies_in_repos": 84
+ },
+ {
+  "id": "c00003",
+  "file": "corpus/github_awesome-copilot__agents_se-technical-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/se-technical-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 72
+ },
+ {
+  "id": "c00004",
+  "file": "corpus/monoes_monomind__.claude_agents_engineering_engineering-technical-writer.md",
+  "repo": "monoes/monomind",
+  "path": ".claude/agents/engineering/engineering-technical-writer.md",
+  "stars": 21,
+  "copies_in_repos": 54
+ },
+ {
+  "id": "c00005",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_documentation_technical-writer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/documentation/technical-writer.md",
+  "stars": 31792,
+  "copies_in_repos": 53
+ },
+ {
+  "id": "c00006",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-doc-writer.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-doc-writer.md",
+  "stars": 64459,
+  "copies_in_repos": 43
+ },
+ {
+  "id": "c00007",
+  "file": "corpus/mrgoonie_human-mcp__.claude_agents_copywriter.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 293,
+  "copies_in_repos": 38
+ },
+ {
+  "id": "c00008",
+  "file": "corpus/darrenhinde_OpenAgentsControl__.opencode_agent_content_copywriter.md",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": ".opencode/agent/content/copywriter.md",
+  "stars": 4879,
+  "copies_in_repos": 34
+ },
+ {
+  "id": "c00009",
+  "file": "corpus/darrenhinde_OpenAgentsControl__.opencode_agent_content_technical-writer.md",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": ".opencode/agent/content/technical-writer.md",
+  "stars": 4879,
+  "copies_in_repos": 34
+ }
+]

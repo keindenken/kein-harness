@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03420",
+  "file": "corpus/Yuve21_ai-dropship-challenge__.claude_agents_copywriter.md",
+  "repo": "Yuve21/ai-dropship-challenge",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03421",
+  "file": "corpus/ZDarow_z-setup__agents_compound-docs.md",
+  "repo": "ZDarow/z-setup",
+  "path": "agents/compound-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03422",
+  "file": "corpus/ZHdpt_vulgata__.codex_agents_spec-author.toml",
+  "repo": "ZHdpt/vulgata",
+  "path": ".codex/agents/spec-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03423",
+  "file": "corpus/ZHdpt_vulgata__.codex_agents_task-author.toml",
+  "repo": "ZHdpt/vulgata",
+  "path": ".codex/agents/task-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03424",
+  "file": "corpus/ZHdpt_vulgata__.github_agents_spec-author.agent.md",
+  "repo": "ZHdpt/vulgata",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03425",
+  "file": "corpus/ZHdpt_vulgata__.github_agents_task-author.agent.md",
+  "repo": "ZHdpt/vulgata",
+  "path": ".github/agents/task-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03426",
+  "file": "corpus/Zachary-Higgins_story_app__.github_agents_agent-author.agent.md",
+  "repo": "Zachary-Higgins/story_app",
+  "path": ".github/agents/agent-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03427",
+  "file": "corpus/ZakariaAl-honyny_Mojaz__.opencode_agent_documentation-writer.md",
+  "repo": "ZakariaAl-honyny/Mojaz",
+  "path": ".opencode/agent/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03428",
+  "file": "corpus/ZenDevvv_ai-assisted-workflow__agents_technical-writer.md",
+  "repo": "ZenDevvv/ai-assisted-workflow",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03429",
+  "file": "corpus/Zeus-Center_Zeus__agents_hermes_website_docs_user-guide_skills_optional_finance_finance-pptx-author.md",
+  "repo": "Zeus-Center/Zeus",
+  "path": "agents/hermes/website/docs/user-guide/skills/optional/finance/finance-pptx-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00620",
+  "file": "corpus/maxritter_pilot-shell__pilot_agents_spec-branch-setup.md",
+  "repo": "maxritter/pilot-shell",
+  "path": "pilot/agents/spec-branch-setup.md",
+  "stars": 2077,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00621",
+  "file": "corpus/maxritter_pilot-shell__pilot_agents_spec-native-plan.md",
+  "repo": "maxritter/pilot-shell",
+  "path": "pilot/agents/spec-native-plan.md",
+  "stars": 2077,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00622",
+  "file": "corpus/DynamoDS_Dynamo__.github_agents_dynamo-skill-writer.agent.md",
+  "repo": "DynamoDS/Dynamo",
+  "path": ".github/agents/dynamo-skill-writer.agent.md",
+  "stars": 2025,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00623",
+  "file": "corpus/microsoft_WhatTheHack__.github_Agents_WTHAuthor.chatmode.md",
+  "repo": "microsoft/WhatTheHack",
+  "path": ".github/Agents/WTHAuthor.chatmode.md",
+  "stars": 1904,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00624",
+  "file": "corpus/pact-foundation_pact-js__.github_agents_tech-writer.agent.md",
+  "repo": "pact-foundation/pact-js",
+  "path": ".github/agents/tech-writer.agent.md",
+  "stars": 1816,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00625",
+  "file": "corpus/NeoLabHQ_context-engineering-kit__agents_change-story-agent.md",
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "path": "agents/change-story-agent.md",
+  "stars": 1724,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00626",
+  "file": "corpus/NeoLabHQ_context-engineering-kit__agents_tech-writer.md",
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "path": "agents/tech-writer.md",
+  "stars": 1724,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00627",
+  "file": "corpus/feiskyer_claude-code-settings__agents_insight-documenter.md",
+  "repo": "feiskyer/claude-code-settings",
+  "path": "agents/insight-documenter.md",
+  "stars": 1655,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00628",
+  "file": "corpus/frutik_awesome-search__.claude_agents_kg-writer.md",
+  "repo": "frutik/awesome-search",
+  "path": ".claude/agents/kg-writer.md",
+  "stars": 1564,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00629",
+  "file": "corpus/microsoft_hve-core__.github_agents_project-planning_prd-builder.agent.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/agents/project-planning/prd-builder.agent.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ }
+]

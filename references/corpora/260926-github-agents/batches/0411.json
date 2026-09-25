@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04110",
+  "file": "corpus/indiana-university_gen3-kro__.github_agents_kro-rgd-author.agent.md",
+  "repo": "indiana-university/gen3-kro",
+  "path": ".github/agents/kro-rgd-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04111",
+  "file": "corpus/ineczka_mslearn-genaiops2__.github_agents_lab-writer.agent.md",
+  "repo": "ineczka/mslearn-genaiops2",
+  "path": ".github/agents/lab-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04112",
+  "file": "corpus/influxdata_docs-v2__.claude_agents_influxdb1-tech-writer.md",
+  "repo": "influxdata/docs-v2",
+  "path": ".claude/agents/influxdb1-tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04113",
+  "file": "corpus/innovatehubph_innovatehub-hub__agents_copywriter.md",
+  "repo": "innovatehubph/innovatehub-hub",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04114",
+  "file": "corpus/inyogeshwar_telegram-bot-framework__.claude_agents_doc-writer.md",
+  "repo": "inyogeshwar/telegram-bot-framework",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04115",
+  "file": "corpus/iodigital-com_io-design-system__.claude_agents_io-storefront-author.md",
+  "repo": "iodigital-com/io-design-system",
+  "path": ".claude/agents/io-storefront-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04116",
+  "file": "corpus/iowarp_clio-core__.claude_agents_config-file-editor.md",
+  "repo": "iowarp/clio-core",
+  "path": ".claude/agents/config-file-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04117",
+  "file": "corpus/ipswitch8_CC_tools__agents_business_technical-writer.md",
+  "repo": "ipswitch8/CC_tools",
+  "path": "agents/business/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04118",
+  "file": "corpus/irishlab-io_.github__.github_agents_technical-writer.md",
+  "repo": "irishlab-io/.github",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04119",
+  "file": "corpus/ironkid90_Lucky5-v7__.codex_agents_technical-content-writer.toml",
+  "repo": "ironkid90/Lucky5-v7",
+  "path": ".codex/agents/technical-content-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

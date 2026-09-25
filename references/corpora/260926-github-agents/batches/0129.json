@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01290",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-character-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-character-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01291",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-dialogue-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-dialogue-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01292",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-editorial-team.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-editorial-team.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01293",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-emotion-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-emotion-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01294",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-main-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-main-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01295",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-prose-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-prose-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01296",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-setting-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-setting-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01297",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_ko-story-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/ko-story-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01298",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_main-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/main-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01299",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_prose-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/prose-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ }
+]

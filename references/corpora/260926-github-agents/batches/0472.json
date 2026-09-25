@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04720",
+  "file": "corpus/pnp_powershell__.github_agents_docs-sync.agent.md",
+  "repo": "pnp/powershell",
+  "path": ".github/agents/docs-sync.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04721",
+  "file": "corpus/polarbao_ledger_two__.codex_agents_reporter.toml",
+  "repo": "polarbao/ledger_two",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04722",
+  "file": "corpus/polarbao_slice_soft_demo__.codex_agents_reporter.toml",
+  "repo": "polarbao/slice_soft_demo",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04723",
+  "file": "corpus/poojadeolankar_AI-Spec-Driven-Development-Workshop__.github_agents_spec-writer.agent.md",
+  "repo": "poojadeolankar/AI-Spec-Driven-Development-Workshop",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04724",
+  "file": "corpus/poparab_SheDrive__.github_agents_shedrive-story-writer.agent.md",
+  "repo": "poparab/SheDrive",
+  "path": ".github/agents/shedrive-story-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04725",
+  "file": "corpus/potashnikeil_ai-devfactory__agents_prompts_techwriter.md",
+  "repo": "potashnikeil/ai-devfactory",
+  "path": "agents/prompts/techwriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04726",
+  "file": "corpus/poweroutlet2_openground__.claude_agents_openground-docs-search.md",
+  "repo": "poweroutlet2/openground",
+  "path": ".claude/agents/openground-docs-search.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04727",
+  "file": "corpus/ppalazon_dotfiles__.opencode_agent_docs-writer.md",
+  "repo": "ppalazon/dotfiles",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04728",
+  "file": "corpus/ppalazon_nvim__.opencode_agent_keymap-docs.md",
+  "repo": "ppalazon/nvim",
+  "path": ".opencode/agent/keymap-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04729",
+  "file": "corpus/pradosoft_prado__agents_framework_Security_TAuthorizationRule.md",
+  "repo": "pradosoft/prado",
+  "path": "agents/framework/Security/TAuthorizationRule.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01540",
+  "file": "corpus/ivklgn_ai-kit__agents_documentation-writer.md",
+  "repo": "ivklgn/ai-kit",
+  "path": "agents/documentation-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01541",
+  "file": "corpus/k8adev_aiwkf__plugins_agents_README.pt-BR.md",
+  "repo": "k8adev/aiwkf",
+  "path": "plugins/agents/README.pt-BR.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01542",
+  "file": "corpus/kovrichard_portable-agent-layer__.claude_agents_repo-skill-author.md",
+  "repo": "kovrichard/portable-agent-layer",
+  "path": ".claude/agents/repo-skill-author.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01543",
+  "file": "corpus/lglucas_ai-dev-operating-system__.claude_agents_copywriter-agent.md",
+  "repo": "lglucas/ai-dev-operating-system",
+  "path": ".claude/agents/copywriter-agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01544",
+  "file": "corpus/lightspeedwp_.github__agents_ai-readiness-agent_skills_presentations_artifact_tool_api_API_DOCS.md",
+  "repo": "lightspeedwp/.github",
+  "path": "agents/ai-readiness-agent/skills/presentations/artifact_tool/api/API_DOCS.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01545",
+  "file": "corpus/lightspeedwp_.github__agents_prd-agent_skills_qa-planner_references_editor-experience-checks.md",
+  "repo": "lightspeedwp/.github",
+  "path": "agents/prd-agent/skills/qa-planner/references/editor-experience-checks.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01546",
+  "file": "corpus/neeraip_hydra__.github_agents_spec-writer.agent.md",
+  "repo": "neeraip/hydra",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01547",
+  "file": "corpus/pedrol-cmd_brain-drin__.claude_agents_copywriter.md",
+  "repo": "pedrol-cmd/brain-drin",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01548",
+  "file": "corpus/pedrol-cmd_brain-drin__.claude_agents_technical-writer.md",
+  "repo": "pedrol-cmd/brain-drin",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01549",
+  "file": "corpus/pedrol-cmd_brain-drin__.claude_agents_writer.md",
+  "repo": "pedrol-cmd/brain-drin",
+  "path": ".claude/agents/writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

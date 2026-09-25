@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04010",
+  "file": "corpus/guan4tou2_bug-bounty-vault-framework__.claude_agents_disclosed-report-researcher.md",
+  "repo": "guan4tou2/bug-bounty-vault-framework",
+  "path": ".claude/agents/disclosed-report-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04011",
+  "file": "corpus/guillermoscript_lms-front__.claude_agents_qa-report.md",
+  "repo": "guillermoscript/lms-front",
+  "path": ".claude/agents/qa-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04012",
+  "file": "corpus/guyettinger_EmergenceInACup__.claude_agents_content-writer.md",
+  "repo": "guyettinger/EmergenceInACup",
+  "path": ".claude/agents/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04013",
+  "file": "corpus/gwmccubbin_subagents-workshop__agents_docs-writer.md",
+  "repo": "gwmccubbin/subagents-workshop",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04014",
+  "file": "corpus/gyalamanch001a_pur-new__.claude_agents_doc-generator.agent.md",
+  "repo": "gyalamanch001a/pur-new",
+  "path": ".claude/agents/doc-generator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04015",
+  "file": "corpus/gyrinx-app_gyrinx__.claude_agents_copywriter.md",
+  "repo": "gyrinx-app/gyrinx",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04016",
+  "file": "corpus/hackforla_ai-skills-assessor__agents_agents_code-writer.md",
+  "repo": "hackforla/ai-skills-assessor",
+  "path": "agents/agents/code-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04017",
+  "file": "corpus/hacsat88-blip_DCR_Products__.codex_agents_technical-writer.toml",
+  "repo": "hacsat88-blip/DCR_Products",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04018",
+  "file": "corpus/hainamchung_agent-assistant__agents_docs-manager.md",
+  "repo": "hainamchung/agent-assistant",
+  "path": "agents/docs-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04019",
+  "file": "corpus/hainamchung_agent-assistant__agents_reporter.md",
+  "repo": "hainamchung/agent-assistant",
+  "path": "agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

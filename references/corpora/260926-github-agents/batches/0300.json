@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03000",
+  "file": "corpus/KetaLoca_IA_Harness-SDD__.claude_agents_docs-writer.md",
+  "repo": "KetaLoca/IA_Harness-SDD",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03001",
+  "file": "corpus/KevinBigham_codex-safe-starter__.codex_agents_docs_researcher.toml",
+  "repo": "KevinBigham/codex-safe-starter",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03002",
+  "file": "corpus/Khar-AG_t-800-agent__agents_t-800-research-vendor-docs.md",
+  "repo": "Khar-AG/t-800-agent",
+  "path": "agents/t-800-research-vendor-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03003",
+  "file": "corpus/Kihamda_Kihamda_Game__.github_agents_agent-editor.agent.md",
+  "repo": "Kihamda/Kihamda_Game",
+  "path": ".github/agents/agent-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03004",
+  "file": "corpus/Kihamda_Kihamda_Game__.github_agents_copywriter.agent.md",
+  "repo": "Kihamda/Kihamda_Game",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03005",
+  "file": "corpus/KimJiSeong1994_AutoResearchClaw__.codex_agents_blog-research-writer.toml",
+  "repo": "KimJiSeong1994/AutoResearchClaw",
+  "path": ".codex/agents/blog-research-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03006",
+  "file": "corpus/KimKiJu100_ModuleApp__.claude_agents_editor-designer.md",
+  "repo": "KimKiJu100/ModuleApp",
+  "path": ".claude/agents/editor-designer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03007",
+  "file": "corpus/KingAlejandro_MotionCorr-standalone__agents_spec_compliance_agent_templates_SPEC_CONFORMANCE_REPORT_TEMPLATE.md",
+  "repo": "KingAlejandro/MotionCorr-standalone",
+  "path": "agents/spec_compliance_agent/templates/SPEC_CONFORMANCE_REPORT_TEMPLATE.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03008",
+  "file": "corpus/KkOma-value_spec-dev-skill__agents_prd-writer.md",
+  "repo": "KkOma-value/spec-dev-skill",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03009",
+  "file": "corpus/KleilsonSantos_kleilson-portfolio__.github_agents_docs-writer.agent.md",
+  "repo": "KleilsonSantos/kleilson-portfolio",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

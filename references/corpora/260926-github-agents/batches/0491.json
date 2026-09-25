@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04910",
+  "file": "corpus/sihatafnan_sihatafnan.github.io__.claude_agents_site-editor.md",
+  "repo": "sihatafnan/sihatafnan.github.io",
+  "path": ".claude/agents/site-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04911",
+  "file": "corpus/sil-pixel_Clinical-Risk-Agent__agents_documentation_agent.md",
+  "repo": "sil-pixel/Clinical-Risk-Agent",
+  "path": "agents/documentation_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04912",
+  "file": "corpus/silbaram_plan2agent-memory__.claude_agents_p2a-spec-author.md",
+  "repo": "silbaram/plan2agent-memory",
+  "path": ".claude/agents/p2a-spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04913",
+  "file": "corpus/silbaram_plan2agent-memory__.codex_agents_p2a-task-author.toml",
+  "repo": "silbaram/plan2agent-memory",
+  "path": ".codex/agents/p2a-task-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04914",
+  "file": "corpus/simonamtoft_cv-website__.claude_agents_content-editor.md",
+  "repo": "simonamtoft/cv-website",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04915",
+  "file": "corpus/sirjamesoffordii_CMC-Go__.github_agents_reference_MEMORY_RESEARCH_REPORT.md",
+  "repo": "sirjamesoffordii/CMC-Go",
+  "path": ".github/agents/reference/MEMORY_RESEARCH_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04916",
+  "file": "corpus/sjames_syscribe__.claude_agents_model-author.md",
+  "repo": "sjames/syscribe",
+  "path": ".claude/agents/model-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04917",
+  "file": "corpus/sjhorn_solitaire__.claude_agents_docs-agent.md",
+  "repo": "sjhorn/solitaire",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04918",
+  "file": "corpus/sjmyuan_easy-practice__.github_agents_user-story-editor.md",
+  "repo": "sjmyuan/easy-practice",
+  "path": ".github/agents/user-story-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04919",
+  "file": "corpus/sktometometo_dotfiles_public__agents_gdocs-access.md",
+  "repo": "sktometometo/dotfiles_public",
+  "path": "agents/gdocs-access.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

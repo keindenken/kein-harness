@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03030",
+  "file": "corpus/Lasander_kettleclock__.github_agents_reporter.agent.md",
+  "repo": "Lasander/kettleclock",
+  "path": ".github/agents/reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03031",
+  "file": "corpus/Laurens-R_PixelShop__.github_agents_spec-writer.agent.md",
+  "repo": "Laurens-R/PixelShop",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03032",
+  "file": "corpus/LeeBaker3_games__.github_agents_release-docs-agent.agent.md",
+  "repo": "LeeBaker3/games",
+  "path": ".github/agents/release-docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03033",
+  "file": "corpus/Legal-and-General_canopy__.github_agents_migration-guide-writer.agent.md",
+  "repo": "Legal-and-General/canopy",
+  "path": ".github/agents/migration-guide-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03034",
+  "file": "corpus/LenKIM_oh-my-n8n__agents_n8n-workflow-author.md",
+  "repo": "LenKIM/oh-my-n8n",
+  "path": "agents/n8n-workflow-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03035",
+  "file": "corpus/Leuename_tracker__.claude_agents_technical-writer.md",
+  "repo": "Leuename/tracker",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03036",
+  "file": "corpus/Librefolio_LibreFolio__.github_agents_docs-writer.agent.md",
+  "repo": "Librefolio/LibreFolio",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03037",
+  "file": "corpus/LifeifCreater_ai-video-business__agents_editor-in-chief.md",
+  "repo": "LifeifCreater/ai-video-business",
+  "path": "agents/editor-in-chief.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03038",
+  "file": "corpus/LingKrauz_show-db-import__.github_agents_docs-sync.md",
+  "repo": "LingKrauz/show-db-import",
+  "path": ".github/agents/docs-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03039",
+  "file": "corpus/LinkedInLearning_unboxing-ai-vscode-and-copilot-deep-dive-8016001__.github_agents_mcp-documentation.agent.md",
+  "repo": "LinkedInLearning/unboxing-ai-vscode-and-copilot-deep-dive-8016001",
+  "path": ".github/agents/mcp-documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

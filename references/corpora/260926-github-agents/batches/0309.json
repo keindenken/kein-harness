@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03090",
+  "file": "corpus/MicrosoftDocs_m365copilot-docs__.github_agents_copilot-procedural-doc-writer.agent.md",
+  "repo": "MicrosoftDocs/m365copilot-docs",
+  "path": ".github/agents/copilot-procedural-doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03091",
+  "file": "corpus/Midtown-Technology-Group_Wrangnarok__.opencode_agent_saga-author.md",
+  "repo": "Midtown-Technology-Group/Wrangnarok",
+  "path": ".opencode/agent/saga-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03092",
+  "file": "corpus/MikahNiehaus_ClaudeMemory__agents_docs-agent.md",
+  "repo": "MikahNiehaus/ClaudeMemory",
+  "path": "agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03093",
+  "file": "corpus/Mikebeem_mikebeem.github.io__.github_agents_language-editor.agent.md",
+  "repo": "Mikebeem/mikebeem.github.io",
+  "path": ".github/agents/language-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03094",
+  "file": "corpus/MikhailKayumov_mesh-hub__.claude_agents_mantine-form-author.md",
+  "repo": "MikhailKayumov/mesh-hub",
+  "path": ".claude/agents/mantine-form-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03095",
+  "file": "corpus/MingChaoXu_xiaohongshu_workflow__agents_copywriter.md",
+  "repo": "MingChaoXu/xiaohongshu_workflow",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03096",
+  "file": "corpus/MirelSIG_Pildora-Testing-Gestionet__.claude_agents_qa-reporter.md",
+  "repo": "MirelSIG/Pildora-Testing-Gestionet",
+  "path": ".claude/agents/qa-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03097",
+  "file": "corpus/MislavSag_CroAIcon__.claude_agents_editor.md",
+  "repo": "MislavSag/CroAIcon",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03098",
+  "file": "corpus/Mitriyweb_agent-team__agents_localization_loc-tech-writer.md",
+  "repo": "Mitriyweb/agent-team",
+  "path": "agents/localization/loc-tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03099",
+  "file": "corpus/MoMoJee_MoMoJeeObsidian__.codex_agents_academic-writer.toml",
+  "repo": "MoMoJee/MoMoJeeObsidian",
+  "path": ".codex/agents/academic-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

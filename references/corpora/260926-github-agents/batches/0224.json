@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02240",
+  "file": "corpus/xthecapx_qiskit-qward__agents_technical-writer.md",
+  "repo": "xthecapx/qiskit-qward",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02241",
+  "file": "corpus/xtofuub_frida-mcp-server__.claude_agents_ios-reporter.md",
+  "repo": "xtofuub/frida-mcp-server",
+  "path": ".claude/agents/ios-reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02242",
+  "file": "corpus/yzxoi_Paperly-Codex__agents_latex_consistency_editor.toml",
+  "repo": "yzxoi/Paperly-Codex",
+  "path": "agents/latex_consistency_editor.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02243",
+  "file": "corpus/zakame_brooks-agent-team__.codex_agents_editor.toml",
+  "repo": "zakame/brooks-agent-team",
+  "path": ".codex/agents/editor.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02244",
+  "file": "corpus/zeuikli_openai-codex-workspace__.codex_agents_doc_writer.toml",
+  "repo": "zeuikli/openai-codex-workspace",
+  "path": ".codex/agents/doc_writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02245",
+  "file": "corpus/zheHT_ShipVerify__.codex_agents_docs-researcher.toml",
+  "repo": "zheHT/ShipVerify",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02246",
+  "file": "corpus/0x766C70_alicante__.github_agents_botbot-writer.md",
+  "repo": "0x766C70/alicante",
+  "path": ".github/agents/botbot-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02247",
+  "file": "corpus/11philip22_megalib__agents_policies_documentation.md",
+  "repo": "11philip22/megalib",
+  "path": "agents/policies/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02248",
+  "file": "corpus/AMisljenovic_loom__.codex_agents_tool-author.md",
+  "repo": "AMisljenovic/loom",
+  "path": ".codex/agents/tool-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02249",
+  "file": "corpus/ANcpLua_monte-carlo-ui-lab__agents_copywriter.md",
+  "repo": "ANcpLua/monte-carlo-ui-lab",
+  "path": "agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

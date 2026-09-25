@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04750",
+  "file": "corpus/qdequele_lumen__.claude_agents_docs-writer.md",
+  "repo": "qdequele/lumen",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04751",
+  "file": "corpus/qingfuliu071313-arch_Word-agent__agents_word-content-editor.md",
+  "repo": "qingfuliu071313-arch/Word-agent",
+  "path": "agents/word-content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04752",
+  "file": "corpus/qiuranke99_TVC-Creative-Intelligence-System__.codex_agents_copywriter.toml",
+  "repo": "qiuranke99/TVC-Creative-Intelligence-System",
+  "path": ".codex/agents/copywriter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04753",
+  "file": "corpus/quanticsoul4772_unified-thinking__.claude_agents_documentation-specialist.md",
+  "repo": "quanticsoul4772/unified-thinking",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04754",
+  "file": "corpus/quissicutdeus_mica__.claude_agents_docs.md",
+  "repo": "quissicutdeus/mica",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04755",
+  "file": "corpus/qwacko_totallatorv3__.claude_agents_documentation-manager.md",
+  "repo": "qwacko/totallatorv3",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04756",
+  "file": "corpus/qwts_universal-agentic-workflow__.github_agents_uwf-core-technical-writer.agent.md",
+  "repo": "qwts/universal-agentic-workflow",
+  "path": ".github/agents/uwf-core-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04757",
+  "file": "corpus/r1beguin_landSheperd__.opencode_agent_shepherd-docs.md",
+  "repo": "r1beguin/landSheperd",
+  "path": ".opencode/agent/shepherd-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04758",
+  "file": "corpus/r8vnhill_dibs-astro__.github_agents_lessons-author.agent.md",
+  "repo": "r8vnhill/dibs-astro",
+  "path": ".github/agents/lessons-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04759",
+  "file": "corpus/rMartine_agent-forge__.claude_agents_documentation_technical-writer.md",
+  "repo": "rMartine/agent-forge",
+  "path": ".claude/agents/documentation/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

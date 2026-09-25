@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01080",
+  "file": "corpus/lisachenko_native-php-matrix__.claude_agents_phpt-author.md",
+  "repo": "lisachenko/native-php-matrix",
+  "path": ".claude/agents/phpt-author.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01081",
+  "file": "corpus/llopresto87_Cypress__agents_09-docs-librarian.md",
+  "repo": "llopresto87/Cypress",
+  "path": "agents/09-docs-librarian.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01082",
+  "file": "corpus/smorky850612_Aurakit__agents_spec-writer.md",
+  "repo": "smorky850612/Aurakit",
+  "path": "agents/spec-writer.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01083",
+  "file": "corpus/Robotti-io_copilot-security-instructions__.github_agents_mcp-tool-author.agent.md",
+  "repo": "Robotti-io/copilot-security-instructions",
+  "path": ".github/agents/mcp-tool-author.agent.md",
+  "stars": 42,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01084",
+  "file": "corpus/unclejobs-ai_blog-posting-auto__.claude_agents_blog-writer.md",
+  "repo": "unclejobs-ai/blog-posting-auto",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 42,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01085",
+  "file": "corpus/ClassicMiniDIY_UltraLog__.claude_agents_docs-expert.md",
+  "repo": "ClassicMiniDIY/UltraLog",
+  "path": ".claude/agents/docs-expert.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01086",
+  "file": "corpus/DenZNK_BlackboxBook__.github_agents_book-chapter-editor.agent.md",
+  "repo": "DenZNK/BlackboxBook",
+  "path": ".github/agents/book-chapter-editor.agent.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01087",
+  "file": "corpus/HungHsunHan_claude-code-data-science-team__.claude_agents_technical-writer-qa.md",
+  "repo": "HungHsunHan/claude-code-data-science-team",
+  "path": ".claude/agents/technical-writer-qa.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01088",
+  "file": "corpus/Kewton_CommandMate__.claude_agents_progress-report-agent.md",
+  "repo": "Kewton/CommandMate",
+  "path": ".claude/agents/progress-report-agent.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01089",
+  "file": "corpus/SteveGJones_ai-first-sdlc-practices__agents_documentation_documentation-architect.md",
+  "repo": "SteveGJones/ai-first-sdlc-practices",
+  "path": "agents/documentation/documentation-architect.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ }
+]

@@ -6,3 +6,8 @@ __pycache__/
 
 # Transient run state. Deliverables under .agents/kein/ are tracked.
 .agents/kein/runs/
+
+# Harvested corpora are tens of megabytes of other people's files; the scripts and derived JSON are what is kept.
+references/corpora/*/corpus/
+references/corpora/*/results/
+references/corpora/*/results-*/

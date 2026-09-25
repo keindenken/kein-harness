@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02110",
+  "file": "corpus/youngchingjui_issue-to-pr__.claude_agents_docs-architect.md",
+  "repo": "youngchingjui/issue-to-pr",
+  "path": ".claude/agents/docs-architect.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02111",
+  "file": "corpus/yrvelez_OpenQual__.claude_agents_report_agent.md",
+  "repo": "yrvelez/OpenQual",
+  "path": ".claude/agents/report_agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02112",
+  "file": "corpus/zltastopa_zmluvy__agents_report-writer.md",
+  "repo": "zltastopa/zmluvy",
+  "path": "agents/report-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02113",
+  "file": "corpus/AlekseiSDev_agent-engineering-manifesto__.claude_agents_plan-writer.md",
+  "repo": "AlekseiSDev/agent-engineering-manifesto",
+  "path": ".claude/agents/plan-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02114",
+  "file": "corpus/Arasz_ai-badger__.github_agents_hermes-agent-author.agent.md",
+  "repo": "Arasz/ai-badger",
+  "path": ".github/agents/hermes-agent-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02115",
+  "file": "corpus/BULDEE_claude-creative-studio__agents_carousel-copywriter.md",
+  "repo": "BULDEE/claude-creative-studio",
+  "path": "agents/carousel-copywriter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02116",
+  "file": "corpus/BorisDruzak_helpdesk__.codex_agents_docs-drift-auditor.toml",
+  "repo": "BorisDruzak/helpdesk",
+  "path": ".codex/agents/docs-drift-auditor.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02117",
+  "file": "corpus/BorisStricky_pocket-family__.claude_agents_documentation-writer.md",
+  "repo": "BorisStricky/pocket-family",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02118",
+  "file": "corpus/Conava_claude-devline__agents_docs-keeper.md",
+  "repo": "Conava/claude-devline",
+  "path": "agents/docs-keeper.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02119",
+  "file": "corpus/D-sorganization_Tools__.github_agents_docs-agent.md",
+  "repo": "D-sorganization/Tools",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

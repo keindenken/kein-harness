@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02560",
+  "file": "corpus/smchandrupatla_aisena-agent-org__.github_agents_documentation-engineer.agent.md",
+  "repo": "smchandrupatla/aisena-agent-org",
+  "path": ".github/agents/documentation-engineer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02561",
+  "file": "corpus/smchandrupatla_aisena-agent-org__.github_agents_technical-writer.agent.md",
+  "repo": "smchandrupatla/aisena-agent-org",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02562",
+  "file": "corpus/snits_claude-files__agents_line-editor.md",
+  "repo": "snits/claude-files",
+  "path": "agents/line-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02563",
+  "file": "corpus/splendidsummer_claude_skills__.claude_agents_documentation-architect.md",
+  "repo": "splendidsummer/claude_skills",
+  "path": ".claude/agents/documentation-architect.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02564",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_backup-restore_log-near-full_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/backup-restore/log-near-full/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02565",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_backup-restore_ltr-backup-out-of-sla_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/backup-restore/ltr-backup-out-of-sla/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02566",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_geodr_out-of-rpo_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/geodr/out-of-rpo/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02567",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_replication_CDC_cdc-frequent-dumping_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/replication/CDC/cdc-frequent-dumping/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02568",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_replication_CDC_cdc-log-full_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/replication/CDC/cdc-log-full/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02569",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_replication_Mirroring_autoreseed-db_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/replication/Mirroring/autoreseed-db/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

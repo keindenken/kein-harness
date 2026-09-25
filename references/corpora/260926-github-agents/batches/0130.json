@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01300",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_setting-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/setting-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01301",
+  "file": "corpus/tiny-flowlab_novel-studio-copilot-cli__.github_agents_story-writer.agent.md",
+  "repo": "tiny-flowlab/novel-studio-copilot-cli",
+  "path": ".github/agents/story-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01302",
+  "file": "corpus/z-shell_wiki__.github_agents_docusaurus-writer.agent.md",
+  "repo": "z-shell/wiki",
+  "path": ".github/agents/docusaurus-writer.agent.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01303",
+  "file": "corpus/GovTechSG_sgds-web-component__.github_agents_dp.docs-agent-v1.agent.md",
+  "repo": "GovTechSG/sgds-web-component",
+  "path": ".github/agents/dp.docs-agent-v1.agent.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01304",
+  "file": "corpus/ZanderRuss_obsidian-claude__.claude_agents_research-team_paper-editor.md",
+  "repo": "ZanderRuss/obsidian-claude",
+  "path": ".claude/agents/research-team/paper-editor.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01305",
+  "file": "corpus/howells_fiction__agents_editor.md",
+  "repo": "howells/fiction",
+  "path": "agents/editor.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01306",
+  "file": "corpus/howells_fiction__agents_writer.md",
+  "repo": "howells/fiction",
+  "path": "agents/writer.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01307",
+  "file": "corpus/louisbrulenaudet_monorepo-template__.opencode_agent_docs-researcher.md",
+  "repo": "louisbrulenaudet/monorepo-template",
+  "path": ".opencode/agent/docs-researcher.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01308",
+  "file": "corpus/mhylle_claude-skills-collection__agents_docs-analyzer.md",
+  "repo": "mhylle/claude-skills-collection",
+  "path": "agents/docs-analyzer.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01309",
+  "file": "corpus/mhylle_claude-skills-collection__agents_docs-locator.md",
+  "repo": "mhylle/claude-skills-collection",
+  "path": "agents/docs-locator.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ }
+]

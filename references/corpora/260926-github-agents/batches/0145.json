@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01450",
+  "file": "corpus/caioimori_sinapse-ai__.claude_agents_sinapse-copy-editor.md",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".claude/agents/sinapse-copy-editor.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01451",
+  "file": "corpus/caioimori_sinapse-ai__.claude_agents_sinapse-editorial-strategist.md",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".claude/agents/sinapse-editorial-strategist.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01452",
+  "file": "corpus/caioimori_sinapse-ai__.claude_agents_sinapse-funnel-copywriter.md",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".claude/agents/sinapse-funnel-copywriter.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01453",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_ad-copywriter.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/ad-copywriter.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01454",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_brand-voice-writer.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/brand-voice-writer.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01455",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_conversion-writer.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/conversion-writer.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01456",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_copy-editor.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/copy-editor.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01457",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_editorial-strategist.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/editorial-strategist.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01458",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_funnel-copywriter.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/funnel-copywriter.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01459",
+  "file": "corpus/caioimori_sinapse-ai__.codex_agents_long-form-writer.toml",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".codex/agents/long-form-writer.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ }
+]

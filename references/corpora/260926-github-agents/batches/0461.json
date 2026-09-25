@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04610",
+  "file": "corpus/normenmueller_o2i__.github_agents_o2i-governance-coauthor.agent.md",
+  "repo": "normenmueller/o2i",
+  "path": ".github/agents/o2i-governance-coauthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04611",
+  "file": "corpus/normenmueller_o2i__.github_agents_o2i-modeling-coauthor.agent.md",
+  "repo": "normenmueller/o2i",
+  "path": ".github/agents/o2i-modeling-coauthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04612",
+  "file": "corpus/normenmueller_o2i__.github_agents_o2i-publication-coauthor.agent.md",
+  "repo": "normenmueller/o2i",
+  "path": ".github/agents/o2i-publication-coauthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04613",
+  "file": "corpus/normenmueller_o2i__.github_agents_o2i-strategy-coauthor.agent.md",
+  "repo": "normenmueller/o2i",
+  "path": ".github/agents/o2i-strategy-coauthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04614",
+  "file": "corpus/norminator88_minionme__agents_copywriter.md",
+  "repo": "norminator88/minionme",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04615",
+  "file": "corpus/norrisaftcc_course-csc134-template__.claude_agents_linx-voice-readability-editor.md",
+  "repo": "norrisaftcc/course-csc134-template",
+  "path": ".claude/agents/linx-voice-readability-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04616",
+  "file": "corpus/novatsingh_agentkick__.codex_agents_docs-researcher.md",
+  "repo": "novatsingh/agentkick",
+  "path": ".codex/agents/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04617",
+  "file": "corpus/novocap_Novocap.Learning.Git.Docs__.opencode_agent_mkdocs-builder.md",
+  "repo": "novocap/Novocap.Learning.Git.Docs",
+  "path": ".opencode/agent/mkdocs-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04618",
+  "file": "corpus/ntoledo319_ToledoTechnologies__.codex_agents_content-writer.toml",
+  "repo": "ntoledo319/ToledoTechnologies",
+  "path": ".codex/agents/content-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04619",
+  "file": "corpus/nugiwabot_marketing-branding-selling-ads-skills__.claude_agents_mos-copywriter.md",
+  "repo": "nugiwabot/marketing-branding-selling-ads-skills",
+  "path": ".claude/agents/mos-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

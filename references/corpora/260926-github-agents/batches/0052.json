@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00520",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_ocr-extraction-team_document-structure-analyzer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/ocr-extraction-team/document-structure-analyzer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00521",
+  "file": "corpus/alirezarezvani_claude-skills__agents_marketing_cs-content-creator.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "agents/marketing/cs-content-creator.md",
+  "stars": 26453,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00522",
+  "file": "corpus/alirezarezvani_claude-skills__agents_personas_content-strategist.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "agents/personas/content-strategist.md",
+  "stars": 26453,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00523",
+  "file": "corpus/alirezarezvani_claude-skills__docs_agents_cs-handoff-author.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "docs/agents/cs-handoff-author.md",
+  "stars": 26453,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00524",
+  "file": "corpus/alirezarezvani_claude-skills__marketing_linkedin_agents_cs-linkedin-editor.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "marketing/linkedin/agents/cs-linkedin-editor.md",
+  "stars": 26453,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00525",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_leads_narrative-director.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": "CCGS Skill Testing Framework/agents/leads/narrative-director.md",
+  "stars": 25438,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00526",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_specialists_writer.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": "CCGS Skill Testing Framework/agents/specialists/writer.md",
+  "stars": 25438,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00527",
+  "file": "corpus/AgriciDaniel_claude-seo__agents_seo-content.md",
+  "repo": "AgriciDaniel/claude-seo",
+  "path": "agents/seo-content.md",
+  "stars": 17672,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00528",
+  "file": "corpus/semaphoreui_semaphore__AGENTS_plans_2_19_graphical-workflow-editor.md",
+  "repo": "semaphoreui/semaphore",
+  "path": "AGENTS/plans/2_19/graphical-workflow-editor.md",
+  "stars": 14193,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00529",
+  "file": "corpus/semaphoreui_semaphore__AGENTS_tasks_2026-06-19-keyid-7-schema-docs-example.md",
+  "repo": "semaphoreui/semaphore",
+  "path": "AGENTS/tasks/2026-06-19-keyid-7-schema-docs-example.md",
+  "stars": 14193,
+  "copies_in_repos": 1
+ }
+]

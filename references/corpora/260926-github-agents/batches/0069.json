@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00690",
+  "file": "corpus/ww-w-ai_bkit-claude-code__agents_sprint-report-writer.md",
+  "repo": "ww-w-ai/bkit-claude-code",
+  "path": "agents/sprint-report-writer.md",
+  "stars": 599,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00691",
+  "file": "corpus/ninehills_PatentWriterAgent__.claude_agents_claims-writer.md",
+  "repo": "ninehills/PatentWriterAgent",
+  "path": ".claude/agents/claims-writer.md",
+  "stars": 574,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00692",
+  "file": "corpus/backblaze-labs_genblaze__.claude_agents_genblaze-maintainer_checklists_documentation.md",
+  "repo": "backblaze-labs/genblaze",
+  "path": ".claude/agents/genblaze-maintainer/checklists/documentation.md",
+  "stars": 551,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00693",
+  "file": "corpus/shanraisshan_claude-code-hooks__.claude_agents_workflows_workflow-changelog-agent.md",
+  "repo": "shanraisshan/claude-code-hooks",
+  "path": ".claude/agents/workflows/workflow-changelog-agent.md",
+  "stars": 548,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00694",
+  "file": "corpus/evolution-foundation_evo-nexus__.claude_agents_quill-writer.md",
+  "repo": "evolution-foundation/evo-nexus",
+  "path": ".claude/agents/quill-writer.md",
+  "stars": 542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00695",
+  "file": "corpus/evolution-foundation_evo-nexus__.claude_agents_scroll-docs.md",
+  "repo": "evolution-foundation/evo-nexus",
+  "path": ".claude/agents/scroll-docs.md",
+  "stars": 542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00696",
+  "file": "corpus/ansys_pymapdl__.github_agents_documentation.agent.md",
+  "repo": "ansys/pymapdl",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 519,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00697",
+  "file": "corpus/microsoft_AL-Go__.github_agents_Documentation.md",
+  "repo": "microsoft/AL-Go",
+  "path": ".github/agents/Documentation.md",
+  "stars": 505,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00698",
+  "file": "corpus/untra_polyglot__.github_agents_docs.agent.md",
+  "repo": "untra/polyglot",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 498,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00699",
+  "file": "corpus/open-telemetry_weaver__.github_agents_docs.agent.md",
+  "repo": "open-telemetry/weaver",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 491,
+  "copies_in_repos": 1
+ }
+]

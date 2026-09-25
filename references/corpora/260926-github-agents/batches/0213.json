@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02130",
+  "file": "corpus/Knext_StockHunter__.claude_agents_report-builder.md",
+  "repo": "Knext/StockHunter",
+  "path": ".claude/agents/report-builder.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02131",
+  "file": "corpus/MauricioTapia84_EDA-ACV__.github_agents_data-reporter.agent.md",
+  "repo": "MauricioTapia84/EDA-ACV",
+  "path": ".github/agents/data-reporter.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02132",
+  "file": "corpus/MexbaliaMX_openclaw-kali-security-agents__agents_technical-writer.md",
+  "repo": "MexbaliaMX/openclaw-kali-security-agents",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02133",
+  "file": "corpus/OAS-Framework_oas__agents_oas-expert_soul_knowledge_decisions_config-authorship-and-ambient-skills.md",
+  "repo": "OAS-Framework/oas",
+  "path": "agents/oas-expert/soul/knowledge/decisions/config-authorship-and-ambient-skills.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02134",
+  "file": "corpus/RVM-BEYOND-PRIVATE-LIMITED_badabhai-platform__.claude_agents_technical-writer.md",
+  "repo": "RVM-BEYOND-PRIVATE-LIMITED/badabhai-platform",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02135",
+  "file": "corpus/RaananW_Uptimizr__.github_agents_connector-author.agent.md",
+  "repo": "RaananW/Uptimizr",
+  "path": ".github/agents/connector-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02136",
+  "file": "corpus/RandoTeam_denseframe__.codex_agents_oss-docs.toml",
+  "repo": "RandoTeam/denseframe",
+  "path": ".codex/agents/oss-docs.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02137",
+  "file": "corpus/Ratnam-Mishra_canvas-apps-plugin-codex__agents_canvas-screen-editor.md",
+  "repo": "Ratnam-Mishra/canvas-apps-plugin-codex",
+  "path": "agents/canvas-screen-editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02138",
+  "file": "corpus/RaveenGitHub_naattuSanthai__.github_agents_sustainability-carbon-reporting-specialist.agent.md",
+  "repo": "RaveenGitHub/naattuSanthai",
+  "path": ".github/agents/sustainability-carbon-reporting-specialist.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02139",
+  "file": "corpus/RubenSaucedo_labora__agents_resume-builders_resume-writer.agent.md",
+  "repo": "RubenSaucedo/labora",
+  "path": "agents/resume-builders/resume-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

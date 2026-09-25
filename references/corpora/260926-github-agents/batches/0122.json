@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01220",
+  "file": "corpus/HypoxanthineOvO_Hypo-Workflow__.claude_agents_hw-docs.md",
+  "repo": "HypoxanthineOvO/Hypo-Workflow",
+  "path": ".claude/agents/hw-docs.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01221",
+  "file": "corpus/SteppieD_agents.v1__agents_cialdini-copywriter.md",
+  "repo": "SteppieD/agents.v1",
+  "path": "agents/cialdini-copywriter.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01222",
+  "file": "corpus/cutoff_audio-ui__agents_documentation-standards-2.0.md",
+  "repo": "cutoff/audio-ui",
+  "path": "agents/documentation-standards-2.0.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01223",
+  "file": "corpus/dr-dolomite_QManager__.claude_agents_docs-writer.md",
+  "repo": "dr-dolomite/QManager",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01224",
+  "file": "corpus/hoangsonww_Forge-Agentic-Coding-CLI__.claude_agents_docs-auditor.md",
+  "repo": "hoangsonww/Forge-Agentic-Coding-CLI",
+  "path": ".claude/agents/docs-auditor.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01225",
+  "file": "corpus/idoforgod_Vibe-learning-AgenticWorkflow__.claude_agents_documenter.md",
+  "repo": "idoforgod/Vibe-learning-AgenticWorkflow",
+  "path": ".claude/agents/documenter.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01226",
+  "file": "corpus/nagisanzenin_idiolect__agents_idiolect-writer.md",
+  "repo": "nagisanzenin/idiolect",
+  "path": "agents/idiolect-writer.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01227",
+  "file": "corpus/pmrogala_Buildenator__.claude_agents_documentation-writer.md",
+  "repo": "pmrogala/Buildenator",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01228",
+  "file": "corpus/tomcounsell_ai__.claude_agents_documentarian.md",
+  "repo": "tomcounsell/ai",
+  "path": ".claude/agents/documentarian.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01229",
+  "file": "corpus/vstorm-co_content-skills__agents_content-writer.md",
+  "repo": "vstorm-co/content-skills",
+  "path": "agents/content-writer.md",
+  "stars": 24,
+  "copies_in_repos": 1
+ }
+]

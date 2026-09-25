@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02000",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_oral-history-interpretation-editor.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/oral-history-interpretation-editor.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02001",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_text-adaptation-editor.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/text-adaptation-editor.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02002",
+  "file": "corpus/Colin4k1024_tsp__agents_specialists_docs-lookup.md",
+  "repo": "Colin4k1024/tsp",
+  "path": "agents/specialists/docs-lookup.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02003",
+  "file": "corpus/Crumbgrabber_llm_system_template_agents_skills_patterns_tools_prompts__agents_marketing-copywriter-specialist.md",
+  "repo": "Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts",
+  "path": "agents/marketing-copywriter-specialist.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02004",
+  "file": "corpus/Enterprise-CMCS_macpro-mdct-mfp__.github_agents_docs-agent.md",
+  "repo": "Enterprise-CMCS/macpro-mdct-mfp",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02005",
+  "file": "corpus/EricBLivingston_corpus-iuris__agents_authorizer.md",
+  "repo": "EricBLivingston/corpus-iuris",
+  "path": "agents/authorizer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02006",
+  "file": "corpus/Fabric-Pro_fabric-oss__agents_docs_CUGA_FEATURES_DOCUMENTATION.md",
+  "repo": "Fabric-Pro/fabric-oss",
+  "path": "agents/docs/CUGA_FEATURES_DOCUMENTATION.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02007",
+  "file": "corpus/Felpix-Studios_peer-review__agents_copyeditor.md",
+  "repo": "Felpix-Studios/peer-review",
+  "path": "agents/copyeditor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02008",
+  "file": "corpus/Felpix-Studios_peer-review__agents_data-editor.md",
+  "repo": "Felpix-Studios/peer-review",
+  "path": "agents/data-editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02009",
+  "file": "corpus/Flux-Frontiers_pycode_kg__.claude_agents_doc.md",
+  "repo": "Flux-Frontiers/pycode_kg",
+  "path": ".claude/agents/doc.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

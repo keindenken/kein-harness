@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04550",
+  "file": "corpus/nampacx_nampacx.github.io__.github_agents_astro-blog-editor.agent.md",
+  "repo": "nampacx/nampacx.github.io",
+  "path": ".github/agents/astro-blog-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04551",
+  "file": "corpus/napolitano_eurorack-sequencer-firmware-styr__.github_agents_styr-manual-editor.agent.md",
+  "repo": "napolitano/eurorack-sequencer-firmware-styr",
+  "path": ".github/agents/styr-manual-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04552",
+  "file": "corpus/nario0715masa0619-create_x-amazon-revenue-engine__.claude_agents_x-copywriter.md",
+  "repo": "nario0715masa0619-create/x-amazon-revenue-engine",
+  "path": ".claude/agents/x-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04553",
+  "file": "corpus/narsis12141214_Jodie-AI__.claude_agents_agency_copywriter.md",
+  "repo": "narsis12141214/Jodie-AI",
+  "path": ".claude/agents/agency/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04554",
+  "file": "corpus/narsis12141214_Jodie-AI__.claude_agents_photography_blog-copywriter.md",
+  "repo": "narsis12141214/Jodie-AI",
+  "path": ".claude/agents/photography/blog-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04555",
+  "file": "corpus/narsis12141214_Jodie-AI__.claude_agents_photography_master-copywriter.md",
+  "repo": "narsis12141214/Jodie-AI",
+  "path": ".claude/agents/photography/master-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04556",
+  "file": "corpus/narsis12141214_Jodie-AI__.claude_agents_photography_social-copywriter.md",
+  "repo": "narsis12141214/Jodie-AI",
+  "path": ".claude/agents/photography/social-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04557",
+  "file": "corpus/nategarelik_claude-ultra-plugin__agents_docs-generator.md",
+  "repo": "nategarelik/claude-ultra-plugin",
+  "path": "agents/docs-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04558",
+  "file": "corpus/nathanmalone99_Multi-Agent-Code-Review-System__agents_documentation.md",
+  "repo": "nathanmalone99/Multi-Agent-Code-Review-System",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04559",
+  "file": "corpus/natthawat141_auto-news__.codex_agents_writer.toml",
+  "repo": "natthawat141/auto-news",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

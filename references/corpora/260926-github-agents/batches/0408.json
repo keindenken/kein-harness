@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04080",
+  "file": "corpus/hyeonsangjeon_my-ai-video-cut__.github_agents_video-editor.agent.md",
+  "repo": "hyeonsangjeon/my-ai-video-cut",
+  "path": ".github/agents/video-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04081",
+  "file": "corpus/hyhmrright_brooks-lint__.claude_agents_skill-author.md",
+  "repo": "hyhmrright/brooks-lint",
+  "path": ".claude/agents/skill-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04082",
+  "file": "corpus/hyojun01_research-agent__.claude_agents_report-writer.md",
+  "repo": "hyojun01/research-agent",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04083",
+  "file": "corpus/hyunsuki5329_Computer-Vision__.github_agents_readme-writer.agent.md",
+  "repo": "hyunsuki5329/Computer-Vision",
+  "path": ".github/agents/readme-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04084",
+  "file": "corpus/i0switch_ThreadsOS__.claude_agents_copywriter.md",
+  "repo": "i0switch/ThreadsOS",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04085",
+  "file": "corpus/iXab3r_Vivarium__.claude_agents_docs-expert.md",
+  "repo": "iXab3r/Vivarium",
+  "path": ".claude/agents/docs-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04086",
+  "file": "corpus/iamaanahmad_everything-kiro__agents_documentation-writer.md",
+  "repo": "iamaanahmad/everything-kiro",
+  "path": "agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04087",
+  "file": "corpus/iamjcabalejo_tb-custom-workflow__.codex_agents_technical-writer.md",
+  "repo": "iamjcabalejo/tb-custom-workflow",
+  "path": ".codex/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04088",
+  "file": "corpus/iamnih4l_Thoth-OS__Agents_Creative_script-writer.md",
+  "repo": "iamnih4l/Thoth-OS",
+  "path": "Agents/Creative/script-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04089",
+  "file": "corpus/iamywl_k-startup-template__.claude_agents_report-writer.md",
+  "repo": "iamywl/k-startup-template",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

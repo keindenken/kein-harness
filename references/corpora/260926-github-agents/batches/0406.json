@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04060",
+  "file": "corpus/hmy751_blog__.claude_agents_blog-shaping-editor.md",
+  "repo": "hmy751/blog",
+  "path": ".claude/agents/blog-shaping-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04061",
+  "file": "corpus/hmy751_blog__.codex_agents_blog-shaping-editor.toml",
+  "repo": "hmy751/blog",
+  "path": ".codex/agents/blog-shaping-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04062",
+  "file": "corpus/hoandk203_Personal-OS__agents_06_docs_changelog.md",
+  "repo": "hoandk203/Personal-OS",
+  "path": "agents/06_docs_changelog.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04063",
+  "file": "corpus/hoanghd218_hoang-ai-marketing__.claude_agents_video-ai-editor.md",
+  "repo": "hoanghd218/hoang-ai-marketing",
+  "path": ".claude/agents/video-ai-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04064",
+  "file": "corpus/hoangsonww_EstateWise-Chapel-Hill-Chatbot__.codex_agents_docs-researcher.toml",
+  "repo": "hoangsonww/EstateWise-Chapel-Hill-Chatbot",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04065",
+  "file": "corpus/hoangsonww_WealthWise-Finance-Tracker__.claude_agents_schema-author.md",
+  "repo": "hoangsonww/WealthWise-Finance-Tracker",
+  "path": ".claude/agents/schema-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04066",
+  "file": "corpus/hoangsonww_WealthWise-Finance-Tracker__.codex_agents_schema-author.toml",
+  "repo": "hoangsonww/WealthWise-Finance-Tracker",
+  "path": ".codex/agents/schema-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04067",
+  "file": "corpus/hochgi_conquarrow__.claude_agents_spec-author.md",
+  "repo": "hochgi/conquarrow",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04068",
+  "file": "corpus/hochgi_conquarrow__.opencode_agent_spec-author.md",
+  "repo": "hochgi/conquarrow",
+  "path": ".opencode/agent/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04069",
+  "file": "corpus/hojunjeon_AI_blog_posting_Using_CC__.claude_agents_sns-copywriter.md",
+  "repo": "hojunjeon/AI_blog_posting_Using_CC",
+  "path": ".claude/agents/sns-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

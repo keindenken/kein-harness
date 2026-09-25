@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03180",
+  "file": "corpus/PedrocaODev_ReaderParser__.opencode_agent_domain-author.md",
+  "repo": "PedrocaODev/ReaderParser",
+  "path": ".opencode/agent/domain-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03181",
+  "file": "corpus/PedrocaODev_ReaderParser__.opencode_agent_screen-author.md",
+  "repo": "PedrocaODev/ReaderParser",
+  "path": ".opencode/agent/screen-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03182",
+  "file": "corpus/PedrocaODev_ReaderParser__.opencode_agent_source-author.md",
+  "repo": "PedrocaODev/ReaderParser",
+  "path": ".opencode/agent/source-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03183",
+  "file": "corpus/Phattarapon-Kakad_MuslimRestaurantProject__.claude_agents_doc-writer.md",
+  "repo": "Phattarapon-Kakad/MuslimRestaurantProject",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03184",
+  "file": "corpus/PhiliXiR_ai-it-team__agents_documentation-lead.md",
+  "repo": "PhiliXiR/ai-it-team",
+  "path": "agents/documentation-lead.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03185",
+  "file": "corpus/PickleBill_Brick__.claude_agents_copy-editor.md",
+  "repo": "PickleBill/Brick",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03186",
+  "file": "corpus/Pierre116_action_hub_new__.github_agents_spec_writer.agent.md",
+  "repo": "Pierre116/action_hub_new",
+  "path": ".github/agents/spec_writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03187",
+  "file": "corpus/Pieter-1337_DDD__.claude_agents_documenter.md",
+  "repo": "Pieter-1337/DDD",
+  "path": ".claude/agents/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03188",
+  "file": "corpus/Pitrified_places-tools__.github_agents_docs-agent.md",
+  "repo": "Pitrified/places-tools",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03189",
+  "file": "corpus/Pitrified_snap_fit__.github_agents_docs-agent.md",
+  "repo": "Pitrified/snap_fit",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

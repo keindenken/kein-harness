@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00740",
+  "file": "corpus/stolinski_graffiti__.opencode_agent_docs.md",
+  "repo": "stolinski/graffiti",
+  "path": ".opencode/agent/docs.md",
+  "stars": 280,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00741",
+  "file": "corpus/ctripcorp_SQLlin__.claude_agents_feature-documenter.md",
+  "repo": "ctripcorp/SQLlin",
+  "path": ".claude/agents/feature-documenter.md",
+  "stars": 273,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00742",
+  "file": "corpus/avivl_claude-007-agents__.claude_agents_universal_documentation-specialist.md",
+  "repo": "avivl/claude-007-agents",
+  "path": ".claude/agents/universal/documentation-specialist.md",
+  "stars": 270,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00743",
+  "file": "corpus/enuno_unifi-mcp-server__.claude_agents_unifi-documentation.md",
+  "repo": "enuno/unifi-mcp-server",
+  "path": ".claude/agents/unifi-documentation.md",
+  "stars": 270,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00744",
+  "file": "corpus/NYCU-Chung_my-claude-devteam__agents_README.zh-TW.md",
+  "repo": "NYCU-Chung/my-claude-devteam",
+  "path": "agents/README.zh-TW.md",
+  "stars": 269,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00745",
+  "file": "corpus/starmynd-org_infinite-brain-os__.claude_agents_canon-editor.md",
+  "repo": "starmynd-org/infinite-brain-os",
+  "path": ".claude/agents/canon-editor.md",
+  "stars": 251,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00746",
+  "file": "corpus/kochetkov-ma_allure-server__.claude_agents_report-service.md",
+  "repo": "kochetkov-ma/allure-server",
+  "path": ".claude/agents/report-service.md",
+  "stars": 248,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00747",
+  "file": "corpus/gluk-w_claworc__.claude_agents_migration-author.md",
+  "repo": "gluk-w/claworc",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 242,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00748",
+  "file": "corpus/tmck-code_yet-another-statusline__.claude_agents_yas-editor.md",
+  "repo": "tmck-code/yet-another-statusline",
+  "path": ".claude/agents/yas-editor.md",
+  "stars": 242,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00749",
+  "file": "corpus/gofixpoint_amika__.claude_agents_git-commit-pr-writer.md",
+  "repo": "gofixpoint/amika",
+  "path": ".claude/agents/git-commit-pr-writer.md",
+  "stars": 240,
+  "copies_in_repos": 1
+ }
+]

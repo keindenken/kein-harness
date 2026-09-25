@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04420",
+  "file": "corpus/majunbao_learn__agents_smolagents-1.26.0_.github_workflows_build_pr_documentation.yml",
+  "repo": "majunbao/learn",
+  "path": "agents/smolagents-1.26.0/.github/workflows/build_pr_documentation.yml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04421",
+  "file": "corpus/manhgg22_agentFullDukick__agents_dukick-truyenthong-8768_skills_devops_zalo-bot-integration_references_zalo-api-docs.md",
+  "repo": "manhgg22/agentFullDukick",
+  "path": "agents/dukick-truyenthong-8768/skills/devops/zalo-bot-integration/references/zalo-api-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04422",
+  "file": "corpus/manikandareas_ngecourse__.claude_agents_kasian-baginda-copywriter.md",
+  "repo": "manikandareas/ngecourse",
+  "path": ".claude/agents/kasian-baginda-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04423",
+  "file": "corpus/manolakis_agents-and-skills__.github_agents_story-writer.agent.md",
+  "repo": "manolakis/agents-and-skills",
+  "path": ".github/agents/story-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04424",
+  "file": "corpus/manushi4_Screenhand__.claude_agents_scribe.md",
+  "repo": "manushi4/Screenhand",
+  "path": ".claude/agents/scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04425",
+  "file": "corpus/mapcrux_limrandir__.github_agents_scout-report.agent.md",
+  "repo": "mapcrux/limrandir",
+  "path": ".github/agents/scout-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04426",
+  "file": "corpus/marchanero_galgo-performance-protocol-maker__.claude_agents_editor.md",
+  "repo": "marchanero/galgo-performance-protocol-maker",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04427",
+  "file": "corpus/marcusbey_boilerplate-nts__.claude_agents_nextjs-docs-research.md",
+  "repo": "marcusbey/boilerplate-nts",
+  "path": ".claude/agents/nextjs-docs-research.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04428",
+  "file": "corpus/mardin101_agent-first-template__.github_agents_documentation-example.md",
+  "repo": "mardin101/agent-first-template",
+  "path": ".github/agents/documentation-example.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04429",
+  "file": "corpus/mardin101_agent-first-template__.github_agents_documentation.md",
+  "repo": "mardin101/agent-first-template",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

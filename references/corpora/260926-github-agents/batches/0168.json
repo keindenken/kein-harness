@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01680",
+  "file": "corpus/bl1nk-bot_bl1nk-agents-manager__agents_reporter.md",
+  "repo": "bl1nk-bot/bl1nk-agents-manager",
+  "path": "agents/reporter.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01681",
+  "file": "corpus/carlopezzuto_recruiting__.claude_agents_report-generator.md",
+  "repo": "carlopezzuto/recruiting",
+  "path": ".claude/agents/report-generator.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01682",
+  "file": "corpus/evolplus_talos__agents__templates_qa-author.md",
+  "repo": "evolplus/talos",
+  "path": "agents/_templates/qa-author.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01683",
+  "file": "corpus/fakoli_anvil__agents_docs-scribe.md",
+  "repo": "fakoli/anvil",
+  "path": "agents/docs-scribe.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01684",
+  "file": "corpus/gpt-cmdr_hms-commander__.claude_agents_hms_doc_query_WEBFETCH_INTEGRATION_REPORT.md",
+  "repo": "gpt-cmdr/hms-commander",
+  "path": ".claude/agents/hms_doc_query/WEBFETCH_INTEGRATION_REPORT.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01685",
+  "file": "corpus/htekdev_copilot-home-assistant__.github_agents_content-editor.agent.md",
+  "repo": "htekdev/copilot-home-assistant",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01686",
+  "file": "corpus/humanwhocodes_humanwhocodes.com__.github_agents_copyeditor.agent.md",
+  "repo": "humanwhocodes/humanwhocodes.com",
+  "path": ".github/agents/copyeditor.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01687",
+  "file": "corpus/iDorgham_BrandOS__.claude_agents_copywriter.md",
+  "repo": "iDorgham/BrandOS",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01688",
+  "file": "corpus/iDorgham_BrandOS__.claude_agents_technical-writer.md",
+  "repo": "iDorgham/BrandOS",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01689",
+  "file": "corpus/jawhnycooke_advanced-claude-code-patterns__.claude_agents_documentation-agent.md",
+  "repo": "jawhnycooke/advanced-claude-code-patterns",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ }
+]

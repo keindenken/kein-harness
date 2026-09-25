@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02430",
+  "file": "corpus/darker901-chen_Aetherflow__.claude_agents_benchmark-reporter.md",
+  "repo": "darker901-chen/Aetherflow",
+  "path": ".claude/agents/benchmark-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02431",
+  "file": "corpus/darker901-chen_Aetherflow__.github_agents_benchmark-reporter.md",
+  "repo": "darker901-chen/Aetherflow",
+  "path": ".github/agents/benchmark-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02432",
+  "file": "corpus/dawn840705_claude-code-studios__agents_technical-writer.md",
+  "repo": "dawn840705/claude-code-studios",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02433",
+  "file": "corpus/dczerwinskipl_nevo-vibe-coding-prompts__.github_agents_prompt-author.agent.md",
+  "repo": "dczerwinskipl/nevo-vibe-coding-prompts",
+  "path": ".github/agents/prompt-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02434",
+  "file": "corpus/dhar174_python_programming_courses__.github_agents_docs-memory-curator.agent.md",
+  "repo": "dhar174/python_programming_courses",
+  "path": ".github/agents/docs-memory-curator.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02435",
+  "file": "corpus/diShine-digital-agency_SHINE-Code-System__agents_shine-copywriter.md",
+  "repo": "diShine-digital-agency/SHINE-Code-System",
+  "path": "agents/shine-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02436",
+  "file": "corpus/digitallyswift-art_settlementcheck__.claude_agents_conversion-copywriter.md",
+  "repo": "digitallyswift-art/settlementcheck",
+  "path": ".claude/agents/conversion-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02437",
+  "file": "corpus/dimensionalwellnessai-lang_DW-Ai-__.github_agents_docs-writer.agent.md",
+  "repo": "dimensionalwellnessai-lang/DW-Ai-",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02438",
+  "file": "corpus/doqltl179_Mu3Library_ForUnity__.github_agents_docs-sync.agent.md",
+  "repo": "doqltl179/Mu3Library_ForUnity",
+  "path": ".github/agents/docs-sync.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02439",
+  "file": "corpus/doqltl179_Mu3Library_ForUnity__.github_agents_unity-editor.agent.md",
+  "repo": "doqltl179/Mu3Library_ForUnity",
+  "path": ".github/agents/unity-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

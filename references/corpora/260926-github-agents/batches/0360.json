@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03600",
+  "file": "corpus/berrzebb_quorum__agents_knowledge_references_doc-sync_l1-public-docs.md",
+  "repo": "berrzebb/quorum",
+  "path": "agents/knowledge/references/doc-sync/l1-public-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03601",
+  "file": "corpus/bertjee321_personal-ai-agents__agents_ui-copywriter.md",
+  "repo": "bertjee321/personal-ai-agents",
+  "path": "agents/ui-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03602",
+  "file": "corpus/bharat-bhangale_documind-ai__.github_agents_documentation.agent.md",
+  "repo": "bharat-bhangale/documind-ai",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03603",
+  "file": "corpus/bhargav465_restropulse__.claude_agents_coverage-reporter.md",
+  "repo": "bhargav465/restropulse",
+  "path": ".claude/agents/coverage-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03604",
+  "file": "corpus/bigboybamo_JobSearchBuilder__.claude_agents_doc-writer.md",
+  "repo": "bigboybamo/JobSearchBuilder",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03605",
+  "file": "corpus/bigeomaha_templates-spa-react-node__.github_agents_documentation.agent.md",
+  "repo": "bigeomaha/templates-spa-react-node",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03606",
+  "file": "corpus/billlange1968_Dice_Roller__.github_agents_docs-writer.agent.md",
+  "repo": "billlange1968/Dice_Roller",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03607",
+  "file": "corpus/binaryst4r_healthy-hemp-homes__.claude_agents_hempcrete-copywriter.md",
+  "repo": "binaryst4r/healthy-hemp-homes",
+  "path": ".claude/agents/hempcrete-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03608",
+  "file": "corpus/binbashar_le-tf-infra-aws__.claude_agents_documentation.md",
+  "repo": "binbashar/le-tf-infra-aws",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03609",
+  "file": "corpus/bipinks_ghost-office__.claude_agents_documentation-agent.md",
+  "repo": "bipinks/ghost-office",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

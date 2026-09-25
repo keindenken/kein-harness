@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00850",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_commands_acp.spec.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/commands/acp.spec.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00851",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-11-benchmark-suite_task-84-report-dashboard-enhancement.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-11-benchmark-suite/task-84-report-dashboard-enhancement.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00852",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-11-benchmark-suite_task-86-documentation-historical-tracking.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-11-benchmark-suite/task-86-documentation-historical-tracking.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00853",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-14-key-file-index-system_task-104-validation-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-14-key-file-index-system/task-104-validation-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00854",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-19-pluggable-driver-system_task-129-documentation-updates.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-19-pluggable-driver-system/task-129-documentation-updates.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00855",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-6-preferences-system_task-44-preferences-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-6-preferences-system/task-44-preferences-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00856",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-7-project-registry_task-60-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-7-project-registry/task-60-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00857",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-8-experimental-features_task-64-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-8-experimental-features/task-64-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00858",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_milestone-9-template-source-files_task-76-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/milestone-9-template-source-files/task-76-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00859",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_task-16-readme-update-utilities.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/task-16-readme-update-utilities.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ }
+]

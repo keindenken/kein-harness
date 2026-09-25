@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04730",
+  "file": "corpus/pradosoft_prado__agents_framework_Security_TAuthorizationRuleCollection.md",
+  "repo": "pradosoft/prado",
+  "path": "agents/framework/Security/TAuthorizationRuleCollection.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04731",
+  "file": "corpus/prakto-org_optitech-hemsida__.github_agents_content-drafter.agent.md",
+  "repo": "prakto-org/optitech-hemsida",
+  "path": ".github/agents/content-drafter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04732",
+  "file": "corpus/prakto-org_optitech-hemsida__.github_agents_docs-supervisor.agent.md",
+  "repo": "prakto-org/optitech-hemsida",
+  "path": ".github/agents/docs-supervisor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04733",
+  "file": "corpus/prashanthgopishetty_doctalk__.github_agents_documentation.agent.md",
+  "repo": "prashanthgopishetty/doctalk",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04734",
+  "file": "corpus/praveenperera_dotfiles__agents_project-skills_media-use_audio_references_captions_authoring.md",
+  "repo": "praveenperera/dotfiles",
+  "path": "agents/project-skills/media-use/audio/references/captions/authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04735",
+  "file": "corpus/praxya-in_Praxya__.github_agents_report-agent.md",
+  "repo": "praxya-in/Praxya",
+  "path": ".github/agents/report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04736",
+  "file": "corpus/prdm0_inova01__.opencode_agent_slides-story-editor.md",
+  "repo": "prdm0/inova01",
+  "path": ".opencode/agent/slides-story-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04737",
+  "file": "corpus/primex-melvin_ppdo-next__.claude_agents_google-search-retired-team_LEAD_TECHNICAL_WRITER.md",
+  "repo": "primex-melvin/ppdo-next",
+  "path": ".claude/agents/google-search-retired-team/LEAD_TECHNICAL_WRITER.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04738",
+  "file": "corpus/profsathya_applying-ai-at-work__.codex_agents_canvas-author.toml",
+  "repo": "profsathya/applying-ai-at-work",
+  "path": ".codex/agents/canvas-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04739",
+  "file": "corpus/project820_be-my-butler__agents_bmb-writer.md",
+  "repo": "project820/be-my-butler",
+  "path": "agents/bmb-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

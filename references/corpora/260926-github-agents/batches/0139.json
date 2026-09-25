@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01390",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_spec-validator.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/agents/spec-validator.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01391",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_docs_spec-workflow-system.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/docs/spec-workflow-system.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01392",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_docs_spec-workflow-usage-guide.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/docs/spec-workflow-usage-guide.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01393",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_claude-sub-agent_example_docs_dev-docs_api-spec.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/claude-sub-agent/example/docs/dev-docs/api-spec.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01394",
+  "file": "corpus/leamas-ai_leamas.sh__kits_agents_wshobson_content-marketer.md",
+  "repo": "leamas-ai/leamas.sh",
+  "path": "kits/agents/wshobson/content-marketer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01395",
+  "file": "corpus/listener-He_java-harness-agent__.claude_agents_documentation-curator.md",
+  "repo": "listener-He/java-harness-agent",
+  "path": ".claude/agents/documentation-curator.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01396",
+  "file": "corpus/losol_eventuras__.github_agents_documentation-specialist.md",
+  "repo": "losol/eventuras",
+  "path": ".github/agents/documentation-specialist.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01397",
+  "file": "corpus/rcmdnk_dotfiles__.claude_agents_doc-writer.md",
+  "repo": "rcmdnk/dotfiles",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01398",
+  "file": "corpus/robisson_build-like-amazon-agent-skills__agents_doc-bar-raiser.md",
+  "repo": "robisson/build-like-amazon-agent-skills",
+  "path": "agents/doc-bar-raiser.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01399",
+  "file": "corpus/runceel_wsl-containers-desktop__.github_agents_adr-writer.agent.md",
+  "repo": "runceel/wsl-containers-desktop",
+  "path": ".github/agents/adr-writer.agent.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ }
+]

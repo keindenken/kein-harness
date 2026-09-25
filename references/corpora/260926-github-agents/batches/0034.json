@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00340",
+  "file": "corpus/tmcleod3_voidforge__.claude_agents_jake-reporter.md",
+  "repo": "tmcleod3/voidforge",
+  "path": ".claude/agents/jake-reporter.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00341",
+  "file": "corpus/tmcleod3_voidforge__.claude_agents_wong-documentation.md",
+  "repo": "tmcleod3/voidforge",
+  "path": ".claude/agents/wong-documentation.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00342",
+  "file": "corpus/Citadel-Cloud-Management_citadel-saas-factory__.claude_agents_content_content-editor.md",
+  "repo": "Citadel-Cloud-Management/citadel-saas-factory",
+  "path": ".claude/agents/content/content-editor.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00343",
+  "file": "corpus/Org-EthereaLogic_DriftSentinel__.claude_agents_sdlc-technical-writer.md",
+  "repo": "Org-EthereaLogic/DriftSentinel",
+  "path": ".claude/agents/sdlc-technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00344",
+  "file": "corpus/RC219805_Transformation_Portal__.github_agents_rag_system__archive_FULL_RAG_WORKFLOW_REPORT.md",
+  "repo": "RC219805/Transformation_Portal",
+  "path": ".github/agents/rag_system/_archive/FULL_RAG_WORKFLOW_REPORT.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00345",
+  "file": "corpus/artsmc_claude-dev-agents__agents_modules_technical-writer-style.md",
+  "repo": "artsmc/claude-dev-agents",
+  "path": "agents/modules/technical-writer-style.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00346",
+  "file": "corpus/darthjee_sinclair__.claude_agents_docs.md",
+  "repo": "darthjee/sinclair",
+  "path": ".claude/agents/docs.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00347",
+  "file": "corpus/ma-nucho-pro_supervisor-claude-plugin__agents_supervisor-source-authority.md",
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "path": "agents/supervisor-source-authority.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00348",
+  "file": "corpus/vinnie357_scripts-library__.claude_agents_claudio_documentation-developer-guide-creator.md",
+  "repo": "vinnie357/scripts-library",
+  "path": ".claude/agents/claudio/documentation-developer-guide-creator.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00349",
+  "file": "corpus/zls3434_Software-Engineering-Studios__.claude_agents_technical-writer.md",
+  "repo": "zls3434/Software-Engineering-Studios",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ }
+]

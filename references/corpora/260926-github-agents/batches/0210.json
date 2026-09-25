@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02100",
+  "file": "corpus/takanamito_my-pokemon-leaf-green-log__.claude_agents_report-readme.md",
+  "repo": "takanamito/my-pokemon-leaf-green-log",
+  "path": ".claude/agents/report-readme.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02101",
+  "file": "corpus/thefrederiksen_mindzie_process_data__.claude_agents_data-report-writer.md",
+  "repo": "thefrederiksen/mindzie_process_data",
+  "path": ".claude/agents/data-report-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02102",
+  "file": "corpus/vibery-studio_templates__agents_technical-writer.md",
+  "repo": "vibery-studio/templates",
+  "path": "agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02103",
+  "file": "corpus/vietbui1999ru_llm-wiki__.codex_agents_code-writer.toml",
+  "repo": "vietbui1999ru/llm-wiki",
+  "path": ".codex/agents/code-writer.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02104",
+  "file": "corpus/wcygan_anton__.codex_agents_anton-flux-app-author.toml",
+  "repo": "wcygan/anton",
+  "path": ".codex/agents/anton-flux-app-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02105",
+  "file": "corpus/wcygan_anton__.codex_agents_flux-app-author.toml",
+  "repo": "wcygan/anton",
+  "path": ".codex/agents/flux-app-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02106",
+  "file": "corpus/wfprieto_World-Class-SEO-Agent-System__agents_seo-copywriter-content-agent.md",
+  "repo": "wfprieto/World-Class-SEO-Agent-System",
+  "path": "agents/seo-copywriter-content-agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02107",
+  "file": "corpus/willtheorangeguy_ProgramVer__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/ProgramVer",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02108",
+  "file": "corpus/xiaden_nomarr__.github_agents_RnD_rnd-dd-author.agent.md",
+  "repo": "xiaden/nomarr",
+  "path": ".github/agents/RnD/rnd-dd-author.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02109",
+  "file": "corpus/yahor-punko_mavericks-os__.claude_agents_technical-writer.md",
+  "repo": "yahor-punko/mavericks-os",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

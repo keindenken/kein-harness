@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02310",
+  "file": "corpus/JvKuechen_CrumbGuard__.claude_agents_report-writer.md",
+  "repo": "JvKuechen/CrumbGuard",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02311",
+  "file": "corpus/KerryHuang_DatabaseDescriptionApp__.codex_agents_documentation-writer.toml",
+  "repo": "KerryHuang/DatabaseDescriptionApp",
+  "path": ".codex/agents/documentation-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02312",
+  "file": "corpus/KinemotionInc_kinemotion__.claude_agents_technical-writer.md",
+  "repo": "KinemotionInc/kinemotion",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02313",
+  "file": "corpus/Kirow_blog__.opencode_agent_blog-post-writer.md",
+  "repo": "Kirow/blog",
+  "path": ".opencode/agent/blog-post-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02314",
+  "file": "corpus/KlementMultiverse_forge__agents_universal_technical-writer.md",
+  "repo": "KlementMultiverse/forge",
+  "path": "agents/universal/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02315",
+  "file": "corpus/L3DigitalNet_DFBU-Dotfiles-Backup-Utility__.github_agents_documentation-curator.agent.md",
+  "repo": "L3DigitalNet/DFBU-Dotfiles-Backup-Utility",
+  "path": ".github/agents/documentation-curator.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02316",
+  "file": "corpus/LabVIEW-Community-CI-CD_vi-history-suite__.github_agents_adr-author.agent.md",
+  "repo": "LabVIEW-Community-CI-CD/vi-history-suite",
+  "path": ".github/agents/adr-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02317",
+  "file": "corpus/LeonardM01_x-post-analyzer__.claude_agents_docs-maintainer.md",
+  "repo": "LeonardM01/x-post-analyzer",
+  "path": ".claude/agents/docs-maintainer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02318",
+  "file": "corpus/LindseyRRay_clo-author__.claude_agents_editor.md",
+  "repo": "LindseyRRay/clo-author",
+  "path": ".claude/agents/editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02319",
+  "file": "corpus/LoneEngineer99_AgentInstructions__.github_agents_documentation.md",
+  "repo": "LoneEngineer99/AgentInstructions",
+  "path": ".github/agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

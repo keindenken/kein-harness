@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04570",
+  "file": "corpus/nchand02_AIConcepts__.github_agents_chapter-editor.agent.md",
+  "repo": "nchand02/AIConcepts",
+  "path": ".github/agents/chapter-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04571",
+  "file": "corpus/neha-tanti_Neha-Notes__.claude_agents_technical-writer.md",
+  "repo": "neha-tanti/Neha-Notes",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04572",
+  "file": "corpus/nekoaru_custom-agent-demo__.github_agents_Image-Editor.agent.md",
+  "repo": "nekoaru/custom-agent-demo",
+  "path": ".github/agents/Image-Editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04573",
+  "file": "corpus/nerellasraj21_ai_governance_framework__agents_document-writer.md",
+  "repo": "nerellasraj21/ai_governance_framework",
+  "path": "agents/document-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04574",
+  "file": "corpus/nerochain_Nero-docs__.claude_agents_nero-docs.md",
+  "repo": "nerochain/Nero-docs",
+  "path": ".claude/agents/nero-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04575",
+  "file": "corpus/nestharus_agent-core__agents_writing editorial agent.md",
+  "repo": "nestharus/agent-core",
+  "path": "agents/writing editorial agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04576",
+  "file": "corpus/netzer-git_zkml-inspector__.github_agents_report-writer.agent.md",
+  "repo": "netzer-git/zkml-inspector",
+  "path": ".github/agents/report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04577",
+  "file": "corpus/nexio-t_obsidian-plugin__.claude_agents_documentation-writer.md",
+  "repo": "nexio-t/obsidian-plugin",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04578",
+  "file": "corpus/nexus-scholar-org_core-csharp__.codex_agents_spark-fixture-writer.toml",
+  "repo": "nexus-scholar-org/core-csharp",
+  "path": ".codex/agents/spark-fixture-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04579",
+  "file": "corpus/ngarridoinfante-ai_Descola-Chile__.github_agents_descola-site-editor.agent.md",
+  "repo": "ngarridoinfante-ai/Descola-Chile",
+  "path": ".github/agents/descola-site-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

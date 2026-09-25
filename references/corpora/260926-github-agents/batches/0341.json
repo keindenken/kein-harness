@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03410",
+  "file": "corpus/WooYoungSang_claimgate__.codex_agents_writer.toml",
+  "repo": "WooYoungSang/claimgate",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03411",
+  "file": "corpus/WooYoungSang_warvis-findEvil__.claude_agents_work-reporter.md",
+  "repo": "WooYoungSang/warvis-findEvil",
+  "path": ".claude/agents/work-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03412",
+  "file": "corpus/Xellos1010_sdlc-visual-workflow-workspace__.codex_agents_docs-release-agent.toml",
+  "repo": "Xellos1010/sdlc-visual-workflow-workspace",
+  "path": ".codex/agents/docs-release-agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03413",
+  "file": "corpus/Xsaven_vector-memory-mcp__.opencode_agent_documentation-master.md",
+  "repo": "Xsaven/vector-memory-mcp",
+  "path": ".opencode/agent/documentation-master.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03414",
+  "file": "corpus/YannBrrd_agentic-project-seed__.github_agents_documentation-writer.md",
+  "repo": "YannBrrd/agentic-project-seed",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03415",
+  "file": "corpus/YeaChan05_Remittance__.codex_agents_docs-sync-writer.toml",
+  "repo": "YeaChan05/Remittance",
+  "path": ".codex/agents/docs-sync-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03416",
+  "file": "corpus/Yeraze_meshmonitor__.claude_agents_meshmonitor-docs-writer.md",
+  "repo": "Yeraze/meshmonitor",
+  "path": ".claude/agents/meshmonitor-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03417",
+  "file": "corpus/YoavLax_agent-compass__.github_agents_rule-author.md",
+  "repo": "YoavLax/agent-compass",
+  "path": ".github/agents/rule-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03418",
+  "file": "corpus/Yosismararcia_gcrestaurant__.opencode_agent_copywriter-gastronomico.md",
+  "repo": "Yosismararcia/gcrestaurant",
+  "path": ".opencode/agent/copywriter-gastronomico.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03419",
+  "file": "corpus/YoungLeadersDotTech_agent-builder__agents_agent-editor.md",
+  "repo": "YoungLeadersDotTech/agent-builder",
+  "path": "agents/agent-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

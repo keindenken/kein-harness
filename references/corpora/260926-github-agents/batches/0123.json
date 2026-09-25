@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01230",
+  "file": "corpus/DITlieD_ELAI-archive__.claude_agents_babystep-author.md",
+  "repo": "DITlieD/ELAI-archive",
+  "path": ".claude/agents/babystep-author.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01231",
+  "file": "corpus/FerroxLabs_ferrox-factory__agents_ferrox-line-editor.md",
+  "repo": "FerroxLabs/ferrox-factory",
+  "path": "agents/ferrox-line-editor.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01232",
+  "file": "corpus/Irata_ClaudeCode__agents_joomla_joomla-prd-writer.md",
+  "repo": "Irata/ClaudeCode",
+  "path": "agents/joomla/joomla-prd-writer.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01233",
+  "file": "corpus/Liberty91LTD_cti-skills__.claude_agents_report-writer.md",
+  "repo": "Liberty91LTD/cti-skills",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01234",
+  "file": "corpus/MShneur_CTRL-AI__agents_ghostwriter.md",
+  "repo": "MShneur/CTRL-AI",
+  "path": "agents/ghostwriter.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01235",
+  "file": "corpus/itechmeat_llm-code__agents_skill-author.md",
+  "repo": "itechmeat/llm-code",
+  "path": "agents/skill-author.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01236",
+  "file": "corpus/ivfarias_ceo__.claude_agents_writer.md",
+  "repo": "ivfarias/ceo",
+  "path": ".claude/agents/writer.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01237",
+  "file": "corpus/shanraisshan_agentic-engineering__.claude_agents_readme-updater-agent.md",
+  "repo": "shanraisshan/agentic-engineering",
+  "path": ".claude/agents/readme-updater-agent.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01238",
+  "file": "corpus/tqtuan1201_TTBaseUIKit__Agents_Antigravity_AUDIT-REPORT.md",
+  "repo": "tqtuan1201/TTBaseUIKit",
+  "path": "Agents/Antigravity/AUDIT-REPORT.md",
+  "stars": 23,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01239",
+  "file": "corpus/13rac1_teep__.github_agents_GatewayReportAssemblerAgent.agent.md",
+  "repo": "13rac1/teep",
+  "path": ".github/agents/GatewayReportAssemblerAgent.agent.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ }
+]

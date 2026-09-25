@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00470",
+  "file": "corpus/affaan-m_ECC__docs_es_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/es/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00471",
+  "file": "corpus/affaan-m_ECC__docs_es_agents_docs-lookup.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/es/agents/docs-lookup.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00472",
+  "file": "corpus/affaan-m_ECC__docs_es_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/es/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00473",
+  "file": "corpus/affaan-m_ECC__docs_ja-JP_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/ja-JP/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00474",
+  "file": "corpus/affaan-m_ECC__docs_ja-JP_agents_docs-lookup.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/ja-JP/agents/docs-lookup.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00475",
+  "file": "corpus/affaan-m_ECC__docs_ja-JP_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/ja-JP/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00476",
+  "file": "corpus/affaan-m_ECC__docs_ko-KR_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/ko-KR/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00477",
+  "file": "corpus/affaan-m_ECC__docs_ko-KR_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/ko-KR/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00478",
+  "file": "corpus/affaan-m_ECC__docs_pt-BR_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/pt-BR/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00479",
+  "file": "corpus/affaan-m_ECC__docs_pt-BR_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/pt-BR/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ }
+]

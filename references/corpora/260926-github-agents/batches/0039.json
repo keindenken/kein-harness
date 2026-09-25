@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00390",
+  "file": "corpus/MichaelsEngineering_get-physics-done-test__.codex_agents_gpd-paper-writer.md",
+  "repo": "MichaelsEngineering/get-physics-done-test",
+  "path": ".codex/agents/gpd-paper-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00391",
+  "file": "corpus/MikahNiehaus_CleanArchitecture---Car-Builder__agents_docs-agent.md",
+  "repo": "MikahNiehaus/CleanArchitecture---Car-Builder",
+  "path": "agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00392",
+  "file": "corpus/NathalieChouLab_model-router-claude__agents_editor.md",
+  "repo": "NathalieChouLab/model-router-claude",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00393",
+  "file": "corpus/Nemex81_hs_deckmanager__.github_agents_Agent-FrameworkDocs.md",
+  "repo": "Nemex81/hs_deckmanager",
+  "path": ".github/agents/Agent-FrameworkDocs.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00394",
+  "file": "corpus/Novosapien_ns-website-template__.claude_agents_b2b-website-copywriter.md",
+  "repo": "Novosapien/ns-website-template",
+  "path": ".claude/agents/b2b-website-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00395",
+  "file": "corpus/Orderlee_vlm-dataops-pipeline__.codex_agents_categories_10-research-analysis_docs-researcher.toml",
+  "repo": "Orderlee/vlm-dataops-pipeline",
+  "path": ".codex/agents/categories/10-research-analysis/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00396",
+  "file": "corpus/PanchalDhavalGIT_marketing-joes-pizza-palace__.claude_agents_copywriter.md",
+  "repo": "PanchalDhavalGIT/marketing-joes-pizza-palace",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00397",
+  "file": "corpus/Popoboxxo_agent-meta__agents_1-generic_technical-writer.md",
+  "repo": "Popoboxxo/agent-meta",
+  "path": "agents/1-generic/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00398",
+  "file": "corpus/RagedKrish_github_ci_cd_prac__.github_agents_bug-reporting.agent.md",
+  "repo": "RagedKrish/github_ci_cd_prac",
+  "path": ".github/agents/bug-reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00399",
+  "file": "corpus/Sallehhuddin95_WA03-SK-Quiz-Frontend__.github_agents_documentation.agent.md",
+  "repo": "Sallehhuddin95/WA03-SK-Quiz-Frontend",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

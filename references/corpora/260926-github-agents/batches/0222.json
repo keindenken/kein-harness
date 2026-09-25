@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02220",
+  "file": "corpus/pmalarme_open-logo__.github_agents_documentation.agent.md",
+  "repo": "pmalarme/open-logo",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02221",
+  "file": "corpus/pvagnozzi_DotSerial__.github_agents_changelog-author.agent.md",
+  "repo": "pvagnozzi/DotSerial",
+  "path": ".github/agents/changelog-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02222",
+  "file": "corpus/pwarnock_liaison-toolkit__agents_technical-writer.md",
+  "repo": "pwarnock/liaison-toolkit",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02223",
+  "file": "corpus/r_claude.md__agents_editor.md",
+  "repo": "r/claude.md",
+  "path": "agents/editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02224",
+  "file": "corpus/rayketcham-lab_qn-claude-web__.claude_agents_documenter.md",
+  "repo": "rayketcham-lab/qn-claude-web",
+  "path": ".claude/agents/documenter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02225",
+  "file": "corpus/riseflame_copilot-buttAnalysis__.github_agents_report-fetcher.agent.md",
+  "repo": "riseflame/copilot-buttAnalysis",
+  "path": ".github/agents/report-fetcher.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02226",
+  "file": "corpus/robisson_robissonoliveira.com.br__.codex_agents_editorial-blog-agent.md",
+  "repo": "robisson/robissonoliveira.com.br",
+  "path": ".codex/agents/editorial-blog-agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02227",
+  "file": "corpus/rycerzes_vision-autoresearch__.opencode_agent_reporter.md",
+  "repo": "rycerzes/vision-autoresearch",
+  "path": ".opencode/agent/reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02228",
+  "file": "corpus/ryoma-jp_AI_Dashboard__.github_agents_documentation.agent.md",
+  "repo": "ryoma-jp/AI_Dashboard",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02229",
+  "file": "corpus/smallmiro_minecraft-server-manager__.claude_agents_technical-writer.md",
+  "repo": "smallmiro/minecraft-server-manager",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

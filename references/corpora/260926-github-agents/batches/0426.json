@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04260",
+  "file": "corpus/kaewz-manga_cl-n8n-mcp__.claude_agents_documentation.md",
+  "repo": "kaewz-manga/cl-n8n-mcp",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04261",
+  "file": "corpus/kajasherif_inflow-unified-ai__.github_agents_docs-writer.agent.md",
+  "repo": "kajasherif/inflow-unified-ai",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04262",
+  "file": "corpus/kakemp01_PerformanceTwin__.github_agents_docs-guard.agent.md",
+  "repo": "kakemp01/PerformanceTwin",
+  "path": ".github/agents/docs-guard.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04263",
+  "file": "corpus/kaldren_protect-arch-demo__.github_agents_documentation.agent.md",
+  "repo": "kaldren/protect-arch-demo",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04264",
+  "file": "corpus/kanitmann01_TitanTale-Analytics__agents_technical-writer.md",
+  "repo": "kanitmann01/TitanTale-Analytics",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04265",
+  "file": "corpus/kansai-gaijin_nate-llm-astro-stack__.claude_agents_fixture-copywriter.md",
+  "repo": "kansai-gaijin/nate-llm-astro-stack",
+  "path": ".claude/agents/fixture-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04266",
+  "file": "corpus/kansai-gaijin_nate-llm-astro-stack__.codex_agents_fixture-copywriter.toml",
+  "repo": "kansai-gaijin/nate-llm-astro-stack",
+  "path": ".codex/agents/fixture-copywriter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04267",
+  "file": "corpus/karansinh-raj_github-spec-kit-poc__.github_agents_docs-writer.agent.md",
+  "repo": "karansinh-raj/github-spec-kit-poc",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04268",
+  "file": "corpus/katafuchix_agent_sample__.claude_agents_editor.md",
+  "repo": "katafuchix/agent_sample",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04269",
+  "file": "corpus/kaufmann-dev_executive-arena__.codex_agents_svelte-file-editor.toml",
+  "repo": "kaufmann-dev/executive-arena",
+  "path": ".codex/agents/svelte-file-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

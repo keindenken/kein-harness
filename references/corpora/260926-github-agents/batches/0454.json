@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04540",
+  "file": "corpus/mushhzz_umbra__agents_reporter.md",
+  "repo": "mushhzz/umbra",
+  "path": "agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04541",
+  "file": "corpus/mutx-dev_mutx-dev__.github_agents_mutx-docs.md",
+  "repo": "mutx-dev/mutx-dev",
+  "path": ".github/agents/mutx-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04542",
+  "file": "corpus/mytyu10_webapp__.claude_agents_agent-editor-agent.md",
+  "repo": "mytyu10/webapp",
+  "path": ".claude/agents/agent-editor-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04543",
+  "file": "corpus/n-apps_personal-website__.codex_agents_case-study-editor.toml",
+  "repo": "n-apps/personal-website",
+  "path": ".codex/agents/case-study-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04544",
+  "file": "corpus/nOo9ya_claude-config__agents_technical-documentation-expert.md",
+  "repo": "nOo9ya/claude-config",
+  "path": "agents/technical-documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04545",
+  "file": "corpus/nahisaho_RosterHub__.claude_agents_technical-writer.md",
+  "repo": "nahisaho/RosterHub",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04546",
+  "file": "corpus/nahisaho_copilot-enhancer__.github_agents_technical-writer.md",
+  "repo": "nahisaho/copilot-enhancer",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04547",
+  "file": "corpus/nahisaho_spec-copilot__.github_agents_technical-writer.md",
+  "repo": "nahisaho/spec-copilot",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04548",
+  "file": "corpus/naigel89_CuentaMorosos__.github_agents_documentation-sprint-manager.agent.md",
+  "repo": "naigel89/CuentaMorosos",
+  "path": ".github/agents/documentation-sprint-manager.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04549",
+  "file": "corpus/nam20485_claude-agents__.opencode_agent_documentation-expert.md",
+  "repo": "nam20485/claude-agents",
+  "path": ".opencode/agent/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

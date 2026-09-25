@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04460",
+  "file": "corpus/matthewdmanning_feral-vision__.codex_agents_docs-inventory-2026-08-07.md",
+  "repo": "matthewdmanning/feral-vision",
+  "path": ".codex/agents/docs-inventory-2026-08-07.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04461",
+  "file": "corpus/matthewharwood_arenic_bevy__.claude_agents_marcus-technical-writer.md",
+  "repo": "matthewharwood/arenic_bevy",
+  "path": ".claude/agents/marcus-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04462",
+  "file": "corpus/mattphanm_Codex-Agentic__.codex_agents_prd-writer.md",
+  "repo": "mattphanm/Codex-Agentic",
+  "path": ".codex/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04463",
+  "file": "corpus/mattphanm_Codex-Agentic__.codex_agents_spec-author.md",
+  "repo": "mattphanm/Codex-Agentic",
+  "path": ".codex/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04464",
+  "file": "corpus/mattwise-42_OpenToken__.github_agents_documentation-creator.agent.md",
+  "repo": "mattwise-42/OpenToken",
+  "path": ".github/agents/documentation-creator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04465",
+  "file": "corpus/mauriciosepulveda-max_PM-refinador__.claude_agents_client-report-generator.md",
+  "repo": "mauriciosepulveda-max/PM-refinador",
+  "path": ".claude/agents/client-report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04466",
+  "file": "corpus/mavrovde_beaconfolio__.claude_agents_issue-author.md",
+  "repo": "mavrovde/beaconfolio",
+  "path": ".claude/agents/issue-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04467",
+  "file": "corpus/mawburn_osika__.claude_agents_technical-writer.md",
+  "repo": "mawburn/osika",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04468",
+  "file": "corpus/max-everest_Data-Services-Documentation__.github_agents_runbook-author.agent.md",
+  "repo": "max-everest/Data-Services-Documentation",
+  "path": ".github/agents/runbook-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04469",
+  "file": "corpus/mayflower_kali-ai-redteam__.claude_agents_reporter.md",
+  "repo": "mayflower/kali-ai-redteam",
+  "path": ".claude/agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

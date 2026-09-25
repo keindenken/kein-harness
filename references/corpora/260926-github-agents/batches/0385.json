@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03850",
+  "file": "corpus/drobins25_craft__agents_doc-writer.md",
+  "repo": "drobins25/craft",
+  "path": "agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03851",
+  "file": "corpus/droderiquesit_quantum-ai-platform__.claude_agents_technical-writer.md",
+  "repo": "droderiquesit/quantum-ai-platform",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03852",
+  "file": "corpus/dsardeli1_asp_labvj__.github_agents_UI UX editor.agent.md",
+  "repo": "dsardeli1/asp_labvj",
+  "path": ".github/agents/UI UX editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03853",
+  "file": "corpus/dscv101_cc-agents__.claude_agents_technical-writer.md",
+  "repo": "dscv101/cc-agents",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03854",
+  "file": "corpus/dtadesse357_uc35__agents_copy.md",
+  "repo": "dtadesse357/uc35",
+  "path": "agents/copy.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03855",
+  "file": "corpus/dtannen_claude-stacks__.claude_agents_docs-architect.md",
+  "repo": "dtannen/claude-stacks",
+  "path": ".claude/agents/docs-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03856",
+  "file": "corpus/duc01226_easy-claude__.opencode_agent_docs-manager.md",
+  "repo": "duc01226/easy-claude",
+  "path": ".opencode/agent/docs-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03857",
+  "file": "corpus/duc01226_easy-claude__.opencode_agent_journal-writer.md",
+  "repo": "duc01226/easy-claude",
+  "path": ".opencode/agent/journal-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03858",
+  "file": "corpus/duckviet_lyrike-studio__.github_agents_ai-editor-context.agent.md",
+  "repo": "duckviet/lyrike-studio",
+  "path": ".github/agents/ai-editor-context.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03859",
+  "file": "corpus/duongtr4409_copilot-ai__.github_agents_technical-writer.agent.md",
+  "repo": "duongtr4409/copilot-ai",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

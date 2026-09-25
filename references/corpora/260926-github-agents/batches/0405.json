@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04050",
+  "file": "corpus/himanshu-suthar-simform_skillswap__.github_agents_docs-writer.md",
+  "repo": "himanshu-suthar-simform/skillswap",
+  "path": ".github/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04051",
+  "file": "corpus/hiratashinnya_review-system__.claude_agents_verification-author.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".claude/agents/verification-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04052",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_analysis-author.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/analysis-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04053",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_authoring-fanout.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/authoring-fanout.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04054",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_design-author.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/design-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04055",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_doc-system-v2-authoring.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/doc-system-v2-authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04056",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_requirements-author.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/requirements-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04057",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_spec-author.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04058",
+  "file": "corpus/hiratashinnya_review-system__.github_agents_verification-author.agent.md",
+  "repo": "hiratashinnya/review-system",
+  "path": ".github/agents/verification-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04059",
+  "file": "corpus/hmaissoro_hmaissoro.github.io__.github_agents_personal-website-editor.agent.md",
+  "repo": "hmaissoro/hmaissoro.github.io",
+  "path": ".github/agents/personal-website-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02940",
+  "file": "corpus/Isaac-Walden21_a-team-agents__agents_content-team-editor.md",
+  "repo": "Isaac-Walden21/a-team-agents",
+  "path": "agents/content-team-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02941",
+  "file": "corpus/Isaac-Walden21_a-team-agents__agents_content-team-writer.md",
+  "repo": "Isaac-Walden21/a-team-agents",
+  "path": "agents/content-team-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02942",
+  "file": "corpus/Its-arenfro_VS-Code__.github_agents_copywriter.agent.md",
+  "repo": "Its-arenfro/VS-Code",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02943",
+  "file": "corpus/IvanMazeppa_PlasmaDXR__agents_pix-debug_DOCUMENTATION_CLEANUP_SUMMARY.md",
+  "repo": "IvanMazeppa/PlasmaDXR",
+  "path": "agents/pix-debug/DOCUMENTATION_CLEANUP_SUMMARY.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02944",
+  "file": "corpus/JDMAXilius_GalaxyExplorer__.claude_agents_unity-editor.md",
+  "repo": "JDMAXilius/GalaxyExplorer",
+  "path": ".claude/agents/unity-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02945",
+  "file": "corpus/JEleniel_template__.github_agents_7-TechnicalWriter.agent.md",
+  "repo": "JEleniel/template",
+  "path": ".github/agents/7-TechnicalWriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02946",
+  "file": "corpus/JForden_Q1__.github_agents_FirstPassEditorAgent.md",
+  "repo": "JForden/Q1",
+  "path": ".github/agents/FirstPassEditorAgent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02947",
+  "file": "corpus/JJChand_A_stock__.claude_agents_report-writer.md",
+  "repo": "JJChand/A_stock",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02948",
+  "file": "corpus/JKKN-Institutions_TMS-ADMIN__.claude_agents_technical-writer.md",
+  "repo": "JKKN-Institutions/TMS-ADMIN",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02949",
+  "file": "corpus/JKeatingIV_github-copilot-agent__.github_agents_writer.agent.md",
+  "repo": "JKeatingIV/github-copilot-agent",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

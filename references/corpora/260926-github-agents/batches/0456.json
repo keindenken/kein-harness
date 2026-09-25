@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04560",
+  "file": "corpus/naumusWebDev_wordpress-ai-agent-system__agents_copywriter.md",
+  "repo": "naumusWebDev/wordpress-ai-agent-system",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04561",
+  "file": "corpus/navi-singh_ProductLabR__.github_agents_editorial-orchestrator.agent.md",
+  "repo": "navi-singh/ProductLabR",
+  "path": ".github/agents/editorial-orchestrator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04562",
+  "file": "corpus/navikt_dp-behandling__.github_agents_docs.agent.md",
+  "repo": "navikt/dp-behandling",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04563",
+  "file": "corpus/navoditk_agentic-pm-lab__.codex_agents_docs-agent.toml",
+  "repo": "navoditk/agentic-pm-lab",
+  "path": ".codex/agents/docs-agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04564",
+  "file": "corpus/navoditk_learning-forge__.github_agents_curriculum-author.agent.md",
+  "repo": "navoditk/learning-forge",
+  "path": ".github/agents/curriculum-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04565",
+  "file": "corpus/nawwwal_advertorial-expert-review__agents_copywriter-body.md",
+  "repo": "nawwwal/advertorial-expert-review",
+  "path": "agents/copywriter-body.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04566",
+  "file": "corpus/nawwwal_advertorial-expert-review__agents_copywriter-headlines.md",
+  "repo": "nawwwal/advertorial-expert-review",
+  "path": "agents/copywriter-headlines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04567",
+  "file": "corpus/nayunss_knowledge-wiki__.claude_agents_copy-editor.md",
+  "repo": "nayunss/knowledge-wiki",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04568",
+  "file": "corpus/nazgula_kith__agents_spec-writer.md",
+  "repo": "nazgula/kith",
+  "path": "agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04569",
+  "file": "corpus/nblvguohao_gpcr-coupling-leakage-benchmark__.claude_agents_logic-editor.md",
+  "repo": "nblvguohao/gpcr-coupling-leakage-benchmark",
+  "path": ".claude/agents/logic-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

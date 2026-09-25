@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00280",
+  "file": "corpus/0ldh_claude-code-agents-orchestra__agents_content-docs_documentation-specialist.md",
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "path": "agents/content-docs/documentation-specialist.md",
+  "stars": 84,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00281",
+  "file": "corpus/9thLevelSoftware_legion__agents_product-technical-writer.md",
+  "repo": "9thLevelSoftware/legion",
+  "path": "agents/product-technical-writer.md",
+  "stars": 77,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00282",
+  "file": "corpus/q3ok_coordinated-agent-team__.github_agents_09-docs.md",
+  "repo": "q3ok/coordinated-agent-team",
+  "path": ".github/agents/09-docs.md",
+  "stars": 64,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00283",
+  "file": "corpus/Goldziher_go-utils__.claude_agents_docs-writer.md",
+  "repo": "Goldziher/go-utils",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 62,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00284",
+  "file": "corpus/defuse_auditician-temp__.claude_agents_reportgenerator.md",
+  "repo": "defuse/auditician-temp",
+  "path": ".claude/agents/reportgenerator.md",
+  "stars": 57,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00285",
+  "file": "corpus/ssdeanx_AgentStack__.github_agents_swe-documentation-writer.agent.md",
+  "repo": "ssdeanx/AgentStack",
+  "path": ".github/agents/swe-documentation-writer.agent.md",
+  "stars": 44,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00286",
+  "file": "corpus/microsoft_Agent365-python__.claude_agents_prd-writer.md",
+  "repo": "microsoft/Agent365-python",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 41,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00287",
+  "file": "corpus/leocamello_spec-kit-v-model__.github_agents_speckit.v-model.audit-report.md",
+  "repo": "leocamello/spec-kit-v-model",
+  "path": ".github/agents/speckit.v-model.audit-report.md",
+  "stars": 38,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00288",
+  "file": "corpus/specmatic_specmatic-mcp-sample-with-spec-kit__.claude_agents_openapi-spec-author.md",
+  "repo": "specmatic/specmatic-mcp-sample-with-spec-kit",
+  "path": ".claude/agents/openapi-spec-author.md",
+  "stars": 35,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00289",
+  "file": "corpus/lfnovo_ai-dev-workshop__.claude_agents_branch-documentation-writer.md",
+  "repo": "lfnovo/ai-dev-workshop",
+  "path": ".claude/agents/branch-documentation-writer.md",
+  "stars": 33,
+  "copies_in_repos": 2
+ }
+]

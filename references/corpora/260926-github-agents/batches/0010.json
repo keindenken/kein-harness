@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00100",
+  "file": "corpus/CalaW_CalaW.github.io__.github_agents_docs.agent.md",
+  "repo": "CalaW/CalaW.github.io",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00101",
+  "file": "corpus/edouardmisset_dotfiles__agents_skills_improve-codebase-architecture_HTML-REPORT.md",
+  "repo": "edouardmisset/dotfiles",
+  "path": "agents/skills/improve-codebase-architecture/HTML-REPORT.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00102",
+  "file": "corpus/rhpds_showroom-intelligent-apps-rag__.claude_agents_technical-writer.md",
+  "repo": "rhpds/showroom-intelligent-apps-rag",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00103",
+  "file": "corpus/tarrragon_app_tunnel__.claude_agents_references_ginger-performance-tuner_report-templates.md",
+  "repo": "tarrragon/app_tunnel",
+  "path": ".claude/agents/references/ginger-performance-tuner/report-templates.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00104",
+  "file": "corpus/01fe25bca308-stack_agents-in-sdlc__.github_agents_tech-writer.agent.md",
+  "repo": "01fe25bca308-stack/agents-in-sdlc",
+  "path": ".github/agents/tech-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00105",
+  "file": "corpus/Allgot_Allgot.github.io__.github_agents_docs.agent.md",
+  "repo": "Allgot/Allgot.github.io",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00106",
+  "file": "corpus/Ashhad1200_CRM__.claude_agents_documentation_docs-api-openapi.md",
+  "repo": "Ashhad1200/CRM",
+  "path": ".claude/agents/documentation/docs-api-openapi.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00107",
+  "file": "corpus/EHESPO_code-of-condact__.opencode_agent_docs.md",
+  "repo": "EHESPO/code-of-condact",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00108",
+  "file": "corpus/EdiDev04_PruebaIACenter__.claude_agents_documentation-agent.md",
+  "repo": "EdiDev04/PruebaIACenter",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00109",
+  "file": "corpus/Monsoft-Solutions_alluring-website-v1__.claude_agents_documentation-writer.md",
+  "repo": "Monsoft-Solutions/alluring-website-v1",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ }
+]

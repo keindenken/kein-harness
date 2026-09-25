@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02270",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_security_dependency-checker_skills_analyzing-dependencies_assets_report_template.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/security/dependency-checker/skills/analyzing-dependencies/assets/report_template.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02271",
+  "file": "corpus/CastilloSpain_BusinessWebpage__.codex_agents_svelte-file-editor.toml",
+  "repo": "CastilloSpain/BusinessWebpage",
+  "path": ".codex/agents/svelte-file-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02272",
+  "file": "corpus/ChibaYuki347_insure-well-agentic-sdlc-ghe-ja__.github_agents_brd-author.agent.md",
+  "repo": "ChibaYuki347/insure-well-agentic-sdlc-ghe-ja",
+  "path": ".github/agents/brd-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02273",
+  "file": "corpus/Cloud-Forest-Analytics_evergreen__agents_editorial-panel.md",
+  "repo": "Cloud-Forest-Analytics/evergreen",
+  "path": "agents/editorial-panel.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02274",
+  "file": "corpus/CodeWarrior-debug_perspectize__.claude_agents_context7-docs.md",
+  "repo": "CodeWarrior-debug/perspectize",
+  "path": ".claude/agents/context7-docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02275",
+  "file": "corpus/Connected-Dot_cnctd_ai__.claude_agents_session-summary-writer.md",
+  "repo": "Connected-Dot/cnctd_ai",
+  "path": ".claude/agents/session-summary-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02276",
+  "file": "corpus/DaChelimo_ShiftAtPennHousing__.claude_agents_docs-editor.md",
+  "repo": "DaChelimo/ShiftAtPennHousing",
+  "path": ".claude/agents/docs-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02277",
+  "file": "corpus/DaChelimo_ShiftAtPennHousing__.claude_agents_docs-writer-system.md",
+  "repo": "DaChelimo/ShiftAtPennHousing",
+  "path": ".claude/agents/docs-writer-system.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02278",
+  "file": "corpus/Donovoi_forensic-copilot__.github_agents_forensic-report-challenger.agent.md",
+  "repo": "Donovoi/forensic-copilot",
+  "path": ".github/agents/forensic-report-challenger.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02279",
+  "file": "corpus/Donovoi_forensic-copilot__.github_agents_forensic-script-author.agent.md",
+  "repo": "Donovoi/forensic-copilot",
+  "path": ".github/agents/forensic-script-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

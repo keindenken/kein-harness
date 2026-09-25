@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00500",
+  "file": "corpus/wshobson_agents__plugins_content-marketing_agents_content-marketer.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/content-marketing/agents/content-marketer.md",
+  "stars": 39956,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00501",
+  "file": "corpus/wshobson_agents__plugins_seo-analysis-monitoring_agents_seo-content-refresher.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/seo-analysis-monitoring/agents/seo-content-refresher.md",
+  "stars": 39956,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00502",
+  "file": "corpus/wshobson_agents__plugins_seo-content-creation_agents_seo-content-auditor.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/seo-content-creation/agents/seo-content-auditor.md",
+  "stars": 39956,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00503",
+  "file": "corpus/wshobson_agents__plugins_seo-content-creation_agents_seo-content-planner.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/seo-content-creation/agents/seo-content-planner.md",
+  "stars": 39956,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00504",
+  "file": "corpus/github_awesome-copilot__agents_gem-documentation-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/gem-documentation-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00505",
+  "file": "corpus/github_awesome-copilot__agents_project-documenter.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/project-documenter.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00506",
+  "file": "corpus/github_awesome-copilot__agents_scientific-paper-research.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/scientific-paper-research.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00507",
+  "file": "corpus/Yeachan-Heo_oh-my-claudecode__agents_document-specialist.md",
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "path": "agents/document-specialist.md",
+  "stars": 39353,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00508",
+  "file": "corpus/Yeachan-Heo_oh-my-claudecode__agents_writer.md",
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "path": "agents/writer.md",
+  "stars": 39353,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00509",
+  "file": "corpus/davila7_claude-code-templates__.claude_agents_blog-writer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ }
+]

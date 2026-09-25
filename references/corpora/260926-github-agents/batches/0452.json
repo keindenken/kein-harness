@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04520",
+  "file": "corpus/modoojunko_awesome-novel-agent__agents_writer.md",
+  "repo": "modoojunko/awesome-novel-agent",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04521",
+  "file": "corpus/modu-ai_moai-adk__.claude_agents_harness_hns-oss-docs-content-author-specialist.md",
+  "repo": "modu-ai/moai-adk",
+  "path": ".claude/agents/harness/hns-oss-docs-content-author-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04522",
+  "file": "corpus/molodayamama_flow-bot-public__.claude_agents_telegram-copywriter.md",
+  "repo": "molodayamama/flow-bot-public",
+  "path": ".claude/agents/telegram-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04523",
+  "file": "corpus/mondu-ai_magento2-checkout__.claude_agents_docs-maintainer.md",
+  "repo": "mondu-ai/magento2-checkout",
+  "path": ".claude/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04524",
+  "file": "corpus/monk-io_monk-plugin__agents_monk-editor.md",
+  "repo": "monk-io/monk-plugin",
+  "path": "agents/monk-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04525",
+  "file": "corpus/monkrus_ap2-expense-agent__.claude_agents_reporting-export-auditor.md",
+  "repo": "monkrus/ap2-expense-agent",
+  "path": ".claude/agents/reporting-export-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04526",
+  "file": "corpus/moonpie_abhaile__.codex_agents_technical-writer.toml",
+  "repo": "moonpie/abhaile",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04527",
+  "file": "corpus/moonpie_abhaile__.github_agents_technical-writer.agent.md",
+  "repo": "moonpie/abhaile",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04528",
+  "file": "corpus/moonrise-studios_plugin-engine__.claude_agents_technical-writer.md",
+  "repo": "moonrise-studios/plugin-engine",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04529",
+  "file": "corpus/moonrise-studios_plugin-engine__.github_agents_technical-writer.agent.md",
+  "repo": "moonrise-studios/plugin-engine",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

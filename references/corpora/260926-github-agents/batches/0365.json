@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03650",
+  "file": "corpus/buenhyden_video-analysis__.codex_agents_docs-governance.toml",
+  "repo": "buenhyden/video-analysis",
+  "path": ".codex/agents/docs-governance.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03651",
+  "file": "corpus/buenhyden_video-analysis__.codex_agents_technical-writer.toml",
+  "repo": "buenhyden/video-analysis",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03652",
+  "file": "corpus/business-development-service-account_AI-Agent-Full-Stack-Dev-Team__.claude_agents_documentation-master.md",
+  "repo": "business-development-service-account/AI-Agent-Full-Stack-Dev-Team",
+  "path": ".claude/agents/documentation-master.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03653",
+  "file": "corpus/buzzbysolcex_buzz-bd-agent__.claude_agents_signal-editor.md",
+  "repo": "buzzbysolcex/buzz-bd-agent",
+  "path": ".claude/agents/signal-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03654",
+  "file": "corpus/buzzbysolcex_buzz-bd-agent__.claude_agents_war-room-reporter.md",
+  "repo": "buzzbysolcex/buzz-bd-agent",
+  "path": ".claude/agents/war-room-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03655",
+  "file": "corpus/buzzfair_codex__agents_brand-editor.md",
+  "repo": "buzzfair/codex",
+  "path": "agents/brand-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03656",
+  "file": "corpus/buzzfair_codex__agents_thought-leadership-copywriter.md",
+  "repo": "buzzfair/codex",
+  "path": "agents/thought-leadership-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03657",
+  "file": "corpus/buzzfair_codex__agents_website-copywriter.md",
+  "repo": "buzzfair/codex",
+  "path": "agents/website-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03658",
+  "file": "corpus/bybren-llc_story-systems-template__.claude_agents_continuity-editor.md",
+  "repo": "bybren-llc/story-systems-template",
+  "path": ".claude/agents/continuity-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03659",
+  "file": "corpus/bydavid1_activo-fijo__.github_agents_documentation.agent.md",
+  "repo": "bydavid1/activo-fijo",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

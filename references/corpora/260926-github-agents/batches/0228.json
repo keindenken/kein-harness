@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02280",
+  "file": "corpus/DorianMuzi_LinguaCE__.codex_agents_lesson-author.toml",
+  "repo": "DorianMuzi/LinguaCE",
+  "path": ".codex/agents/lesson-author.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02281",
+  "file": "corpus/Dricosr_iforge-edp-values__.claude_agents_jsdoc-documentor.md",
+  "repo": "Dricosr/iforge-edp-values",
+  "path": ".claude/agents/jsdoc-documentor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02282",
+  "file": "corpus/DuBois-Company_agent-operations-template__.claude_agents_writer.md",
+  "repo": "DuBois-Company/agent-operations-template",
+  "path": ".claude/agents/writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02283",
+  "file": "corpus/E-G-C_dude__.github_agents_dude-pack-authoring-instruction-smith.agent.md",
+  "repo": "E-G-C/dude",
+  "path": ".github/agents/dude-pack-authoring-instruction-smith.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02284",
+  "file": "corpus/E-G-C_dude__.github_agents_dude-pack-authoring-prompt-smith.agent.md",
+  "repo": "E-G-C/dude",
+  "path": ".github/agents/dude-pack-authoring-prompt-smith.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02285",
+  "file": "corpus/E-G-C_dude__.github_agents_dude-pack-authoring-skill-smith.agent.md",
+  "repo": "E-G-C/dude",
+  "path": ".github/agents/dude-pack-authoring-skill-smith.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02286",
+  "file": "corpus/EliteaAI_elitea-sdk__.github_agents_bug-reporter-agent.md",
+  "repo": "EliteaAI/elitea-sdk",
+  "path": ".github/agents/bug-reporter-agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02287",
+  "file": "corpus/FSA-elite-performance_FSA-ELITE-PERFORMANCE__.github_agents_brand-editor.agent.md",
+  "repo": "FSA-elite-performance/FSA-ELITE-PERFORMANCE",
+  "path": ".github/agents/brand-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02288",
+  "file": "corpus/FabianM47_trading__agents_documentation-writer.md",
+  "repo": "FabianM47/trading",
+  "path": "agents/documentation-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02289",
+  "file": "corpus/FanaticsKang_porygon_t__.claude_agents_summary-report-generator.md",
+  "repo": "FanaticsKang/porygon_t",
+  "path": ".claude/agents/summary-report-generator.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

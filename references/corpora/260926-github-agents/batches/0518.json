@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05180",
+  "file": "corpus/whilehq_whileai-sdk__.claude_agents_docs-designer.md",
+  "repo": "whilehq/whileai-sdk",
+  "path": ".claude/agents/docs-designer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05181",
+  "file": "corpus/whoisclebs_oh-my-clebs-coder__.opencode_agent_subagents_workspace_technical-writer.md",
+  "repo": "whoisclebs/oh-my-clebs-coder",
+  "path": ".opencode/agent/subagents/workspace/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05182",
+  "file": "corpus/whsalazar-org_banco-chile-demo__.github_agents_documentation-specialist.agent.md",
+  "repo": "whsalazar-org/banco-chile-demo",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05183",
+  "file": "corpus/wictor81_wictor-pro__.claude_agents_redactor-copywriter.md",
+  "repo": "wictor81/wictor-pro",
+  "path": ".claude/agents/redactor-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05184",
+  "file": "corpus/wildcard_astro-s3-redirects__.claude_agents_astro-docs-writer.md",
+  "repo": "wildcard/astro-s3-redirects",
+  "path": ".claude/agents/astro-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05185",
+  "file": "corpus/willcoliveira_qualiow-exploratory-testing-skills__.claude_agents_qa-reporting-agent.md",
+  "repo": "willcoliveira/qualiow-exploratory-testing-skills",
+  "path": ".claude/agents/qa-reporting-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05186",
+  "file": "corpus/willtheorangeguy_Craft-Clash__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Craft-Clash",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05187",
+  "file": "corpus/willtheorangeguy_Moms-Canning-Timer__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Moms-Canning-Timer",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05188",
+  "file": "corpus/willtheorangeguy_PyTricks-Archive__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/PyTricks-Archive",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05189",
+  "file": "corpus/willtheorangeguy_PyWorkout__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/PyWorkout",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

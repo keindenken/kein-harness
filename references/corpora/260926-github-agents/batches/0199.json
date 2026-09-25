@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01990",
+  "file": "corpus/xsw632_ChipAgent__agents_pnr-report-formatter.md",
+  "repo": "xsw632/ChipAgent",
+  "path": "agents/pnr-report-formatter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01991",
+  "file": "corpus/Bestehorn_LLMManager__.claude_agents_spec-author.md",
+  "repo": "Bestehorn/LLMManager",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01992",
+  "file": "corpus/BrainBehaviorAnalyticsLab_voxkit-desktop__.github_agents_documentation.agent.md",
+  "repo": "BrainBehaviorAnalyticsLab/voxkit-desktop",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01993",
+  "file": "corpus/CelaviiHQ_cutmaster-ai__agents_editor.md",
+  "repo": "CelaviiHQ/cutmaster-ai",
+  "path": "agents/editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01994",
+  "file": "corpus/Citadel-Cloud-Management_citadel-saas-factory__.claude_agents_content_content-docs.md",
+  "repo": "Citadel-Cloud-Management/citadel-saas-factory",
+  "path": ".claude/agents/content/content-docs.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01995",
+  "file": "corpus/Citadel-Cloud-Management_citadel-saas-factory__.claude_agents_data-analytics_data-report.md",
+  "repo": "Citadel-Cloud-Management/citadel-saas-factory",
+  "path": ".claude/agents/data-analytics/data-report.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01996",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_edition-maintenance-editor.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/edition-maintenance-editor.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01997",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_fiction-development-editor.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/fiction-development-editor.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01998",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_lesson-materials-author.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/lesson-materials-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01999",
+  "file": "corpus/CodeDraig_codex-subagents__AGENTS_openai_nonfiction-manuscript-editor.toml",
+  "repo": "CodeDraig/codex-subagents",
+  "path": "AGENTS/openai/nonfiction-manuscript-editor.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

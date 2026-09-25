@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03140",
+  "file": "corpus/Nortropic_nortropic-system__agents_content-designer.md",
+  "repo": "Nortropic/nortropic-system",
+  "path": "agents/content-designer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03141",
+  "file": "corpus/NovaLearning-by-HazHar_novalearning-educational-games__.claude_agents_docs-agent.md",
+  "repo": "NovaLearning-by-HazHar/novalearning-educational-games",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03142",
+  "file": "corpus/NovilloQuinta_intelligent-automotive-diagnostics__.claude_agents_writer.md",
+  "repo": "NovilloQuinta/intelligent-automotive-diagnostics",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03143",
+  "file": "corpus/Nurzhanov-Nurserik_Comfy-eden__.claude_agents_ru-copywriter.md",
+  "repo": "Nurzhanov-Nurserik/Comfy-eden",
+  "path": ".claude/agents/ru-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03144",
+  "file": "corpus/NussuQA_autonomous-qa__.claude_agents_qa-reporter.md",
+  "repo": "NussuQA/autonomous-qa",
+  "path": ".claude/agents/qa-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03145",
+  "file": "corpus/Nyvoro_sprites-landing__.claude_agents_1760568101796_documentation.md",
+  "repo": "Nyvoro/sprites-landing",
+  "path": ".claude/agents/1760568101796/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03146",
+  "file": "corpus/OP-TED_entity-resolution-docs__.claude_agents_gherkin-writer.md",
+  "repo": "OP-TED/entity-resolution-docs",
+  "path": ".claude/agents/gherkin-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03147",
+  "file": "corpus/Octo8080X_copilot-organization-deno__.github_agents_task-reporter.agent.md",
+  "repo": "Octo8080X/copilot-organization-deno",
+  "path": ".github/agents/task-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03148",
+  "file": "corpus/OffSec-Global_codex__.codex_agents_DOCS.md",
+  "repo": "OffSec-Global/codex",
+  "path": ".codex/agents/DOCS.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03149",
+  "file": "corpus/Oiranca_claude-dev-ecosystem__agents_tech-writer.md",
+  "repo": "Oiranca/claude-dev-ecosystem",
+  "path": "agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

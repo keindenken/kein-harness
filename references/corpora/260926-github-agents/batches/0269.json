@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02690",
+  "file": "corpus/AnshulAgrawal7_zoe-sustainability-platform__.claude_agents_docs-agent.md",
+  "repo": "AnshulAgrawal7/zoe-sustainability-platform",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02691",
+  "file": "corpus/Antoniskp_Appofa__.github_agents_documentation.agent.md",
+  "repo": "Antoniskp/Appofa",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02692",
+  "file": "corpus/Antovers4666_wensurco.fr__.claude_agents_seo-editorial.md",
+  "repo": "Antovers4666/wensurco.fr",
+  "path": ".claude/agents/seo-editorial.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02693",
+  "file": "corpus/Anubis44197_kit_hub__agents_copy-editor.md",
+  "repo": "Anubis44197/kit_hub",
+  "path": "agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02694",
+  "file": "corpus/Anubis44197_kit_hub__agents_front-matter-editor.md",
+  "repo": "Anubis44197/kit_hub",
+  "path": "agents/front-matter-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02695",
+  "file": "corpus/Anubis44197_kit_hub__agents_line-editor.md",
+  "repo": "Anubis44197/kit_hub",
+  "path": "agents/line-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02696",
+  "file": "corpus/Ariedis_WRAAWTeam__.github_agents_documentation-editor.md",
+  "repo": "Ariedis/WRAAWTeam",
+  "path": ".github/agents/documentation-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02697",
+  "file": "corpus/Art-lyang_TIU-card__.codex_agents_narrative-lore-editor.md",
+  "repo": "Art-lyang/TIU-card",
+  "path": ".codex/agents/narrative-lore-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02698",
+  "file": "corpus/ArulaAI_data-analysis-with-copilot__.github_agents_report-writer.agent.md",
+  "repo": "ArulaAI/data-analysis-with-copilot",
+  "path": ".github/agents/report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02699",
+  "file": "corpus/AryaLabsHQ_bunli__.claude_agents_documentation.md",
+  "repo": "AryaLabsHQ/bunli",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

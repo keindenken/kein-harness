@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01770",
+  "file": "corpus/R00T-Kim_Terminator__.claude_agents_reporter.md",
+  "repo": "R00T-Kim/Terminator",
+  "path": ".claude/agents/reporter.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01771",
+  "file": "corpus/TundraSoft_TundraLibs__.github_agents_documentation.agent.md",
+  "repo": "TundraSoft/TundraLibs",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01772",
+  "file": "corpus/Zherikhov_hamstrack__.claude_agents_api-docs-sync.md",
+  "repo": "Zherikhov/hamstrack",
+  "path": ".claude/agents/api-docs-sync.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01773",
+  "file": "corpus/ansari-project_codev-demo__.claude_agents_architecture-documenter.md",
+  "repo": "ansari-project/codev-demo",
+  "path": ".claude/agents/architecture-documenter.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01774",
+  "file": "corpus/arvindrk_ycagent.ai__.codex_agents_docs-dx.toml",
+  "repo": "arvindrk/ycagent.ai",
+  "path": ".codex/agents/docs-dx.toml",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01775",
+  "file": "corpus/brener-fregulia_Pascoal__.claude_agents_documentation.md",
+  "repo": "brener-fregulia/Pascoal",
+  "path": ".claude/agents/documentation.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01776",
+  "file": "corpus/cass-clearly_remarq__agents_product-council_copywriter.md",
+  "repo": "cass-clearly/remarq",
+  "path": "agents/product-council/copywriter.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01777",
+  "file": "corpus/cblecker_cluster-api-provider-jira__.claude_agents_docs-ops.md",
+  "repo": "cblecker/cluster-api-provider-jira",
+  "path": ".claude/agents/docs-ops.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01778",
+  "file": "corpus/ccevans_bobbycode__.claude_agents_bobby-docs.md",
+  "repo": "ccevans/bobbycode",
+  "path": ".claude/agents/bobby-docs.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01779",
+  "file": "corpus/cwoodruff_morespeakers-com__.github_agents_docs-agent.md",
+  "repo": "cwoodruff/morespeakers-com",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

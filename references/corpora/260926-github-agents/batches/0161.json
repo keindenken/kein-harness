@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01610",
+  "file": "corpus/nweii_agent-stuff__agents_vault-writer.md",
+  "repo": "nweii/agent-stuff",
+  "path": "agents/vault-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01611",
+  "file": "corpus/prime-radiant-inc_alltheagents.org__agents_ai-code-editorsall-kinds.md",
+  "repo": "prime-radiant-inc/alltheagents.org",
+  "path": "agents/ai-code-editorsall-kinds.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01612",
+  "file": "corpus/prime-radiant-inc_alltheagents.org__agents_orbiteditor.md",
+  "repo": "prime-radiant-inc/alltheagents.org",
+  "path": "agents/orbiteditor.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01613",
+  "file": "corpus/roryp_vibecoding__.github_agents_docs-writer.agent.md",
+  "repo": "roryp/vibecoding",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01614",
+  "file": "corpus/saptarsibhowmick_claude-workflow-for-econ-phd__.claude_agents_editor.md",
+  "repo": "saptarsibhowmick/claude-workflow-for-econ-phd",
+  "path": ".claude/agents/editor.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01615",
+  "file": "corpus/saptarsibhowmick_claude-workflow-for-econ-phd__.claude_agents_writer.md",
+  "repo": "saptarsibhowmick/claude-workflow-for-econ-phd",
+  "path": ".claude/agents/writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01616",
+  "file": "corpus/soulcodex_agentic__agents_base_documentation.md",
+  "repo": "soulcodex/agentic",
+  "path": "agents/base/documentation.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01617",
+  "file": "corpus/terraware_terraware-web__.claude_agents_docs-agent.md",
+  "repo": "terraware/terraware-web",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01618",
+  "file": "corpus/timmo001_dotfiles__agents_.config_opencode_commands_update-docs.md",
+  "repo": "timmo001/dotfiles",
+  "path": "agents/.config/opencode/commands/update-docs.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01619",
+  "file": "corpus/webjetcms_webjetcms__.github_agents_AGENTS-editor.md",
+  "repo": "webjetcms/webjetcms",
+  "path": ".github/agents/AGENTS-editor.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ }
+]

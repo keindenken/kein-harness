@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02850",
+  "file": "corpus/Eyevinn_nab2026-news__.claude_agents_editor-in-chief.md",
+  "repo": "Eyevinn/nab2026-news",
+  "path": ".claude/agents/editor-in-chief.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02851",
+  "file": "corpus/EykonAI_mvp-v2__.claude_agents_discord-copywriter.md",
+  "repo": "EykonAI/mvp-v2",
+  "path": ".claude/agents/discord-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02852",
+  "file": "corpus/EykonAI_mvp-v2__.claude_agents_reddit-copywriter.md",
+  "repo": "EykonAI/mvp-v2",
+  "path": ".claude/agents/reddit-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02853",
+  "file": "corpus/EykonAI_mvp-v2__.claude_agents_tiktok-copywriter.md",
+  "repo": "EykonAI/mvp-v2",
+  "path": ".claude/agents/tiktok-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02854",
+  "file": "corpus/EykonAI_mvp-v2__.claude_agents_x-copywriter.md",
+  "repo": "EykonAI/mvp-v2",
+  "path": ".claude/agents/x-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02855",
+  "file": "corpus/FRIKKern_doey__agents_seo-reporter.md",
+  "repo": "FRIKKern/doey",
+  "path": "agents/seo-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02856",
+  "file": "corpus/FRIKKern_doey__agents_settings-editor.md",
+  "repo": "FRIKKern/doey",
+  "path": "agents/settings-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02857",
+  "file": "corpus/FRIKKern_doey__agents_visual-reporter.md",
+  "repo": "FRIKKern/doey",
+  "path": "agents/visual-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02858",
+  "file": "corpus/FVossebeld_FVossebeld.github.io__.github_agents_style-editor.agent.md",
+  "repo": "FVossebeld/FVossebeld.github.io",
+  "path": ".github/agents/style-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02859",
+  "file": "corpus/Faaz17_Agents-and-Skills__agents_web-product_copywriter.md",
+  "repo": "Faaz17/Agents-and-Skills",
+  "path": "agents/web-product/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01020",
+  "file": "corpus/merlinhu1_codex-game-studio__.codex_agents_writer.toml",
+  "repo": "merlinhu1/codex-game-studio",
+  "path": ".codex/agents/writer.toml",
+  "stars": 56,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01021",
+  "file": "corpus/tmforum-oda_oda-canvas__.github_agents_docs.md",
+  "repo": "tmforum-oda/oda-canvas",
+  "path": ".github/agents/docs.md",
+  "stars": 56,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01022",
+  "file": "corpus/SuperClaude-Org_SuperClaude_Plugin__agents_ContextEngineering_documentation-specialist.md",
+  "repo": "SuperClaude-Org/SuperClaude_Plugin",
+  "path": "agents/ContextEngineering/documentation-specialist.md",
+  "stars": 55,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01023",
+  "file": "corpus/dr-dolomite_QManager-RM520N__.claude_agents_docs-writer.md",
+  "repo": "dr-dolomite/QManager-RM520N",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 55,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01024",
+  "file": "corpus/isac322_kwin-mcp__.claude_agents_docs-seo.md",
+  "repo": "isac322/kwin-mcp",
+  "path": ".claude/agents/docs-seo.md",
+  "stars": 55,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01025",
+  "file": "corpus/ruaan-deysel_vault__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "ruaan-deysel/vault",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 55,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01026",
+  "file": "corpus/solanabr_auditor-skill__agents_audit-reporter.md",
+  "repo": "solanabr/auditor-skill",
+  "path": "agents/audit-reporter.md",
+  "stars": 55,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01027",
+  "file": "corpus/allisterb_Jumbee.Console__.claude_agents_jc-docs-auditor.md",
+  "repo": "allisterb/Jumbee.Console",
+  "path": ".claude/agents/jc-docs-auditor.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01028",
+  "file": "corpus/allisterb_Jumbee.Console__.claude_agents_jc-docs-editor.md",
+  "repo": "allisterb/Jumbee.Console",
+  "path": ".claude/agents/jc-docs-editor.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01029",
+  "file": "corpus/chemistrywow31_A-Team__.codex_agents_generation_agent-writer.md",
+  "repo": "chemistrywow31/A-Team",
+  "path": ".codex/agents/generation/agent-writer.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ }
+]

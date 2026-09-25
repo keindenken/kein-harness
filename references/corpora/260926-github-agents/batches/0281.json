@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02810",
+  "file": "corpus/DivyaDeepthi123_Sarathi-Ai__.github_agents_documentation-writer.md",
+  "repo": "DivyaDeepthi123/Sarathi-Ai",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02811",
+  "file": "corpus/Dmitriy-G_simple_rdbms__.codex_agents_task-writer.toml",
+  "repo": "Dmitriy-G/simple_rdbms",
+  "path": ".codex/agents/task-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02812",
+  "file": "corpus/Dockermint_pebblify__.claude_agents_technical-writer.md",
+  "repo": "Dockermint/pebblify",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02813",
+  "file": "corpus/Dowwie_tasker__agents_task-author.md",
+  "repo": "Dowwie/tasker",
+  "path": "agents/task-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02814",
+  "file": "corpus/Dr-SoloDev_Lab-solocorp-os2.4__.codex_agents_12-support-analytics-reporter.toml",
+  "repo": "Dr-SoloDev/Lab-solocorp-os2.4",
+  "path": ".codex/agents/12-support-analytics-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02815",
+  "file": "corpus/Dragoon0x_everything-design-taste__agents_copy-editor.md",
+  "repo": "Dragoon0x/everything-design-taste",
+  "path": "agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02816",
+  "file": "corpus/Dub1n_phoenix__.claude_agents_documentation-agent.md",
+  "repo": "Dub1n/phoenix",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02817",
+  "file": "corpus/DuganLabs_BaseNative__.claude_agents_basenative-package-author.md",
+  "repo": "DuganLabs/BaseNative",
+  "path": ".claude/agents/basenative-package-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02818",
+  "file": "corpus/DurdeuVlad_scriptorium__.claude_agents_clarity-editor.md",
+  "repo": "DurdeuVlad/scriptorium",
+  "path": ".claude/agents/clarity-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02819",
+  "file": "corpus/DurdeuVlad_scriptorium__.claude_agents_compression-editor.md",
+  "repo": "DurdeuVlad/scriptorium",
+  "path": ".claude/agents/compression-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

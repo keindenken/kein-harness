@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03830",
+  "file": "corpus/dominic-codespoti_azure-pricing-agent__.github_agents_azure-report-builder.agent.md",
+  "repo": "dominic-codespoti/azure-pricing-agent",
+  "path": ".github/agents/azure-report-builder.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03831",
+  "file": "corpus/dominikbullo_ai-setup__agents_productivity_technical-writer.md",
+  "repo": "dominikbullo/ai-setup",
+  "path": "agents/productivity/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03832",
+  "file": "corpus/donato81_zecchino__.github_agents_Agent-Docs.md",
+  "repo": "donato81/zecchino",
+  "path": ".github/agents/Agent-Docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03833",
+  "file": "corpus/donchrillo_temu__.opencode_agent_documentation_agent.md",
+  "repo": "donchrillo/temu",
+  "path": ".opencode/agent/documentation_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03834",
+  "file": "corpus/doojin88_vibe-restaurant-review__.claude_agents_usecase-writer.md",
+  "repo": "doojin88/vibe-restaurant-review",
+  "path": ".claude/agents/usecase-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03835",
+  "file": "corpus/dorec9_Data-Factory__.codex_agents_reporting-agent.toml",
+  "repo": "dorec9/Data-Factory",
+  "path": ".codex/agents/reporting-agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03836",
+  "file": "corpus/dotnet_extensions__.github_agents_release-manager_write-release-notes_references_editorial-rules.md",
+  "repo": "dotnet/extensions",
+  "path": ".github/agents/release-manager/write-release-notes/references/editorial-rules.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03837",
+  "file": "corpus/doublezzz0409_machine-team-orchestrator__.claude_agents_feature-technical-writer.md",
+  "repo": "doublezzz0409/machine-team-orchestrator",
+  "path": ".claude/agents/feature-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03838",
+  "file": "corpus/douglance_sdlc-plugin__.claude_agents_technical-writer.md",
+  "repo": "douglance/sdlc-plugin",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03839",
+  "file": "corpus/douglasmonsky_codex-orchestrate__.codex_agents_docs_writer.toml",
+  "repo": "douglasmonsky/codex-orchestrate",
+  "path": ".codex/agents/docs_writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

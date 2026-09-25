@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00920",
+  "file": "corpus/dykyi-roman_awesome-claude-code__agents_documentation-auditor.md",
+  "repo": "dykyi-roman/awesome-claude-code",
+  "path": "agents/documentation-auditor.md",
+  "stars": 99,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00921",
+  "file": "corpus/dykyi-roman_awesome-claude-code__agents_documentation-writer.md",
+  "repo": "dykyi-roman/awesome-claude-code",
+  "path": "agents/documentation-writer.md",
+  "stars": 99,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00922",
+  "file": "corpus/jjongguet_oh-my-product__agents_writer.md",
+  "repo": "jjongguet/oh-my-product",
+  "path": "agents/writer.md",
+  "stars": 99,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00923",
+  "file": "corpus/pglejzer_timepicker-ui__.claude_agents_docs-site.md",
+  "repo": "pglejzer/timepicker-ui",
+  "path": ".claude/agents/docs-site.md",
+  "stars": 99,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00924",
+  "file": "corpus/davidmatousek_tachi__.claude_agents_tachi_report-assembler.md",
+  "repo": "davidmatousek/tachi",
+  "path": ".claude/agents/tachi/report-assembler.md",
+  "stars": 94,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00925",
+  "file": "corpus/davidmatousek_tachi__.claude_agents_tachi_threat-report.md",
+  "repo": "davidmatousek/tachi",
+  "path": ".claude/agents/tachi/threat-report.md",
+  "stars": 94,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00926",
+  "file": "corpus/davidmatousek_tachi__agents_threat-report.md",
+  "repo": "davidmatousek/tachi",
+  "path": "agents/threat-report.md",
+  "stars": 94,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00927",
+  "file": "corpus/PawelGerr_Thinktecture.Runtime.Extensions__.claude_agents_documentation-updater.md",
+  "repo": "PawelGerr/Thinktecture.Runtime.Extensions",
+  "path": ".claude/agents/documentation-updater.md",
+  "stars": 93,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00928",
+  "file": "corpus/bingdongni_NeuroMinecraftGenesis-NMG-__agents_multi_DEVELOPMENT_REPORT.md",
+  "repo": "bingdongni/NeuroMinecraftGenesis-NMG-",
+  "path": "agents/multi/DEVELOPMENT_REPORT.md",
+  "stars": 93,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00929",
+  "file": "corpus/ansys_pydpf-core__.github_agents_PyDPFExampleWriter.agent.md",
+  "repo": "ansys/pydpf-core",
+  "path": ".github/agents/PyDPFExampleWriter.agent.md",
+  "stars": 92,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04840",
+  "file": "corpus/s-tsuchiya-source_LP_Creator_Team__.claude_agents_lp-faq-copywriter.md",
+  "repo": "s-tsuchiya-source/LP_Creator_Team",
+  "path": ".claude/agents/lp-faq-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04841",
+  "file": "corpus/s977043_PlanGate__.codex_agents_documentation_writer.toml",
+  "repo": "s977043/PlanGate",
+  "path": ".codex/agents/documentation_writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04842",
+  "file": "corpus/saadafsy_p1-attention__.claude_agents_technical-writer.md",
+  "repo": "saadafsy/p1-attention",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04843",
+  "file": "corpus/sabajamalian_day-1-a-mars__.github_agents_ds-news-reporter.agent.md",
+  "repo": "sabajamalian/day-1-a-mars",
+  "path": ".github/agents/ds-news-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04844",
+  "file": "corpus/saeedafri_Employee-management-system__.codex_agents_api-contract-docs-sync.toml",
+  "repo": "saeedafri/Employee-management-system",
+  "path": ".codex/agents/api-contract-docs-sync.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04845",
+  "file": "corpus/saeedafri_Employee-management-system__.codex_agents_final-report-enforcer.toml",
+  "repo": "saeedafri/Employee-management-system",
+  "path": ".codex/agents/final-report-enforcer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04846",
+  "file": "corpus/saehajoo_MonglePet__AGENTS_guides_MACOS_PET_EDITOR_FOLLOWUP.md",
+  "repo": "saehajoo/MonglePet",
+  "path": "AGENTS/guides/MACOS_PET_EDITOR_FOLLOWUP.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04847",
+  "file": "corpus/saehajoo_MonglePet__AGENTS_work_plans_tasks_2026-08-24-macos-1-3-1-image-editor-polish-release.md",
+  "repo": "saehajoo/MonglePet",
+  "path": "AGENTS/work_plans/tasks/2026-08-24-macos-1-3-1-image-editor-polish-release.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04848",
+  "file": "corpus/saehajoo_MonglePet__AGENTS_work_plans_tasks_2026-09-05-macos-1-8-1-editor-guide-release.md",
+  "repo": "saehajoo/MonglePet",
+  "path": "AGENTS/work_plans/tasks/2026-09-05-macos-1-8-1-editor-guide-release.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04849",
+  "file": "corpus/saehajoo_MonglePet__AGENTS_work_plans_tasks_2026-09-07-windows-1-8-2-editor-release.md",
+  "repo": "saehajoo/MonglePet",
+  "path": "AGENTS/work_plans/tasks/2026-09-07-windows-1-8-2-editor-release.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

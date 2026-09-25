@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04040",
+  "file": "corpus/hesitorremitos_titulos-claude__.claude_agents_incremental-dev-docs-generator.md",
+  "repo": "hesitorremitos/titulos-claude",
+  "path": ".claude/agents/incremental-dev-docs-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04041",
+  "file": "corpus/hexmasternl_hexmaster-waf-foundation__.github_agents_landing-zone-workflow-author.agent.md",
+  "repo": "hexmasternl/hexmaster-waf-foundation",
+  "path": ".github/agents/landing-zone-workflow-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04042",
+  "file": "corpus/heycesar_benchdive__agents_brand-copywriter.md",
+  "repo": "heycesar/benchdive",
+  "path": "agents/brand-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04043",
+  "file": "corpus/hezo-ai_hezo__agents_influencer_content-editor.md",
+  "repo": "hezo-ai/hezo",
+  "path": "agents/influencer/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04044",
+  "file": "corpus/hezo-ai_hezo__agents_influencer_content-writer.md",
+  "repo": "hezo-ai/hezo",
+  "path": "agents/influencer/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04045",
+  "file": "corpus/hezo-ai_hezo__agents_investment_report-writer.md",
+  "repo": "hezo-ai/hezo",
+  "path": "agents/investment/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04046",
+  "file": "corpus/hhouaiss_piktor__.claude_agents_ecommerce-copywriter.md",
+  "repo": "hhouaiss/piktor",
+  "path": ".claude/agents/ecommerce-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04047",
+  "file": "corpus/hihi-louis_liftingdiary__.claude_agents_docs-indexer.md",
+  "repo": "hihi-louis/liftingdiary",
+  "path": ".claude/agents/docs-indexer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04048",
+  "file": "corpus/hikostar_csharp_test__.github_agents_documentation-author.agent.md",
+  "repo": "hikostar/csharp_test",
+  "path": ".github/agents/documentation-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04049",
+  "file": "corpus/hikostar_weekly_kanban_obsidian__.github_agents_documentation-author.agent.md",
+  "repo": "hikostar/weekly_kanban_obsidian",
+  "path": ".github/agents/documentation-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

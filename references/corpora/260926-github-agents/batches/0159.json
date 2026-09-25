@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01590",
+  "file": "corpus/LucaDeltort_delcard_games__.claude_agents_pr-release-editor.md",
+  "repo": "LucaDeltort/delcard_games",
+  "path": ".claude/agents/pr-release-editor.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01591",
+  "file": "corpus/Manavarya09_bullpen__agents_tech-writer.md",
+  "repo": "Manavarya09/bullpen",
+  "path": "agents/tech-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01592",
+  "file": "corpus/Mentor-Wizard_mentor-wizard-webapp__.claude_agents_docs-writer.md",
+  "repo": "Mentor-Wizard/mentor-wizard-webapp",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01593",
+  "file": "corpus/OpenSIPS_opensips-mcp-server__.claude_agents_opensips-config-author.md",
+  "repo": "OpenSIPS/opensips-mcp-server",
+  "path": ".claude/agents/opensips-config-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01594",
+  "file": "corpus/Papyszoo_Modelibr__.claude_agents_e2e-author.md",
+  "repo": "Papyszoo/Modelibr",
+  "path": ".claude/agents/e2e-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01595",
+  "file": "corpus/ZASENJC_mediatree__.codex_agents_docs-researcher.toml",
+  "repo": "ZASENJC/mediatree",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01596",
+  "file": "corpus/adhocteam_cloud-gov-instructions__.github_agents_compliance-docs.agent.md",
+  "repo": "adhocteam/cloud-gov-instructions",
+  "path": ".github/agents/compliance-docs.agent.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01597",
+  "file": "corpus/agentbench_agentbench__agents_report-generator.md",
+  "repo": "agentbench/agentbench",
+  "path": "agents/report-generator.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01598",
+  "file": "corpus/agentbench_agentbench__agents_task-author.md",
+  "repo": "agentbench/agentbench",
+  "path": "agents/task-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01599",
+  "file": "corpus/antimetal_system-agent__.claude_agents_commit-author.md",
+  "repo": "antimetal/system-agent",
+  "path": ".claude/agents/commit-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ }
+]

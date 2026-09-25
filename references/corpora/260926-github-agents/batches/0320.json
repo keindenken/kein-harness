@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03200",
+  "file": "corpus/PrimeSlade_slade-chat__.github_agents_docs-agent.agent.md",
+  "repo": "PrimeSlade/slade-chat",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03201",
+  "file": "corpus/PrismMods_Quartz__agents_docs.md",
+  "repo": "PrismMods/Quartz",
+  "path": "agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03202",
+  "file": "corpus/Promeos_beige-book__.claude_agents_documentation.md",
+  "repo": "Promeos/beige-book",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03203",
+  "file": "corpus/Prorise-cool_Claude-Code-Multi-Agent__.claude_agents_document_tech-writer.md",
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/agents/document/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03204",
+  "file": "corpus/Purna88836_gitnative-AI-orchestrator-testing__.github_agents_docs.agent.md",
+  "repo": "Purna88836/gitnative-AI-orchestrator-testing",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03205",
+  "file": "corpus/QNITAG_marketing-pilot__.github_agents_social-content-editor.agent.md",
+  "repo": "QNITAG/marketing-pilot",
+  "path": ".github/agents/social-content-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03206",
+  "file": "corpus/QianWenD_RAG_KnowledgeBase__.codex_agents_docs-researcher.toml",
+  "repo": "QianWenD/RAG_KnowledgeBase",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03207",
+  "file": "corpus/Qqapple1_TeamForge__agents_worker-technical-writer.md",
+  "repo": "Qqapple1/TeamForge",
+  "path": "agents/worker-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03208",
+  "file": "corpus/Quang-Dobe_Agents-House-Pricing-Researcher__.claude_agents_report-publisher.md",
+  "repo": "Quang-Dobe/Agents-House-Pricing-Researcher",
+  "path": ".claude/agents/report-publisher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03209",
+  "file": "corpus/Quant-Off_quantum-brain__agents_vault-concept-author.md",
+  "repo": "Quant-Off/quantum-brain",
+  "path": "agents/vault-concept-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00760",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-narrative-continuity-checker.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-narrative-continuity-checker.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00761",
+  "file": "corpus/FlexMeasures_flexmeasures__.claude_agents_documentation-developer-experience-specialist.md",
+  "repo": "FlexMeasures/flexmeasures",
+  "path": ".claude/agents/documentation-developer-experience-specialist.md",
+  "stars": 208,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00762",
+  "file": "corpus/FlexMeasures_flexmeasures__.github_agents_documentation-developer-experience-specialist.md",
+  "repo": "FlexMeasures/flexmeasures",
+  "path": ".github/agents/documentation-developer-experience-specialist.md",
+  "stars": 208,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00763",
+  "file": "corpus/sghwr_AutoMM__agents_paper-writer.md",
+  "repo": "sghwr/AutoMM",
+  "path": "agents/paper-writer.md",
+  "stars": 207,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00764",
+  "file": "corpus/wavezync_durable__agents_milestones_M04-documentation-release.md",
+  "repo": "wavezync/durable",
+  "path": "agents/milestones/M04-documentation-release.md",
+  "stars": 206,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00765",
+  "file": "corpus/andrehuang_academic-writing-agents__agents_paper-crawler.md",
+  "repo": "andrehuang/academic-writing-agents",
+  "path": "agents/paper-crawler.md",
+  "stars": 205,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00766",
+  "file": "corpus/andrehuang_academic-writing-agents__agents_prose-polisher.md",
+  "repo": "andrehuang/academic-writing-agents",
+  "path": "agents/prose-polisher.md",
+  "stars": 205,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00767",
+  "file": "corpus/cat-xierluo_SuitAgent__.claude_agents_Reporter.md",
+  "repo": "cat-xierluo/SuitAgent",
+  "path": ".claude/agents/Reporter.md",
+  "stars": 204,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00768",
+  "file": "corpus/cat-xierluo_SuitAgent__.claude_agents_Writer.md",
+  "repo": "cat-xierluo/SuitAgent",
+  "path": ".claude/agents/Writer.md",
+  "stars": 204,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00769",
+  "file": "corpus/iPzard_electron-react-python-template__.claude_agents_redux-slice-author.md",
+  "repo": "iPzard/electron-react-python-template",
+  "path": ".claude/agents/redux-slice-author.md",
+  "stars": 204,
+  "copies_in_repos": 1
+ }
+]

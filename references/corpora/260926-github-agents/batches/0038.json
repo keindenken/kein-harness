@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00380",
+  "file": "corpus/CPS-IT_quality-tools__.claude_agents_documentation-writer.md",
+  "repo": "CPS-IT/quality-tools",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00381",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_authorize-net-integration-agent.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/authorize-net-integration-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00382",
+  "file": "corpus/ChristineTham_aidou__.github_agents_mermaid-editor.agent.md",
+  "repo": "ChristineTham/aidou",
+  "path": ".github/agents/mermaid-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00383",
+  "file": "corpus/Daimnedope_TeamAgents__.claude_agents_docs-writer.md",
+  "repo": "Daimnedope/TeamAgents",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00384",
+  "file": "corpus/DevOpsMadDog_Aldeci.AI__.claude_agents_technical-writer.md",
+  "repo": "DevOpsMadDog/Aldeci.AI",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00385",
+  "file": "corpus/DuongVinh2004_RestaurantPOS__.codex_agents_docs-researcher.toml",
+  "repo": "DuongVinh2004/RestaurantPOS",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00386",
+  "file": "corpus/EffortlessMetrics_adze__.github_agents_build-author.agent.md",
+  "repo": "EffortlessMetrics/adze",
+  "path": ".github/agents/build-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00387",
+  "file": "corpus/FidStyle_AgentHub__.claude_agents_role-design-author.md",
+  "repo": "FidStyle/AgentHub",
+  "path": ".claude/agents/role-design-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00388",
+  "file": "corpus/Handsomeboy990_craft-suite__agents_core_pr-author.md",
+  "repo": "Handsomeboy990/craft-suite",
+  "path": "agents/core/pr-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00389",
+  "file": "corpus/JasonTM17_CampusUTE_Kotlin_Project__.codex_agents_docs-manager.toml",
+  "repo": "JasonTM17/CampusUTE_Kotlin_Project",
+  "path": ".codex/agents/docs-manager.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05190",
+  "file": "corpus/willtheorangeguy_Python-Logo-Widgets__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Python-Logo-Widgets",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05191",
+  "file": "corpus/willtheorangeguy_Running-Calculator__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Running-Calculator",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05192",
+  "file": "corpus/wilsan007_odf-vERSION-7__.claude_agents_crossframe-essay_protocols_editorial-comrade-voice-protocol.md",
+  "repo": "wilsan007/odf-vERSION-7",
+  "path": ".claude/agents/crossframe-essay/protocols/editorial-comrade-voice-protocol.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05193",
+  "file": "corpus/wilsan007_odf-vERSION-7__.claude_agents_crossframe-org_references_responsibility-authorization-chain.md",
+  "repo": "wilsan007/odf-vERSION-7",
+  "path": ".claude/agents/crossframe-org/references/responsibility-authorization-chain.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05194",
+  "file": "corpus/wilsan007_odf-vERSION-7__.claude_agents_hugging-face-paper-publisher_templates_ml-report.md",
+  "repo": "wilsan007/odf-vERSION-7",
+  "path": ".claude/agents/hugging-face-paper-publisher/templates/ml-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05195",
+  "file": "corpus/windyroad_agent-plugins__.codex_agents_wr-risk-scorer-inbound-report.toml",
+  "repo": "windyroad/agent-plugins",
+  "path": ".codex/agents/wr-risk-scorer-inbound-report.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05196",
+  "file": "corpus/windyroad_windyroad__.claude_agents_wr-newsletter-editor.md",
+  "repo": "windyroad/windyroad",
+  "path": ".claude/agents/wr-newsletter-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05197",
+  "file": "corpus/wiselife51_wiselife__.claude_agents_docs-devops.md",
+  "repo": "wiselife51/wiselife",
+  "path": ".claude/agents/docs-devops.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05198",
+  "file": "corpus/wizzed_the-agents__.claude_agents_docs_technical-writer.md",
+  "repo": "wizzed/the-agents",
+  "path": ".claude/agents/docs/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05199",
+  "file": "corpus/wizzed_the-agents__.claude_agents_marketing_marketing-copywriter.md",
+  "repo": "wizzed/the-agents",
+  "path": ".claude/agents/marketing/marketing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

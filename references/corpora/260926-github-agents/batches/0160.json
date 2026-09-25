@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01600",
+  "file": "corpus/duc01226_EasyPlatform__.codex_agents_docs-manager.toml",
+  "repo": "duc01226/EasyPlatform",
+  "path": ".codex/agents/docs-manager.toml",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01601",
+  "file": "corpus/duc01226_EasyPlatform__.codex_agents_journal-writer.toml",
+  "repo": "duc01226/EasyPlatform",
+  "path": ".codex/agents/journal-writer.toml",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01602",
+  "file": "corpus/enkinex_enkinex-odcs__.opencode_agent_docs-writer.md",
+  "repo": "enkinex/enkinex-odcs",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01603",
+  "file": "corpus/enkinex_enkinex-odcs__.opencode_agent_plan-author.md",
+  "repo": "enkinex/enkinex-odcs",
+  "path": ".opencode/agent/plan-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01604",
+  "file": "corpus/event4u-app_agent-config__agents_roadmaps_archive_road-to-one-motion-authority.md",
+  "repo": "event4u-app/agent-config",
+  "path": "agents/roadmaps/archive/road-to-one-motion-authority.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01605",
+  "file": "corpus/fellipemauriciosilva_sdd-toolkit__agents_sdd-update-documentation.md",
+  "repo": "fellipemauriciosilva/sdd-toolkit",
+  "path": "agents/sdd-update-documentation.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01606",
+  "file": "corpus/frankxai_agentic-creator-os__.claude_agents_fantasy-book-writer.md",
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/agents/fantasy-book-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01607",
+  "file": "corpus/infodungeon_keyforge__agents_docs-manager.md",
+  "repo": "infodungeon/keyforge",
+  "path": "agents/docs-manager.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01608",
+  "file": "corpus/kaltinril_Kernsmith__.claude_agents_api-docs-writer.md",
+  "repo": "kaltinril/Kernsmith",
+  "path": ".claude/agents/api-docs-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01609",
+  "file": "corpus/modeled-information-format_structured-madr__.github_agents_adr-mif-author.md",
+  "repo": "modeled-information-format/structured-madr",
+  "path": ".github/agents/adr-mif-author.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ }
+]

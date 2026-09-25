@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01330",
+  "file": "corpus/trailcode_EzyCad__agents_workflows_docs-build.md",
+  "repo": "trailcode/EzyCad",
+  "path": "agents/workflows/docs-build.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01331",
+  "file": "corpus/videoflow_videoflow-contrib__.claude_agents_videoflow-author.md",
+  "repo": "videoflow/videoflow-contrib",
+  "path": ".claude/agents/videoflow-author.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01332",
+  "file": "corpus/yandong2023_gstack-opencode__agents_docs.md",
+  "repo": "yandong2023/gstack-opencode",
+  "path": "agents/docs.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01333",
+  "file": "corpus/AndreaGriffiths11_IssueCrush__.github_agents_docs.agent.md",
+  "repo": "AndreaGriffiths11/IssueCrush",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01334",
+  "file": "corpus/Community-Access_git-going-with-github__agents_image alt text agent_IMAGE-ALT-TEXT-DOCS.md",
+  "repo": "Community-Access/git-going-with-github",
+  "path": "agents/image alt text agent/IMAGE-ALT-TEXT-DOCS.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01335",
+  "file": "corpus/KrijnvanderBurg_Samara__.github_agents_docs.agent.md",
+  "repo": "KrijnvanderBurg/Samara",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01336",
+  "file": "corpus/MelonS_MelonS-Agents__.claude_agents_editor.md",
+  "repo": "MelonS/MelonS-Agents",
+  "path": ".claude/agents/editor.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01337",
+  "file": "corpus/PranavNagrecha_AwesomeSalesforceSkills__.claude_agents_config-workbook-author.md",
+  "repo": "PranavNagrecha/AwesomeSalesforceSkills",
+  "path": ".claude/agents/config-workbook-author.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01338",
+  "file": "corpus/SeanMatthewAI_claude-code-guide__.claude_agents_documentation-agent.md",
+  "repo": "SeanMatthewAI/claude-code-guide",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01339",
+  "file": "corpus/Zenobia000_claude-agentic-coding-template__.claude_agents_documentation-specialist.md",
+  "repo": "Zenobia000/claude-agentic-coding-template",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ }
+]

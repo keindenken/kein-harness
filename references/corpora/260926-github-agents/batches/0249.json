@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02490",
+  "file": "corpus/larsonzh_whois__.github_agents_task-definition-editor.agent.md",
+  "repo": "larsonzh/whois",
+  "path": ".github/agents/task-definition-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02491",
+  "file": "corpus/lehieu2003_Hosipital-Management-System__.codex_agents_copywriter-seo.toml",
+  "repo": "lehieu2003/Hosipital-Management-System",
+  "path": ".codex/agents/copywriter-seo.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02492",
+  "file": "corpus/leobrival_blog-kit__agents_copywriter.md",
+  "repo": "leobrival/blog-kit",
+  "path": "agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02493",
+  "file": "corpus/lewandowski-anthony_an-tool-ny__agents_email-ghostwriter-agent.md",
+  "repo": "lewandowski-anthony/an-tool-ny",
+  "path": "agents/email-ghostwriter-agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02494",
+  "file": "corpus/lgg3230_UnionSpill__.claude_agents_writer.md",
+  "repo": "lgg3230/UnionSpill",
+  "path": ".claude/agents/writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02495",
+  "file": "corpus/lightspeedwp_block-plugin-scaffold__.github_agents_reporting.agent.md",
+  "repo": "lightspeedwp/block-plugin-scaffold",
+  "path": ".github/agents/reporting.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02496",
+  "file": "corpus/liliwen88_FlowMind__.github_agents_docs-writer.agent.md",
+  "repo": "liliwen88/FlowMind",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02497",
+  "file": "corpus/lin123-star_claude-for-finance__.claude_agents_research-report-summarizer.md",
+  "repo": "lin123-star/claude-for-finance",
+  "path": ".claude/agents/research-report-summarizer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02498",
+  "file": "corpus/liq22_Claude_Code_for_Research_Config__.claude_agents_writer-cache-manager.md",
+  "repo": "liq22/Claude_Code_for_Research_Config",
+  "path": ".claude/agents/writer-cache-manager.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02499",
+  "file": "corpus/liujiarui0918_claude-code-codex-strongest__.codex_agents_doc-writer.toml",
+  "repo": "liujiarui0918/claude-code-codex-strongest",
+  "path": ".codex/agents/doc-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

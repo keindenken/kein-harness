@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04410",
+  "file": "corpus/maartenk_edugain-qual-improv__.claude_agents_documenter.md",
+  "repo": "maartenk/edugain-qual-improv",
+  "path": ".claude/agents/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04411",
+  "file": "corpus/mac1dre81_guiltless-mind__.github_agents_doceditor-agent.agent.md",
+  "repo": "mac1dre81/guiltless-mind",
+  "path": ".github/agents/doceditor-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04412",
+  "file": "corpus/machinedge_project-workflow__agents_roles_technical-writer.md",
+  "repo": "machinedge/project-workflow",
+  "path": "agents/roles/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04413",
+  "file": "corpus/maciekuc94_sensum-ai-pipeline__.claude_agents_publish-copywriter.md",
+  "repo": "maciekuc94/sensum-ai-pipeline",
+  "path": ".claude/agents/publish-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04414",
+  "file": "corpus/macintorsten_git-newsletter__.github_agents_newsletter-editor.agent.md",
+  "repo": "macintorsten/git-newsletter",
+  "path": ".github/agents/newsletter-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04415",
+  "file": "corpus/madacgrav_dolmenwood-beyond__.github_agents_blog-skill-documentation.md",
+  "repo": "madacgrav/dolmenwood-beyond",
+  "path": ".github/agents/blog-skill-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04416",
+  "file": "corpus/madhusudanpatnaik_mad-hacks-ai__agents_operators_nuclei-writer.md",
+  "repo": "madhusudanpatnaik/mad-hacks-ai",
+  "path": "agents/operators/nuclei-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04417",
+  "file": "corpus/madsstoumann_agent-17__agents_content_writer.md",
+  "repo": "madsstoumann/agent-17",
+  "path": "agents/content_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04418",
+  "file": "corpus/maguila-gus25_portal-dos-calouros-ufsc__.claude_agents_content-editor.md",
+  "repo": "maguila-gus25/portal-dos-calouros-ufsc",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04419",
+  "file": "corpus/maithanhduyan_noline__.github_agents_report.agent.md",
+  "repo": "maithanhduyan/noline",
+  "path": ".github/agents/report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

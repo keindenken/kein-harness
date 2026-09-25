@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03370",
+  "file": "corpus/UstinianDev_WeaveMD__.claude_agents_editor-opt-login-mascot.md",
+  "repo": "UstinianDev/WeaveMD",
+  "path": ".claude/agents/editor-opt-login-mascot.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03371",
+  "file": "corpus/UurDemir_FirebrandAgents__agents_technical-writer.md",
+  "repo": "UurDemir/FirebrandAgents",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03372",
+  "file": "corpus/VAMFI_claude-user-memory__.claude_agents_docs-researcher.md",
+  "repo": "VAMFI/claude-user-memory",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03373",
+  "file": "corpus/VM-s-Solutions_cleansia__agents_backlog_tickets_T-0729-docs-tenancy-activation.md",
+  "repo": "VM-s-Solutions/cleansia",
+  "path": "agents/backlog/tickets/T-0729-docs-tenancy-activation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03374",
+  "file": "corpus/VM-s-Solutions_tisknicz__agents_process_documentation.md",
+  "repo": "VM-s-Solutions/tisknicz",
+  "path": "agents/process/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03375",
+  "file": "corpus/VMASPAD_telva__.github_agents_Documentation master.agent.md",
+  "repo": "VMASPAD/telva",
+  "path": ".github/agents/Documentation master.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03376",
+  "file": "corpus/VadayI_claude-api-contract__.codex_agents_tsp-author.toml",
+  "repo": "VadayI/claude-api-contract",
+  "path": ".codex/agents/tsp-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03377",
+  "file": "corpus/VadayI_claude-react-mui__.claude_agents_docs-writer.md",
+  "repo": "VadayI/claude-react-mui",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03378",
+  "file": "corpus/VeVarunSharma_github-agentic-sdlc-starter-pack__.github_agents_docs-gardener.agent.md",
+  "repo": "VeVarunSharma/github-agentic-sdlc-starter-pack",
+  "path": ".github/agents/docs-gardener.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03379",
+  "file": "corpus/Vedang28_ai-sdr-agent__.claude_agents_docs-writer.md",
+  "repo": "Vedang28/ai-sdr-agent",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

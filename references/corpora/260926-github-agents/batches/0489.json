@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04890",
+  "file": "corpus/shariqriazz_google-ads-mcp-modularized__agents_ad-copy-creator.md",
+  "repo": "shariqriazz/google-ads-mcp-modularized",
+  "path": "agents/ad-copy-creator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04891",
+  "file": "corpus/shariqriazz_opencode-agents-system__.opencode_agent_technical-writer.md",
+  "repo": "shariqriazz/opencode-agents-system",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04892",
+  "file": "corpus/sharmapuneet1510_awesome-prompts__.claude_agents_functions_report.md",
+  "repo": "sharmapuneet1510/awesome-prompts",
+  "path": ".claude/agents/functions/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04893",
+  "file": "corpus/shdsjh123-cpu_claude-code-blog-builder__.claude_agents_blog-writer.md",
+  "repo": "shdsjh123-cpu/claude-code-blog-builder",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04894",
+  "file": "corpus/sheryloe_DonggriCompany__agents_classes_planning_planning-core_business-and-product_technical-writer.md",
+  "repo": "sheryloe/DonggriCompany",
+  "path": "agents/classes/planning/planning-core/business-and-product/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04895",
+  "file": "corpus/shinbatsu_documentoinator__.claude_agents_technical-writer.md",
+  "repo": "shinbatsu/documentoinator",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04896",
+  "file": "corpus/shisyamo4131_air-guard-v2-schemas__.codex_agents_docs-researcher.toml",
+  "repo": "shisyamo4131/air-guard-v2-schemas",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04897",
+  "file": "corpus/shivanshu814_TurboSupra-Agents__.claude_agents_copywriter-specialist.md",
+  "repo": "shivanshu814/TurboSupra-Agents",
+  "path": ".claude/agents/copywriter-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04898",
+  "file": "corpus/shivanshu814_TurboSupra-Agents__.claude_agents_documentation_technical-writer.md",
+  "repo": "shivanshu814/TurboSupra-Agents",
+  "path": ".claude/agents/documentation/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04899",
+  "file": "corpus/shivanshu814_TurboSupra-Agents__.claude_agents_email-copywriter.md",
+  "repo": "shivanshu814/TurboSupra-Agents",
+  "path": ".claude/agents/email-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00400",
+  "file": "corpus/Sincebook_Claude-Code-Software-Company__.claude_agents_technical-writer.md",
+  "repo": "Sincebook/Claude-Code-Software-Company",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00401",
+  "file": "corpus/Skreen5hot_AgenticDev__.claude_agents_demo-doc-author.md",
+  "repo": "Skreen5hot/AgenticDev",
+  "path": ".claude/agents/demo-doc-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00402",
+  "file": "corpus/SylphxAI_anymd__.opencode_agent_writer.md",
+  "repo": "SylphxAI/anymd",
+  "path": ".opencode/agent/writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00403",
+  "file": "corpus/YuChia-Wei_ai-collaboration-framework__.codex_agents_evidence-report-synthesizer.toml",
+  "repo": "YuChia-Wei/ai-collaboration-framework",
+  "path": ".codex/agents/evidence-report-synthesizer.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00404",
+  "file": "corpus/ZachDreamZ_monk-plugin__agents_monk-docs.md",
+  "repo": "ZachDreamZ/monk-plugin",
+  "path": "agents/monk-docs.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00405",
+  "file": "corpus/Zachary-Higgins_story_app_datastories__.github_agents_story-author.agent.md",
+  "repo": "Zachary-Higgins/story_app_datastories",
+  "path": ".github/agents/story-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00406",
+  "file": "corpus/Zeus-Center_Zeus__agents_hermes_website_i18n_zh-Hans_docusaurus-plugin-content-docs_current_user-guide_skills_optional_finance_finance-excel-author.md",
+  "repo": "Zeus-Center/Zeus",
+  "path": "agents/hermes/website/i18n/zh-Hans/docusaurus-plugin-content-docs/current/user-guide/skills/optional/finance/finance-excel-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00407",
+  "file": "corpus/aartiq_nowaikit__.github_agents_nowaikit-docs.agent.md",
+  "repo": "aartiq/nowaikit",
+  "path": ".github/agents/nowaikit-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00408",
+  "file": "corpus/abiolaogu_AI-Agents__agents_definitions_research_development_hazmat_documentation_generator.yaml",
+  "repo": "abiolaogu/AI-Agents",
+  "path": "agents/definitions/research_development/hazmat_documentation_generator.yaml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00409",
+  "file": "corpus/aditi-py_Claude-Data-Analytics__.claude_agents_report-writer.md",
+  "repo": "aditi-py/Claude-Data-Analytics",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

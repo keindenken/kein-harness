@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02880",
+  "file": "corpus/Geoffe-Ga_start_green_stay_green__.claude_agents_documentation-engineer.md",
+  "repo": "Geoffe-Ga/start_green_stay_green",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02881",
+  "file": "corpus/GeorgioGrivas1Nebula_ODM-Snowflake__.github_agents_documentation.agent.md",
+  "repo": "GeorgioGrivas1Nebula/ODM-Snowflake",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02882",
+  "file": "corpus/GetCollectRx_Collect-RX__.claude_agents_weekly-health-reporter.md",
+  "repo": "GetCollectRx/Collect-RX",
+  "path": ".claude/agents/weekly-health-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02883",
+  "file": "corpus/Gforce-Innovation-Kft_sf-docker-images__.claude_agents_gforce-gha-workflow-author.md",
+  "repo": "Gforce-Innovation-Kft/sf-docker-images",
+  "path": ".claude/agents/gforce-gha-workflow-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02884",
+  "file": "corpus/Gibbs-Morris_mississippi__.github_agents_cs-technical-writer.agent.md",
+  "repo": "Gibbs-Morris/mississippi",
+  "path": ".github/agents/cs-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02885",
+  "file": "corpus/Gibbs-Morris_mississippi__.github_agents_technical-writer.agent.md",
+  "repo": "Gibbs-Morris/mississippi",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02886",
+  "file": "corpus/GinoCanessa_dotnet-fhir-packages__.github_agents_dev-approach-author.md",
+  "repo": "GinoCanessa/dotnet-fhir-packages",
+  "path": ".github/agents/dev-approach-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02887",
+  "file": "corpus/Gixsy95_abap_wiki__.claude_agents_abap-functional-author.md",
+  "repo": "Gixsy95/abap_wiki",
+  "path": ".claude/agents/abap-functional-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02888",
+  "file": "corpus/Glitch-Cat-Club_chief-of-staff-crew__.claude_agents_copywriter.md",
+  "repo": "Glitch-Cat-Club/chief-of-staff-crew",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02889",
+  "file": "corpus/GoLukeEnviro_numerology-analyst-agent__.github_agents_knowledge-editor.agent.md",
+  "repo": "GoLukeEnviro/numerology-analyst-agent",
+  "path": ".github/agents/knowledge-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

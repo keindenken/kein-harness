@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00840",
+  "file": "corpus/jh941213_my-cc-harness__agents_docs-writer.md",
+  "repo": "jh941213/my-cc-harness",
+  "path": "agents/docs-writer.md",
+  "stars": 126,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00841",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_acp-project_seed-acp_agent_tasks_task-5-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/acp-project/seed-acp/agent/tasks/task-5-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00842",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_acp-project_steps_05-baseline-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/acp-project/steps/05-baseline-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00843",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_complex-auth-system_steps_05-docs.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/complex-auth-system/steps/05-docs.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00844",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_enterprise-task-manager_steps_10-migration-docs.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/enterprise-task-manager/steps/10-migration-docs.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00845",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_legacy-refactor_steps_06-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/legacy-refactor/steps/06-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00846",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_order-pipeline_steps_07-integration-docs.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/order-pipeline/steps/07-integration-docs.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00847",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_saas-platform_seed-acp_agent_tasks_task-14-api-docs.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/saas-platform/seed-acp/agent/tasks/task-14-api-docs.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00848",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_benchmarks_suite_saas-platform_steps_14-baseline-docs.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/benchmarks/suite/saas-platform/steps/14-baseline-docs.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00849",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_commands_acp.report.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/commands/acp.report.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ }
+]

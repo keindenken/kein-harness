@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00880",
+  "file": "corpus/TimeWarpEngineering_timewarp-nuru__.claude_agents_docs-accuracy-validator.md",
+  "repo": "TimeWarpEngineering/timewarp-nuru",
+  "path": ".claude/agents/docs-accuracy-validator.md",
+  "stars": 114,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00881",
+  "file": "corpus/gmickel_gno__.codex_agents_docs-gap-scout.toml",
+  "repo": "gmickel/gno",
+  "path": ".codex/agents/docs-gap-scout.toml",
+  "stars": 114,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00882",
+  "file": "corpus/gmickel_gno__.codex_agents_docs-scout.toml",
+  "repo": "gmickel/gno",
+  "path": ".codex/agents/docs-scout.toml",
+  "stars": 114,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00883",
+  "file": "corpus/rajbos_ai-engineering-fluency__.claude_agents_new-editor-support.md",
+  "repo": "rajbos/ai-engineering-fluency",
+  "path": ".claude/agents/new-editor-support.md",
+  "stars": 114,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00884",
+  "file": "corpus/PEZ_epupp__.github_agents_docs-updater.agent.md",
+  "repo": "PEZ/epupp",
+  "path": ".github/agents/docs-updater.agent.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00885",
+  "file": "corpus/ankitjha67_product-architect__agents_42-content-docs.md",
+  "repo": "ankitjha67/product-architect",
+  "path": "agents/42-content-docs.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00886",
+  "file": "corpus/danielmeppiel_awesome-ai-native__.github_agents_prose-writer.agent.md",
+  "repo": "danielmeppiel/awesome-ai-native",
+  "path": ".github/agents/prose-writer.agent.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00887",
+  "file": "corpus/extra-org_extra__.claude_agents_documentation-writer.md",
+  "repo": "extra-org/extra",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00888",
+  "file": "corpus/nirholas_PAI__agents_docs-agent.md",
+  "repo": "nirholas/PAI",
+  "path": "agents/docs-agent.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00889",
+  "file": "corpus/MaxwellDPS_Flock-You-Android__.claude_agents_detection-authoring.md",
+  "repo": "MaxwellDPS/Flock-You-Android",
+  "path": ".claude/agents/detection-authoring.md",
+  "stars": 111,
+  "copies_in_repos": 1
+ }
+]

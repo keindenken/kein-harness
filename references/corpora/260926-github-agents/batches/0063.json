@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00630",
+  "file": "corpus/microsoft_hve-core__docs_agents_ado-backlog_prd-planning.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/agents/ado-backlog/prd-planning.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00631",
+  "file": "corpus/microsoft_hve-core__docs_agents_project-planning_brd-prd-builders.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/agents/project-planning/brd-prd-builders.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00632",
+  "file": "corpus/microsoft_hve-core__docs_reference_agents_engagement-reporting_engagement-report-generator.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/reference/agents/engagement-reporting/engagement-report-generator.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00633",
+  "file": "corpus/microsoft_hve-core__docs_reference_agents_hve-core_documentation.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/reference/agents/hve-core/documentation.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00634",
+  "file": "corpus/microsoft_hve-core__docs_reference_agents_project-planning_prd-builder.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/reference/agents/project-planning/prd-builder.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00635",
+  "file": "corpus/microsoft_hve-core__docs_reference_agents_security_subagents_report-generator.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/reference/agents/security/subagents/report-generator.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00636",
+  "file": "corpus/kitops-ml_kitops__.github_agents_user-documentation.agent.md",
+  "repo": "kitops-ml/kitops",
+  "path": ".github/agents/user-documentation.agent.md",
+  "stars": 1421,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00637",
+  "file": "corpus/CloudAI-X_claude-workflow-v2__.codex_agents_docs-writer.toml",
+  "repo": "CloudAI-X/claude-workflow-v2",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 1415,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00638",
+  "file": "corpus/CloudAI-X_claude-workflow-v2__agents_docs-writer.md",
+  "repo": "CloudAI-X/claude-workflow-v2",
+  "path": "agents/docs-writer.md",
+  "stars": 1415,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00639",
+  "file": "corpus/Spielewoy_autoprompt-skill__agents_claude_agents_ap-roadmap-author.md",
+  "repo": "Spielewoy/autoprompt-skill",
+  "path": "agents/claude/agents/ap-roadmap-author.md",
+  "stars": 1292,
+  "copies_in_repos": 1
+ }
+]

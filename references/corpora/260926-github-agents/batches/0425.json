@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04250",
+  "file": "corpus/juntaochi_social-media-manager__.opencode_agent_writer-agent.md",
+  "repo": "juntaochi/social-media-manager",
+  "path": ".opencode/agent/writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04251",
+  "file": "corpus/junthy-me_worksim__.claude_agents_schema-author.md",
+  "repo": "junthy-me/worksim",
+  "path": ".claude/agents/schema-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04252",
+  "file": "corpus/justcallmemrj_content-os-__.claude_agents_voice-editor.md",
+  "repo": "justcallmemrj/content-os-",
+  "path": ".claude/agents/voice-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04253",
+  "file": "corpus/justdesigned_portfolio__.github_agents_content-copywriter.agent.md",
+  "repo": "justdesigned/portfolio",
+  "path": ".github/agents/content-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04254",
+  "file": "corpus/justin-haffey_ghostagram__.codex_agents_swe_repo-author.toml",
+  "repo": "justin-haffey/ghostagram",
+  "path": ".codex/agents/swe/repo-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04255",
+  "file": "corpus/jwh3times_holland-vip__.codex_agents_docs-updater.toml",
+  "repo": "jwh3times/holland-vip",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04256",
+  "file": "corpus/jwh3times_valleys-at-ashebrook-hoa__.codex_agents_docs-updater.toml",
+  "repo": "jwh3times/valleys-at-ashebrook-hoa",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04257",
+  "file": "corpus/kabaka_cpap-analyzer__.claude_agents_adr-author.md",
+  "repo": "kabaka/cpap-analyzer",
+  "path": ".claude/agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04258",
+  "file": "corpus/kabaka_spc-player__.github_agents_technical-writer.agent.md",
+  "repo": "kabaka/spc-player",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04259",
+  "file": "corpus/kabaka_stemma__.claude_agents_technical-writer.md",
+  "repo": "kabaka/stemma",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

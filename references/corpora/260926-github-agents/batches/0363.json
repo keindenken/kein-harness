@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03630",
+  "file": "corpus/brandolfo_ExpenseFlow__agents_technical-writer-agent.md",
+  "repo": "brandolfo/ExpenseFlow",
+  "path": "agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03631",
+  "file": "corpus/brandonfromph_mirr-project__.github_agents_audit-reports_Q11-agent-report.md",
+  "repo": "brandonfromph/mirr-project",
+  "path": ".github/agents/audit-reports/Q11-agent-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03632",
+  "file": "corpus/brandonfromph_mirr-project__.github_agents_audit-reports_Q5-agent-report.md",
+  "repo": "brandonfromph/mirr-project",
+  "path": ".github/agents/audit-reports/Q5-agent-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03633",
+  "file": "corpus/brandonfromph_mirr-project__.github_agents_audit-reports_Q7-agent-report.md",
+  "repo": "brandonfromph/mirr-project",
+  "path": ".github/agents/audit-reports/Q7-agent-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03634",
+  "file": "corpus/brandonfromph_mirr-project__.github_agents_audit-reports_Q9-agent-report.md",
+  "repo": "brandonfromph/mirr-project",
+  "path": ".github/agents/audit-reports/Q9-agent-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03635",
+  "file": "corpus/brandtz_boilerplate__agents_roles_docs_technical-writer.md",
+  "repo": "brandtz/boilerplate",
+  "path": "agents/roles/docs/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03636",
+  "file": "corpus/braven112_mfl.football.v2__.claude_agents_docs-helper.md",
+  "repo": "braven112/mfl.football.v2",
+  "path": ".claude/agents/docs-helper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03637",
+  "file": "corpus/brendankowitz_clautana__.claude_agents_documentation-agent.md",
+  "repo": "brendankowitz/clautana",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03638",
+  "file": "corpus/brianchristopherbrady_blipmap__.github_agents_component-author.agent.md",
+  "repo": "brianchristopherbrady/blipmap",
+  "path": ".github/agents/component-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03639",
+  "file": "corpus/brobro10000_context-os__agents_outputs_A2-wave1-event-envelope-report.md",
+  "repo": "brobro10000/context-os",
+  "path": "agents/outputs/A2-wave1-event-envelope-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

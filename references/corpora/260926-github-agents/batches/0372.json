@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03720",
+  "file": "corpus/coji831_agentic-devops-solar-ralph__.github_agents_docs-curator.agent.md",
+  "repo": "coji831/agentic-devops-solar-ralph",
+  "path": ".github/agents/docs-curator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03721",
+  "file": "corpus/colibri-hq_colibri__.claude_agents_technical-writer.md",
+  "repo": "colibri-hq/colibri",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03722",
+  "file": "corpus/collaborationwithothers_azure-apim-ai-gateway-architecture-lab__.codex_agents_scenario_docs_writer.toml",
+  "repo": "collaborationwithothers/azure-apim-ai-gateway-architecture-lab",
+  "path": ".codex/agents/scenario_docs_writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03723",
+  "file": "corpus/collinsobasuyi_AuthBridge__.claude_agents_technical-writer-agent.md",
+  "repo": "collinsobasuyi/AuthBridge",
+  "path": ".claude/agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03724",
+  "file": "corpus/comp4020-agentic-coding-studio_comp4020-ass2-mattxreynolds__.codex_agents_course-author.toml",
+  "repo": "comp4020-agentic-coding-studio/comp4020-ass2-mattxreynolds",
+  "path": ".codex/agents/course-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03725",
+  "file": "corpus/comp4020-agentic-coding-studio_comp4020-ass2-mattxreynolds__.codex_agents_rollout-author.toml",
+  "repo": "comp4020-agentic-coding-studio/comp4020-ass2-mattxreynolds",
+  "path": ".codex/agents/rollout-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03726",
+  "file": "corpus/congiuluc_my-awesome-copilot__agents_documentation-writer.agent.md",
+  "repo": "congiuluc/my-awesome-copilot",
+  "path": "agents/documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03727",
+  "file": "corpus/connecto-anahuac_connecto-web-app__.github_agents_storybook-story-writer.agent.md",
+  "repo": "connecto-anahuac/connecto-web-app",
+  "path": ".github/agents/storybook-story-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03728",
+  "file": "corpus/coolnaveen99_codepackr-law__.github_agents_subject-author.yml",
+  "repo": "coolnaveen99/codepackr-law",
+  "path": ".github/agents/subject-author.yml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03729",
+  "file": "corpus/coulsontl_ai-toolbox__.codex_agents_release_notes_writer.toml",
+  "repo": "coulsontl/ai-toolbox",
+  "path": ".codex/agents/release_notes_writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

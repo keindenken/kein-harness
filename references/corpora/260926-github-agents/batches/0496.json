@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04960",
+  "file": "corpus/ssr1dh4r_AgenticAIPlaywright__.github_agents_jira-bug-reporter.agent.md",
+  "repo": "ssr1dh4r/AgenticAIPlaywright",
+  "path": ".github/agents/jira-bug-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04961",
+  "file": "corpus/stanterprise_playwright-reporter__.github_agents_documentation-specialist.agent.md",
+  "repo": "stanterprise/playwright-reporter",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04962",
+  "file": "corpus/starpacker_Project-Evolution__.github_agents_gem_documentation_writer.agent.md",
+  "repo": "starpacker/Project-Evolution",
+  "path": ".github/agents/gem_documentation_writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04963",
+  "file": "corpus/stilero_ai-claude-code-docker__agents_research-planning_prd-writer.md",
+  "repo": "stilero/ai-claude-code-docker",
+  "path": "agents/research-planning/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04964",
+  "file": "corpus/storytree-ai_Storytree__.codex_agents_story-author.toml",
+  "repo": "storytree-ai/Storytree",
+  "path": ".codex/agents/story-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04965",
+  "file": "corpus/styfinity_claude-marketing-department__agents_creative-strategy_sales-copywriter.md",
+  "repo": "styfinity/claude-marketing-department",
+  "path": "agents/creative-strategy/sales-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04966",
+  "file": "corpus/stylusnexus_full-starter__.claude_agents_technical-writer.md",
+  "repo": "stylusnexus/full-starter",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04967",
+  "file": "corpus/subhashmahimaluri_new-sparks__.github_agents_core_docs.agent.md",
+  "repo": "subhashmahimaluri/new-sparks",
+  "path": ".github/agents/core/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04968",
+  "file": "corpus/subzone_my-it-crew__.github_agents_documenter.agent.md",
+  "repo": "subzone/my-it-crew",
+  "path": ".github/agents/documenter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04969",
+  "file": "corpus/sunbreak-pro_fantasy_novel__.codex_agents_novel-author.toml",
+  "repo": "sunbreak-pro/fantasy_novel",
+  "path": ".codex/agents/novel-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02330",
+  "file": "corpus/Ocean326_Butler__.codex_agents_docs-researcher.toml",
+  "repo": "Ocean326/Butler",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02331",
+  "file": "corpus/Ocean326_Butler__.codex_agents_report-writer.toml",
+  "repo": "Ocean326/Butler",
+  "path": ".codex/agents/report-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02332",
+  "file": "corpus/OrderofChaos33_SINCOR2__agents_archetypes_Copywriter.yaml",
+  "repo": "OrderofChaos33/SINCOR2",
+  "path": "agents/archetypes/Copywriter.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02333",
+  "file": "corpus/OscarSwanros_homebase-public__agents_copywriter.md",
+  "repo": "OscarSwanros/homebase-public",
+  "path": "agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02334",
+  "file": "corpus/PKU-QNO_optics-agent-zyz__.codex_agents_pdf_report_applier.toml",
+  "repo": "PKU-QNO/optics-agent-zyz",
+  "path": ".codex/agents/pdf_report_applier.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02335",
+  "file": "corpus/PMDevSolutions_Optia__.claude_agents_copywriter.md",
+  "repo": "PMDevSolutions/Optia",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02336",
+  "file": "corpus/PagelsR_GinosGelato__.github_agents_journey-author.agent.md",
+  "repo": "PagelsR/GinosGelato",
+  "path": ".github/agents/journey-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02337",
+  "file": "corpus/Paris778_numer-AI-refactored__.github_agents_documentation-janitor.agent.md",
+  "repo": "Paris778/numer-AI-refactored",
+  "path": ".github/agents/documentation-janitor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02338",
+  "file": "corpus/PenumbraAI_improve-judge__agents_judge-editor.md",
+  "repo": "PenumbraAI/improve-judge",
+  "path": "agents/judge-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02339",
+  "file": "corpus/PeppyDays_media__.claude_agents_docs-writer.md",
+  "repo": "PeppyDays/media",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

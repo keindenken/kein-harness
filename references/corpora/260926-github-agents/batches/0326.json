@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03260",
+  "file": "corpus/SPradhanFL_codex-test-pilot__.github_agents_report-analyzer.agent.md",
+  "repo": "SPradhanFL/codex-test-pilot",
+  "path": ".github/agents/report-analyzer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03261",
+  "file": "corpus/SUNWOONGKYU_PoliticianFinder__.claude_agents_copywriter.md",
+  "repo": "SUNWOONGKYU/PoliticianFinder",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03262",
+  "file": "corpus/Saadkhalid913_repo-explainer__.opencode_agent_docs-writer.md",
+  "repo": "Saadkhalid913/repo-explainer",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03263",
+  "file": "corpus/Sadzida02_AgenticOcr__.claude_agents_reportering_agent.md",
+  "repo": "Sadzida02/AgenticOcr",
+  "path": ".claude/agents/reportering_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03264",
+  "file": "corpus/Sajad12345996_gen_ai_case__.github_agents_documentation-editor.agent.md",
+  "repo": "Sajad12345996/gen_ai_case",
+  "path": ".github/agents/documentation-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03265",
+  "file": "corpus/Sami-Ozsoy_ai-chatbot-integration-clean__.claude_agents_trigger-dev-task-writer.md",
+  "repo": "Sami-Ozsoy/ai-chatbot-integration-clean",
+  "path": ".claude/agents/trigger-dev-task-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03266",
+  "file": "corpus/Samind-Samind_projexa__.claude_agents_tech-stack-writer.md",
+  "repo": "Samind-Samind/projexa",
+  "path": ".claude/agents/tech-stack-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03267",
+  "file": "corpus/San4ez-mc_fineko_tables__.github_agents_google-reports-builder.agent.md",
+  "repo": "San4ez-mc/fineko_tables",
+  "path": ".github/agents/google-reports-builder.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03268",
+  "file": "corpus/SandyJackson_pi-monorepo__agents_docs-researcher.md",
+  "repo": "SandyJackson/pi-monorepo",
+  "path": "agents/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03269",
+  "file": "corpus/Sanvith6_Copolit_usage__.github_agents_resume-editor.md",
+  "repo": "Sanvith6/Copolit_usage",
+  "path": ".github/agents/resume-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

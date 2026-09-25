@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04790",
+  "file": "corpus/reprewindai-dev_cappo-backend__agents_phase1-engineering_agent-006-api-docs.md",
+  "repo": "reprewindai-dev/cappo-backend",
+  "path": "agents/phase1-engineering/agent-006-api-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04791",
+  "file": "corpus/respawnhere_RespawnPack__agents_docs-ingestor.md",
+  "repo": "respawnhere/RespawnPack",
+  "path": "agents/docs-ingestor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04792",
+  "file": "corpus/respawnhere_RespawnPack__agents_technical-writer.md",
+  "repo": "respawnhere/RespawnPack",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04793",
+  "file": "corpus/ressKim-io_my-blog__.codex_agents_blog-writer.toml",
+  "repo": "ressKim-io/my-blog",
+  "path": ".codex/agents/blog-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04794",
+  "file": "corpus/revans_the-point__agents_copy.md",
+  "repo": "revans/the-point",
+  "path": "agents/copy.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04795",
+  "file": "corpus/revfactory_ai-trend-onboarding__.claude_agents_book-editor.md",
+  "repo": "revfactory/ai-trend-onboarding",
+  "path": ".claude/agents/book-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04796",
+  "file": "corpus/reynave_epixFin-customer-report__.github_agents_epix-report-feature-builder.agent.md",
+  "repo": "reynave/epixFin-customer-report",
+  "path": ".github/agents/epix-report-feature-builder.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04797",
+  "file": "corpus/rezmequick-dot_claude-team-config__agents_technical-writer.md",
+  "repo": "rezmequick-dot/claude-team-config",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04798",
+  "file": "corpus/rfestag_holoconf__.claude_agents_doc-writer.md",
+  "repo": "rfestag/holoconf",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04799",
+  "file": "corpus/rgariepy_dotfiles__agents_doc-writer.md",
+  "repo": "rgariepy/dotfiles",
+  "path": "agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

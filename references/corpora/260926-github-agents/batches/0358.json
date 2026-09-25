@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03580",
+  "file": "corpus/balorette_who-am-i__.github_agents_blogWriter.agent.md",
+  "repo": "balorette/who-am-i",
+  "path": ".github/agents/blogWriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03581",
+  "file": "corpus/bantoilatoi_memory-context-optimizer__agents_documentation-maintainer.md",
+  "repo": "bantoilatoi/memory-context-optimizer",
+  "path": "agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03582",
+  "file": "corpus/barbarakos_shopify-ai-builder__.claude_agents_copywriter.md",
+  "repo": "barbarakos/shopify-ai-builder",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03583",
+  "file": "corpus/basher83_docs__.github_agents_documentation-maintenance.agent.md",
+  "repo": "basher83/docs",
+  "path": ".github/agents/documentation-maintenance.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03584",
+  "file": "corpus/bashy-yacob_der-shtele__.claude_agents_copywriter.md",
+  "repo": "bashy-yacob/der-shtele",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03585",
+  "file": "corpus/bclef2525_my-harness__.claude_agents_commit-msg-author.md",
+  "repo": "bclef2525/my-harness",
+  "path": ".claude/agents/commit-msg-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03586",
+  "file": "corpus/bcornick_company-inception-pipeline__.claude_agents_outreach-copywriter.md",
+  "repo": "bcornick/company-inception-pipeline",
+  "path": ".claude/agents/outreach-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03587",
+  "file": "corpus/beardofedu_hackathon-winners__.github_agents_slide-author.md",
+  "repo": "beardofedu/hackathon-winners",
+  "path": ".github/agents/slide-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03588",
+  "file": "corpus/bebeggogo-byte_nedabahway-site__.claude_agents_data_statistics-reporter.md",
+  "repo": "bebeggogo-byte/nedabahway-site",
+  "path": ".claude/agents/data/statistics-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03589",
+  "file": "corpus/bebeggogo-byte_nedabahway-site__.claude_agents_engineering_codemod-author.md",
+  "repo": "bebeggogo-byte/nedabahway-site",
+  "path": ".claude/agents/engineering/codemod-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

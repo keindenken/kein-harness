@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03430",
+  "file": "corpus/Zeyad-37_tech-agency__.claude_agents_scroll-technical-writer.md",
+  "repo": "Zeyad-37/tech-agency",
+  "path": ".claude/agents/scroll-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03431",
+  "file": "corpus/Zhachory1_agent-fleet__agents_docs-dx.md",
+  "repo": "Zhachory1/agent-fleet",
+  "path": "agents/docs-dx.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03432",
+  "file": "corpus/ZoyaAfzal_Hackathon2_Todo_SDD__.claude_agents_spec-execution-authority.md",
+  "repo": "ZoyaAfzal/Hackathon2_Todo_SDD",
+  "path": ".claude/agents/spec-execution-authority.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03433",
+  "file": "corpus/ZubairLK_security-agents__.claude_agents_api-authorization-checker.md",
+  "repo": "ZubairLK/security-agents",
+  "path": ".claude/agents/api-authorization-checker.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03434",
+  "file": "corpus/ZubairLK_security-agents__.claude_agents_authorization-rules-writer.md",
+  "repo": "ZubairLK/security-agents",
+  "path": ".claude/agents/authorization-rules-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03435",
+  "file": "corpus/Zyclotrop-j_js-excel-mcp__.opencode_agent_junior-engineer-docs.md",
+  "repo": "Zyclotrop-j/js-excel-mcp",
+  "path": ".opencode/agent/junior-engineer-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03436",
+  "file": "corpus/a0-community-plugins_bmad-dev-framework__agents_bmad_tech_writer_prompts_agent.system.bmad_tech_writer.md",
+  "repo": "a0-community-plugins/bmad-dev-framework",
+  "path": "agents/bmad_tech_writer/prompts/agent.system.bmad_tech_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03437",
+  "file": "corpus/a8962383_HadFun-__.github_agents_CodeArcheologyDocumentation.agent.md",
+  "repo": "a8962383/HadFun-",
+  "path": ".github/agents/CodeArcheologyDocumentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03438",
+  "file": "corpus/aRustyDev_muster__.claude_agents_detector-author.md",
+  "repo": "aRustyDev/muster",
+  "path": ".claude/agents/detector-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03439",
+  "file": "corpus/aaione_everything-claude-code-zh__agents_docs-lookup.md",
+  "repo": "aaione/everything-claude-code-zh",
+  "path": "agents/docs-lookup.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

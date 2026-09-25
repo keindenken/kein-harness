@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02680",
+  "file": "corpus/AliMetaVerse_webropol__.github_agents_modules_documentation.md",
+  "repo": "AliMetaVerse/webropol",
+  "path": ".github/agents/modules/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02681",
+  "file": "corpus/All-Of-The-Things_ai-linkedin-lead-generation__agents_website-copywriter.md",
+  "repo": "All-Of-The-Things/ai-linkedin-lead-generation",
+  "path": "agents/website-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02682",
+  "file": "corpus/AllHailSeizure_synapse__.codex_agents_synapse_spec-writer.toml",
+  "repo": "AllHailSeizure/synapse",
+  "path": ".codex/agents/synapse/spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02683",
+  "file": "corpus/AllNamesRTaken_AI-demo__.github_agents_agent-authoring-agent-v2.agent.md",
+  "repo": "AllNamesRTaken/AI-demo",
+  "path": ".github/agents/agent-authoring-agent-v2.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02684",
+  "file": "corpus/Aman-Kumar342_OutreachOs__.claude_agents_outreachos-war-room-report.md",
+  "repo": "Aman-Kumar342/OutreachOs",
+  "path": ".claude/agents/outreachos-war-room-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02685",
+  "file": "corpus/Anasss_qa-orchestra__.claude_agents_bug-reporter.md",
+  "repo": "Anasss/qa-orchestra",
+  "path": ".claude/agents/bug-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02686",
+  "file": "corpus/Andrerg01_first-in-line__.github_agents_docs-agent.agent.md",
+  "repo": "Andrerg01/first-in-line",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02687",
+  "file": "corpus/AnonNetizen_wasd__.claude_agents_copywriter-packager.md",
+  "repo": "AnonNetizen/wasd",
+  "path": ".claude/agents/copywriter-packager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02688",
+  "file": "corpus/AnonNetizen_wasd__.codex_agents_data-author.md",
+  "repo": "AnonNetizen/wasd",
+  "path": ".codex/agents/data-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02689",
+  "file": "corpus/Anselmoo_mcp-zen-of-docs__.github_agents_zen-docs-writer.agent.md",
+  "repo": "Anselmoo/mcp-zen-of-docs",
+  "path": ".github/agents/zen-docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

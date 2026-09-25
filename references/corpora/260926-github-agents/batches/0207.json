@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02070",
+  "file": "corpus/illodev_taiga-mcp__.github_agents_taiga-reporter.agent.md",
+  "repo": "illodev/taiga-mcp",
+  "path": ".github/agents/taiga-reporter.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02071",
+  "file": "corpus/infiniV_ultra-ml-intern__agents_ml-paper-reader.md",
+  "repo": "infiniV/ultra-ml-intern",
+  "path": "agents/ml-paper-reader.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02072",
+  "file": "corpus/infiniV_ultra-ml-intern__agents_ml-paper-researcher.md",
+  "repo": "infiniV/ultra-ml-intern",
+  "path": "agents/ml-paper-researcher.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02073",
+  "file": "corpus/isnendyankp_ikp-labs__.claude_agents_docs-fixer.md",
+  "repo": "isnendyankp/ikp-labs",
+  "path": ".claude/agents/docs-fixer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02074",
+  "file": "corpus/iwashita-nozomu_agent-canon__.codex_agents_docs_workflow_steward.toml",
+  "repo": "iwashita-nozomu/agent-canon",
+  "path": ".codex/agents/docs_workflow_steward.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02075",
+  "file": "corpus/jfimbett_llm-finance-book__.claude_agents_audit-editor.md",
+  "repo": "jfimbett/llm-finance-book",
+  "path": ".claude/agents/audit-editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02076",
+  "file": "corpus/jiaheyi-maggie_claude-code-config__agents_tech-writer.md",
+  "repo": "jiaheyi-maggie/claude-code-config",
+  "path": "agents/tech-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02077",
+  "file": "corpus/jjtech-digital_n8n-nodes-commercetools__.claude_agents_documentation-writer.md",
+  "repo": "jjtech-digital/n8n-nodes-commercetools",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02078",
+  "file": "corpus/joaoguirunas_team-os__.claude_agents_sales-copywriter.md",
+  "repo": "joaoguirunas/team-os",
+  "path": ".claude/agents/sales-copywriter.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02079",
+  "file": "corpus/joaoguirunas_team-os__.claude_agents_traffic-copywriter.md",
+  "repo": "joaoguirunas/team-os",
+  "path": ".claude/agents/traffic-copywriter.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

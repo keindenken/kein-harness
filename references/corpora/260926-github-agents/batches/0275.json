@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02750",
+  "file": "corpus/ChibaYuki347_multicam-planner-workshop__.github_agents_spec-author.agent.md",
+  "repo": "ChibaYuki347/multicam-planner-workshop",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02751",
+  "file": "corpus/ChrisKG32_microflash__.opencode_agent_docs-researcher.md",
+  "repo": "ChrisKG32/microflash",
+  "path": ".opencode/agent/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02752",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_authority-expertise-positioning.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/authority-expertise-positioning.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02753",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_authority-without-intimidation.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/authority-without-intimidation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02754",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_compliance-documentation-agent.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/compliance-documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02755",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_comprehensive-documentation-agent.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/comprehensive-documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02756",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_influence-without-authority.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/influence-without-authority.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02757",
+  "file": "corpus/ChristopherSchubert_persona-lab__agents_technical-writer.md",
+  "repo": "ChristopherSchubert/persona-lab",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02758",
+  "file": "corpus/Clean1ines_crm_bot__.codex_agents_docs_lookup.toml",
+  "repo": "Clean1ines/crm_bot",
+  "path": ".codex/agents/docs_lookup.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02759",
+  "file": "corpus/CodeBlackwell_chassis__.claude_agents_matrix-author.md",
+  "repo": "CodeBlackwell/chassis",
+  "path": ".claude/agents/matrix-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

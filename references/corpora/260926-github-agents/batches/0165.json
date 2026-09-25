@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01650",
+  "file": "corpus/ksefuj_ksefuj__.github_agents_copywriter.md",
+  "repo": "ksefuj/ksefuj",
+  "path": ".github/agents/copywriter.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01651",
+  "file": "corpus/lemieux_rfc-skills__agents_rfc-writer.md",
+  "repo": "lemieux/rfc-skills",
+  "path": "agents/rfc-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01652",
+  "file": "corpus/lunarcloud_gameinputjs__.github_agents_documentation-writer.md",
+  "repo": "lunarcloud/gameinputjs",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01653",
+  "file": "corpus/mryeminaung_documentation-assistant__.claude_agents_documentation-expert.md",
+  "repo": "mryeminaung/documentation-assistant",
+  "path": ".claude/agents/documentation-expert.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01654",
+  "file": "corpus/natesmalley_coral_collective__.claude_agents_technical-writer.md",
+  "repo": "natesmalley/coral_collective",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01655",
+  "file": "corpus/phil-scott-78_MyLittleContentEngine__.claude_agents_technical-writer.md",
+  "repo": "phil-scott-78/MyLittleContentEngine",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01656",
+  "file": "corpus/qualcomm_qualcomm-ui__.codex_agents_docs.toml",
+  "repo": "qualcomm/qualcomm-ui",
+  "path": ".codex/agents/docs.toml",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01657",
+  "file": "corpus/revfactory_claude-code-starter__.claude_agents_book-editor.md",
+  "repo": "revfactory/claude-code-starter",
+  "path": ".claude/agents/book-editor.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01658",
+  "file": "corpus/vsevolod-oparin_ct-transcriber-macos__.claude_agents_documentation-pro.md",
+  "repo": "vsevolod-oparin/ct-transcriber-macos",
+  "path": ".claude/agents/documentation-pro.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01659",
+  "file": "corpus/vsevolod-oparin_ct-transcriber-macos__.claude_agents_technical-writer.md",
+  "repo": "vsevolod-oparin/ct-transcriber-macos",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ }
+]

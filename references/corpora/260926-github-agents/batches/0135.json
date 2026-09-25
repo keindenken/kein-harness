@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01350",
+  "file": "corpus/Ratler_dream-team__agents_docs.md",
+  "repo": "Ratler/dream-team",
+  "path": "agents/docs.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01351",
+  "file": "corpus/SamPlvs_zero-operators__.claude_agents_documentation-agent.md",
+  "repo": "SamPlvs/zero-operators",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01352",
+  "file": "corpus/Tiziano-AI_pi-multiagent__agents_docs-auditor.md",
+  "repo": "Tiziano-AI/pi-multiagent",
+  "path": "agents/docs-auditor.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01353",
+  "file": "corpus/asfaload_asfaload__agents_code-documentation.md",
+  "repo": "asfaload/asfaload",
+  "path": "agents/code-documentation.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01354",
+  "file": "corpus/danielrosehill_Index__.claude_agents_report-analyzer.md",
+  "repo": "danielrosehill/Index",
+  "path": ".claude/agents/report-analyzer.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01355",
+  "file": "corpus/databayt_hogwarts__.claude_agents_special_style-docs.md",
+  "repo": "databayt/hogwarts",
+  "path": ".claude/agents/special/style-docs.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01356",
+  "file": "corpus/databayt_hogwarts__.codex_agents_docs-manager.toml",
+  "repo": "databayt/hogwarts",
+  "path": ".codex/agents/docs-manager.toml",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01357",
+  "file": "corpus/databayt_hogwarts__.codex_agents_docs.toml",
+  "repo": "databayt/hogwarts",
+  "path": ".codex/agents/docs.toml",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01358",
+  "file": "corpus/davila7_claude-code-cli-training__.claude_agents_lesson-author.md",
+  "repo": "davila7/claude-code-cli-training",
+  "path": ".claude/agents/lesson-author.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01359",
+  "file": "corpus/estruyf_ghostwriter-agents-ai__agents_context.ghostwriter.md",
+  "repo": "estruyf/ghostwriter-agents-ai",
+  "path": "agents/context.ghostwriter.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04240",
+  "file": "corpus/juanjosworkbox_hve_laxian__.github_agents_squad-asbuilt-author.agent.md",
+  "repo": "juanjosworkbox/hve_laxian",
+  "path": ".github/agents/squad-asbuilt-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04241",
+  "file": "corpus/juanjosworkbox_hve_laxian__.github_agents_squad-technical-writer.agent.md",
+  "repo": "juanjosworkbox/hve_laxian",
+  "path": ".github/agents/squad-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04242",
+  "file": "corpus/juankmvanegas_factoria-powers__agents_kot-docs-agent.md",
+  "repo": "juankmvanegas/factoria-powers",
+  "path": "agents/kot-docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04243",
+  "file": "corpus/juankmvanegas_factoria-powers__agents_wps-docs-agent.md",
+  "repo": "juankmvanegas/factoria-powers",
+  "path": "agents/wps-docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04244",
+  "file": "corpus/juanpiLorca_cima-platform__.claude_agents_changelog-writer.md",
+  "repo": "juanpiLorca/cima-platform",
+  "path": ".claude/agents/changelog-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04245",
+  "file": "corpus/judeotine_otine__.github_agents_Documentation_Assistant.md",
+  "repo": "judeotine/otine",
+  "path": ".github/agents/Documentation_Assistant.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04246",
+  "file": "corpus/juliaschaumeier_compliance-cost-computer__.codex_agents_docs_researcher.toml",
+  "repo": "juliaschaumeier/compliance-cost-computer",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04247",
+  "file": "corpus/julietKiloRomeo_photobook-creator__.codex_agents_docs-maintainer.md",
+  "repo": "julietKiloRomeo/photobook-creator",
+  "path": ".codex/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04248",
+  "file": "corpus/jumasi-34_agent__agents_roles_10_documentation-agent.md",
+  "repo": "jumasi-34/agent",
+  "path": "agents/roles/10_documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04249",
+  "file": "corpus/junDevCodes_Claude-Harness__.claude_agents_technical-writer.md",
+  "repo": "junDevCodes/Claude-Harness",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

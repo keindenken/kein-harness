@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01240",
+  "file": "corpus/AlbertArakelyan_Lumark__.claude_agents_tauri-command-author.md",
+  "repo": "AlbertArakelyan/Lumark",
+  "path": ".claude/agents/tauri-command-author.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01241",
+  "file": "corpus/AlbertArakelyan_Lumark__.claude_agents_ui-component-author.md",
+  "repo": "AlbertArakelyan/Lumark",
+  "path": ".claude/agents/ui-component-author.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01242",
+  "file": "corpus/CRJFisher_ariadne__.claude_agents_task-writer.md",
+  "repo": "CRJFisher/ariadne",
+  "path": ".claude/agents/task-writer.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01243",
+  "file": "corpus/ERPLibre_ERPLibre__.claude_agents_documentation-specialist.md",
+  "repo": "ERPLibre/ERPLibre",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01244",
+  "file": "corpus/checkmarble_marble-frontend__.claude_agents_documentation-architect.md",
+  "repo": "checkmarble/marble-frontend",
+  "path": ".claude/agents/documentation-architect.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01245",
+  "file": "corpus/jcmrs_claude-code-spec-kit-subagent-plugin__agents_spec-kit-partner.md",
+  "repo": "jcmrs/claude-code-spec-kit-subagent-plugin",
+  "path": "agents/spec-kit-partner.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01246",
+  "file": "corpus/jucish2019-a11y_awesome-qwen-agents__agents_technical-documentation-specialist.md",
+  "repo": "jucish2019-a11y/awesome-qwen-agents",
+  "path": "agents/technical-documentation-specialist.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01247",
+  "file": "corpus/magendooro_n98-magerun2-performance-review__.claude_agents_documentation-updater.md",
+  "repo": "magendooro/n98-magerun2-performance-review",
+  "path": ".claude/agents/documentation-updater.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01248",
+  "file": "corpus/shubhamofbce_vaanieval__.codex_agents_content-editor.toml",
+  "repo": "shubhamofbce/vaanieval",
+  "path": ".codex/agents/content-editor.toml",
+  "stars": 22,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01249",
+  "file": "corpus/waybarrios_cyber-agent__.claude_agents_report-agent.md",
+  "repo": "waybarrios/cyber-agent",
+  "path": ".claude/agents/report-agent.md",
+  "stars": 22,
+  "copies_in_repos": 1
+ }
+]

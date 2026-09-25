@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00110",
+  "file": "corpus/alanCarcharoth_novatech-demo__.claude_agents_doc-generator.md",
+  "repo": "alanCarcharoth/novatech-demo",
+  "path": ".claude/agents/doc-generator.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00111",
+  "file": "corpus/edalorzo_amplifier__agents_contract-spec-author.md",
+  "repo": "edalorzo/amplifier",
+  "path": "agents/contract-spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00112",
+  "file": "corpus/fabioc-aloha_AlexCook__.github_agents_markdown-author.agent.md",
+  "repo": "fabioc-aloha/AlexCook",
+  "path": ".github/agents/markdown-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00113",
+  "file": "corpus/kinncj_Heimdall__.claude_agents_docs.md",
+  "repo": "kinncj/Heimdall",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00114",
+  "file": "corpus/knightdx91-alt_A-Bond-of-Scale-and-Silver__.claude_agents_book-editor.md",
+  "repo": "knightdx91-alt/A-Bond-of-Scale-and-Silver",
+  "path": ".claude/agents/book-editor.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00115",
+  "file": "corpus/p-o-ke-nae_pokemondamagecalculatorforstory__.github_agents_documentation.agent.md",
+  "repo": "p-o-ke-nae/pokemondamagecalculatorforstory",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00116",
+  "file": "corpus/seanchiuai_PRD-generator__.claude_agents_agent-status-reporter.md",
+  "repo": "seanchiuai/PRD-generator",
+  "path": ".claude/agents/agent-status-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00117",
+  "file": "corpus/wshobson_agents__plugins_api-testing-observability_agents_api-documenter.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/api-testing-observability/agents/api-documenter.md",
+  "stars": 39956,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00118",
+  "file": "corpus/rohitg00_awesome-claude-code-toolkit__agents_developer-experience_api-documentation.md",
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "agents/developer-experience/api-documentation.md",
+  "stars": 2645,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00119",
+  "file": "corpus/microsoft_hve-core__.github_agents_hve-core_documentation.agent.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/agents/hve-core/documentation.agent.md",
+  "stars": 1478,
+  "copies_in_repos": 4
+ }
+]

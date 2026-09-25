@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03740",
+  "file": "corpus/cvelasquez_EduPlayKids__.claude_agents_documentation-specialist.md",
+  "repo": "cvelasquez/EduPlayKids",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03741",
+  "file": "corpus/cyberAlchemyAI_domainspec__.codex_agents_domainspec-spec-writer.agent.toml",
+  "repo": "cyberAlchemyAI/domainspec",
+  "path": ".codex/agents/domainspec-spec-writer.agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03742",
+  "file": "corpus/cyberdemon23_mourning-world__.github_agents_ContentAuthor.agent.md",
+  "repo": "cyberdemon23/mourning-world",
+  "path": ".github/agents/ContentAuthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03743",
+  "file": "corpus/cyberpunk042_openfleet__agents__template_CLAUDE.md_technical-writer.md",
+  "repo": "cyberpunk042/openfleet",
+  "path": "agents/_template/CLAUDE.md/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03744",
+  "file": "corpus/cyberpunk042_openfleet__agents__template_IDENTITY.md_technical-writer.md",
+  "repo": "cyberpunk042/openfleet",
+  "path": "agents/_template/IDENTITY.md/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03745",
+  "file": "corpus/cyberpunk042_openfleet__agents__template_SOUL.md_technical-writer.md",
+  "repo": "cyberpunk042/openfleet",
+  "path": "agents/_template/SOUL.md/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03746",
+  "file": "corpus/cyberpunk042_openfleet__agents__template_heartbeats_technical-writer.md",
+  "repo": "cyberpunk042/openfleet",
+  "path": "agents/_template/heartbeats/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03747",
+  "file": "corpus/cyphou_EndToEndFabric__.github_agents_report-builder.agent.md",
+  "repo": "cyphou/EndToEndFabric",
+  "path": ".github/agents/report-builder.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03748",
+  "file": "corpus/cyphou_EndToEndFabric__.github_agents_report-designer.agent.md",
+  "repo": "cyphou/EndToEndFabric",
+  "path": ".github/agents/report-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03749",
+  "file": "corpus/d-q222_phr_app__.codex_agents_mechanical_editor.toml",
+  "repo": "d-q222/phr_app",
+  "path": ".codex/agents/mechanical_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

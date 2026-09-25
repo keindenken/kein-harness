@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03300",
+  "file": "corpus/SmartQueryy_SmartQuery__agents_documentation_technical-writer.md",
+  "repo": "SmartQueryy/SmartQuery",
+  "path": "agents/documentation/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03301",
+  "file": "corpus/SoHwanCompany_game-park__.Codex_agents_doc-writer.md",
+  "repo": "SoHwanCompany/game-park",
+  "path": ".Codex/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03302",
+  "file": "corpus/SomethingPressing_rebate-finder-scrapers__.claude_agents_docs-updater.md",
+  "repo": "SomethingPressing/rebate-finder-scrapers",
+  "path": ".claude/agents/docs-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03303",
+  "file": "corpus/Soochol_station-sdk-eol-tester__.claude_agents_technical-writer.md",
+  "repo": "Soochol/station-sdk-eol-tester",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03304",
+  "file": "corpus/SpiceLabsHQ_Reaper__agents_technical-writer.md",
+  "repo": "SpiceLabsHQ/Reaper",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03305",
+  "file": "corpus/Srihitha10_MedicalApp__.github_agents_requirements-aware-editor.agent.md",
+  "repo": "Srihitha10/MedicalApp",
+  "path": ".github/agents/requirements-aware-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03306",
+  "file": "corpus/Srujan0798_Ultra-Dex__agents_writer.md",
+  "repo": "Srujan0798/Ultra-Dex",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03307",
+  "file": "corpus/StefanMaron_AL-Dependency-MCP-Server__.claude_agents_documentation-agent.md",
+  "repo": "StefanMaron/AL-Dependency-MCP-Server",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03308",
+  "file": "corpus/SteffenBlake_Thyrs__.github_agents_editor.agent.md",
+  "repo": "SteffenBlake/Thyrs",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03309",
+  "file": "corpus/Stepanif_research-core__.github_agents_research-editor.agent.md",
+  "repo": "Stepanif/research-core",
+  "path": ".github/agents/research-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

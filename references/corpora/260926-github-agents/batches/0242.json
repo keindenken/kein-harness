@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02420",
+  "file": "corpus/chinoavila_agentic-rag-audit-workflow__.claude_agents_documentation.md",
+  "repo": "chinoavila/agentic-rag-audit-workflow",
+  "path": ".claude/agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02421",
+  "file": "corpus/co-labs-co_context-harness__.opencode_agent_docs-subagent.md",
+  "repo": "co-labs-co/context-harness",
+  "path": ".opencode/agent/docs-subagent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02422",
+  "file": "corpus/co-native-ab_graphdo-ts__.github_agents_docs-writer.agent.md",
+  "repo": "co-native-ab/graphdo-ts",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02423",
+  "file": "corpus/colin-gourlay_sundown-sessions__.github_agents_sundown-content-editor.agent.md",
+  "repo": "colin-gourlay/sundown-sessions",
+  "path": ".github/agents/sundown-content-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02424",
+  "file": "corpus/commerble_template-starter-kit--dash__.github_agents_content-editor.agent.md",
+  "repo": "commerble/template-starter-kit--dash",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02425",
+  "file": "corpus/controllan_ai-setup__agents_technical-writer.md",
+  "repo": "controllan/ai-setup",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02426",
+  "file": "corpus/cskiwi_gladman__.github_agents_technical-writer.agent.md",
+  "repo": "cskiwi/gladman",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02427",
+  "file": "corpus/cskwork_supermarketer-skill__agents_copywriter.md",
+  "repo": "cskwork/supermarketer-skill",
+  "path": "agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02428",
+  "file": "corpus/cstarlea_agent-skill-orchestrator__.github_agents_api-documentation-specialist.agent.md",
+  "repo": "cstarlea/agent-skill-orchestrator",
+  "path": ".github/agents/api-documentation-specialist.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02429",
+  "file": "corpus/dangerousvasil_open-dfactorai__agents_skills_grill-with-docs.md",
+  "repo": "dangerousvasil/open-dfactorai",
+  "path": "agents/skills/grill-with-docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00800",
+  "file": "corpus/danielmeppiel_agentic-sdlc-handbook__.github_agents_practitioner-authority.agent.md",
+  "repo": "danielmeppiel/agentic-sdlc-handbook",
+  "path": ".github/agents/practitioner-authority.agent.md",
+  "stars": 156,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00801",
+  "file": "corpus/zeuikli_claude-code-workspace__.claude_agents_doc-writer.md",
+  "repo": "zeuikli/claude-code-workspace",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 156,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00802",
+  "file": "corpus/equinor_neqsim__.github_agents_documentation.agent.md",
+  "repo": "equinor/neqsim",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 155,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00803",
+  "file": "corpus/AndreevED_1c-ai-feature-dev-workflow__agents_1c-code-writer.md",
+  "repo": "AndreevED/1c-ai-feature-dev-workflow",
+  "path": "agents/1c-code-writer.md",
+  "stars": 154,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00804",
+  "file": "corpus/ArmDeveloperEcosystem_arm-learning-paths__.codex_agents_lp-editorial-fixer.toml",
+  "repo": "ArmDeveloperEcosystem/arm-learning-paths",
+  "path": ".codex/agents/lp-editorial-fixer.toml",
+  "stars": 152,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00805",
+  "file": "corpus/ArmDeveloperEcosystem_arm-learning-paths__.codex_agents_lp-editorial-verifier.toml",
+  "repo": "ArmDeveloperEcosystem/arm-learning-paths",
+  "path": ".codex/agents/lp-editorial-verifier.toml",
+  "stars": 152,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00806",
+  "file": "corpus/burtenshaw_training-agents__.codex_agents_tracking-reporter.toml",
+  "repo": "burtenshaw/training-agents",
+  "path": ".codex/agents/tracking-reporter.toml",
+  "stars": 152,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00807",
+  "file": "corpus/AgentEvalHQ_AgentEval__.github_agents_agenteval-docwriter.agent.md",
+  "repo": "AgentEvalHQ/AgentEval",
+  "path": ".github/agents/agenteval-docwriter.agent.md",
+  "stars": 150,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00808",
+  "file": "corpus/zeweihan_aiworkdeck__.claude_agents_doc-editor.md",
+  "repo": "zeweihan/aiworkdeck",
+  "path": ".claude/agents/doc-editor.md",
+  "stars": 150,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00809",
+  "file": "corpus/CodeAlive-AI_ai-driven-development__skills_semantic-scholar-deep_agents_deep-paper-researcher.md",
+  "repo": "CodeAlive-AI/ai-driven-development",
+  "path": "skills/semantic-scholar-deep/agents/deep-paper-researcher.md",
+  "stars": 149,
+  "copies_in_repos": 1
+ }
+]

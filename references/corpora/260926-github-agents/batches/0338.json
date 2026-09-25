@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03380",
+  "file": "corpus/VeloraCSS_veloracss__.github_agents_docs-pages.agent.md",
+  "repo": "VeloraCSS/veloracss",
+  "path": ".github/agents/docs-pages.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03381",
+  "file": "corpus/VeloraCSS_veloracss__.github_agents_documentation.agent.md",
+  "repo": "VeloraCSS/veloracss",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03382",
+  "file": "corpus/VenkataAnilKumar_FoundryAI__agents_ai-technical-writer.md",
+  "repo": "VenkataAnilKumar/FoundryAI",
+  "path": "agents/ai-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03383",
+  "file": "corpus/VeryGoodOpenSource_vgv-wingspan__agents_research_official-docs-research-agent.md",
+  "repo": "VeryGoodOpenSource/vgv-wingspan",
+  "path": "agents/research/official-docs-research-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03384",
+  "file": "corpus/VidiVici98_Smart_Coach_Pose_Estimation__.github_agents_documentation_specialist.md",
+  "repo": "VidiVici98/Smart_Coach_Pose_Estimation",
+  "path": ".github/agents/documentation_specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03385",
+  "file": "corpus/Viktar-T_kurs-arduino__.claude_agents_lesson-author.md",
+  "repo": "Viktar-T/kurs-arduino",
+  "path": ".claude/agents/lesson-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03386",
+  "file": "corpus/VilelaAI_KairOS-Forge__.codex_agents_apoio-renato-docs.toml",
+  "repo": "VilelaAI/KairOS-Forge",
+  "path": ".codex/agents/apoio-renato-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03387",
+  "file": "corpus/VilelaAI_KairOS-Forge__.codex_agents_beatriz-docs.toml",
+  "repo": "VilelaAI/KairOS-Forge",
+  "path": ".codex/agents/beatriz-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03388",
+  "file": "corpus/VilelaAI_KairOS-Forge__.codex_agents_felipe-api-docs.toml",
+  "repo": "VilelaAI/KairOS-Forge",
+  "path": ".codex/agents/felipe-api-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03389",
+  "file": "corpus/Vinicius-resende-cin_talp1-exerc-1__.github_agents_docs.agent.md",
+  "repo": "Vinicius-resende-cin/talp1-exerc-1",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

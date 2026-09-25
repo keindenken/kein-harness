@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04100",
+  "file": "corpus/imdhemy_laravel-iap-docs__.github_agents_liap-docs-author.agent.md",
+  "repo": "imdhemy/laravel-iap-docs",
+  "path": ".github/agents/liap-docs-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04101",
+  "file": "corpus/imdhemy_laravel-iap-docs__.github_agents_liap-docs-editor.agent.md",
+  "repo": "imdhemy/laravel-iap-docs",
+  "path": ".github/agents/liap-docs-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04102",
+  "file": "corpus/impactotecnologico_mcp-ops-plugin__agents_postmortem-writer.md",
+  "repo": "impactotecnologico/mcp-ops-plugin",
+  "path": "agents/postmortem-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04103",
+  "file": "corpus/imthefounder_candlers-constellation__agents_copywriter-agent.yaml",
+  "repo": "imthefounder/candlers-constellation",
+  "path": "agents/copywriter-agent.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04104",
+  "file": "corpus/imtiazrayhan_agentscamp-library__agents_content-editor.md",
+  "repo": "imtiazrayhan/agentscamp-library",
+  "path": "agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04105",
+  "file": "corpus/incursa_spec-trace__.codex_agents_spec_trace_architecture_author.toml",
+  "repo": "incursa/spec-trace",
+  "path": ".codex/agents/spec_trace_architecture_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04106",
+  "file": "corpus/incursa_spec-trace__.codex_agents_spec_trace_requirement_author.toml",
+  "repo": "incursa/spec-trace",
+  "path": ".codex/agents/spec_trace_requirement_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04107",
+  "file": "corpus/incursa_spec-trace__.codex_agents_spec_trace_specification_author.toml",
+  "repo": "incursa/spec-trace",
+  "path": ".codex/agents/spec_trace_specification_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04108",
+  "file": "corpus/incursa_spec-trace__.codex_agents_spec_trace_verification_author.toml",
+  "repo": "incursa/spec-trace",
+  "path": ".codex/agents/spec_trace_verification_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04109",
+  "file": "corpus/incursa_spec-trace__.codex_agents_spec_trace_work_item_author.toml",
+  "repo": "incursa/spec-trace",
+  "path": ".codex/agents/spec_trace_work_item_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

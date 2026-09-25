@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04360",
+  "file": "corpus/lebobo88_pair-programmer__.github_agents_strategy-author.agent.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".github/agents/strategy-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04361",
+  "file": "corpus/leclercJulien_dans-le-desert-content__.claude_agents_copywriter.md",
+  "repo": "leclercJulien/dans-le-desert-content",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04362",
+  "file": "corpus/leeex1_Quillan-Ronin__.github_agents_typist-docs.agent.md",
+  "repo": "leeex1/Quillan-Ronin",
+  "path": ".github/agents/typist-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04363",
+  "file": "corpus/leejungyeob_BucksCopy__.codex_agents_bucks-copy-l3-doc-writer.toml",
+  "repo": "leejungyeob/BucksCopy",
+  "path": ".codex/agents/bucks-copy-l3-doc-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04364",
+  "file": "corpus/lemmingDev_SerialToGamepad__.opencode_agent_docs-writer.md",
+  "repo": "lemmingDev/SerialToGamepad",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04365",
+  "file": "corpus/leonardo-tcarvalho_landing-page__agents_04-copywriter.md",
+  "repo": "leonardo-tcarvalho/landing-page",
+  "path": "agents/04-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04366",
+  "file": "corpus/lethuan127_AI-Engineer__.claude_agents_curriculum-author.md",
+  "repo": "lethuan127/AI-Engineer",
+  "path": ".claude/agents/curriculum-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04367",
+  "file": "corpus/leventarabul_AI-AGENT-DEMO__agents_docs_ORCHESTRATOR_HARDENING_REPORT.md",
+  "repo": "leventarabul/AI-AGENT-DEMO",
+  "path": "agents/docs/ORCHESTRATOR_HARDENING_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04368",
+  "file": "corpus/lewiseinstein15-Tech_jexi-os-__agents_catalog_research_technical-writer.agent.md",
+  "repo": "lewiseinstein15-Tech/jexi-os-",
+  "path": "agents/catalog/research/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04369",
+  "file": "corpus/lgallard_terraform-aws-cognito-user-pool__.claude_agents_module-documentation.md",
+  "repo": "lgallard/terraform-aws-cognito-user-pool",
+  "path": ".claude/agents/module-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

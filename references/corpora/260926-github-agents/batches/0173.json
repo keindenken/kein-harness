@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01730",
+  "file": "corpus/frootai_frootai__agents_fai-technical-writer.agent.md",
+  "repo": "frootai/frootai",
+  "path": "agents/fai-technical-writer.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01731",
+  "file": "corpus/imMamdouhaboammar_linkedin-animated-infographics__.codex_agents_docs_researcher.toml",
+  "repo": "imMamdouhaboammar/linkedin-animated-infographics",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01732",
+  "file": "corpus/impresso_impresso-frontend__.github_agents_release-and-document.agent.md",
+  "repo": "impresso/impresso-frontend",
+  "path": ".github/agents/release-and-document.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01733",
+  "file": "corpus/jifox_nautobot-app-livedata__.github_agents_docs-agents.md",
+  "repo": "jifox/nautobot-app-livedata",
+  "path": ".github/agents/docs-agents.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01734",
+  "file": "corpus/madoslinux_mad-os__.github_agents_docs.agent.md",
+  "repo": "madoslinux/mad-os",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01735",
+  "file": "corpus/ocn_Picket__.claude_agents_documentation-writer.md",
+  "repo": "ocn/Picket",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01736",
+  "file": "corpus/pate0304_claude-code-specialized-agents__agents_technical-writer.md",
+  "repo": "pate0304/claude-code-specialized-agents",
+  "path": "agents/technical-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01737",
+  "file": "corpus/quarkiverse_quarkus-hivemq-client__.claude_agents_content-copywriter.md",
+  "repo": "quarkiverse/quarkus-hivemq-client",
+  "path": ".claude/agents/content-copywriter.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01738",
+  "file": "corpus/rozensoftware_highamigaassembler__.github_agents_docs.agent.md",
+  "repo": "rozensoftware/highamigaassembler",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01739",
+  "file": "corpus/scotthavird_claude-code-template__.claude_agents_doc-generator.md",
+  "repo": "scotthavird/claude-code-template",
+  "path": ".claude/agents/doc-generator.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ }
+]

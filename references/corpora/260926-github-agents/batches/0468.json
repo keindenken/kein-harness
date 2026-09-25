@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04680",
+  "file": "corpus/payton-chou-ms_e2e-ms-foundry-workshop__.github_agents_lab-manuscript-editor.agent.md",
+  "repo": "payton-chou-ms/e2e-ms-foundry-workshop",
+  "path": ".github/agents/lab-manuscript-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04681",
+  "file": "corpus/pcomans_treasure-island__.claude_agents_ti-documentation.md",
+  "repo": "pcomans/treasure-island",
+  "path": ".claude/agents/ti-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04682",
+  "file": "corpus/pddhkt_obsidian-sync__.claude_agents_imarflex-copywriter.md",
+  "repo": "pddhkt/obsidian-sync",
+  "path": ".claude/agents/imarflex-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04683",
+  "file": "corpus/peachnireat-ship-it_secretary_test__.claude_agents_copywriter.md",
+  "repo": "peachnireat-ship-it/secretary_test",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04684",
+  "file": "corpus/pedrogrande_design-studio__.github_agents_layer-editor.agent.md",
+  "repo": "pedrogrande/design-studio",
+  "path": ".github/agents/layer-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04685",
+  "file": "corpus/pedrovmjm_security-workflow__.github_agents_08-report-consolidacao.agent.md",
+  "repo": "pedrovmjm/security-workflow",
+  "path": ".github/agents/08-report-consolidacao.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04686",
+  "file": "corpus/peigaam_web-god__agents_copywriting_copywriter.md",
+  "repo": "peigaam/web-god",
+  "path": "agents/copywriting/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04687",
+  "file": "corpus/pepijnfrenken_fenrir__.claude_agents_documentation-agent.md",
+  "repo": "pepijnfrenken/fenrir",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04688",
+  "file": "corpus/pertrai1_my-opencode__agents_design-author.md",
+  "repo": "pertrai1/my-opencode",
+  "path": "agents/design-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04689",
+  "file": "corpus/peterson-rainey_creekside-agent-system__.claude_agents_ad-copy-editor-agent.md",
+  "repo": "peterson-rainey/creekside-agent-system",
+  "path": ".claude/agents/ad-copy-editor-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

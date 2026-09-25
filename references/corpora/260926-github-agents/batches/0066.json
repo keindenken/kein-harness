@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00660",
+  "file": "corpus/alirezarezvani_claude-code-skill-factory__.claude_agents_skills-guide.md",
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": ".claude/agents/skills-guide.md",
+  "stars": 870,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00661",
+  "file": "corpus/sangrokjung_claude-forge__agents_doc-updater.md",
+  "repo": "sangrokjung/claude-forge",
+  "path": "agents/doc-updater.md",
+  "stars": 843,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00662",
+  "file": "corpus/sangrokjung_claude-forge__agents_tdd-guide.md",
+  "repo": "sangrokjung/claude-forge",
+  "path": "agents/tdd-guide.md",
+  "stars": 843,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00663",
+  "file": "corpus/borghei_Claude-Skills__.claude_agents_changelog-manager.md",
+  "repo": "borghei/Claude-Skills",
+  "path": ".claude/agents/changelog-manager.md",
+  "stars": 828,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00664",
+  "file": "corpus/borghei_Claude-Skills__agents_engineering_cs-doc-writer.md",
+  "repo": "borghei/Claude-Skills",
+  "path": "agents/engineering/cs-doc-writer.md",
+  "stars": 828,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00665",
+  "file": "corpus/borghei_Claude-Skills__agents_marketing_cs-content-creator.md",
+  "repo": "borghei/Claude-Skills",
+  "path": "agents/marketing/cs-content-creator.md",
+  "stars": 828,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00666",
+  "file": "corpus/borghei_Claude-Skills__agents_personas_content-strategist.md",
+  "repo": "borghei/Claude-Skills",
+  "path": "agents/personas/content-strategist.md",
+  "stars": 828,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00667",
+  "file": "corpus/alfredxw_denova__agent_README.en.md",
+  "repo": "alfredxw/denova",
+  "path": "agent/README.en.md",
+  "stars": 818,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00668",
+  "file": "corpus/datoviz_datoviz__agents_now_DOCUMENTATION.md",
+  "repo": "datoviz/datoviz",
+  "path": "agents/now/DOCUMENTATION.md",
+  "stars": 810,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00669",
+  "file": "corpus/datoviz_datoviz__agents_now_HANDOFF_VISUAL_DOCUMENTATION_PASS.md",
+  "repo": "datoviz/datoviz",
+  "path": "agents/now/HANDOFF_VISUAL_DOCUMENTATION_PASS.md",
+  "stars": 810,
+  "copies_in_repos": 1
+ }
+]

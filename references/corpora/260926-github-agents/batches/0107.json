@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01070",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_technical-writing-editor.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/technical-writing-editor.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01071",
+  "file": "corpus/ssdeanx_AgentStack__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "ssdeanx/AgentStack",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 44,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01072",
+  "file": "corpus/stefvw93_weft__.claude_agents_weft-docs-author.md",
+  "repo": "stefvw93/weft",
+  "path": ".claude/agents/weft-docs-author.md",
+  "stars": 44,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01073",
+  "file": "corpus/Pantani_tdmcp__.claude_agents_docs-author.md",
+  "repo": "Pantani/tdmcp",
+  "path": ".claude/agents/docs-author.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01074",
+  "file": "corpus/Pantani_tdmcp__.claude_agents_docs-roadmap-qa.md",
+  "repo": "Pantani/tdmcp",
+  "path": ".claude/agents/docs-roadmap-qa.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01075",
+  "file": "corpus/Pantani_tdmcp__.claude_agents_roadmap-docs-editor.md",
+  "repo": "Pantani/tdmcp",
+  "path": ".claude/agents/roadmap-docs-editor.md",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01076",
+  "file": "corpus/Pantani_tdmcp__.codex_agents_cookbook-writer.toml",
+  "repo": "Pantani/tdmcp",
+  "path": ".codex/agents/cookbook-writer.toml",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01077",
+  "file": "corpus/Pantani_tdmcp__.codex_agents_docs-cookbook-sync.toml",
+  "repo": "Pantani/tdmcp",
+  "path": ".codex/agents/docs-cookbook-sync.toml",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01078",
+  "file": "corpus/Pantani_tdmcp__.codex_agents_docs-release-auditor.toml",
+  "repo": "Pantani/tdmcp",
+  "path": ".codex/agents/docs-release-auditor.toml",
+  "stars": 43,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01079",
+  "file": "corpus/Pantani_tdmcp__.codex_agents_tdmcp-coverage-writer.toml",
+  "repo": "Pantani/tdmcp",
+  "path": ".codex/agents/tdmcp-coverage-writer.toml",
+  "stars": 43,
+  "copies_in_repos": 1
+ }
+]

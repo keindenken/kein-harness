@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02370",
+  "file": "corpus/XiaojuCH_CiteCraft__.codex_agents_citecraft-growth-editor.toml",
+  "repo": "XiaojuCH/CiteCraft",
+  "path": ".codex/agents/citecraft-growth-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02371",
+  "file": "corpus/YH-05_quants__.claude_agents_ca-report-generator.md",
+  "repo": "YH-05/quants",
+  "path": ".claude/agents/ca-report-generator.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02372",
+  "file": "corpus/Yoy20-New_MP-2__.github_agents_ml-editor.agent.md",
+  "repo": "Yoy20-New/MP-2",
+  "path": ".github/agents/ml-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02373",
+  "file": "corpus/aacero_skyphoenix-edgehub-linux__.claude_agents_technical-writer.md",
+  "repo": "aacero/skyphoenix-edgehub-linux",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02374",
+  "file": "corpus/aacero_skyphoenix-edgehub-linux__.codex_agents_technical-writer.toml",
+  "repo": "aacero/skyphoenix-edgehub-linux",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02375",
+  "file": "corpus/adityasugandhi_job-agents-starter__.claude_agents_incident-reporter.md",
+  "repo": "adityasugandhi/job-agents-starter",
+  "path": ".claude/agents/incident-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02376",
+  "file": "corpus/adorosario_aeo-faq-audit__.claude_agents_documentation-daniele-procida.md",
+  "repo": "adorosario/aeo-faq-audit",
+  "path": ".claude/agents/documentation-daniele-procida.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02377",
+  "file": "corpus/advance-research-and-development-llc_TrueAI__.github_agents_docs-curator.agent.md",
+  "repo": "advance-research-and-development-llc/TrueAI",
+  "path": ".github/agents/docs-curator.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02378",
+  "file": "corpus/agoodway_GoodSkills__agents_codex_technical-writer.toml",
+  "repo": "agoodway/GoodSkills",
+  "path": "agents/codex/technical-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02379",
+  "file": "corpus/agoodway_GoodSkills__agents_opencode_technical-writer.md",
+  "repo": "agoodway/GoodSkills",
+  "path": "agents/opencode/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

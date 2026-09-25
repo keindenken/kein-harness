@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04820",
+  "file": "corpus/rodoHasArrived_Meridian-main__.codex_agents_meridian-docs.toml",
+  "repo": "rodoHasArrived/Meridian-main",
+  "path": ".codex/agents/meridian-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04821",
+  "file": "corpus/rodoHasArrived_Meridian-main__.github_agents_documentation-agent.md",
+  "repo": "rodoHasArrived/Meridian-main",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04822",
+  "file": "corpus/rodravknight9_localreads__agents_project-review_patterns_security_authorization-strategy.md",
+  "repo": "rodravknight9/localreads",
+  "path": "agents/project-review/patterns/security/authorization-strategy.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04823",
+  "file": "corpus/rodrigoasouza93_portfolio-website__.codex_agents_prd-writer.toml",
+  "repo": "rodrigoasouza93/portfolio-website",
+  "path": ".codex/agents/prd-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04824",
+  "file": "corpus/rolznz_lncurl__.claude_agents_blog-editor.md",
+  "repo": "rolznz/lncurl",
+  "path": ".claude/agents/blog-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04825",
+  "file": "corpus/roma-mekari_agentic-sdlc__agents_rfc-writer.agent.md",
+  "repo": "roma-mekari/agentic-sdlc",
+  "path": "agents/rfc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04826",
+  "file": "corpus/roman01la_skills-agents__agents_docs-updater.agent.md",
+  "repo": "roman01la/skills-agents",
+  "path": "agents/docs-updater.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04827",
+  "file": "corpus/ronaldbosma_blog__.github_agents_blog-author.agent.md",
+  "repo": "ronaldbosma/blog",
+  "path": ".github/agents/blog-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04828",
+  "file": "corpus/rooster-sanchez_iterator-template__.claude_agents_copywriter.md",
+  "repo": "rooster-sanchez/iterator-template",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04829",
+  "file": "corpus/rooster-sanchez_iterator-template__.claude_agents_scorer-editor.md",
+  "repo": "rooster-sanchez/iterator-template",
+  "path": ".claude/agents/scorer-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04880",
+  "file": "corpus/seijikohara_zenn__.claude_agents_technical-writer.md",
+  "repo": "seijikohara/zenn",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04881",
+  "file": "corpus/sellke_writ__agents_documentation-agent.md",
+  "repo": "sellke/writ",
+  "path": "agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04882",
+  "file": "corpus/serainville_runway__agents_documentation.md",
+  "repo": "serainville/runway",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04883",
+  "file": "corpus/sergeahouansinou_myclaude__.claude_agents_doc-updater.md",
+  "repo": "sergeahouansinou/myclaude",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04884",
+  "file": "corpus/sergioromeromarin_copilot-agentic-workflow-demo-v2__.github_agents_docs.md",
+  "repo": "sergioromeromarin/copilot-agentic-workflow-demo-v2",
+  "path": ".github/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04885",
+  "file": "corpus/sertaoseracloud_cell-arch__.claude_agents_document-writer.md",
+  "repo": "sertaoseracloud/cell-arch",
+  "path": ".claude/agents/document-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04886",
+  "file": "corpus/sethdford_claude-agent-os__agents_docs-drift-checker.md",
+  "repo": "sethdford/claude-agent-os",
+  "path": "agents/docs-drift-checker.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04887",
+  "file": "corpus/sewonkimm_wildbeat__.claude_agents_copywriter.md",
+  "repo": "sewonkimm/wildbeat",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04888",
+  "file": "corpus/sfalik_Precept__.github_agents_precept-author.agent.md",
+  "repo": "sfalik/Precept",
+  "path": ".github/agents/precept-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04889",
+  "file": "corpus/shad0z2132_sarastudio__.opencode_agent_react-docs.md",
+  "repo": "shad0z2132/sarastudio",
+  "path": ".opencode/agent/react-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

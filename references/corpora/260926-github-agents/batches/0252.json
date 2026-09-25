@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02520",
+  "file": "corpus/memasanz_agent-harness__.github_agents_docs-author.agent.md",
+  "repo": "memasanz/agent-harness",
+  "path": ".github/agents/docs-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02521",
+  "file": "corpus/metabench_nextleveldb-server__.github_agents_Documentation And Explanation.agent.md",
+  "repo": "metabench/nextleveldb-server",
+  "path": ".github/agents/Documentation And Explanation.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02522",
+  "file": "corpus/michaeljabbour_amplifier-bundle-research__agents_research-technical-writer.md",
+  "repo": "michaeljabbour/amplifier-bundle-research",
+  "path": "agents/research-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02523",
+  "file": "corpus/milkmanfunddev-ops_mealvana_endurance__.claude_agents_docs-manager.md",
+  "repo": "milkmanfunddev-ops/mealvana_endurance",
+  "path": ".claude/agents/docs-manager.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02524",
+  "file": "corpus/mnaimfaizy_myorganizer__.github_agents_pr-author.agent.md",
+  "repo": "mnaimfaizy/myorganizer",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02525",
+  "file": "corpus/mnaimfaizy_myorganizer__.github_agents_prisma-writer.agent.md",
+  "repo": "mnaimfaizy/myorganizer",
+  "path": ".github/agents/prisma-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02526",
+  "file": "corpus/moelholm_moelholm.github.io__.github_agents_race-post-author.agent.md",
+  "repo": "moelholm/moelholm.github.io",
+  "path": ".github/agents/race-post-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02527",
+  "file": "corpus/mwihoti_blogsbydan__agents_editor-agent.md",
+  "repo": "mwihoti/blogsbydan",
+  "path": "agents/editor-agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02528",
+  "file": "corpus/mxcl_pkg.so__agents_astro-editor.yml",
+  "repo": "mxcl/pkg.so",
+  "path": "agents/astro-editor.yml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02529",
+  "file": "corpus/mxcl_pkg.so__agents_coteditor.yml",
+  "repo": "mxcl/pkg.so",
+  "path": "agents/coteditor.yml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

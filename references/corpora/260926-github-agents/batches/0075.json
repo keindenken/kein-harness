@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00750",
+  "file": "corpus/jmcollin78_solar_optimizer__.github_agents_tech-docs.agent.md",
+  "repo": "jmcollin78/solar_optimizer",
+  "path": ".github/agents/tech-docs.agent.md",
+  "stars": 240,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00751",
+  "file": "corpus/PowerGenome_PowerGenome__.github_agents_docs-agent.md",
+  "repo": "PowerGenome/PowerGenome",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 235,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00752",
+  "file": "corpus/fpindej_netrock__.claude_agents_tech-writer.md",
+  "repo": "fpindej/netrock",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 234,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00753",
+  "file": "corpus/johnrogers_claude-swift-engineering__plugins_swift-engineering_agents_swift-documenter.md",
+  "repo": "johnrogers/claude-swift-engineering",
+  "path": "plugins/swift-engineering/agents/swift-documenter.md",
+  "stars": 231,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00754",
+  "file": "corpus/NicholasSpisak_claude-code-subagents__agents_core_prd-writer.md",
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "path": "agents/core/prd-writer.md",
+  "stars": 213,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00755",
+  "file": "corpus/NicholasSpisak_claude-code-subagents__agents_core_technical-mentor-guide.md",
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "path": "agents/core/technical-mentor-guide.md",
+  "stars": 213,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00756",
+  "file": "corpus/NicholasSpisak_claude-code-subagents__agents_specialized-agents_content-marketer-writer.md",
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "path": "agents/specialized-agents/content-marketer-writer.md",
+  "stars": 213,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00757",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-doc-verifier.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-doc-verifier.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00758",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-doc-writer.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-doc-writer.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00759",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-line-editor.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-line-editor.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ }
+]

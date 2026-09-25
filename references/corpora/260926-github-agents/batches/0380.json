@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03800",
+  "file": "corpus/dgnppr_dgnppr.github.io__.claude_agents_technical-writer.md",
+  "repo": "dgnppr/dgnppr.github.io",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03801",
+  "file": "corpus/dgunning_edgartools__.claude_agents_docs-writer.md",
+  "repo": "dgunning/edgartools",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03802",
+  "file": "corpus/dhar174_scp_foundation_survival_horror__.github_agents_agents_md_author.agent.md",
+  "repo": "dhar174/scp_foundation_survival_horror",
+  "path": ".github/agents/agents_md_author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03803",
+  "file": "corpus/dharandoshi_Agentic-Dev-framework__.claude_agents_technical-writer.md",
+  "repo": "dharandoshi/Agentic-Dev-framework",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03804",
+  "file": "corpus/dhawalhost_go-service-template__.github_agents_technical-writer.md",
+  "repo": "dhawalhost/go-service-template",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03805",
+  "file": "corpus/dhigby_virtual-ltct__.claude_agents_module-author.md",
+  "repo": "dhigby/virtual-ltct",
+  "path": ".claude/agents/module-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03806",
+  "file": "corpus/dhmilnes_ProductAIFlows__.claude_agents_doc-editor.md",
+  "repo": "dhmilnes/ProductAIFlows",
+  "path": ".claude/agents/doc-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03807",
+  "file": "corpus/dhruvaldarji_essayos__agents_copy-editor.md",
+  "repo": "dhruvaldarji/essayos",
+  "path": "agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03808",
+  "file": "corpus/diOnysosdk_himymEngine__.codex_agents_editor.toml",
+  "repo": "diOnysosdk/himymEngine",
+  "path": ".codex/agents/editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03809",
+  "file": "corpus/dialpad_dialtone__.claude_agents_docs-architect.md",
+  "repo": "dialpad/dialtone",
+  "path": ".claude/agents/docs-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

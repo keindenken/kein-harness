@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02450",
+  "file": "corpus/fardintolo123_elite-touch-revonations__.claude_agents_copywriter-eliminate-ai-slop.md",
+  "repo": "fardintolo123/elite-touch-revonations",
+  "path": ".claude/agents/copywriter-eliminate-ai-slop.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02451",
+  "file": "corpus/fietao_toyota_analysis_car__.claude_agents_data-cleaner_skills_create-model-report.md",
+  "repo": "fietao/toyota_analysis_car",
+  "path": ".claude/agents/data-cleaner/skills/create-model-report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02452",
+  "file": "corpus/fuyutarow_dotfiles__agents_skills_governing-configuration-systems_references_authority-events-and-lifecycle.md",
+  "repo": "fuyutarow/dotfiles",
+  "path": "agents/skills/governing-configuration-systems/references/authority-events-and-lifecycle.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02453",
+  "file": "corpus/gajayana_ngirit.yudhawijaya.com__.claude_agents_bahasa-copywriter.md",
+  "repo": "gajayana/ngirit.yudhawijaya.com",
+  "path": ".claude/agents/bahasa-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02454",
+  "file": "corpus/getyak_daypage__.codex_agents_docs-steward.toml",
+  "repo": "getyak/daypage",
+  "path": ".codex/agents/docs-steward.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02455",
+  "file": "corpus/goodevibes_SwiftAgent__.github_agents_documentation-generator.md",
+  "repo": "goodevibes/SwiftAgent",
+  "path": ".github/agents/documentation-generator.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02456",
+  "file": "corpus/halng_NestEgg__agents_egg-technical-writer.md",
+  "repo": "halng/NestEgg",
+  "path": "agents/egg-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02457",
+  "file": "corpus/hamiha70_UniV4Agent__agents_eliza_.github_ISSUE_TEMPLATE_bug_report.md",
+  "repo": "hamiha70/UniV4Agent",
+  "path": "agents/eliza/.github/ISSUE_TEMPLATE/bug_report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02458",
+  "file": "corpus/hd1008-lang_beaver__.codex_agents_docs-writer.toml",
+  "repo": "hd1008-lang/beaver",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02459",
+  "file": "corpus/henriquescastilho_my-claude__.codex_agents_tech-writer-runbooks.md",
+  "repo": "henriquescastilho/my-claude",
+  "path": ".codex/agents/tech-writer-runbooks.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

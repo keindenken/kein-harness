@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05030",
+  "file": "corpus/thormetalwork_thormetalart-dev__.github_agents_client-reporter.agent.md",
+  "repo": "thormetalwork/thormetalart-dev",
+  "path": ".github/agents/client-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05031",
+  "file": "corpus/thormetalwork_thormetalart-dev__.github_agents_content-writer.agent.md",
+  "repo": "thormetalwork/thormetalart-dev",
+  "path": ".github/agents/content-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05032",
+  "file": "corpus/thorwhalen_mixing__.claude_agents_mixing-editor.md",
+  "repo": "thorwhalen/mixing",
+  "path": ".claude/agents/mixing-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05033",
+  "file": "corpus/thuan2172001_knowledge-base__.claude_agents_brief-editor.md",
+  "repo": "thuan2172001/knowledge-base",
+  "path": ".claude/agents/brief-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05034",
+  "file": "corpus/tiborsekera_ai-harness__.github_agents_report-compiler.agent.md",
+  "repo": "tiborsekera/ai-harness",
+  "path": ".github/agents/report-compiler.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05035",
+  "file": "corpus/timgluz_teeline__.claude_agents_blog-editor.md",
+  "repo": "timgluz/teeline",
+  "path": ".claude/agents/blog-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05036",
+  "file": "corpus/timothywarner_ai900__.github_agents_exam-item-writer.agent.md",
+  "repo": "timothywarner/ai900",
+  "path": ".github/agents/exam-item-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05037",
+  "file": "corpus/tinkermonkey_documentation_robotics_viewer__.claude_agents_clauditoreum_documentation_robotics_viewer-state-expert.md",
+  "repo": "tinkermonkey/documentation_robotics_viewer",
+  "path": ".claude/agents/clauditoreum/documentation_robotics_viewer-state-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05038",
+  "file": "corpus/tinkermonkey_switchyard__.claude_agents_technical-writer.md",
+  "repo": "tinkermonkey/switchyard",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05039",
+  "file": "corpus/tiwariabishek44_fewa-os__.claude_agents_fewa-app-author.md",
+  "repo": "tiwariabishek44/fewa-os",
+  "path": ".claude/agents/fewa-app-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

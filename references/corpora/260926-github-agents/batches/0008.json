@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00080",
+  "file": "corpus/career-ops-hq_career-ops__.github_agents_docs-drift.agent.md",
+  "repo": "career-ops-hq/career-ops",
+  "path": ".github/agents/docs-drift.agent.md",
+  "stars": 72754,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00081",
+  "file": "corpus/TheCraigHewitt_seomachine__.claude_agents_editor.md",
+  "repo": "TheCraigHewitt/seomachine",
+  "path": ".claude/agents/editor.md",
+  "stars": 7460,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00082",
+  "file": "corpus/nyldn_claude-octopus__agents_droids_octo-docs-architect.md",
+  "repo": "nyldn/claude-octopus",
+  "path": "agents/droids/octo-docs-architect.md",
+  "stars": 4099,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00083",
+  "file": "corpus/nyldn_claude-octopus__agents_personas_product-writer.md",
+  "repo": "nyldn/claude-octopus",
+  "path": "agents/personas/product-writer.md",
+  "stars": 4099,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00084",
+  "file": "corpus/rohitg00_awesome-claude-code-toolkit__agents_developer-experience_documentation-engineer.md",
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "agents/developer-experience/documentation-engineer.md",
+  "stars": 2645,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00085",
+  "file": "corpus/zereight_gitlab-mcp__.github_agents_writer.agent.md",
+  "repo": "zereight/gitlab-mcp",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 2003,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00086",
+  "file": "corpus/microsoft_hve-core__.github_agents_security_subagents_report-generator.agent.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/agents/security/subagents/report-generator.agent.md",
+  "stars": 1478,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00087",
+  "file": "corpus/adcontextprotocol_adcp__.claude_agents_copywriter.md",
+  "repo": "adcontextprotocol/adcp",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 250,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00088",
+  "file": "corpus/adcontextprotocol_adcp__.claude_agents_docs-expert-deep.md",
+  "repo": "adcontextprotocol/adcp",
+  "path": ".claude/agents/docs-expert-deep.md",
+  "stars": 250,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00089",
+  "file": "corpus/im-hashim_automotive-claude-code-agents__agents_orchestration_documentation-weaver.yaml",
+  "repo": "im-hashim/automotive-claude-code-agents",
+  "path": "agents/orchestration/documentation-weaver.yaml",
+  "stars": 195,
+  "copies_in_repos": 5
+ }
+]

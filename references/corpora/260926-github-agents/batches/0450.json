@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04500",
+  "file": "corpus/mikeacjones_IronPath__.claude_agents_technical-writer.md",
+  "repo": "mikeacjones/IronPath",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04501",
+  "file": "corpus/mikegtech_actbound-ai__.github_agents_authorization-architect.agent.md",
+  "repo": "mikegtech/actbound-ai",
+  "path": ".github/agents/authorization-architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04502",
+  "file": "corpus/mikeschlottig_archive-directory__.claude_agents_documentation-manager.md",
+  "repo": "mikeschlottig/archive-directory",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04503",
+  "file": "corpus/mikiwiik_instructions-only-claude-coding__.claude_agents_documentation-agent.md",
+  "repo": "mikiwiik/instructions-only-claude-coding",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04504",
+  "file": "corpus/miksrv_simple-react-ui-kit__.claude_agents_docs.md",
+  "repo": "miksrv/simple-react-ui-kit",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04505",
+  "file": "corpus/mileschintw_rust-lancedb-graphrag__.codex_agents_gsd-doc-writer.compact.md",
+  "repo": "mileschintw/rust-lancedb-graphrag",
+  "path": ".codex/agents/gsd-doc-writer.compact.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04506",
+  "file": "corpus/mimba-app_mimba-landing__.claude_agents_copywriter-cro.md",
+  "repo": "mimba-app/mimba-landing",
+  "path": ".claude/agents/copywriter-cro.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04507",
+  "file": "corpus/mistersilver-uk_fabricate__.claude_agents_fabricate-docs-writer.md",
+  "repo": "mistersilver-uk/fabricate",
+  "path": ".claude/agents/fabricate-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04508",
+  "file": "corpus/mistersilver-uk_fabricate__.codex_agents_fabricate-docs-writer.toml",
+  "repo": "mistersilver-uk/fabricate",
+  "path": ".codex/agents/fabricate-docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04509",
+  "file": "corpus/mittuled_skill-os__agents_finance_cfo-vp-finance_unit-econ-viability-gate_assets_unit-econ-gate-report-template.md",
+  "repo": "mittuled/skill-os",
+  "path": "agents/finance/cfo-vp-finance/unit-econ-viability-gate/assets/unit-econ-gate-report-template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

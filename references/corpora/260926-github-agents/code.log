@@ -1,0 +1,51 @@
+  ! filename:documentation path:.codex/agents p1: gh: HTTP 503
+== code
+  filename:writer path:agents: corpus 178
+  filename:author path:agents: corpus 361
+  filename:editor path:agents: corpus 510
+  filename:technical-writer path:agents: corpus 773
+  filename:documentation path:agents: corpus 968
+  filename:docs path:agents: corpus 1165
+  filename:copywriter path:agents: corpus 1309
+  filename:report path:agents: corpus 1441
+  filename:writer path:.claude/agents: corpus 1660
+  filename:author path:.claude/agents: corpus 1918
+  filename:editor path:.claude/agents: corpus 2207
+  filename:technical-writer path:.claude/agents: corpus 2491
+  filename:documentation path:.claude/agents: corpus 2751
+  filename:docs path:.claude/agents: corpus 2985
+  filename:copywriter path:.claude/agents: corpus 3234
+  filename:report path:.claude/agents: corpus 3495
+  filename:writer path:.github/agents: corpus 3759
+  filename:author path:.github/agents: corpus 4011
+  filename:editor path:.github/agents: corpus 4227
+  filename:technical-writer path:.github/agents: corpus 4369
+  filename:documentation path:.github/agents: corpus 4635
+  filename:docs path:.github/agents: corpus 4883
+  filename:copywriter path:.github/agents: corpus 4903
+  filename:report path:.github/agents: corpus 5156
+  filename:writer path:.opencode/agent: corpus 5336
+  filename:author path:.opencode/agent: corpus 5370
+  filename:editor path:.opencode/agent: corpus 5385
+  filename:technical-writer path:.opencode/agent: corpus 5401
+  filename:documentation path:.opencode/agent: corpus 5516
+  filename:docs path:.opencode/agent: corpus 5715
+  filename:copywriter path:.opencode/agent: corpus 5732
+  filename:report path:.opencode/agent: corpus 5746
+  filename:writer path:.codex/agents: corpus 6018
+  filename:author path:.codex/agents: corpus 6126
+  filename:editor path:.codex/agents: corpus 6221
+  filename:technical-writer path:.codex/agents: corpus 6245
+  filename:documentation path:.codex/agents: corpus 6245
+  filename:docs path:.codex/agents: corpus 6497
+  filename:copywriter path:.codex/agents: corpus 6502
+  filename:report path:.codex/agents: corpus 6579
+  path:.claude/agents "technical writer": corpus 6683
+  path:.claude/agents "you are a writer": corpus 6823
+  path:.claude/agents "documentation specialist": corpus 6960
+  path:.github/agents "technical writer": corpus 7003
+  path:agents "senior technical writer": corpus 7043
+  path:agents "copywriter" "you are": corpus 7058
+  path:agents "report writer": corpus 7105
+  path:agents "PRD"  "you are" writer: corpus 7193
+stage code: 7193 candidates from 5650 repositories

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02390",
+  "file": "corpus/artyhoo_getff__agents_living-docs-auditor.md",
+  "repo": "artyhoo/getff",
+  "path": "agents/living-docs-auditor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02391",
+  "file": "corpus/astralisone_astralis-nextjs__.claude_agents_documentation.md",
+  "repo": "astralisone/astralis-nextjs",
+  "path": ".claude/agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02392",
+  "file": "corpus/astralisone_astralis-nextjs__.opencode_agent_content-writer.md",
+  "repo": "astralisone/astralis-nextjs",
+  "path": ".opencode/agent/content-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02393",
+  "file": "corpus/awesome-agent-workflows_spec-driven-workflows__.github_agents_planning.context-bundle-writer.agent.md",
+  "repo": "awesome-agent-workflows/spec-driven-workflows",
+  "path": ".github/agents/planning.context-bundle-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02394",
+  "file": "corpus/aydoganberk_Raiola__.codex_agents_docs-researcher.toml",
+  "repo": "aydoganberk/Raiola",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02395",
+  "file": "corpus/bangome_luckyapt__.codex_agents_continuity-editor.toml",
+  "repo": "bangome/luckyapt",
+  "path": ".codex/agents/continuity-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02396",
+  "file": "corpus/barbatoslupus21_react-employee-portal__.github_agents_report-generation.agent.md",
+  "repo": "barbatoslupus21/react-employee-portal",
+  "path": ".github/agents/report-generation.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02397",
+  "file": "corpus/benefron_scientific-publications__.github_agents_language-editor.agent.md",
+  "repo": "benefron/scientific-publications",
+  "path": ".github/agents/language-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02398",
+  "file": "corpus/benefron_scientific-publications__.github_agents_scientific-editor.agent.md",
+  "repo": "benefron/scientific-publications",
+  "path": ".github/agents/scientific-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02399",
+  "file": "corpus/bengeek06_virtrtlab__.github_agents_spec-author.agent.md",
+  "repo": "bengeek06/virtrtlab",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

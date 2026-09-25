@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03210",
+  "file": "corpus/Questuart_Bid-Euchre__.claude_agents_steward-author-scratch.md",
+  "repo": "Questuart/Bid-Euchre",
+  "path": ".claude/agents/steward-author-scratch.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03211",
+  "file": "corpus/Questuart_Bid-Euchre__.claude_agents_steward-brws-author-c.md",
+  "repo": "Questuart/Bid-Euchre",
+  "path": ".claude/agents/steward-brws-author-c.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03212",
+  "file": "corpus/Qweary_Swarnam__.claude_agents_intel-reporting.md",
+  "repo": "Qweary/Swarnam",
+  "path": ".claude/agents/intel-reporting.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03213",
+  "file": "corpus/RMF112018_hb-intel__.claude_agents_hb-docs-curator.md",
+  "repo": "RMF112018/hb-intel",
+  "path": ".claude/agents/hb-docs-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03214",
+  "file": "corpus/ROI-DANINO_BlackJack__.claude_agents_audit-editor.md",
+  "repo": "ROI-DANINO/BlackJack",
+  "path": ".claude/agents/audit-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03215",
+  "file": "corpus/Rah-Rah-Mitra_Geometry__.codex_agents_geometry_chapter_author.toml",
+  "repo": "Rah-Rah-Mitra/Geometry",
+  "path": ".codex/agents/geometry_chapter_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03216",
+  "file": "corpus/Rah-Rah-Mitra_Geometry__.codex_agents_geometry_slide_author.toml",
+  "repo": "Rah-Rah-Mitra/Geometry",
+  "path": ".codex/agents/geometry_slide_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03217",
+  "file": "corpus/RajAbey68_buzz-factory__agents_marketing_factory_creative_copywriter.yaml",
+  "repo": "RajAbey68/buzz-factory",
+  "path": "agents/marketing_factory/creative_copywriter.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03218",
+  "file": "corpus/RajwanYair_ExplorerLens.io__.github_agents_docs.agent.md",
+  "repo": "RajwanYair/ExplorerLens.io",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03219",
+  "file": "corpus/Ram-prog-bit_tavronus-forge__.claude_agents_forge-docs-report-agent.md",
+  "repo": "Ram-prog-bit/tavronus-forge",
+  "path": ".claude/agents/forge-docs-report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04900",
+  "file": "corpus/shivrajkumar_multica-factory__agents_product_technical-writer.md",
+  "repo": "shivrajkumar/multica-factory",
+  "path": "agents/product/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04901",
+  "file": "corpus/shlomoc_spec-driven__agents_prd-generator.md",
+  "repo": "shlomoc/spec-driven",
+  "path": "agents/prd-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04902",
+  "file": "corpus/shlomoc_spec-driven__agents_tech-doc-writer.md",
+  "repo": "shlomoc/spec-driven",
+  "path": "agents/tech-doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04903",
+  "file": "corpus/shobhit8797_trading-bot__.claude_agents_strategy-author.md",
+  "repo": "shobhit8797/trading-bot",
+  "path": ".claude/agents/strategy-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04904",
+  "file": "corpus/shortcut-guide_open-llama-cli__.github_agents_issue-writer.agent.md",
+  "repo": "shortcut-guide/open-llama-cli",
+  "path": ".github/agents/issue-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04905",
+  "file": "corpus/shuaihuadu_inkwell__.github_agents_h1-prototype-author.agent.md",
+  "repo": "shuaihuadu/inkwell",
+  "path": ".github/agents/h1-prototype-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04906",
+  "file": "corpus/shuaihuadu_inkwell__.github_agents_h1-ui-spec-author.agent.md",
+  "repo": "shuaihuadu/inkwell",
+  "path": ".github/agents/h1-ui-spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04907",
+  "file": "corpus/shuaihuadu_inkwell__.github_agents_h3-detailed-design-author.agent.md",
+  "repo": "shuaihuadu/inkwell",
+  "path": ".github/agents/h3-detailed-design-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04908",
+  "file": "corpus/shuaihuadu_inkwell__.github_agents_h6-release-note-writer.agent.md",
+  "repo": "shuaihuadu/inkwell",
+  "path": ".github/agents/h6-release-note-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04909",
+  "file": "corpus/sigwl_AiDAPrivate__.github_agents_docs-writer.agent.md",
+  "repo": "sigwl/AiDAPrivate",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

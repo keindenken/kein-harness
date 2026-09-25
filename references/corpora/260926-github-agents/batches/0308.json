@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03080",
+  "file": "corpus/MayFairMI6_AirBorder__.codex_agents_docs_reporter.toml",
+  "repo": "MayFairMI6/AirBorder",
+  "path": ".codex/agents/docs_reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03081",
+  "file": "corpus/McNopper_Hephaestus__.opencode_agent_manifest-author.md",
+  "repo": "McNopper/Hephaestus",
+  "path": ".opencode/agent/manifest-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03082",
+  "file": "corpus/MediMindAI_LiverRa__.claude_agents_tech-doc-writer.md",
+  "repo": "MediMindAI/LiverRa",
+  "path": ".claude/agents/tech-doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03083",
+  "file": "corpus/MegaTobyOne_Conceptual__.github_agents_pspf-contracts-author.agent.md",
+  "repo": "MegaTobyOne/Conceptual",
+  "path": ".github/agents/pspf-contracts-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03084",
+  "file": "corpus/MhdYhyaAlshaki_mohish__.github_agents_docs.agent.md",
+  "repo": "MhdYhyaAlshaki/mohish",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03085",
+  "file": "corpus/Mhmdrza_bahsclub__.opencode_agent_article-editor.md",
+  "repo": "Mhmdrza/bahsclub",
+  "path": ".opencode/agent/article-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03086",
+  "file": "corpus/Mhsnarsln09_m-grid__.codex_agents_dx-packaging-docs-specialist.toml",
+  "repo": "Mhsnarsln09/m-grid",
+  "path": ".codex/agents/dx-packaging-docs-specialist.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03087",
+  "file": "corpus/MicrosoftDocs_m365copilot-docs__.github_agents_copilot-api-reference-writer.agent.md",
+  "repo": "MicrosoftDocs/m365copilot-docs",
+  "path": ".github/agents/copilot-api-reference-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03088",
+  "file": "corpus/MicrosoftDocs_m365copilot-docs__.github_agents_copilot-conceptual-doc-writer.agent.md",
+  "repo": "MicrosoftDocs/m365copilot-docs",
+  "path": ".github/agents/copilot-conceptual-doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03089",
+  "file": "corpus/MicrosoftDocs_m365copilot-docs__.github_agents_copilot-manifest-reference-writer.agent.md",
+  "repo": "MicrosoftDocs/m365copilot-docs",
+  "path": ".github/agents/copilot-manifest-reference-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

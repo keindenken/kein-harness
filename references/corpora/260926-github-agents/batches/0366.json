@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03660",
+  "file": "corpus/bydavid1_activo-fijo__.github_agents_feature-documentation.agent.md",
+  "repo": "bydavid1/activo-fijo",
+  "path": ".github/agents/feature-documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03661",
+  "file": "corpus/byronwade_ui.byronwade.com__.claude_agents_meridian-author.md",
+  "repo": "byronwade/ui.byronwade.com",
+  "path": ".claude/agents/meridian-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03662",
+  "file": "corpus/ca-schuen_card-game__.github_agents_technical-author.agent.md",
+  "repo": "ca-schuen/card-game",
+  "path": ".github/agents/technical-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03663",
+  "file": "corpus/cacaviana_carrossel__agents_copywriter-carrossel.md",
+  "repo": "cacaviana/carrossel",
+  "path": "agents/copywriter-carrossel.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03664",
+  "file": "corpus/cacaviana_carrossel__agents_copywriter-post-unico.md",
+  "repo": "cacaviana/carrossel",
+  "path": "agents/copywriter-post-unico.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03665",
+  "file": "corpus/cacaviana_carrossel__agents_copywriter-reels.md",
+  "repo": "cacaviana/carrossel",
+  "path": "agents/copywriter-reels.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03666",
+  "file": "corpus/cacaviana_carrossel__agents_copywriter-thumbnail.md",
+  "repo": "cacaviana/carrossel",
+  "path": "agents/copywriter-thumbnail.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03667",
+  "file": "corpus/cacaviana_carrossel__agents_copywriter.md",
+  "repo": "cacaviana/carrossel",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03668",
+  "file": "corpus/cadetbluee_portfolio__.claude_agents_design_feedback-reporter.md",
+  "repo": "cadetbluee/portfolio",
+  "path": ".claude/agents/design/feedback-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03669",
+  "file": "corpus/caiolombello_opencode-dotfiles__agents_docs-verifier.md",
+  "repo": "caiolombello/opencode-dotfiles",
+  "path": "agents/docs-verifier.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

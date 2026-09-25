@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02250",
+  "file": "corpus/AimceptionGian_song-guesser__.github_agents_documentation.agent.md",
+  "repo": "AimceptionGian/song-guesser",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02251",
+  "file": "corpus/AlexYedi_Empire_State_Events_Pipeline_Take_3__.claude_agents_content_conversion-copywriter.md",
+  "repo": "AlexYedi/Empire_State_Events_Pipeline_Take_3",
+  "path": ".claude/agents/content/conversion-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02252",
+  "file": "corpus/AlexYedi_Empire_State_Events_Pipeline_Take_3__.claude_agents_content_voice-editor.md",
+  "repo": "AlexYedi/Empire_State_Events_Pipeline_Take_3",
+  "path": ".claude/agents/content/voice-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02253",
+  "file": "corpus/AnimeCatGirlIndustries_triton-metal__.claude_agents_service-documentation.md",
+  "repo": "AnimeCatGirlIndustries/triton-metal",
+  "path": ".claude/agents/service-documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02254",
+  "file": "corpus/ArthurProjectCorrea_portfolio__.claude_agents_marketing-copywriter.md",
+  "repo": "ArthurProjectCorrea/portfolio",
+  "path": ".claude/agents/marketing-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02255",
+  "file": "corpus/Asura-lab_ShellShift__agents_technical-writer.md",
+  "repo": "Asura-lab/ShellShift",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02256",
+  "file": "corpus/Babalsaab_Project_Starter__agents_personas_danielle-foster-email-copywriter.md",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/personas/danielle-foster-email-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02257",
+  "file": "corpus/Babalsaab_Project_Starter__agents_personas_james-mitchell-technical-writer.md",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/personas/james-mitchell-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02258",
+  "file": "corpus/Babalsaab_Project_Starter__agents_personas_jordan-blake-marketing-copywriter.md",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/personas/jordan-blake-marketing-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02259",
+  "file": "corpus/Babalsaab_Project_Starter__agents_pool_marketing_email_copywriter.yaml",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/pool/marketing/email_copywriter.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

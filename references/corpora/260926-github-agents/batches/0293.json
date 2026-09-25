@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02930",
+  "file": "corpus/IdentifyAsNull_ppil---nodejs__.github_agents_author-jal-site.agent.md",
+  "repo": "IdentifyAsNull/ppil---nodejs",
+  "path": ".github/agents/author-jal-site.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02931",
+  "file": "corpus/Idiono-mfon_asknovaai__.claude_agents_trello-task-writer.md",
+  "repo": "Idiono-mfon/asknovaai",
+  "path": ".claude/agents/trello-task-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02932",
+  "file": "corpus/Igor-C-Assuncao_aiops-starter-kit__.codex_agents_reporter.toml",
+  "repo": "Igor-C-Assuncao/aiops-starter-kit",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02933",
+  "file": "corpus/IliaOknesavi_autonomous-book-pipeline__.claude_agents_polish-editor.md",
+  "repo": "IliaOknesavi/autonomous-book-pipeline",
+  "path": ".claude/agents/polish-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02934",
+  "file": "corpus/Imdevsup_game_builder_claude__.claude_agents_marketing-copywriter.md",
+  "repo": "Imdevsup/game_builder_claude",
+  "path": ".claude/agents/marketing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02935",
+  "file": "corpus/ImmortalsEater_QluzCert__.github_agents_qluzcert-code-editor.agent.md",
+  "repo": "ImmortalsEater/QluzCert",
+  "path": ".github/agents/qluzcert-code-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02936",
+  "file": "corpus/Inebrio_Routerly__.claude_agents_docs-writer.md",
+  "repo": "Inebrio/Routerly",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02937",
+  "file": "corpus/Inebrio_Routerly__.codex_agents_story-writer.toml",
+  "repo": "Inebrio/Routerly",
+  "path": ".codex/agents/story-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02938",
+  "file": "corpus/InfamousVague_emit__.claude_agents_docs.md",
+  "repo": "InfamousVague/emit",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02939",
+  "file": "corpus/InternationalColorConsortium_iccDEV__.github_agents_ios-clut-editor.agent.md",
+  "repo": "InternationalColorConsortium/iccDEV",
+  "path": ".github/agents/ios-clut-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

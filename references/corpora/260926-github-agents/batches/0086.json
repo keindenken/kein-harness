@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00860",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_task-23-package-create-rewrite.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/task-23-package-create-rewrite.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00861",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_task-28-global-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/task-28-global-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00862",
+  "file": "corpus/prmichaelsen_agent-context-protocol__agent_tasks_task-4-update-documentation.md",
+  "repo": "prmichaelsen/agent-context-protocol",
+  "path": "agent/tasks/task-4-update-documentation.md",
+  "stars": 125,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00863",
+  "file": "corpus/hibri_HttpMock__.github_agents_documentation-writer.md",
+  "repo": "hibri/HttpMock",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00864",
+  "file": "corpus/fgsfds_BuildLauncher__.opencode_agent_axaml-writer.md",
+  "repo": "fgsfds/BuildLauncher",
+  "path": ".opencode/agent/axaml-writer.md",
+  "stars": 121,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00865",
+  "file": "corpus/fgsfds_BuildLauncher__.opencode_agent_csharp-writer.md",
+  "repo": "fgsfds/BuildLauncher",
+  "path": ".opencode/agent/csharp-writer.md",
+  "stars": 121,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00866",
+  "file": "corpus/fgsfds_BuildLauncher__.opencode_agent_xmldocs-writer.md",
+  "repo": "fgsfds/BuildLauncher",
+  "path": ".opencode/agent/xmldocs-writer.md",
+  "stars": 121,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00867",
+  "file": "corpus/pr-pm_prpm__.claude_agents_blog-writer.md",
+  "repo": "pr-pm/prpm",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 121,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00868",
+  "file": "corpus/BrainDAO_adk-ts__.claude_agents_docs-writer.md",
+  "repo": "BrainDAO/adk-ts",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 119,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00869",
+  "file": "corpus/AMD-AGI_AgentKernelArena__agents_geak_roles_author_engineer.md",
+  "repo": "AMD-AGI/AgentKernelArena",
+  "path": "agents/geak/roles/author_engineer.md",
+  "stars": 118,
+  "copies_in_repos": 1
+ }
+]

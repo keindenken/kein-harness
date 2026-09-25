@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01040",
+  "file": "corpus/sliamh11_Deus__.claude_agents_copy-writer.md",
+  "repo": "sliamh11/Deus",
+  "path": ".claude/agents/copy-writer.md",
+  "stars": 52,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01041",
+  "file": "corpus/sliamh11_Deus__.claude_agents_oracle-author.md",
+  "repo": "sliamh11/Deus",
+  "path": ".claude/agents/oracle-author.md",
+  "stars": 52,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01042",
+  "file": "corpus/RainLib_AI-Storyboard__.claude_agents_scriptwriter.md",
+  "repo": "RainLib/AI-Storyboard",
+  "path": ".claude/agents/scriptwriter.md",
+  "stars": 51,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01043",
+  "file": "corpus/ajhcs_healthcare-agents__agents_clinical-documentation-improvement-specialist.md",
+  "repo": "ajhcs/healthcare-agents",
+  "path": "agents/clinical-documentation-improvement-specialist.md",
+  "stars": 51,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01044",
+  "file": "corpus/ajhcs_healthcare-agents__agents_clinical-prior-authorization-specialist.md",
+  "repo": "ajhcs/healthcare-agents",
+  "path": "agents/clinical-prior-authorization-specialist.md",
+  "stars": 51,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01045",
+  "file": "corpus/Oshayr_LLM-Wiki__agents_wiki-writer.md",
+  "repo": "Oshayr/LLM-Wiki",
+  "path": "agents/wiki-writer.md",
+  "stars": 50,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01046",
+  "file": "corpus/gonzalezpazmonica_savia__.claude_agents_tech-writer.md",
+  "repo": "gonzalezpazmonica/savia",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 50,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01047",
+  "file": "corpus/AR6420_Hail_Hydra__content_agents_hydra-scribe.md",
+  "repo": "AR6420/Hail_Hydra",
+  "path": "content/agents/hydra-scribe.md",
+  "stars": 49,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01048",
+  "file": "corpus/alec-c4_claude-rails-dev__agents_tech-writer.md",
+  "repo": "alec-c4/claude-rails-dev",
+  "path": "agents/tech-writer.md",
+  "stars": 49,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01049",
+  "file": "corpus/edwinweber_dbt_duckdb_demo_public__.claude_agents_writer.md",
+  "repo": "edwinweber/dbt_duckdb_demo_public",
+  "path": ".claude/agents/writer.md",
+  "stars": 49,
+  "copies_in_repos": 1
+ }
+]

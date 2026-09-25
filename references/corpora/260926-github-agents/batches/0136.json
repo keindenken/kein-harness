@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01360",
+  "file": "corpus/estruyf_ghostwriter-agents-ai__agents_voice.ghostwriter.md",
+  "repo": "estruyf/ghostwriter-agents-ai",
+  "path": "agents/voice.ghostwriter.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01361",
+  "file": "corpus/jihadkhawaja_magicore__.github_agents_docs.agent.md",
+  "repo": "jihadkhawaja/magicore",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01362",
+  "file": "corpus/jonlwowski012_copilot-agent-factory__.github_agents_docs-agent.agent.md",
+  "repo": "jonlwowski012/copilot-agent-factory",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01363",
+  "file": "corpus/mfittko_dev-loops__agents_docs.agent.md",
+  "repo": "mfittko/dev-loops",
+  "path": "agents/docs.agent.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01364",
+  "file": "corpus/my-chiefmind_ai-maestro__agents_technical-writer.md",
+  "repo": "my-chiefmind/ai-maestro",
+  "path": "agents/technical-writer.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01365",
+  "file": "corpus/scovetta_oss-supply-chain__.claude_agents_publishing-editor.md",
+  "repo": "scovetta/oss-supply-chain",
+  "path": ".claude/agents/publishing-editor.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01366",
+  "file": "corpus/wolverin0_bmad-claude-agents__.claude_agents_bmad-tech-writer.md",
+  "repo": "wolverin0/bmad-claude-agents",
+  "path": ".claude/agents/bmad-tech-writer.md",
+  "stars": 16,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01367",
+  "file": "corpus/45ck_skill-harness__.codex_agents_research-writer.toml",
+  "repo": "45ck/skill-harness",
+  "path": ".codex/agents/research-writer.toml",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01368",
+  "file": "corpus/AJCastello_jay-js__.claude_agents_core_documentation-specialist.md",
+  "repo": "AJCastello/jay-js",
+  "path": ".claude/agents/core/documentation-specialist.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01369",
+  "file": "corpus/AJCastello_jay-js__.claude_agents_specialized_jayjs_jayjs-documentation-expert.md",
+  "repo": "AJCastello/jay-js",
+  "path": ".claude/agents/specialized/jayjs/jayjs-documentation-expert.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ }
+]

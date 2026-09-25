@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01910",
+  "file": "corpus/GOATnote-Inc_scribegoat2__.claude_agents_compliance-reporter.md",
+  "repo": "GOATnote-Inc/scribegoat2",
+  "path": ".claude/agents/compliance-reporter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01911",
+  "file": "corpus/Hoejsgaard_MinUddannelse__.claude_agents_technical-writer.md",
+  "repo": "Hoejsgaard/MinUddannelse",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01912",
+  "file": "corpus/Impertio-Studio_Open-Agents__agents_library_finance-ops_batch-report.md",
+  "repo": "Impertio-Studio/Open-Agents",
+  "path": "agents/library/finance-ops/batch-report.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01913",
+  "file": "corpus/Impertio-Studio_Open-Agents__agents_library_sports-analytics_batch-report.md",
+  "repo": "Impertio-Studio/Open-Agents",
+  "path": "agents/library/sports-analytics/batch-report.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01914",
+  "file": "corpus/JavattJones_AI-for-ISO-19650__.claude_agents_reporter.md",
+  "repo": "JavattJones/AI-for-ISO-19650",
+  "path": ".claude/agents/reporter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01915",
+  "file": "corpus/MoeenNehzati_famulus__agents_coauthor.md",
+  "repo": "MoeenNehzati/famulus",
+  "path": "agents/coauthor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01916",
+  "file": "corpus/NITRR-Official_CampusOS__.github_agents_documentation-specialist.agent.md",
+  "repo": "NITRR-Official/CampusOS",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01917",
+  "file": "corpus/OctopusSolutionsEngineering_OctopusCopilot__.github_agents_changelog.md",
+  "repo": "OctopusSolutionsEngineering/OctopusCopilot",
+  "path": ".github/agents/changelog.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01918",
+  "file": "corpus/Rational-Partners_ai-training-practical__.claude_agents_documentation.md",
+  "repo": "Rational-Partners/ai-training-practical",
+  "path": ".claude/agents/documentation.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01919",
+  "file": "corpus/SPIRAL-EDWIN_edwinjing_blog_personal-website__.codex_agents_content-editor.toml",
+  "repo": "SPIRAL-EDWIN/edwinjing_blog_personal-website",
+  "path": ".codex/agents/content-editor.toml",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

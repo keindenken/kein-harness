@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00710",
+  "file": "corpus/JetBrains_youtrackdb__.claude_agents_design-author.md",
+  "repo": "JetBrains/youtrackdb",
+  "path": ".claude/agents/design-author.md",
+  "stars": 435,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00711",
+  "file": "corpus/taskctl_taskctl__.claude_agents_docs-sync.md",
+  "repo": "taskctl/taskctl",
+  "path": ".claude/agents/docs-sync.md",
+  "stars": 433,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00712",
+  "file": "corpus/moq_Moq.AutoMocker__.github_agents_source-generator-docs.md",
+  "repo": "moq/Moq.AutoMocker",
+  "path": ".github/agents/source-generator-docs.md",
+  "stars": 430,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00713",
+  "file": "corpus/dongbeixiaohuo_writing-agent__.claude_agents_article-illustrator.md",
+  "repo": "dongbeixiaohuo/writing-agent",
+  "path": ".claude/agents/article-illustrator.md",
+  "stars": 427,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00714",
+  "file": "corpus/dongbeixiaohuo_writing-agent__.claude_agents_writing-clarifier.md",
+  "repo": "dongbeixiaohuo/writing-agent",
+  "path": ".claude/agents/writing-clarifier.md",
+  "stars": 427,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00715",
+  "file": "corpus/dongbeixiaohuo_writing-agent__.claude_agents_writing-executor.md",
+  "repo": "dongbeixiaohuo/writing-agent",
+  "path": ".claude/agents/writing-executor.md",
+  "stars": 427,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00716",
+  "file": "corpus/notque_vexjoy-agent__agents_technical-documentation-engineer.md",
+  "repo": "notque/vexjoy-agent",
+  "path": "agents/technical-documentation-engineer.md",
+  "stars": 425,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00717",
+  "file": "corpus/notque_vexjoy-agent__agents_technical-documentation-engineer_references_documentation-standards.md",
+  "repo": "notque/vexjoy-agent",
+  "path": "agents/technical-documentation-engineer/references/documentation-standards.md",
+  "stars": 425,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00718",
+  "file": "corpus/notque_vexjoy-agent__agents_technical-documentation-engineer_references_documentation-templates.md",
+  "repo": "notque/vexjoy-agent",
+  "path": "agents/technical-documentation-engineer/references/documentation-templates.md",
+  "stars": 425,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00719",
+  "file": "corpus/sssmmmwww_wxmini-security-audit__agents_agent-06-reporter.md",
+  "repo": "sssmmmwww/wxmini-security-audit",
+  "path": "agents/agent-06-reporter.md",
+  "stars": 400,
+  "copies_in_repos": 1
+ }
+]

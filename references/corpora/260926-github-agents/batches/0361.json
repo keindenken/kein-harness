@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03610",
+  "file": "corpus/birdcar_HelpStripe__.claude_agents_technical-writer.md",
+  "repo": "birdcar/HelpStripe",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03611",
+  "file": "corpus/bishallllllll_multi-agent-pipeline__agents_business-product_technical-writer.md",
+  "repo": "bishallllllll/multi-agent-pipeline",
+  "path": "agents/business-product/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03612",
+  "file": "corpus/bivex_bp-influence__.claude_agents_copywriter.md",
+  "repo": "bivex/bp-influence",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03613",
+  "file": "corpus/blackcloud13_hans__agents_agent4_report_writer.md",
+  "repo": "blackcloud13/hans",
+  "path": "agents/agent4_report_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03614",
+  "file": "corpus/bleuropa_open_balustrade__.opencode_agent_vault-writer.md",
+  "repo": "bleuropa/open_balustrade",
+  "path": ".opencode/agent/vault-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03615",
+  "file": "corpus/blinklet_learning-with-code__.github_agents_blog-writer.agent.md",
+  "repo": "blinklet/learning-with-code",
+  "path": ".github/agents/blog-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03616",
+  "file": "corpus/blue-dynamo_hackaton2026feb__.github_agents_bug-writer.agent.md",
+  "repo": "blue-dynamo/hackaton2026feb",
+  "path": ".github/agents/bug-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03617",
+  "file": "corpus/blueprintui_blueprintui__.claude_agents_docs-writer.md",
+  "repo": "blueprintui/blueprintui",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03618",
+  "file": "corpus/bmoynihan_swe-team-agents__.github_agents_skill-author.agent.md",
+  "repo": "bmoynihan/swe-team-agents",
+  "path": ".github/agents/skill-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03619",
+  "file": "corpus/bnorth12_Multi-Agent-LLM-Threat-Modeling__.github_agents_architecture-design-change-author.agent.md",
+  "repo": "bnorth12/Multi-Agent-LLM-Threat-Modeling",
+  "path": ".github/agents/architecture-design-change-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00510",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_business-marketing_cli-tool_components_agents_business-marketing_cli-tool_components_agents_business-marketing_vital-health-content-agent.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/business-marketing/cli-tool/components/agents/business-marketing/cli-tool/components/agents/business-marketing/vital-health-content-agent.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00511",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_business-marketing_content-marketer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/business-marketing/content-marketer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00512",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_development-team_sdd-spec-writer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/development-team/sdd-spec-writer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00513",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_documentation_api-documenter.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/documentation/api-documenter.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00514",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_documentation_changelog-generator.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/documentation/changelog-generator.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00515",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_expert-advisors_documentation-expert.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/expert-advisors/documentation-expert.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00516",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_ffmpeg-clip-team_podcast-content-analyzer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/podcast-content-analyzer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00517",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_ffmpeg-clip-team_podcast-transcriber.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/podcast-transcriber.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00518",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_ffmpeg-clip-team_video-editor.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/video-editor.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00519",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_obsidian-ops-team_content-curator.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/obsidian-ops-team/content-curator.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01940",
+  "file": "corpus/hiimtrung_coder__.claude_agents_coder-tech-writer.md",
+  "repo": "hiimtrung/coder",
+  "path": ".claude/agents/coder-tech-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01941",
+  "file": "corpus/hooshyar_award-winning-agents__.claude_agents_documentation-coordinator.md",
+  "repo": "hooshyar/award-winning-agents",
+  "path": ".claude/agents/documentation-coordinator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01942",
+  "file": "corpus/ivegamsft_basecoat__agents_basecoat-10-core-tech-writer.agent.eval.yaml",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/basecoat-10-core-tech-writer.agent.eval.yaml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01943",
+  "file": "corpus/ivegamsft_basecoat__agents_basecoat-10-core-tech-writer.agent.md",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/basecoat-10-core-tech-writer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01944",
+  "file": "corpus/ivegamsft_basecoat__agents_basecoat-60-workflow-run-history-cleanup.agent.eval.yaml",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/basecoat-60-workflow-run-history-cleanup.agent.eval.yaml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01945",
+  "file": "corpus/ivegamsft_basecoat__agents_basecoat-60-workflow-run-history-cleanup.agent.md",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/basecoat-60-workflow-run-history-cleanup.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01946",
+  "file": "corpus/ivegamsft_basecoat__agents_governance-author.agent.eval.yaml",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/governance-author.agent.eval.yaml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01947",
+  "file": "corpus/ivegamsft_basecoat__agents_governance-author.agent.md",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/governance-author.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01948",
+  "file": "corpus/ivegamsft_basecoat__agents_guidance-author.agent.eval.yaml",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/guidance-author.agent.eval.yaml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01949",
+  "file": "corpus/ivegamsft_basecoat__agents_references_guidance-author-detail.md",
+  "repo": "ivegamsft/basecoat",
+  "path": "agents/references/guidance-author-detail.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

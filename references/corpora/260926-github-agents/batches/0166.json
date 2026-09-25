@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01660",
+  "file": "corpus/z0u_mi-ni__.claude_agents_report-restructure.md",
+  "repo": "z0u/mi-ni",
+  "path": ".claude/agents/report-restructure.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01661",
+  "file": "corpus/z0u_mi-ni__.claude_agents_report-structure.md",
+  "repo": "z0u/mi-ni",
+  "path": ".claude/agents/report-structure.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01662",
+  "file": "corpus/0xtechdean_ideation-claude__.claude_agents_report-pivot.md",
+  "repo": "0xtechdean/ideation-claude",
+  "path": ".claude/agents/report-pivot.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01663",
+  "file": "corpus/CraftOS-dev_craftbot-agent-bundles__agents_marketing-agent_reference_agents_voltagent-content-quality-editor.md",
+  "repo": "CraftOS-dev/craftbot-agent-bundles",
+  "path": "agents/marketing-agent/reference/agents/voltagent-content-quality-editor.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01664",
+  "file": "corpus/DEFRA_claude-legacy-reveng-plugin__agents_feature-writer.md",
+  "repo": "DEFRA/claude-legacy-reveng-plugin",
+  "path": "agents/feature-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01665",
+  "file": "corpus/DEFRA_claude-legacy-reveng-plugin__agents_prd-to-features.md",
+  "repo": "DEFRA/claude-legacy-reveng-plugin",
+  "path": "agents/prd-to-features.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01666",
+  "file": "corpus/Hack23_blacktrigram__.github_agents_documentation-writer.md",
+  "repo": "Hack23/blacktrigram",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01667",
+  "file": "corpus/Heavy-Chain-Engineering_etc__agents_technical-writer.md",
+  "repo": "Heavy-Chain-Engineering/etc",
+  "path": "agents/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01668",
+  "file": "corpus/JonasHeinickeBio_pyEuropePMC__.github_agents_scientific-documentation-agent.agent.md",
+  "repo": "JonasHeinickeBio/pyEuropePMC",
+  "path": ".github/agents/scientific-documentation-agent.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01669",
+  "file": "corpus/Jrgil20_PracticasCiberSeguridad__.github_agents_CyberSec Report Assistant.agent.md",
+  "repo": "Jrgil20/PracticasCiberSeguridad",
+  "path": ".github/agents/CyberSec Report Assistant.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ }
+]

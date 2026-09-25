@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00300",
+  "file": "corpus/teknokomo_universo-platformo-react__.github_agents_docs.agent.md",
+  "repo": "teknokomo/universo-platformo-react",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 22,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00301",
+  "file": "corpus/chrisreddington_timestamp__.github_agents_manager-code-docs.agent.md",
+  "repo": "chrisreddington/timestamp",
+  "path": ".github/agents/manager-code-docs.agent.md",
+  "stars": 21,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00302",
+  "file": "corpus/chrisreddington_timestamp__.github_agents_manager-markdown-docs.agent.md",
+  "repo": "chrisreddington/timestamp",
+  "path": ".github/agents/manager-markdown-docs.agent.md",
+  "stars": 21,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00303",
+  "file": "corpus/chrisreddington_timestamp__.github_agents_specialist-code-documentation.agent.md",
+  "repo": "chrisreddington/timestamp",
+  "path": ".github/agents/specialist-code-documentation.agent.md",
+  "stars": 21,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00304",
+  "file": "corpus/DrBalls_BMad-Expansion-Pack-Creative-Writing__agents_editor.md",
+  "repo": "DrBalls/BMad-Expansion-Pack-Creative-Writing",
+  "path": "agents/editor.md",
+  "stars": 16,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00305",
+  "file": "corpus/ReadyToGo-Education_fluxo_criativo__.claude_agents_copywriter.md",
+  "repo": "ReadyToGo-Education/fluxo_criativo",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 16,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00306",
+  "file": "corpus/ForgeOpus_visionforge__.github_agents_documentation_agent.md",
+  "repo": "ForgeOpus/visionforge",
+  "path": ".github/agents/documentation_agent.md",
+  "stars": 14,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00307",
+  "file": "corpus/TrayHard_d2r-ultra-utility__.claude_agents_docs-researcher.md",
+  "repo": "TrayHard/d2r-ultra-utility",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 14,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00308",
+  "file": "corpus/TrayHard_d2r-ultra-utility__.claude_agents_rust-daily-reporter.md",
+  "repo": "TrayHard/d2r-ultra-utility",
+  "path": ".claude/agents/rust-daily-reporter.md",
+  "stars": 14,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00309",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_technical-writer.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/technical-writer.md",
+  "stars": 13,
+  "copies_in_repos": 2
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04600",
+  "file": "corpus/noizu-labs-ml_NoizuPromptLingo__.claude_agents_npl-author.md",
+  "repo": "noizu-labs-ml/NoizuPromptLingo",
+  "path": ".claude/agents/npl-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04601",
+  "file": "corpus/noizu-labs-ml_NoizuPromptLingo__.claude_agents_npl-technical-writer.md",
+  "repo": "noizu-labs-ml/NoizuPromptLingo",
+  "path": ".claude/agents/npl-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04602",
+  "file": "corpus/noizu-labs-ml_NoizuPromptLingo__.codex_agents_npl-marketing-writer.toml",
+  "repo": "noizu-labs-ml/NoizuPromptLingo",
+  "path": ".codex/agents/npl-marketing-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04603",
+  "file": "corpus/noizu-labs_scaffolding__.claude_agents_npl-technical-writer.md",
+  "repo": "noizu-labs/scaffolding",
+  "path": ".claude/agents/npl-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04604",
+  "file": "corpus/nolte_claude-shared__agents_audience-doc-author.md",
+  "repo": "nolte/claude-shared",
+  "path": "agents/audience-doc-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04605",
+  "file": "corpus/nolte_kamerplanter__.claude_agents_knowledge-chunk-author.md",
+  "repo": "nolte/kamerplanter",
+  "path": ".claude/agents/knowledge-chunk-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04606",
+  "file": "corpus/noobone123_daily-security-report__.codex_agents_report-writer.toml",
+  "repo": "noobone123/daily-security-report",
+  "path": ".codex/agents/report-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04607",
+  "file": "corpus/noodlemind_prompt-library__.github_agents_framework-docs-researcher.agent.md",
+  "repo": "noodlemind/prompt-library",
+  "path": ".github/agents/framework-docs-researcher.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04608",
+  "file": "corpus/nookyo_app-manifest__.claude_agents_technical-writer.md",
+  "repo": "nookyo/app-manifest",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04609",
+  "file": "corpus/normenmueller_o2i__.github_agents_o2i-formalization-coauthor.agent.md",
+  "repo": "normenmueller/o2i",
+  "path": ".github/agents/o2i-formalization-coauthor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

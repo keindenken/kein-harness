@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03770",
+  "file": "corpus/daskas-welt_daskas-welt.github.io__.opencode_agent_post-writer.md",
+  "repo": "daskas-welt/daskas-welt.github.io",
+  "path": ".opencode/agent/post-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03771",
+  "file": "corpus/datacommonsorg_data__agents_docs_dc-import-diagnostics-authoring.md",
+  "repo": "datacommonsorg/data",
+  "path": "agents/docs/dc-import-diagnostics-authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03772",
+  "file": "corpus/datacommonsorg_data__agents_docs_skill-authoring.md",
+  "repo": "datacommonsorg/data",
+  "path": "agents/docs/skill-authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03773",
+  "file": "corpus/datavisio-tech_visiomilhas__.github_agents_rename-report.md",
+  "repo": "datavisio-tech/visiomilhas",
+  "path": ".github/agents/rename-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03774",
+  "file": "corpus/dav033_dav-multiagent__.opencode_agent_docs.md",
+  "repo": "dav033/dav-multiagent",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03775",
+  "file": "corpus/daveberning_daveberning.io__.claude_agents_seo-copywriter.md",
+  "repo": "daveberning/daveberning.io",
+  "path": ".claude/agents/seo-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03776",
+  "file": "corpus/david-pizzi-msft_data-ai-reference__.github_agents_mkdocs-author.agent.md",
+  "repo": "david-pizzi-msft/data-ai-reference",
+  "path": ".github/agents/mkdocs-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03777",
+  "file": "corpus/david-strejc_opencode__.opencode_agent_docs.md",
+  "repo": "david-strejc/opencode",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03778",
+  "file": "corpus/davidbillera-lab_personal-OS__agents_copywriter.md",
+  "repo": "davidbillera-lab/personal-OS",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03779",
+  "file": "corpus/davihern_playwrightdemo__.github_agents_readmewriter.agent.md",
+  "repo": "davihern/playwrightdemo",
+  "path": ".github/agents/readmewriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

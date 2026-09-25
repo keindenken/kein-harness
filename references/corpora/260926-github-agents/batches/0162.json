@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01620",
+  "file": "corpus/whit3rabbit_clean-room-skill__agents_clean-qa-editor.md",
+  "repo": "whit3rabbit/clean-room-skill",
+  "path": "agents/clean-qa-editor.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01621",
+  "file": "corpus/zapat-ai_zapat__agents_technical-writer.md",
+  "repo": "zapat-ai/zapat",
+  "path": "agents/technical-writer.md",
+  "stars": 10,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01622",
+  "file": "corpus/DanielMadsenDK_NowDev-AI-Toolbox__.github_agents_nowdev-agent-author.agent.md",
+  "repo": "DanielMadsenDK/NowDev-AI-Toolbox",
+  "path": ".github/agents/nowdev-agent-author.agent.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01623",
+  "file": "corpus/DylanFriday_flashcard-ai-generator__.claude_agents_documentation-writer.md",
+  "repo": "DylanFriday/flashcard-ai-generator",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01624",
+  "file": "corpus/Getty_karr__.claude_agents_karr-pod-writer.md",
+  "repo": "Getty/karr",
+  "path": ".claude/agents/karr-pod-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01625",
+  "file": "corpus/HeiGeAi_200-agent__agents_pg-prd-spec-author.md",
+  "repo": "HeiGeAi/200-agent",
+  "path": "agents/pg-prd-spec-author.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01626",
+  "file": "corpus/HeiGeAi_200-agent__agents_wc-book-coauthor-manuscript-lead.md",
+  "repo": "HeiGeAi/200-agent",
+  "path": "agents/wc-book-coauthor-manuscript-lead.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01627",
+  "file": "corpus/HeiGeAi_200-agent__agents_wc-developmental-line-editor.md",
+  "repo": "HeiGeAi/200-agent",
+  "path": "agents/wc-developmental-line-editor.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01628",
+  "file": "corpus/QinCai-rui_MeshTalk__.opencode_agent_docs-drift.md",
+  "repo": "QinCai-rui/MeshTalk",
+  "path": ".opencode/agent/docs-drift.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01629",
+  "file": "corpus/QinCai-rui_MeshTalk__.opencode_agent_docs-editor.md",
+  "repo": "QinCai-rui/MeshTalk",
+  "path": ".opencode/agent/docs-editor.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ }
+]

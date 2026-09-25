@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03440",
+  "file": "corpus/aakashkunchwar_CALENDAR-APP-DEMO__agents_docs-helper-agent.md",
+  "repo": "aakashkunchwar/CALENDAR-APP-DEMO",
+  "path": "agents/docs-helper-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03441",
+  "file": "corpus/aanthonynichols_SQUAD-IMERSAO-ICE__agents_ice-copywriter.md",
+  "repo": "aanthonynichols/SQUAD-IMERSAO-ICE",
+  "path": "agents/ice-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03442",
+  "file": "corpus/aaronfaes_CodeWinden.CQRS__.github_Agents_Technical Writer.md",
+  "repo": "aaronfaes/CodeWinden.CQRS",
+  "path": ".github/Agents/Technical Writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03443",
+  "file": "corpus/aaronfaes_CodeWinden.FluentMigrator__.github_Agents_Technical Writer.md",
+  "repo": "aaronfaes/CodeWinden.FluentMigrator",
+  "path": ".github/Agents/Technical Writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03444",
+  "file": "corpus/aaronjoeldev_cashlytics-ai__.claude_agents_documentation-developer.md",
+  "repo": "aaronjoeldev/cashlytics-ai",
+  "path": ".claude/agents/documentation-developer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03445",
+  "file": "corpus/aaronmanne_MasterControl__.opencode_agent_SUB-APP-CODE-DOCS.md",
+  "repo": "aaronmanne/MasterControl",
+  "path": ".opencode/agent/SUB-APP-CODE-DOCS.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03446",
+  "file": "corpus/aarrico_porygon-vgc__.codex_agents_docs-writer.toml",
+  "repo": "aarrico/porygon-vgc",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03447",
+  "file": "corpus/aarsh21_fumadocs-senpiper__.opencode_agent_senpiper-docs.md",
+  "repo": "aarsh21/fumadocs-senpiper",
+  "path": ".opencode/agent/senpiper-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03448",
+  "file": "corpus/abazarbaev-ctrl_harness__agents_monitor_eval-author.md",
+  "repo": "abazarbaev-ctrl/harness",
+  "path": "agents/monitor/eval-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03449",
+  "file": "corpus/abazarbaev-ctrl_harness__agents_pm_scenario-writer.md",
+  "repo": "abazarbaev-ctrl/harness",
+  "path": "agents/pm/scenario-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

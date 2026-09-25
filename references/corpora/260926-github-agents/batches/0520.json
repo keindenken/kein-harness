@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05200",
+  "file": "corpus/wizzed_the-agents__.claude_agents_sales_sales-copywriter.md",
+  "repo": "wizzed/the-agents",
+  "path": ".claude/agents/sales/sales-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05201",
+  "file": "corpus/wlmn-evey_SpicebushWebapp__.claude_agents_montessori-copywriter.md",
+  "repo": "wlmn-evey/SpicebushWebapp",
+  "path": ".claude/agents/montessori-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05202",
+  "file": "corpus/wlmn-evey_SpicebushWebapp__.claude_agents_seo-redirect-copywriter.md",
+  "repo": "wlmn-evey/SpicebushWebapp",
+  "path": ".claude/agents/seo-redirect-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05203",
+  "file": "corpus/woodmurderedhat_chaos-author__.github_agents_chaos-author.agent.md",
+  "repo": "woodmurderedhat/chaos-author",
+  "path": ".github/agents/chaos-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05204",
+  "file": "corpus/wooxjake_2026-phd-paper__.github_agents_phd-thesis-writer.agent.md",
+  "repo": "wooxjake/2026-phd-paper",
+  "path": ".github/agents/phd-thesis-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05205",
+  "file": "corpus/work-w-chrstnrpj_ai-project-structure-template__.claude_agents_technical-documentation-specialist.md",
+  "repo": "work-w-chrstnrpj/ai-project-structure-template",
+  "path": ".claude/agents/technical-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05206",
+  "file": "corpus/wouterfennis_TimeForCode__.github_agents_feature-writer.agent.md",
+  "repo": "wouterfennis/TimeForCode",
+  "path": ".github/agents/feature-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05207",
+  "file": "corpus/wsilveiranz_logicapps-sdk-docs-files__.github_agents_documentation-assistant.agent.md",
+  "repo": "wsilveiranz/logicapps-sdk-docs-files",
+  "path": ".github/agents/documentation-assistant.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05208",
+  "file": "corpus/wuulong_bmad-personal-assistant__agents_document-report-specialist.md",
+  "repo": "wuulong/bmad-personal-assistant",
+  "path": "agents/document-report-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05209",
+  "file": "corpus/wverri_AutoDS__.claude_agents_writer.md",
+  "repo": "wverri/AutoDS",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

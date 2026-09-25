@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05020",
+  "file": "corpus/thefonzie-codes_ai-agent-demo__.claude_agents_documentation-writer.md",
+  "repo": "thefonzie-codes/ai-agent-demo",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05021",
+  "file": "corpus/theintentionaltea_the-intentional-tea__.claude_agents_copywriter.md",
+  "repo": "theintentionaltea/the-intentional-tea",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05022",
+  "file": "corpus/theinterneti_TTA__.github_agents_docs-agent.md",
+  "repo": "theinterneti/TTA",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05023",
+  "file": "corpus/theo-ooooo_crimp__agents_docs.md",
+  "repo": "theo-ooooo/crimp",
+  "path": "agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05024",
+  "file": "corpus/therissole_symphony-test-1__.github_agents_docs-writer.agent.md",
+  "repo": "therissole/symphony-test-1",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05025",
+  "file": "corpus/thesoze_claude-code-skills__agents_feature-crew-docs.md",
+  "repo": "thesoze/claude-code-skills",
+  "path": "agents/feature-crew-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05026",
+  "file": "corpus/thiagoeiti1988-afk_omni-crm__agents_copywriter.md",
+  "repo": "thiagoeiti1988-afk/omni-crm",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05027",
+  "file": "corpus/thinkwebengineer_soaring-spirits__agents_Marketing_Copywriter-Sophie.md",
+  "repo": "thinkwebengineer/soaring-spirits",
+  "path": "agents/Marketing/Copywriter-Sophie.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05028",
+  "file": "corpus/thismakesmehappy_NewApiTest__.claude_agents_api-docs-writer.md",
+  "repo": "thismakesmehappy/NewApiTest",
+  "path": ".claude/agents/api-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05029",
+  "file": "corpus/thomasgriebner_retention_cleaner__.claude_agents_ha-documentation-writer.md",
+  "repo": "thomasgriebner/retention_cleaner",
+  "path": ".claude/agents/ha-documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

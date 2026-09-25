@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00460",
+  "file": "corpus/rshade_finfocus__.claude_agents_finfocus-technical-writer.md",
+  "repo": "rshade/finfocus",
+  "path": ".claude/agents/finfocus-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00461",
+  "file": "corpus/ryu-qqq_ops-pilot__.claude_agents_harness-author.md",
+  "repo": "ryu-qqq/ops-pilot",
+  "path": ".claude/agents/harness-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00462",
+  "file": "corpus/sandervw_CorpLore__.claude_agents_draft-editor.md",
+  "repo": "sandervw/CorpLore",
+  "path": ".claude/agents/draft-editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00463",
+  "file": "corpus/shark-hunt_toolhive__.claude_agents_documentation-writer.md",
+  "repo": "shark-hunt/toolhive",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00464",
+  "file": "corpus/smart-connective_zwave-js-ui__.github_agents_documentation-agent.md",
+  "repo": "smart-connective/zwave-js-ui",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00465",
+  "file": "corpus/takemo101_agent-testing2__.opencode_agent_detailed-design-writer.md",
+  "repo": "takemo101/agent-testing2",
+  "path": ".opencode/agent/detailed-design-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00466",
+  "file": "corpus/takemo101_agent-testing2__.opencode_agent_req-writer.md",
+  "repo": "takemo101/agent-testing2",
+  "path": ".opencode/agent/req-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00467",
+  "file": "corpus/tawounfouet_frontend-developer-workspace__.codex_agents_docs-writer.md",
+  "repo": "tawounfouet/frontend-developer-workspace",
+  "path": ".codex/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00468",
+  "file": "corpus/woliveiras_bookaneer__.github_agents_spec-writer.agent.md",
+  "repo": "woliveiras/bookaneer",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00469",
+  "file": "corpus/affaan-m_ECC__agents_spec-miner.md",
+  "repo": "affaan-m/ECC",
+  "path": "agents/spec-miner.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ }
+]

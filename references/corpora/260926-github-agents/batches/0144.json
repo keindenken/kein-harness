@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01440",
+  "file": "corpus/Arcanada-one_datarim__agents_editor.md",
+  "repo": "Arcanada-one/datarim",
+  "path": "agents/editor.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01441",
+  "file": "corpus/Arcanada-one_datarim__agents_writer.md",
+  "repo": "Arcanada-one/datarim",
+  "path": "agents/writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01442",
+  "file": "corpus/Everyone-Needs-A-Copilot_claude-copilot__.claude_agents_doc.md",
+  "repo": "Everyone-Needs-A-Copilot/claude-copilot",
+  "path": ".claude/agents/doc.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01443",
+  "file": "corpus/Gprad-Work_claude-security-agents__.claude_agents_bug-bounty_bb-report-parser.md",
+  "repo": "Gprad-Work/claude-security-agents",
+  "path": ".claude/agents/bug-bounty/bb-report-parser.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01444",
+  "file": "corpus/Gprad-Work_claude-security-agents__.claude_agents_detection-engineering_de-rule-writer.md",
+  "repo": "Gprad-Work/claude-security-agents",
+  "path": ".claude/agents/detection-engineering/de-rule-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01445",
+  "file": "corpus/Gprad-Work_claude-security-agents__.claude_agents_tprm-security_tprm-questionnaire-writer.md",
+  "repo": "Gprad-Work/claude-security-agents",
+  "path": ".claude/agents/tprm-security/tprm-questionnaire-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01446",
+  "file": "corpus/Hack23_game__.github_agents_documentation-writer.md",
+  "repo": "Hack23/game",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01447",
+  "file": "corpus/HamzaAlayed_laravel-claude-agents__agents_technical-writer.md",
+  "repo": "HamzaAlayed/laravel-claude-agents",
+  "path": "agents/technical-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01448",
+  "file": "corpus/anmolgupta824_ai-native-agents__agents_marketing_CONTENT-CALENDAR.md",
+  "repo": "anmolgupta824/ai-native-agents",
+  "path": "agents/marketing/CONTENT-CALENDAR.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01449",
+  "file": "corpus/caioimori_sinapse-ai__.claude_agents_sinapse-ad-copywriter.md",
+  "repo": "caioimori/sinapse-ai",
+  "path": ".claude/agents/sinapse-ad-copywriter.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ }
+]

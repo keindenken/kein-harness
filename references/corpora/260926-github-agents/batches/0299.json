@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02990",
+  "file": "corpus/KAbaidoo_environment-validator-gradle-plugin__.github_agents_technical-writer.agent.md",
+  "repo": "KAbaidoo/environment-validator-gradle-plugin",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02991",
+  "file": "corpus/KJ-devs_supportHelperv2__.claude_agents_doc-writer.md",
+  "repo": "KJ-devs/supportHelperv2",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02992",
+  "file": "corpus/KURE-x-Tech_Spreading-Codes__.github_agents_intern-reporter.agent.md",
+  "repo": "KURE-x-Tech/Spreading-Codes",
+  "path": ".github/agents/intern-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02993",
+  "file": "corpus/KaiZenKOS_TrafalgarFrontend__.github_agents_Documentation.agent.md",
+  "repo": "KaiZenKOS/TrafalgarFrontend",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02994",
+  "file": "corpus/KaiZenKOS_tuto-agent-IA__.github_agents_output_code_analysis_report.md",
+  "repo": "KaiZenKOS/tuto-agent-IA",
+  "path": ".github/agents/output/code_analysis_report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02995",
+  "file": "corpus/KainosSoftwareLtd_dsit-legacy-pilot-activities__.github_agents_pilot-report-synthesiser.agent.md",
+  "repo": "KainosSoftwareLtd/dsit-legacy-pilot-activities",
+  "path": ".github/agents/pilot-report-synthesiser.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02996",
+  "file": "corpus/Kalliaras_clublinked__.claude_agents_docs.md",
+  "repo": "Kalliaras/clublinked",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02997",
+  "file": "corpus/KamiJeong_tech-bridge-book__.codex_agents_speckit-token-reporter.toml",
+  "repo": "KamiJeong/tech-bridge-book",
+  "path": ".codex/agents/speckit-token-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02998",
+  "file": "corpus/Kamilski86_QCC__agents_11_Technical-Writer.md",
+  "repo": "Kamilski86/QCC",
+  "path": "agents/11_Technical-Writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02999",
+  "file": "corpus/Keerill220_db_cw__.github_agents_doc-writer.agent.md",
+  "repo": "Keerill220/db_cw",
+  "path": ".github/agents/doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

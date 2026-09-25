@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01760",
+  "file": "corpus/Dev-Toolbelt_dev-team-agents__agents_technical-writer.md",
+  "repo": "Dev-Toolbelt/dev-team-agents",
+  "path": "agents/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01761",
+  "file": "corpus/Insightpulseai_odoo__agents_foundry_policies_org__platform__external_authorities__v1.registry.yaml",
+  "repo": "Insightpulseai/odoo",
+  "path": "agents/foundry/policies/org__platform__external_authorities__v1.registry.yaml",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01762",
+  "file": "corpus/Insightpulseai_odoo__agents_knowledge-base_finance-close-kb_sap-afc-docs_Business-Configuration_manage-authorization-groups-0ea3430.md",
+  "repo": "Insightpulseai/odoo",
+  "path": "agents/knowledge-base/finance-close-kb/sap-afc-docs/Business-Configuration/manage-authorization-groups-0ea3430.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01763",
+  "file": "corpus/Insightpulseai_odoo__agents_knowledge-base_finance-close-kb_sap-afc-docs_Security_user-administration-authentication-and-authorizations-abeebd8.md",
+  "repo": "Insightpulseai/odoo",
+  "path": "agents/knowledge-base/finance-close-kb/sap-afc-docs/Security/user-administration-authentication-and-authorizations-abeebd8.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01764",
+  "file": "corpus/Insightpulseai_odoo__agents_personas_skill-author.md",
+  "repo": "Insightpulseai/odoo",
+  "path": "agents/personas/skill-author.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01765",
+  "file": "corpus/Jason-Cyr_one-person-brand__.claude_agents_copy-editor.md",
+  "repo": "Jason-Cyr/one-person-brand",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01766",
+  "file": "corpus/JohnMichaelMiller_zeus.academia.3b__.github_agents_blog-author.agent.md",
+  "repo": "JohnMichaelMiller/zeus.academia.3b",
+  "path": ".github/agents/blog-author.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01767",
+  "file": "corpus/JohnMichaelMiller_zeus.academia.3b__.github_agents_report-projection.agent.md",
+  "repo": "JohnMichaelMiller/zeus.academia.3b",
+  "path": ".github/agents/report-projection.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01768",
+  "file": "corpus/Pantani_ableton-mind__.claude_agents_distribution-docs-engineer.md",
+  "repo": "Pantani/ableton-mind",
+  "path": ".claude/agents/distribution-docs-engineer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01769",
+  "file": "corpus/Pantani_ableton-mind__.codex_agents_distribution-docs-engineer.toml",
+  "repo": "Pantani/ableton-mind",
+  "path": ".codex/agents/distribution-docs-engineer.toml",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

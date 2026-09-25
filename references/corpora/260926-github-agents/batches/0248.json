@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02480",
+  "file": "corpus/jwh3times_apexracers__.codex_agents_docs-updater.toml",
+  "repo": "jwh3times/apexracers",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02481",
+  "file": "corpus/keroway_astro-blog__.claude_agents_literary-tech-editor.md",
+  "repo": "keroway/astro-blog",
+  "path": ".claude/agents/literary-tech-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02482",
+  "file": "corpus/keshm2_aplyx__.codex_agents_discord-reporter.toml",
+  "repo": "keshm2/aplyx",
+  "path": ".codex/agents/discord-reporter.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02483",
+  "file": "corpus/khjohns_unified-timeline__.claude_agents_docs-checker.md",
+  "repo": "khjohns/unified-timeline",
+  "path": ".claude/agents/docs-checker.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02484",
+  "file": "corpus/kim-song-jun_matchup-sports-platform__.codex_agents_docs-writer.md",
+  "repo": "kim-song-jun/matchup-sports-platform",
+  "path": ".codex/agents/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02485",
+  "file": "corpus/kingdol666_industrial-deep-diagnostic__.codex_agents_reporter.toml",
+  "repo": "kingdol666/industrial-deep-diagnostic",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02486",
+  "file": "corpus/klod68_littlerae__.claude_agents_technical-writer.md",
+  "repo": "klod68/littlerae",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02487",
+  "file": "corpus/kmesiab_concept-model-protein-classifier__.github_agents_technical-writer.agent.md",
+  "repo": "kmesiab/concept-model-protein-classifier",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02488",
+  "file": "corpus/knishioka_ai-books__.claude_agents_migration-author.md",
+  "repo": "knishioka/ai-books",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02489",
+  "file": "corpus/knofler_myai__agents_content-technical-writer.md",
+  "repo": "knofler/myai",
+  "path": "agents/content-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03980",
+  "file": "corpus/german9827387_bjj59-site__.github_agents_copywriter.agent.md",
+  "repo": "german9827387/bjj59-site",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03981",
+  "file": "corpus/gf-both_golem-app__.claude_agents_copywriter.md",
+  "repo": "gf-both/golem-app",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03982",
+  "file": "corpus/ggarciasoft_orchest-flow-ai__agents_09-documentation.md",
+  "repo": "ggarciasoft/orchest-flow-ai",
+  "path": "agents/09-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03983",
+  "file": "corpus/ghwoodard_WordPress-Claude-Code-Agents__agents_wp-technical-writer.md",
+  "repo": "ghwoodard/WordPress-Claude-Code-Agents",
+  "path": "agents/wp-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03984",
+  "file": "corpus/giarcheuli_gigs.ge__.github_agents_documentation-handoff-agent.agent.md",
+  "repo": "giarcheuli/gigs.ge",
+  "path": ".github/agents/documentation-handoff-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03985",
+  "file": "corpus/gihwan-dev_claude-setup__agents_docs-researcher.md",
+  "repo": "gihwan-dev/claude-setup",
+  "path": "agents/docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03986",
+  "file": "corpus/gijsmin_runsheet__.codex_agents_runsheet-docs-consistency.toml",
+  "repo": "gijsmin/runsheet",
+  "path": ".codex/agents/runsheet-docs-consistency.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03987",
+  "file": "corpus/giolabs_somnio-loop__agents_adr-author.md",
+  "repo": "giolabs/somnio-loop",
+  "path": "agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03988",
+  "file": "corpus/girlive_rereresearch__.claude_agents_report-writer.md",
+  "repo": "girlive/rereresearch",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03989",
+  "file": "corpus/girlypopicon_IconicAgents__.github_agents_Document-Writer.agent.md",
+  "repo": "girlypopicon/IconicAgents",
+  "path": ".github/agents/Document-Writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

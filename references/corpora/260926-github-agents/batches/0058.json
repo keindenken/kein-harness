@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00580",
+  "file": "corpus/nicobailon_pi-subagents__agents_cursor-agent-writer.md",
+  "repo": "nicobailon/pi-subagents",
+  "path": "agents/cursor-agent-writer.md",
+  "stars": 3764,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00581",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_agents_spec-design.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-design.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00582",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_agents_spec-impl.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-impl.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00583",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_agents_spec-tasks.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-tasks.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00584",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_spec-design.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-design.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00585",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_spec-init.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-init.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00586",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_spec-requirements.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-requirements.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00587",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_spec-status.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-status.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00588",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code_commands_spec-requirements.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-requirements.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00589",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_opencode-agent_commands_kiro-spec-impl.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-impl.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03790",
+  "file": "corpus/developerz-ai_nexus-engine__.claude_agents_editor-rpc-parity-auditor.md",
+  "repo": "developerz-ai/nexus-engine",
+  "path": ".claude/agents/editor-rpc-parity-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03791",
+  "file": "corpus/developerz-ai_nexus-engine__.claude_agents_spec-author.md",
+  "repo": "developerz-ai/nexus-engine",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03792",
+  "file": "corpus/developzoneio_specwright__agents_docs-writer.md",
+  "repo": "developzoneio/specwright",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03793",
+  "file": "corpus/devintev_indomonitor__agents_DOCUMENTATION.md",
+  "repo": "devintev/indomonitor",
+  "path": "agents/DOCUMENTATION.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03794",
+  "file": "corpus/devopsjester_copilot-agent-weather-demo__.github_agents_docs-agent.agent.md",
+  "repo": "devopsjester/copilot-agent-weather-demo",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03795",
+  "file": "corpus/devsforge_orchestrator__agents_documentation.md",
+  "repo": "devsforge/orchestrator",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03796",
+  "file": "corpus/devsforge_orchestrator__agents_spec-writer.md",
+  "repo": "devsforge/orchestrator",
+  "path": "agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03797",
+  "file": "corpus/dfo1977hot_Assistente-Candidaturas-Daniel__.github_agents_documentation.md",
+  "repo": "dfo1977hot/Assistente-Candidaturas-Daniel",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03798",
+  "file": "corpus/dgaudet_commentator-frontend__.claude_agents_technical-writer.md",
+  "repo": "dgaudet/commentator-frontend",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03799",
+  "file": "corpus/dgiliver_bonito__.claude_agents_doc-writer.md",
+  "repo": "dgiliver/bonito",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

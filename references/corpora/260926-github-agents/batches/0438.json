@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04380",
+  "file": "corpus/litefuse_litefuse__.claude_agents_changelog-writer.md",
+  "repo": "litefuse/litefuse",
+  "path": ".claude/agents/changelog-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04381",
+  "file": "corpus/litestar-org_litestar-fullstack-inertia__.claude_agents_docs-vision.md",
+  "repo": "litestar-org/litestar-fullstack-inertia",
+  "path": ".claude/agents/docs-vision.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04382",
+  "file": "corpus/lj19871202-sketch_requirement-agent-dispatch__agents_legal-policy-writer.md",
+  "repo": "lj19871202-sketch/requirement-agent-dispatch",
+  "path": "agents/legal-policy-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04383",
+  "file": "corpus/lj19871202-sketch_requirement-agent-dispatch__agents_marketing-book-co-author.md",
+  "repo": "lj19871202-sketch/requirement-agent-dispatch",
+  "path": "agents/marketing-book-co-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04384",
+  "file": "corpus/ljchg12-hue_windows-dotfiles__.claude_agents_technical-writer.md",
+  "repo": "ljchg12-hue/windows-dotfiles",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04385",
+  "file": "corpus/lopatnov_mise__.claude_agents_technical-writer.md",
+  "repo": "lopatnov/mise",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04386",
+  "file": "corpus/lordmos_dev-crew__agents_technical-writer.md",
+  "repo": "lordmos/dev-crew",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04387",
+  "file": "corpus/lorikr6-cell_devquake__.claude_agents_docs-keeper.md",
+  "repo": "lorikr6-cell/devquake",
+  "path": ".claude/agents/docs-keeper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04388",
+  "file": "corpus/louis70109_ndotfile__agents_prd-writer.md",
+  "repo": "louis70109/ndotfile",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04389",
+  "file": "corpus/louisianahelpr_louisianahelpr__.claude_agents_lh-mkt-copywriter.md",
+  "repo": "louisianahelpr/louisianahelpr",
+  "path": ".claude/agents/lh-mkt-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02840",
+  "file": "corpus/ElliottBregni_agent-template__.github_agents_skills_docs-update.md",
+  "repo": "ElliottBregni/agent-template",
+  "path": ".github/agents/skills/docs-update.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02841",
+  "file": "corpus/EmadMokhtar_MeetingMind__.github_agents_technical-writer.agent.md",
+  "repo": "EmadMokhtar/MeetingMind",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02842",
+  "file": "corpus/Emasoft_ai-maestro-webdesign__agents_amw-multilanguage-copywriter-agent.md",
+  "repo": "Emasoft/ai-maestro-webdesign",
+  "path": "agents/amw-multilanguage-copywriter-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02843",
+  "file": "corpus/EmminiX_EchoContext-Factory__.claude_agents_documentation-specialist.md",
+  "repo": "EmminiX/EchoContext-Factory",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02844",
+  "file": "corpus/EngineerAbdullahIqbal_roboailearner__.claude_agents_technical-writer.md",
+  "repo": "EngineerAbdullahIqbal/roboailearner",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02845",
+  "file": "corpus/ErnisBadmae_englishFriend__.claude_agents_documentation-manager.md",
+  "repo": "ErnisBadmae/englishFriend",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02846",
+  "file": "corpus/Evruset_pethelp__.codex_agents_docs_researcher_terra.toml",
+  "repo": "Evruset/pethelp",
+  "path": ".codex/agents/docs_researcher_terra.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02847",
+  "file": "corpus/ExecuteTyT_BasePremier__.claude_agents_copywriter.md",
+  "repo": "ExecuteTyT/BasePremier",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02848",
+  "file": "corpus/Exios66_LLM_Personas__agents_tools_research-report-workflow.md",
+  "repo": "Exios66/LLM_Personas",
+  "path": "agents/tools/research-report-workflow.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02849",
+  "file": "corpus/Eyevinn_nab2026-news__.claude_agents_content-editor.md",
+  "repo": "Eyevinn/nab2026-news",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

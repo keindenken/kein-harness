@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02040",
+  "file": "corpus/agent-frontier_wgm__.github_agents_wgm-docs-pm.agent.md",
+  "repo": "agent-frontier/wgm",
+  "path": ".github/agents/wgm-docs-pm.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02041",
+  "file": "corpus/amnotyoung_dev-eval-agents__agents_report-composer.md",
+  "repo": "amnotyoung/dev-eval-agents",
+  "path": "agents/report-composer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02042",
+  "file": "corpus/antonchirikalov_deep-analyst__.github_agents_editor.agent.md",
+  "repo": "antonchirikalov/deep-analyst",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02043",
+  "file": "corpus/apostroxyz_vera__.github_agents_defi-report-section-writer.agent.md",
+  "repo": "apostroxyz/vera",
+  "path": ".github/agents/defi-report-section-writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02044",
+  "file": "corpus/apostroxyz_vera__.github_agents_defi-report-writer.agent.md",
+  "repo": "apostroxyz/vera",
+  "path": ".github/agents/defi-report-writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02045",
+  "file": "corpus/artsmc_claude-dev-agents__agents_technical-writer.md",
+  "repo": "artsmc/claude-dev-agents",
+  "path": "agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02046",
+  "file": "corpus/ashugaev_spur__.codex_agents_design-author.toml",
+  "repo": "ashugaev/spur",
+  "path": ".codex/agents/design-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02047",
+  "file": "corpus/aziontech_webkit__.claude_agents_echo-reporter.md",
+  "repo": "aziontech/webkit",
+  "path": ".claude/agents/echo-reporter.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02048",
+  "file": "corpus/aziontech_webkit__.claude_agents_spec-author.md",
+  "repo": "aziontech/webkit",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02049",
+  "file": "corpus/bearingfruitco_cc-boiler-js-public__.claude_agents_documentation-writer.md",
+  "repo": "bearingfruitco/cc-boiler-js-public",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

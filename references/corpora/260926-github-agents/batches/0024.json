@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00240",
+  "file": "corpus/gsd-build_gsd-2__src_resources_agents_doc-writer.md",
+  "repo": "gsd-build/gsd-2",
+  "path": "src/resources/agents/doc-writer.md",
+  "stars": 7781,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00241",
+  "file": "corpus/nyldn_claude-octopus__.github_agents_docs-architect.agent.md",
+  "repo": "nyldn/claude-octopus",
+  "path": ".github/agents/docs-architect.agent.md",
+  "stars": 4099,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00242",
+  "file": "corpus/microsoft_apm__.apm_agents_doc-writer.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/doc-writer.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00243",
+  "file": "corpus/microsoft_apm__.apm_agents_editorial-owner.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/editorial-owner.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00244",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-documentation_agents_api-documenter.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-documentation/agents/api-documenter.md",
+  "stars": 3542,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00245",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-specialized-domains_agents_report-generator.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-specialized-domains/agents/report-generator.md",
+  "stars": 3542,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00246",
+  "file": "corpus/0xSteph_pentest-ai-agents__agents_report-generator.md",
+  "repo": "0xSteph/pentest-ai-agents",
+  "path": "agents/report-generator.md",
+  "stars": 2271,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00247",
+  "file": "corpus/levy-street_world-of-claudecraft__.codex_agents_woc_docs_researcher.toml",
+  "repo": "levy-street/world-of-claudecraft",
+  "path": ".codex/agents/woc_docs_researcher.toml",
+  "stars": 2266,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00248",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-research-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-research-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00249",
+  "file": "corpus/amd_gaia__.claude_agents_api-documenter.md",
+  "repo": "amd/gaia",
+  "path": ".claude/agents/api-documenter.md",
+  "stars": 1570,
+  "copies_in_repos": 2
+ }
+]

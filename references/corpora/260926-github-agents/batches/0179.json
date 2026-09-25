@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01790",
+  "file": "corpus/lhhiep2204_apple-agent-builder-kit__.github_agents_apple-copilot-docs-refresher.agent.md",
+  "repo": "lhhiep2204/apple-agent-builder-kit",
+  "path": ".github/agents/apple-copilot-docs-refresher.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01791",
+  "file": "corpus/lizTheDeveloper_ai_game_theory_simulation__.claude_agents_gamestate-field-editor.md",
+  "repo": "lizTheDeveloper/ai_game_theory_simulation",
+  "path": ".claude/agents/gamestate-field-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01792",
+  "file": "corpus/lizTheDeveloper_ai_game_theory_simulation__.claude_agents_wiki-documentation-updater.md",
+  "repo": "lizTheDeveloper/ai_game_theory_simulation",
+  "path": ".claude/agents/wiki-documentation-updater.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01793",
+  "file": "corpus/lucasrp_edge-of-chaos__.claude_agents_experiment-reporter.md",
+  "repo": "lucasrp/edge-of-chaos",
+  "path": ".claude/agents/experiment-reporter.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01794",
+  "file": "corpus/maltehedderich_master-class-agents__agents_technical-writer.agent.md",
+  "repo": "maltehedderich/master-class-agents",
+  "path": "agents/technical-writer.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01795",
+  "file": "corpus/marko-koljancic_solarxy__.claude_agents_technical-writer.md",
+  "repo": "marko-koljancic/solarxy",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01796",
+  "file": "corpus/matt-metivier_zk-flow-oss__.claude_agents_dashboard-editor.md",
+  "repo": "matt-metivier/zk-flow-oss",
+  "path": ".claude/agents/dashboard-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01797",
+  "file": "corpus/matt-metivier_zk-flow-oss__.claude_agents_pr-author.md",
+  "repo": "matt-metivier/zk-flow-oss",
+  "path": ".claude/agents/pr-author.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01798",
+  "file": "corpus/matt-metivier_zk-flow-oss__.claude_agents_scope-locked-editor.md",
+  "repo": "matt-metivier/zk-flow-oss",
+  "path": ".claude/agents/scope-locked-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01799",
+  "file": "corpus/mrwogu_logstrip__.claude_agents_logstrip-fixture-author.md",
+  "repo": "mrwogu/logstrip",
+  "path": ".claude/agents/logstrip-fixture-author.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

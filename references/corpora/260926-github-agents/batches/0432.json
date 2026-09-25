@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04320",
+  "file": "corpus/kluthen_grogle-failure__.claude_agents_coauthor.md",
+  "repo": "kluthen/grogle-failure",
+  "path": ".claude/agents/coauthor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04321",
+  "file": "corpus/kmtz3_aise-leadership__agents_report-builder.md",
+  "repo": "kmtz3/aise-leadership",
+  "path": "agents/report-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04322",
+  "file": "corpus/koala-man-64_helpful-scripts__.github_agents_openai-docs.agent.md",
+  "repo": "koala-man-64/helpful-scripts",
+  "path": ".github/agents/openai-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04323",
+  "file": "corpus/kocakburhan_Marketing__.claude_agents_technical-writer_technical-writer.md",
+  "repo": "kocakburhan/Marketing",
+  "path": ".claude/agents/technical-writer/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04324",
+  "file": "corpus/koenvorster_koen-portfolio__.github_agents_content_editor.agent.md",
+  "repo": "koenvorster/koen-portfolio",
+  "path": ".github/agents/content_editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04325",
+  "file": "corpus/korneliuszburian_tallystick__.codex_agents_luna_patch_author.toml",
+  "repo": "korneliuszburian/tallystick",
+  "path": ".codex/agents/luna_patch_author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04326",
+  "file": "corpus/kossahl_warden-drydock__.codex_agents_docs_maintainer.toml",
+  "repo": "kossahl/warden-drydock",
+  "path": ".codex/agents/docs_maintainer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04327",
+  "file": "corpus/kotamichael_pro-rege__.claude_agents_editor-style.md",
+  "repo": "kotamichael/pro-rege",
+  "path": ".claude/agents/editor-style.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04328",
+  "file": "corpus/kozyocho_dateplan__.claude_agents_marketing_seo-copywriter.md",
+  "repo": "kozyocho/dateplan",
+  "path": ".claude/agents/marketing/seo-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04329",
+  "file": "corpus/krbingham-studio_claude-code-plugin__agents_technical-writer.md",
+  "repo": "krbingham-studio/claude-code-plugin",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

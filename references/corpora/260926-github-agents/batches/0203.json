@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02030",
+  "file": "corpus/Shehabov_ai-dev-crew__.claude_agents_ux-writer.md",
+  "repo": "Shehabov/ai-dev-crew",
+  "path": ".claude/agents/ux-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02031",
+  "file": "corpus/Shehabov_ai-dev-crew__docs_agents_ux-writer.md",
+  "repo": "Shehabov/ai-dev-crew",
+  "path": "docs/agents/ux-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02032",
+  "file": "corpus/SkyWalker2506_claude-config__agents_IMPROVEMENT_REPORT.md",
+  "repo": "SkyWalker2506/claude-config",
+  "path": "agents/IMPROVEMENT_REPORT.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02033",
+  "file": "corpus/SkyWalker2506_claude-config__agents_backend_backend-architect_knowledge_api-documentation-standards.md",
+  "repo": "SkyWalker2506/claude-config",
+  "path": "agents/backend/backend-architect/knowledge/api-documentation-standards.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02034",
+  "file": "corpus/Smengerl_vw_connect_mcp__.github_agents_publication-readiness-report.example.md",
+  "repo": "Smengerl/vw_connect_mcp",
+  "path": ".github/agents/publication-readiness-report.example.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02035",
+  "file": "corpus/StuartF303_vandaemon__.claude_agents_documentation-writer.md",
+  "repo": "StuartF303/vandaemon",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02036",
+  "file": "corpus/Wolverine971_9takes__.claude_agents_editor.md",
+  "repo": "Wolverine971/9takes",
+  "path": ".claude/agents/editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02037",
+  "file": "corpus/YenidoganKursat_Kaynexis-Agentic-Game-Studio__.codex_agents_docs_researcher.toml",
+  "repo": "YenidoganKursat/Kaynexis-Agentic-Game-Studio",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02038",
+  "file": "corpus/ablative-io_beamr__.claude_agents_agent-devops-writer.md",
+  "repo": "ablative-io/beamr",
+  "path": ".claude/agents/agent-devops-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02039",
+  "file": "corpus/ablative-io_beamr__.claude_agents_brief-writer.md",
+  "repo": "ablative-io/beamr",
+  "path": ".claude/agents/brief-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

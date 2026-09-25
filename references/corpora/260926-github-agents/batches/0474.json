@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04740",
+  "file": "corpus/protogenyx_turborepo_boilerplate__.claude_agents_doc-updater.md",
+  "repo": "protogenyx/turborepo_boilerplate",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04741",
+  "file": "corpus/provectus_awos__.github_agents_doc-writer.md",
+  "repo": "provectus/awos",
+  "path": ".github/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04742",
+  "file": "corpus/pruefsumme_veryeasymockups.com__.claude_agents_element-author.md",
+  "repo": "pruefsumme/veryeasymockups.com",
+  "path": ".claude/agents/element-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04743",
+  "file": "corpus/psi16181918161phi_engineering-studio-ai__.github_agents_documentation.agent.md",
+  "repo": "psi16181918161phi/engineering-studio-ai",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04744",
+  "file": "corpus/pumba-dev_cut-machine__.claude_agents_copywriter.md",
+  "repo": "pumba-dev/cut-machine",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04745",
+  "file": "corpus/punitganshani_ai-delivery-starter__.github_agents_sprint-reporter.agent.md",
+  "repo": "punitganshani/ai-delivery-starter",
+  "path": ".github/agents/sprint-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04746",
+  "file": "corpus/pvillega_claude-instructions__.claude_agents_technical-writer.md",
+  "repo": "pvillega/claude-instructions",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04747",
+  "file": "corpus/pyplan_pyplan-docs__.github_agents_pyplan-docs-writer.agent.md",
+  "repo": "pyplan/pyplan-docs",
+  "path": ".github/agents/pyplan-docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04748",
+  "file": "corpus/qchen-fdii-cardc_bevy_tutorials__.github_agents_thoughts-memo-writer.agent.md",
+  "repo": "qchen-fdii-cardc/bevy_tutorials",
+  "path": ".github/agents/thoughts-memo-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04749",
+  "file": "corpus/qclayssen_clinical-genomics-platform__.claude_agents_documentation-writer.md",
+  "repo": "qclayssen/clinical-genomics-platform",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

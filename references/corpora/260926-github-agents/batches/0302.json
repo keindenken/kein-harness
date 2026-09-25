@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03020",
+  "file": "corpus/Krishp091205_gemini-config__agents_ruflo_ruflo-main_v3_@claude-flow_mcp_.claude_commands_sparc_docs-writer.md",
+  "repo": "Krishp091205/gemini-config",
+  "path": "agents/ruflo/ruflo-main/v3/@claude-flow/mcp/.claude/commands/sparc/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03021",
+  "file": "corpus/KrizanPeter_VibeFinRecord__.claude_agents_spec-guardian.md",
+  "repo": "KrizanPeter/VibeFinRecord",
+  "path": ".claude/agents/spec-guardian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03022",
+  "file": "corpus/Krmj33t_claude-dev-org__agents_org_documenter.md",
+  "repo": "Krmj33t/claude-dev-org",
+  "path": "agents/org/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03023",
+  "file": "corpus/Kullendorff_densomsover__.codex_agents_eon-kapitel-writer.toml",
+  "repo": "Kullendorff/densomsover",
+  "path": ".codex/agents/eon-kapitel-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03024",
+  "file": "corpus/KyleBlankRollins_Web-Portfolio__.github_agents_editor-agent.agent.md",
+  "repo": "KyleBlankRollins/Web-Portfolio",
+  "path": ".github/agents/editor-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03025",
+  "file": "corpus/KyleBlankRollins_blueprint__.github_agents_technical-writer.md",
+  "repo": "KyleBlankRollins/blueprint",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03026",
+  "file": "corpus/LG15601_alba-blueprint__agents_army_divisions_engineering_technical-writer.md",
+  "repo": "LG15601/alba-blueprint",
+  "path": "agents/army/divisions/engineering/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03027",
+  "file": "corpus/LP-sun_arknightsclip__.codex_agents_docs-reporter.toml",
+  "repo": "LP-sun/arknightsclip",
+  "path": ".codex/agents/docs-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03028",
+  "file": "corpus/LairdWT_Radia__.codex_agents_aep-agent-surgical-editor.toml",
+  "repo": "LairdWT/Radia",
+  "path": ".codex/agents/aep-agent-surgical-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03029",
+  "file": "corpus/LakishaDev_vaga-beta-react__.github_agents_documentation-expert.md",
+  "repo": "LakishaDev/vaga-beta-react",
+  "path": ".github/agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

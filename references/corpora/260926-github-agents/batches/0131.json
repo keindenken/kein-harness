@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01310",
+  "file": "corpus/microsoft_learn-ai-native-dev__.github_agents_author.agent.md",
+  "repo": "microsoft/learn-ai-native-dev",
+  "path": ".github/agents/author.agent.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01311",
+  "file": "corpus/microsoft_learn-ai-native-dev__.github_agents_docs-auditor.agent.md",
+  "repo": "microsoft/learn-ai-native-dev",
+  "path": ".github/agents/docs-auditor.agent.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01312",
+  "file": "corpus/n3m6_opencode-config__agents_pipeline-reporter.md",
+  "repo": "n3m6/opencode-config",
+  "path": "agents/pipeline-reporter.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01313",
+  "file": "corpus/ssmirnovpro_claude-code-documentation-crew__.claude_agents_technical-writer.md",
+  "repo": "ssmirnovpro/claude-code-documentation-crew",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 19,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01314",
+  "file": "corpus/CongDon1207_AGENTS.md__.codex_agents_docs-manager.toml",
+  "repo": "CongDon1207/AGENTS.md",
+  "path": ".codex/agents/docs-manager.toml",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01315",
+  "file": "corpus/CongDon1207_AGENTS.md__.opencode_agent_docs-manager.md",
+  "repo": "CongDon1207/AGENTS.md",
+  "path": ".opencode/agent/docs-manager.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01316",
+  "file": "corpus/FredFang1216_MARs__agents_fragment-writer.md",
+  "repo": "FredFang1216/MARs",
+  "path": "agents/fragment-writer.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01317",
+  "file": "corpus/JuanLunaIA_aegis-latent-core__.claude_agents_docs-corpus-editor.md",
+  "repo": "JuanLunaIA/aegis-latent-core",
+  "path": ".claude/agents/docs-corpus-editor.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01318",
+  "file": "corpus/JuanLunaIA_aegis-latent-core__.claude_agents_operations-runbook-author.md",
+  "repo": "JuanLunaIA/aegis-latent-core",
+  "path": ".claude/agents/operations-runbook-author.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01319",
+  "file": "corpus/aayushostwal_nexus__agents_docs-app-builder.md",
+  "repo": "aayushostwal/nexus",
+  "path": "agents/docs-app-builder.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ }
+]

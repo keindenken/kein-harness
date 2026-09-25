@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01780",
+  "file": "corpus/darellchua2_civiltekk-opencode-claude-skills__agents_documentation-subagent.md",
+  "repo": "darellchua2/civiltekk-opencode-claude-skills",
+  "path": "agents/documentation-subagent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01781",
+  "file": "corpus/dolutech_dolu-agents-skills__agents_documentation-writer.md",
+  "repo": "dolutech/dolu-agents-skills",
+  "path": "agents/documentation-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01782",
+  "file": "corpus/ensdomains_bigname__.claude_agents_contract-editor.md",
+  "repo": "ensdomains/bigname",
+  "path": ".claude/agents/contract-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01783",
+  "file": "corpus/fattain-naime_engineering-docs__agents_documentation-generator.md",
+  "repo": "fattain-naime/engineering-docs",
+  "path": "agents/documentation-generator.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01784",
+  "file": "corpus/fdmorison_tiozin__.claude_agents_technical-writer.md",
+  "repo": "fdmorison/tiozin",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01785",
+  "file": "corpus/forwardimpact_monorepo__.claude_agents_technical-writer.md",
+  "repo": "forwardimpact/monorepo",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01786",
+  "file": "corpus/gselsidi_ai-brain__.codex_agents_docs_drift_guard.toml",
+  "repo": "gselsidi/ai-brain",
+  "path": ".codex/agents/docs_drift_guard.toml",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01787",
+  "file": "corpus/imMamdouhaboammar_get-fable__agents_author.md",
+  "repo": "imMamdouhaboammar/get-fable",
+  "path": "agents/author.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01788",
+  "file": "corpus/kmshihab7878_claude-code-setup__agents_analytics-reporter.md",
+  "repo": "kmshihab7878/claude-code-setup",
+  "path": "agents/analytics-reporter.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01789",
+  "file": "corpus/kmshihab7878_claude-code-setup__agents_growth_gen_copy-writer.md",
+  "repo": "kmshihab7878/claude-code-setup",
+  "path": "agents/growth/gen/copy-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

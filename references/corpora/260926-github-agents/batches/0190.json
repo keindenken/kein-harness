@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01900",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_conversion-copywriter.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/conversion-copywriter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01901",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_seo-content-strategist.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/seo-content-strategist.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01902",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_seo-longform-writer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/seo-longform-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01903",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_social-post-writer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/social-post-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01904",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_technical-b2b-writer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/technical-b2b-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01905",
+  "file": "corpus/ContextLab_llmXive__agents_prompts_status_reporter.md",
+  "repo": "ContextLab/llmXive",
+  "path": "agents/prompts/status_reporter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01906",
+  "file": "corpus/ContextualIO_solution-ai-connect__agents_docs-reader.md",
+  "repo": "ContextualIO/solution-ai-connect",
+  "path": "agents/docs-reader.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01907",
+  "file": "corpus/ContextualIO_solution-ai-connect__agents_flow-editor.md",
+  "repo": "ContextualIO/solution-ai-connect",
+  "path": "agents/flow-editor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01908",
+  "file": "corpus/Daniele-Cangi_Argos__.claude_agents_docs-curator.md",
+  "repo": "Daniele-Cangi/Argos",
+  "path": ".claude/agents/docs-curator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01909",
+  "file": "corpus/FaysilAlshareef_dotnet-ai-kit__agents_docs-engineer.md",
+  "repo": "FaysilAlshareef/dotnet-ai-kit",
+  "path": "agents/docs-engineer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

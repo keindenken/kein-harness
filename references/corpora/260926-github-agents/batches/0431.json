@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04310",
+  "file": "corpus/kjohann_dugnadapp__.github_agents_prd-author.agent.md",
+  "repo": "kjohann/dugnadapp",
+  "path": ".github/agents/prd-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04311",
+  "file": "corpus/kjrocker_astro-codestitch-template__.claude_agents_landing-page-copywriter.md",
+  "repo": "kjrocker/astro-codestitch-template",
+  "path": ".claude/agents/landing-page-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04312",
+  "file": "corpus/kkafi09_pos-docs__.codex_agents_docs-structure.md",
+  "repo": "kkafi09/pos-docs",
+  "path": ".codex/agents/docs-structure.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04313",
+  "file": "corpus/kkrzysztofik_finance-tracker__.github_agents_technical-writer.agent.md",
+  "repo": "kkrzysztofik/finance-tracker",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04314",
+  "file": "corpus/klappe-pm_regulatory-ingredients-labels-laws__.claude_agents_doc-writer.md",
+  "repo": "klappe-pm/regulatory-ingredients-labels-laws",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04315",
+  "file": "corpus/klasolsson81_jobbliggaren__.codex_agents_db-migration-writer.toml",
+  "repo": "klasolsson81/jobbliggaren",
+  "path": ".codex/agents/db-migration-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04316",
+  "file": "corpus/klboke_kkRepo__.github_agents_docs-syncer.md",
+  "repo": "klboke/kkRepo",
+  "path": ".github/agents/docs-syncer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04317",
+  "file": "corpus/klenathan_GAIT_ASM3_RL__.opencode_agent_writer.md",
+  "repo": "klenathan/GAIT_ASM3_RL",
+  "path": ".opencode/agent/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04318",
+  "file": "corpus/klintravis_CopilotCustomizer__.github_agents_Editor.agent.md",
+  "repo": "klintravis/CopilotCustomizer",
+  "path": ".github/agents/Editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04319",
+  "file": "corpus/klinz123_SpaceWork2__.opencode_agent_api-doc-writer.md",
+  "repo": "klinz123/SpaceWork2",
+  "path": ".opencode/agent/api-doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00310",
+  "file": "corpus/ptarmiganlabs_butler-sheet-icons__.github_agents_documentation-writer.md",
+  "repo": "ptarmiganlabs/butler-sheet-icons",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 13,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00311",
+  "file": "corpus/vinnie357_claudio__.claude_agents_claudio_documentation-api-creator.md",
+  "repo": "vinnie357/claudio",
+  "path": ".claude/agents/claudio/documentation-api-creator.md",
+  "stars": 13,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00312",
+  "file": "corpus/vinnie357_claudio__.claude_agents_claudio_documentation-readme-creator.md",
+  "repo": "vinnie357/claudio",
+  "path": ".claude/agents/claudio/documentation-readme-creator.md",
+  "stars": 13,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00313",
+  "file": "corpus/ivo-toby_talon__.claude_agents_docs-generator.md",
+  "repo": "ivo-toby/talon",
+  "path": ".claude/agents/docs-generator.md",
+  "stars": 12,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00314",
+  "file": "corpus/rh-ai-quickstart_multi-agent-loan-origination__.claude_agents_technical-writer.md",
+  "repo": "rh-ai-quickstart/multi-agent-loan-origination",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 12,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00315",
+  "file": "corpus/N4M3Z_forge-council__agents_DocumentationWriter.md",
+  "repo": "N4M3Z/forge-council",
+  "path": "agents/DocumentationWriter.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00316",
+  "file": "corpus/zhangyu94_humanfile__.github_agents_docs-editor-proofreader.agent.md",
+  "repo": "zhangyu94/humanfile",
+  "path": ".github/agents/docs-editor-proofreader.agent.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00317",
+  "file": "corpus/Zenobia000_gallup-strengths-assessment__.claude_agents_documentation-specialist.md",
+  "repo": "Zenobia000/gallup-strengths-assessment",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00318",
+  "file": "corpus/frankxai_agentic-creator-os__.claude_agents_developmental-editor.md",
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/agents/developmental-editor.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00319",
+  "file": "corpus/frankxai_agentic-creator-os__.claude_agents_line-editor-voice-alchemist.md",
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/agents/line-editor-voice-alchemist.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ }
+]

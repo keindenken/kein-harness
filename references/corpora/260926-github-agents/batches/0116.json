@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01160",
+  "file": "corpus/kcenon_claude_code_agent__.claude_agents_sdp-writer.md",
+  "repo": "kcenon/claude_code_agent",
+  "path": ".claude/agents/sdp-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01161",
+  "file": "corpus/kcenon_claude_code_agent__.claude_agents_sds-writer.md",
+  "repo": "kcenon/claude_code_agent",
+  "path": ".claude/agents/sds-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01162",
+  "file": "corpus/kcenon_claude_code_agent__.claude_agents_srs-writer.md",
+  "repo": "kcenon/claude_code_agent",
+  "path": ".claude/agents/srs-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01163",
+  "file": "corpus/kcenon_claude_code_agent__.claude_agents_svp-writer.md",
+  "repo": "kcenon/claude_code_agent",
+  "path": ".claude/agents/svp-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01164",
+  "file": "corpus/matsen_bipartite__agents_scientific-tex-editor.md",
+  "repo": "matsen/bipartite",
+  "path": "agents/scientific-tex-editor.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01165",
+  "file": "corpus/quan0715_QJudge__.github_agents_documentation.agent.md",
+  "repo": "quan0715/QJudge",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01166",
+  "file": "corpus/securebio_nao-mgs-workflow__.claude_agents_update-docs.md",
+  "repo": "securebio/nao-mgs-workflow",
+  "path": ".claude/agents/update-docs.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01167",
+  "file": "corpus/spec2ship_spec2ship__agents_roundtable_documentation-specialist.md",
+  "repo": "spec2ship/spec2ship",
+  "path": "agents/roundtable/documentation-specialist.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01168",
+  "file": "corpus/stelitsyn_lacrimosa__.claude_agents_documentation-engineer-v3.md",
+  "repo": "stelitsyn/lacrimosa",
+  "path": ".claude/agents/documentation-engineer-v3.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01169",
+  "file": "corpus/tradermonty_claude-market-agents__.claude_agents_after-market-reporter.md",
+  "repo": "tradermonty/claude-market-agents",
+  "path": ".claude/agents/after-market-reporter.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03480",
+  "file": "corpus/akashmeshram_claude-disco__.claude_agents_documentation-auditor.md",
+  "repo": "akashmeshram/claude-disco",
+  "path": ".claude/agents/documentation-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03481",
+  "file": "corpus/akashtalole_CC-Plugin-for-Thingsboard__.claude_agents_tbce-author.md",
+  "repo": "akashtalole/CC-Plugin-for-Thingsboard",
+  "path": ".claude/agents/tbce-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03482",
+  "file": "corpus/akhilnaidu1994_Testing-Claude__.claude_agents_documentation-expert.md",
+  "repo": "akhilnaidu1994/Testing-Claude",
+  "path": ".claude/agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03483",
+  "file": "corpus/akinevz2_pdhd__.github_agents_pdhd-docs-spec-maintainer.agent.md",
+  "repo": "akinevz2/pdhd",
+  "path": ".github/agents/pdhd-docs-spec-maintainer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03484",
+  "file": "corpus/akirschke15-cmd_Cato-Registry__.claude_agents_technical-writer.md",
+  "repo": "akirschke15-cmd/Cato-Registry",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03485",
+  "file": "corpus/ako-fa_copilot-chat-customizations__.github_agents_report.agent.md",
+  "repo": "ako-fa/copilot-chat-customizations",
+  "path": ".github/agents/report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03486",
+  "file": "corpus/aktsmm_FY26_techconnect_saiten__.github_agents_saiten-reporter.agent.md",
+  "repo": "aktsmm/FY26_techconnect_saiten",
+  "path": ".github/agents/saiten-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03487",
+  "file": "corpus/al-how_nimble-task-notes__.claude_agents_editor-extension-specialist.md",
+  "repo": "al-how/nimble-task-notes",
+  "path": ".claude/agents/editor-extension-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03488",
+  "file": "corpus/alaoewashere_alisapp__.claude_agents_social-copywriter.md",
+  "repo": "alaoewashere/alisapp",
+  "path": ".claude/agents/social-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03489",
+  "file": "corpus/alchemiesofscent_social-carousel-bank__.claude_agents_editor.md",
+  "repo": "alchemiesofscent/social-carousel-bank",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

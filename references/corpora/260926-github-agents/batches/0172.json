@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01720",
+  "file": "corpus/ayaiayorg_agentic-devtools__.github_agents_agdt.parse-jira-error-report.agent.md",
+  "repo": "ayaiayorg/agentic-devtools",
+  "path": ".github/agents/agdt.parse-jira-error-report.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01721",
+  "file": "corpus/aztfmodnew_terraform-azurerm-caf__.github_agents_documentation-sync.agent.md",
+  "repo": "aztfmodnew/terraform-azurerm-caf",
+  "path": ".github/agents/documentation-sync.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01722",
+  "file": "corpus/bturksoy_claude-code-app-studio__.claude_agents_tech-writer.md",
+  "repo": "bturksoy/claude-code-app-studio",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01723",
+  "file": "corpus/cheesejaguar_sopher.ai__.claude_agents_editor.md",
+  "repo": "cheesejaguar/sopher.ai",
+  "path": ".claude/agents/editor.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01724",
+  "file": "corpus/cvoya-com_spring-voyage__.claude_agents_docs-writer.md",
+  "repo": "cvoya-com/spring-voyage",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01725",
+  "file": "corpus/damienbenveniste_ScaffoldGuard__.codex_agents_docs-worker.toml",
+  "repo": "damienbenveniste/ScaffoldGuard",
+  "path": ".codex/agents/docs-worker.toml",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01726",
+  "file": "corpus/dantech0xff_dre-kt__.codex_agents_dre-docs-manager.toml",
+  "repo": "dantech0xff/dre-kt",
+  "path": ".codex/agents/dre-docs-manager.toml",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01727",
+  "file": "corpus/dmicheneau_opencode-template-agent__agents_docs_technical-writer.md",
+  "repo": "dmicheneau/opencode-template-agent",
+  "path": "agents/docs/technical-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01728",
+  "file": "corpus/dosaic_dosaic__.claude_agents_plugin-author.md",
+  "repo": "dosaic/dosaic",
+  "path": ".claude/agents/plugin-author.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01729",
+  "file": "corpus/frootai_frootai__agents_fai-adr-writer.agent.md",
+  "repo": "frootai/frootai",
+  "path": "agents/fai-adr-writer.agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01980",
+  "file": "corpus/vikisingh23_neuraforge-ai__agents_documentation.md",
+  "repo": "vikisingh23/neuraforge-ai",
+  "path": "agents/documentation.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01981",
+  "file": "corpus/vitrin-os_vitrin-os__.claude_agents_ci-docs.md",
+  "repo": "vitrin-os/vitrin-os",
+  "path": ".claude/agents/ci-docs.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01982",
+  "file": "corpus/vshidlovsky_prd-agents-framework__agents_prd-senior-pm.md",
+  "repo": "vshidlovsky/prd-agents-framework",
+  "path": "agents/prd-senior-pm.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01983",
+  "file": "corpus/vshidlovsky_prd-agents-framework__agents_prd-smell-patterns.md",
+  "repo": "vshidlovsky/prd-agents-framework",
+  "path": "agents/prd-smell-patterns.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01984",
+  "file": "corpus/vshidlovsky_prd-agents-framework__agents_prd-writer.md",
+  "repo": "vshidlovsky/prd-agents-framework",
+  "path": "agents/prd-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01985",
+  "file": "corpus/welshDog_HyperCode-V2.4__agents_broski-bot_docs_MERGE_READINESS_REPORT.md",
+  "repo": "welshDog/HyperCode-V2.4",
+  "path": "agents/broski-bot/docs/MERGE_READINESS_REPORT.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01986",
+  "file": "corpus/willtheorangeguy_Periodic-Table-Info__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Periodic-Table-Info",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01987",
+  "file": "corpus/willtheorangeguy_PyAvatar__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/PyAvatar",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01988",
+  "file": "corpus/willtheorangeguy_willtheorangeguy.github.io__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/willtheorangeguy.github.io",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01989",
+  "file": "corpus/xdanger_dotfiles__agents_skills_tapdb-data-analysis_references_report_api.md",
+  "repo": "xdanger/dotfiles",
+  "path": "agents/skills/tapdb-data-analysis/references/report_api.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03100",
+  "file": "corpus/MoMoJee_MoMoJeeObsidian__.codex_agents_lab-report-writer.toml",
+  "repo": "MoMoJee/MoMoJeeObsidian",
+  "path": ".codex/agents/lab-report-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03101",
+  "file": "corpus/MohammadAyon_Editor__.github_agents_connected-web-editor.agent.md",
+  "repo": "MohammadAyon/Editor",
+  "path": ".github/agents/connected-web-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03102",
+  "file": "corpus/MomsEarlobe_Bakery-site__.claude_agents_bakery-copywriter.md",
+  "repo": "MomsEarlobe/Bakery-site",
+  "path": ".claude/agents/bakery-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03103",
+  "file": "corpus/Moondsun-999_prime-minds__.claude_agents_copywriter.md",
+  "repo": "Moondsun-999/prime-minds",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03104",
+  "file": "corpus/MosheHM_agent-instructions__agents_content_copywriter.md",
+  "repo": "MosheHM/agent-instructions",
+  "path": "agents/content/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03105",
+  "file": "corpus/MosheHM_agent-instructions__agents_content_technical-writer.md",
+  "repo": "MosheHM/agent-instructions",
+  "path": "agents/content/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03106",
+  "file": "corpus/MoshkaBortmanStar_demo-agent-skill__.claude_agents_technical-writer.md",
+  "repo": "MoshkaBortmanStar/demo-agent-skill",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03107",
+  "file": "corpus/MouazKass_cloudforge__.claude_agents_docs-writer.md",
+  "repo": "MouazKass/cloudforge",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03108",
+  "file": "corpus/Mr-wilz_Fort-Tech__.github_agents_fort-readme-writer.agent.md",
+  "repo": "Mr-wilz/Fort-Tech",
+  "path": ".github/agents/fort-readme-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03109",
+  "file": "corpus/Mubeen-jawed_RevenueLyft-MarketingAgent__.claude_agents_copywriter.md",
+  "repo": "Mubeen-jawed/RevenueLyft-MarketingAgent",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

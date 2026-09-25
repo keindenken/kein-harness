@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01100",
+  "file": "corpus/alx-uta_wallpanel-android__.claude_agents_docs-writer.md",
+  "repo": "alx-uta/wallpanel-android",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 39,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01101",
+  "file": "corpus/bitbitcodes_autonomous-sdlc__agents_sub_development_documentation-agent.md",
+  "repo": "bitbitcodes/autonomous-sdlc",
+  "path": "agents/sub/development/documentation-agent.md",
+  "stars": 39,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01102",
+  "file": "corpus/rustyrazorblade_easy-db-lab__.claude_agents_dashboard-editor.md",
+  "repo": "rustyrazorblade/easy-db-lab",
+  "path": ".claude/agents/dashboard-editor.md",
+  "stars": 39,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01103",
+  "file": "corpus/StargazerBio_stargazer__.opencode_agent_technical-writer.md",
+  "repo": "StargazerBio/stargazer",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01104",
+  "file": "corpus/Svenja-dev_claude-code-skills__agents_documentation-architect.md",
+  "repo": "Svenja-dev/claude-code-skills",
+  "path": "agents/documentation-architect.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01105",
+  "file": "corpus/pragmatest-dev_lvkit__.claude_agents_docs-reader.md",
+  "repo": "pragmatest-dev/lvkit",
+  "path": ".claude/agents/docs-reader.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01106",
+  "file": "corpus/pragmatest-dev_lvkit__.claude_agents_docs-writer.md",
+  "repo": "pragmatest-dev/lvkit",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01107",
+  "file": "corpus/streetrace-ai_streetrace__.claude_agents_documenter.md",
+  "repo": "streetrace-ai/streetrace",
+  "path": ".claude/agents/documenter.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01108",
+  "file": "corpus/wildcard_caro__.claude_agents_leftovers-reporter.md",
+  "repo": "wildcard/caro",
+  "path": ".claude/agents/leftovers-reporter.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01109",
+  "file": "corpus/wildcard_caro__.claude_agents_technical-writer.md",
+  "repo": "wildcard/caro",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 38,
+  "copies_in_repos": 1
+ }
+]

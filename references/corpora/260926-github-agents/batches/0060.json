@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00600",
+  "file": "corpus/zubair-trabzada_ai-marketing-claude__agents_market-content.md",
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "path": "agents/market-content.md",
+  "stars": 2683,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00601",
+  "file": "corpus/vercel_workflow__.claude_agents_docs-writer.md",
+  "repo": "vercel/workflow",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 2433,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00602",
+  "file": "corpus/AgentsMesh_AgentsMesh__agents_skills_arch-check_references_report-format.md",
+  "repo": "AgentsMesh/AgentsMesh",
+  "path": "agents/skills/arch-check/references/report-format.md",
+  "stars": 2355,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00603",
+  "file": "corpus/0xSteph_pentest-ai-agents__agents_exploit-guide.md",
+  "repo": "0xSteph/pentest-ai-agents",
+  "path": "agents/exploit-guide.md",
+  "stars": 2271,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00604",
+  "file": "corpus/Wirasm_prp__.claude_agents_docs-impact-agent.md",
+  "repo": "Wirasm/prp",
+  "path": ".claude/agents/docs-impact-agent.md",
+  "stars": 2250,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00605",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-cloud-research-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-cloud-research-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00606",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-competitors-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-competitors-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00607",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-datascout-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-datascout-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00608",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-gov-code-search-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-gov-code-search-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00609",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-gov-landscape-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-gov-landscape-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ }
+]

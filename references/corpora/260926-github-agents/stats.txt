@@ -1,0 +1,48 @@
+writing roles: 1089; specificity {1: 11, 2: 73, 3: 162, 4: 341, 5: 502}; >=4: 843
+scope: {'few-types': 381, 'single-type': 539, 'general-purpose': 167, None: 2}  | among >=4: {'few-types': 282, 'single-type': 454, 'general-purpose': 107}
+doc types: [('project-docs', 610), ('api-reference', 391), ('report-analysis', 168), ('prd-spec', 154), ('changelog', 152), ('code-comments', 131), ('marketing-copy', 99), ('other', 98), ('blog-article', 56), ('fiction-narrative', 44), ('ux-microcopy', 41), ('academic', 38), ('social-media', 30), ('prompt-instructions', 28)]
+
+flag                          all            specificity>=4
+  audience_first               475/1089 (44%)   358/843 (42%)
+  verify_against_source        687/1089 (63%)   587/843 (70%)
+  cite_sources                 230/1089 (21%)   215/843 (26%)
+  separate_fact_from_opinion   99/1089 (9%)     92/843 (11%)
+  cut_or_concise               562/1089 (52%)   472/843 (56%)
+  reasoning_kept_out           55/1089 (5%)     54/843 (6%)
+  research_before_writing      768/1089 (71%)   653/843 (77%)
+  updates_existing_docs        689/1089 (63%)   552/843 (65%)
+  fixed_template               817/1089 (75%)   700/843 (83%)
+  names_style_guide            208/1089 (19%)   185/843 (22%)
+  examples_in_prompt           581/1089 (53%)   517/843 (61%)
+  output_contract              858/1089 (79%)   724/843 (86%)
+  self_review_checklist        634/1089 (58%)   545/843 (65%)
+  asks_before_writing          226/1089 (21%)   185/843 (22%)
+
+all three core (audience, verify, cut): 219/1089 (20%); among >=4: 184/843 (22%)
+
+flag rate by primary doc type (types with >=40 roles):
+  project-docs       n= 610 audience=53 verify_a=73 cut_or_c=59 separate=5 cite_sou=14 fixed_te=69
+  api-reference      n= 391 audience=59 verify_a=76 cut_or_c=60 separate=2 cite_sou=11 fixed_te=75
+  report-analysis    n= 168 audience=35 verify_a=65 cut_or_c=37 separate=32 cite_sou=58 fixed_te=90
+  prd-spec           n= 154 audience=41 verify_a=58 cut_or_c=40 separate=13 cite_sou=23 fixed_te=87
+  changelog          n= 152 audience=60 verify_a=74 cut_or_c=58 separate=5 cite_sou=14 fixed_te=72
+  code-comments      n= 131 audience=55 verify_a=69 cut_or_c=67 separate=2 cite_sou=9 fixed_te=76
+  marketing-copy     n=  99 audience=58 verify_a=38 cut_or_c=61 separate=6 cite_sou=13 fixed_te=65
+  other              n=  98 audience=52 verify_a=64 cut_or_c=52 separate=8 cite_sou=29 fixed_te=74
+  blog-article       n=  56 audience=55 verify_a=52 cut_or_c=62 separate=11 cite_sou=39 fixed_te=73
+  fiction-narrative  n=  44 audience=14 verify_a=34 cut_or_c=45 separate=0 cite_sou=5 fixed_te=80
+  ux-microcopy       n=  41 audience=59 verify_a=44 cut_or_c=73 separate=2 cite_sou=2 fixed_te=78
+
+repos with >=3 distinct writing roles: 44
+  prmichaelsen/agent-context-protocol (17): 05-baseline-documentation, 05-docs, 06-documentation, 10-migration-docs, 14-baseline-docs, acp.spec, task-104-validation-documentation, task-129-docum
+  tiny-flowlab/novel-studio-copilot-cli (16): action-writer.agent, character-writer.agent, dialogue-writer.agent, editorial-team.agent, emotion-writer.agent, ko-action-writer.agent, ko-character-w
+  davila7/claude-code-templates (11): api-documenter, blog-writer, changelog-generator, content-marketer, documentation-engineer, documentation-expert, report-generator, sdd-spec-writer, s
+  UitbreidenOS/UitKit (10): adr-writer, documentation-engineer, sdr-copywriter
+  affaan-m/ECC (9): doc-updater, spec-miner
+  tractorjuice/arc-kit (9): arckit-cloud-research-writer, arckit-competitors-writer, arckit-datascout-writer, arckit-gov-code-search-writer, arckit-gov-landscape-writer, arckit-g
+  caioimori/sinapse-ai (9): ad-copywriter, brand-voice-writer, conversion-writer, copy-editor, funnel-copywriter, long-form-writer, sinapse-ad-copywriter, sinapse-copy-editor, si
+  github/awesome-copilot (8): ai-readiness-reporter.agent, gem-documentation-writer.agent, linkedin-post-writer.agent, prd.agent, project-documenter.agent, scientific-paper-researc
+  jmagly/carbonyl-agent (8): content-writer, copywriter, editor, reporting-agent, reporting-specialist, scriptwriter, technical-marketing-writer, technical-writer
+  ccplugins/awesome-claude-code-plugins (7): analytics-reporter, changelog-generator, codebase-documenter, content-creator, docs-writer, planning-prd-agent, prd-specialist
+  microsoft/hve-core (7): brd-prd-builders, documentation, engagement-report-generator, prd-builder, prd-builder.agent, report-generator, report-generator.agent
+  josstei/maestro-orchestrate (6): copywriter, technical-writer, technical_writer

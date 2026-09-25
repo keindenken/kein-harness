@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03750",
+  "file": "corpus/d4daveshep_battleships__.opencode_agent_bdd-feature-writer.md",
+  "repo": "d4daveshep/battleships",
+  "path": ".opencode/agent/bdd-feature-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03751",
+  "file": "corpus/dVelopment_gatsby-starter-cv__.claude_agents_config-editor.md",
+  "repo": "dVelopment/gatsby-starter-cv",
+  "path": ".claude/agents/config-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03752",
+  "file": "corpus/dackclup_quantrank__.claude_agents_narrative-copywriter.md",
+  "repo": "dackclup/quantrank",
+  "path": ".claude/agents/narrative-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03753",
+  "file": "corpus/dakkah-core_docs__.github_agents_docs-swarm-orchestrator.agent.md",
+  "repo": "dakkah-core/docs",
+  "path": ".github/agents/docs-swarm-orchestrator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03754",
+  "file": "corpus/danconger_my-better-t-app__.opencode_agent_docs-scraper.md",
+  "repo": "danconger/my-better-t-app",
+  "path": ".opencode/agent/docs-scraper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03755",
+  "file": "corpus/dang0705_planting__.codex_agents_docs-keeper.toml",
+  "repo": "dang0705/planting",
+  "path": ".codex/agents/docs-keeper.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03756",
+  "file": "corpus/danialshirali16_tashilcar-docs__agents_ux-writer.md",
+  "repo": "danialshirali16/tashilcar-docs",
+  "path": "agents/ux-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03757",
+  "file": "corpus/daniel0x00_tui-cv__.opencode_agent_content-editor.md",
+  "repo": "daniel0x00/tui-cv",
+  "path": ".opencode/agent/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03758",
+  "file": "corpus/danielbentes_every__.claude_agents_editorial-quality.md",
+  "repo": "danielbentes/every",
+  "path": ".claude/agents/editorial-quality.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03759",
+  "file": "corpus/daniele21_redact-guard__.codex_agents_docs-researcher.toml",
+  "repo": "daniele21/redact-guard",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

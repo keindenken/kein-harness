@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02970",
+  "file": "corpus/Jiinn-hhhh_whiplash__.codex_agents_report-synthesizer.toml",
+  "repo": "Jiinn-hhhh/whiplash",
+  "path": ".codex/agents/report-synthesizer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02971",
+  "file": "corpus/Jinssi_FinnishPolicy__agents_authoring.agent.md",
+  "repo": "Jinssi/FinnishPolicy",
+  "path": "agents/authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02972",
+  "file": "corpus/JoCGM09_sdd-en-opencode__.opencode_agent_spec-writer.md",
+  "repo": "JoCGM09/sdd-en-opencode",
+  "path": ".opencode/agent/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02973",
+  "file": "corpus/Joey-Fjh_my-theme-1__.codex_agents_docs-steward.toml",
+  "repo": "Joey-Fjh/my-theme-1",
+  "path": ".codex/agents/docs-steward.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02974",
+  "file": "corpus/JonathanGarciaCal_SAP_Automation__.github_agents_report-engine-dev.agent.md",
+  "repo": "JonathanGarciaCal/SAP_Automation",
+  "path": ".github/agents/report-engine-dev.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02975",
+  "file": "corpus/JordiParraCrespo_astro-ignite__.claude_agents_spec_author.md",
+  "repo": "JordiParraCrespo/astro-ignite",
+  "path": ".claude/agents/spec_author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02976",
+  "file": "corpus/Josan88_Electronic-Medication-Administration-Record__.opencode_agent_report.md",
+  "repo": "Josan88/Electronic-Medication-Administration-Record",
+  "path": ".opencode/agent/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02977",
+  "file": "corpus/JosemaPereira_TrAIveler__.claude_agents_technical-writer.md",
+  "repo": "JosemaPereira/TrAIveler",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02978",
+  "file": "corpus/Josh-Archer_agent-setup__.codex_agents_docs-scribe.agent.md",
+  "repo": "Josh-Archer/agent-setup",
+  "path": ".codex/agents/docs-scribe.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02979",
+  "file": "corpus/Josh-S-N2M_feature-pipeline__.claude_agents_discovery-plan-author.md",
+  "repo": "Josh-S-N2M/feature-pipeline",
+  "path": ".claude/agents/discovery-plan-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

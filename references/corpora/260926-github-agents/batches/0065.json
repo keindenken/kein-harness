@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00650",
+  "file": "corpus/Adversis_tailsnitch__.claude_agents_docs-agent.md",
+  "repo": "Adversis/tailsnitch",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 1126,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00651",
+  "file": "corpus/aidenlx_zotlit__.claude_agents_docs-writer.md",
+  "repo": "aidenlx/zotlit",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 1021,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00652",
+  "file": "corpus/hoangsonww_Claude-Code-Agent-Monitor__plugins_ccam-reports_agents_report-analyst.md",
+  "repo": "hoangsonww/Claude-Code-Agent-Monitor",
+  "path": "plugins/ccam-reports/agents/report-analyst.md",
+  "stars": 1015,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00653",
+  "file": "corpus/Human-Agent-Society_CORAL__plugin_agents_coral-task-author.md",
+  "repo": "Human-Agent-Society/CORAL",
+  "path": "plugin/agents/coral-task-author.md",
+  "stars": 1013,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00654",
+  "file": "corpus/H-mmer_pentest-agents__.claude_agents_report-writer.md",
+  "repo": "H-mmer/pentest-agents",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 967,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00655",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_craftsman_agents_docs-writer.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/craftsman/agents/docs-writer.md",
+  "stars": 952,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00656",
+  "file": "corpus/alirezarezvani_claude-code-skill-factory__.claude_agents_agents-guide.md",
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": ".claude/agents/agents-guide.md",
+  "stars": 870,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00657",
+  "file": "corpus/alirezarezvani_claude-code-skill-factory__.claude_agents_factory-guide.md",
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": ".claude/agents/factory-guide.md",
+  "stars": 870,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00658",
+  "file": "corpus/alirezarezvani_claude-code-skill-factory__.claude_agents_hooks-guide.md",
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": ".claude/agents/hooks-guide.md",
+  "stars": 870,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00659",
+  "file": "corpus/alirezarezvani_claude-code-skill-factory__.claude_agents_prompts-guide.md",
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "path": ".claude/agents/prompts-guide.md",
+  "stars": 870,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00540",
+  "file": "corpus/zenstory-ai_oh-story-claudecode__skills_story-setup_references_codex_agents_story-explorer.toml",
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "path": "skills/story-setup/references/codex/agents/story-explorer.toml",
+  "stars": 7112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00541",
+  "file": "corpus/zenstory-ai_oh-story-claudecode__skills_story-setup_references_codex_agents_story-researcher.toml",
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "path": "skills/story-setup/references/codex/agents/story-researcher.toml",
+  "stars": 7112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00542",
+  "file": "corpus/module-federation_module-federation-examples__.claude_agents_readme-updater.md",
+  "repo": "module-federation/module-federation-examples",
+  "path": ".claude/agents/readme-updater.md",
+  "stars": 6146,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00543",
+  "file": "corpus/Galaxy-Dawn_claude-scholar__agents_paper-miner.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "agents/paper-miner.md",
+  "stars": 5631,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00544",
+  "file": "corpus/Galaxy-Dawn_claude-scholar__agents_rebuttal-writer.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "agents/rebuttal-writer.md",
+  "stars": 5631,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00545",
+  "file": "corpus/Galaxy-Dawn_claude-scholar__agents_tdd-guide.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "agents/tdd-guide.md",
+  "stars": 5631,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00546",
+  "file": "corpus/farm-fe_farm__.github_agents_farmfe-docs-sync.agent.md",
+  "repo": "farm-fe/farm",
+  "path": ".github/agents/farmfe-docs-sync.agent.md",
+  "stars": 5593,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00547",
+  "file": "corpus/github_gh-aw__.github_agents_adr-writer.agent.md",
+  "repo": "github/gh-aw",
+  "path": ".github/agents/adr-writer.agent.md",
+  "stars": 5181,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00548",
+  "file": "corpus/greenshot_greenshot__.github_agents_release-documentation-specialist.agent.md",
+  "repo": "greenshot/greenshot",
+  "path": ".github/agents/release-documentation-specialist.agent.md",
+  "stars": 5135,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00549",
+  "file": "corpus/mock-server_mockserver-monorepo__.claude_agents_docs-writer.md",
+  "repo": "mock-server/mockserver-monorepo",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 4976,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02910",
+  "file": "corpus/HarunRRayhan_portfolio__.claude_agents_blog-writer.md",
+  "repo": "HarunRRayhan/portfolio",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02911",
+  "file": "corpus/HasannShd_webiqq__.claude_agents_hook-writer.md",
+  "repo": "HasannShd/webiqq",
+  "path": ".claude/agents/hook-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02912",
+  "file": "corpus/Hashi1zume_inclusive_hackathon__.claude_agents_context7-docs-retriever.md",
+  "repo": "Hashi1zume/inclusive_hackathon",
+  "path": ".claude/agents/context7-docs-retriever.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02913",
+  "file": "corpus/HeaInSeo_hello-operator__.codex_agents_docs-reporting-agent.md",
+  "repo": "HeaInSeo/hello-operator",
+  "path": ".codex/agents/docs-reporting-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02914",
+  "file": "corpus/Hedde_scratchpad__agents_docs-sync.md",
+  "repo": "Hedde/scratchpad",
+  "path": "agents/docs-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02915",
+  "file": "corpus/HeduAiDev_Repo2Book__.claude_agents_book-editor.md",
+  "repo": "HeduAiDev/Repo2Book",
+  "path": ".claude/agents/book-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02916",
+  "file": "corpus/HendrikGC02_Astroray__.claude_agents_docs-updater.md",
+  "repo": "HendrikGC02/Astroray",
+  "path": ".claude/agents/docs-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02917",
+  "file": "corpus/HeryLopez_test-playwright__.github_agents_report-to-components.agent.md",
+  "repo": "HeryLopez/test-playwright",
+  "path": ".github/agents/report-to-components.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02918",
+  "file": "corpus/Heuresis_Growth-Operator-Agency__agents_email-copywriter.md",
+  "repo": "Heuresis/Growth-Operator-Agency",
+  "path": "agents/email-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02919",
+  "file": "corpus/HibanaSledge_YOLO_Tracking__.github_agents_skills_documentation.md",
+  "repo": "HibanaSledge/YOLO_Tracking",
+  "path": ".github/agents/skills/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

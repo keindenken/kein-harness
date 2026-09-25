@@ -1,0 +1,421 @@
+[
+ {
+  "id": "c00001",
+  "file": "corpus/cyberpapiii_chipotlai-max__.opencode_agent_docs.md",
+  "repo": "cyberpapiii/chipotlai-max",
+  "path": ".opencode/agent/docs.md",
+  "stars": 1565,
+  "copies_in_repos": 99,
+  "doc_types": [
+   "project-docs"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00003",
+  "file": "corpus/github_awesome-copilot__agents_se-technical-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/se-technical-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 72,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "blog-article",
+   "prd-spec"
+  ],
+  "scope": "general-purpose"
+ },
+ {
+  "id": "c00004",
+  "file": "corpus/monoes_monomind__.claude_agents_engineering_engineering-technical-writer.md",
+  "repo": "monoes/monomind",
+  "path": ".claude/agents/engineering/engineering-technical-writer.md",
+  "stars": 21,
+  "copies_in_repos": 54,
+  "doc_types": [
+   "project-docs",
+   "api-reference"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00006",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-doc-writer.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-doc-writer.md",
+  "stars": 64459,
+  "copies_in_repos": 43,
+  "doc_types": [
+   "project-docs",
+   "api-reference"
+  ],
+  "scope": "general-purpose"
+ },
+ {
+  "id": "c00036",
+  "file": "corpus/The-XSS-Rat_BountySkiller__.claude_agents_report-writer.md",
+  "repo": "The-XSS-Rat/BountySkiller",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 51,
+  "copies_in_repos": 10,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00039",
+  "file": "corpus/hotriluan_alkana-dashboard__.opencode_agent_journal-writer.md",
+  "repo": "hotriluan/alkana-dashboard",
+  "path": ".opencode/agent/journal-writer.md",
+  "stars": 2,
+  "copies_in_repos": 10,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00041",
+  "file": "corpus/Imbad0202_academic-research-skills__agents_report_compiler_agent.md",
+  "repo": "Imbad0202/academic-research-skills",
+  "path": "agents/report_compiler_agent.md",
+  "stars": 49461,
+  "copies_in_repos": 9,
+  "doc_types": [
+   "academic",
+   "report-analysis"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00054",
+  "file": "corpus/iannuttall_claude-agents__agents_prd-writer.md",
+  "repo": "iannuttall/claude-agents",
+  "path": "agents/prd-writer.md",
+  "stars": 2043,
+  "copies_in_repos": 7,
+  "doc_types": [
+   "prd-spec"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00083",
+  "file": "corpus/nyldn_claude-octopus__agents_personas_product-writer.md",
+  "repo": "nyldn/claude-octopus",
+  "path": "agents/personas/product-writer.md",
+  "stars": 4099,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "prd-spec"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00062",
+  "file": "corpus/drmoisan_TMW__.github_agents_pr-author.agent.md",
+  "repo": "drmoisan/TMW",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 7,
+  "doc_types": [
+   "project-docs",
+   "changelog"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00063",
+  "file": "corpus/modu-ai_moai-cowork__.codex_agents_moai_manager-docs.toml",
+  "repo": "modu-ai/moai-cowork",
+  "path": ".codex/agents/moai/manager-docs.toml",
+  "stars": 302,
+  "copies_in_repos": 6,
+  "doc_types": [
+   "changelog",
+   "project-docs"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00084",
+  "file": "corpus/rohitg00_awesome-claude-code-toolkit__agents_developer-experience_documentation-engineer.md",
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "agents/developer-experience/documentation-engineer.md",
+  "stars": 2645,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "api-reference",
+   "project-docs",
+   "changelog"
+  ],
+  "scope": "general-purpose"
+ },
+ {
+  "id": "c00049",
+  "file": "corpus/digaomatias_mymascada__.claude_agents_technical-writer.md",
+  "repo": "digaomatias/mymascada",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 8,
+  "doc_types": [
+   "code-comments",
+   "project-docs",
+   "other"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00099",
+  "file": "corpus/APrettyCoolProgram_Dudelang__.github_agents_xml-documentation-csharp-agent.md",
+  "repo": "APrettyCoolProgram/Dudelang",
+  "path": ".github/agents/xml-documentation-csharp-agent.md",
+  "stars": 1,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "code-comments"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00132",
+  "file": "corpus/akiselev_qt-llm-template__.claude_agents_technical-writer.md",
+  "repo": "akiselev/qt-llm-template",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 4,
+  "doc_types": [
+   "project-docs",
+   "code-comments",
+   "other"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00007",
+  "file": "corpus/mrgoonie_human-mcp__.claude_agents_copywriter.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 293,
+  "copies_in_repos": 38,
+  "doc_types": [
+   "marketing-copy",
+   "social-media"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00058",
+  "file": "corpus/josipjelic_orchestrated-project-template__.claude_agents_copywriter-seo.md",
+  "repo": "josipjelic/orchestrated-project-template",
+  "path": ".claude/agents/copywriter-seo.md",
+  "stars": 95,
+  "copies_in_repos": 7,
+  "doc_types": [
+   "marketing-copy",
+   "ux-microcopy",
+   "blog-article"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00061",
+  "file": "corpus/sylvanding_omelette__.claude_agents_workflow_every-style-editor.md",
+  "repo": "sylvanding/omelette",
+  "path": ".claude/agents/workflow/every-style-editor.md",
+  "stars": 9,
+  "copies_in_repos": 7,
+  "doc_types": [
+   "blog-article",
+   "marketing-copy"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00076",
+  "file": "corpus/knightdx91-alt_A-Bond-of-Scale-and-Silver__.claude_agents_book-writer.md",
+  "repo": "knightdx91-alt/A-Bond-of-Scale-and-Silver",
+  "path": ".claude/agents/book-writer.md",
+  "stars": 0,
+  "copies_in_repos": 6,
+  "doc_types": [
+   "fiction-narrative"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00114",
+  "file": "corpus/knightdx91-alt_A-Bond-of-Scale-and-Silver__.claude_agents_book-editor.md",
+  "repo": "knightdx91-alt/A-Bond-of-Scale-and-Silver",
+  "path": ".claude/agents/book-editor.md",
+  "stars": 0,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "fiction-narrative",
+   "report-analysis"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00273",
+  "file": "corpus/MJbae_awesome-novel-studio__agents_episode-rewriter.md",
+  "repo": "MJbae/awesome-novel-studio",
+  "path": "agents/episode-rewriter.md",
+  "stars": 151,
+  "copies_in_repos": 2,
+  "doc_types": [
+   "fiction-narrative"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00065",
+  "file": "corpus/heysamtexas_django-oauth2-capture__.claude_agents_copywriter_subagent.md",
+  "repo": "heysamtexas/django-oauth2-capture",
+  "path": ".claude/agents/copywriter_subagent.md",
+  "stars": 13,
+  "copies_in_repos": 6,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "ux-microcopy"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00087",
+  "file": "corpus/adcontextprotocol_adcp__.claude_agents_copywriter.md",
+  "repo": "adcontextprotocol/adcp",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 250,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "marketing-copy",
+   "ux-microcopy",
+   "prompt-instructions"
+  ],
+  "scope": "general-purpose"
+ },
+ {
+  "id": "c00136",
+  "file": "corpus/DanielHashmi_physical-ai-and-humanoid-robotics__.claude_agents_physical-ai-author.md",
+  "repo": "DanielHashmi/physical-ai-and-humanoid-robotics",
+  "path": ".claude/agents/physical-ai-author.md",
+  "stars": 1,
+  "copies_in_repos": 4,
+  "doc_types": [
+   "academic",
+   "other"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00268",
+  "file": "corpus/finos_morphir__.claude_agents_kb-writer.md",
+  "repo": "finos/morphir",
+  "path": ".claude/agents/kb-writer.md",
+  "stars": 210,
+  "copies_in_repos": 2,
+  "doc_types": [
+   "project-docs",
+   "academic",
+   "other"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00088",
+  "file": "corpus/adcontextprotocol_adcp__.claude_agents_docs-expert-deep.md",
+  "repo": "adcontextprotocol/adcp",
+  "path": ".claude/agents/docs-expert-deep.md",
+  "stars": 250,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "api-reference",
+   "prompt-instructions",
+   "project-docs"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00185",
+  "file": "corpus/nanikasheila_copilot-cli-workflow-framework__.github_agents_writer.agent.md",
+  "repo": "nanikasheila/copilot-cli-workflow-framework",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 3,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "changelog",
+   "prompt-instructions"
+  ],
+  "scope": "general-purpose"
+ },
+ {
+  "id": "c00012",
+  "file": "corpus/CarlosCaPe_octorato__agents_marketing_marketing-book-co-author.md",
+  "repo": "CarlosCaPe/octorato",
+  "path": "agents/marketing/marketing-book-co-author.md",
+  "stars": 17,
+  "copies_in_repos": 27,
+  "doc_types": [
+   "other"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00098",
+  "file": "corpus/melnikov1512_sfdx-project-template__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "melnikov1512/sfdx-project-template",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "other"
+  ],
+  "scope": "few-types"
+ },
+ {
+  "id": "c00016",
+  "file": "corpus/github_awesome-copilot__agents_taxcore-technical-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/taxcore-technical-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 20,
+  "doc_types": [
+   "project-docs",
+   "api-reference"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00029",
+  "file": "corpus/Dao-AILab_dao-ailab.github.io__.github_agents_docs.agent.md",
+  "repo": "Dao-AILab/dao-ailab.github.io",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 2,
+  "copies_in_repos": 12,
+  "doc_types": [
+   "project-docs"
+  ],
+  "scope": "single-type"
+ },
+ {
+  "id": "c00112",
+  "file": "corpus/fabioc-aloha_AlexCook__.github_agents_markdown-author.agent.md",
+  "repo": "fabioc-aloha/AlexCook",
+  "path": ".github/agents/markdown-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5,
+  "doc_types": [
+   "project-docs",
+   "other"
+  ],
+  "scope": "general-purpose"
+ }
+]

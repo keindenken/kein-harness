@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02190",
+  "file": "corpus/imMamdouhaboammar_portfolio-interview__agents_portfolio-copywriter.md",
+  "repo": "imMamdouhaboammar/portfolio-interview",
+  "path": "agents/portfolio-copywriter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02191",
+  "file": "corpus/ismailperim_kareya__.claude_agents_technical-writer.md",
+  "repo": "ismailperim/kareya",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02192",
+  "file": "corpus/itchyshin_gllvmTMB__.codex_agents_documentation-writer.toml",
+  "repo": "itchyshin/gllvmTMB",
+  "path": ".codex/agents/documentation-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02193",
+  "file": "corpus/itchyshin_gllvmTMB__.codex_agents_pkgdown-editor.toml",
+  "repo": "itchyshin/gllvmTMB",
+  "path": ".codex/agents/pkgdown-editor.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02194",
+  "file": "corpus/jacobhgruber-dev_Supervisor__agents_editor.md",
+  "repo": "jacobhgruber-dev/Supervisor",
+  "path": "agents/editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02195",
+  "file": "corpus/jcarrenoa_engineering-os__agents_technical-writer.md",
+  "repo": "jcarrenoa/engineering-os",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02196",
+  "file": "corpus/jes5e_quorum__agents_doc-writer.md",
+  "repo": "jes5e/quorum",
+  "path": "agents/doc-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02197",
+  "file": "corpus/jhjaggars_pkm-sync__.claude_agents_technical-writer.md",
+  "repo": "jhjaggars/pkm-sync",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02198",
+  "file": "corpus/jlaws_dotfiles__.claude_agents_documentation-writer.md",
+  "repo": "jlaws/dotfiles",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02199",
+  "file": "corpus/k-kaundal_KLang__.github_agents_docs-agent.md",
+  "repo": "k-kaundal/KLang",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

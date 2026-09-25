@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01340",
+  "file": "corpus/accountex-org_ash_reports__.opencode_agent_documentation-expert.md",
+  "repo": "accountex-org/ash_reports",
+  "path": ".opencode/agent/documentation-expert.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01341",
+  "file": "corpus/btucker_midtown__agents_definitions_midtown-code-author.md",
+  "repo": "btucker/midtown",
+  "path": "agents/definitions/midtown-code-author.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01342",
+  "file": "corpus/cfircoo_claude-code-toolkit__agents_docs-master.md",
+  "repo": "cfircoo/claude-code-toolkit",
+  "path": "agents/docs-master.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01343",
+  "file": "corpus/codeApe-7_ai-agent-workflowGroup__.codex_agents_docs-researcher.toml",
+  "repo": "codeApe-7/ai-agent-workflowGroup",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01344",
+  "file": "corpus/marclove_typeforge__.claude_agents_docs.md",
+  "repo": "marclove/typeforge",
+  "path": ".claude/agents/docs.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01345",
+  "file": "corpus/michelbr84_GarraRUST__.claude_agents_doc-writer.md",
+  "repo": "michelbr84/GarraRUST",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01346",
+  "file": "corpus/rianvdm_product-ai-public__.opencode_agent_editor.md",
+  "repo": "rianvdm/product-ai-public",
+  "path": ".opencode/agent/editor.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01347",
+  "file": "corpus/sohei56_maul-team__agents_pbi-ut-author.md",
+  "repo": "sohei56/maul-team",
+  "path": "agents/pbi-ut-author.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01348",
+  "file": "corpus/zbruhnke_claude-code-starter__.claude_agents_adr-writer.md",
+  "repo": "zbruhnke/claude-code-starter",
+  "path": ".claude/agents/adr-writer.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01349",
+  "file": "corpus/zbruhnke_claude-code-starter__.claude_agents_documentation-writer.md",
+  "repo": "zbruhnke/claude-code-starter",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 17,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04220",
+  "file": "corpus/joofio_scientific-agentic-team__.github_agents_writer.agent.md",
+  "repo": "joofio/scientific-agentic-team",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04221",
+  "file": "corpus/jortega0033_diwa-design-system__.github_agents_diwa-ds-technical-writer.agent.md",
+  "repo": "jortega0033/diwa-design-system",
+  "path": ".github/agents/diwa-ds-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04222",
+  "file": "corpus/josediegosantillan_generador-instagram__agents_02-caption-copywriter.md",
+  "repo": "josediegosantillan/generador-instagram",
+  "path": "agents/02-caption-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04223",
+  "file": "corpus/josephblais_jeeby-cms__.github_agents_document-csv-reporter.agent.md",
+  "repo": "josephblais/jeeby-cms",
+  "path": ".github/agents/document-csv-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04224",
+  "file": "corpus/josephsapinoso_starwars-dagster__.claude_agents_panel-technical-writer.md",
+  "repo": "josephsapinoso/starwars-dagster",
+  "path": ".claude/agents/panel-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04225",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_CW-001_copywriter.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/CW-001_copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04226",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_T2-002_av_copywriter.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/T2-002_av_copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04227",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_T2-L_head_writer.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/T2-L_head_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04228",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_WR-001_research_writer.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/WR-001_research_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04229",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_WR-002_av_copywriter.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/WR-002_av_copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

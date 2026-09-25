@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02090",
+  "file": "corpus/pluginagentmarketplace_custom-plugin-technical-writer__agents_technical-writer-specialist.md",
+  "repo": "pluginagentmarketplace/custom-plugin-technical-writer",
+  "path": "agents/technical-writer-specialist.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02091",
+  "file": "corpus/pmarchini_faro__.github_agents_faro-path-author.agent.md",
+  "repo": "pmarchini/faro",
+  "path": ".github/agents/faro-path-author.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02092",
+  "file": "corpus/rwngwn_agents__agents_build_spec.md",
+  "repo": "rwngwn/agents",
+  "path": "agents/build/spec.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02093",
+  "file": "corpus/rwngwn_agents__agents_plan_pm-writer.md",
+  "repo": "rwngwn/agents",
+  "path": "agents/plan/pm-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02094",
+  "file": "corpus/sandgraal_compass__.claude_agents_migration-author.md",
+  "repo": "sandgraal/compass",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02095",
+  "file": "corpus/seqeralabs_docs__.claude_agents_docs-fix.md",
+  "repo": "seqeralabs/docs",
+  "path": ".claude/agents/docs-fix.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02096",
+  "file": "corpus/sq-cm_claude-template__.claude_agents_copywriter.md",
+  "repo": "sq-cm/claude-template",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02097",
+  "file": "corpus/sseely_claude-config__agents_08-business-product_technical-writer.md",
+  "repo": "sseely/claude-config",
+  "path": "agents/08-business-product/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02098",
+  "file": "corpus/svallory_mintlify-tsdocs__.claude_agents_oss-docs-specialist.md",
+  "repo": "svallory/mintlify-tsdocs",
+  "path": ".claude/agents/oss-docs-specialist.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02099",
+  "file": "corpus/takanamito_my-pokemon-leaf-green-log__.claude_agents_report-consistency.md",
+  "repo": "takanamito/my-pokemon-leaf-green-log",
+  "path": ".claude/agents/report-consistency.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04470",
+  "file": "corpus/mdforti_AgenticPaperWriting__agents_author1.md",
+  "repo": "mdforti/AgenticPaperWriting",
+  "path": "agents/author1.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04471",
+  "file": "corpus/mdforti_AgenticPaperWriting__agents_author2.md",
+  "repo": "mdforti/AgenticPaperWriting",
+  "path": "agents/author2.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04472",
+  "file": "corpus/mdrasul_qaforge__.github_agents_qaforge-reporter.agent.md",
+  "repo": "mdrasul/qaforge",
+  "path": ".github/agents/qaforge-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04473",
+  "file": "corpus/me0608623_charge_navrl__.claude_agents_doc-writer.md",
+  "repo": "me0608623/charge_navrl",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04474",
+  "file": "corpus/meco40_openworker__.github_agents_docs-writer.agent.md",
+  "repo": "meco40/openworker",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04475",
+  "file": "corpus/mediaconnection_doohplay-demo__.claude_agents_docs-produto-agent.md",
+  "repo": "mediaconnection/doohplay-demo",
+  "path": ".claude/agents/docs-produto-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04476",
+  "file": "corpus/medizininformatik-initiative_kerndatensatzmodul-seltene-erkrankungen__.claude_agents_fhir-ig-editor.md",
+  "repo": "medizininformatik-initiative/kerndatensatzmodul-seltene-erkrankungen",
+  "path": ".claude/agents/fhir-ig-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04477",
+  "file": "corpus/menzexhibition_arabai-top__agents_source-ar_engineering_engineering-technical-writer.md",
+  "repo": "menzexhibition/arabai-top",
+  "path": "agents/source-ar/engineering/engineering-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04478",
+  "file": "corpus/merlinsaw_.agent__agents_fetch_docs.md",
+  "repo": "merlinsaw/.agent",
+  "path": "agents/fetch_docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04479",
+  "file": "corpus/mesolimbo_definition-of-done__.claude_agents_technical-writer.md",
+  "repo": "mesolimbo/definition-of-done",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

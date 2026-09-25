@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02510",
+  "file": "corpus/lx-wnk_agents__agents_docs.md",
+  "repo": "lx-wnk/agents",
+  "path": "agents/docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02511",
+  "file": "corpus/magicmethods_pulllog-docs__.github_agents_docs-audit-governance.agent.md",
+  "repo": "magicmethods/pulllog-docs",
+  "path": ".github/agents/docs-audit-governance.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02512",
+  "file": "corpus/magicmethods_pulllog-docs__.github_agents_docs-plan-roadmap.agent.md",
+  "repo": "magicmethods/pulllog-docs",
+  "path": ".github/agents/docs-plan-roadmap.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02513",
+  "file": "corpus/malcyon_wish__.codex_agents_changelog-writer.toml",
+  "repo": "malcyon/wish",
+  "path": ".codex/agents/changelog-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02514",
+  "file": "corpus/manishrawal95_agentic-crew__agents_ux-copywriter.md",
+  "repo": "manishrawal95/agentic-crew",
+  "path": "agents/ux-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02515",
+  "file": "corpus/markus41_Notion__.claude_agents_documentation-sync.md",
+  "repo": "markus41/Notion",
+  "path": ".claude/agents/documentation-sync.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02516",
+  "file": "corpus/marlungu_archetype-core-etl__.claude_agents_spec-writer.md",
+  "repo": "marlungu/archetype-core-etl",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02517",
+  "file": "corpus/mavwolverine_wolverine-kit__.claude_agents_wk-decision-author.md",
+  "repo": "mavwolverine/wolverine-kit",
+  "path": ".claude/agents/wk-decision-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02518",
+  "file": "corpus/mdresch_socialengage__.codex_agents_learning-development-writer.toml",
+  "repo": "mdresch/socialengage",
+  "path": ".codex/agents/learning-development-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02519",
+  "file": "corpus/mdresch_socialengage__.codex_agents_qa-contract-author.toml",
+  "repo": "mdresch/socialengage",
+  "path": ".codex/agents/qa-contract-author.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

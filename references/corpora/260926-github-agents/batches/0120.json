@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01200",
+  "file": "corpus/agenticsorg_hackathon-tv5__.claude_agents_research-docs-fetcher.md",
+  "repo": "agenticsorg/hackathon-tv5",
+  "path": ".claude/agents/research-docs-fetcher.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01201",
+  "file": "corpus/borschetsky_WebChat__.claude_agents_ctx-writer.md",
+  "repo": "borschetsky/WebChat",
+  "path": ".claude/agents/ctx-writer.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01202",
+  "file": "corpus/hatch3r_hatch3r__agents_hatch3r-docs-writer.md",
+  "repo": "hatch3r/hatch3r",
+  "path": "agents/hatch3r-docs-writer.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01203",
+  "file": "corpus/hatch3r_hatch3r__agents_hatch3r-product-spec.md",
+  "repo": "hatch3r/hatch3r",
+  "path": "agents/hatch3r-product-spec.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01204",
+  "file": "corpus/hatch3r_hatch3r__agents_modes_library-docs.md",
+  "repo": "hatch3r/hatch3r",
+  "path": "agents/modes/library-docs.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01205",
+  "file": "corpus/hoangsonww_PetSwipe-Match-App__.claude_agents_docs-curator.md",
+  "repo": "hoangsonww/PetSwipe-Match-App",
+  "path": ".claude/agents/docs-curator.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01206",
+  "file": "corpus/huqianghui_mindforge__.codex_agents_editor-agent.toml",
+  "repo": "huqianghui/mindforge",
+  "path": ".codex/agents/editor-agent.toml",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01207",
+  "file": "corpus/hushh-labs_hushh-research__.codex_agents_product_docs_architect.toml",
+  "repo": "hushh-labs/hushh-research",
+  "path": ".codex/agents/product_docs_architect.toml",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01208",
+  "file": "corpus/jmanhype_speckit__.claude_agents_openapi-spec-author.md",
+  "repo": "jmanhype/speckit",
+  "path": ".claude/agents/openapi-spec-author.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01209",
+  "file": "corpus/maragudk_fabrik__.codex_agents_writer.toml",
+  "repo": "maragudk/fabrik",
+  "path": ".codex/agents/writer.toml",
+  "stars": 26,
+  "copies_in_repos": 1
+ }
+]

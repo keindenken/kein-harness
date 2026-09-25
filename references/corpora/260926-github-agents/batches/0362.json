@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03620",
+  "file": "corpus/boardx_workspacex__.claude_agents_requirement-author.md",
+  "repo": "boardx/workspacex",
+  "path": ".claude/agents/requirement-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03621",
+  "file": "corpus/bobmatnyc_claude-mpm-agents__agents_documentation_documentation.md",
+  "repo": "bobmatnyc/claude-mpm-agents",
+  "path": "agents/documentation/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03622",
+  "file": "corpus/bodybybuddha_3DKenji__.github_agents_docs-spec-sync.agent.md",
+  "repo": "bodybybuddha/3DKenji",
+  "path": ".github/agents/docs-spec-sync.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03623",
+  "file": "corpus/bohewu_agents_pipeline__agents_session-guide-writer.md",
+  "repo": "bohewu/agents_pipeline",
+  "path": "agents/session-guide-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03624",
+  "file": "corpus/bolivaralencastro_portfolio-bolivaralencastro__.github_agents_blog-editor.agent.md",
+  "repo": "bolivaralencastro/portfolio-bolivaralencastro",
+  "path": ".github/agents/blog-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03625",
+  "file": "corpus/bolivaralencastro_portfolio-bolivaralencastro__.github_agents_note-editor.agent.md",
+  "repo": "bolivaralencastro/portfolio-bolivaralencastro",
+  "path": ".github/agents/note-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03626",
+  "file": "corpus/bonsai_EX__agents_editor.md",
+  "repo": "bonsai/EX",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03627",
+  "file": "corpus/borsari-kuririn_random-generator-rpg__.github_agents_mishap-table-author.agent.md",
+  "repo": "borsari-kuririn/random-generator-rpg",
+  "path": ".github/agents/mishap-table-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03628",
+  "file": "corpus/bpmforge_attest__agents_documentation-gap-finder.md",
+  "repo": "bpmforge/attest",
+  "path": "agents/documentation-gap-finder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03629",
+  "file": "corpus/bradleyfay_autodoc-mcp__.claude_agents_docs-integration.md",
+  "repo": "bradleyfay/autodoc-mcp",
+  "path": ".claude/agents/docs-integration.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

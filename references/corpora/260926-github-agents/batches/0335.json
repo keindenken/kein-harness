@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03350",
+  "file": "corpus/TimCane_amandasemporium.co.uk__.claude_agents_brand-voice-copywriter.md",
+  "repo": "TimCane/amandasemporium.co.uk",
+  "path": ".claude/agents/brand-voice-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03351",
+  "file": "corpus/Tkrenek_punishmen_application__.github_agents_docs.agent.md",
+  "repo": "Tkrenek/punishmen_application",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03352",
+  "file": "corpus/TokenTrimmer_tokentrimmer__.claude_agents_inspect-rule-author.md",
+  "repo": "TokenTrimmer/tokentrimmer",
+  "path": ".claude/agents/inspect-rule-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03353",
+  "file": "corpus/TomaszKowalczyk09_remiznet__.github_agents_ratownictwo-osp-psp-reporting.agent.md",
+  "repo": "TomaszKowalczyk09/remiznet",
+  "path": ".github/agents/ratownictwo-osp-psp-reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03354",
+  "file": "corpus/TomohiroK_claude-skills__.claude_agents_marketing_copywriter.md",
+  "repo": "TomohiroK/claude-skills",
+  "path": ".claude/agents/marketing/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03355",
+  "file": "corpus/Tony-Stone-Code_skin_care_project__.github_agents_docs.agent.md",
+  "repo": "Tony-Stone-Code/skin_care_project",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03356",
+  "file": "corpus/TonykRev_TonykRev.github.io__.codex_agents_technical-writer.toml",
+  "repo": "TonykRev/TonykRev.github.io",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03357",
+  "file": "corpus/Tr3kkR_Yuzu__.claude_agents_docs-writer.md",
+  "repo": "Tr3kkR/Yuzu",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03358",
+  "file": "corpus/Travelgate_documentation__.github_agents_docs-maintainer.agent.md",
+  "repo": "Travelgate/documentation",
+  "path": ".github/agents/docs-maintainer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03359",
+  "file": "corpus/Treasoni_Study-Notes__.codex_agents_chapter-writer.md",
+  "repo": "Treasoni/Study-Notes",
+  "path": ".codex/agents/chapter-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

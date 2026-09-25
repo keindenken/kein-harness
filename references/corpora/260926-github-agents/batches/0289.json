@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02890",
+  "file": "corpus/GodSpeedAI_VibesPro__.github_agents_spec.author.agent.md",
+  "repo": "GodSpeedAI/VibesPro",
+  "path": ".github/agents/spec.author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02891",
+  "file": "corpus/Gor1x1_reels-pro__.claude_agents_raw-editor.md",
+  "repo": "Gor1x1/reels-pro",
+  "path": ".claude/agents/raw-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02892",
+  "file": "corpus/Grasonyang_queue-aware-vgpu__.codex_agents_research-docs.md",
+  "repo": "Grasonyang/queue-aware-vgpu",
+  "path": ".codex/agents/research-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02893",
+  "file": "corpus/Grasonyang_queue-aware-vgpu__.codex_agents_research-docs.toml",
+  "repo": "Grasonyang/queue-aware-vgpu",
+  "path": ".codex/agents/research-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02894",
+  "file": "corpus/GustavoCabeloSymphony_claude_code__.claude_agents_readme-maintainer.md",
+  "repo": "GustavoCabeloSymphony/claude_code",
+  "path": ".claude/agents/readme-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02895",
+  "file": "corpus/H4pps_j2k-eval-pipeline__.codex_agents_code-writer.toml",
+  "repo": "H4pps/j2k-eval-pipeline",
+  "path": ".codex/agents/code-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02896",
+  "file": "corpus/HDuong1803_flash-sale__.claude_agents_copywriter-seo.md",
+  "repo": "HDuong1803/flash-sale",
+  "path": ".claude/agents/copywriter-seo.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02897",
+  "file": "corpus/HECer_ComfyUI-DLSS5__.codex_agents_docs.toml",
+  "repo": "HECer/ComfyUI-DLSS5",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02898",
+  "file": "corpus/HEnquist_camilladsp__.github_agents_camilladsp-docs-config.agent.md",
+  "repo": "HEnquist/camilladsp",
+  "path": ".github/agents/camilladsp-docs-config.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02899",
+  "file": "corpus/HaRu-LLC_ski-analyzer__.codex_agents_docs-researcher.toml",
+  "repo": "HaRu-LLC/ski-analyzer",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00890",
+  "file": "corpus/PopupMaker_Popup-Maker__.claude_agents_wpcs-documentation-agent.md",
+  "repo": "PopupMaker/Popup-Maker",
+  "path": ".claude/agents/wpcs-documentation-agent.md",
+  "stars": 110,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00891",
+  "file": "corpus/TheEterna_api2mcp4j__.claude_agents_doc-writer.md",
+  "repo": "TheEterna/api2mcp4j",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 109,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00892",
+  "file": "corpus/ZoneMinder_zmNinjaNg__agents_project_documentation.md",
+  "repo": "ZoneMinder/zmNinjaNg",
+  "path": "agents/project/documentation.md",
+  "stars": 109,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00893",
+  "file": "corpus/Artexis10_endstate__.claude_agents_module-author.md",
+  "repo": "Artexis10/endstate",
+  "path": ".claude/agents/module-author.md",
+  "stars": 107,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00894",
+  "file": "corpus/kesslernity_awesome-copilot-chat-agents__agents_engineering_engineering-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-chat-agents",
+  "path": "agents/engineering/engineering-report-writer.md",
+  "stars": 106,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00895",
+  "file": "corpus/kesslernity_awesome-copilot-chat-agents__agents_engineering_hvac-design-documenter.md",
+  "repo": "kesslernity/awesome-copilot-chat-agents",
+  "path": "agents/engineering/hvac-design-documenter.md",
+  "stars": 106,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00896",
+  "file": "corpus/kesslernity_awesome-copilot-chat-agents__agents_it-operations_sla-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-chat-agents",
+  "path": "agents/it-operations/sla-report-writer.md",
+  "stars": 106,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00897",
+  "file": "corpus/kesslernity_awesome-copilot-chat-agents__agents_project-management_status-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-chat-agents",
+  "path": "agents/project-management/status-report-writer.md",
+  "stars": 106,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00898",
+  "file": "corpus/Gerstep_cybos__.claude_agents_memo-writer.md",
+  "repo": "Gerstep/cybos",
+  "path": ".claude/agents/memo-writer.md",
+  "stars": 105,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00899",
+  "file": "corpus/rigortype_rigor__agents_pi-harness_roles_docs.md",
+  "repo": "rigortype/rigor",
+  "path": "agents/pi-harness/roles/docs.md",
+  "stars": 105,
+  "copies_in_repos": 1
+ }
+]

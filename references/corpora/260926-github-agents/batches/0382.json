@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03820",
+  "file": "corpus/dkhilifa_report-agent__.github_agents_pfe-report-manager.agent.md",
+  "repo": "dkhilifa/report-agent",
+  "path": ".github/agents/pfe-report-manager.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03821",
+  "file": "corpus/dkhilifa_report-agent__.github_agents_technical-writer.agent.md",
+  "repo": "dkhilifa/report-agent",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03822",
+  "file": "corpus/dleiferives_tifl__.opencode_agent_writer.md",
+  "repo": "dleiferives/tifl",
+  "path": ".opencode/agent/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03823",
+  "file": "corpus/dlsanchez-hiberuscom_vsc-powersyntax__.github_agents_docs.agent.md",
+  "repo": "dlsanchez-hiberuscom/vsc-powersyntax",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03824",
+  "file": "corpus/dmaru-labs_obsidian-compiler-vault__.github_agents_daily-report.agent.md",
+  "repo": "dmaru-labs/obsidian-compiler-vault",
+  "path": ".github/agents/daily-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03825",
+  "file": "corpus/dmitrijs-pavlovs-dev_circling-plan__.claude_agents_event-copywriter.md",
+  "repo": "dmitrijs-pavlovs-dev/circling-plan",
+  "path": ".claude/agents/event-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03826",
+  "file": "corpus/docker_docs__.github_agents_docs-scanner.yaml",
+  "repo": "docker/docs",
+  "path": ".github/agents/docs-scanner.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03827",
+  "file": "corpus/dodgymike_agent-bus__.claude_agents_documentation.md",
+  "repo": "dodgymike/agent-bus",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03828",
+  "file": "corpus/doe-iri_iri-facility-api-docs__.codex_agents_registry-editor.toml",
+  "repo": "doe-iri/iri-facility-api-docs",
+  "path": ".codex/agents/registry-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03829",
+  "file": "corpus/dojomojo132_Public_Trade_Module__.github_agents_1c-xml-editor.agent.md",
+  "repo": "dojomojo132/Public_Trade_Module",
+  "path": ".github/agents/1c-xml-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

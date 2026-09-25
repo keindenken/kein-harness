@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04920",
+  "file": "corpus/skurekjakub_afternoon-writer__.github_agents_afternoon-writer-continuity-gate.agent.md",
+  "repo": "skurekjakub/afternoon-writer",
+  "path": ".github/agents/afternoon-writer-continuity-gate.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04921",
+  "file": "corpus/skurekjakub_docwriter-agent__.github_agents_docwriter-corpus-scanner.agent.md",
+  "repo": "skurekjakub/docwriter-agent",
+  "path": ".github/agents/docwriter-corpus-scanner.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04922",
+  "file": "corpus/skurekjakub_docwriter-agent__.github_agents_docwriter-cross-ref-updater.agent.md",
+  "repo": "skurekjakub/docwriter-agent",
+  "path": ".github/agents/docwriter-cross-ref-updater.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04923",
+  "file": "corpus/skurekjakub_ralph-orchestrator__.github_agents_fractal-factory-documentation-writer.agent.md",
+  "repo": "skurekjakub/ralph-orchestrator",
+  "path": ".github/agents/fractal-factory-documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04924",
+  "file": "corpus/skyboooox_agents-workflow__.codex_agents_fast-editor.toml",
+  "repo": "skyboooox/agents-workflow",
+  "path": ".codex/agents/fast-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04925",
+  "file": "corpus/skyf0xx_hedgehog-core-landing-page__agents_landing-copywriter.md",
+  "repo": "skyf0xx/hedgehog-core-landing-page",
+  "path": "agents/landing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04926",
+  "file": "corpus/slammista_agentic-game-studio__.claude_agents_biz-video-editor-marketing-artist.md",
+  "repo": "slammista/agentic-game-studio",
+  "path": ".claude/agents/biz-video-editor-marketing-artist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04927",
+  "file": "corpus/slyd971_dj-gdc__agents_QA_MULTI_CLIENT_REPORT.md",
+  "repo": "slyd971/dj-gdc",
+  "path": "agents/QA_MULTI_CLIENT_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04928",
+  "file": "corpus/smartelectronicssolutions_smartelectronicssolutions.github.io__.github_agents_static-site-editor.agent.md",
+  "repo": "smartelectronicssolutions/smartelectronicssolutions.github.io",
+  "path": ".github/agents/static-site-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04929",
+  "file": "corpus/smileynet_line-cook__.claude_agents_release-editor.md",
+  "repo": "smileynet/line-cook",
+  "path": ".claude/agents/release-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

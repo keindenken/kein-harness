@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03690",
+  "file": "corpus/chemitaro_pyclassuml__.codex_agents_doc-writer.toml",
+  "repo": "chemitaro/pyclassuml",
+  "path": ".codex/agents/doc-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03691",
+  "file": "corpus/chenders_BibleStudyAsAllegory__.claude_agents_managing-editor.md",
+  "repo": "chenders/BibleStudyAsAllegory",
+  "path": ".claude/agents/managing-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03692",
+  "file": "corpus/cherryann081907-commits_salon__.github_agents_customization-author.agent.md",
+  "repo": "cherryann081907-commits/salon",
+  "path": ".github/agents/customization-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03693",
+  "file": "corpus/chipkent_air-marshall__.claude_agents_tech-writer.md",
+  "repo": "chipkent/air-marshall",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03694",
+  "file": "corpus/chiricos_fucsalud__.github_agents_technical-writer.agent.md",
+  "repo": "chiricos/fucsalud",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03695",
+  "file": "corpus/chokukil_ontology-dexa__.claude_agents_ontology-template-author.md",
+  "repo": "chokukil/ontology-dexa",
+  "path": ".claude/agents/ontology-template-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03696",
+  "file": "corpus/chris-arsenault_genai-game-engine__.claude_agents_narrative-writer.md",
+  "repo": "chris-arsenault/genai-game-engine",
+  "path": ".claude/agents/narrative-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03697",
+  "file": "corpus/chris-irineo_sir-hires__.opencode_agent_docs.md",
+  "repo": "chris-irineo/sir-hires",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03698",
+  "file": "corpus/christianescamilla15-cell_MindScrolling__.claude_agents_documentation-writer.md",
+  "repo": "christianescamilla15-cell/MindScrolling",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03699",
+  "file": "corpus/chrobakpiotr_showcase-application__.claude_agents_verification-author.md",
+  "repo": "chrobakpiotr/showcase-application",
+  "path": ".claude/agents/verification-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04760",
+  "file": "corpus/rabi_kinetic-rs__agents_editor.yaml",
+  "repo": "rabi/kinetic-rs",
+  "path": "agents/editor.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04761",
+  "file": "corpus/rabi_kinetic-rs__agents_writer.yaml",
+  "repo": "rabi/kinetic-rs",
+  "path": "agents/writer.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04762",
+  "file": "corpus/radic2510_content-moderator__.claude_agents_docs-keeper.md",
+  "repo": "radic2510/content-moderator",
+  "path": ".claude/agents/docs-keeper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04763",
+  "file": "corpus/rafaelkamimura_claude-tools__agents_documentation-architect.md",
+  "repo": "rafaelkamimura/claude-tools",
+  "path": "agents/documentation-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04764",
+  "file": "corpus/raghunemani_knowledge_mas__agents_writer.md",
+  "repo": "raghunemani/knowledge_mas",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04765",
+  "file": "corpus/rahidmondal_tracker-0__.github_agents_documentation.md",
+  "repo": "rahidmondal/tracker-0",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04766",
+  "file": "corpus/rai-agentic-toolkit_argent__.claude_agents_pr-describer.md",
+  "repo": "rai-agentic-toolkit/argent",
+  "path": ".claude/agents/pr-describer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04767",
+  "file": "corpus/rainbowkillah_crispy-enigma__.github_agents_copilot-docs.agent.md",
+  "repo": "rainbowkillah/crispy-enigma",
+  "path": ".github/agents/copilot-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04768",
+  "file": "corpus/rajibmahata_opencode__agents_technical-writer.md",
+  "repo": "rajibmahata/opencode",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04769",
+  "file": "corpus/rakuya-khun_alumni-db__.github_agents_export-report.agent.md",
+  "repo": "rakuya-khun/alumni-db",
+  "path": ".github/agents/export-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

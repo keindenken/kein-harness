@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02010",
+  "file": "corpus/Gharib89_crm__.codex_agents_docs-sync.toml",
+  "repo": "Gharib89/crm",
+  "path": ".codex/agents/docs-sync.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02011",
+  "file": "corpus/GizmoTickler_scale-csi__.claude_agents_docs-agent.md",
+  "repo": "GizmoTickler/scale-csi",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02012",
+  "file": "corpus/Imran-ml_claude-skills__.claude_agents_doc-writer.md",
+  "repo": "Imran-ml/claude-skills",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02013",
+  "file": "corpus/IoT-bees_iot-bee-pipeline-core__.github_agents_iot-docs.agent.md",
+  "repo": "IoT-bees/iot-bee-pipeline-core",
+  "path": ".github/agents/iot-docs.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02014",
+  "file": "corpus/JamesPrial_claudefiles__agents_docs_docs-architect.md",
+  "repo": "JamesPrial/claudefiles",
+  "path": "agents/docs/docs-architect.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02015",
+  "file": "corpus/KallokTherok1994_TITANE_INFINITY__.github_agents_docs-registry.agent.md",
+  "repo": "KallokTherok1994/TITANE_INFINITY",
+  "path": ".github/agents/docs-registry.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02016",
+  "file": "corpus/KallokTherok1994_TITANE_INFINITY__.github_agents_e2e-authority.agent.md",
+  "repo": "KallokTherok1994/TITANE_INFINITY",
+  "path": ".github/agents/e2e-authority.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02017",
+  "file": "corpus/KallokTherok1994_TITANE_INFINITY__.github_agents_memory-regression-authority.agent.md",
+  "repo": "KallokTherok1994/TITANE_INFINITY",
+  "path": ".github/agents/memory-regression-authority.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02018",
+  "file": "corpus/Kobumura_mother-claude__agents_docs-writer.md",
+  "repo": "Kobumura/mother-claude",
+  "path": "agents/docs-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02019",
+  "file": "corpus/MLShukai_ResoniteIO__.codex_agents_docstring-author.toml",
+  "repo": "MLShukai/ResoniteIO",
+  "path": ".codex/agents/docstring-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

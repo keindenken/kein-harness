@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01920",
+  "file": "corpus/SPIRAL-EDWIN_edwinjing_blog_personal-website__.codex_agents_docs-researcher.toml",
+  "repo": "SPIRAL-EDWIN/edwinjing_blog_personal-website",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01921",
+  "file": "corpus/Sovereign-Communication_SCMessenger__.claude_agents_docs-sync-auditor.md",
+  "repo": "Sovereign-Communication/SCMessenger",
+  "path": ".claude/agents/docs-sync-auditor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01922",
+  "file": "corpus/agneym_portfolio__.opencode_agent_grammar-editor.md",
+  "repo": "agneym/portfolio",
+  "path": ".opencode/agent/grammar-editor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01923",
+  "file": "corpus/agneym_portfolio__.opencode_agent_story-editor.md",
+  "repo": "agneym/portfolio",
+  "path": ".opencode/agent/story-editor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01924",
+  "file": "corpus/aida-core_aida-core-plugin__agents_claude-code-expert_knowledge_skill-authoring-patterns.md",
+  "repo": "aida-core/aida-core-plugin",
+  "path": "agents/claude-code-expert/knowledge/skill-authoring-patterns.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01925",
+  "file": "corpus/alephmelo_nagare__.codex_agents_swarm-eval-author.toml",
+  "repo": "alephmelo/nagare",
+  "path": ".codex/agents/swarm-eval-author.toml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01926",
+  "file": "corpus/alereyleyva_arey-pi__agents_spec-author.md",
+  "repo": "alereyleyva/arey-pi",
+  "path": "agents/spec-author.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01927",
+  "file": "corpus/alperssl_eez-studio-mcp-server__.claude_agents_eez-editor.md",
+  "repo": "alperssl/eez-studio-mcp-server",
+  "path": ".claude/agents/eez-editor.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01928",
+  "file": "corpus/armoin2018_ai-command-center__.github_agents_ailey-documentation.agent.md",
+  "repo": "armoin2018/ai-command-center",
+  "path": ".github/agents/ailey-documentation.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01929",
+  "file": "corpus/bascikdev_bascik__.github_agents_bascik-docs.agent.md",
+  "repo": "bascikdev/bascik",
+  "path": ".github/agents/bascik-docs.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,5138 @@
+[
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": ".codex/agents/docs-researcher.toml",
+  "size": 317,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": ".kiro/agents/doc-updater.md",
+  "size": 3360,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": ".kiro/agents/tdd-guide.md",
+  "size": 2864,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/doc-updater.md",
+  "size": 4376,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/docs-lookup.md",
+  "size": 4566,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/spec-miner.md",
+  "size": 15108,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/tdd-guide.md",
+  "size": 3865,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/es/agents/doc-updater.md",
+  "size": 5352,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/es/agents/docs-lookup.md",
+  "size": 5361,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/es/agents/tdd-guide.md",
+  "size": 4656,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ja-JP/agents/doc-updater.md",
+  "size": 13882,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ja-JP/agents/docs-lookup.md",
+  "size": 6409,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ja-JP/agents/tdd-guide.md",
+  "size": 8401,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ko-KR/agents/doc-updater.md",
+  "size": 3631,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ko-KR/agents/tdd-guide.md",
+  "size": 3313,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/pt-BR/agents/doc-updater.md",
+  "size": 3572,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/pt-BR/agents/tdd-guide.md",
+  "size": 2951,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/tr/agents/doc-updater.md",
+  "size": 3881,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/tr/agents/docs-lookup.md",
+  "size": 4207,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/tr/agents/tdd-guide.md",
+  "size": 3294,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-CN/agents/doc-updater.md",
+  "size": 3138,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-CN/agents/docs-lookup.md",
+  "size": 3617,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-CN/agents/tdd-guide.md",
+  "size": 2856,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-TW/agents/doc-updater.md",
+  "size": 7235,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-TW/agents/tdd-guide.md",
+  "size": 7075,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "Graphify-Labs/graphify",
+  "ref": "v8",
+  "path": "graphify/skills/agents/references/extraction-spec.md",
+  "size": 7960,
+  "stars": 121387,
+  "via": "tree"
+ },
+ {
+  "repo": "Graphify-Labs/graphify",
+  "ref": "v8",
+  "path": "graphify/skills/agents/references/transcribe.md",
+  "size": 3173,
+  "stars": 121387,
+  "via": "tree"
+ },
+ {
+  "repo": "Egonex-AI/Understand-Anything",
+  "ref": "main",
+  "path": "understand-anything-plugin/agents/article-analyzer.md",
+  "size": 4023,
+  "stars": 84173,
+  "via": "tree"
+ },
+ {
+  "repo": "Egonex-AI/Understand-Anything",
+  "ref": "main",
+  "path": "understand-anything-plugin/agents/knowledge-graph-guide.md",
+  "size": 5130,
+  "stars": 84173,
+  "via": "tree"
+ },
+ {
+  "repo": "rtk-ai/rtk",
+  "ref": "develop",
+  "path": ".claude/agents/technical-writer.md",
+  "size": 8465,
+  "stars": 81708,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": ".claude/agents/documentation/api-docs/docs-api-openapi.md",
+  "size": 1549,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": ".claude/agents/specialized/mobile/spec-mobile-react-native.md",
+  "size": 2090,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "plugins/ruflo-docs/agents/docs-writer.md",
+  "size": 1769,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/documentation/api-docs/docs-api-openapi.md",
+  "size": 4592,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/documentation/docs-api-openapi.md",
+  "size": 10287,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/specialized/mobile/spec-mobile-react-native.md",
+  "size": 5537,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/specialized/spec-mobile-react-native.md",
+  "size": 5639,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/v3/claims-authorizer.md",
+  "size": 7183,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/documentation/api-docs/docs-api-openapi.md",
+  "size": 4592,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/documentation/docs-api-openapi.md",
+  "size": 10279,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/specialized/mobile/spec-mobile-react-native.md",
+  "size": 5537,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/specialized/spec-mobile-react-native.md",
+  "size": 5639,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/v3/claims-authorizer.md",
+  "size": 7183,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "career-ops-hq/career-ops",
+  "ref": "main",
+  "path": ".github/agents/docs-drift.agent.md",
+  "size": 1189,
+  "stars": 72754,
+  "via": "tree"
+ },
+ {
+  "repo": "asgeirtj/system_prompts_leaks",
+  "ref": "main",
+  "path": "Anthropic/claude-code/agents/claude-code-guide.md",
+  "size": 9305,
+  "stars": 68345,
+  "via": "tree"
+ },
+ {
+  "repo": "shanraisshan/claude-code-best-practice",
+  "ref": "main",
+  "path": "development-workflows/rpi/.claude/agents/documentation-analyst-writer.md",
+  "size": 4275,
+  "stars": 66351,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-doc-classifier.md",
+  "size": 7629,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-doc-synthesizer.md",
+  "size": 9722,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-doc-verifier.md",
+  "size": 12403,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-doc-writer.md",
+  "size": 38059,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "academic-paper-reviewer/agents/editorial_synthesizer_agent.md",
+  "size": 42473,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "academic-paper/agents/draft_writer_agent.md",
+  "size": 56724,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "agents/report_compiler_agent.md",
+  "size": 26656,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "deep-research/agents/editor_in_chief_agent.md",
+  "size": 7900,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "deep-research/agents/report_compiler_agent.md",
+  "size": 26656,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "sickn33/agentic-awesome-skills",
+  "ref": "main",
+  "path": "plugins/agentic-awesome-skills-claude/skills/ecl-harness-engineer/agents/creator-docs.md",
+  "size": 10613,
+  "stars": 46906,
+  "via": "tree"
+ },
+ {
+  "repo": "sickn33/agentic-awesome-skills",
+  "ref": "main",
+  "path": "plugins/agentic-awesome-skills/skills/ecl-harness-engineer/agents/creator-docs.md",
+  "size": 10613,
+  "stars": 46906,
+  "via": "tree"
+ },
+ {
+  "repo": "sickn33/agentic-awesome-skills",
+  "ref": "main",
+  "path": "skills/ecl-harness-engineer/agents/creator-docs.md",
+  "size": 10613,
+  "stars": 46906,
+  "via": "tree"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "ref": "main",
+  "path": "07-plugins/documentation/agents/api-documenter.md",
+  "size": 525,
+  "stars": 41664,
+  "via": "tree"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "ref": "main",
+  "path": "ja/07-plugins/documentation/agents/api-documenter.md",
+  "size": 502,
+  "stars": 41664,
+  "via": "tree"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "ref": "main",
+  "path": "uk/07-plugins/documentation/agents/api-documenter.md",
+  "size": 408,
+  "stars": 41664,
+  "via": "tree"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "ref": "main",
+  "path": "vi/07-plugins/documentation/agents/api-documenter.md",
+  "size": 274,
+  "stars": 41664,
+  "via": "tree"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "ref": "main",
+  "path": "zh/07-plugins/documentation/agents/api-documenter.md",
+  "size": 243,
+  "stars": 41664,
+  "via": "tree"
+ },
+ {
+  "repo": "ToolJet/ToolJet",
+  "ref": "main",
+  "path": ".claude/agents/helper-author.md",
+  "size": 1443,
+  "stars": 40994,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/api-testing-observability/agents/api-documenter.md",
+  "size": 7471,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/code-documentation/agents/docs-architect.md",
+  "size": 3687,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/code-documentation/agents/tutorial-engineer.md",
+  "size": 4380,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/content-marketing/agents/content-marketer.md",
+  "size": 8215,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/documentation-generation/agents/api-documenter.md",
+  "size": 7470,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/documentation-generation/agents/docs-architect.md",
+  "size": 3693,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/documentation-generation/agents/tutorial-engineer.md",
+  "size": 4386,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/seo-analysis-monitoring/agents/seo-authority-builder.md",
+  "size": 2966,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/seo-analysis-monitoring/agents/seo-content-refresher.md",
+  "size": 2549,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/seo-content-creation/agents/seo-content-auditor.md",
+  "size": 2019,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/seo-content-creation/agents/seo-content-planner.md",
+  "size": 2030,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/seo-content-creation/agents/seo-content-writer.md",
+  "size": 2022,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/ai-readiness-reporter.agent.md",
+  "size": 14833,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/gem-documentation-writer.agent.md",
+  "size": 2506,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/linkedin-post-writer.agent.md",
+  "size": 2887,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/prd.agent.md",
+  "size": 5538,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/project-documenter.agent.md",
+  "size": 12720,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/scientific-paper-research.agent.md",
+  "size": 2298,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/se-technical-writer.agent.md",
+  "size": 10767,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/taxcore-technical-writer.agent.md",
+  "size": 9029,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/technical-content-evaluator.agent.md",
+  "size": 26374,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "ref": "main",
+  "path": "agents/document-specialist.md",
+  "size": 7310,
+  "stars": 39353,
+  "via": "tree"
+ },
+ {
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "ref": "main",
+  "path": "agents/writer.md",
+  "size": 4386,
+  "stars": 39353,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/blog-writer.md",
+  "size": 20266,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/business-marketing/cli-tool/components/agents/business-marketing/cli-tool/components/agents/business-marketing/vital-health-content-agent.md",
+  "size": 2042,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/business-marketing/cli-tool/components/agents/business-marketing/vital-health-content-agent.md",
+  "size": 2042,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/business-marketing/content-marketer.md",
+  "size": 12795,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/data-ai/prd.md",
+  "size": 5491,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/deep-research-team/report-generator.md",
+  "size": 5338,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-team/sdd-spec-writer.md",
+  "size": 3098,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/documentation/api-documenter.md",
+  "size": 8675,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/documentation/changelog-generator.md",
+  "size": 1271,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/documentation/documentation-engineer.md",
+  "size": 10133,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/documentation/se-technical-writer.md",
+  "size": 10740,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/documentation/technical-writer.md",
+  "size": 8796,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/expert-advisors/documentation-expert.md",
+  "size": 8238,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/podcast-content-analyzer.md",
+  "size": 2803,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/podcast-transcriber.md",
+  "size": 3304,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ffmpeg-clip-team/video-editor.md",
+  "size": 1199,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/obsidian-ops-team/content-curator.md",
+  "size": 2884,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ocr-extraction-team/document-structure-analyzer.md",
+  "size": 1518,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/podcast-creator-team/podcast-editor.md",
+  "size": 1384,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/podcast-creator-team/social-media-copywriter.md",
+  "size": 2674,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/programming-languages/technical-content-evaluator.md",
+  "size": 26351,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "agents/marketing/cs-content-creator.md",
+  "size": 9903,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "agents/personas/content-strategist.md",
+  "size": 4681,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/content-strategist.md",
+  "size": 4442,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-content-creator.md",
+  "size": 11242,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-grill-with-docs.md",
+  "size": 11115,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-handoff-author.md",
+  "size": 8183,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-skill-author.md",
+  "size": 8998,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "engineering/grill-with-docs/agents/cs-grill-with-docs.md",
+  "size": 9647,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "engineering/handoff/agents/cs-handoff-author.md",
+  "size": 6688,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "engineering/write-a-skill/agents/cs-skill-author.md",
+  "size": 7497,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "marketing/linkedin/agents/cs-linkedin-editor.md",
+  "size": 4753,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "productivity/handoff/agents/cs-handoff-author.md",
+  "size": 3348,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/narrative-director.md",
+  "size": 6010,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/writer.md",
+  "size": 5278,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/leads/narrative-director.md",
+  "size": 6973,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/specialists/writer.md",
+  "size": 6168,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "AgriciDaniel/claude-seo",
+  "ref": "main",
+  "path": "agents/seo-content.md",
+  "size": 5489,
+  "stars": 17672,
+  "via": "tree"
+ },
+ {
+  "repo": "omnigent-ai/omnigent",
+  "ref": "main",
+  "path": "tests/resources/agents/workspace-file-writer/workspace-file-writer.yaml",
+  "size": 829,
+  "stars": 10235,
+  "via": "tree"
+ },
+ {
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "ref": "main",
+  "path": ".claude/agents/documentation-architect.md",
+  "size": 5738,
+  "stars": 10029,
+  "via": "tree"
+ },
+ {
+  "repo": "google/artemis",
+  "ref": "main",
+  "path": "artemis/agents/history_analyzer/history_analyzer.md",
+  "size": 985,
+  "stars": 9830,
+  "via": "tree"
+ },
+ {
+  "repo": "MervinPraison/PraisonAI",
+  "ref": "main",
+  "path": "examples/python/agents/MULTI_PROVIDER_README.md",
+  "size": 7001,
+  "stars": 9085,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/gsd-2",
+  "ref": "main",
+  "path": "src/resources/agents/doc-writer.md",
+  "size": 1604,
+  "stars": 7781,
+  "via": "tree"
+ },
+ {
+  "repo": "logancyang/obsidian-copilot",
+  "ref": "master",
+  "path": "designdocs/agents/DOCS_GUIDE.md",
+  "size": 615,
+  "stars": 7760,
+  "via": "tree"
+ },
+ {
+  "repo": "logancyang/obsidian-copilot",
+  "ref": "master",
+  "path": "designdocs/agents/PLUGIN_DEV_GUIDE.md",
+  "size": 4406,
+  "stars": 7760,
+  "via": "tree"
+ },
+ {
+  "repo": "logancyang/obsidian-copilot",
+  "ref": "master",
+  "path": "designdocs/agents/PROCESS_GUIDE.md",
+  "size": 1399,
+  "stars": 7760,
+  "via": "tree"
+ },
+ {
+  "repo": "logancyang/obsidian-copilot",
+  "ref": "master",
+  "path": "designdocs/agents/STYLE_GUIDE.md",
+  "size": 9560,
+  "stars": 7760,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/codex/agents/narrative-writer.toml",
+  "size": 16253,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/codex/agents/story-architect.toml",
+  "size": 12690,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/codex/agents/story-explorer.toml",
+  "size": 22638,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/codex/agents/story-researcher.toml",
+  "size": 13022,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/opencode/agents/narrative-writer.md",
+  "size": 15766,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/opencode/agents/story-architect.md",
+  "size": 12207,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/opencode/agents/story-explorer.md",
+  "size": 22140,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/opencode/agents/story-researcher.md",
+  "size": 12541,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/templates/agents/narrative-writer.md",
+  "size": 15890,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/templates/agents/story-architect.md",
+  "size": 12135,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/templates/agents/story-explorer.md",
+  "size": 22110,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/templates/agents/story-researcher.md",
+  "size": 12381,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "ref": "main",
+  "path": "agents/paper-miner.md",
+  "size": 9559,
+  "stars": 5631,
+  "via": "tree"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "ref": "main",
+  "path": "agents/rebuttal-writer.md",
+  "size": 9183,
+  "stars": 5631,
+  "via": "tree"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "ref": "main",
+  "path": "agents/tdd-guide.md",
+  "size": 1173,
+  "stars": 5631,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/content/copywriter.md",
+  "size": 1594,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/content/technical-writer.md",
+  "size": 1616,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/subagents/core/documentation.md",
+  "size": 5093,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/subagents/planning/story-mapper.md",
+  "size": 23240,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/docs/agents/planning-agents-guide.md",
+  "size": 34495,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/02-docs-task.yaml",
+  "size": 1589,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/07-simple-documentation-format.yaml",
+  "size": 1130,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/09-multi-standards-to-docs.yaml",
+  "size": 2345,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/stop-on-failure/02-stop-and-report-positive.yaml",
+  "size": 1326,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/06-integration/medium/05-content-validation.yaml",
+  "size": 1710,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/06-negative/report-first-violation.yaml",
+  "size": 562,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/01-critical-rules/context-loading/02-docs-task.yaml",
+  "size": 1589,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/01-critical-rules/context-loading/07-simple-documentation-format.yaml",
+  "size": 1130,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/01-critical-rules/context-loading/09-multi-standards-to-docs.yaml",
+  "size": 2186,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/01-critical-rules/stop-on-failure/02-stop-and-report-positive.yaml",
+  "size": 1179,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/06-integration/medium/05-content-validation.yaml",
+  "size": 1575,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/06-negative/report-first-violation.yaml",
+  "size": 545,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/_archive/context-loading/ctx-multi-standards-to-docs.yaml",
+  "size": 2186,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/_archive/context-loading/ctx-simple-documentation-format.yaml",
+  "size": 1130,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/_archive/developer/ctx-docs-001.yaml",
+  "size": 1589,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/context-loading/ctx-multi-standards-to-docs.yaml",
+  "size": 2186,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/context-loading/ctx-simple-documentation-format.yaml",
+  "size": 1130,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/developer/ctx-docs-001.yaml",
+  "size": 1589,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/contextscout-integration/07-content-creation-uses-contextscout.yaml",
+  "size": 2027,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/shared/tests/golden/03-read-before-write.yaml",
+  "size": 1242,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/shared/tests/golden/04-write-with-approval.yaml",
+  "size": 1456,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/shared/tests/templates/read-then-write.yaml",
+  "size": 856,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/shared/tests/templates/write-with-approval.yaml",
+  "size": 821,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/subagents/core/context-retriever/tests/04-content-extraction.yaml",
+  "size": 1142,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/subagents/core/contextscout/tests/07-content-creation-discovery.yaml",
+  "size": 2485,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/subagents/core/documentation/tests/02-create-documentation.yaml",
+  "size": 1053,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/subagents/core/documentation/tests/03-update-documentation.yaml",
+  "size": 1043,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "kungfu-systems/kungfu",
+  "ref": "dev/v4/v4.0",
+  "path": "framework/core/src/python/kungfu/agent/examples/report-mode.md",
+  "size": 1376,
+  "stars": 4524,
+  "via": "tree"
+ },
+ {
+  "repo": "kungfu-systems/kungfu",
+  "ref": "dev/v4/v4.0",
+  "path": "framework/core/src/python/kungfu/agent/kfx-authoring.md",
+  "size": 2474,
+  "stars": 4524,
+  "via": "tree"
+ },
+ {
+  "repo": "parcadei/Continuous-Claude-v3",
+  "ref": "main",
+  "path": ".claude/agents/scribe.md",
+  "size": 3208,
+  "stars": 3943,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/doc-analyser.agent.md",
+  "size": 398,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/doc-writer.agent.md",
+  "size": 6593,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/editorial-owner.agent.md",
+  "size": 5307,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/spec-editor-synthesizer.agent.md",
+  "size": 3509,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/spec-oci-editor.agent.md",
+  "size": 3595,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/spec-pkgmgr-editor.agent.md",
+  "size": 3549,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/spec-swagger-editor.agent.md",
+  "size": 3652,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/spec-tag-architect.agent.md",
+  "size": 3660,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/doc-analyser.agent.md",
+  "size": 398,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/doc-writer.agent.md",
+  "size": 6593,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/editorial-owner.agent.md",
+  "size": 5307,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/spec-editor-synthesizer.agent.md",
+  "size": 3509,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/spec-oci-editor.agent.md",
+  "size": 3595,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/spec-pkgmgr-editor.agent.md",
+  "size": 3549,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/spec-swagger-editor.agent.md",
+  "size": 3652,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/spec-tag-architect.agent.md",
+  "size": 3660,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "nicobailon/pi-subagents",
+  "ref": "main",
+  "path": "agents/claude-code-writer.md",
+  "size": 641,
+  "stars": 3764,
+  "via": "tree"
+ },
+ {
+  "repo": "nicobailon/pi-subagents",
+  "ref": "main",
+  "path": "agents/codex-exec-writer.md",
+  "size": 521,
+  "stars": 3764,
+  "via": "tree"
+ },
+ {
+  "repo": "nicobailon/pi-subagents",
+  "ref": "main",
+  "path": "agents/cursor-agent-writer.md",
+  "size": 504,
+  "stars": 3764,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-design.md",
+  "size": 8197,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-impl.md",
+  "size": 4046,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-requirements.md",
+  "size": 4743,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-tasks.md",
+  "size": 5724,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-design.md",
+  "size": 1816,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-impl.md",
+  "size": 1858,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-init.md",
+  "size": 3096,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-quick.md",
+  "size": 10497,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-requirements.md",
+  "size": 1697,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-status.md",
+  "size": 2799,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-tasks.md",
+  "size": 2684,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-design.md",
+  "size": 8867,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-impl.md",
+  "size": 3532,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-init.md",
+  "size": 3096,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-requirements.md",
+  "size": 4702,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-status.md",
+  "size": 2761,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-tasks.md",
+  "size": 6148,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-design.md",
+  "size": 9171,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-impl.md",
+  "size": 3552,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-init.md",
+  "size": 3120,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-requirements.md",
+  "size": 4669,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-status.md",
+  "size": 2774,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-tasks.md",
+  "size": 6227,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-design.md",
+  "size": 8988,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-impl.md",
+  "size": 3460,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-init.md",
+  "size": 3066,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-requirements.md",
+  "size": 4617,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-status.md",
+  "size": 2746,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-tasks.md",
+  "size": 6955,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-design.toml",
+  "size": 9126,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-impl.toml",
+  "size": 3572,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-init.toml",
+  "size": 3215,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-requirements.toml",
+  "size": 4747,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-status.toml",
+  "size": 2858,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-tasks.toml",
+  "size": 6097,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-design.prompt.md",
+  "size": 9086,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-impl.prompt.md",
+  "size": 3539,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-init.prompt.md",
+  "size": 3167,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-requirements.prompt.md",
+  "size": 4709,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-status.prompt.md",
+  "size": 2821,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-tasks.prompt.md",
+  "size": 5990,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/spec-design.md",
+  "size": 8101,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/spec-impl.md",
+  "size": 3934,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/spec-requirements.md",
+  "size": 4647,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/spec-tasks.md",
+  "size": 5650,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-design.md",
+  "size": 1541,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-impl.md",
+  "size": 1588,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-init.md",
+  "size": 3021,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-quick.md",
+  "size": 10387,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-requirements.md",
+  "size": 1437,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-status.md",
+  "size": 2705,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-tasks.md",
+  "size": 2416,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-design.md",
+  "size": 8738,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-impl.md",
+  "size": 3401,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-init.md",
+  "size": 3021,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-requirements.md",
+  "size": 4578,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-status.md",
+  "size": 2706,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-tasks.md",
+  "size": 6043,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-design.md",
+  "size": 9090,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-impl.md",
+  "size": 3545,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-init.md",
+  "size": 3175,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-requirements.md",
+  "size": 4717,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-status.md",
+  "size": 2829,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-tasks.md",
+  "size": 6068,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-documentation/agents/api-documenter.md",
+  "size": 1812,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-media-content/agents/podcast-content-analyzer.md",
+  "size": 1162,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-media-content/agents/podcast-transcriber.md",
+  "size": 1701,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-sales-marketing/agents/content-marketer.md",
+  "size": 1694,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-sales-marketing/agents/social-media-copywriter.md",
+  "size": 2172,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-specialized-domains/agents/report-generator.md",
+  "size": 1896,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/api-documenter.md",
+  "size": 1812,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/content-marketer.md",
+  "size": 1694,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/podcast-content-analyzer.md",
+  "size": 1162,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/podcast-transcriber.md",
+  "size": 1701,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/report-generator.md",
+  "size": 1896,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/social-media-copywriter.md",
+  "size": 2172,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-doc-classifier.md",
+  "size": 7446,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-doc-synthesizer.md",
+  "size": 9722,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-doc-verifier.md",
+  "size": 11102,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-doc-writer.md",
+  "size": 38114,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "event-catalog/eventcatalog",
+  "ref": "main",
+  "path": ".claude/agents/docs.md",
+  "size": 9290,
+  "stars": 2907,
+  "via": "tree"
+ },
+ {
+  "repo": "stellarlinkco/myclaude",
+  "ref": "master",
+  "path": "agents/development-essentials/commands/docs.md",
+  "size": 2499,
+  "stars": 2751,
+  "via": "tree"
+ },
+ {
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "ref": "main",
+  "path": "agents/market-content.md",
+  "size": 4401,
+  "stars": 2683,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentsMesh/AgentsMesh",
+  "ref": "main",
+  "path": "agents/skills/arch-check/references/report-format.md",
+  "size": 2970,
+  "stars": 2355,
+  "via": "tree"
+ },
+ {
+  "repo": "0xSteph/pentest-ai-agents",
+  "ref": "main",
+  "path": "agents/exploit-guide.md",
+  "size": 4757,
+  "stars": 2271,
+  "via": "tree"
+ },
+ {
+  "repo": "0xSteph/pentest-ai-agents",
+  "ref": "main",
+  "path": "agents/report-generator.md",
+  "size": 6030,
+  "stars": 2271,
+  "via": "tree"
+ },
+ {
+  "repo": "Wirasm/prp",
+  "ref": "development",
+  "path": ".claude/agents/docs-impact-agent.md",
+  "size": 4889,
+  "stars": 2250,
+  "via": "tree"
+ },
+ {
+  "repo": "Wirasm/prp",
+  "ref": "development",
+  "path": ".codex/agents/docs-impact-agent.toml",
+  "size": 4894,
+  "stars": 2250,
+  "via": "tree"
+ },
+ {
+  "repo": "Wirasm/prp",
+  "ref": "development",
+  "path": "plugins/prp-core/agents/docs-impact-agent.md",
+  "size": 4889,
+  "stars": 2250,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-cloud-research-writer.md",
+  "size": 8053,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-competitors-writer.md",
+  "size": 18016,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-datascout-writer.md",
+  "size": 7090,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-gov-code-search-writer.md",
+  "size": 6586,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-gov-landscape-writer.md",
+  "size": 8055,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-gov-reuse-writer.md",
+  "size": 9104,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-grants-writer.md",
+  "size": 8148,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-research-writer.md",
+  "size": 11573,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/agents/arckit-tenders-writer.md",
+  "size": 10750,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/CHANGELOG.md",
+  "size": 280,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-at.md",
+  "size": 800,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-au.md",
+  "size": 665,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-ca.md",
+  "size": 693,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-fr.md",
+  "size": 662,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-nl.md",
+  "size": 701,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-uae.md",
+  "size": 1001,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-uk.md",
+  "size": 649,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-us.md",
+  "size": 657,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/5f890bd72ac4/skills/voice-project/references/narration.md",
+  "size": 2334,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/gate-control/references/narration-recovery.md",
+  "size": 6216,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-compose/references/manifest-and-authoring.md",
+  "size": 6697,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-compose/references/narration.md",
+  "size": 5498,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-edit/references/transcript-and-screen-grounded-editing.md",
+  "size": 5085,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "maxritter/pilot-shell",
+  "ref": "main",
+  "path": "pilot/agents/spec-branch-setup.md",
+  "size": 3698,
+  "stars": 2077,
+  "via": "tree"
+ },
+ {
+  "repo": "maxritter/pilot-shell",
+  "ref": "main",
+  "path": "pilot/agents/spec-native-plan.md",
+  "size": 6670,
+  "stars": 2077,
+  "via": "tree"
+ },
+ {
+  "repo": "iannuttall/claude-agents",
+  "ref": "main",
+  "path": "agents/content-writer.md",
+  "size": 4082,
+  "stars": 2043,
+  "via": "tree"
+ },
+ {
+  "repo": "iannuttall/claude-agents",
+  "ref": "main",
+  "path": "agents/prd-writer.md",
+  "size": 5064,
+  "stars": 2043,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "agents/change-story-agent.md",
+  "size": 4910,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "agents/tech-writer.md",
+  "size": 108381,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "antigravity/agents/change-story-agent.md",
+  "size": 4978,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "antigravity/agents/tech-writer.md",
+  "size": 108449,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "plugins/review/agents/change-story-agent.md",
+  "size": 4910,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "NeoLabHQ/context-engineering-kit",
+  "ref": "master",
+  "path": "plugins/sdd/agents/tech-writer.md",
+  "size": 108381,
+  "stars": 1724,
+  "via": "tree"
+ },
+ {
+  "repo": "lst97/claude-code-sub-agents",
+  "ref": "main",
+  "path": "agents/specialization/api-documenter.md",
+  "size": 4680,
+  "stars": 1689,
+  "via": "tree"
+ },
+ {
+  "repo": "lst97/claude-code-sub-agents",
+  "ref": "main",
+  "path": "agents/specialization/documentation-expert.md",
+  "size": 6123,
+  "stars": 1689,
+  "via": "tree"
+ },
+ {
+  "repo": "feiskyer/claude-code-settings",
+  "ref": "main",
+  "path": "agents/insight-documenter.md",
+  "size": 2803,
+  "stars": 1655,
+  "via": "tree"
+ },
+ {
+  "repo": "cyberpapiii/chipotlai-max",
+  "ref": "master",
+  "path": ".opencode/agent/docs.md",
+  "size": 1094,
+  "stars": 1565,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/engagement-reporting/engagement-report-generator.agent.md",
+  "size": 3310,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/hve-core/documentation.agent.md",
+  "size": 4085,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/project-planning/prd-builder.agent.md",
+  "size": 35090,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/security/subagents/report-generator.agent.md",
+  "size": 17129,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/agents/ado-backlog/prd-planning.md",
+  "size": 1662,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/agents/project-planning/brd-prd-builders.md",
+  "size": 22616,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/engagement-reporting/engagement-report-generator.md",
+  "size": 2705,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/hve-core/documentation.md",
+  "size": 2303,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/project-planning/prd-builder.md",
+  "size": 2282,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/security/subagents/report-generator.md",
+  "size": 2008,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/agents/ap-roadmap-author.md",
+  "size": 2706,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/agents/ap-scribe.md",
+  "size": 1890,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/agents/ap-roadmap-author.toml",
+  "size": 1960,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/agents/ap-scribe.toml",
+  "size": 1185,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/docs.md",
+  "size": 2131,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/personas/ap-scribe.md",
+  "size": 1287,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/agents/ap-roadmap-author.md",
+  "size": 2602,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/agents/ap-scribe.md",
+  "size": 1786,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/agents/ap-roadmap-author.md",
+  "size": 2444,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/agents/ap-scribe.md",
+  "size": 1652,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/agents/ap-roadmap-author.md",
+  "size": 2446,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/agents/ap-scribe.md",
+  "size": 1654,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/agents/ap-roadmap-author.md",
+  "size": 2713,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/agents/ap-scribe.md",
+  "size": 1903,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/agents/ap-roadmap-author.md",
+  "size": 2687,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/agents/ap-scribe.md",
+  "size": 1849,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/agents/ap-roadmap-author.md",
+  "size": 2717,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/agents/ap-scribe.md",
+  "size": 1907,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/personas/ap-roadmap-author.md",
+  "size": 2445,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/personas/ap-scribe.md",
+  "size": 1653,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/agents/ap-roadmap-author.agent.md",
+  "size": 2699,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/agents/ap-scribe.agent.md",
+  "size": 1866,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/docs.md",
+  "size": 4575,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "open-gsd/gsd-pi",
+  "ref": "main",
+  "path": "src/resources/agents/doc-writer.md",
+  "size": 1604,
+  "stars": 1262,
+  "via": "tree"
+ },
+ {
+  "repo": "tintinweb/pi-subagents",
+  "ref": "master",
+  "path": "test/fixtures/.pi/agents/disallow-alpha-write.md",
+  "size": 393,
+  "stars": 1216,
+  "via": "tree"
+ },
+ {
+  "repo": "tintinweb/pi-subagents",
+  "ref": "master",
+  "path": "test/fixtures/.pi/agents/memory-denied-write.md",
+  "size": 1324,
+  "stars": 1216,
+  "via": "tree"
+ },
+ {
+  "repo": "tintinweb/pi-subagents",
+  "ref": "master",
+  "path": "test/fixtures/.pi/agents/memory-readwrite.md",
+  "size": 592,
+  "stars": 1216,
+  "via": "tree"
+ },
+ {
+  "repo": "hoangsonww/Claude-Code-Agent-Monitor",
+  "ref": "master",
+  "path": "plugins/ccam-reports/agents/report-analyst.md",
+  "size": 833,
+  "stars": 1015,
+  "via": "tree"
+ },
+ {
+  "repo": "Human-Agent-Society/CORAL",
+  "ref": "main",
+  "path": "plugin/agents/coral-task-author.md",
+  "size": 4294,
+  "stars": 1013,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/analytics-reporter/agents/analytics-reporter.md",
+  "size": 8199,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/changelog-generator/agents/changelog-generator.md",
+  "size": 3691,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/codebase-documenter/agents/codebase-documenter.md",
+  "size": 5617,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/content-creator/agents/content-creator.md",
+  "size": 6939,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/context7-docs-fetcher/agents/context7-docs-fetcher.md",
+  "size": 3421,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/craftsman/agents/docs-writer.md",
+  "size": 2442,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/planning-prd-agent/agents/planning-prd-agent.md",
+  "size": 34396,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/prd-specialist/agents/prd-specialist.md",
+  "size": 5464,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/visual-storyteller/agents/visual-storyteller.md",
+  "size": 9945,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "ref": "dev",
+  "path": ".claude/agents/agents-guide.md",
+  "size": 10299,
+  "stars": 870,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "ref": "dev",
+  "path": ".claude/agents/factory-guide.md",
+  "size": 6764,
+  "stars": 870,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "ref": "dev",
+  "path": ".claude/agents/hooks-guide.md",
+  "size": 9544,
+  "stars": 870,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "ref": "dev",
+  "path": ".claude/agents/prompts-guide.md",
+  "size": 9288,
+  "stars": 870,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-code-skill-factory",
+  "ref": "dev",
+  "path": ".claude/agents/skills-guide.md",
+  "size": 8514,
+  "stars": 870,
+  "via": "tree"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "ref": "main",
+  "path": "agents/doc-updater.md",
+  "size": 2313,
+  "stars": 843,
+  "via": "tree"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "ref": "main",
+  "path": "agents/tdd-guide.md",
+  "size": 8363,
+  "stars": 843,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": ".claude/agents/changelog-manager.md",
+  "size": 3654,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": ".claude/agents/doc-generator.md",
+  "size": 3193,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/engineering/cs-doc-writer.md",
+  "size": 14186,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/marketing/cs-content-creator.md",
+  "size": 12333,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/personas/content-strategist.md",
+  "size": 6417,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "alfredxw/denova",
+  "ref": "master",
+  "path": "agent/README.en.md",
+  "size": 18777,
+  "stars": 818,
+  "via": "tree"
+ },
+ {
+  "repo": "divar-ir/ai-doc-gen",
+  "ref": "main",
+  "path": "src/agents/prompts/documenter.yaml",
+  "size": 6085,
+  "stars": 763,
+  "via": "tree"
+ },
+ {
+  "repo": "AgriciDaniel/codex-seo",
+  "ref": "main",
+  "path": "agents/seo-content.toml",
+  "size": 2542,
+  "stars": 752,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/app/components/novel-ide/agent/bubbles/tools/AgentWriteFileBubble.md",
+  "size": 231,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/app/components/novel-ide/agent/flow/AgentChatHistoryLoader.md",
+  "size": 209,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/novel-writing-workflow.md",
+  "size": 6473,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/profile-guide.md",
+  "size": 13976,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/project-workspace-guide.md",
+  "size": 11439,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/adjudication-report.md",
+  "size": 1678,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/rp-writer-interaction.md",
+  "size": 6012,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/subject-creation-guide.md",
+  "size": 23437,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/writer-brief.md",
+  "size": 13004,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/workflow/authoring.md",
+  "size": 9982,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/prd-creator.md",
+  "size": 11448,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/prd-creator.md",
+  "size": 11448,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/prd-creator.md",
+  "size": 11448,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows/agents/prd-creator.md",
+  "size": 11448,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "docs/reference/agents/nw-documentarist.md",
+  "size": 961,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "nWave/agents/nw-documentarist.md",
+  "size": 7613,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "plugins/nw/agents/nw-documentarist.md",
+  "size": 7613,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "Code-and-Sorts/awesome-copilot-agents",
+  "ref": "main",
+  "path": "agents/ai-development-mode/prd-creation.agent.md",
+  "size": 3324,
+  "stars": 575,
+  "via": "tree"
+ },
+ {
+  "repo": "shanraisshan/claude-code-hooks",
+  "ref": "main",
+  "path": ".claude/agents/workflows/workflow-changelog-agent.md",
+  "size": 10078,
+  "stars": 548,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/content_strategist.md",
+  "size": 761,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/copywriter.md",
+  "size": 711,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/technical_writer.md",
+  "size": 745,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/content-strategist.md",
+  "size": 1643,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/copywriter.md",
+  "size": 1465,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/technical-writer.md",
+  "size": 1600,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/content-strategist.md",
+  "size": 6833,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/copywriter.md",
+  "size": 6582,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/technical-writer.md",
+  "size": 8414,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/content-strategist.md",
+  "size": 6833,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/copywriter.md",
+  "size": 6582,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/technical-writer.md",
+  "size": 8414,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/content_strategist.md",
+  "size": 730,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/copywriter.md",
+  "size": 684,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/technical_writer.md",
+  "size": 710,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/content-strategist.md",
+  "size": 6833,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/copywriter.md",
+  "size": 6582,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/technical-writer.md",
+  "size": 8414,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": ".claude/agents/article-illustrator.md",
+  "size": 6011,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": ".claude/agents/writing-clarifier.md",
+  "size": 9429,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": ".claude/agents/writing-executor.md",
+  "size": 4552,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "claude-runtime/agents/article-illustrator.md",
+  "size": 6047,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "claude-runtime/agents/writing-clarifier.md",
+  "size": 9429,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "claude-runtime/agents/writing-executor.md",
+  "size": 4606,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "plugins/writing-agent/agents/article-illustrator.md",
+  "size": 6055,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "plugins/writing-agent/agents/writing-clarifier.md",
+  "size": 9429,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "plugins/writing-agent/agents/writing-executor.md",
+  "size": 4618,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "athola/claude-night-market",
+  "ref": "master",
+  "path": ".claude/agents/documentation-mode.md",
+  "size": 1887,
+  "stars": 337,
+  "via": "tree"
+ },
+ {
+  "repo": "athola/claude-night-market",
+  "ref": "master",
+  "path": "plugins/scribe/agents/doc-editor.md",
+  "size": 2869,
+  "stars": 337,
+  "via": "tree"
+ },
+ {
+  "repo": "athola/claude-night-market",
+  "ref": "master",
+  "path": "plugins/scribe/agents/doc-verifier.md",
+  "size": 5224,
+  "stars": 337,
+  "via": "tree"
+ },
+ {
+  "repo": "athola/claude-night-market",
+  "ref": "master",
+  "path": "plugins/spec-kit/agents/spec-analyzer.md",
+  "size": 2522,
+  "stars": 337,
+  "via": "tree"
+ },
+ {
+  "repo": "avivl/claude-007-agents",
+  "ref": "main",
+  "path": ".claude/agents/universal/documentation-specialist.md",
+  "size": 25811,
+  "stars": 270,
+  "via": "tree"
+ },
+ {
+  "repo": "NYCU-Chung/my-claude-devteam",
+  "ref": "main",
+  "path": "agents/README.zh-TW.md",
+  "size": 8368,
+  "stars": 269,
+  "via": "tree"
+ },
+ {
+  "repo": "johnrogers/claude-swift-engineering",
+  "ref": "main",
+  "path": "plugins/swift-engineering/agents/swift-documenter.md",
+  "size": 2290,
+  "stars": 231,
+  "via": "tree"
+ },
+ {
+  "repo": "dev-toolings/superpowers-symfony",
+  "ref": "main",
+  "path": "dist/agents/commands/write-plan.md",
+  "size": 305,
+  "stars": 217,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/core/content-marketer-writer.md",
+  "size": 4129,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/core/prd-writer.md",
+  "size": 4846,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/core/technical-mentor-guide.md",
+  "size": 6313,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/design/visual-storyteller.md",
+  "size": 9945,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/marketing/content-creator.md",
+  "size": 6939,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/operations/analytics-reporter.md",
+  "size": 8199,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/specialized-agents/content-marketer-writer.md",
+  "size": 4185,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-doc-verifier.md",
+  "size": 3232,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-doc-writer.md",
+  "size": 3743,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-line-editor.md",
+  "size": 3786,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-narrative-continuity-checker.md",
+  "size": 3890,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "andrehuang/academic-writing-agents",
+  "ref": "main",
+  "path": "agents/paper-crawler.md",
+  "size": 3298,
+  "stars": 205,
+  "via": "tree"
+ },
+ {
+  "repo": "andrehuang/academic-writing-agents",
+  "ref": "main",
+  "path": "agents/prose-polisher.md",
+  "size": 3222,
+  "stars": 205,
+  "via": "tree"
+ },
+ {
+  "repo": "cat-xierluo/SuitAgent",
+  "ref": "main",
+  "path": ".claude/agents/Reporter.md",
+  "size": 2637,
+  "stars": 204,
+  "via": "tree"
+ },
+ {
+  "repo": "cat-xierluo/SuitAgent",
+  "ref": "main",
+  "path": ".claude/agents/Writer.md",
+  "size": 3545,
+  "stars": 204,
+  "via": "tree"
+ },
+ {
+  "repo": "yuanchuan/aivo",
+  "ref": "main",
+  "path": "src/agent/builtin_agents/aivo-guide.md",
+  "size": 985,
+  "stars": 194,
+  "via": "tree"
+ },
+ {
+  "repo": "CodeAlive-AI/ai-driven-development",
+  "ref": "main",
+  "path": "skills/semantic-scholar-deep/agents/deep-paper-researcher.md",
+  "size": 10638,
+  "stars": 149,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/acp-project/seed-acp/agent/tasks/task-5-documentation.md",
+  "size": 996,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/acp-project/steps/05-acp-documentation.md",
+  "size": 196,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/acp-project/steps/05-baseline-documentation.md",
+  "size": 929,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/complex-auth-system/steps/05-docs.md",
+  "size": 1126,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/enterprise-task-manager/steps/10-migration-docs.md",
+  "size": 1199,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/legacy-refactor/steps/06-documentation.md",
+  "size": 915,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/order-pipeline/steps/07-integration-docs.md",
+  "size": 1599,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/saas-platform/seed-acp/agent/tasks/task-14-api-docs.md",
+  "size": 2272,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/saas-platform/steps/14-acp-docs.md",
+  "size": 273,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/saas-platform/steps/14-baseline-docs.md",
+  "size": 892,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/commands/acp.report.md",
+  "size": 12954,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/commands/acp.spec.md",
+  "size": 49216,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-11-benchmark-suite/task-84-report-dashboard-enhancement.md",
+  "size": 1823,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-11-benchmark-suite/task-86-documentation-historical-tracking.md",
+  "size": 1939,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-14-key-file-index-system/task-104-validation-documentation.md",
+  "size": 2861,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-19-pluggable-driver-system/task-129-documentation-updates.md",
+  "size": 6252,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-6-preferences-system/task-44-preferences-documentation.md",
+  "size": 13729,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-7-project-registry/task-60-documentation.md",
+  "size": 2479,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-8-experimental-features/task-64-documentation.md",
+  "size": 12338,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-9-template-source-files/task-76-documentation.md",
+  "size": 10222,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/task-16-readme-update-utilities.md",
+  "size": 5065,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/task-23-package-create-rewrite.md",
+  "size": 1602,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/task-28-global-documentation.md",
+  "size": 12631,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/task-4-update-documentation.md",
+  "size": 2093,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "mischasigtermans/laravel-altitude",
+  "ref": "main",
+  "path": "stubs/agents/docs.md",
+  "size": 1329,
+  "stars": 122,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/claude/copy-lead.md",
+  "size": 44,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/claude/docs-maintainer.md",
+  "size": 50,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/claude/emergency-writer.md",
+  "size": 51,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/codex/instructions/docs-maintain.md",
+  "size": 8346,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/codex/instructions/writer-emergency.md",
+  "size": 1919,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/grok/writer.md",
+  "size": 9313,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "plugins/lane-stack/agents/copy-lead.md",
+  "size": 8074,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "plugins/lane-stack/agents/docs-maintainer.md",
+  "size": 1055,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "plugins/lane-stack/agents/emergency-writer.md",
+  "size": 7449,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "profiles/cursor/lane-writer/agents/lane-writer.md",
+  "size": 4846,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "profiles/opencode/agents/lane-writer.md",
+  "size": 5483,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "solanabr/solana-ai-kit",
+  "ref": "main",
+  "path": ".claude/agents/solana-guide.md",
+  "size": 2867,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "solanabr/solana-ai-kit",
+  "ref": "main",
+  "path": ".claude/agents/tech-docs-writer.md",
+  "size": 2941,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "josipjelic/orchestrated-project-template",
+  "ref": "main",
+  "path": ".claude/agents/copywriter-seo.md",
+  "size": 28721,
+  "stars": 95,
+  "via": "tree"
+ },
+ {
+  "repo": "josipjelic/orchestrated-project-template",
+  "ref": "main",
+  "path": ".claude/agents/documentation-writer.md",
+  "size": 15903,
+  "stars": 95,
+  "via": "tree"
+ },
+ {
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "ref": "main",
+  "path": "agents/content-docs/documentation-specialist.md",
+  "size": 1030,
+  "stars": 84,
+  "via": "tree"
+ },
+ {
+  "repo": "GulajavaMinistudio/awesome-copilot-id",
+  "ref": "main",
+  "path": ".agents/skills/impeccable/agents/impeccable_documenter.toml",
+  "size": 3243,
+  "stars": 79,
+  "via": "tree"
+ },
+ {
+  "repo": "heggria/taskflow",
+  "ref": "main",
+  "path": "packages/taskflow-core/src/agents/doc-writer.md",
+  "size": 2307,
+  "stars": 74,
+  "via": "tree"
+ },
+ {
+  "repo": "anchildress1/awesome-ai",
+  "ref": "main",
+  "path": "docs/agents/hlbpa-docs.md",
+  "size": 5283,
+  "stars": 66,
+  "via": "tree"
+ },
+ {
+  "repo": "anchildress1/awesome-ai",
+  "ref": "main",
+  "path": "docs/agents/instructionalist-docs.md",
+  "size": 5557,
+  "stars": 66,
+  "via": "tree"
+ },
+ {
+  "repo": "anchildress1/awesome-ai",
+  "ref": "main",
+  "path": "docs/agents/logfather-docs.md",
+  "size": 3718,
+  "stars": 66,
+  "via": "tree"
+ },
+ {
+  "repo": "anchildress1/awesome-ai",
+  "ref": "main",
+  "path": "docs/agents/pragmatist-docs.md",
+  "size": 1788,
+  "stars": 66,
+  "via": "tree"
+ },
+ {
+  "repo": "btspoony/mstar-harness",
+  "ref": "main",
+  "path": "agents/writing-specialist.md",
+  "size": 1007,
+  "stars": 62,
+  "via": "tree"
+ },
+ {
+  "repo": "btspoony/mstar-harness",
+  "ref": "main",
+  "path": "codex/agents/writing-specialist.toml",
+  "size": 676,
+  "stars": 62,
+  "via": "tree"
+ },
+ {
+  "repo": "xiaobei930/cc-best",
+  "ref": "main",
+  "path": "agents/tdd-guide.md",
+  "size": 3011,
+  "stars": 49,
+  "via": "tree"
+ },
+ {
+  "repo": "AR6420/Hail_Hydra",
+  "ref": "main",
+  "path": "content/agents/hydra-scribe.md",
+  "size": 2229,
+  "stars": 49,
+  "via": "tree"
+ },
+ {
+  "repo": "benjaminr/claude-code-essentials",
+  "ref": "main",
+  "path": ".claude/agents/documentation-generator.md",
+  "size": 3923,
+  "stars": 34,
+  "via": "tree"
+ },
+ {
+  "repo": "mylee04/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/business/content-marketer.md",
+  "size": 2134,
+  "stars": 33,
+  "via": "tree"
+ },
+ {
+  "repo": "mylee04/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/product/api-documenter.md",
+  "size": 1632,
+  "stars": 33,
+  "via": "tree"
+ },
+ {
+  "repo": "Borda/AI-Rig",
+  "ref": "main",
+  "path": "plugins/cc_foundry/agents/doc-scribe.md",
+  "size": 15076,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/changelog-watcher/agents/changelog-watcher.md",
+  "size": 3994,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/prompt-engineer/skills/prompt-library/templates/agents/technical-writer.md",
+  "size": 3077,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/seo/agents/seo-content.md",
+  "size": 2882,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "Intersect-Collaborations-LLC/research-workflow-assistant",
+  "ref": "master",
+  "path": ".github/agents/academic-writer.agent.md",
+  "size": 14583,
+  "stars": 25,
+  "via": "tree"
+ },
+ {
+  "repo": "jcmrs/claude-code-spec-kit-subagent-plugin",
+  "ref": "main",
+  "path": "agents/spec-kit-partner.md",
+  "size": 42321,
+  "stars": 22,
+  "via": "tree"
+ },
+ {
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "ref": "main",
+  "path": ".claude/agents/plugin-documentation-specialist.md",
+  "size": 4602,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/planning/prd-generator.md",
+  "size": 11736,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/quality/documentation-coordinator.md",
+  "size": 14411,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/productivity/doc-generator.agent.md",
+  "size": 1725,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "riekelt/technical-writer",
+  "ref": "main",
+  "path": "plugins/technical-writer/agents/doc-grounder.md",
+  "size": 2468,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-agents/agents/core/documentation-specialist.md",
+  "size": 2581,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-agents/agents/content-writer.md",
+  "size": 4082,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-agents/agents/prd-writer.md",
+  "size": 5064,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-sub-agents/specialization/api-documenter.md",
+  "size": 4212,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-sub-agents/specialization/documentation-expert.md",
+  "size": 6579,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/README-zh.md",
+  "size": 11991,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-analyst.md",
+  "size": 6389,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-architect.md",
+  "size": 9782,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-developer.md",
+  "size": 14664,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-orchestrator.md",
+  "size": 13224,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-planner.md",
+  "size": 12896,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/spec-validator.md",
+  "size": 12929,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/docs/spec-workflow-system.md",
+  "size": 9763,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/docs/spec-workflow-usage-guide.md",
+  "size": 11840,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/example/docs/dev-docs/api-spec.md",
+  "size": 19151,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/wshobson/api-documenter.md",
+  "size": 1082,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/wshobson/content-marketer.md",
+  "size": 1014,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-analyst.md",
+  "size": 6389,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-architect.md",
+  "size": 9782,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-developer.md",
+  "size": 14664,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-orchestrator.md",
+  "size": 13224,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-planner.md",
+  "size": 12896,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/spec-validator.md",
+  "size": 12929,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "navox-labs/agents",
+  "ref": "main",
+  "path": ".claude/agents/spec-writer.md",
+  "size": 22997,
+  "stars": 14,
+  "via": "tree"
+ },
+ {
+  "repo": "Guust-Franssens/tableau-to-powerbi-migration",
+  "ref": "master",
+  "path": ".github/agents/pbi-report-builder.agent.md",
+  "size": 21777,
+  "stars": 14,
+  "via": "tree"
+ },
+ {
+  "repo": "anmolgupta824/ai-native-agents",
+  "ref": "main",
+  "path": "agents/marketing/CONTENT-CALENDAR.md",
+  "size": 492,
+  "stars": 13,
+  "via": "tree"
+ },
+ {
+  "repo": "k8adev/aiwkf",
+  "ref": "main",
+  "path": "plugins/agents/README.pt-BR.md",
+  "size": 5039,
+  "stars": 12,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/analytics-reporter/agents/analytics-reporter.md",
+  "size": 8199,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/changelog-generator/agents/changelog-generator.md",
+  "size": 3691,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/codebase-documenter/agents/codebase-documenter.md",
+  "size": 5617,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/content-creator/agents/content-creator.md",
+  "size": 6939,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/context7-docs-fetcher/agents/context7-docs-fetcher.md",
+  "size": 3421,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/planning-prd-agent/agents/planning-prd-agent.md",
+  "size": 34396,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/prd-specialist/agents/prd-specialist.md",
+  "size": 5464,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/visual-storyteller/agents/visual-storyteller.md",
+  "size": 9945,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "memyselfandm/cconami",
+  "ref": "main",
+  "path": "apps/dot-claude/agents/SUBAGENTS_README.md",
+  "size": 6820,
+  "stars": 8,
+  "via": "tree"
+ },
+ {
+  "repo": "viknesh20-20/claude-code-tool-kit",
+  "ref": "master",
+  "path": ".claude/agents/documentation.md",
+  "size": 5554,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "dhar174/custom_github_copilot_agent_builder",
+  "ref": "main",
+  "path": ".github/agents/prd-creation.agent.md",
+  "size": 3717,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "dhar174/custom_github_copilot_agent_builder",
+  "ref": "main",
+  "path": ".github/agents/prd.agent.md",
+  "size": 5852,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "dhar174/custom_github_copilot_agent_builder",
+  "ref": "main",
+  "path": ".github/agents/technical-content-evaluator.agent.md",
+  "size": 26413,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/documentation.md",
+  "size": 6731,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/python-spec.md",
+  "size": 4564,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/qa-writer.md",
+  "size": 4189,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/spec-interviewer.md",
+  "size": 4852,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/typescript-spec.md",
+  "size": 3918,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/writing-guidelines.md",
+  "size": 3468,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/writing-specialist.md",
+  "size": 8487,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "lhhiep2204/apple-agent-builder-kit",
+  "ref": "main",
+  "path": ".github/agents/apple-copilot-docs-refresher.agent.md",
+  "size": 4350,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/chair-authority.md",
+  "size": 2192,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/doc-harvester.md",
+  "size": 3259,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/doc-intake.md",
+  "size": 2162,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/doc-recon.md",
+  "size": 2216,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/doc-updater.md",
+  "size": 1748,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "EdwardAngert/docs-agent-plugin",
+  "ref": "main",
+  "path": "agents/doc-verifier.md",
+  "size": 6010,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/06-developer-experience/documentation-engineer.md",
+  "size": 13654,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/06-developer-experience/readme-generator.md",
+  "size": 15201,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/07-specialized-domains/api-documenter.md",
+  "size": 16296,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/08-business-product/technical-writer.md",
+  "size": 13696,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/ad-copy-creator.md",
+  "size": 8585,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/cold-outreach-writer.md",
+  "size": 8853,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/conversion-copywriter.md",
+  "size": 8311,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/seo-content-strategist.md",
+  "size": 11271,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/seo-longform-writer.md",
+  "size": 8121,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/social-post-writer.md",
+  "size": 16142,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/technical-b2b-writer.md",
+  "size": 8541,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/content-strategist.md",
+  "size": 715,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Recepay6358/claude-code-best-practice",
+  "ref": "main",
+  "path": "development-workflows/rpi/.claude/agents/documentation-analyst-writer.md",
+  "size": 4275,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "vshidlovsky/prd-agents-framework",
+  "ref": "main",
+  "path": "agents/prd-senior-pm.md",
+  "size": 36236,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "vshidlovsky/prd-agents-framework",
+  "ref": "main",
+  "path": "agents/prd-smell-patterns.md",
+  "size": 9817,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "vshidlovsky/prd-agents-framework",
+  "ref": "main",
+  "path": "agents/prd-writer.md",
+  "size": 77224,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/dev-technical-writer.md",
+  "size": 2993,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/marketing-copywriter.md",
+  "size": 1586,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/tech-spec-validator.md",
+  "size": 11480,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/userspec-adequacy-validator.md",
+  "size": 5857,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/userspec-quality-validator.md",
+  "size": 8721,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "JavattJones/AI-for-ISO-19650",
+  "ref": "main",
+  "path": ".claude/agents/reporter.md",
+  "size": 6434,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "christianb93/WikiSpec",
+  "ref": "main",
+  "path": "agents/wikispec-coder-agent.md",
+  "size": 846,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "christianb93/WikiSpec",
+  "ref": "main",
+  "path": "agents/wikispec-validation-agent.md",
+  "size": 3616,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-tech-writer.agent.eval.yaml",
+  "size": 629,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-tech-writer.agent.md",
+  "size": 2791,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-60-workflow-run-history-cleanup.agent.eval.yaml",
+  "size": 805,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-60-workflow-run-history-cleanup.agent.md",
+  "size": 2879,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/governance-author.agent.eval.yaml",
+  "size": 841,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/governance-author.agent.md",
+  "size": 1712,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/guidance-author.agent.eval.yaml",
+  "size": 1265,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/references/guidance-author-detail.md",
+  "size": 1403,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/references/tech-writer-detail.md",
+  "size": 2041,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/tech-writer.agent.eval.yaml",
+  "size": 1029,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/claude-code/supervisor/agents/supervisor-source-authority.md",
+  "size": 1137,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/cursor/supervisor/agents/supervisor-source-authority.md",
+  "size": 1097,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/gemini-cli/supervisor/agents/supervisor-source-authority.md",
+  "size": 1108,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "shared/agents/supervisor-source-authority.md",
+  "size": 1067,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "ref": "main",
+  "path": "agents/supervisor-source-authority.md",
+  "size": 1137,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "infiniV/ultra-ml-intern",
+  "ref": "main",
+  "path": "agents/ml-paper-reader.md",
+  "size": 4789,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "infiniV/ultra-ml-intern",
+  "ref": "main",
+  "path": "agents/ml-paper-researcher.md",
+  "size": 8004,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "YousefNabil-SOC/claude-apex",
+  "ref": "master",
+  "path": "agents/doc-updater.md",
+  "size": 3383,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "YousefNabil-SOC/claude-apex",
+  "ref": "master",
+  "path": "agents/seo-content.md",
+  "size": 2479,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "YousefNabil-SOC/claude-apex",
+  "ref": "master",
+  "path": "agents/tdd-guide.md",
+  "size": 2884,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": ".claude/agents/ux-writer.md",
+  "size": 25199,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": "docs/agents/ux-writer.md",
+  "size": 5802,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Imran-ml/claude-skills",
+  "ref": "main",
+  "path": ".claude/agents/doc-writer.md",
+  "size": 2874,
+  "stars": 3,
+  "via": "tree"
+ }
+]

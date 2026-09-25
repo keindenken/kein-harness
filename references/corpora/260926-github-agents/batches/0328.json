@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03280",
+  "file": "corpus/SensLiao_Claude-code-setting__agents_i2r-acceptance-author.md",
+  "repo": "SensLiao/Claude-code-setting",
+  "path": "agents/i2r-acceptance-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03281",
+  "file": "corpus/SepineTam_tabra__.claude_agents_verify-reporter.md",
+  "repo": "SepineTam/tabra",
+  "path": ".claude/agents/verify-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03282",
+  "file": "corpus/SepineTam_tabra__.codex_agents_tri-reporter.toml",
+  "repo": "SepineTam/tabra",
+  "path": ".codex/agents/tri-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03283",
+  "file": "corpus/SethyPagna_business-os__.claude_agents_team-docs-researcher.md",
+  "repo": "SethyPagna/business-os",
+  "path": ".claude/agents/team-docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03284",
+  "file": "corpus/Shadowgar_ORAS-Tickets__.github_agents_oras-docs-scribe.agent.md",
+  "repo": "Shadowgar/ORAS-Tickets",
+  "path": ".github/agents/oras-docs-scribe.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03285",
+  "file": "corpus/Shah-Priyanshu_drone-project__.opencode_agent_docs-maintainer.md",
+  "repo": "Shah-Priyanshu/drone-project",
+  "path": ".opencode/agent/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03286",
+  "file": "corpus/ShijiMi-Soup_Sprint__.codex_agents_sprint-docs-release.toml",
+  "repo": "ShijiMi-Soup/Sprint",
+  "path": ".codex/agents/sprint-docs-release.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03287",
+  "file": "corpus/ShinYukiDev_copilot-dev-playbook__.github_agents_copilot-monthly-report.agent.md",
+  "repo": "ShinYukiDev/copilot-dev-playbook",
+  "path": ".github/agents/copilot-monthly-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03288",
+  "file": "corpus/Shintaro-lab_codegen-eval__.claude_agents_evaluation-report-generator.md",
+  "repo": "Shintaro-lab/codegen-eval",
+  "path": ".claude/agents/evaluation-report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03289",
+  "file": "corpus/ShowMeshSystems_showmesh__.claude_agents_showmesh-docs.md",
+  "repo": "ShowMeshSystems/showmesh",
+  "path": ".claude/agents/showmesh-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00130",
+  "file": "corpus/amurata_cc-tools__.claude_agents_business_technical-writer.md",
+  "repo": "amurata/cc-tools",
+  "path": ".claude/agents/business/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00131",
+  "file": "corpus/imMamdouhaboammar_riqor__.codex_agents_engineering-technical-writer.toml",
+  "repo": "imMamdouhaboammar/riqor",
+  "path": ".codex/agents/engineering-technical-writer.toml",
+  "stars": 4,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00132",
+  "file": "corpus/akiselev_qt-llm-template__.claude_agents_technical-writer.md",
+  "repo": "akiselev/qt-llm-template",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00133",
+  "file": "corpus/drsapaev_final__.codex_agents_docs-auditor.toml",
+  "repo": "drsapaev/final",
+  "path": ".codex/agents/docs-auditor.toml",
+  "stars": 2,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00134",
+  "file": "corpus/AdobeDocs_blueprints-learn.ko-KR__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.ko-KR",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00135",
+  "file": "corpus/Cap0n3_django_next_starter__.claude_agents_project-docs-writer.md",
+  "repo": "Cap0n3/django_next_starter",
+  "path": ".claude/agents/project-docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00136",
+  "file": "corpus/DanielHashmi_physical-ai-and-humanoid-robotics__.claude_agents_physical-ai-author.md",
+  "repo": "DanielHashmi/physical-ai-and-humanoid-robotics",
+  "path": ".claude/agents/physical-ai-author.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00137",
+  "file": "corpus/EliPoli64_TCTD__agents_spec_author.md",
+  "repo": "EliPoli64/TCTD",
+  "path": "agents/spec_author.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00138",
+  "file": "corpus/JoCGM09_localdrop__.opencode_agent_spec-writer.md",
+  "repo": "JoCGM09/localdrop",
+  "path": ".opencode/agent/spec-writer.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00139",
+  "file": "corpus/alfieprojectsdev_pipetgo__.claude_agents_technical-writer.md",
+  "repo": "alfieprojectsdev/pipetgo",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ }
+]

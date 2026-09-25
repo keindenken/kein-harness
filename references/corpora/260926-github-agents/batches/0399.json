@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03990",
+  "file": "corpus/github_docs__.github_agents_driver-writer.md",
+  "repo": "github/docs",
+  "path": ".github/agents/driver-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03991",
+  "file": "corpus/github_docs__.github_agents_readability-editor.md",
+  "repo": "github/docs",
+  "path": ".github/agents/readability-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03992",
+  "file": "corpus/gke-labs_kube-agents__agents_platform_skills_gke-compute-classes_assets_computeclass-rbac-editor.yaml",
+  "repo": "gke-labs/kube-agents",
+  "path": "agents/platform/skills/gke-compute-classes/assets/computeclass-rbac-editor.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03993",
+  "file": "corpus/gladiola_experimental26.6__.github_agents_admin-certificate-authorization.md",
+  "repo": "gladiola/experimental26.6",
+  "path": ".github/agents/admin-certificate-authorization.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03994",
+  "file": "corpus/glorioustephan_lifecoach__.claude_agents_technical-writer.md",
+  "repo": "glorioustephan/lifecoach",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03995",
+  "file": "corpus/gmanthenoxus_gmanthenoxus.github.io__.claude_agents_noxus-copywriter.md",
+  "repo": "gmanthenoxus/gmanthenoxus.github.io",
+  "path": ".claude/agents/noxus-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03996",
+  "file": "corpus/gmarcinek_writer-mate__.github_agents_writer-mate-coding-agent.agent.md",
+  "repo": "gmarcinek/writer-mate",
+  "path": ".github/agents/writer-mate-coding-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03997",
+  "file": "corpus/gmui-gandg_jupyter-test__agents_analysis-writer.md",
+  "repo": "gmui-gandg/jupyter-test",
+  "path": "agents/analysis-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03998",
+  "file": "corpus/goblinfactory_zxspectrum-game-factory__agents_copywriter.md",
+  "repo": "goblinfactory/zxspectrum-game-factory",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03999",
+  "file": "corpus/gpolcode_warcraft-learner__.claude_agents_rulebook-author.md",
+  "repo": "gpolcode/warcraft-learner",
+  "path": ".claude/agents/rulebook-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

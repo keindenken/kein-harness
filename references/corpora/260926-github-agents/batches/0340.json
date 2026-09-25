@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03400",
+  "file": "corpus/WeTransact-io_wetransact-claude-sdlc__agents_documentation-generator.md",
+  "repo": "WeTransact-io/wetransact-claude-sdlc",
+  "path": "agents/documentation-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03401",
+  "file": "corpus/WebDev70_hosting-google__.claude_agents_changelog-maintainer.md",
+  "repo": "WebDev70/hosting-google",
+  "path": ".claude/agents/changelog-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03402",
+  "file": "corpus/WedSync_WedSync-AI__.claude_agents_context7-documentation-specialist.md",
+  "repo": "WedSync/WedSync-AI",
+  "path": ".claude/agents/context7-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03403",
+  "file": "corpus/WestonGFX_waifu-rt3d__.claude_agents_prd-writer.md",
+  "repo": "WestonGFX/waifu-rt3d",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03404",
+  "file": "corpus/Wil-Fullmer_alpha-forge__.codex_agents_report-generator-agent.md",
+  "repo": "Wil-Fullmer/alpha-forge",
+  "path": ".codex/agents/report-generator-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03405",
+  "file": "corpus/WilhelmBuitrago_matprop-ml__agents_TECHNICAL_DOCUMENTATION_AGENTS.md",
+  "repo": "WilhelmBuitrago/matprop-ml",
+  "path": "agents/TECHNICAL_DOCUMENTATION_AGENTS.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03406",
+  "file": "corpus/WillSoltani_ChapterFlow__.codex_agents_chapterflow-report-auditor.toml",
+  "repo": "WillSoltani/ChapterFlow",
+  "path": ".codex/agents/chapterflow-report-auditor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03407",
+  "file": "corpus/Wings-Ranger_Lions-Website-Master__.github_agents_documentation-agent.agent.md",
+  "repo": "Wings-Ranger/Lions-Website-Master",
+  "path": ".github/agents/documentation-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03408",
+  "file": "corpus/WolfieLeader_agentic-kit__agents_docs-explorer.md",
+  "repo": "WolfieLeader/agentic-kit",
+  "path": "agents/docs-explorer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03409",
+  "file": "corpus/WooYoungSang_AA-Explorer__.codex_agents_work_reporter.toml",
+  "repo": "WooYoungSang/AA-Explorer",
+  "path": ".codex/agents/work_reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

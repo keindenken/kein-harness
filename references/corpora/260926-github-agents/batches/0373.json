@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03730",
+  "file": "corpus/cpa03_blueprintify__.opencode_agent_technical-writer.md",
+  "repo": "cpa03/blueprintify",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03731",
+  "file": "corpus/cpirich_briefing-quality-lab__.codex_agents_variant-author.toml",
+  "repo": "cpirich/briefing-quality-lab",
+  "path": ".codex/agents/variant-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03732",
+  "file": "corpus/cptspacemanspiff_Agents__.claude_agents_doc-writer.md",
+  "repo": "cptspacemanspiff/Agents",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03733",
+  "file": "corpus/createdbysalt_nextjs-starter-template__.claude_agents_marketing-copywriter.md",
+  "repo": "createdbysalt/nextjs-starter-template",
+  "path": ".claude/agents/marketing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03734",
+  "file": "corpus/crespoantonio_perfomance-k6-with-agents__.github_agents_bug-report-agent.md",
+  "repo": "crespoantonio/perfomance-k6-with-agents",
+  "path": ".github/agents/bug-report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03735",
+  "file": "corpus/crichalchemist_DigniFi__.github_agents_editorconfig-enforcer.md",
+  "repo": "crichalchemist/DigniFi",
+  "path": ".github/agents/editorconfig-enforcer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03736",
+  "file": "corpus/criptogus_liquid-ai__.github_agents_docs-agent.md",
+  "repo": "criptogus/liquid-ai",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03737",
+  "file": "corpus/cristian-robert_copilot-setup__.github_agents_spec-author.agent.md",
+  "repo": "cristian-robert/copilot-setup",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03738",
+  "file": "corpus/cubetribe_ClaudeCode_GodMode-On__agents_docs-dx.md",
+  "repo": "cubetribe/ClaudeCode_GodMode-On",
+  "path": "agents/docs-dx.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03739",
+  "file": "corpus/culturehacklabs_ai-agent-system__agents_00_QA_KB_00_QA_Documentation.md",
+  "repo": "culturehacklabs/ai-agent-system",
+  "path": "agents/00_QA/KB_00_QA_Documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

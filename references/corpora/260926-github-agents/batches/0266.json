@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02660",
+  "file": "corpus/AdobeDocs_blueprints-learn.fr-FR__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.fr-FR",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02661",
+  "file": "corpus/AdobeDocs_blueprints-learn.it-IT__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.it-IT",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02662",
+  "file": "corpus/AdobeDocs_blueprints-learn.pt-BR__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.pt-BR",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02663",
+  "file": "corpus/Adrena-Corto_claude-code-starter__agents_technical-writer.md",
+  "repo": "Adrena-Corto/claude-code-starter",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02664",
+  "file": "corpus/Advance-Technologies-Foundation_clio__.claude_agents_doc-writer.md",
+  "repo": "Advance-Technologies-Foundation/clio",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02665",
+  "file": "corpus/Advance-Technologies-Foundation_clio__.claude_agents_story-writer.md",
+  "repo": "Advance-Technologies-Foundation/clio",
+  "path": ".claude/agents/story-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02666",
+  "file": "corpus/AgentWorkforce_relay__.claude_agents_documentor.md",
+  "repo": "AgentWorkforce/relay",
+  "path": ".claude/agents/documentor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02667",
+  "file": "corpus/Agenta-AI_agenta__.claude_agents_changelog-editor.md",
+  "repo": "Agenta-AI/agenta",
+  "path": ".claude/agents/changelog-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02668",
+  "file": "corpus/AgentsPilot_neuronforge__.claude_agents_peer-report-auditor.md",
+  "repo": "AgentsPilot/neuronforge",
+  "path": ".claude/agents/peer-report-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02669",
+  "file": "corpus/Aghanimoff_meta-orchestrator__.claude_agents_copywriter.md",
+  "repo": "Aghanimoff/meta-orchestrator",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

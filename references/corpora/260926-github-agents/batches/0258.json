@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02580",
+  "file": "corpus/tejovanthn_rasikalife__.opencode_agent_marketing-copywriter.md",
+  "repo": "tejovanthn/rasikalife",
+  "path": ".opencode/agent/marketing-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02581",
+  "file": "corpus/tejovanthn_rasikalife__.opencode_agent_technical-writer.md",
+  "repo": "tejovanthn/rasikalife",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02582",
+  "file": "corpus/tellang_gemini-multilingual-research__agents_report_writer.md",
+  "repo": "tellang/gemini-multilingual-research",
+  "path": "agents/report_writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02583",
+  "file": "corpus/thalesraymond_dotfiles__agents_.agents_skills_loop-factory_references_spec-authoring.md",
+  "repo": "thalesraymond/dotfiles",
+  "path": "agents/.agents/skills/loop-factory/references/spec-authoring.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02584",
+  "file": "corpus/thalesraymond_dotfiles__agents_.agents_skills_unity-cli_references_editors-install.md",
+  "repo": "thalesraymond/dotfiles",
+  "path": "agents/.agents/skills/unity-cli/references/editors-install.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02585",
+  "file": "corpus/timohaa_scopewalker-mcp__.codex_agents_docs-reality-sync.toml",
+  "repo": "timohaa/scopewalker-mcp",
+  "path": ".codex/agents/docs-reality-sync.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02586",
+  "file": "corpus/tony-zhelonkin_scio__agents_docs-librarian.md",
+  "repo": "tony-zhelonkin/scio",
+  "path": "agents/docs-librarian.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02587",
+  "file": "corpus/toshiki-nakasu_syncGaroonToGoogle__.github_agents_doc-editor.agent.md",
+  "repo": "toshiki-nakasu/syncGaroonToGoogle",
+  "path": ".github/agents/doc-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02588",
+  "file": "corpus/trolund_trolund.github.io__.codex_agents_content-editor.toml",
+  "repo": "trolund/trolund.github.io",
+  "path": ".codex/agents/content-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02589",
+  "file": "corpus/tushariitr-19_research-agent-adk__agents_instructions_author_profile.md",
+  "repo": "tushariitr-19/research-agent-adk",
+  "path": "agents/instructions/author_profile.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

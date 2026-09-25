@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03560",
+  "file": "corpus/artubss_SKILLS-CLAUDE-CODE__agents_agents_podcast-creator-team_social-media-copywriter.md",
+  "repo": "artubss/SKILLS-CLAUDE-CODE",
+  "path": "agents/agents/podcast-creator-team/social-media-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03561",
+  "file": "corpus/ashokmanohar-ai_github-copilot-complete-guide__.github_agents_docs-maintainer.md",
+  "repo": "ashokmanohar-ai/github-copilot-complete-guide",
+  "path": ".github/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03562",
+  "file": "corpus/ashrunscode_CoreFlow360-V4__.claude_agents_code-documenter.md",
+  "repo": "ashrunscode/CoreFlow360-V4",
+  "path": ".claude/agents/code-documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03563",
+  "file": "corpus/ashuangiras_platform-compliance__.github_agents_control-author.agent.md",
+  "repo": "ashuangiras/platform-compliance",
+  "path": ".github/agents/control-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03564",
+  "file": "corpus/asifhussain60_podcast-factory__.github_agents_book-editor.agent.md",
+  "repo": "asifhussain60/podcast-factory",
+  "path": ".github/agents/book-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03565",
+  "file": "corpus/asizikov_asizikov.github.io__.github_agents_Editor.agent.md",
+  "repo": "asizikov/asizikov.github.io",
+  "path": ".github/agents/Editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03566",
+  "file": "corpus/aslanzubairaev_reels-factory__.claude_agents_copywriter-agent.md",
+  "repo": "aslanzubairaev/reels-factory",
+  "path": ".claude/agents/copywriter-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03567",
+  "file": "corpus/aspirio187_timew-tray__.github_agents_documentation.agent.md",
+  "repo": "aspirio187/timew-tray",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03568",
+  "file": "corpus/aucontraire_insightmesh-core__.claude_agents_editor.md",
+  "repo": "aucontraire/insightmesh-core",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03569",
+  "file": "corpus/austinkn123_BudgetTracker__.claude_agents_bobby-readme-specialist.md",
+  "repo": "austinkn123/BudgetTracker",
+  "path": ".claude/agents/bobby-readme-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04120",
+  "file": "corpus/iskkang_logisight__.claude_agents_sales-proposal-editor.md",
+  "repo": "iskkang/logisight",
+  "path": ".claude/agents/sales-proposal-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04121",
+  "file": "corpus/issacs83_claude-dev-forge__agents_doc-manager.md",
+  "repo": "issacs83/claude-dev-forge",
+  "path": "agents/doc-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04122",
+  "file": "corpus/istanbul-digital-nomads_website__.claude_agents_blog-author.md",
+  "repo": "istanbul-digital-nomads/website",
+  "path": ".claude/agents/blog-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04123",
+  "file": "corpus/istanbul-digital-nomads_website__.claude_agents_nomad-ru-editor.md",
+  "repo": "istanbul-digital-nomads/website",
+  "path": ".claude/agents/nomad-ru-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04124",
+  "file": "corpus/itchyshin_drmTMB__.claude_agents_documentation-writer.md",
+  "repo": "itchyshin/drmTMB",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04125",
+  "file": "corpus/itchyshin_drmTMB__.codex_agents_pkgdown-editor.toml",
+  "repo": "itchyshin/drmTMB",
+  "path": ".codex/agents/pkgdown-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04126",
+  "file": "corpus/itmeGirish_BoardingMcp-Server__.claude_agents_exemplar-writer.md",
+  "repo": "itmeGirish/BoardingMcp-Server",
+  "path": ".claude/agents/exemplar-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04127",
+  "file": "corpus/itsdariusdavis-a11y_modernflow-ai__.claude_agents_reporting-agent.md",
+  "repo": "itsdariusdavis-a11y/modernflow-ai",
+  "path": ".claude/agents/reporting-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04128",
+  "file": "corpus/itu-itis23-akcana22_boogle-crawler-multi-agent__agents_writer_agent.md",
+  "repo": "itu-itis23-akcana22/boogle-crawler-multi-agent",
+  "path": "agents/writer_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04129",
+  "file": "corpus/ivRodriguezCA_MobHunt__.claude_agents_report-writer.md",
+  "repo": "ivRodriguezCA/MobHunt",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

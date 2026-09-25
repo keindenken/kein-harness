@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02410",
+  "file": "corpus/buqizixv_robotd.github.io__.codex_agents_robobrief-original-author.toml",
+  "repo": "buqizixv/robotd.github.io",
+  "path": ".codex/agents/robobrief-original-author.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02411",
+  "file": "corpus/burdzwastaken_opencode__.opencode_agent_docs.md",
+  "repo": "burdzwastaken/opencode",
+  "path": ".opencode/agent/docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02412",
+  "file": "corpus/burningcost_burning-cost__agents_editor.yaml",
+  "repo": "burningcost/burning-cost",
+  "path": "agents/editor.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02413",
+  "file": "corpus/bvdh_dicom-terminology-in-fhir__.github_agents_qa-report-analyzer.agent.md",
+  "repo": "bvdh/dicom-terminology-in-fhir",
+  "path": ".github/agents/qa-report-analyzer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02414",
+  "file": "corpus/cameron5906_workpipe__.claude_agents_documentation-steward.md",
+  "repo": "cameron5906/workpipe",
+  "path": ".claude/agents/documentation-steward.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02415",
+  "file": "corpus/ccirone2_docx_builder__.claude_agents_documenter.md",
+  "repo": "ccirone2/docx_builder",
+  "path": ".claude/agents/documenter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02416",
+  "file": "corpus/ch4570_vulpora__agents_documentation-comment-author.codex.toml",
+  "repo": "ch4570/vulpora",
+  "path": "agents/documentation-comment-author.codex.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02417",
+  "file": "corpus/chanho0908_Keepiluv-Agent__.codex_agents_tier1_writer.md",
+  "repo": "chanho0908/Keepiluv-Agent",
+  "path": ".codex/agents/tier1/writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02418",
+  "file": "corpus/chimera-lab_chimera-lab-cli.app__.github_agents_technical-writer.agent.md",
+  "repo": "chimera-lab/chimera-lab-cli.app",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02419",
+  "file": "corpus/chimera-lab_chimera-lab.org__.github_agents_technical-writer.agent.md",
+  "repo": "chimera-lab/chimera-lab.org",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

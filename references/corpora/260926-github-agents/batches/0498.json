@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04980",
+  "file": "corpus/tabetant_internship-tracker-claudecode__.claude_agents_db-writer.md",
+  "repo": "tabetant/internship-tracker-claudecode",
+  "path": ".claude/agents/db-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04981",
+  "file": "corpus/tacoda_keystone__.claude_agents_keystone-spec-author.md",
+  "repo": "tacoda/keystone",
+  "path": ".claude/agents/keystone-spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04982",
+  "file": "corpus/tailored-agentic-units_diagrams__.claude_agents_technical-writer.md",
+  "repo": "tailored-agentic-units/diagrams",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04983",
+  "file": "corpus/takemo101_agent-testing2__.opencode_agent_basic-design-writer.md",
+  "repo": "takemo101/agent-testing2",
+  "path": ".opencode/agent/basic-design-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04984",
+  "file": "corpus/takemo101_compose-workflow__.opencode_agent_basic-design-writer.md",
+  "repo": "takemo101/compose-workflow",
+  "path": ".opencode/agent/basic-design-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04985",
+  "file": "corpus/talolard_SICKR__.codex_agents_docs_researcher.toml",
+  "repo": "talolard/SICKR",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04986",
+  "file": "corpus/tamasmakos_chessgraphiti__.github_agents_technical-writer.md",
+  "repo": "tamasmakos/chessgraphiti",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04987",
+  "file": "corpus/tamayaren_codex-storyboarding-assistance__.codex_agents_writer.toml",
+  "repo": "tamayaren/codex-storyboarding-assistance",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04988",
+  "file": "corpus/tanishq-sh17_HMS__.github_agents_w2-reporter.md",
+  "repo": "tanishq-sh17/HMS",
+  "path": ".github/agents/w2-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04989",
+  "file": "corpus/tanmoymandal_gh-copilot-agents__.github_agents_sb-upgrade-reporter.agent.md",
+  "repo": "tanmoymandal/gh-copilot-agents",
+  "path": ".github/agents/sb-upgrade-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

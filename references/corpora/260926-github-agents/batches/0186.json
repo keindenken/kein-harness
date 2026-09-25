@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01860",
+  "file": "corpus/dbc-oduffy_coordinator-claude__agents_plan-author.md",
+  "repo": "dbc-oduffy/coordinator-claude",
+  "path": "agents/plan-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01861",
+  "file": "corpus/dhoconno_lungfish-genome-explorer__.claude_agents_brand-copy-editor.md",
+  "repo": "dhoconno/lungfish-genome-explorer",
+  "path": ".claude/agents/brand-copy-editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01862",
+  "file": "corpus/dhoconno_lungfish-genome-explorer__.claude_agents_documentation-lead.md",
+  "repo": "dhoconno/lungfish-genome-explorer",
+  "path": ".claude/agents/documentation-lead.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01863",
+  "file": "corpus/dimagi_open-chat-studio-docs__.claude_agents_zensical-technical-writer.md",
+  "repo": "dimagi/open-chat-studio-docs",
+  "path": ".claude/agents/zensical-technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01864",
+  "file": "corpus/grc-iit_jarvis-cd__.claude_agents_code-documenter.md",
+  "repo": "grc-iit/jarvis-cd",
+  "path": ".claude/agents/code-documenter.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01865",
+  "file": "corpus/ignite-ember_igni__agents_docs.md",
+  "repo": "ignite-ember/igni",
+  "path": "agents/docs.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01866",
+  "file": "corpus/ignite-ember_igni__agents_editor.md",
+  "repo": "ignite-ember/igni",
+  "path": "agents/editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01867",
+  "file": "corpus/invector-tecnologia_tatui__.github_agents_spec-author.agent.md",
+  "repo": "invector-tecnologia/tatui",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01868",
+  "file": "corpus/jmagly_transcribe-cli__.claude_agents_technical-writer.md",
+  "repo": "jmagly/transcribe-cli",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01869",
+  "file": "corpus/mickeyyaya_evolve-loop__agents_reflection-authoring-step.md",
+  "repo": "mickeyyaya/evolve-loop",
+  "path": "agents/reflection-authoring-step.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

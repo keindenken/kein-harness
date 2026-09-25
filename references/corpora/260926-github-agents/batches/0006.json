@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00060",
+  "file": "corpus/gracefullight_stock-checker__.codex_agents_docs-curator.toml",
+  "repo": "gracefullight/stock-checker",
+  "path": ".codex/agents/docs-curator.toml",
+  "stars": 46,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00061",
+  "file": "corpus/sylvanding_omelette__.claude_agents_workflow_every-style-editor.md",
+  "repo": "sylvanding/omelette",
+  "path": ".claude/agents/workflow/every-style-editor.md",
+  "stars": 9,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00062",
+  "file": "corpus/drmoisan_TMW__.github_agents_pr-author.agent.md",
+  "repo": "drmoisan/TMW",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00063",
+  "file": "corpus/modu-ai_moai-cowork__.codex_agents_moai_manager-docs.toml",
+  "repo": "modu-ai/moai-cowork",
+  "path": ".codex/agents/moai/manager-docs.toml",
+  "stars": 302,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00064",
+  "file": "corpus/alibaba_opc-starter__.claude_agents_bmad-analysis_api-documenter.md",
+  "repo": "alibaba/opc-starter",
+  "path": ".claude/agents/bmad-analysis/api-documenter.md",
+  "stars": 87,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00065",
+  "file": "corpus/heysamtexas_django-oauth2-capture__.claude_agents_copywriter_subagent.md",
+  "repo": "heysamtexas/django-oauth2-capture",
+  "path": ".claude/agents/copywriter_subagent.md",
+  "stars": 13,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00066",
+  "file": "corpus/borgius_kanban-lite__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "borgius/kanban-lite",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00067",
+  "file": "corpus/kimchanhyung98_dotfiles__.github_agents_documentation.agent.md",
+  "repo": "kimchanhyung98/dotfiles",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 6,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00068",
+  "file": "corpus/liaoxinjie666_protocol-proxy__agents_preset_technical-writer.md",
+  "repo": "liaoxinjie666/protocol-proxy",
+  "path": "agents/preset/technical-writer.md",
+  "stars": 4,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00069",
+  "file": "corpus/ASISaga_agent-operating-system__.github_agents_documentation-manager-agent.agent.md",
+  "repo": "ASISaga/agent-operating-system",
+  "path": ".github/agents/documentation-manager-agent.agent.md",
+  "stars": 2,
+  "copies_in_repos": 6
+ }
+]

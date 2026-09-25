@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05250",
+  "file": "corpus/zero-rehq_opencode-kit__.opencode_agent_docs-specialist.md",
+  "repo": "zero-rehq/opencode-kit",
+  "path": ".opencode/agent/docs-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05251",
+  "file": "corpus/zfifteen_dna-breathing-dynamics-encoding__.github_agents_documentation_admin.md",
+  "repo": "zfifteen/dna-breathing-dynamics-encoding",
+  "path": ".github/agents/documentation_admin.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05252",
+  "file": "corpus/zhouxzh_FPGA-course__.github_agents_fpga-course-editor.agent.md",
+  "repo": "zhouxzh/FPGA-course",
+  "path": ".github/agents/fpga-course-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05253",
+  "file": "corpus/zhuyf25t_EssayCraft__.codex_agents_docs_maintainer.toml",
+  "repo": "zhuyf25t/EssayCraft",
+  "path": ".codex/agents/docs_maintainer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05254",
+  "file": "corpus/zhuyf25t_EssayCraft__.codex_agents_ux_editor_engineer.toml",
+  "repo": "zhuyf25t/EssayCraft",
+  "path": ".codex/agents/ux_editor_engineer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05255",
+  "file": "corpus/zhuyf25t_omegalog__.codex_agents_docs_critic.toml",
+  "repo": "zhuyf25t/omegalog",
+  "path": ".codex/agents/docs_critic.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05256",
+  "file": "corpus/zhuyf25t_omegalog__.codex_agents_docs_sync_checker.toml",
+  "repo": "zhuyf25t/omegalog",
+  "path": ".codex/agents/docs_sync_checker.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05257",
+  "file": "corpus/zi7feng_ClaudeCodeDemo__.claude_agents_technical-writer.md",
+  "repo": "zi7feng/ClaudeCodeDemo",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05258",
+  "file": "corpus/zivtech_accessibility-skills__.claude_agents_bench-reporter.md",
+  "repo": "zivtech/accessibility-skills",
+  "path": ".claude/agents/bench-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05259",
+  "file": "corpus/zivtech_joyus-desktop__.claude_agents_impact-report-planner.md",
+  "repo": "zivtech/joyus-desktop",
+  "path": ".claude/agents/impact-report-planner.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

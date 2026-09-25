@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05130",
+  "file": "corpus/vedanta_burger-barn__.claude_agents_docs-turbo.md",
+  "repo": "vedanta/burger-barn",
+  "path": ".claude/agents/docs-turbo.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05131",
+  "file": "corpus/victoriaadiiye_pr-review-bot__agents_qatalyst-docs-keeper.md",
+  "repo": "victoriaadiiye/pr-review-bot",
+  "path": "agents/qatalyst-docs-keeper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05132",
+  "file": "corpus/vietbui1999ru_amazon-product-scraper-notifier__.claude_agents_council-reporter.md",
+  "repo": "vietbui1999ru/amazon-product-scraper-notifier",
+  "path": ".claude/agents/council-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05133",
+  "file": "corpus/viethoang7276_tutoring-marketing__.claude_agents_copywriter.md",
+  "repo": "viethoang7276/tutoring-marketing",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05134",
+  "file": "corpus/vigolium_piolium__agents_confirm-reporter.md",
+  "repo": "vigolium/piolium",
+  "path": "agents/confirm-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05135",
+  "file": "corpus/vigolium_piolium__agents_finding-reporter.md",
+  "repo": "vigolium/piolium",
+  "path": "agents/finding-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05136",
+  "file": "corpus/vigolium_piolium__agents_report-assembler.md",
+  "repo": "vigolium/piolium",
+  "path": "agents/report-assembler.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05137",
+  "file": "corpus/vikasgowdaja_claude-ai-solution__.github_agents_external-knowledge-editor.agent.md",
+  "repo": "vikasgowdaja/claude-ai-solution",
+  "path": ".github/agents/external-knowledge-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05138",
+  "file": "corpus/villain2_home-sync__.github_agents_pr-author.agent.md",
+  "repo": "villain2/home-sync",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05139",
+  "file": "corpus/vinny1575_code-agent-harness__agents_genui-page-author.md",
+  "repo": "vinny1575/code-agent-harness",
+  "path": "agents/genui-page-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

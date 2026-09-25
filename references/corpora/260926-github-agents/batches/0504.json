@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05040",
+  "file": "corpus/tmege_agents-company__agents_copywriter.md",
+  "repo": "tmege/agents-company",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05041",
+  "file": "corpus/tmege_agents-company__agents_docs-writer.md",
+  "repo": "tmege/agents-company",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05042",
+  "file": "corpus/tobias-walle_agency__.opencode_agent_api-docs-expert.md",
+  "repo": "tobias-walle/agency",
+  "path": ".opencode/agent/api-docs-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05043",
+  "file": "corpus/tobyilee_course-builder__.claude_agents_note-writer.md",
+  "repo": "tobyilee/course-builder",
+  "path": ".claude/agents/note-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05044",
+  "file": "corpus/tobyilee_course-builder__.claude_agents_slide-author.md",
+  "repo": "tobyilee/course-builder",
+  "path": ".claude/agents/slide-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05045",
+  "file": "corpus/toddjhayden_AgogSaas__.claude_agents_tim-documentation.md",
+  "repo": "toddjhayden/AgogSaas",
+  "path": ".claude/agents/tim-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05046",
+  "file": "corpus/tokendad_Nestarr__.claude_agents_docs-writer.md",
+  "repo": "tokendad/Nestarr",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05047",
+  "file": "corpus/toki1484_pc-erabi__.claude_agents_editor.md",
+  "repo": "toki1484/pc-erabi",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05048",
+  "file": "corpus/tomkyser_fp-docs__agents_fp-docs-api-refs.md",
+  "repo": "tomkyser/fp-docs",
+  "path": "agents/fp-docs-api-refs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05049",
+  "file": "corpus/tomkyser_fp-docs__agents_fp-docs-citations.md",
+  "repo": "tomkyser/fp-docs",
+  "path": "agents/fp-docs-citations.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

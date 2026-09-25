@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02210",
+  "file": "corpus/maxtwotouch_StrategAI__.github_agents_report-writer.agent.md",
+  "repo": "maxtwotouch/StrategAI",
+  "path": ".github/agents/report-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02211",
+  "file": "corpus/meamritanshu_snifferon_adv__.github_agents_documentation-sync-architect.agent.md",
+  "repo": "meamritanshu/snifferon_adv",
+  "path": ".github/agents/documentation-sync-architect.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02212",
+  "file": "corpus/minseo2222_LoopDex__agents_reporter.md",
+  "repo": "minseo2222/LoopDex",
+  "path": "agents/reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02213",
+  "file": "corpus/mjmorales_claude-prove__agents_technical-writer.md",
+  "repo": "mjmorales/claude-prove",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02214",
+  "file": "corpus/mpadmaraj_sample-agentic__.github_agents_subagents_documentation-writer.agent.md",
+  "repo": "mpadmaraj/sample-agentic",
+  "path": ".github/agents/subagents/documentation-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02215",
+  "file": "corpus/mriffle_findings-ai-collab-workflow__agents_writer.md",
+  "repo": "mriffle/findings-ai-collab-workflow",
+  "path": "agents/writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02216",
+  "file": "corpus/ngoineau_ootils-core__.codex_agents_ootils-doc-writer.toml",
+  "repo": "ngoineau/ootils-core",
+  "path": ".codex/agents/ootils-doc-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02217",
+  "file": "corpus/nholder88_ai-agent-workflows__agents_markdown-technical-writer.agent.md",
+  "repo": "nholder88/ai-agent-workflows",
+  "path": "agents/markdown-technical-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02218",
+  "file": "corpus/occamsshavingkit_sw-dev-team-template__.codex_agents_tech-writer.toml",
+  "repo": "occamsshavingkit/sw-dev-team-template",
+  "path": ".codex/agents/tech-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02219",
+  "file": "corpus/openimagingdata_findingmodel__.claude_agents_documentation-updater.md",
+  "repo": "openimagingdata/findingmodel",
+  "path": ".claude/agents/documentation-updater.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

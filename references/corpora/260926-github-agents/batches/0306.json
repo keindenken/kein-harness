@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03060",
+  "file": "corpus/MarceloClaro_OpenCode_Ecosystem__agents_reversa-writer.md",
+  "repo": "MarceloClaro/OpenCode_Ecosystem",
+  "path": "agents/reversa-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03061",
+  "file": "corpus/MarceloClaro_opencode-ecosystem-core__agents_catalog_mira-copywriter.md",
+  "repo": "MarceloClaro/opencode-ecosystem-core",
+  "path": "agents/catalog/mira-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03062",
+  "file": "corpus/Marchikati_fortis-core__.claude_agents_fortis-copywriter.md",
+  "repo": "Marchikati/fortis-core",
+  "path": ".claude/agents/fortis-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03063",
+  "file": "corpus/MariPetrolini_OLacademy__agents_official-docs-researcher.md",
+  "repo": "MariPetrolini/OLacademy",
+  "path": "agents/official-docs-researcher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03064",
+  "file": "corpus/MarkBind_markbind__.github_agents_pattern-reporter.md",
+  "repo": "MarkBind/markbind",
+  "path": ".github/agents/pattern-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03065",
+  "file": "corpus/MarkBind_markbind__.github_agents_update-docs.md",
+  "repo": "MarkBind/markbind",
+  "path": ".github/agents/update-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03066",
+  "file": "corpus/MartiXDev_ai-dev-strategy__.github_agents_dotnet-technical-writer.agent.md",
+  "repo": "MartiXDev/ai-dev-strategy",
+  "path": ".github/agents/dotnet-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03067",
+  "file": "corpus/Marvin1912_backend__.claude_agents_nutrition-meal-plan-editor.md",
+  "repo": "Marvin1912/backend",
+  "path": ".claude/agents/nutrition-meal-plan-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03068",
+  "file": "corpus/MarvinFlm_marvin-portfolio__.codex_agents_portfolio-copywriter.toml",
+  "repo": "MarvinFlm/marvin-portfolio",
+  "path": ".codex/agents/portfolio-copywriter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03069",
+  "file": "corpus/MasayukiTa_miasma-protocol__.claude_agents_studio-operations_analytics-reporter.md",
+  "repo": "MasayukiTa/miasma-protocol",
+  "path": ".claude/agents/studio-operations/analytics-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

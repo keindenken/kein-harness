@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05050",
+  "file": "corpus/tomkyser_fp-docs__agents_fp-docs-indexer.md",
+  "repo": "tomkyser/fp-docs",
+  "path": "agents/fp-docs-indexer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05051",
+  "file": "corpus/tomkyser_fp-docs__agents_fp-docs-validator.md",
+  "repo": "tomkyser/fp-docs",
+  "path": "agents/fp-docs-validator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05052",
+  "file": "corpus/tomkyser_fp-docs__agents_fp-docs-verbosity-enforcer.md",
+  "repo": "tomkyser/fp-docs",
+  "path": "agents/fp-docs-verbosity-enforcer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05053",
+  "file": "corpus/topgunmaintenance_topguntrading__agents_docs-owner.md",
+  "repo": "topgunmaintenance/topguntrading",
+  "path": "agents/docs-owner.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05054",
+  "file": "corpus/torewig_how-autocracy-shapes-social-sciences__agents_prompt_writer.md",
+  "repo": "torewig/how-autocracy-shapes-social-sciences",
+  "path": "agents/prompt_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05055",
+  "file": "corpus/torque-ai_torque-ai__.claude_agents_scouts_documentation.md",
+  "repo": "torque-ai/torque-ai",
+  "path": ".claude/agents/scouts/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05056",
+  "file": "corpus/tracyloisel_nochelive__.codex_agents_expedition-social-video-editor.toml",
+  "repo": "tracyloisel/nochelive",
+  "path": ".codex/agents/expedition-social-video-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05057",
+  "file": "corpus/tracyloisel_nochelive__.codex_agents_reel-editor-retention.toml",
+  "repo": "tracyloisel/nochelive",
+  "path": ".codex/agents/reel-editor-retention.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05058",
+  "file": "corpus/tranluong460_shared-claude-config__agents_doc-manager.md",
+  "repo": "tranluong460/shared-claude-config",
+  "path": "agents/doc-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05059",
+  "file": "corpus/travisjneuman_.claude__agents_documentation-writer.md",
+  "repo": "travisjneuman/.claude",
+  "path": "agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

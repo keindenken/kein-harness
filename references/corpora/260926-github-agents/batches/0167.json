@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01670",
+  "file": "corpus/Jrgil20_PracticasCiberSeguridad__.github_agents_CyberSec Report Master Agent.agent.md",
+  "repo": "Jrgil20/PracticasCiberSeguridad",
+  "path": ".github/agents/CyberSec Report Master Agent.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01671",
+  "file": "corpus/Layr-Labs_eigencloud-docs__.claude_agents_docs-editor.md",
+  "repo": "Layr-Labs/eigencloud-docs",
+  "path": ".claude/agents/docs-editor.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01672",
+  "file": "corpus/MLShukai_vrcpilot__.claude_agents_docstring-author.md",
+  "repo": "MLShukai/vrcpilot",
+  "path": ".claude/agents/docstring-author.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01673",
+  "file": "corpus/ShaheerKhawaja_ProductionOS__agents_documentation-auditor.md",
+  "repo": "ShaheerKhawaja/ProductionOS",
+  "path": "agents/documentation-auditor.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01674",
+  "file": "corpus/TruvetaPublic_OpenLinkToken__.github_agents_docs-maintainer.agent.md",
+  "repo": "TruvetaPublic/OpenLinkToken",
+  "path": ".github/agents/docs-maintainer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01675",
+  "file": "corpus/TruvetaPublic_OpenLinkToken__.github_agents_documentation-creator.agent.md",
+  "repo": "TruvetaPublic/OpenLinkToken",
+  "path": ".github/agents/documentation-creator.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01676",
+  "file": "corpus/armahajan24_claude-salesforce-development-demo__.claude_agents_documentation-agent.md",
+  "repo": "armahajan24/claude-salesforce-development-demo",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01677",
+  "file": "corpus/asafelobotomy_iCloud-Drive-Downloader__.github_agents_docs.agent.md",
+  "repo": "asafelobotomy/iCloud-Drive-Downloader",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01678",
+  "file": "corpus/averychernin_idea-validator__agents_report-generator.md",
+  "repo": "averychernin/idea-validator",
+  "path": "agents/report-generator.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01679",
+  "file": "corpus/aws-samples_sample-claude-code-agents-for-product-teams__.claude_agents_technical-writer.md",
+  "repo": "aws-samples/sample-claude-code-agents-for-product-teams",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ }
+]

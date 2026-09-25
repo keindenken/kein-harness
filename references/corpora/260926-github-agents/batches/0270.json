@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02700",
+  "file": "corpus/AutomatedEmpires_Open-Resource-Access-Network__.github_agents_ORAN_ssot_docs_editor.agent.md",
+  "repo": "AutomatedEmpires/Open-Resource-Access-Network",
+  "path": ".github/agents/ORAN_ssot_docs_editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02701",
+  "file": "corpus/AutomatedMarketer_claude-skills__agents_copywriter.md",
+  "repo": "AutomatedMarketer/claude-skills",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02702",
+  "file": "corpus/AxerLab_opencode-dsa-tutor__.opencode_agent_pattern-writer.md",
+  "repo": "AxerLab/opencode-dsa-tutor",
+  "path": ".opencode/agent/pattern-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02703",
+  "file": "corpus/AyoKayyo_nametype__agents_03-copywriter.md",
+  "repo": "AyoKayyo/nametype",
+  "path": "agents/03-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02704",
+  "file": "corpus/AzAINN_QLAB__.codex_agents_reporter.toml",
+  "repo": "AzAINN/QLAB",
+  "path": ".codex/agents/reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02705",
+  "file": "corpus/Azure-Samples_DevOpsEngineerPersona__.github_agents_documentation-writer.md",
+  "repo": "Azure-Samples/DevOpsEngineerPersona",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02706",
+  "file": "corpus/Azure_azure-dev__.github_agents_foundry-extension-scenario-author.agent.md",
+  "repo": "Azure/azure-dev",
+  "path": ".github/agents/foundry-extension-scenario-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02707",
+  "file": "corpus/AzureAD_android-complete__.github_agents_design-writer.agent.md",
+  "repo": "AzureAD/android-complete",
+  "path": ".github/agents/design-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02708",
+  "file": "corpus/AzureLocal_azurelocal-training__.claude_agents_training-content-author.md",
+  "repo": "AzureLocal/azurelocal-training",
+  "path": ".claude/agents/training-content-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02709",
+  "file": "corpus/B0yZ4kr14_TSiSIP__.github_agents_speckit.brownkit.report.agent.md",
+  "repo": "B0yZ4kr14/TSiSIP",
+  "path": ".github/agents/speckit.brownkit.report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

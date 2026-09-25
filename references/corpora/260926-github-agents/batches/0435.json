@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04350",
+  "file": "corpus/layer5io_docs__.github_agents_documentation.agent.md",
+  "repo": "layer5io/docs",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04351",
+  "file": "corpus/leanEthereum_leanSpec__.claude_agents_doc-writer.md",
+  "repo": "leanEthereum/leanSpec",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04352",
+  "file": "corpus/lebobo88_MarketBliss__.claude_agents_contextual-copywriter.md",
+  "repo": "lebobo88/MarketBliss",
+  "path": ".claude/agents/contextual-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04353",
+  "file": "corpus/lebobo88_fable-harness__.claude_agents_agents-md-author.md",
+  "repo": "lebobo88/fable-harness",
+  "path": ".claude/agents/agents-md-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04354",
+  "file": "corpus/lebobo88_pair-programmer__.claude_agents_agents-md-author.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".claude/agents/agents-md-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04355",
+  "file": "corpus/lebobo88_pair-programmer__.claude_agents_ai-controls-author.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".claude/agents/ai-controls-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04356",
+  "file": "corpus/lebobo88_pair-programmer__.claude_agents_governance-author.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".claude/agents/governance-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04357",
+  "file": "corpus/lebobo88_pair-programmer__.claude_agents_ops-author.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".claude/agents/ops-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04358",
+  "file": "corpus/lebobo88_pair-programmer__.github_agents_docs-author.agent.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".github/agents/docs-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04359",
+  "file": "corpus/lebobo88_pair-programmer__.github_agents_spec-author.agent.md",
+  "repo": "lebobo88/pair-programmer",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

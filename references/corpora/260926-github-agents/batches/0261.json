@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02610",
+  "file": "corpus/15678910_ai-finance__agents_report-writer.md",
+  "repo": "15678910/ai-finance",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02611",
+  "file": "corpus/1ghost-1_ecst-aiops-console__.github_agents_kb-author.agent.md",
+  "repo": "1ghost-1/ecst-aiops-console",
+  "path": ".github/agents/kb-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02612",
+  "file": "corpus/1ghost-1_ecst-aiops-console__.github_agents_tool-author.agent.md",
+  "repo": "1ghost-1/ecst-aiops-console",
+  "path": ".github/agents/tool-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02613",
+  "file": "corpus/1hoookkk_plugin_dev__.claude_agents_doc-sage.md",
+  "repo": "1hoookkk/plugin_dev",
+  "path": ".claude/agents/doc-sage.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02614",
+  "file": "corpus/1naichii_ai-engineering-starter__.claude_agents_docs-author.md",
+  "repo": "1naichii/ai-engineering-starter",
+  "path": ".claude/agents/docs-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02615",
+  "file": "corpus/1naichii_ai-engineering-starter__.codex_agents_blueprint-author.toml",
+  "repo": "1naichii/ai-engineering-starter",
+  "path": ".codex/agents/blueprint-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02616",
+  "file": "corpus/1naichii_ai-engineering-starter__.codex_agents_spec-writer.toml",
+  "repo": "1naichii/ai-engineering-starter",
+  "path": ".codex/agents/spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02617",
+  "file": "corpus/1stproof_math-solve-skill-FP__agents_paper-editor.md",
+  "repo": "1stproof/math-solve-skill-FP",
+  "path": "agents/paper-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02618",
+  "file": "corpus/22nsuk_LLMwiki__.codex_agents_external-report-action-auditor.toml",
+  "repo": "22nsuk/LLMwiki",
+  "path": ".codex/agents/external-report-action-auditor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02619",
+  "file": "corpus/22nsuk_LLMwiki__.codex_agents_release-authority-auditor.toml",
+  "repo": "22nsuk/LLMwiki",
+  "path": ".codex/agents/release-authority-auditor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

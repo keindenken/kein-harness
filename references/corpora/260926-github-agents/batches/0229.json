@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02290",
+  "file": "corpus/Fandhe-AI_fandhe-backend__.claude_agents_docs_docs-writer.md",
+  "repo": "Fandhe-AI/fandhe-backend",
+  "path": ".claude/agents/docs/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02291",
+  "file": "corpus/Foscat_Kyle_Foster-Portfolio__.codex_agents_docs-diagrams-specialist.agent.md",
+  "repo": "Foscat/Kyle_Foster-Portfolio",
+  "path": ".codex/agents/docs-diagrams-specialist.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02292",
+  "file": "corpus/FuzzysTodd_The-Nexus-Protocol-Token-DAO__.github_agents_success-documentation-reporter.agent.md",
+  "repo": "FuzzysTodd/The-Nexus-Protocol-Token-DAO",
+  "path": ".github/agents/success-documentation-reporter.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02293",
+  "file": "corpus/GPID-WB_compound-gpid__.claude_agents_cg-documentation.md",
+  "repo": "GPID-WB/compound-gpid",
+  "path": ".claude/agents/cg-documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02294",
+  "file": "corpus/GabrielHenriqueCA_cortex-ai__.claude_agents_docs-writer.md",
+  "repo": "GabrielHenriqueCA/cortex-ai",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02295",
+  "file": "corpus/Gdm0714_volt__agents_volt-doc-writer.md",
+  "repo": "Gdm0714/volt",
+  "path": "agents/volt-doc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02296",
+  "file": "corpus/GenOVA-UPAO_GenOVA__.codex_agents_doc_author.toml",
+  "repo": "GenOVA-UPAO/GenOVA",
+  "path": ".codex/agents/doc_author.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02297",
+  "file": "corpus/Getty_rex-libssh__.claude_agents_rex-libssh-doc-writer.md",
+  "repo": "Getty/rex-libssh",
+  "path": ".claude/agents/rex-libssh-doc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02298",
+  "file": "corpus/GouthamKumar-R_multi-agent-k-panel__agents_copywriter.yaml",
+  "repo": "GouthamKumar-R/multi-agent-k-panel",
+  "path": "agents/copywriter.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02299",
+  "file": "corpus/GouthamKumar-R_multi-agent-k-panel__agents_video_producer_editor.yaml",
+  "repo": "GouthamKumar-R/multi-agent-k-panel",
+  "path": "agents/video_producer_editor.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00790",
+  "file": "corpus/OpenRaiser_PaperFlow__agents_profile-report-agent.md",
+  "repo": "OpenRaiser/PaperFlow",
+  "path": "agents/profile-report-agent.md",
+  "stars": 166,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00791",
+  "file": "corpus/alfadur7_llm-wiki-newsroom__.claude_agents_copyeditor.md",
+  "repo": "alfadur7/llm-wiki-newsroom",
+  "path": ".claude/agents/copyeditor.md",
+  "stars": 166,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00792",
+  "file": "corpus/alfadur7_llm-wiki-newsroom__.claude_agents_editor-in-chief.md",
+  "repo": "alfadur7/llm-wiki-newsroom",
+  "path": ".claude/agents/editor-in-chief.md",
+  "stars": 166,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00793",
+  "file": "corpus/alfadur7_llm-wiki-newsroom__.claude_agents_reporter.md",
+  "repo": "alfadur7/llm-wiki-newsroom",
+  "path": ".claude/agents/reporter.md",
+  "stars": 166,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00794",
+  "file": "corpus/LilMGenius_polysona__agents_content-writer.md",
+  "repo": "LilMGenius/polysona",
+  "path": "agents/content-writer.md",
+  "stars": 164,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00795",
+  "file": "corpus/lyndonkl_claude__agents_biostat-editor.md",
+  "repo": "lyndonkl/claude",
+  "path": "agents/biostat-editor.md",
+  "stars": 160,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00796",
+  "file": "corpus/lyndonkl_claude__agents_editor.md",
+  "repo": "lyndonkl/claude",
+  "path": "agents/editor.md",
+  "stars": 160,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00797",
+  "file": "corpus/lyndonkl_claude__agents_scientific-writing-editor.md",
+  "repo": "lyndonkl/claude",
+  "path": "agents/scientific-writing-editor.md",
+  "stars": 160,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00798",
+  "file": "corpus/danielmeppiel_agentic-sdlc-handbook__.github_agents_chief-editor.agent.md",
+  "repo": "danielmeppiel/agentic-sdlc-handbook",
+  "path": ".github/agents/chief-editor.agent.md",
+  "stars": 156,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00799",
+  "file": "corpus/danielmeppiel_agentic-sdlc-handbook__.github_agents_infographic-editor.agent.md",
+  "repo": "danielmeppiel/agentic-sdlc-handbook",
+  "path": ".github/agents/infographic-editor.agent.md",
+  "stars": 156,
+  "copies_in_repos": 1
+ }
+]

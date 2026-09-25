@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04290",
+  "file": "corpus/kevnm67_ios-orb__.claude_agents_circleci-orb-author.md",
+  "repo": "kevnm67/ios-orb",
+  "path": ".claude/agents/circleci-orb-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04291",
+  "file": "corpus/kevynsgrin-a11y_DelayPilot__.claude_agents_content-editorial-lead.md",
+  "repo": "kevynsgrin-a11y/DelayPilot",
+  "path": ".claude/agents/content-editorial-lead.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04292",
+  "file": "corpus/kevynsgrin-a11y_dukefantasy__.codex_agents_editorial-content.toml",
+  "repo": "kevynsgrin-a11y/dukefantasy",
+  "path": ".codex/agents/editorial-content.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04293",
+  "file": "corpus/keychain-io_trustable-ai__.claude_agents_technical-writer.md",
+  "repo": "keychain-io/trustable-ai",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04294",
+  "file": "corpus/keyforta_keyforta-property__.github_agents_technical-writer.agent.md",
+  "repo": "keyforta/keyforta-property",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04295",
+  "file": "corpus/khuynh22_agent-dev-team__agents_docs-engineer.md",
+  "repo": "khuynh22/agent-dev-team",
+  "path": "agents/docs-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04296",
+  "file": "corpus/kienbui1995_magic-powers__agents_copywriter.md",
+  "repo": "kienbui1995/magic-powers",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04297",
+  "file": "corpus/kienbui1995_magic-powers__agents_technical-writer.md",
+  "repo": "kienbui1995/magic-powers",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04298",
+  "file": "corpus/kikrgbh_aidlc-plugin__agents_spec-author.md",
+  "repo": "kikrgbh/aidlc-plugin",
+  "path": "agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04299",
+  "file": "corpus/kim-sung-sig_local-agentic-worker__.codex_agents_verify-qa-reporter.md",
+  "repo": "kim-sung-sig/local-agentic-worker",
+  "path": ".codex/agents/verify-qa-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

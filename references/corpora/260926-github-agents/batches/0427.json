@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04270",
+  "file": "corpus/kaven-co_kaven-template__.github_agents_kaven_kaven-lp-copywriter.agent.md",
+  "repo": "kaven-co/kaven-template",
+  "path": ".github/agents/kaven/kaven-lp-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04271",
+  "file": "corpus/kayoslab_cr0ss.org__.claude_agents_documentation-agent.md",
+  "repo": "kayoslab/cr0ss.org",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04272",
+  "file": "corpus/kdridi_fp-cpp20__.claude_agents_documentation-quality-guardian.md",
+  "repo": "kdridi/fp-cpp20",
+  "path": ".claude/agents/documentation-quality-guardian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04273",
+  "file": "corpus/kdrnck_msgsudot-nye__agents_FINAL_REPORT.md",
+  "repo": "kdrnck/msgsudot-nye",
+  "path": "agents/FINAL_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04274",
+  "file": "corpus/ked1uimd_copilot-agent-guide__.github_agents_doc-writer.md",
+  "repo": "ked1uimd/copilot-agent-guide",
+  "path": ".github/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04275",
+  "file": "corpus/keese-ai_keese__.claude_agents_guardrail-author.md",
+  "repo": "keese-ai/keese",
+  "path": ".claude/agents/guardrail-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04276",
+  "file": "corpus/kelios_metravel2__.claude_agents_quest-editor.md",
+  "repo": "kelios/metravel2",
+  "path": ".claude/agents/quest-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04277",
+  "file": "corpus/kelios_metravel2__.codex_agents_quest-editor.toml",
+  "repo": "kelios/metravel2",
+  "path": ".codex/agents/quest-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04278",
+  "file": "corpus/kelios_metravel2__.codex_agents_task-author.toml",
+  "repo": "kelios/metravel2",
+  "path": ".codex/agents/task-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04279",
+  "file": "corpus/kelios_metravel2__.codex_agents_travel-writer.toml",
+  "repo": "kelios/metravel2",
+  "path": ".codex/agents/travel-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

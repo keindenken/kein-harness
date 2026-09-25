@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04490",
+  "file": "corpus/michelve_draft_v0__.github_agents_documentation-architect.md",
+  "repo": "michelve/draft_v0",
+  "path": ".github/agents/documentation-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04491",
+  "file": "corpus/microsoft_Agent365-devTools__.claude_agents_prd-writer.md",
+  "repo": "microsoft/Agent365-devTools",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04492",
+  "file": "corpus/microsoft_Agent365-nodejs__.claude_agents_prd-writer.md",
+  "repo": "microsoft/Agent365-nodejs",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04493",
+  "file": "corpus/microsoft_cat-tools-activate-pipeline__.github_agents_report-builder.md",
+  "repo": "microsoft/cat-tools-activate-pipeline",
+  "path": ".github/agents/report-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04494",
+  "file": "corpus/microsoft_fabric-cli__.github_agents_docs-writer.agent.md",
+  "repo": "microsoft/fabric-cli",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04495",
+  "file": "corpus/microsoft_frontier-ghcp-rvas__.github_agents_track-editor.md",
+  "repo": "microsoft/frontier-ghcp-rvas",
+  "path": ".github/agents/track-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04496",
+  "file": "corpus/microsoft_skills-for-copilot-studio__agents_copilot-studio-author.md",
+  "repo": "microsoft/skills-for-copilot-studio",
+  "path": "agents/copilot-studio-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04497",
+  "file": "corpus/microsoft_wassette__.github_agents_docs.agent.md",
+  "repo": "microsoft/wassette",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04498",
+  "file": "corpus/mieirs-hue_mieirs-hue.-span_3-start_span-github.io__.github_agents_authors-assistant.agent.md",
+  "repo": "mieirs-hue/mieirs-hue.-span_3-start_span-github.io",
+  "path": ".github/agents/authors-assistant.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04499",
+  "file": "corpus/miguel-conde_book_EM_MTA__.github_agents_technical-editor.agent.md",
+  "repo": "miguel-conde/book_EM_MTA",
+  "path": ".github/agents/technical-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00050",
+  "file": "corpus/diya2809_pain-point__.claude_agents_documentation-manager.md",
+  "repo": "diya2809/pain-point",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 1,
+  "copies_in_repos": 8
+ },
+ {
+  "id": "c00051",
+  "file": "corpus/rtk-ai_rtk__.claude_agents_technical-writer.md",
+  "repo": "rtk-ai/rtk",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 81708,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00052",
+  "file": "corpus/diet103_claude-code-infrastructure-showcase__.claude_agents_documentation-architect.md",
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "path": ".claude/agents/documentation-architect.md",
+  "stars": 10029,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00053",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-sales-marketing_agents_social-media-copywriter.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-sales-marketing/agents/social-media-copywriter.md",
+  "stars": 3542,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00054",
+  "file": "corpus/iannuttall_claude-agents__agents_prd-writer.md",
+  "repo": "iannuttall/claude-agents",
+  "path": "agents/prd-writer.md",
+  "stars": 2043,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00055",
+  "file": "corpus/lst97_claude-code-sub-agents__agents_specialization_api-documenter.md",
+  "repo": "lst97/claude-code-sub-agents",
+  "path": "agents/specialization/api-documenter.md",
+  "stars": 1689,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00056",
+  "file": "corpus/pedrohcgs_claude-code-my-workflow__.claude_agents_editor.md",
+  "repo": "pedrohcgs/claude-code-my-workflow",
+  "path": ".claude/agents/editor.md",
+  "stars": 1598,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00057",
+  "file": "corpus/disler_install-and-maintain__.claude_agents_docs-scraper.md",
+  "repo": "disler/install-and-maintain",
+  "path": ".claude/agents/docs-scraper.md",
+  "stars": 103,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00058",
+  "file": "corpus/josipjelic_orchestrated-project-template__.claude_agents_copywriter-seo.md",
+  "repo": "josipjelic/orchestrated-project-template",
+  "path": ".claude/agents/copywriter-seo.md",
+  "stars": 95,
+  "copies_in_repos": 7
+ },
+ {
+  "id": "c00059",
+  "file": "corpus/AIBiz-Automatyzacje_claude-code-starter__.claude_agents_framework-docs-researcher.md",
+  "repo": "AIBiz-Automatyzacje/claude-code-starter",
+  "path": ".claude/agents/framework-docs-researcher.md",
+  "stars": 87,
+  "copies_in_repos": 7
+ }
+]

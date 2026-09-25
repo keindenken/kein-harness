@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03220",
+  "file": "corpus/Ramanathan10_tools__.codex_agents_docs.toml",
+  "repo": "Ramanathan10/tools",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03221",
+  "file": "corpus/Ramap-Orgranization_Ramap-FE__.codex_agents_tier1_writer.md",
+  "repo": "Ramap-Orgranization/Ramap-FE",
+  "path": ".codex/agents/tier1/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03222",
+  "file": "corpus/Raspalindes_app-heroes-angular-18__.github_agents_Documentation.agent.md",
+  "repo": "Raspalindes/app-heroes-angular-18",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03223",
+  "file": "corpus/RastaChaum_Intelligent-Heating-Pilot__.github_agents_speckit.docs.agent.md",
+  "repo": "RastaChaum/Intelligent-Heating-Pilot",
+  "path": ".github/agents/speckit.docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03224",
+  "file": "corpus/Raxy777_oslint-analysis__.opencode_agent_05-exec-report-writer.md",
+  "repo": "Raxy777/oslint-analysis",
+  "path": ".opencode/agent/05-exec-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03225",
+  "file": "corpus/Rdemora2_Portifolio__.github_agents_documentation.agent.md",
+  "repo": "Rdemora2/Portifolio",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03226",
+  "file": "corpus/ReZorg_delovecho__.github_agents_neuro-chao_skills_bolt-cpp-ml (2)_references_bolt-new_TRANSFORM_REPORT.md",
+  "repo": "ReZorg/delovecho",
+  "path": ".github/agents/neuro-chao/skills/bolt-cpp-ml (2)/references/bolt-new/TRANSFORM_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03227",
+  "file": "corpus/ReZorg_delovecho__.github_agents_neuro-chao_skills_bolt-cpp-ml (2)_references_janext_TRANSFORM_REPORT.md",
+  "repo": "ReZorg/delovecho",
+  "path": ".github/agents/neuro-chao/skills/bolt-cpp-ml (2)/references/janext/TRANSFORM_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03228",
+  "file": "corpus/ReZorg_delovecho__.github_agents_neuro-chao_skills_bolt-cpp-ml\u00b2_references_bolt-cpp-ml_references_cpp-e2e-test-gen_TRANSFORM_REPORT.md",
+  "repo": "ReZorg/delovecho",
+  "path": ".github/agents/neuro-chao/skills/bolt-cpp-ml\u00b2/references/bolt-cpp-ml/references/cpp-e2e-test-gen/TRANSFORM_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03229",
+  "file": "corpus/ReZorg_delovecho__.github_agents_neuro-chao_skills_bolt-cpp-ml\u00b2_references_bolt-cpp-ml_references_koboldcpp_TRANSFORM_REPORT.md",
+  "repo": "ReZorg/delovecho",
+  "path": ".github/agents/neuro-chao/skills/bolt-cpp-ml\u00b2/references/bolt-cpp-ml/references/koboldcpp/TRANSFORM_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

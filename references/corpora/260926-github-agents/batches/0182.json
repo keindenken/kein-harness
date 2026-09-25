@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01820",
+  "file": "corpus/usemanusai_CodeMAD__agents_classes_technical-writer.md",
+  "repo": "usemanusai/CodeMAD",
+  "path": "agents/classes/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01821",
+  "file": "corpus/41fred_ace-level1__.claude_agents_status-reporter.md",
+  "repo": "41fred/ace-level1",
+  "path": ".claude/agents/status-reporter.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01822",
+  "file": "corpus/AIdome-co_aidome-endpoint-switchboard-vscode__.github_agents_technical-writer.agent.md",
+  "repo": "AIdome-co/aidome-endpoint-switchboard-vscode",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01823",
+  "file": "corpus/AlexanderV_Seqeron__.github_agents_seqeron-skill-author.agent.md",
+  "repo": "AlexanderV/Seqeron",
+  "path": ".github/agents/seqeron-skill-author.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01824",
+  "file": "corpus/AscendyProject_redteam__.claude_agents_pr-author.md",
+  "repo": "AscendyProject/redteam",
+  "path": ".claude/agents/pr-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01825",
+  "file": "corpus/B2F_omad__agents_prose-editor.md",
+  "repo": "B2F/omad",
+  "path": "agents/prose-editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01826",
+  "file": "corpus/BichengWang_financial-agent__agents_equity_output_claude-fable-5-2026-07-09_09_final_report.md",
+  "repo": "BichengWang/financial-agent",
+  "path": "agents/equity/output/claude-fable-5-2026-07-09/09_final_report.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01827",
+  "file": "corpus/BichengWang_financial-agent__agents_equity_output_gpt-5-2026-06-07_09_final_report.md",
+  "repo": "BichengWang/financial-agent",
+  "path": "agents/equity/output/gpt-5-2026-06-07/09_final_report.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01828",
+  "file": "corpus/BichengWang_financial-agent__agents_equity_output_gpt-5-2026-07-14_09_final_report.md",
+  "repo": "BichengWang/financial-agent",
+  "path": "agents/equity/output/gpt-5-2026-07-14/09_final_report.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01829",
+  "file": "corpus/BichengWang_financial-agent__agents_equity_output_gpt-5-2026-07-24_09_final_report.md",
+  "repo": "BichengWang/financial-agent",
+  "path": "agents/equity/output/gpt-5-2026-07-24/09_final_report.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

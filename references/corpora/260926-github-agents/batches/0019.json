@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00190",
+  "file": "corpus/Gitwit22_streamline-platform__.github_agents_site-documentation-agent.md",
+  "repo": "Gitwit22/streamline-platform",
+  "path": ".github/agents/site-documentation-agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00191",
+  "file": "corpus/ScorpionConMate_crm-influ-webview__.opencode_agent_subagents_core_documentation.md",
+  "repo": "ScorpionConMate/crm-influ-webview",
+  "path": ".opencode/agent/subagents/core/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00192",
+  "file": "corpus/StanislavMakhrov_application__.github_agents_technical-writer-coding-agent.agent.md",
+  "repo": "StanislavMakhrov/application",
+  "path": ".github/agents/technical-writer-coding-agent.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00193",
+  "file": "corpus/chimera-lab_chimera-lab-cli.app__.github_agents_writer.agent.md",
+  "repo": "chimera-lab/chimera-lab-cli.app",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00194",
+  "file": "corpus/diginsight_smartdocs__.github_agents_01.00-article-writing_documentation-builder.agent.changelog.md",
+  "repo": "diginsight/smartdocs",
+  "path": ".github/agents/01.00-article-writing/documentation-builder.agent.changelog.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00195",
+  "file": "corpus/diginsight_smartdocs__.github_agents_01.00-article-writing_documentation-researcher.agent.changelog.md",
+  "repo": "diginsight/smartdocs",
+  "path": ".github/agents/01.00-article-writing/documentation-researcher.agent.changelog.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00196",
+  "file": "corpus/diginsight_smartdocs__.github_agents_01.00-article-writing_documentation-researcher.agent.md",
+  "repo": "diginsight/smartdocs",
+  "path": ".github/agents/01.00-article-writing/documentation-researcher.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00197",
+  "file": "corpus/fabioc-aloha_AIRS_Data_Analysis__.github_agents_markdown-author.agent.md",
+  "repo": "fabioc-aloha/AIRS_Data_Analysis",
+  "path": ".github/agents/markdown-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00198",
+  "file": "corpus/synq0_synq0__.codex_agents_feature_editor.md",
+  "repo": "synq0/synq0",
+  "path": ".codex/agents/feature_editor.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00199",
+  "file": "corpus/0xb7a7dd61_dotfiles__.claude_agents_doc-updater.md",
+  "repo": "0xb7a7dd61/dotfiles",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ }
+]

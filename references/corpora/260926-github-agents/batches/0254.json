@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02540",
+  "file": "corpus/q9void_lugh__.claude_agents_arch-reporting.md",
+  "repo": "q9void/lugh",
+  "path": ".claude/agents/arch-reporting.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02541",
+  "file": "corpus/rahulgupta2018_structured_address_ai_poc__.github_agents_ArchitectureAuthority.agent.md",
+  "repo": "rahulgupta2018/structured_address_ai_poc",
+  "path": ".github/agents/ArchitectureAuthority.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02542",
+  "file": "corpus/reyesry05_AI-Coding-Agent-Training__.github_agents_curriculum-writer.agent.md",
+  "repo": "reyesry05/AI-Coding-Agent-Training",
+  "path": ".github/agents/curriculum-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02543",
+  "file": "corpus/rmanak_lootcode__.claude_agents_hint-author.md",
+  "repo": "rmanak/lootcode",
+  "path": ".claude/agents/hint-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02544",
+  "file": "corpus/rmanak_lootcode__.claude_agents_problem-author.md",
+  "repo": "rmanak/lootcode",
+  "path": ".claude/agents/problem-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02545",
+  "file": "corpus/robsonmds_roberta__agents_technical-writer.md",
+  "repo": "robsonmds/roberta",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02546",
+  "file": "corpus/rochar_Stella.FeatureManagement.Dashboard__.github_agents_stella-stage-1-plan-author.agent.md",
+  "repo": "rochar/Stella.FeatureManagement.Dashboard",
+  "path": ".github/agents/stella-stage-1-plan-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02547",
+  "file": "corpus/rselbach_dotfiles__agents_skills_common_llama-mode_playbooks_authoring-a-skill.md",
+  "repo": "rselbach/dotfiles",
+  "path": "agents/skills/common/llama-mode/playbooks/authoring-a-skill.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02548",
+  "file": "corpus/saaga0h_themis__agents_doc-writer.md",
+  "repo": "saaga0h/themis",
+  "path": "agents/doc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02549",
+  "file": "corpus/safaothman1631_ERP__.github_agents_shadow-reporting-bi-engineer-checker.agent.md",
+  "repo": "safaothman1631/ERP",
+  "path": ".github/agents/shadow-reporting-bi-engineer-checker.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02740",
+  "file": "corpus/CaesiumY_ko-design-md__.claude_agents_design-md-author.md",
+  "repo": "CaesiumY/ko-design-md",
+  "path": ".claude/agents/design-md-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02741",
+  "file": "corpus/Cam10001110101_build-claude-code-templates__.claude_agents_podcast-prep-team_social-media-copywriter.md",
+  "repo": "Cam10001110101/build-claude-code-templates",
+  "path": ".claude/agents/podcast-prep-team/social-media-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02742",
+  "file": "corpus/CanarysAutomations_Draft-Playwright-workshop__.github_agents_04-report-analyzer-agent.agent.md",
+  "repo": "CanarysAutomations/Draft-Playwright-workshop",
+  "path": ".github/agents/04-report-analyzer-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02743",
+  "file": "corpus/CaoMeiYouRen_caomei-auth__.github_agents_documentation-specialist.agent.md",
+  "repo": "CaoMeiYouRen/caomei-auth",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02744",
+  "file": "corpus/Capgemini_template-github-copilot__.github_agents_Documentation.agent.md",
+  "repo": "Capgemini/template-github-copilot",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02745",
+  "file": "corpus/Capstonne-Project_greenlens-mobile__.codex_agents_docs-manager.toml",
+  "repo": "Capstonne-Project/greenlens-mobile",
+  "path": ".codex/agents/docs-manager.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02746",
+  "file": "corpus/CarmiBanxe_banxe-emi-stack__.claude_agents_reporting-agent.md",
+  "repo": "CarmiBanxe/banxe-emi-stack",
+  "path": ".claude/agents/reporting-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02747",
+  "file": "corpus/Cellular-Semantics_Atlas-reporter__.claude_agents_synthesize-report.md",
+  "repo": "Cellular-Semantics/Atlas-reporter",
+  "path": ".claude/agents/synthesize-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02748",
+  "file": "corpus/CharlesChang012_FIRE__.claude_agents_reporter.md",
+  "repo": "CharlesChang012/FIRE",
+  "path": ".claude/agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02749",
+  "file": "corpus/Chevinjeon_autonomous-quantum-discovery-lab__agents_ai-hedge-fund_.github_ISSUE_TEMPLATE_bug_report.md",
+  "repo": "Chevinjeon/autonomous-quantum-discovery-lab",
+  "path": "agents/ai-hedge-fund/.github/ISSUE_TEMPLATE/bug_report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

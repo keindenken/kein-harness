@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01090",
+  "file": "corpus/SteveGJones_ai-first-sdlc-practices__agents_documentation_technical-writer.md",
+  "repo": "SteveGJones/ai-first-sdlc-practices",
+  "path": "agents/documentation/technical-writer.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01091",
+  "file": "corpus/csm101_delphi-visual-studio-code-debugger__.claude_agents_docs-sync.md",
+  "repo": "csm101/delphi-visual-studio-code-debugger",
+  "path": ".claude/agents/docs-sync.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01092",
+  "file": "corpus/oimiragieo_agent-studio__.claude_agents_core_technical-writer.md",
+  "repo": "oimiragieo/agent-studio",
+  "path": ".claude/agents/core/technical-writer.md",
+  "stars": 41,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01093",
+  "file": "corpus/SoundDocs_sounddocs__.claude_agents_api-documenter.md",
+  "repo": "SoundDocs/sounddocs",
+  "path": ".claude/agents/api-documenter.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01094",
+  "file": "corpus/SoundDocs_sounddocs__.claude_agents_documentation-engineer.md",
+  "repo": "SoundDocs/sounddocs",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01095",
+  "file": "corpus/SoundDocs_sounddocs__.claude_agents_technical-writer.md",
+  "repo": "SoundDocs/sounddocs",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01096",
+  "file": "corpus/claude-dev-suite_claude-dev-suite__agents_core_documentation-expert.md",
+  "repo": "claude-dev-suite/claude-dev-suite",
+  "path": "agents/core/documentation-expert.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01097",
+  "file": "corpus/jmrplens_gitlab-mcp-server__.github_agents_documentation-writer.agent.md",
+  "repo": "jmrplens/gitlab-mcp-server",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01098",
+  "file": "corpus/rizkydwicmt_vibe-ddd-golang__.claude_agents_docs-writer.md",
+  "repo": "rizkydwicmt/vibe-ddd-golang",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01099",
+  "file": "corpus/storefront-x_storefront-x__.claude_agents_docs-researcher.md",
+  "repo": "storefront-x/storefront-x",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 40,
+  "copies_in_repos": 1
+ }
+]

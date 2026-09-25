@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01810",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents_report-visual-aids-agent.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/report-visual-aids-agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01811",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents_reports-to-permanent-notes-agent-prompt.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/reports-to-permanent-notes-agent-prompt.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01812",
+  "file": "corpus/sddevelopment-be_penguin-pragmatic-patterns__.github_agents_directives_004_documentation_context_files.md",
+  "repo": "sddevelopment-be/penguin-pragmatic-patterns",
+  "path": ".github/agents/directives/004_documentation_context_files.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01813",
+  "file": "corpus/sddevelopment-be_penguin-pragmatic-patterns__.github_agents_writer-editor.agent.md",
+  "repo": "sddevelopment-be/penguin-pragmatic-patterns",
+  "path": ".github/agents/writer-editor.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01814",
+  "file": "corpus/sibyllinesoft_hydra__agents_writing_editor.md",
+  "repo": "sibyllinesoft/hydra",
+  "path": "agents/writing/editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01815",
+  "file": "corpus/sibyllinesoft_hydra__agents_writing_technical-writer.md",
+  "repo": "sibyllinesoft/hydra",
+  "path": "agents/writing/technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01816",
+  "file": "corpus/smart-village-solutions_sva-studio__.claude_agents_documentation.md",
+  "repo": "smart-village-solutions/sva-studio",
+  "path": ".claude/agents/documentation.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01817",
+  "file": "corpus/smart-village-solutions_sva-studio__.github_agents_documentation.agent.md",
+  "repo": "smart-village-solutions/sva-studio",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01818",
+  "file": "corpus/sungmanch_single-person-company__agents_spc-writer.md",
+  "repo": "sungmanch/single-person-company",
+  "path": "agents/spc-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01819",
+  "file": "corpus/thevgergroup_notion-wp__.claude_agents_wordpress-technical-writer.md",
+  "repo": "thevgergroup/notion-wp",
+  "path": ".claude/agents/wordpress-technical-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

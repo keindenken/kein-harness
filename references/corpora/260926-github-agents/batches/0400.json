@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04000",
+  "file": "corpus/grafanaKibana_devbook.zip__.codex_agents_note-writer.toml",
+  "repo": "grafanaKibana/devbook.zip",
+  "path": ".codex/agents/note-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04001",
+  "file": "corpus/grahamton_space_reset__.claude_agents_ux-copywriter.md",
+  "repo": "grahamton/space_reset",
+  "path": ".claude/agents/ux-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04002",
+  "file": "corpus/grammy-jiang_Copilot-Webhook-Orchestrator-bak__.github_agents_docs.agent.md",
+  "repo": "grammy-jiang/Copilot-Webhook-Orchestrator-bak",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04003",
+  "file": "corpus/granici-web-dev_ai-agency-studio__.claude_agents_german-web-copywriter.md",
+  "repo": "granici-web-dev/ai-agency-studio",
+  "path": ".claude/agents/german-web-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04004",
+  "file": "corpus/greedy-team_mokkoji-fe-next__.codex_agents_pr-writer.toml",
+  "repo": "greedy-team/mokkoji-fe-next",
+  "path": ".codex/agents/pr-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04005",
+  "file": "corpus/greedy-team_mokkoji-fe-next__.codex_agents_storybook-writer.toml",
+  "repo": "greedy-team/mokkoji-fe-next",
+  "path": ".codex/agents/storybook-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04006",
+  "file": "corpus/grigb_gas-prompt-library__agents_orchestrator-patterns_2026-04-03-23-03-12Z-orch-docs-continuous-sync.md",
+  "repo": "grigb/gas-prompt-library",
+  "path": "agents/orchestrator-patterns/2026-04-03-23-03-12Z-orch-docs-continuous-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04007",
+  "file": "corpus/grigb_gas-prompt-library__agents_orchestrator-patterns_2026-06-20-02-55-16Z-orch-repeated-owner-rollout-authorization.md",
+  "repo": "grigb/gas-prompt-library",
+  "path": "agents/orchestrator-patterns/2026-06-20-02-55-16Z-orch-repeated-owner-rollout-authorization.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04008",
+  "file": "corpus/growzero-cloud_my-first-git__.claude_agents_copywriter.md",
+  "repo": "growzero-cloud/my-first-git",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04009",
+  "file": "corpus/grymmjack_DRAW__.claude_agents_qb64pe-draw-editor.md",
+  "repo": "grymmjack/DRAW",
+  "path": ".claude/agents/qb64pe-draw-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00900",
+  "file": "corpus/alchemiststudiosDOTai_harness-engineering__agents_documentation_git-diff-documentation-agent.md",
+  "repo": "alchemiststudiosDOTai/harness-engineering",
+  "path": "agents/documentation/git-diff-documentation-agent.md",
+  "stars": 104,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00901",
+  "file": "corpus/alchemiststudiosDOTai_harness-engineering__agents_documentation_tech-docs-maintainer.md",
+  "repo": "alchemiststudiosDOTai/harness-engineering",
+  "path": "agents/documentation/tech-docs-maintainer.md",
+  "stars": 104,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00902",
+  "file": "corpus/alchemiststudiosDOTai_harness-engineering__agents_documentation_technical-docs-orchestrator.md",
+  "repo": "alchemiststudiosDOTai/harness-engineering",
+  "path": "agents/documentation/technical-docs-orchestrator.md",
+  "stars": 104,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00903",
+  "file": "corpus/alchemiststudiosDOTai_harness-engineering__agents_research_web-docs-researcher.md",
+  "repo": "alchemiststudiosDOTai/harness-engineering",
+  "path": "agents/research/web-docs-researcher.md",
+  "stars": 104,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00904",
+  "file": "corpus/piercelamb_deep-plan__agents_section-writer.md",
+  "repo": "piercelamb/deep-plan",
+  "path": "agents/section-writer.md",
+  "stars": 104,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00905",
+  "file": "corpus/solanabr_solana-ai-kit__.claude_agents_solana-guide.md",
+  "repo": "solanabr/solana-ai-kit",
+  "path": ".claude/agents/solana-guide.md",
+  "stars": 103,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00906",
+  "file": "corpus/solanabr_solana-ai-kit__.claude_agents_tech-docs-writer.md",
+  "repo": "solanabr/solana-ai-kit",
+  "path": ".claude/agents/tech-docs-writer.md",
+  "stars": 103,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00907",
+  "file": "corpus/TheJacksonCode_Agent-Architecture__agents_res_docs.md",
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "path": "agents/res_docs.md",
+  "stars": 102,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00908",
+  "file": "corpus/xinzhuwang-wxz_OpenPE__.claude_agents_report-writer.md",
+  "repo": "xinzhuwang-wxz/OpenPE",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 101,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00909",
+  "file": "corpus/xuanbingbingo_claude-standard-dev-team__agents_technical-writer.md",
+  "repo": "xuanbingbingo/claude-standard-dev-team",
+  "path": "agents/technical-writer.md",
+  "stars": 101,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00360",
+  "file": "corpus/wiicode_odeshi__agents_senior-technical-writer.md",
+  "repo": "wiicode/odeshi",
+  "path": "agents/senior-technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00361",
+  "file": "corpus/pagopa_oneidentity__.github_agents_tech-ai-pr-editor.agent.md",
+  "repo": "pagopa/oneidentity",
+  "path": ".github/agents/tech-ai-pr-editor.agent.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00362",
+  "file": "corpus/ry-ops_commit-relay__agents_prompts_workers_documentation-worker.md",
+  "repo": "ry-ops/commit-relay",
+  "path": "agents/prompts/workers/documentation-worker.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00363",
+  "file": "corpus/AntonTereshko1995_secret-house-booking-bot__.claude_agents_documentation-manager.md",
+  "repo": "AntonTereshko1995/secret-house-booking-bot",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00364",
+  "file": "corpus/Ashyy0205_MesmerGlass__.github_agents_Repo Editor.agent.md",
+  "repo": "Ashyy0205/MesmerGlass",
+  "path": ".github/agents/Repo Editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00365",
+  "file": "corpus/Flip451_SoTOHE-core__.codex_agents_adr-editor.toml",
+  "repo": "Flip451/SoTOHE-core",
+  "path": ".codex/agents/adr-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00366",
+  "file": "corpus/ganjardbc_coderium-web-v2__.opencode_agent_caf-documentation.md",
+  "repo": "ganjardbc/coderium-web-v2",
+  "path": ".opencode/agent/caf-documentation.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00367",
+  "file": "corpus/grammy-jiang_agentic-dev-template__.github_agents_release-pipeline-author.agent.md",
+  "repo": "grammy-jiang/agentic-dev-template",
+  "path": ".github/agents/release-pipeline-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00368",
+  "file": "corpus/grammy-jiang_agentic-dev-template__.github_agents_arch-spec-author.agent.md",
+  "repo": "grammy-jiang/agentic-dev-template",
+  "path": ".github/agents/arch-spec-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00369",
+  "file": "corpus/learn-automated-testing_selenium_agent__.claude_agents_technical-writer.md",
+  "repo": "learn-automated-testing/selenium_agent",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ }
+]

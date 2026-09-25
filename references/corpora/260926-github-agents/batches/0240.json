@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02400",
+  "file": "corpus/bengeek06_waterfall__.claude_agents_epic-issue-writer.md",
+  "repo": "bengeek06/waterfall",
+  "path": ".claude/agents/epic-issue-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02401",
+  "file": "corpus/bilal-raza12_AI-Driven-Todo-App__.claude_agents_documentation-generator.md",
+  "repo": "bilal-raza12/AI-Driven-Todo-App",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02402",
+  "file": "corpus/bluestella_bluestella-agency-pack__.github_agents_agency-pack-author.md",
+  "repo": "bluestella/bluestella-agency-pack",
+  "path": ".github/agents/agency-pack-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02403",
+  "file": "corpus/bluestella_bluestella-agency-pack__agents_tools_agency-pack-author.md",
+  "repo": "bluestella/bluestella-agency-pack",
+  "path": "agents/tools/agency-pack-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02404",
+  "file": "corpus/bn7ya_mesbah__.claude_agents_copywriter.md",
+  "repo": "bn7ya/mesbah",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02405",
+  "file": "corpus/bodencrouch_mission-runtime__agents_docs-writer.md",
+  "repo": "bodencrouch/mission-runtime",
+  "path": "agents/docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02406",
+  "file": "corpus/bookedsolidtech_helix__.claude_agents_engineering_technical-writer.md",
+  "repo": "bookedsolidtech/helix",
+  "path": ".claude/agents/engineering/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02407",
+  "file": "corpus/bookedsolidtech_reagent__agents_engineering_technical-writer.md",
+  "repo": "bookedsolidtech/reagent",
+  "path": "agents/engineering/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02408",
+  "file": "corpus/brandonkorous_sparx__.claude_agents_copywriter.md",
+  "repo": "brandonkorous/sparx",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02409",
+  "file": "corpus/brycefors_Windows-ISO-Updater__.github_agents_answer-file-editor.agent.md",
+  "repo": "brycefors/Windows-ISO-Updater",
+  "path": ".github/agents/answer-file-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

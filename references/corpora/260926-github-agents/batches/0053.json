@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00530",
+  "file": "corpus/github_copilot-sdk__.github_agents_sdk-docs-maintenance.agent.md",
+  "repo": "github/copilot-sdk",
+  "path": ".github/agents/sdk-docs-maintenance.agent.md",
+  "stars": 10522,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00531",
+  "file": "corpus/omnigent-ai_omnigent__tests_resources_agents_workspace-file-writer_workspace-file-writer.yaml",
+  "repo": "omnigent-ai/omnigent",
+  "path": "tests/resources/agents/workspace-file-writer/workspace-file-writer.yaml",
+  "stars": 10235,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00532",
+  "file": "corpus/google_artemis__artemis_agents_history_analyzer_history_analyzer.md",
+  "repo": "google/artemis",
+  "path": "artemis/agents/history_analyzer/history_analyzer.md",
+  "stars": 9830,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00533",
+  "file": "corpus/MervinPraison_PraisonAI__examples_python_agents_MULTI_PROVIDER_README.md",
+  "repo": "MervinPraison/PraisonAI",
+  "path": "examples/python/agents/MULTI_PROVIDER_README.md",
+  "stars": 9085,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00534",
+  "file": "corpus/logancyang_obsidian-copilot__designdocs_agents_DOCS_GUIDE.md",
+  "repo": "logancyang/obsidian-copilot",
+  "path": "designdocs/agents/DOCS_GUIDE.md",
+  "stars": 7760,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00535",
+  "file": "corpus/logancyang_obsidian-copilot__designdocs_agents_PLUGIN_DEV_GUIDE.md",
+  "repo": "logancyang/obsidian-copilot",
+  "path": "designdocs/agents/PLUGIN_DEV_GUIDE.md",
+  "stars": 7760,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00536",
+  "file": "corpus/logancyang_obsidian-copilot__designdocs_agents_PROCESS_GUIDE.md",
+  "repo": "logancyang/obsidian-copilot",
+  "path": "designdocs/agents/PROCESS_GUIDE.md",
+  "stars": 7760,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00537",
+  "file": "corpus/logancyang_obsidian-copilot__designdocs_agents_STYLE_GUIDE.md",
+  "repo": "logancyang/obsidian-copilot",
+  "path": "designdocs/agents/STYLE_GUIDE.md",
+  "stars": 7760,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00538",
+  "file": "corpus/zenstory-ai_oh-story-claudecode__skills_story-setup_references_codex_agents_narrative-writer.toml",
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "path": "skills/story-setup/references/codex/agents/narrative-writer.toml",
+  "stars": 7112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00539",
+  "file": "corpus/zenstory-ai_oh-story-claudecode__skills_story-setup_references_codex_agents_story-architect.toml",
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "path": "skills/story-setup/references/codex/agents/story-architect.toml",
+  "stars": 7112,
+  "copies_in_repos": 1
+ }
+]

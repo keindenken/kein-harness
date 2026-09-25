@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00670",
+  "file": "corpus/wp-media_wp-rocket__.claude_agents_ticket-writer.md",
+  "repo": "wp-media/wp-rocket",
+  "path": ".claude/agents/ticket-writer.md",
+  "stars": 767,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00671",
+  "file": "corpus/wp-media_wp-rocket__.github_agents_docs-agent.agent.md",
+  "repo": "wp-media/wp-rocket",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 767,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00672",
+  "file": "corpus/divar-ir_ai-doc-gen__src_agents_prompts_documenter.yaml",
+  "repo": "divar-ir/ai-doc-gen",
+  "path": "src/agents/prompts/documenter.yaml",
+  "stars": 763,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00673",
+  "file": "corpus/jame581_GodotPrompter__.codex_agents_godot-prompter_godot-shader-author.toml",
+  "repo": "jame581/GodotPrompter",
+  "path": ".codex/agents/godot-prompter/godot-shader-author.toml",
+  "stars": 757,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00674",
+  "file": "corpus/rapidaai_voice-ai__.claude_agents_rfc-author.md",
+  "repo": "rapidaai/voice-ai",
+  "path": ".claude/agents/rfc-author.md",
+  "stars": 734,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00675",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_novel-writing-workflow.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/novel-writing-workflow.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00676",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_profile-guide.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/profile-guide.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00677",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_project-workspace-guide.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/project-workspace-guide.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00678",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_rp-tick_adjudication-report.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/adjudication-report.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00679",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_rp-tick_rp-writer-interaction.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/rp-writer-interaction.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ }
+]

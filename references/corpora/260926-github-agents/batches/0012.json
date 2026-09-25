@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00120",
+  "file": "corpus/bybren-llc_safe-agentic-workflow__.claude_agents_tech-writer.md",
+  "repo": "bybren-llc/safe-agentic-workflow",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 414,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00121",
+  "file": "corpus/CloudAI-X_opencode-workflow__agents_docs-writer.md",
+  "repo": "CloudAI-X/opencode-workflow",
+  "path": "agents/docs-writer.md",
+  "stars": 275,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00122",
+  "file": "corpus/awattar_claude-code-best-practices__.claude_agents_general-technical-writer.md",
+  "repo": "awattar/claude-code-best-practices",
+  "path": ".claude/agents/general-technical-writer.md",
+  "stars": 255,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00123",
+  "file": "corpus/maslennikov-ig_claude-code-orchestrator-kit__.claude_agents_documentation_workers_technical-writer.md",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "path": ".claude/agents/documentation/workers/technical-writer.md",
+  "stars": 253,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00124",
+  "file": "corpus/mischasigtermans_laravel-altitude__stubs_agents_docs.md",
+  "repo": "mischasigtermans/laravel-altitude",
+  "path": "stubs/agents/docs.md",
+  "stars": 122,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00125",
+  "file": "corpus/baekenough_oh-my-customcode__.claude_agents_qa-writer.md",
+  "repo": "baekenough/oh-my-customcode",
+  "path": ".claude/agents/qa-writer.md",
+  "stars": 43,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00126",
+  "file": "corpus/msbaek_dotfiles__.codex_agents_korean-style-rewriter.toml",
+  "repo": "msbaek/dotfiles",
+  "path": ".codex/agents/korean-style-rewriter.toml",
+  "stars": 39,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00127",
+  "file": "corpus/Azure-Samples_octocat-supply__.github_agents_accessibility-report.agent.md",
+  "repo": "Azure-Samples/octocat-supply",
+  "path": ".github/agents/accessibility-report.agent.md",
+  "stars": 24,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00128",
+  "file": "corpus/jlcatonjr_Learn-Python-for-Stats-and-Econ__.github_agents_references_instruction-authority.reference.md",
+  "repo": "jlcatonjr/Learn-Python-for-Stats-and-Econ",
+  "path": ".github/agents/references/instruction-authority.reference.md",
+  "stars": 15,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00129",
+  "file": "corpus/graditone_graditone__.github_agents_speckit.bugfix.report.agent.md",
+  "repo": "graditone/graditone",
+  "path": ".github/agents/speckit.bugfix.report.agent.md",
+  "stars": 8,
+  "copies_in_repos": 4
+ }
+]

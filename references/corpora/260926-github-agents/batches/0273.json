@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02730",
+  "file": "corpus/BrightLocal_ai-workspace__agents_context-to-prd_.claude_agents_prd-writer.md",
+  "repo": "BrightLocal/ai-workspace",
+  "path": "agents/context-to-prd/.claude/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02731",
+  "file": "corpus/BrightLocal_ai-workspace__agents_interviews-to-vpdc_.claude_agents_research-report-writer.md",
+  "repo": "BrightLocal/ai-workspace",
+  "path": "agents/interviews-to-vpdc/.claude/agents/research-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02732",
+  "file": "corpus/BrunoMullerAraujo_Trilh-o-Beneficente__.claude_agents_copywriter.md",
+  "repo": "BrunoMullerAraujo/Trilh-o-Beneficente",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02733",
+  "file": "corpus/ByronWilliamsCPA_reference-library__agents_writing-style-editor.md",
+  "repo": "ByronWilliamsCPA/reference-library",
+  "path": "agents/writing-style-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02734",
+  "file": "corpus/CAPP-Financials_Consulting_Brain__agents_report-writer.md",
+  "repo": "CAPP-Financials/Consulting_Brain",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02735",
+  "file": "corpus/CARuizDiazFP_LAS-FOCAS__.github_agents_reports.agent.md",
+  "repo": "CARuizDiazFP/LAS-FOCAS",
+  "path": ".github/agents/reports.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02736",
+  "file": "corpus/CCChz233_tools-bench__agents_mini_swe_agent_source_mkdocs.yml",
+  "repo": "CCChz233/tools-bench",
+  "path": "agents/mini_swe_agent/source/mkdocs.yml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02737",
+  "file": "corpus/CaelanDrayer_cAgents__agents_ai-writing-editor.md",
+  "repo": "CaelanDrayer/cAgents",
+  "path": "agents/ai-writing-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02738",
+  "file": "corpus/CaelanDrayer_cAgents__agents_editor.md",
+  "repo": "CaelanDrayer/cAgents",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02739",
+  "file": "corpus/CaelanDrayer_cAgents__agents_technical-writer.md",
+  "repo": "CaelanDrayer/cAgents",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

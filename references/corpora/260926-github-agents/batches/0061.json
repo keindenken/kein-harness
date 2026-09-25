@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00610",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-gov-reuse-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-gov-reuse-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00611",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-grants-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-grants-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00612",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_agents_arckit-tenders-writer.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/agents/arckit-tenders-writer.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00613",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_plugins_agent_architecture_templates__partials_document-control-at.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-at.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00614",
+  "file": "corpus/tractorjuice_arc-kit__plugins_arckit-claude_plugins_agent_architecture_templates__partials_document-control-uae.md",
+  "repo": "tractorjuice/arc-kit",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/_partials/document-control-uae.md",
+  "stars": 2246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00615",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_5f890bd72ac4_skills_voice-project_references_narration.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/5f890bd72ac4/skills/voice-project/references/narration.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00616",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_79df9cc89f5f_skills_gate-control_references_narration-recovery.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/gate-control/references/narration-recovery.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00617",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_79df9cc89f5f_skills_stage-compose_references_manifest-and-authoring.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-compose/references/manifest-and-authoring.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00618",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_79df9cc89f5f_skills_stage-compose_references_narration.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-compose/references/narration.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00619",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_79df9cc89f5f_skills_stage-edit_references_transcript-and-screen-grounded-editing.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/stage-edit/references/transcript-and-screen-grounded-editing.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ }
+]

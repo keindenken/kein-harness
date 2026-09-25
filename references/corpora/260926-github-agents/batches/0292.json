@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02920",
+  "file": "corpus/HibanaSledge_YOLO_Tracking__.github_agents_templates_bug-report-template.md",
+  "repo": "HibanaSledge/YOLO_Tracking",
+  "path": ".github/agents/templates/bug-report-template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02921",
+  "file": "corpus/Hive-Academy_ptah-extension__.claude_agents_technical-content-writer.md",
+  "repo": "Hive-Academy/ptah-extension",
+  "path": ".claude/agents/technical-content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02922",
+  "file": "corpus/HoraceCh_HoraceCh.github.io__.codex_agents_content-ia-editor.toml",
+  "repo": "HoraceCh/HoraceCh.github.io",
+  "path": ".codex/agents/content-ia-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02923",
+  "file": "corpus/HwangTaehyun_verifiers__agents_tdd-writer.md",
+  "repo": "HwangTaehyun/verifiers",
+  "path": "agents/tdd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02924",
+  "file": "corpus/Hydrodynamical_Vlasov_Meanfield_Formalization__.claude_agents_sketch-author.md",
+  "repo": "Hydrodynamical/Vlasov_Meanfield_Formalization",
+  "path": ".claude/agents/sketch-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02925",
+  "file": "corpus/HyperionWave-AI_hyper__.claude_agents_GENERICIZATION_REPORT.md",
+  "repo": "HyperionWave-AI/hyper",
+  "path": ".claude/agents/GENERICIZATION_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02926",
+  "file": "corpus/ILoveDotNet_ilovedotnet__.github_agents_ai-author.agent.md",
+  "repo": "ILoveDotNet/ilovedotnet",
+  "path": ".github/agents/ai-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02927",
+  "file": "corpus/ILoveDotNet_ilovedotnet__.github_agents_ai-persuasive-email-writer.agent.md",
+  "repo": "ILoveDotNet/ilovedotnet",
+  "path": ".github/agents/ai-persuasive-email-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02928",
+  "file": "corpus/IT-Bossen_carekompass-backup__.claude_agents_story-writer.md",
+  "repo": "IT-Bossen/carekompass-backup",
+  "path": ".claude/agents/story-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02929",
+  "file": "corpus/IbkWilliams1_calendar-app-demo__.claude_agents_doc-helper-agent.md",
+  "repo": "IbkWilliams1/calendar-app-demo",
+  "path": ".claude/agents/doc-helper-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

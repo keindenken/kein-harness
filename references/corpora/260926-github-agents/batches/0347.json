@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03470",
+  "file": "corpus/ahmadasror_claude-setup__agents_fr-writer.md",
+  "repo": "ahmadasror/claude-setup",
+  "path": "agents/fr-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03471",
+  "file": "corpus/ai-development-harness_ai-development-harness-template__.codex_agents_docs.toml",
+  "repo": "ai-development-harness/ai-development-harness-template",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03472",
+  "file": "corpus/ai-stress-testing_Ges-Talt__.claude_agents_design-technical-writer.md",
+  "repo": "ai-stress-testing/Ges-Talt",
+  "path": ".claude/agents/design-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03473",
+  "file": "corpus/aidas-harness-project_harness-project__.codex_agents_draft-report.toml",
+  "repo": "aidas-harness-project/harness-project",
+  "path": ".codex/agents/draft-report.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03474",
+  "file": "corpus/aidas-harness-project_harness-project__.codex_agents_screening-report.toml",
+  "repo": "aidas-harness-project/harness-project",
+  "path": ".codex/agents/screening-report.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03475",
+  "file": "corpus/aiqadam_ai-qadam-platform__.github_agents_db-migration-author.agent.md",
+  "repo": "aiqadam/ai-qadam-platform",
+  "path": ".github/agents/db-migration-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03476",
+  "file": "corpus/aishvar23_LumaLoop__.codex_agents_lumaloop-game-author.toml",
+  "repo": "aishvar23/LumaLoop",
+  "path": ".codex/agents/lumaloop-game-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03477",
+  "file": "corpus/ajeetchouksey_ajch_ai_usecases__.claude_agents_usecase-writer.md",
+  "repo": "ajeetchouksey/ajch_ai_usecases",
+  "path": ".claude/agents/usecase-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03478",
+  "file": "corpus/akanothingyet_Auriel-Ai-MVP-Prod__.claude_agents_documentation-expert.md",
+  "repo": "akanothingyet/Auriel-Ai-MVP-Prod",
+  "path": ".claude/agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03479",
+  "file": "corpus/akanothingyet_Auriel-Ai-MVP-Prod__.claude_agents_documentation-specialist.md",
+  "repo": "akanothingyet/Auriel-Ai-MVP-Prod",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

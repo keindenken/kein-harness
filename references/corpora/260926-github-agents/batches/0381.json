@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03810",
+  "file": "corpus/diamond-publicidad_website__.github_agents_documentation.agent.md",
+  "repo": "diamond-publicidad/website",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03811",
+  "file": "corpus/dicacros-gif_AI__.codex_agents_english_authoritative_media_researcher.toml",
+  "repo": "dicacros-gif/AI",
+  "path": ".codex/agents/english_authoritative_media_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03812",
+  "file": "corpus/diegoquinteiro_harnessfile__.codex_agents_spec-editor.toml",
+  "repo": "diegoquinteiro/harnessfile",
+  "path": ".codex/agents/spec-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03813",
+  "file": "corpus/digitaldev-lx_claude-code-agents__agents_06-website-copywriter.md",
+  "repo": "digitaldev-lx/claude-code-agents",
+  "path": "agents/06-website-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03814",
+  "file": "corpus/digitalempire2020_stellah-ai-website__.claude_agents_emma-copywriter.md",
+  "repo": "digitalempire2020/stellah-ai-website",
+  "path": ".claude/agents/emma-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03815",
+  "file": "corpus/dileep-hegde_become-java-springboot-expert-ai__.github_agents_note-writer.agent.md",
+  "repo": "dileep-hegde/become-java-springboot-expert-ai",
+  "path": ".github/agents/note-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03816",
+  "file": "corpus/dinagar-sde_Github-Copilot__.github_agents_documentation-agent.agent.md",
+  "repo": "dinagar-sde/Github-Copilot",
+  "path": ".github/agents/documentation-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03817",
+  "file": "corpus/dinnella_learn-gcp__.github_agents_practice-app-question-author.agent.md",
+  "repo": "dinnella/learn-gcp",
+  "path": ".github/agents/practice-app-question-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03818",
+  "file": "corpus/djhouse76_azure-cloud-patterns__.github_agents_solution-design-writer.agent.md",
+  "repo": "djhouse76/azure-cloud-patterns",
+  "path": ".github/agents/solution-design-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03819",
+  "file": "corpus/dkadish_BioAcousticIndexTool__.github_agents_platformio-docs.agent.md",
+  "repo": "dkadish/BioAcousticIndexTool",
+  "path": ".github/agents/platformio-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

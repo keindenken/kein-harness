@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01970",
+  "file": "corpus/snickler_social-media-command__.github_agents_documentation-specialist.md",
+  "repo": "snickler/social-media-command",
+  "path": ".github/agents/documentation-specialist.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01971",
+  "file": "corpus/stefanpems_a365-lab-toolkit__.github_agents_lab-reporter.agent.md",
+  "repo": "stefanpems/a365-lab-toolkit",
+  "path": ".github/agents/lab-reporter.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01972",
+  "file": "corpus/takkub_agent-takkub__.claude_agents_docs.md",
+  "repo": "takkub/agent-takkub",
+  "path": ".claude/agents/docs.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01973",
+  "file": "corpus/talosprotocol_talos__.claude_agents_talos-documentation-writer.md",
+  "repo": "talosprotocol/talos",
+  "path": ".claude/agents/talos-documentation-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01974",
+  "file": "corpus/teko-org_teko-lang__.claude_agents_teko-docs.md",
+  "repo": "teko-org/teko-lang",
+  "path": ".claude/agents/teko-docs.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01975",
+  "file": "corpus/tgittos_dotfiles__.claude_agents_marketing-copywriter.md",
+  "repo": "tgittos/dotfiles",
+  "path": ".claude/agents/marketing-copywriter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01976",
+  "file": "corpus/the-prod-father_claude-slash-commands__agents_technical-writer.md",
+  "repo": "the-prod-father/claude-slash-commands",
+  "path": "agents/technical-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01977",
+  "file": "corpus/tkgo11_prism-insight-light__.codex_agents_docs-researcher.toml",
+  "repo": "tkgo11/prism-insight-light",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01978",
+  "file": "corpus/toddward_claude-code-agents-demo__.claude_agents_doc-writer.md",
+  "repo": "toddward/claude-code-agents-demo",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01979",
+  "file": "corpus/vdloureiro_RoasOS__.claude_agents_copywriter.md",
+  "repo": "vdloureiro/RoasOS",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

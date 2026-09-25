@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04970",
+  "file": "corpus/sunnypatneedi_claude-starter-kit__agents_business_copywriter.md",
+  "repo": "sunnypatneedi/claude-starter-kit",
+  "path": "agents/business/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04971",
+  "file": "corpus/supermalang_databridge-cli__.claude_agents_report.md",
+  "repo": "supermalang/databridge-cli",
+  "path": ".claude/agents/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04972",
+  "file": "corpus/swaghost_prompts__AGENTS_COPILOT_web-presence_web-sites.conversion-page-copywriter.agent.md",
+  "repo": "swaghost/prompts",
+  "path": "AGENTS/COPILOT/web-presence/web-sites.conversion-page-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04973",
+  "file": "corpus/swaghost_prompts__AGENTS_COPILOT_web-presence_web-sites.service-page-copywriter.agent.md",
+  "repo": "swaghost/prompts",
+  "path": "AGENTS/COPILOT/web-presence/web-sites.service-page-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04974",
+  "file": "corpus/swarley_fissure-farmer__.claude_agents_docs.md",
+  "repo": "swarley/fissure-farmer",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04975",
+  "file": "corpus/swarochish_journalism-toolkit__agents_journalism_author-history-profiler.md",
+  "repo": "swarochish/journalism-toolkit",
+  "path": "agents/journalism/author-history-profiler.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04976",
+  "file": "corpus/swarochish_journalism-toolkit__agents_journalism_story-editor.md",
+  "repo": "swarochish/journalism-toolkit",
+  "path": "agents/journalism/story-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04977",
+  "file": "corpus/swedwise-internal_document-platform__.claude_agents_document-writer.md",
+  "repo": "swedwise-internal/document-platform",
+  "path": ".claude/agents/document-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04978",
+  "file": "corpus/swegon58_Aio_project__.claude_agents_analytics-reporter.md",
+  "repo": "swegon58/Aio_project",
+  "path": ".claude/agents/analytics-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04979",
+  "file": "corpus/szylover_my_microkernel__.github_agents_author.agent.md",
+  "repo": "szylover/my_microkernel",
+  "path": ".github/agents/author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

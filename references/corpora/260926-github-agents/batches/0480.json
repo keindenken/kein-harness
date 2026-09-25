@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04800",
+  "file": "corpus/rhahn28_Claude_Agents__agents_technical-writer.md",
+  "repo": "rhahn28/Claude_Agents",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04801",
+  "file": "corpus/ricardobalbino_code-dynamics__.github_agents_paige-tech-writer.agent.md",
+  "repo": "ricardobalbino/code-dynamics",
+  "path": ".github/agents/paige-tech-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04802",
+  "file": "corpus/ricardocunha_coding-agents-boilerplate__.claude_agents_doc-writer.md",
+  "repo": "ricardocunha/coding-agents-boilerplate",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04803",
+  "file": "corpus/ricardojjulia_ChurchCore-Academy__.claude_agents_story-writer.md",
+  "repo": "ricardojjulia/ChurchCore-Academy",
+  "path": ".claude/agents/story-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04804",
+  "file": "corpus/richburglejohn-dotcom_publishing-team__.claude_agents_manuscript-editor.md",
+  "repo": "richburglejohn-dotcom/publishing-team",
+  "path": ".claude/agents/manuscript-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04805",
+  "file": "corpus/rickandrew2_rickandrew2__agents_commands_docs.md",
+  "repo": "rickandrew2/rickandrew2",
+  "path": "agents/commands/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04806",
+  "file": "corpus/ridamgupta25_Microsoft-Fabric-Well-Architected-Auditor__.github_agents_checklist-author.agent.md",
+  "repo": "ridamgupta25/Microsoft-Fabric-Well-Architected-Auditor",
+  "path": ".github/agents/checklist-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04807",
+  "file": "corpus/riddler_wurk__agents_wurk-docs-analyzer.md",
+  "repo": "riddler/wurk",
+  "path": "agents/wurk-docs-analyzer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04808",
+  "file": "corpus/riddopic_cc-tools__.claude_agents_technical-docs-writer.md",
+  "repo": "riddopic/cc-tools",
+  "path": ".claude/agents/technical-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04809",
+  "file": "corpus/rigel20240128_obsidian-hokanko__.claude_agents_copywriter.md",
+  "repo": "rigel20240128/obsidian-hokanko",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

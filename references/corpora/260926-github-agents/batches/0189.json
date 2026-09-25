@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01890",
+  "file": "corpus/AgentShekel_agentic-workflow__agents_specialists_marketing-copywriter.md",
+  "repo": "AgentShekel/agentic-workflow",
+  "path": "agents/specialists/marketing-copywriter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01891",
+  "file": "corpus/AgentShekel_agentic-workflow__agents_validators_tech-spec-validator.md",
+  "repo": "AgentShekel/agentic-workflow",
+  "path": "agents/validators/tech-spec-validator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01892",
+  "file": "corpus/AgentShekel_agentic-workflow__agents_validators_userspec-adequacy-validator.md",
+  "repo": "AgentShekel/agentic-workflow",
+  "path": "agents/validators/userspec-adequacy-validator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01893",
+  "file": "corpus/AgentShekel_agentic-workflow__agents_validators_userspec-quality-validator.md",
+  "repo": "AgentShekel/agentic-workflow",
+  "path": "agents/validators/userspec-quality-validator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01894",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_06-developer-experience_documentation-engineer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/06-developer-experience/documentation-engineer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01895",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_06-developer-experience_readme-generator.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/06-developer-experience/readme-generator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01896",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_07-specialized-domains_api-documenter.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/07-specialized-domains/api-documenter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01897",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_08-business-product_technical-writer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/08-business-product/technical-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01898",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_ad-copy-creator.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/ad-copy-creator.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01899",
+  "file": "corpus/Caesar-Nexus-Labs_caesar-harness-agent__agents_11-marketing_cold-outreach-writer.md",
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "path": "agents/11-marketing/cold-outreach-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

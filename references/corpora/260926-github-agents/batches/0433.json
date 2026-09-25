@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04330",
+  "file": "corpus/kressnerd_nix-config__.opencode_agent_user-story-writer.md",
+  "repo": "kressnerd/nix-config",
+  "path": ".opencode/agent/user-story-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04331",
+  "file": "corpus/krizzo101_master_root__.claude_agents_technical-writer.md",
+  "repo": "krizzo101/master_root",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04332",
+  "file": "corpus/krpraveen0_medium-authority-engine__agents_chief-editor.md",
+  "repo": "krpraveen0/medium-authority-engine",
+  "path": "agents/chief-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04333",
+  "file": "corpus/krunal-simform_skills-expand-your-team-with-copilot__.github_agents_docs-writer.agent.md",
+  "repo": "krunal-simform/skills-expand-your-team-with-copilot",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04334",
+  "file": "corpus/krzysztofsurdy_code-virtuoso__agents_doc-writer.md",
+  "repo": "krzysztofsurdy/code-virtuoso",
+  "path": "agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04335",
+  "file": "corpus/ksk5429_figure_generator__.claude_agents_figgen-mermaid-author.md",
+  "repo": "ksk5429/figure_generator",
+  "path": ".claude/agents/figgen-mermaid-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04336",
+  "file": "corpus/ktzy0305_voice-ai__.codex_agents_docs-maintainer.md",
+  "repo": "ktzy0305/voice-ai",
+  "path": ".codex/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04337",
+  "file": "corpus/kukientinhky_financial_LXK__.opencode_agent_docs.md",
+  "repo": "kukientinhky/financial_LXK",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04338",
+  "file": "corpus/kurtshuler_claude-code-course__.claude_agents_docs-explorer.md",
+  "repo": "kurtshuler/claude-code-course",
+  "path": ".claude/agents/docs-explorer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04339",
+  "file": "corpus/kwakseobang_lecture-harness__.claude_agents_editor.md",
+  "repo": "kwakseobang/lecture-harness",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

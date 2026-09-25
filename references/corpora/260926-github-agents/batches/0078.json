@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00780",
+  "file": "corpus/jtgsystems_Custom-Modes-Roo-Code__agents_business-product_general_technical-writer.yaml",
+  "repo": "jtgsystems/Custom-Modes-Roo-Code",
+  "path": "agents/business-product/general/technical-writer.yaml",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00781",
+  "file": "corpus/jtgsystems_Custom-Modes-Roo-Code__agents_infrastructure-devops_cloud_terraform-module-author.yaml",
+  "repo": "jtgsystems/Custom-Modes-Roo-Code",
+  "path": "agents/infrastructure-devops/cloud/terraform-module-author.yaml",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00782",
+  "file": "corpus/jtgsystems_Custom-Modes-Roo-Code__agents_specialized-domains_marketing_performance-copywriter.yaml",
+  "repo": "jtgsystems/Custom-Modes-Roo-Code",
+  "path": "agents/specialized-domains/marketing/performance-copywriter.yaml",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00783",
+  "file": "corpus/microsoft_bocpy__.github_agents_editor-lens.agent.md",
+  "repo": "microsoft/bocpy",
+  "path": ".github/agents/editor-lens.agent.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00784",
+  "file": "corpus/shm11C3_HardwareVisualizer__.claude_agents_sensor-spec-author.md",
+  "repo": "shm11C3/HardwareVisualizer",
+  "path": ".claude/agents/sensor-spec-author.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00785",
+  "file": "corpus/Refactron-ai_refactron__.claude_agents_documentation-engineer.md",
+  "repo": "Refactron-ai/refactron",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 179,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00786",
+  "file": "corpus/Supreme-Ultimate_novel-to-script-team__agents_script-writer.md",
+  "repo": "Supreme-Ultimate/novel-to-script-team",
+  "path": "agents/script-writer.md",
+  "stars": 173,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00787",
+  "file": "corpus/oocx_tfplan2md__.claude_agents_technical-writer.md",
+  "repo": "oocx/tfplan2md",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 173,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00788",
+  "file": "corpus/RafaelGB_Obsidian-ZettelFlow__.claude_agents_spec-author.md",
+  "repo": "RafaelGB/Obsidian-ZettelFlow",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 172,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00789",
+  "file": "corpus/animeshkundu_youtube-audio__.claude_agents_docs-agent.md",
+  "repo": "animeshkundu/youtube-audio",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 171,
+  "copies_in_repos": 1
+ }
+]

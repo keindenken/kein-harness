@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00320",
+  "file": "corpus/dxfrontier_cds-ts-repository__.claude_agents_doc-explorer_web-doc-agent.md",
+  "repo": "dxfrontier/cds-ts-repository",
+  "path": ".claude/agents/doc-explorer/web-doc-agent.md",
+  "stars": 9,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00321",
+  "file": "corpus/ianlintner_rust-oauth2-server__.github_agents_docs-update.md",
+  "repo": "ianlintner/rust-oauth2-server",
+  "path": ".github/agents/docs-update.md",
+  "stars": 9,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00322",
+  "file": "corpus/skfarhad_stocksurferbd__.claude_agents_spec-writer.md",
+  "repo": "skfarhad/stocksurferbd",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 9,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00323",
+  "file": "corpus/Olatisunkanmi_claudefiles__agents_engineering-technical-writer.md",
+  "repo": "Olatisunkanmi/claudefiles",
+  "path": "agents/engineering-technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00324",
+  "file": "corpus/marrobi_nhs-alpha-workshop__.github_agents_nhs-documentation.agent.md",
+  "repo": "marrobi/nhs-alpha-workshop",
+  "path": ".github/agents/nhs-documentation.agent.md",
+  "stars": 8,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00325",
+  "file": "corpus/FusRoman_Outfit__.opencode_agent_rust-doc-writer.md",
+  "repo": "FusRoman/Outfit",
+  "path": ".opencode/agent/rust-doc-writer.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00326",
+  "file": "corpus/Plagugin_FrameSurgeon__.github_agents_plan-executor_completion-reporting.md",
+  "repo": "Plagugin/FrameSurgeon",
+  "path": ".github/agents/plan-executor/completion-reporting.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00327",
+  "file": "corpus/lawalletio_lawallet-nwc__.claude_agents_api-route-author.md",
+  "repo": "lawalletio/lawallet-nwc",
+  "path": ".claude/agents/api-route-author.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00328",
+  "file": "corpus/danielrosehill_Claude-Development-Agents__agents_web-design_copywriter.md",
+  "repo": "danielrosehill/Claude-Development-Agents",
+  "path": "agents/web-design/copywriter.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00329",
+  "file": "corpus/universetraveller_CatenaD4J__.github_agents_docs.agent.md",
+  "repo": "universetraveller/CatenaD4J",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ }
+]

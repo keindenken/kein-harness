@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04510",
+  "file": "corpus/mittuled_skill-os__agents_implementation_implementation-lead_integration-catalogue-builder_references_integration-documentation-standards.md",
+  "repo": "mittuled/skill-os",
+  "path": "agents/implementation/implementation-lead/integration-catalogue-builder/references/integration-documentation-standards.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04511",
+  "file": "corpus/mizzky_sol__.codex_agents_doc_editor.toml",
+  "repo": "mizzky/sol",
+  "path": ".codex/agents/doc_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04512",
+  "file": "corpus/mizzky_sol__.github_agents_doc-editor.md",
+  "repo": "mizzky/sol",
+  "path": ".github/agents/doc-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04513",
+  "file": "corpus/mjblack_sonarr__.claude_agents_code-editor.md",
+  "repo": "mjblack/sonarr",
+  "path": ".claude/agents/code-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04514",
+  "file": "corpus/mjrtl_agentic_product_manager__agents_pm-writer.md",
+  "repo": "mjrtl/agentic_product_manager",
+  "path": "agents/pm-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04515",
+  "file": "corpus/mk3008_rawsql-ts__.codex_agents_developer-reporting.toml",
+  "repo": "mk3008/rawsql-ts",
+  "path": ".codex/agents/developer-reporting.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04516",
+  "file": "corpus/mkim0628_experiment-reproducer__.claude_agents_documentation-writer.md",
+  "repo": "mkim0628/experiment-reproducer",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04517",
+  "file": "corpus/mmorales99_musicratic__.github_agents_docs.agent.md",
+  "repo": "mmorales99/musicratic",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04518",
+  "file": "corpus/modeled-information-format_research-harness-template__.claude_agents_report-synthesizer.md",
+  "repo": "modeled-information-format/research-harness-template",
+  "path": ".claude/agents/report-synthesizer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04519",
+  "file": "corpus/modoojunko_awesome-novel-agent__agents_short-editor.md",
+  "repo": "modoojunko/awesome-novel-agent",
+  "path": "agents/short-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

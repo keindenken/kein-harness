@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00270",
+  "file": "corpus/team-attention_hoyeon__agents_docs-researcher.md",
+  "repo": "team-attention/hoyeon",
+  "path": "agents/docs-researcher.md",
+  "stars": 174,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00271",
+  "file": "corpus/webmaxru_awesome-microsoft-agent-framework__.github_agents_readme-editor.agent.md",
+  "repo": "webmaxru/awesome-microsoft-agent-framework",
+  "path": ".github/agents/readme-editor.agent.md",
+  "stars": 165,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00272",
+  "file": "corpus/kenneth-liao_claude-agent-sdk-intro__.claude_agents_documentation-writer.md",
+  "repo": "kenneth-liao/claude-agent-sdk-intro",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 156,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00273",
+  "file": "corpus/MJbae_awesome-novel-studio__agents_episode-rewriter.md",
+  "repo": "MJbae/awesome-novel-studio",
+  "path": "agents/episode-rewriter.md",
+  "stars": 151,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00274",
+  "file": "corpus/Qredence_agentic-fleet__.github_agents_docs-agent.md",
+  "repo": "Qredence/agentic-fleet",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 111,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00275",
+  "file": "corpus/SalesforceAIResearch_agentforce-adlc__agents_adlc-author.md",
+  "repo": "SalesforceAIResearch/agentforce-adlc",
+  "path": "agents/adlc-author.md",
+  "stars": 111,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00276",
+  "file": "corpus/uxjoseph_content-marketing-team__.claude_agents_thread-writer.md",
+  "repo": "uxjoseph/content-marketing-team",
+  "path": ".claude/agents/thread-writer.md",
+  "stars": 105,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00277",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_docs-scraper.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/docs-scraper.md",
+  "stars": 100,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00278",
+  "file": "corpus/josipjelic_orchestrated-project-template__.claude_agents_documentation-writer.md",
+  "repo": "josipjelic/orchestrated-project-template",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 95,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00279",
+  "file": "corpus/flick-git-anhnv_claude__.claude_agents_documentation-writer.md",
+  "repo": "flick-git-anhnv/claude",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 90,
+  "copies_in_repos": 2
+ }
+]

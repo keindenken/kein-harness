@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03940",
+  "file": "corpus/fakoli_anvil-serving__.claude_agents_anvil-evidence-reporter.md",
+  "repo": "fakoli/anvil-serving",
+  "path": ".claude/agents/anvil-evidence-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03941",
+  "file": "corpus/fb-lb_CEF_devoirs_knowledge-front__.claude_agents_documentation.md",
+  "repo": "fb-lb/CEF_devoirs_knowledge-front",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03942",
+  "file": "corpus/fbolivar_bc-saas-fabric__.claude_agents_copywriter.md",
+  "repo": "fbolivar/bc-saas-fabric",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03943",
+  "file": "corpus/felipebustillo_dotclaude__.claude_agents_technical-writer.md",
+  "repo": "felipebustillo/dotclaude",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03944",
+  "file": "corpus/fire_flowref-etnf__.claude_agents_repo-state-docs.md",
+  "repo": "fire/flowref-etnf",
+  "path": ".claude/agents/repo-state-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03945",
+  "file": "corpus/firebase_agent-skills__agents_firestore-rules-author.md",
+  "repo": "firebase/agent-skills",
+  "path": "agents/firestore-rules-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03946",
+  "file": "corpus/fivetaku_docs-guide__agents_docs-guide.md",
+  "repo": "fivetaku/docs-guide",
+  "path": "agents/docs-guide.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03947",
+  "file": "corpus/flashwade03_Damascus-For-Claude-Code__agents_author.md",
+  "repo": "flashwade03/Damascus-For-Claude-Code",
+  "path": "agents/author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03948",
+  "file": "corpus/flatout-works_chetter__.opencode_agent_docs-maintainer.md",
+  "repo": "flatout-works/chetter",
+  "path": ".opencode/agent/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03949",
+  "file": "corpus/flcdrg_au-dotnet__.github_agents_ci-workflow-editor.agent.md",
+  "repo": "flcdrg/au-dotnet",
+  "path": ".github/agents/ci-workflow-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

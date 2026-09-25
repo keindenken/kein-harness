@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01750",
+  "file": "corpus/ARAVINDAN20_Claude-Research-Paper-OS__.claude_agents_paper-writer.md",
+  "repo": "ARAVINDAN20/Claude-Research-Paper-OS",
+  "path": ".claude/agents/paper-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01751",
+  "file": "corpus/Aleffsalmeida_skill-oracle__agents_oracle-master-docs.md",
+  "repo": "Aleffsalmeida/skill-oracle",
+  "path": "agents/oracle-master-docs.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01752",
+  "file": "corpus/Cadienvan_Exegesis__.github_agents_report-synthesizer.agent.md",
+  "repo": "Cadienvan/Exegesis",
+  "path": ".github/agents/report-synthesizer.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01753",
+  "file": "corpus/Dannykkh_skill-olympus__agents_documentation.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/documentation.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01754",
+  "file": "corpus/Dannykkh_skill-olympus__agents_python-spec.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/python-spec.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01755",
+  "file": "corpus/Dannykkh_skill-olympus__agents_qa-writer.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/qa-writer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01756",
+  "file": "corpus/Dannykkh_skill-olympus__agents_spec-interviewer.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/spec-interviewer.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01757",
+  "file": "corpus/Dannykkh_skill-olympus__agents_typescript-spec.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/typescript-spec.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01758",
+  "file": "corpus/Dannykkh_skill-olympus__agents_writing-guidelines.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/writing-guidelines.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01759",
+  "file": "corpus/Dannykkh_skill-olympus__agents_writing-specialist.md",
+  "repo": "Dannykkh/skill-olympus",
+  "path": "agents/writing-specialist.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

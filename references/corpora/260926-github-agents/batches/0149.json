@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01490",
+  "file": "corpus/Ancient23_MultiAgent-Claude__.claude_agents_documentation-sync-guardian.md",
+  "repo": "Ancient23/MultiAgent-Claude",
+  "path": ".claude/agents/documentation-sync-guardian.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01491",
+  "file": "corpus/BackendStack21_kai__agents_docs.md",
+  "repo": "BackendStack21/kai",
+  "path": "agents/docs.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01492",
+  "file": "corpus/BackendStack21_kai__agents_jira-writer.md",
+  "repo": "BackendStack21/kai",
+  "path": "agents/jira-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01493",
+  "file": "corpus/CaoMeiYouRen_momei__.github_agents_documentation-specialist.agent.md",
+  "repo": "CaoMeiYouRen/momei",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01494",
+  "file": "corpus/ChanMeng666_archlang__.claude_agents_arch-author.md",
+  "repo": "ChanMeng666/archlang",
+  "path": ".claude/agents/arch-author.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01495",
+  "file": "corpus/DartGit-dev_git2dart__.codex_agents_reversa-docs-analyst-t3.toml",
+  "repo": "DartGit-dev/git2dart",
+  "path": ".codex/agents/reversa-docs-analyst-t3.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01496",
+  "file": "corpus/DartGit-dev_git2dart__.codex_agents_reversa-docs-analyst.toml",
+  "repo": "DartGit-dev/git2dart",
+  "path": ".codex/agents/reversa-docs-analyst.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01497",
+  "file": "corpus/DartGit-dev_git2dart__.codex_agents_reversa-docs.toml",
+  "repo": "DartGit-dev/git2dart",
+  "path": ".codex/agents/reversa-docs.toml",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01498",
+  "file": "corpus/FlorianBruniaux_google-search-console-mcp__.claude_agents_gsc-seo-reporter.md",
+  "repo": "FlorianBruniaux/google-search-console-mcp",
+  "path": ".claude/agents/gsc-seo-reporter.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01499",
+  "file": "corpus/Shaostoul_Humanity__.claude_agents_domain-writer.md",
+  "repo": "Shaostoul/Humanity",
+  "path": ".claude/agents/domain-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00550",
+  "file": "corpus/darrenhinde_OpenAgentsControl__.opencode_agent_subagents_planning_story-mapper.md",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": ".opencode/agent/subagents/planning/story-mapper.md",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00551",
+  "file": "corpus/darrenhinde_OpenAgentsControl__.opencode_docs_agents_planning-agents-guide.md",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": ".opencode/docs/agents/planning-agents-guide.md",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00552",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_01-critical-rules_context-loading_02-docs-task.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/02-docs-task.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00553",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_01-critical-rules_context-loading_07-simple-documentation-format.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/07-simple-documentation-format.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00554",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_01-critical-rules_context-loading_09-multi-standards-to-docs.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/context-loading/09-multi-standards-to-docs.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00555",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_01-critical-rules_stop-on-failure_02-stop-and-report-positive.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/01-critical-rules/stop-on-failure/02-stop-and-report-positive.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00556",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_06-integration_medium_05-content-validation.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/06-integration/medium/05-content-validation.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00557",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_06-negative_report-first-violation.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/06-negative/report-first-violation.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00558",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_openagent_tests_contextscout-integration_07-content-creation-uses-contextscout.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/openagent/tests/contextscout-integration/07-content-creation-uses-contextscout.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00559",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_shared_tests_golden_03-read-before-write.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/shared/tests/golden/03-read-before-write.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ }
+]

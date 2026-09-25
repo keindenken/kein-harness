@@ -1,0 +1,5362 @@
+[
+ {
+  "id": "c01850",
+  "repo": "adeerkhan/vitruvius",
+  "path": ".opencode/agent/writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Read the file agents/writer.md from the repo root and follow it exactly.",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "If that file is missing, refuse the task and report BLOCKED: role definition agents/writer.md not found - do not improvise the role.",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 2,
+  "notes": "Stub file that only redirects the agent to an external canonical role file (agents/writer.md) rather than containing the actual writing instructions itself.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 62,
+  "batch": "0185"
+ },
+ {
+  "id": "c01851",
+  "repo": "bensonz/stock-analysis",
+  "path": "agents/DEEP_REPORT.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Do not fabricate numbers. Cite only figures present in the `# DATA` block below, or ones you retrieve via `web_search` / `web_fetch`.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Reach your own verdict from the data. Do not default to bullish or bearish.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Separate fact from inference. When you interpret (e.g. \"\u5229\u6da6\u542b\u73b0\u91d1\u91cf\u4f4e\u610f\u5473\u7740\u2026\"), make clear it is your reading, not a reported figure.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every number in the report must carry its provenance, in one of exactly two forms:",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "an independent verifier re-fetches every link and checks the number really appears on the page; DATA-tagged numbers are matched against DATA. Any number it cannot confirm comes back to you to fix, re-link, or rewrite qualitatively",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "The `#` title line must end with the rating, e.g. `# \u516c\u53f8\u540d\uff08\u4ee3\u7801\uff09\u6df1\u5ea6\u7814\u7a76\u62a5\u544a \u00b7 \u8bc4\u7ea7 4/5`.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Three concrete, specific scenarios (not boilerplate) that would break your thesis, each with a quantified probability and the mechanism by which it would hurt.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "every probability you emit is a bet that gets logged and Brier-scored when it resolves \u2014 your calibration is being measured.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Analytical and specific; concrete numbers over adjectives. No hype, no disclaimers padding.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Length comparable to a real sell-side deep-dive.",
+    "dimension": "length",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Extremely operational A-share equity research report agent with a mechanical two-form citation scheme, a mandatory verifier re-fetch/reject pipeline, a machine-readable predictions block for calibration scoring, and a fully prescribed report template with domain-specific subsections.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1476,
+  "batch": "0185"
+ },
+ {
+  "id": "c01852",
+  "repo": "brainbytes-dev/everything-claude-marketing",
+  "path": "agents/copywriter.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": false,
+   "self_review_checklist": true,
+   "asks_before_writing": true,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Before writing a single word, you always ask: What does the reader want? What is stopping them from getting it? How does this product remove that obstacle?",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "If any of these five are unclear, ask before writing. Copy written without a clear brief is a coin flip.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Choose the right persuasion framework based on the audience's awareness level",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Write at an 8th-grade reading level for most B2C and B2B content. Use Hemingway Editor or similar tools.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Cut test: Remove 20% of the words. If the meaning survives, the original was too long.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "The headline is responsible for 80% of the ad's performance (Ogilvy). Write at least 10 headline variants for every piece.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Google Ads headlines: 30 characters",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Need 95% statistical significance before declaring a winner",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Respect the reader's intelligence. Do not manipulate, mislead, or use false scarcity.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "If \"we\" outnumbers \"you,\" the copy is self-centered.",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Extremely thorough marketing copywriter agent covering brief-taking, audience research, named persuasion frameworks, per-channel format specs with exact character limits, a full worked landing-page example, a 12-item review checklist, and A/B testing methodology.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 3159,
+  "batch": "0185"
+ },
+ {
+  "id": "c01853",
+  "repo": "bschimke95/jara",
+  "path": ".github/agents/documentation-expert.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "code-comments"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You keep contributor and user documentation accurate, concise, and aligned with current behavior.",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "Map behavior/config/CLI changes to impacted docs.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Validate commands and file paths against the repository.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Apply minimal, high-value documentation edits.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Add comments only for non-obvious intent.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Prefer precise, task-oriented language.",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "Avoid speculative or outdated guidance.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Verify commands/paths referenced in docs exist.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Ensure examples match real behavior.",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 3,
+  "notes": "Compact repo-docs maintainer agent scoped to a specific project (jara), with a two-stage workflow and a small quality-check list emphasizing verifying commands/paths against the actual repository before writing.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 210,
+  "batch": "0185"
+ },
+ {
+  "id": "c01854",
+  "repo": "contentful/optimization",
+  "path": ".codex/agents/sdk-knowledge-author.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "api-reference",
+   "project-docs"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "read `packages/**/src` and write what is true into `documentation/internal/sdk-knowledge/`, so the base memoizes comprehension and everything downstream reads facts instead of re-reading code.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Capture **behavior, not interface.** The type system already holds the interface",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Anchor each behavioral fact to the interface symbol it is about (the `source:` pointer), but its content is the behavior, not a restatement of the signature.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "re-verify only facts whose `source:` pointer names a changed file (use `pnpm knowledge:check` to find pointers that no longer resolve)",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT re-comprehend unrelated code.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Confirm `pnpm knowledge:check` passes before finishing.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Report which facts you added/changed/removed and \u2014 via each touched file's `feeds-guides` marker \u2014 which guides now need recomposing",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "You do not write guide prose and you do not review guides.",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Narrow internal-knowledge-base authoring agent for a docs pipeline: derives verified behavioral facts (not interface/type info) from SDK source, bounds rework to diff-touched facts via a pointer-resolution check tool, and hands off downstream guide-recomposition scope rather than writing guide prose itself.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 340,
+  "batch": "0185"
+ },
+ {
+  "id": "c01855",
+  "repo": "coreycoto/git-slop",
+  "path": ".codex/agents/docs-taxonomist.toml",
+  "writing_role": false,
+  "not_writing_reason": "job is organizing/relocating existing documents and fixing links (mechanical taxonomy drift repair), not composing prose for a reader",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Doc-taxonomy maintenance agent that moves/relocates docs into correct buckets and fixes links via small PRs, delegating to an external skill for the actual workflow contract.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 80,
+  "batch": "0185"
+ },
+ {
+  "id": "c01856",
+  "repo": "corpora-inc/encorpora",
+  "path": ".claude/agents/curriculum-author.md",
+  "writing_role": false,
+  "not_writing_reason": "primarily curriculum/data engineering (immutable skill ids, exact-rational arithmetic types, generator bindings, answer schemas, renderer tests, promotion gates) with only one incidental line of children's copy voice guidance, not prose authoring as the job",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Children's math-curriculum authoring agent focused on data-model integrity (immutable skill ids, exact rational arithmetic, structured prompt specs, two hard promotion gates) rather than prose writing; contains one short voice note for child-facing copy.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1205,
+  "batch": "0185"
+ },
+ {
+  "id": "c01857",
+  "repo": "csarcrr/invoicing-integration",
+  "path": ".claude/agents/docs-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "api-reference",
+   "project-docs",
+   "changelog"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": true,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You focus exclusively on what has changed \u2014 not the entire codebase \u2014 unless explicitly asked otherwise.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Before writing anything, thoroughly examine the changed files to understand: What was added, modified, or removed",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Accurate: Reflects actual code behavior, not assumptions",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Concise: No padding or redundancy",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "For each DTO field, document: Field name and type, Whether it's required, nullable, or `Optional`, Validation rules if any",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Structure your documentation output as: 1. **Summary** ... 2. **Changes by Category** ... 3. **Usage Examples** ... 4. **Migration Guide** (if breaking changes) ... 5. **Configuration Changes**",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "No assumptions made about undocumented behavior \u2014 ask if unclear",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Breaking changes are prominently marked with a \u26a0\ufe0f warning",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Is this documentation for the package README, inline PHPDoc, a CHANGELOG entry, or a separate guide?",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Default assumption: producing Markdown documentation suitable for a README or CHANGELOG unless told otherwise.",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly project-specific PHP Laravel package docs-writer with a fixed five-part output structure, per-artifact-type documentation formats (DTO/Provider/Enum), a pre-finalize checklist, a clarification protocol, and instructions to build persistent cross-session agent memory of project terminology and conventions.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1400,
+  "batch": "0185"
+ },
+ {
+  "id": "c01858",
+  "repo": "cue-3/re-cue",
+  "path": ".github/agents/documentation.agent.md",
+  "writing_role": false,
+  "not_writing_reason": "runs a validation/auto-fix shell script (broken-link detection, sync checks, version-consistency checks, placeholder-file generation) rather than composing prose content; it is a slash-command-like tool wrapper, not a prose author",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Documents a GitHub Copilot agent that is really a wrapper around .github/scripts/doc-validation-agent.sh, running link/sync/version checks and generating boilerplate placeholder files rather than writing prose.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 939,
+  "batch": "0185"
+ },
+ {
+  "id": "c01859",
+  "repo": "danielrosehill/Claude-Sub-Agent-Network",
+  "path": "agents/with-frontmatter/ux/css-editor.md",
+  "writing_role": false,
+  "not_writing_reason": "code editing agent for CSS/UX design implementation, not a producer of prose or documents",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Minimal generic persona for a CSS/design code-editing assistant; no writing-specific instructions.",
+  "stars": 5,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 103,
+  "batch": "0185"
+ },
+ {
+  "id": "c02300",
+  "repo": "GrupoUS/aegiswallet",
+  "path": ".github/agents/documentation.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Analyze: audience, domain, Di\u00e1taxis form, inputs/outputs, constraints",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Classify each document using the Di\u00e1taxis form",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Do not duplicate content; link to existing docs",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Accuracy: verified with current stack and versions",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "MUST NOT assume undocumented knowledge",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "MUST NOT duplicate existing docs without rationale",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Place under `docs/` with descriptive `kebab-case` names",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Prefer short files; split when sections exceed ~150 lines",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Prefer relative links and stable anchors (kebab-case headings)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Validate: check clarity, accuracy, completeness, and link hygiene",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A well-structured Diataxis-based documentation agent with explicit templates per document type, metadata schema, and file-placement rules.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 443,
+  "batch": "0230"
+ },
+ {
+  "id": "c02301",
+  "repo": "HeyItsGilbert/GilbertSanchezDotCom",
+  "path": ".github/agents/BlogEditor.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "blog-article"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "My writing style is similar to Scott Hanselman's \u2014 technical, approachable, and a little playful.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "I often incorporate personal anecdotes and real-world examples to illustrate my points.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "I also, incorrectly, tend to write run-on sentences, use incorrect grammar, and write in a passive voice.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Start at the phase that matches your draft maturity.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Preserve technical meaning, code snippets, and author voice in every phase.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Move forward through handoffs for the cleanest workflow.",
+    "dimension": "process",
+    "specific": false
+   }
+  ],
+  "specificity": 4,
+  "notes": "An orchestrator agent that routes a blog draft through a named four-phase pipeline (Madman/Architect/Carpenter/Judge), with the author's own voice and known weaknesses described concretely.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 288,
+  "batch": "0230"
+ },
+ {
+  "id": "c02302",
+  "repo": "Hitaishkg/indian-trader",
+  "path": ".claude/agents/docs-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "changelog",
+   "api-reference"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "If a module section already exists in docs/connections.md, REPLACE it \u2014 never append a second copy",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Surgical edits only \u2014 never rewrite an entire file",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Read the spec file for the newly built module (path provided by the triggering agent or derivable from docs/context/current-state.md). Understand:",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "interfaces.md: Confirm the public API entry added by the Coder Agent is accurate and complete. If not, correct it.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Append one entry at the TOP of the file (most recent first):",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Never rewrite the entire file. Use Edit to replace only the lines that changed.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "CANNOT modify any file in src/ or tests/",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "CANNOT make architectural decisions",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Print:\n- Files updated\n- Commit SHA\n- What the \"Next step\" is (from DECISIONS.md entry)",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "decisions-log.md: Add one line for any non-obvious decision made during this build:",
+    "dimension": "length",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A pipeline-stage documentation agent with exact file targets, exact markdown templates, surgical-edit discipline, and a scripted git commit/push/report sequence \u2014 clearly written from a concrete repo's real workflow.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 554,
+  "batch": "0230"
+ },
+ {
+  "id": "c02303",
+  "repo": "HomericIntelligence/Keystone",
+  "path": ".claude/agents/documentation-specialist.md",
+  "writing_role": false,
+  "not_writing_reason": "Explicitly told not to write documentation itself and to delegate writing to Documentation Engineers; its job is planning, coordinating, and reviewing.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A Level 3 'Component Specialist' that plans and delegates documentation work to Documentation Engineers, explicitly forbidden from writing or modifying code/docs itself, and wraps a heavy GitHub-issue and PR git workflow around the delegation.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1898,
+  "batch": "0230"
+ },
+ {
+  "id": "c02304",
+  "repo": "HomericIntelligence/Keystone",
+  "path": ".claude/agents/junior-documentation-engineer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "code-comments",
+   "changelog",
+   "project-docs"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": true,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Fill in docstring templates, format documentation, generate changelog entries, and update simple README sections",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Change technical content without verification",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Ask when uncertain about technical details",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Follow style guide",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "Write complex documentation without guidance",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Keep issue-specific content focused and concise",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Make the SMALLEST change that solves the problem.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT write documentation outside `/notes/issues/`issue-number`/`",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT duplicate comprehensive documentation from other locations",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Verify links work",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 3,
+  "notes": "A leaf-level 'Junior' engineer restricted to filling templates, formatting, and simple README/changelog updates; its worked examples are copy-pasted boilerplate about implementing a convolution layer and fixing a gradient bug, unrelated to documentation.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1645,
+  "batch": "0230"
+ },
+ {
+  "id": "c02305",
+  "repo": "IAbuElRuzz/CodingAgents",
+  "path": ".claude/agents/ROLE_DOCUMENTATION_SPECIALIST.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "changelog",
+   "prompt-instructions",
+   "other"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Your audience is always a future engineer \u2014 human or AI \u2014 who has zero context about why decisions were made. Write for them.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Never commit documentation without verifying the code it describes still matches",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never document the \"what\" without the \"why\" \u2014 the code shows what it does",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Never write documentation at the end of a project \u2014 document decisions as they're made",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Never add secrets or env values to CLAUDE.md \u2014 use `.env.example` for env documentation",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Write for a user, not a developer \u2014 describe what changed, not which files were edited.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Over-documenting obvious things \u2014 don't explain what a for-loop is; do explain why an algorithm was chosen.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Explain what the project does in 2\u20133 sentences (non-technical language first).",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Never leave orphaned TODOs (no linked ticket) in documentation",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "CHANGELOG.md \u2014 [Keep a Changelog](https://keepachangelog.com) Format",
+    "dimension": "doc-type-convention",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Very operational role with a constraint table, executable verification commands (broken-link check, stale TODO grep, .env.example completeness), a Definition-of-Done checklist, and per-document-type templates (CHANGELOG, API docs, runbooks).",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1120,
+  "batch": "0230"
+ },
+ {
+  "id": "c02306",
+  "repo": "Icontre2/fantasy-copilot",
+  "path": ".claude/agents/copywriter.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy",
+   "social-media",
+   "ux-microcopy"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "El hook se entiende en menos de 2 segundos.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Espa\u00f1ol natural. Cero tono gur\u00fa, cero relleno corporativo, cero frases que suenan a IA.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Toda cifra o hecho futbol\u00edstico que escribas tiene que quedar marcado como pendiente de verificar. Si no tienes evidencia de algo, no lo escribas.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "El mensaje debe funcionar para alguien que nunca ha o\u00eddo hablar de LigaLab.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Cinco hooks que son la misma frase con otras palabras cuentan como no haber entregado.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "El insight, la audiencia y el \u00e1ngulo te los dan ya resueltos: no vuelvas a deducirlos.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Nunca prometas de m\u00e1s sobre LigaLab.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "No escribes ficheros.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Un bloque ```json con exactamente estos campos (`salidaCopywriterSchema`)",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Los hechos por verificar van en `claims_needing_validation`.",
+    "dimension": "evidence",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A tight Spanish-language marketing copywriter agent with a strict JSON output schema, brand-voice source files it must read, and an explicit rule forcing unverified football facts into a separate claims field rather than stating them as fact.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 235,
+  "batch": "0230"
+ },
+ {
+  "id": "c02307",
+  "repo": "IsraelIyonsi/claude-engineering-workflow",
+  "path": "agents/design/brand-copywriter.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You read the **Brand Strategist's foundation memo** before writing a single word.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "You generate **3-5 options** for any line, then defend your favorite. Never give the user one option.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "You optimize for **read-aloud**: if you can't say the line out loud naturally, it's wrong.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "You **kill jargon ruthlessly**. \"Reconciliation\" becomes \"matching your bank to your books.\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Tagline: the one line under the logo. 5-7 words max. Memorable.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "manifesto.md: 200-400 words, brand-voice prose",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "For naming: you check trademark availability via WebSearch before recommending.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Use em dashes (house style rule)",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Write microcopy (button labels, error states): that's the UX Writer",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Recommend a name without trademark + URL + handle availability check",
+    "dimension": "evidence",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly specific brand-voice role in an org chart of design agents, with concrete deliverable filenames, word-count limits per artifact type, a banned-punctuation house rule, and a hard boundary against overlapping with a sibling UX Writer role.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 354,
+  "batch": "0230"
+ },
+ {
+  "id": "c02308",
+  "repo": "JaZeR-444/scss-palette-library",
+  "path": ".claude/agents/documentation-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "changelog",
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Use when updating docs, references, changelogs, or handoffs to match the codebase.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Keep documentation accurate and current with the codebase.",
+    "dimension": "evidence",
+    "specific": false
+   },
+   {
+    "quote": "1. Docs reviewed\n2. Inaccuracies found\n3. Updates made\n4. Remaining gaps",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 2,
+  "notes": "A short, thin doc-sync agent that delegates most behavior to an external 'doc-sync-pass' skill not present in this file; its own content is a bare responsibility statement, review-area list, and output format.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 74,
+  "batch": "0230"
+ },
+ {
+  "id": "c02309",
+  "repo": "JaviMontano/mao-sovereign-architect",
+  "path": "agents/technical-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "prd-spec",
+   "api-reference",
+   "project-docs",
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Write Architecture Decision Records (ADRs) with full context",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Create technical specifications with clear scope boundaries",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Generate API documentation with examples and error cases",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Ensure documentation matches the actual code (no drift)",
+    "dimension": "evidence",
+    "specific": true
+   }
+  ],
+  "specificity": 2,
+  "notes": "A short, generic technical writer persona covering ADRs, specs, API docs, runbooks, and READMEs, with no concrete templates, examples, or process detail beyond a one-line responsibility list.",
+  "stars": 1,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 125,
+  "batch": "0230"
+ },
+ {
+  "id": "c02760",
+  "repo": "CodePhobiia/claude-roblox-game-studio",
+  "path": ".claude/agents/writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "ux-microcopy",
+   "fiction-narrative",
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": true,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Reading Level: Target 4-6th grade. Simple sentences, common vocabulary.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Max Length: 2-3 sentences per bubble. Break longer content into multiple bubbles.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Title: 3-7 words. Action-oriented. (\u2705 \"Hunt the Cave Dragon\" / \u274c \"A Quest Involving a Cave Dragon Which You Must Defeat\")",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Objectives: Concrete, trackable. \u2705 \"Defeat 5 goblins\" / \u274c \"Fight enemies\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Helpful, not technical: \u2705 \"You need 100 Gold to buy this.\" / \u274c \"Transaction failed with error code 403\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "No shame: Never blame the player for normal errors",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Avoid puns and wordplay (don't translate)",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Keep variable interpolation simple: \"You have {count} apples\" not \"You have {count} apple{count > 1 and 's' or ''}\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Follow: Question \u2192 Options \u2192 Decision \u2192 Draft \u2192 Approval.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Present text options (especially key dialogue and tutorial copy) for user review.",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Very operational game-writing spec with concrete length limits, good/bad examples per text type, localization rules, and an explicit collaboration workflow, clearly written from Roblox UX writing experience.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 576,
+  "batch": "0276"
+ },
+ {
+  "id": "c02761",
+  "repo": "Colten-Covington/Buzz-Stack",
+  "path": ".github/agents/documentation-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "code-comments",
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Who is the audience? (developers, operators, new team members)",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Code examples reference real files",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Code examples - Real code from `/app`, `/components`, `/services`",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every decision record should include:\n\n```markdown\n## Testing Strategy\n\n- **Unit tests:** Service layer caching logic",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Architecture decisions documented (ADR format)",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "How does this connect to existing docs? (cross-references)",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Documentation Agent (captures decisions + knowledge)\n    \u2193\nContent Strategy Agent (polishes language)",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Architecture: `/docs/ARCHITECTURE.md`",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Anti-Pattern: Undocumented Complex Logic",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Architecture Overview (1-2 docs)",
+    "dimension": "length",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "Heavily template-driven agent with concrete ADR/runbook/code-doc markdown patterns, file-path output contracts, a documentation-pyramid quota, and a checklist gate before handoff to a content-strategy agent.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1132,
+  "batch": "0276"
+ },
+ {
+  "id": "c02762",
+  "repo": "ComputerSaysNull/claude-delegate-local-mcp",
+  "path": ".claude/agents/docs-audit.md",
+  "writing_role": false,
+  "not_writing_reason": "Audits existing documentation against code and gate output and produces a findings list only; explicitly does not edit or draft prose.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A review/audit agent that finds stale or verbose docs and files findings (BLOCKER/MAJOR/MINOR); it never authors or edits the documentation itself.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 791,
+  "batch": "0276"
+ },
+ {
+  "id": "c02763",
+  "repo": "Contoso-State/red-team-agent-orchestration",
+  "path": ".claude/agents/redteam-reporting.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Reports are generated from findings data, never hand-authored.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Ingest every `engagements/<session>/findings/raw/*.jsonl`; validate against `schemas/finding.schema.json`.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Deduplicate findings with the same root cause on the same resource; merge evidence.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Prioritize via `knowledge/severity-model.md`; attack-path chains rank by end state.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Render `engagements/<session>/reports/`: `executive-summary.md`, `technical-report.md`, per-finding files.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Map findings to CIS (`controls/cis-azure.yaml`) and MITRE (`controls/mitre-cloud.yaml`).",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Write `engagements/<session>/findings/normalized/findings.json` as the deduplicated source of truth.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Read-only. Honor `data_handling` in `engagement.yaml` \u2014 redact tenant/subscription IDs, UPNs, and resource names if sanitization is required.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Never include secret values or raw data samples.",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A pipeline-style reporting agent that turns structured red-team findings JSONL into client deliverables via a fixed file/template contract, with explicit dedup, severity, control-mapping and redaction steps.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 2,
+  "words": 199,
+  "batch": "0276"
+ },
+ {
+  "id": "c02764",
+  "repo": "Contoso-State/red-team-agent-orchestration",
+  "path": ".github/agents/redteam-authorization.agent.md",
+  "writing_role": false,
+  "not_writing_reason": "Security analysis agent that runs RBAC checks and correlates attack-path chains, emitting structured findings, not prose deliverables.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Analytical red-team sub-agent that finds privilege-escalation paths and reports structured findings (AZ-AUTHZ-/AZ-PATH-) back to an orchestrator; its own reporting is done by a separate reporting sub-agent.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 171,
+  "batch": "0276"
+ },
+ {
+  "id": "c02765",
+  "repo": "CortaLabs/osrs_hiscore_pull",
+  "path": ".claude/agents/report.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You convert snapshot payloads into clear, structured reports suitable for\nweb display, sharing, and archival review.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Keep report outputs deterministic and easy to diff",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Preserve compatibility with existing templates/consumers",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Highlight meaningful changes, avoid noisy prose",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Log report generation outcomes with key metadata",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "CRITICAL: `create` only scaffolds an empty doc. You MUST follow up with `replace_section` to write actual content.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "No replacement files** \u2014 Edit existing files. No `*_v2`, `enhanced_*`, `*_new`.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "RULE: SCAN BEFORE YOU READ.** Always scan first, then read only what you need",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Every significant action must be logged. Every document must go through `manage_docs`.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Change-focused report structure and readability",
+    "dimension": "structure",
+    "specific": true
+   }
+  ],
+  "specificity": 2,
+  "notes": "Most of the file is generic multi-agent council/Scribe MCP tooling boilerplate shared across personas; the report-specific writing guidance is a thin layer (deterministic diffable output, avoid noisy prose, preserve template compatibility).",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1062,
+  "batch": "0276"
+ },
+ {
+  "id": "c02766",
+  "repo": "Corvidae-Coding-Projects/Thermite",
+  "path": ".claude/agents/acto-doc-author.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "prd-spec",
+   "project-docs"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Each REQ status table is grounded in quoted-code evidence from the current implementation.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "REQs are classified BINARY \u2014 SHIPPED (end-to-end functional with a non-test production consumer + tests + verification) or NOT-STARTED (with a concrete open prerequisite blocker referenced by # number).",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "NEVER proposes or makes code changes \u2014 the doc adapts to the code, never the reverse.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "R-DOC-3**: every SHIPPED REQ cites the impl symbol AND the non-test consumer symbol, with quoted evidence.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "R-CITE-2b**: cite Thermite symbols with symbol anchors (`pub fn lower_fn in lower.rs`), NEVER line numbers.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "If you find yourself classifying >50% of existing pub APIs as NOT-STARTED, you are over-applying the rule \u2014 stop and reconsider.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Prose follows `.design/tone-and-voice.md`: affirmative not defensive, plain not emphatic, narrative only in intros/conclusions.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "No antithesis pairs (\"not X \u2014 Y\"), virtue adverbs (\"honestly\"/\"loudly\"), rhetorical bold/ALL-CAPS for emphasis, or `exactly`/`precisely` as emphasis (only where they disambiguate).",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Report (max 400 words)\nDoc path, LOC, REQ breakdown (N SHIPPED / M NOT-STARTED), route added/updated, new blockers filed, surprises, and an honest note on which SHIPPED claims you are LEAST confident about.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Gaps become blockers, not deferred statuses: `crosslink quick \"<gap>\" -p <pri> -l blocker` and reference the # in the NOT-STARTED row.",
+    "dimension": "process",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Extremely operational and idiosyncratic: a full markdown template with rule IDs, a strict binary SHIPPED/NOT-STARTED taxonomy tied to quoted-code + non-test-consumer evidence, symbol-anchor citation rules, and a house tone guide banning specific rhetorical tics.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 862,
+  "batch": "0276"
+ },
+ {
+  "id": "c02767",
+  "repo": "Crawford-Young/claude-config",
+  "path": "agents/docs-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "prd-spec",
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Read the current file before proposing any edit \u2014 never overwrite blindly",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Keep CLAUDE.md concise (target \u2264100 lines) \u2014 it loads into every session; every line has a context cost",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Workspace-level rules go in `~/code/CLAUDE.md`; project-specific details go in the repo-level `CLAUDE.md`",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Never add obvious/derivable information \u2014 only document what can't be inferred from code or git history",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "A doc fact you correct in one file is a grep prompt, not a one-file fix.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "grep the corrected phrase repo-wide before finalizing, especially for staleness you find INCIDENTALLY, outside your brief",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Agent definitions must be self-contained \u2014 subagents start cold with zero session context",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Never commit \u2014 user approves all commits",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Final text = raw report to your spawner: files changed, exact diffs (old \u2192 new) for every edit, and any ISSUE/NEEDS_CONTEXT lines.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "If a constraint blocks the correct edit, report `NEEDS_CONTEXT: <what you need and why>` \u2014 do not work around it.",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A workspace-wide docs maintainer with a concrete file-location map and a distinctive rule that a corrected fact triggers a repo-wide grep for stale duplicates rather than a single-file fix.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 471,
+  "batch": "0276"
+ },
+ {
+  "id": "c02768",
+  "repo": "Crius-Technology/ISBN",
+  "path": ".claude/agents/documentation-engineer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "changelog",
+   "prd-spec"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Organize by audience \u2014 developers, operators, end users",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Write for the reader, not yourself \u2014 assume they have no context",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Review freshness \u2014 compare docs against current code to find drift",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Follow Keep a Changelog format",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Avoid documenting implementation details that will change \u2014 document intent and contracts",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Document the RFC 7807 Problem Details error format with concrete examples showing type, title, detail, status, instance, and correlationId fields.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Document JWT authentication requirements: RS256 algorithm, short-lived tokens, Bearer header, issuer/audience/expiration validation.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Never include real secrets, API keys, or credentials in documentation or code examples. Use clearly placeholder values.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Frontmatter check \u2014 all docs in `docs/` have valid YAML frontmatter (`title`, `type`, `status`)",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "If you're explaining something complex, add a diagram (Mermaid format)",
+    "dimension": "structure",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Full four-phase docs workflow (audit/structure/write/validate) plus a concrete output-report template and a company-specific 'Internal Standards' list (RFC 7807 fields, JWT RS256, X-Correlation-Id, OCI labels, LLM gateway endpoint) rather than generic advice; file notes it is adapted from an open-source subagent collection.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 731,
+  "batch": "0276"
+ },
+ {
+  "id": "c02769",
+  "repo": "CseperkePapp/design-constraint-validator",
+  "path": ".github/agents/constraint-author.md",
+  "writing_role": false,
+  "not_writing_reason": "Scaffolds a new TypeScript constraint plugin (code, registry wiring, schema, fixture, test) end-to-end; this is code authorship, not prose for a reader.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A tightly scoped code-scaffolding agent for a design-constraint-validator plugin system, with explicit guardrails against touching verified color math; despite naming docs to read first, its own output is code and tests, not written prose.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 536,
+  "batch": "0276"
+ },
+ {
+  "id": "c03210",
+  "repo": "Questuart/Bid-Euchre",
+  "path": ".claude/agents/steward-author-scratch.md",
+  "writing_role": false,
+  "not_writing_reason": "exploratory planning/comparison lane for draft reasoning, not producing prose or documents for a reader",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "boilerplate",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 312,
+  "batch": "0321"
+ },
+ {
+  "id": "c03211",
+  "repo": "Questuart/Bid-Euchre",
+  "path": ".claude/agents/steward-brws-author-c.md",
+  "writing_role": false,
+  "not_writing_reason": "browser-game code implementation lane, not a prose/document producer",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "boilerplate",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 520,
+  "batch": "0321"
+ },
+ {
+  "id": "c03212",
+  "repo": "Qweary/Swarnam",
+  "path": ".claude/agents/intel-reporting.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Keep SITREPs concise \u2014 the operator needs actionable information quickly, not a narrative.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Write entries in clear prose rather than cryptic abbreviations.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Numerical discrepancies between the report and coordination files must be resolved before delivery.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "If data for a section is unavailable or incomplete, include the section header with an explicit note explaining what is missing and why, rather than silently omitting it.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "factually accurate (never embellish results \u2014 if access was partial, say so)",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Verify that every host mentioned in TARGET-STATUS.md appears in the report.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "The educational report should be written in a tone that respects the defensive team participants.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Screenshots captured for every team listed (one per team showing hostname + outcome)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Save this section to `coordination/reports/scoring-report-[HHMM].md`",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Operator Request (verbatim): The exact text the operator submitted.",
+    "dimension": "evidence",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "an unusually operational reporting-agent spec built around cross-referencing multiple structured coordination files, verbatim-vs-interpretation logging, and a strict evidence-checklist workflow rather than generic write-a-report guidance.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 3759,
+  "batch": "0321"
+ },
+ {
+  "id": "c03213",
+  "repo": "RMF112018/hb-intel",
+  "path": ".claude/agents/hb-docs-curator.md",
+  "writing_role": false,
+  "not_writing_reason": "explicitly a documentation reviewer/investigator, not an autonomous editor; produces findings/status rather than authored prose",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "reviewer role that explicitly disclaims being an editor, with a fixed findings-report output shape but no drafting/writing task.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 147,
+  "batch": "0321"
+ },
+ {
+  "id": "c03214",
+  "repo": "ROI-DANINO/BlackJack",
+  "path": ".claude/agents/audit-editor.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Quote the source verbatim for what it actually says.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "State plainly what the dossier said, what is wrong with it, and what it should say.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Preserve superseded figures only where a historical comparison genuinely needs them, and then mark them explicitly as superseded, with the correcting source and year named.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Corrections must land in the dossier itself, not only in a verifier note.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "If a claim is accurate as written, leave it alone and say so.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Do not mark your own corrections verified.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "You may write only inside `journal/raw/_inbox/<run-dir>/`",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Open every source whose claim you are correcting and read the relevant portion in full: the results table, not the abstract; the limitations section; the funding and independence statement; any corrigendum or erratum appended to the PDF.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Return: `Card`, `Result`, `Evidence`, `Next`, `Files`, `Blocker`.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "List every finding ID you touched and every one you examined and deliberately left unchanged.",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "narrowly-scoped editorial corrector that fixes existing dossier claims against already-cited sources only, explicitly separated from both collection and verification roles, with references to a specific prior program phase's failure modes.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 619,
+  "batch": "0321"
+ },
+ {
+  "id": "c03215",
+  "repo": "Rah-Rah-Mitra/Geometry",
+  "path": ".codex/agents/geometry_chapter_author.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "academic"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Author original, standalone teaching prose, code, diagrams, visual artifacts, labs, and sanity checks.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Do not copy textbook prose, long exercise text, screenshots, page crops, figures, or page layouts.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Write only the assigned chapter folder, the assigned chapter-specific artifacts subtree, and explicitly assigned chapter helper files.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Do not default to Matplotlib when Plotly, PyVista/VTK/Trimesh, mesh tools, SymPy, GA tools, TDA, CV, manifold/statistical geometry, transport, or GIS tools better expose the chapter concept.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Read the assigned source pages before editing.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Do not use a monolithic notebook generator.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Title, source span, chapter goal, and computational translation guide.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Final sanity checks for core identities, artifact existence, nonzero artifact size, and relevant numeric/symbolic/geometric validation data.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "checks included and checks run",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Do not revert or overwrite other workers' edits.",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "textbook-chapter-notebook author with a hard rule against copying source-textbook prose/figures and explicit per-domain visualization-library preferences, distinguishing it from a generic writing agent.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 358,
+  "batch": "0321"
+ },
+ {
+  "id": "c03216",
+  "repo": "Rah-Rah-Mitra/Geometry",
+  "path": ".codex/agents/geometry_slide_author.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "academic"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Do not copy textbook prose, long exercise text, screenshots, page crops, copied figures, solution text, or page layouts.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Every major visual must teach a concept, construction, invariant, proof move, failure mode, or inspection target.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Use the notebook as the teaching source of record; use the textbook source span only for orientation, terminology, chapter order, and provenance.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every slide must contain visible academic content and a real <aside class=\"speaker-notes\"> instructor narration.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Metadata must include course, chapter_id, notebook_path, source_span, source_pdf, and design_system_version.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "PDF/PPTX exports happen only per deck after QC.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Do not use a monolithic deck generator.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "One author owns one chapter deck plus the matching slide artifact subtree.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Mirror speaker notes to the assigned JSON file when deck-stage.js note synchronization needs it.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "copyright/originality checks",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "companion slide-authoring agent to the chapter-notebook author, with a hard originality boundary against reproducing textbook material and a fixed deck-contract (dimensions, libraries, speaker-notes, metadata).",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 424,
+  "batch": "0321"
+ },
+ {
+  "id": "c03217",
+  "repo": "RajAbey68/buzz-factory",
+  "path": "agents/marketing_factory/creative_copywriter.yaml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Generate proof-based ad copy variants enforcing Hormozi Value Equation scoring ($\\ge 2$ proof points, 0 superlatives).",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Ingest `market_dna.json` and `seo_intel.json` using `smmfactory-ai-analyst` Hermes skill.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Build React-based landing pages using Stitch, strictly matching Notion-Warm brand tokens.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Draft ChatGPT Recommendation Cards and Pomelli visual ad set concepts.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "brief but operationally specific marketing agent naming a concrete copy-scoring framework (Hormozi Value Equation with a proof-point minimum and zero-superlative rule) and named downstream tools.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 91,
+  "batch": "0321"
+ },
+ {
+  "id": "c03218",
+  "repo": "RajwanYair/ExplorerLens.io",
+  "path": ".github/agents/docs.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Documentation must lag code.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never describe planned or aspirational features in Tier 1 (user-facing) docs.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "At least one test exercises the feature with real I/O (not just construction)",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "ROADMAP.md \u00a718 (Decision Log): append-only; never modify existing entries",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "ACCURACY ISSUE: [README.md L45] Claims AVIF support \u2014 no AvifDecoder.cpp found",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Verify all SVGs use the project palette: `#0d1117` background, `#58a6ff` primary, `Segoe UI` font",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Does not write new documentation for unimplemented features",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "All docs: `UPPER_SNAKE_CASE.md`",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Test count badges that don't match actual `RUN_TEST()` count",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Does not change version numbers (use `Bump-Version.ps1` for that)",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "documentation-accuracy auditor whose core principle is that docs must lag verified code (LOC thresholds, real I/O tests, exact hex-coded SVG palette), fixing existing docs rather than drafting new ones.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 638,
+  "batch": "0321"
+ },
+ {
+  "id": "c03219",
+  "repo": "Ram-prog-bit/tavronus-forge",
+  "path": ".claude/agents/forge-docs-report-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis",
+   "project-docs"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Reports state honestly what was verified vs assumed. No success theater.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Reports cite build output, diffs, and agent findings.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Focused doc edits; don't rewrite whole files unnecessarily.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "No SOJ / Ziggma / SushiSwap references in docs.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "A clean report: **Result \u00b7 Changes \u00b7 Evidence \u00b7 Build \u00b7 Git state \u00b7 Honesty \u00b7 Next task.**",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Flag to CEO/Ram any gap where evidence is missing for a claimed outcome.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "No app code edits; no git push/deploy; no inventing results.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Report complete  - [ ] Evidence cited  - [ ] Honest about unverified items",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Write end-of-mission reports (what changed, evidence, build, git, next task).",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "May reference `/document-generate`-style discipline conceptually. No shipping commands.",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "doc-only reporting agent with an unusual explicit contamination rule (banning references to specific unrelated projects in docs) alongside a strict verified-vs-assumed honesty discipline.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 376,
+  "batch": "0321"
+ },
+ {
+  "id": "c03670",
+  "repo": "calc1f4r/Horus",
+  "path": ".codex/agents/report-aggregator.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Verify the code at those lines matches what the finding describes",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every line number must be verified by reading the file \u2014 never trust cached line numbers",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Group findings by severity: Critical \u2192 High \u2192 Medium \u2192 Low.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Agent-generated code (PoCs, fixes) \u2192 inline code blocks only, never fabricate URLs",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Use the report structure defined in [audit-report-template.md](../resources/audit-report-template.md).",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Write the complete report to `audit-output/CONFIRMED-REPORT.md`.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Never assume Solidity by default.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Use the target language's idioms in every example you write, every check you describe, and every finding you emit.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT use for finding vulnerabilities (use `invariant-catcher`), writing PoCs (use `poc-writing`), or judging findings (use `judge-orchestrator`).",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Fix misaligned line numbers \u2014 if the content has shifted, grep for the vulnerable pattern and update the line range",
+    "dimension": "evidence",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly operational security-audit report compiler with an explicit code-citation verification protocol, severity-reconciliation rules, and cross-language translation guidance for non-Solidity targets.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 2,
+  "words": 1354,
+  "batch": "0367"
+ },
+ {
+  "id": "c03671",
+  "repo": "calc1f4r/Horus",
+  "path": ".codex/agents/variant-template-writer.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis",
+   "other"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "NEVER cite a report file that doesn't exist \u2014 verify path before including",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "NEVER invent protocol names \u2014 only reference protocols from actual reports",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "If uncertain, write: \"Insufficient data \u2014 only {n} unique finding(s) confirm this pattern\"",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "The first ~150 lines contain enough context for a low-window agent to triage the pattern",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Prefer in-place migration when a legacy DB entry already covers the pattern",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "MUST: Analyze 5+ reports per pattern. Verify all file paths exist. Label every example with source + severity.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Use the lowest severity when reports disagree.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "NEVER create unlabeled synthetic examples",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "5+ vulnerable pattern examples \u2014 each from a REAL unique finding, labeled with severity",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Actively search for reports where the pattern was present but NOT flagged",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Extremely operational knowledge-base synthesis agent with a multi-phase verification gate, explicit anti-hallucination rules, and evidence-frequency requirements for security vulnerability database entries.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 2299,
+  "batch": "0367"
+ },
+ {
+  "id": "c03672",
+  "repo": "calc1f4r/Horus",
+  "path": ".github/agents/resources/invariant-report-templates.md",
+  "writing_role": false,
+  "not_writing_reason": "a resource file of markdown templates referenced by an agent, not an agent's own instructions",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Not an agent definition; it is a pair of markdown report/finding templates consumed by the invariant-catcher agent.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 290,
+  "batch": "0367"
+ },
+ {
+  "id": "c03673",
+  "repo": "calc1f4r/Horus",
+  "path": ".github/agents/resources/report-indexing.md",
+  "writing_role": false,
+  "not_writing_reason": "a shared classification/deduplication framework for normalizing reports, not an agent's writing instructions",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Not an agent definition; it is a shared indexing/deduplication framework (trust hierarchy, canonical record, pattern-key formula) referenced by other agents.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1144,
+  "batch": "0367"
+ },
+ {
+  "id": "c03674",
+  "repo": "calleyco/calleynye.com",
+  "path": ".Codex/agents/site-copy-editor.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy",
+   "ux-microcopy"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Do not make a technical claim more absolute unless the source supports it.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "If you cannot verify a claim from the provided context, say so. Offer a safer wording rather than inventing support.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "For standards and framework claims, prefer primary sources: WCAG/WAI-ARIA, MDN, React docs, Next.js docs, TypeScript docs, or source code in the repo.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "For accessibility statements, distinguish tested facts from commitments.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Do not turn \"can\" into \"does\", \"often\" into \"always\", or \"I worked on\" into \"I led\" unless the evidence supports it.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Avoid LinkedIn-style phrasing: \"passionate about\", \"leveraging\", \"empowering\", \"driving innovation\", \"seamless experiences\", \"robust solutions\".",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Do not sanitize the central thesis. Make it sharper, not softer.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Cut throat-clearing, hedging, hype, and generic value propositions.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Preserve accurate nuance.",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "If a copy change affects layout, labels, navigation, metadata, or alt text, recommend running the accessibility auditor before marking the work complete.",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly specific copy-editing persona tuned to one person's voice and two sites, with explicit rules against absolutist claim inflation, LinkedIn-style hype phrasing, and disability-language euphemisms.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 563,
+  "batch": "0367"
+ },
+ {
+  "id": "c03675",
+  "repo": "camcast3/walkthrough-app",
+  "path": ".github/agents/walkthrough-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "other"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You are writing a guide that someone will follow step-by-step while playing \u2014 if you leave something out, they will miss it.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Never summarize. Preserve every quest, every item, every NPC interaction.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Be specific. \"Talk to Hugo at the RF Store on the east side of town\" not \"Talk to NPCs.\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Each section's `content` field should be **8,000-25,000+ characters** of Markdown prose.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Side quest availability windows \u2014 explicitly state WHEN each side quest becomes available and WHEN it expires or becomes locked out",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Always include attribution.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Step IDs: Use descriptive kebab-case IDs that describe the action... Do NOT use generic sequential IDs like `step-001`.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "It reads like a summary rather than a guide",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Fix ONLY the identified issues \u2014 do not rewrite passing sections",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Actually create the file in the repository \u2014 do NOT just output a code block.",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A pipeline-stage agent (Writer of Writer\u2192Reviewer\u2192Gamer\u2192Completionist) with unusually concrete density/length targets, a fixed JSON schema, missable-content and point-of-no-return conventions specific to game walkthroughs, and a distinct revision mode.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1862,
+  "batch": "0367"
+ },
+ {
+  "id": "c03676",
+  "repo": "camgrimsec/grimsec-suite",
+  "path": "agents/11-oss-forensics-agent/assets/templates/forensic-report-template.md",
+  "writing_role": false,
+  "not_writing_reason": "a fixed report template asset referenced by the forensics agent, not the agent's own instruction/persona file",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A fill-in-the-blank forensic report template asset (with HTML-comment fill instructions, e.g. 'Be honest about what could not be determined') used by Agent 11, not the agent definition itself.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1423,
+  "batch": "0367"
+ },
+ {
+  "id": "c03677",
+  "repo": "carl0zen/zenkit",
+  "path": "agents/technical-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "api-reference",
+   "project-docs",
+   "code-comments",
+   "changelog"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Invent behavior that is not implemented; document only what exists",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "All code examples are verified against current implementation; changelog entries follow project format",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every public API has documented signature, description, parameters, return value, and at least one example",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Guides include prerequisites and step-by-step instructions; verbosity score 7/10 or higher",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Use jargon without defining it on first use",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Modify production code beyond documentation comments",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Must produce: context, assumptions, constraints, decision, deliverable, risks, open_questions, next_agent",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Ensures documentation stays in sync with the implementation",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 3,
+  "notes": "A pipeline-role card (part of a multi-agent handoff chain with 'Receives from'/'Hands off to') rather than prose guidance; concrete on API-doc completeness but otherwise a compact quality-bar checklist.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 143,
+  "batch": "0367"
+ },
+ {
+  "id": "c03678",
+  "repo": "carlos-sobral/ai-squad",
+  "path": "agents/tech-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "changelog",
+   "prd-spec"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Never document an API contract from memory, from the spec, or from the diff message alone. Open the handler source and verify every request field name, response shape, status code, and error code against the code before writing",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Write for the reader who has no prior context. Documentation should answer: Why does this exist? How do I use it? What should I not do?",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Classify the document by Di\u00e1taxis mode before writing it.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Example values in docs must satisfy the constraints the same doc documents.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Cite file paths and counts from the actual diff, never infer from project history.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Predict 5\u201310 questions a reader with zero prior context would ask... Write them down before the check so you don't confirmation-bias toward what the doc already says.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Don't copy-paste from specs \u2014 synthesize and rewrite for readability. The site is a curated view, not a raw dump.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Maintain ADRs (Architectural Decision Records) per the adr-tools convention.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Completion is git-verifiable, not disk-verifiable.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Skip for: CHANGELOG entries, PR descriptions, agent-output log entries, one-line CLAUDE.md additions \u2014 these are short and scoped enough that the check is overhead.",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "An unusually mature, general-purpose documentation agent with a spawned cold-reader sub-agent verification procedure, explicit anti-hallucination rules tied to git diffs and source code, a named Diataxis taxonomy, ADR conventions, an event-log schema, and its own eval suite.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 4571,
+  "batch": "0367"
+ },
+ {
+  "id": "c03679",
+  "repo": "carlosabuter13-lab/ce-business-agent-system",
+  "path": ".claude/agents/report-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Generas informes profesionales de proyectos, mantenciones e inspecciones el\u00e9ctricas para clientes y para uso interno.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Hallazgos y estado de cada equipo (Bueno/Regular/Cr\u00edtico)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Normativa aplicable (RIC, NCh, SEC)",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "No conformidades detectadas",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Producci\u00f3n estimada vs real",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Documentaci\u00f3n para SEC",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Espa\u00f1ol chileno t\u00e9cnico y formal",
+    "dimension": "style",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A narrow, domain-specific report generator for a Chilean electrical engineering firm, with four distinct fixed report templates tied to real regulatory bodies (RIC, NCh, SEC) and written entirely in formal Chilean Spanish.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 239,
+  "batch": "0367"
+ },
+ {
+  "id": "c04120",
+  "repo": "iskkang/logisight",
+  "path": ".claude/agents/sales-proposal-editor.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy",
+   "prd-spec"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "\ucd94\uc815\uac12\uc5d0 \"\ucd94\uc815\" \"estimate\" \uba85\uae30",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "\uc678\ubd80 \ucd9c\ucc98 \ubaa8\ub450 \ud45c\uae30 (\uae30\uad00, \ub0a0\uc9dc)",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "\uac00\uaca9 \uacac\uc801 \uba85\uc2dc X (\uc601\uc5c5\ud300 \uad8c\ud55c)",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "\uacbd\uc7c1\uc0ac (\ub300\ud55c\ud1b5\uc6b4\u00b7\ud55c\uc194\ub85c\uc9c0\uc2a4\ud2f1\uc2a4 \ub4f1) \ube44\ubc29 X",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "editor \ub77c\uace0 \ubcf8\ubb38 \uc0c8\ub85c \uc4f0\uc9c0 \uc54a\uae30. \uac15\ud654 5\uac1c \uc601\uc5ed\ub9cc",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "\uc57d\uad00\u00b7\uba74\ucc45 \uc870\ud56d \ub204\ub77d (\uc81c\uc548\uc11c \ub9c8\uc9c0\ub9c9\uc5d0 \ud544\uc218)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Executive Summary 1\ud398\uc774\uc9c0 (\ub108\ubb34 \uae38\uac70\ub098 \uc9e7\uc9c0 \uc54a\uc74c)",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "CTA \uba85\ud655 (1\ucc28 \ubbf8\ud305 \uc81c\uc548 \ub610\ub294 \uc2dc\ubc94 \uc6b4\uc1a1)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "\ubb34\ub9ac\ud55c \uc57d\uc18d (\"100% \ubcf4\uc7a5\") \uc5c6\uc74c",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "\ub2e4\ub978 \ud654\uc8fc \uc2dd\ubcc4 \uac00\ub2a5\ud55c \uc815\ubcf4 X",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A domain-specific logistics sales-proposal editor with a fact/legal/tone checklist, a five-area strengthening routine, before/after example prose, and a fixed PASS/REVISE/REJECT output template.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 867,
+  "batch": "0412"
+ },
+ {
+  "id": "c04121",
+  "repo": "issacs83/claude-dev-forge",
+  "path": "agents/doc-manager.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "changelog",
+   "prd-spec",
+   "report-analysis"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Use clear, concise language",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "Include version and date on all documents",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Follow document template structure consistently",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Cross-reference related documents",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Verify all links before finalizing",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Verify installation instructions match current setup",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Highlight breaking changes",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Generate changelog from git log between versions",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Categorize by type (feat, fix, docs, etc.)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Dispatch to the appropriate writer agent",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "Broad technical-writing router covering regulatory docs (DHF, FMEA, EU MDR/MDD) and code-derived docs, with a fixed release-note template and dispatch rules to format-specific writer agents.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 456,
+  "batch": "0412"
+ },
+ {
+  "id": "c04122",
+  "repo": "istanbul-digital-nomads/website",
+  "path": ".claude/agents/blog-author.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "blog-article"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": true,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "No em dashes. Ever.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "No fabricated evidence.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never invent prices.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "At least 3 internal links per 1000 words.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Sketch an outline in chat first for anything over 1500 words. Get user nod before drafting.",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "No conclusion section.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Every post has one small signature move - something only someone who lives here would say.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Self-audit against this checklist before handing back",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Concrete before abstract.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Never link to a page that doesn't exist.",
+    "dimension": "process",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly specific persona-driven blog writer with anti-fabrication rules, a fixed post structure and frontmatter contract, a self-audit checklist, and an explicit ask-before-drafting gate for long posts.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1182,
+  "batch": "0412"
+ },
+ {
+  "id": "c04123",
+  "repo": "istanbul-digital-nomads/website",
+  "path": ".claude/agents/nomad-ru-editor.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "blog-article",
+   "project-docs"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": true,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "No em dashes (`\u2014`).",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Use \u0442\u044b for blog and personal-story content. Use \u0432\u044b for guides and instructional content.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "No fabricated evidence. Never invent prices, surveys, quotes, statistics.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Keep English slugs.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "140-155 chars in Russian. Russian is dense - watch character count.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "55-60 chars max.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Audit prepositional phrases first - they trip up AI most.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "No keyword stuffing. Russian readers (and Yandex) penalize it.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Mark unverifiable items: `<!-- TODO RU verify: ... -->`.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "No corporate/government bureaucratic register (\"\u043e\u0441\u0443\u0449\u0435\u0441\u0442\u0432\u043b\u044f\u0435\u0442\u0441\u044f\", \"\u044f\u0432\u043b\u044f\u0435\u0442\u0441\u044f\", \"\u0432 \u0440\u0430\u043c\u043a\u0430\u0445\"). Use plain modern Russian.",
+    "dimension": "style",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Deeply specialized Russian-language editor with grammar-pitfall audits (cases, aspect, agreement), locale-specific typography and SEO rules, and a strict no-invention/preserve-source-data workflow.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1285,
+  "batch": "0412"
+ },
+ {
+  "id": "c04124",
+  "repo": "itchyshin/drmTMB",
+  "path": ".claude/agents/documentation-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "api-reference",
+   "project-docs",
+   "academic"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": false,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Do not change model-fitting code.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Every exported function needs examples.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Every vignette must have a scientific question, minimal data simulation, model\nfit, interpretation, and caveats.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Use the terms location, scale, shape, and coscale consistently",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "define\ncoscale at first use as modelling residual correlation such as rho12.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "name the reader, lead with purpose, use concrete claims, keep terms stable, and\ncite factual or literature claims.",
+    "dimension": "process",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Terse but domain-precise documentation agent for an ecology/evolution R stats package, fixing vignette structure, statistical terminology, and pointing to a named project prose-style standard.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 106,
+  "batch": "0412"
+ },
+ {
+  "id": "c04125",
+  "repo": "itchyshin/drmTMB",
+  "path": ".codex/agents/pkgdown-editor.toml",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "changelog",
+   "academic"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Do not change likelihood code.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Does the site teach the package in the right order?",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Do examples move from biological question to model to interpretation?",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Are README, vignettes, reference docs, NEWS, and course notes consistent?",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Are limitations visible without making the package feel unfinished?",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Does prose avoid vague claims, hidden jargon, stale summaries, and\n   unnecessary bullets?",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Return concrete edits or a prioritized editorial checklist.",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Editorial-consistency agent for an R package's documentation ecosystem (pkgdown site, vignettes, NEWS, course notes) named to collaborate with specific named teammates on deployment and architecture.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 131,
+  "batch": "0412"
+ },
+ {
+  "id": "c04126",
+  "repo": "itmeGirish/BoardingMcp-Server",
+  "path": ".claude/agents/exemplar-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "other"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Zero fabricated case citations (AIR/SCC/ILR)",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Every factual assertion must reference an Annexure",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "~2000 tokens per exemplar (enough to show quality, not waste context)",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT include scenario-specific legal arguments \u2014 keep it adaptable",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Do NOT hardcode statute section numbers \u2014 use generic references the LLM will adapt",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Use REPRESENTATIVE scenario (most common case in the category)",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Formal, precise court language \u2014 no colloquial terms",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Continuous paragraph numbering across sections",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Use {{PLACEHOLDER}} for ALL variable content",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Verify: evidence anchoring, numbering, annexure consistency",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Legal-drafting exemplar writer for an Indian litigation-document pipeline, with a full 14-section CPC plaint template, evidence-anchoring rules, and placeholder conventions written from apparent domain expertise.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 594,
+  "batch": "0412"
+ },
+ {
+  "id": "c04127",
+  "repo": "itsdariusdavis-a11y/modernflow-ai",
+  "path": ".claude/agents/reporting-agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Read-only. Never modify records, send messages, or change CRM stages \u2014 you observe.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Be honest about gaps and small samples; don't fabricate a number to fill a cell.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Lead with the decision: what should the owner do differently this week?",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Produce a one-page report: headline numbers, week-over-week change, what's working,\n   what's slipping, and the **top 3 recommended actions**",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Note the date range and any data gaps.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Flag risks early: stalled deals, overdue onboarding steps, at-risk clients, dry pipeline.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Hand recommended actions to `modernflow-ops` or the named specialist to execute.",
+    "dimension": "collaboration",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "Read-only business-analyst agent producing a fixed-format weekly KPI report for a named business owner, with explicit anti-fabrication and decision-first framing rules.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 253,
+  "batch": "0412"
+ },
+ {
+  "id": "c04128",
+  "repo": "itu-itis23-akcana22/boogle-crawler-multi-agent",
+  "path": "agents/writer_agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "prd-spec",
+   "report-analysis"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": true,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "every claim must be traceable to the actual source code",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "No placeholders: \"TBD\", \"TODO\", \"[insert here]\" are not acceptable in final documents",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Concise: prefer shorter sentences; avoid filler phrases",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Aspirational features belong in `recommendation.md`, not `readme.md`.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "All code examples must use fenced code blocks with language tags.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Professional: no casual language; write as if for a technical audience",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "WriterAgent works last in the pipeline, after BackendAgent and FrontendAgent outputs have been approved.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "recommendation.md is 1\u20132 paragraphs (as specified by the course requirements)",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Audience: A developer who has never seen this project before.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Scannable: use headings, tables, and bullet lists",
+    "dimension": "structure",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Pipeline-position-aware technical writer with per-document audience/goal/contents specs, a traceable-to-code accuracy rule demonstrated by a worked README verification trace, and an explicit acceptance-criteria checklist.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 959,
+  "batch": "0412"
+ },
+ {
+  "id": "c04129",
+  "repo": "ivRodriguezCA/MobHunt",
+  "path": ".claude/agents/report-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": true,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": true
+  },
+  "instructions": [
+   {
+    "quote": "Never write intermediate artifacts.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Concrete language: Never hedge. No \"might,\" \"could potentially,\" \"may be vulnerable.\"",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Impact-first title: `[Bug Class] in [App Name vX.Y] [Component] allows [attacker] to [impact]`",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Every assertion backed by:\n   - Code snippet from decompiled source (with file path)",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Human tone: Vary sentence structure. Use domain terminology naturally. No bullet-point-only reports.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Remediation is specific: Not \"fix the vulnerability\" but exactly what to change",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "the `## Impact` section MUST be the final section of the report, after `## Supporting Materials / Evidence` and `## Recommended Fix`",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "if the config key is missing or empty, stop and ask the user for their handle rather than guessing one",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "A triager must reproduce from your steps alone.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Never include raw scanner output; interpret and present it in context",
+    "dimension": "style",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Extremely operational bug-bounty report writer with good/bad phrasing examples, a platform-specific canonical section order, a first-draft-is-final output discipline, and a stop-and-ask rule for a missing researcher handle.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1082,
+  "batch": "0412"
+ },
+ {
+  "id": "c04580",
+  "repo": "nice-and-precise/tebra-content-os",
+  "path": ".claude/agents/citation-reporter.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "This is a best-effort query \u2014 if HubSpot CRM data is sparse, return \"HubSpot data unavailable\" rather than fabricating numbers.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never fabricate metrics. If a data source is unavailable, note it explicitly in the report with \"Data unavailable \u2014 check MCP connection.\"",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Write a markdown report to `audit/citation-report-<end_date>.md`:",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Return a `SubagentResponse` JSON in a fenced code block:",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "If Search Console returns no data: include in `warnings[]`, continue with available data sources.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "If all data sources fail: set `status: \"failure\"` and do not write a report artifact.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Identify the top 10 pages by clicks and the top 10 queries by impressions.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "<Specific action based on data \u2014 e.g., \"Refresh /features/billing page (score 2.8, 4,200 impressions)\">",
+    "dimension": "structure",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A tightly operational report-generation agent wired to specific MCP data sources with a fixed markdown template, explicit anti-fabrication rules, and a structured JSON return contract.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 817,
+  "batch": "0458"
+ },
+ {
+  "id": "c04581",
+  "repo": "nichmorgan/cs599-llm-spring-26-jailbreak-hw3",
+  "path": ".github/agents/jailbreak-report-pipeline.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "DO NOT invent counts, verdicts, or missing runs.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "DO NOT rely only on existing summaries when raw saved responses are needed to resolve ambiguity.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "DO NOT skip straight to aggregate or full reports when the underlying `analysis.md` evidence is missing or too vague.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "If one report contains a conclusion that conflicts with the local evidence, step back one layer, fix the local or aggregate input, and then regenerate the higher-level report.",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "If evidence coverage is thin, mark aggregate and full conclusions as provisional.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "If a technique folder has only one saved run, preserve that limitation in every higher-level report that depends on it.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "normalize each technique verdict to `strong resistance`, `moderate resistance`, `weak resistance`, `failed resistance`, or `unclear`",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "DO NOT overwrite useful analysis text unless you are improving clarity, counts, or verdict consistency.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Return a concise work summary that lists:",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "If nothing needed changing at one layer, say so explicitly and move to the next layer.",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A multi-layer report-pipeline agent (local analysis -> model/category aggregates -> full report) with explicit anti-fabrication rules and a step-back-and-regenerate consistency check between layers.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 629,
+  "batch": "0458"
+ },
+ {
+  "id": "c04582",
+  "repo": "nick4man/victory",
+  "path": ".claude/agents/pdf-report-designer.md",
+  "writing_role": false,
+  "not_writing_reason": "Designs PDF layout, fonts, and Prawn code templates (a coding/design task), not prose or document content for a reader.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A Ruby/Prawn PDF-layout and font-fixing engineering agent for a specific codebase, not a prose-writing role.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 845,
+  "batch": "0458"
+ },
+ {
+  "id": "c04583",
+  "repo": "nickhou1983/Github-Copilot-MultiAgent",
+  "path": ".github/agents/poetry-editor.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "fiction-narrative"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "\u683c\u5f8b\u5ba1\u67e5\uff1a\u68c0\u67e5\u53e4\u4f53\u8bd7\u7684\u5e73\u4ec4\u3001\u97f5\u811a\u3001\u5bf9\u4ed7\u662f\u5426\u5408\u89c4",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "\u4fdd\u6301\u539f\u4f5c\u7684\u6838\u5fc3\u610f\u5883\u548c\u60c5\u611f\u57fa\u8c03",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "\u6807\u6ce8\u9700\u8981\u4fee\u6539\u7684\u90e8\u5206\uff0c\u8bf4\u660e\u4fee\u6539\u7406\u7531",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "\u683c\u5f8b\u5408\u89c4 | 30% | \u5e73\u4ec4\u3001\u97f5\u811a\u3001\u5bf9\u4ed7",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "\u610f\u8c61\u521b\u65b0 | 30% | \u65b0\u9896\u72ec\u7279\u7684\u8868\u8fbe\u65b9\u5f0f",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "\u300c\u7eff\u4e1d\u300d\u6539\u4e3a\u300c\u4e07\u4e1d\u300d\uff1a\u589e\u5f3a\u67f3\u679d\u7e41\u8302\u7684\u89c6\u89c9\u6548\u679c",
+    "dimension": "style",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A Chinese poetry editor agent with distinct scoring rubrics for classical vs modern poetry, a fixed annotated-report output template, and a full worked example of before/after polishing.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 271,
+  "batch": "0458"
+ },
+ {
+  "id": "c04584",
+  "repo": "nickyat/claude-aa",
+  "path": "agents/prd-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "prd-spec"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": true,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "You will create a `prd.md` document in the location requested by the user. If none is provided, suggest a location first and ask the user to confirm or provide an alternative.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "SLON \u2013 Strive for Simplicity, Lean solutions, doing One clear thing, and No unnecessary overengineering.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "1. **User-Focused** \u2013 Start with real user problems",
+    "dimension": "audience",
+    "specific": false
+   },
+   {
+    "quote": "1. **Research** \u2013 Understand the problem and users",
+    "dimension": "process",
+    "specific": false
+   },
+   {
+    "quote": "Occam\u2019s razor - every new entity or abstraction must justify its existence.",
+    "dimension": "style",
+    "specific": false
+   },
+   {
+    "quote": "The document should be complete enough that a development team can build the entire application from your specifications.",
+    "dimension": "length",
+    "specific": true
+   }
+  ],
+  "specificity": 3,
+  "notes": "A PRD-writer agent with a fixed section-by-section PRD template, but its guiding principles (SLON, Occam's razor, KISS, DRY) are software-engineering maxims repurposed for document writing rather than document-specific craft.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 397,
+  "batch": "0458"
+ },
+ {
+  "id": "c04585",
+  "repo": "nikbyrd28-pixel/tb-solutions",
+  "path": ".claude/agents/copywriter.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy",
+   "ux-microcopy"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Voice \u2014 learn it from the live pages before writing a word (read /barbers/index.html, /loyalty/, /booking/, index.html):",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Concrete over clever: \"a rewards card your regulars actually open\", never \"leverage engagement solutions\".",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "One idea per line. Headlines under 8 words when possible.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Every page has ONE primary CTA; everything else is a ghost button.",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "SMS: under 160 chars, sounds like a person, first-name basis, one link.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "When editing live HTML, touch only copy \u2014 never restructure layout or scripts; that's the ui-designer's lane. Preserve canonical/og tags.",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Read the page you're rewriting IN FULL first, and keep what's working.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Address the objection where it occurs (Booksy loyalty \u2192 \"keep it, paste your link\"). The FAQ answers are sales copy, not support docs.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A tightly-scoped conversion copywriter for one specific product (Loop for Barbershops) with concrete voice examples, per-channel length rules, and an explicit editing-lane boundary against the ui-designer agent.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 288,
+  "batch": "0458"
+ },
+ {
+  "id": "c04586",
+  "repo": "nikhil02032022/AICRM",
+  "path": ".github/agents/analytics-reporter.agent.md",
+  "writing_role": false,
+  "not_writing_reason": "Builds analytics dashboards and report-generation code (services, caching, APIs, Blade views), not prose or narrative reports.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Despite the name 'reporter', this is an engineering agent that implements BRD-mandated dashboards, DB caching, and export code, not one that writes prose reports.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 983,
+  "batch": "0458"
+ },
+ {
+  "id": "c04587",
+  "repo": "nikhillinit/Updog_restore",
+  "path": ".claude/agents/docs-architect.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Retrieve learned patterns for documenting similar systems",
+    "dimension": "process",
+    "specific": false
+   },
+   {
+    "quote": "Your focus is on creating clear, maintainable documentation that serves developers for years.",
+    "dimension": "audience",
+    "specific": false
+   },
+   {
+    "quote": "Track commonly asked questions needing documentation",
+    "dimension": "process",
+    "specific": false
+   }
+  ],
+  "specificity": 1,
+  "notes": "Boilerplate technical-documentation persona whose only distinctive content is a generic cross-session memory-recording scaffold, with no concrete document structure, style rule, or example.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 146,
+  "batch": "0458"
+ },
+ {
+  "id": "c04588",
+  "repo": "nikhillinit/Updog_restore",
+  "path": ".claude/agents/phoenix-brand-reporting-stylist.md",
+  "writing_role": false,
+  "not_writing_reason": "Advises on typography, layout, and brand-consistent visual styling for dashboards/PDFs, not on producing prose content.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A visual-design/brand-consistency reviewer for dashboards and reports (fonts, colors, layout), explicitly barred from touching calculation logic; not a text-writing role.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 138,
+  "batch": "0458"
+ },
+ {
+  "id": "c04589",
+  "repo": "nikolasrieble/opencode-config",
+  "path": "agents/docs.md",
+  "writing_role": false,
+  "not_writing_reason": "Searches, summarizes, and explains existing Confluence documentation for engineers rather than producing new prose or documents.",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A documentation search-and-explain assistant (Confluence lookup, summarization, citation), not a document-authoring role.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 83,
+  "batch": "0458"
+ },
+ {
+  "id": "c05030",
+  "repo": "thormetalwork/thormetalart-dev",
+  "path": ".github/agents/client-reporter.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "NEVER fabricate metrics or data \u2014 use only verified numbers",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "NEVER share technical jargon without explanation",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "NEVER include raw code or terminal output in client reports",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Always write in Spanish for client-facing documents",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Include actionable next steps in every report",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Highlight wins before areas for improvement",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Provide context for every number",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "End with clear action items",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Structured markdown document in Spanish. Include executive summary, detailed metrics, insights, and next steps. Use tables for data comparison.",
+    "dimension": "output",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "Highly specific to one named client and business (Thor Metal Art LLC), with concrete KPI categories, bilingual requirement, and anti-fabrication constraints.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 277,
+  "batch": "0503"
+ },
+ {
+  "id": "c05031",
+  "repo": "thormetalwork/thormetalart-dev",
+  "path": ".github/agents/content-writer.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "marketing-copy",
+   "ux-microcopy"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": true,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "NEVER write content that contradicts the brand positioning in `docs/cliente/03_brief_posicionamiento_v2.md`",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "NEVER use generic stock phrases (\"world-class\", \"cutting-edge\", \"synergy\")",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Always provide BOTH English AND Spanish versions",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Use WordPress i18n pattern: `__('text', 'thormetalart')` when generating PHP strings",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "SEO: include primary keyword in H1, first paragraph, and meta description",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "ES tone:** C\u00e1lido-artesanal, accesible, orgullo local.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "EN tone:** Technical-precise, confident, craftsmanship-focused.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "Spanish version** \u2014 culturally adapted (not literal translation)",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "SEO meta** \u2014 title tag (\u226460 chars) + meta description (\u2264155 chars) in both languages",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "Producer | Homeowners, contractors | Precision, durability, licensed, code-compliant",
+    "dimension": "audience",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Operationally precise: named brand voice pairs per language, a dual-audience positioning matrix, a banned-phrase list, exact WordPress i18n syntax, and character-limited SEO meta fields, all tied to real reference files.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 372,
+  "batch": "0503"
+ },
+ {
+  "id": "c05032",
+  "repo": "thorwhalen/mixing",
+  "path": ".claude/agents/mixing-editor.md",
+  "writing_role": false,
+  "not_writing_reason": "runs a Python package to edit audio/video files via scripted tool calls, not prose/document production",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "A code-execution agent for the `mixing` media package; despite the name 'editor' it edits video/audio files via scripts, not text.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 1032,
+  "batch": "0503"
+ },
+ {
+  "id": "c05033",
+  "repo": "thuan2172001/knowledge-base",
+  "path": ".claude/agents/brief-editor.md",
+  "writing_role": false,
+  "not_writing_reason": "primary job is evaluating and refining development-brief scope/feasibility against codebase patterns (planning-code work), not producing prose for a reader",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Reviews/refines development briefs for scope, feasibility and codebase alignment; edits are planning-oriented, not prose-for-a-reader writing.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 779,
+  "batch": "0503"
+ },
+ {
+  "id": "c05034",
+  "repo": "tiborsekera/ai-harness",
+  "path": ".github/agents/report-compiler.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "report-analysis"
+  ],
+  "scope": "few-types",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": true,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": true,
+   "self_review_checklist": false,
+   "asks_before_writing": true,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Preserve a clear distinction between confirmed evidence, inferred context, and any residual open questions.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Include exact code citations and reproduction details when they are provided.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never invent file citations, branch names, or test commands.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Never return the full report inline when the report path is available.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "Never force an `ADHOC` investigation into a root-cause template when the work was exploratory.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "structure the findings into a remediation-ready RCA handoff that explains the issue clearly without proposing or implementing the production fix",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "If the destination directory, `investigation_type`, or source findings are missing.",
+    "dimension": "collaboration",
+    "specific": true
+   },
+   {
+    "quote": "Return your final status to the Orchestrator strictly as a JSON object. Do not include conversational filler.",
+    "dimension": "output",
+    "specific": true
+   },
+   {
+    "quote": "# RCA Handoff: {ticket_id}\n- **Date Compiled:** {Current Date}",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Never modify application source code or tests.",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "Highly operational: two fixed report templates keyed off an investigation_type flag, strict fact/inference/open-question separation, a forbidden-remote-access rule, and a strict JSON handoff schema to an orchestrator.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 698,
+  "batch": "0503"
+ },
+ {
+  "id": "c05035",
+  "repo": "timgluz/teeline",
+  "path": ".claude/agents/blog-editor.md",
+  "writing_role": false,
+  "not_writing_reason": "reviews/fact-checks an existing blog draft and reports issues; explicitly does not edit the file or produce the prose itself",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "An independent editorial/fact-checking reviewer for blog drafts ('You are not a code reviewer... you are evaluating a piece of writing'); it explicitly says 'Do not edit the file' and only reports findings back to the author.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 810,
+  "batch": "0503"
+ },
+ {
+  "id": "c05036",
+  "repo": "timothywarner/ai900",
+  "path": ".github/agents/exam-item-writer.agent.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "academic",
+   "other"
+  ],
+  "scope": "single-type",
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": true,
+   "cite_sources": true,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Research first: Always search Microsoft Learn for the current exam objectives before generating items",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Use current terminology: Microsoft Foundry (not AI Studio), CLU (not LUIS), Azure AI Services (not Cognitive Services)",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Every item starts with a workplace scenario using Microsoft fictional companies (Contoso, Fabrikam, Tailwind Traders, Northwind Traders, Adatum)",
+    "dimension": "structure",
+    "specific": true
+   },
+   {
+    "quote": "Quality checklist: Before presenting items, verify: one defensible answer, parallel options, plausible distractors, application-level testing, rationale for all options, MS Learn reference URL",
+    "dimension": "self-check",
+    "specific": true
+   },
+   {
+    "quote": "Use the format in `practice-questions/` -- YAML front matter, collapsible answer blocks, full rationale.",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Generate: Create new items for a specified domain and cognitive level",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Review: Audit existing items against the quality checklist",
+    "dimension": "scope-boundary",
+    "specific": true
+   },
+   {
+    "quote": "Coverage: Map items to objectives and identify gaps",
+    "dimension": "scope-boundary",
+    "specific": true
+   }
+  ],
+  "specificity": 5,
+  "notes": "A precise certification-exam item writer with named terminology rules, a fixed fictional-company scenario convention, exact domain weight percentages, and a concrete psychometric quality checklist.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 219,
+  "batch": "0503"
+ },
+ {
+  "id": "c05037",
+  "repo": "tinkermonkey/documentation_robotics_viewer",
+  "path": ".claude/agents/clauditoreum/documentation_robotics_viewer-state-expert.md",
+  "writing_role": false,
+  "not_writing_reason": "creates/refactors Zustand state stores and debugs state-management code, a code implementation role",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "An auto-generated project-specific code agent for Zustand state management architecture, not a writing role.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 3764,
+  "batch": "0503"
+ },
+ {
+  "id": "c05038",
+  "repo": "tinkermonkey/switchyard",
+  "path": ".claude/agents/technical-writer.md",
+  "writing_role": true,
+  "not_writing_reason": null,
+  "doc_types": [
+   "project-docs",
+   "api-reference",
+   "code-comments",
+   "changelog"
+  ],
+  "scope": "general-purpose",
+  "flags": {
+   "audience_first": true,
+   "verify_against_source": true,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": true,
+   "fixed_template": true,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": true,
+   "asks_before_writing": false,
+   "research_before_writing": true,
+   "updates_existing_docs": true,
+   "reasoning_kept_out": false
+  },
+  "instructions": [
+   {
+    "quote": "Accuracy first. Read the actual code before writing about it. Do not infer behavior \u2014 verify it.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Write for the reader. Consider who will use this documentation and what they need to accomplish.",
+    "dimension": "audience",
+    "specific": true
+   },
+   {
+    "quote": "No padding. Omit preamble, filler phrases, and restatements. \"This document describes...\" is not an opening \u2014 begin with the substance.",
+    "dimension": "length",
+    "specific": true
+   },
+   {
+    "quote": "No emoji. Documentation is a professional artifact. Use plain text.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Comment the why, not the what \u2014 code shows what; comments explain intent",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Use the names that appear in the actual code and configs. Do not introduce synonyms or abbreviations that don't exist in the codebase.",
+    "dimension": "style",
+    "specific": true
+   },
+   {
+    "quote": "Write a first draft, then cut anything that doesn't add information.",
+    "dimension": "process",
+    "specific": true
+   },
+   {
+    "quote": "Verify all commands, file paths, and code examples against the actual codebase.",
+    "dimension": "evidence",
+    "specific": true
+   },
+   {
+    "quote": "Each entry: one line, present tense, specific",
+    "dimension": "doc-type-convention",
+    "specific": true
+   },
+   {
+    "quote": "Every claim about behavior is supported by the code you read",
+    "dimension": "self-check",
+    "specific": true
+   }
+  ],
+  "specificity": 4,
+  "notes": "A general-purpose technical writer with per-doc-type structural rules (API reference, architecture, runbook, onboarding, comments, changelog), explicit accuracy-verification steps, and a closing quality checklist.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 882,
+  "batch": "0503"
+ },
+ {
+  "id": "c05039",
+  "repo": "tiwariabishek44/fewa-os",
+  "path": ".claude/agents/fewa-app-author.md",
+  "writing_role": false,
+  "not_writing_reason": "builds Rust/wasm apps and an SDK crate; 'author' here means writing code, not prose for a reader",
+  "doc_types": [],
+  "scope": null,
+  "flags": {
+   "audience_first": false,
+   "verify_against_source": false,
+   "cite_sources": false,
+   "separate_fact_from_opinion": false,
+   "cut_or_concise": false,
+   "fixed_template": false,
+   "names_style_guide": false,
+   "examples_in_prompt": false,
+   "output_contract": false,
+   "self_review_checklist": false,
+   "asks_before_writing": false,
+   "research_before_writing": false,
+   "updates_existing_docs": false,
+   "reasoning_kept_out": false
+  },
+  "instructions": [],
+  "specificity": null,
+  "notes": "Named 'author' but the job is compiling Rust to wasm packages and an SDK crate, i.e. software engineering, not document/prose writing.",
+  "stars": 0,
+  "copies_in_repos": 1,
+  "members": 1,
+  "words": 276,
+  "batch": "0503"
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05160",
+  "file": "corpus/wahidyankf_ose-rules__.codex_agents_docs-fixer.toml",
+  "repo": "wahidyankf/ose-rules",
+  "path": ".codex/agents/docs-fixer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05161",
+  "file": "corpus/wahidyankf_ose-rules__.codex_agents_docs-tutorial-checker.toml",
+  "repo": "wahidyankf/ose-rules",
+  "path": ".codex/agents/docs-tutorial-checker.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05162",
+  "file": "corpus/wahidyankf_ose-rules__.codex_agents_docs-tutorial-maker.toml",
+  "repo": "wahidyankf/ose-rules",
+  "path": ".codex/agents/docs-tutorial-maker.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05163",
+  "file": "corpus/waland1510_yard__.github_agents_Docs.agent.md",
+  "repo": "waland1510/yard",
+  "path": ".github/agents/Docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05164",
+  "file": "corpus/wali-07_cliniclick__agents_prompts_editor.md",
+  "repo": "wali-07/cliniclick",
+  "path": "agents/prompts/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05165",
+  "file": "corpus/walkingriver_agent-team__.claude_agents_technical-writer.md",
+  "repo": "walkingriver/agent-team",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05166",
+  "file": "corpus/wanghc19_TEP__.codex_agents_writer.toml",
+  "repo": "wanghc19/TEP",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05167",
+  "file": "corpus/wanx2land_agents-spec-driven__.claude_agents_docs-writer.md",
+  "repo": "wanx2land/agents-spec-driven",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05168",
+  "file": "corpus/wasabali_Claude-quest__.github_agents_game-data-author.md",
+  "repo": "wasabali/Claude-quest",
+  "path": ".github/agents/game-data-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05169",
+  "file": "corpus/wasd-lat_petunia3d__.opencode_agent_docs.md",
+  "repo": "wasd-lat/petunia3d",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

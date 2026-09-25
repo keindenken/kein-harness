@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03230",
+  "file": "corpus/ReZorg_delovecho__.github_agents_neuro-chao_skills_gh253_patterns_cat3-repositories_gh223-detailed-documentation.md",
+  "repo": "ReZorg/delovecho",
+  "path": ".github/agents/neuro-chao/skills/gh253/patterns/cat3-repositories/gh223-detailed-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03231",
+  "file": "corpus/Realization-Engine_spec-chat__.github_agents_spec-author.agent.md",
+  "repo": "Realization-Engine/spec-chat",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03232",
+  "file": "corpus/ReinaMacCredy_loveNovel__.claude_agents_progress-reporter.md",
+  "repo": "ReinaMacCredy/loveNovel",
+  "path": ".claude/agents/progress-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03233",
+  "file": "corpus/Replikanti_kenny__.claude_agents_kenny-docs-auditor.md",
+  "repo": "Replikanti/kenny",
+  "path": ".claude/agents/kenny-docs-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03234",
+  "file": "corpus/ResonanceEnergy_DIGITAL-LABOUR__agents_ad_copy_writer_prompt.md",
+  "repo": "ResonanceEnergy/DIGITAL-LABOUR",
+  "path": "agents/ad_copy/writer_prompt.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03235",
+  "file": "corpus/ResonanceEnergy_DIGITAL-LABOUR__agents_sales_ops_copywriter_prompt.md",
+  "repo": "ResonanceEnergy/DIGITAL-LABOUR",
+  "path": "agents/sales_ops/copywriter_prompt.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03236",
+  "file": "corpus/ReubenRich16_claude-agents__agents_docs-generator.md",
+  "repo": "ReubenRich16/claude-agents",
+  "path": "agents/docs-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03237",
+  "file": "corpus/RicardoOliver_ai-software-factory__.github_agents_47-technical-writer.agent.md",
+  "repo": "RicardoOliver/ai-software-factory",
+  "path": ".github/agents/47-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03238",
+  "file": "corpus/RikunjSindhwad_DevX__agents_docs_docs.md",
+  "repo": "RikunjSindhwad/DevX",
+  "path": "agents/docs/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03239",
+  "file": "corpus/RintaroMasaoka_theoretical-physics-agents__.codex_agents_guide-writer.md",
+  "repo": "RintaroMasaoka/theoretical-physics-agents",
+  "path": ".codex/agents/guide-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

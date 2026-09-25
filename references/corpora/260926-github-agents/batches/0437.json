@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04370",
+  "file": "corpus/lgoncalv_omp-feature-factory__agents_prd-writer.md",
+  "repo": "lgoncalv/omp-feature-factory",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04371",
+  "file": "corpus/liamvwood_codespaces__.github_agents_resume-editor.agent.md",
+  "repo": "liamvwood/codespaces",
+  "path": ".github/agents/resume-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04372",
+  "file": "corpus/libattistella_tool-theater__.claude_agents_trace-event-author.md",
+  "repo": "libattistella/tool-theater",
+  "path": ".claude/agents/trace-event-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04373",
+  "file": "corpus/liebfried_aircraft-inspection__.claude_agents_technical-documentation-author.md",
+  "repo": "liebfried/aircraft-inspection",
+  "path": ".claude/agents/technical-documentation-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04374",
+  "file": "corpus/lightspeedwp_utils__.github_agents_reporting.agent.md",
+  "repo": "lightspeedwp/utils",
+  "path": ".github/agents/reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04375",
+  "file": "corpus/lilbillybiscuit_yeetsearch__.codex_agents_report.toml",
+  "repo": "lilbillybiscuit/yeetsearch",
+  "path": ".codex/agents/report.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04376",
+  "file": "corpus/lilmilo2704_Explainable-AI-Driven-XDR-Platform-for-Security-Operation-Centre__.codex_agents_docs_maintainer.toml",
+  "repo": "lilmilo2704/Explainable-AI-Driven-XDR-Platform-for-Security-Operation-Centre",
+  "path": ".codex/agents/docs_maintainer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04377",
+  "file": "corpus/lilmuckers_agentic-team-plugin__agents_specialists_qa-docs-verification.md",
+  "repo": "lilmuckers/agentic-team-plugin",
+  "path": "agents/specialists/qa-docs-verification.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04378",
+  "file": "corpus/linkcccp_tgdl-bot__.opencode_agent_docs.md",
+  "repo": "linkcccp/tgdl-bot",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04379",
+  "file": "corpus/linnefromice_kidsapp-treasurehunt__.claude_agents_documentation-maintainer.md",
+  "repo": "linnefromice/kidsapp-treasurehunt",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

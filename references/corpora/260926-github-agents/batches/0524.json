@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05240",
+  "file": "corpus/yuma-seno_copilot-orchestrator__agents_docs.agent.md",
+  "repo": "yuma-seno/copilot-orchestrator",
+  "path": "agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05241",
+  "file": "corpus/yunancun_Arcane-Equilibrium__.codex_agents_PA-design-writer.toml",
+  "repo": "yunancun/Arcane-Equilibrium",
+  "path": ".codex/agents/PA-design-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05242",
+  "file": "corpus/yuryu_ipa-keyboard-ios__.claude_agents_layout-editor-ui.md",
+  "repo": "yuryu/ipa-keyboard-ios",
+  "path": ".claude/agents/layout-editor-ui.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05243",
+  "file": "corpus/yusa-imit_testforge__.claude_agents_docs.md",
+  "repo": "yusa-imit/testforge",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05244",
+  "file": "corpus/zachyzissou_Ascent__.claude_agents_documentation-manager.md",
+  "repo": "zachyzissou/Ascent",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05245",
+  "file": "corpus/zainbaq_agents-skills-and-tools__agents_technical-writer_technical-writer.md",
+  "repo": "zainbaq/agents-skills-and-tools",
+  "path": "agents/technical-writer/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05246",
+  "file": "corpus/zakariaf_hyperbuild__.claude_agents_hb-design-system-author.md",
+  "repo": "zakariaf/hyperbuild",
+  "path": ".claude/agents/hb-design-system-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05247",
+  "file": "corpus/zamsler98_FactoryGame__.opencode_agent_issue-reporter.md",
+  "repo": "zamsler98/FactoryGame",
+  "path": ".opencode/agent/issue-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05248",
+  "file": "corpus/zatzk_spec-harness-kit__agents_writer.md",
+  "repo": "zatzk/spec-harness-kit",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05249",
+  "file": "corpus/zentala_zentala.eu__.claude_agents_editor.md",
+  "repo": "zentala/zentala.eu",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

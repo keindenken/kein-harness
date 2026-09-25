@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04130",
+  "file": "corpus/ivankisyov_agentic__.github_agents_story-writer.agent.md",
+  "repo": "ivankisyov/agentic",
+  "path": ".github/agents/story-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04131",
+  "file": "corpus/izkizk8_spot__.github_agents_speckit.status-report.show.agent.md",
+  "repo": "izkizk8/spot",
+  "path": ".github/agents/speckit.status-report.show.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04132",
+  "file": "corpus/j0hnnymiller_AI-Assisted-Software-Development__.github_agents_chatmodes_technical-writer.chatmode.md",
+  "repo": "j0hnnymiller/AI-Assisted-Software-Development",
+  "path": ".github/agents/chatmodes/technical-writer.chatmode.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04133",
+  "file": "corpus/j1x3l0_Dyna-Q-DQN-UAV__.codex_agents_spec-writer.toml",
+  "repo": "j1x3l0/Dyna-Q-DQN-UAV",
+  "path": ".codex/agents/spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04134",
+  "file": "corpus/jagadeesh-profile_free-ai-api-cost-calculator__AGENTS_tech-writer.md",
+  "repo": "jagadeesh-profile/free-ai-api-cost-calculator",
+  "path": "AGENTS/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04135",
+  "file": "corpus/jahands_prompts__.claude_agents_prd-writer.md",
+  "repo": "jahands/prompts",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04136",
+  "file": "corpus/jahands_prompts__.claude_agents_spec-writer.md",
+  "repo": "jahands/prompts",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04137",
+  "file": "corpus/jakemartin_stratocracy__.claude_agents_strat-editor-builder.md",
+  "repo": "jakemartin/stratocracy",
+  "path": ".claude/agents/strat-editor-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04138",
+  "file": "corpus/jamesburton_crystalkingdoms3js__.github_agents_documentation.md",
+  "repo": "jamesburton/crystalkingdoms3js",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04139",
+  "file": "corpus/jamesgray-ai_handsonai__.claude_agents_hbr-editor.md",
+  "repo": "jamesgray-ai/handsonai",
+  "path": ".claude/agents/hbr-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

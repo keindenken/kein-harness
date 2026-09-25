@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04830",
+  "file": "corpus/roshanis_10kings__.claude_agents_historical-thriller-writer.md",
+  "repo": "roshanis/10kings",
+  "path": ".claude/agents/historical-thriller-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04831",
+  "file": "corpus/roxom-tv_news-live-landings__.claude_agents_Editor.md",
+  "repo": "roxom-tv/news-live-landings",
+  "path": ".claude/agents/Editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04832",
+  "file": "corpus/rsamuels1_pwhl-fantasy__.codex_agents_document-csv-reporter.toml",
+  "repo": "rsamuels1/pwhl-fantasy",
+  "path": ".codex/agents/document-csv-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04833",
+  "file": "corpus/rsgel_tools__.github_agents_tool-author.agent.md",
+  "repo": "rsgel/tools",
+  "path": ".github/agents/tool-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04834",
+  "file": "corpus/rshelekhov_sso__.claude_agents_doc-cleanup-reporter.md",
+  "repo": "rshelekhov/sso",
+  "path": ".claude/agents/doc-cleanup-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04835",
+  "file": "corpus/rubpergar_krill__agents_skills_security-review_references_authorization.md",
+  "repo": "rubpergar/krill",
+  "path": "agents/skills/security-review/references/authorization.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04836",
+  "file": "corpus/rudironsoni_Synaxis__.codex_agents_dotnet-docs-generator.toml",
+  "repo": "rudironsoni/Synaxis",
+  "path": ".codex/agents/dotnet-docs-generator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04837",
+  "file": "corpus/russrimm_Russ-Rimmerman-Blog__.github_agents_technical-blog-editor.agent.md",
+  "repo": "russrimm/Russ-Rimmerman-Blog",
+  "path": ".github/agents/technical-blog-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04838",
+  "file": "corpus/ryoto20020529_-__.claude_agents_editor.md",
+  "repo": "ryoto20020529/-",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04839",
+  "file": "corpus/s-tsuchiya-source_LP_Creator_Team__.claude_agents_lp-chief-copywriter.md",
+  "repo": "s-tsuchiya-source/LP_Creator_Team",
+  "path": ".claude/agents/lp-chief-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

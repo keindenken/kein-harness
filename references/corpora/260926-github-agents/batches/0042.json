@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00420",
+  "file": "corpus/deccanai-org_browser-gym__.claude_agents_delivery-reporter.md",
+  "repo": "deccanai-org/browser-gym",
+  "path": ".claude/agents/delivery-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00421",
+  "file": "corpus/dmedellin_learn-geterdone__.claude_agents_content-author.md",
+  "repo": "dmedellin/learn-geterdone",
+  "path": ".claude/agents/content-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00422",
+  "file": "corpus/edwardlg_nextgen-empirical-finance-camp__agents_handoffs_02-writer-frontmatter.md",
+  "repo": "edwardlg/nextgen-empirical-finance-camp",
+  "path": "agents/handoffs/02-writer-frontmatter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00423",
+  "file": "corpus/frznfrgg_codex_setup__.codex_agents_docs-writer.toml",
+  "repo": "frznfrgg/codex_setup",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00424",
+  "file": "corpus/h-lu_agentic-nlp__.claude_agents_consistency-editor.md",
+  "repo": "h-lu/agentic-nlp",
+  "path": ".claude/agents/consistency-editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00425",
+  "file": "corpus/hoangsonww_AI-Agents-Orchestrator__.claude_agents_documentation-writer.md",
+  "repo": "hoangsonww/AI-Agents-Orchestrator",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00426",
+  "file": "corpus/hoangsonww_AI-Agents-Orchestrator__.codex_agents_documentation-writer.toml",
+  "repo": "hoangsonww/AI-Agents-Orchestrator",
+  "path": ".codex/agents/documentation-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00427",
+  "file": "corpus/hossohdayo_SoftTennisMatchRecorder_e2etest__.claude_agents_pp-playwright-author.md",
+  "repo": "hossohdayo/SoftTennisMatchRecorder_e2etest",
+  "path": ".claude/agents/pp-playwright-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00428",
+  "file": "corpus/iamsikun_dataloom__.claude_agents_copyeditor.md",
+  "repo": "iamsikun/dataloom",
+  "path": ".claude/agents/copyeditor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00429",
+  "file": "corpus/iamsikun_dataloom__.claude_agents_technical-writer.md",
+  "repo": "iamsikun/dataloom",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

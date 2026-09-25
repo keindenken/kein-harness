@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03970",
+  "file": "corpus/g3w-suite_g3w-suite-documentation__.github_agents_docs-editor.agent.md",
+  "repo": "g3w-suite/g3w-suite-documentation",
+  "path": ".github/agents/docs-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03971",
+  "file": "corpus/gabiyanu_VIRP__.claude_agents_studio-operations_analytics-reporter.md",
+  "repo": "gabiyanu/VIRP",
+  "path": ".claude/agents/studio-operations/analytics-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03972",
+  "file": "corpus/gadievron_raptor__.claude_agents_crash-report-fetcher-agent.md",
+  "repo": "gadievron/raptor",
+  "path": ".claude/agents/crash-report-fetcher-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03973",
+  "file": "corpus/gadievron_raptor__.claude_agents_oss-report-generator-agent.md",
+  "repo": "gadievron/raptor",
+  "path": ".claude/agents/oss-report-generator-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03974",
+  "file": "corpus/gajdaj2_merit_tiage_nurse__.github_agents_screenshot-bug-reporter.agent.md",
+  "repo": "gajdaj2/merit_tiage_nurse",
+  "path": ".github/agents/screenshot-bug-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03975",
+  "file": "corpus/gar2000b_ai__agents_apps_agent_agents_command_COMMAND_REPORT_AGENT.md",
+  "repo": "gar2000b/ai",
+  "path": "agents/apps/agent/agents/command/COMMAND_REPORT_AGENT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03976",
+  "file": "corpus/gary-online_openclaw-enterprise__.claude_agents_technical-writer.md",
+  "repo": "gary-online/openclaw-enterprise",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03977",
+  "file": "corpus/garygentry_feature-forge__agents_forge-spec-writer.md",
+  "repo": "garygentry/feature-forge",
+  "path": "agents/forge-spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03978",
+  "file": "corpus/gcharang_claude-config__agents_technical-writer.md",
+  "repo": "gcharang/claude-config",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03979",
+  "file": "corpus/geksiong_agent-handler__.opencode_agent_technical-writer.md",
+  "repo": "geksiong/agent-handler",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

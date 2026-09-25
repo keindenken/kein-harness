@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04160",
+  "file": "corpus/jcsvwinston_quark__.claude_agents_bugbash-reporter.md",
+  "repo": "jcsvwinston/quark",
+  "path": ".claude/agents/bugbash-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04161",
+  "file": "corpus/jd-solanki_lekhan-internal-sync__.github_agents_documentation-maintainer.md",
+  "repo": "jd-solanki/lekhan-internal-sync",
+  "path": ".github/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04162",
+  "file": "corpus/jdlocklin-backyard_Claude-experimenting__.github_agents_documentation-specialist.md",
+  "repo": "jdlocklin-backyard/Claude-experimenting",
+  "path": ".github/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04163",
+  "file": "corpus/jdunnock_sandhof-fastigheter__.github_agents_Swedish-Copywriter.agent.md",
+  "repo": "jdunnock/sandhof-fastigheter",
+  "path": ".github/agents/Swedish-Copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04164",
+  "file": "corpus/jeanboutros_international-space-bar__.github_agents_docs-writer.agent.md",
+  "repo": "jeanboutros/international-space-bar",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04165",
+  "file": "corpus/jebb10_Tablero__.claude_agents_reporte-actual.md",
+  "repo": "jebb10/Tablero",
+  "path": ".claude/agents/reporte-actual.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04166",
+  "file": "corpus/jechamo_HandPong3D__.github_agents_unreal-editor-specialist.agent.md",
+  "repo": "jechamo/HandPong3D",
+  "path": ".github/agents/unreal-editor-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04167",
+  "file": "corpus/jedelman_dmml__.claude_agents_prose-editor.md",
+  "repo": "jedelman/dmml",
+  "path": ".claude/agents/prose-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04168",
+  "file": "corpus/jee599_agentcrow__agents_builtin_en_technical-writer.yaml",
+  "repo": "jee599/agentcrow",
+  "path": "agents/builtin/en/technical-writer.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04169",
+  "file": "corpus/jeffrschneider_agentcatalog__agents_copywriter.md",
+  "repo": "jeffrschneider/agentcatalog",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

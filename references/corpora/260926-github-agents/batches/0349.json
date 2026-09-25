@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03490",
+  "file": "corpus/aleag-io_cms__.github_agents_docs-requirements-steward.agent.md",
+  "repo": "aleag-io/cms",
+  "path": ".github/agents/docs-requirements-steward.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03491",
+  "file": "corpus/alefel94_Portafolio__.claude_agents_qa-report-fixer.md",
+  "repo": "alefel94/Portafolio",
+  "path": ".claude/agents/qa-report-fixer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03492",
+  "file": "corpus/alekpopovic_clusterforge__.codex_agents_docs.md",
+  "repo": "alekpopovic/clusterforge",
+  "path": ".codex/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03493",
+  "file": "corpus/alex-wahl_Testopus__.claude_agents_writer.md",
+  "repo": "alex-wahl/Testopus",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03494",
+  "file": "corpus/alexanderTakeOff_SandyStudio__agents_exec_copywriter.md",
+  "repo": "alexanderTakeOff/SandyStudio",
+  "path": "agents/exec/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03495",
+  "file": "corpus/alexanderTakeOff_SandyStudio__agents_exec_editor.md",
+  "repo": "alexanderTakeOff/SandyStudio",
+  "path": "agents/exec/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03496",
+  "file": "corpus/alexanderop_oteleexample__.github_agents_cdocs.agent.md",
+  "repo": "alexanderop/oteleexample",
+  "path": ".github/agents/cdocs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03497",
+  "file": "corpus/alexandruostafi_SkullThrone__.github_agents_map-editor.agent.md",
+  "repo": "alexandruostafi/SkullThrone",
+  "path": ".github/agents/map-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03498",
+  "file": "corpus/alexewerlof_jj__.github_agents_docs-audit.agent.md",
+  "repo": "alexewerlof/jj",
+  "path": ".github/agents/docs-audit.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03499",
+  "file": "corpus/alexmontesg_invest-ai-assist__.opencode_agent_commit-message-writer.md",
+  "repo": "alexmontesg/invest-ai-assist",
+  "path": ".opencode/agent/commit-message-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

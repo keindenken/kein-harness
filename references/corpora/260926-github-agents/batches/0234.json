@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02340",
+  "file": "corpus/Raafiq_the-unseen-hand-turn-based__.claude_agents_content-author.md",
+  "repo": "Raafiq/the-unseen-hand-turn-based",
+  "path": ".claude/agents/content-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02341",
+  "file": "corpus/Rakurai_legacy-evennia__.claude_agents_spec-writer.md",
+  "repo": "Rakurai/legacy-evennia",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02342",
+  "file": "corpus/Rakurai_legacy-evennia__.github_agents_dossier-editor.agent.md",
+  "repo": "Rakurai/legacy-evennia",
+  "path": ".github/agents/dossier-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02343",
+  "file": "corpus/RalfLoeffler_specials-agent__.codex_agents_docs-maintainer.toml",
+  "repo": "RalfLoeffler/specials-agent",
+  "path": ".codex/agents/docs-maintainer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02344",
+  "file": "corpus/Revilo91_GoldRegenDB_Web__.github_agents_reporting-analytics.md",
+  "repo": "Revilo91/GoldRegenDB_Web",
+  "path": ".github/agents/reporting-analytics.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02345",
+  "file": "corpus/RocketDelivery2_github-copilot-jackhammer-service__.github_agents_discussion-writer.md",
+  "repo": "RocketDelivery2/github-copilot-jackhammer-service",
+  "path": ".github/agents/discussion-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02346",
+  "file": "corpus/Roo4L_Agent-Linux__.claude_agents_technical-writer.md",
+  "repo": "Roo4L/Agent-Linux",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02347",
+  "file": "corpus/Ruuuhs_company-agent__.claude_agents_copywriter.md",
+  "repo": "Ruuuhs/company-agent",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02348",
+  "file": "corpus/SC0d3r_till-debt-do-us-part__.opencode_agent_feature-writer.md",
+  "repo": "SC0d3r/till-debt-do-us-part",
+  "path": ".opencode/agent/feature-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02349",
+  "file": "corpus/Sandeeprdy1729_timps-swarm__.codex_agents_timps-adr_writer.toml",
+  "repo": "Sandeeprdy1729/timps-swarm",
+  "path": ".codex/agents/timps-adr_writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

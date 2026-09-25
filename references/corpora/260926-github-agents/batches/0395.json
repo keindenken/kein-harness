@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03950",
+  "file": "corpus/float-ritual-stack_floatctl__.opencode_agent_documentation-writer.md",
+  "repo": "float-ritual-stack/floatctl",
+  "path": ".opencode/agent/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03951",
+  "file": "corpus/float-ritual-stack_floatctl__.opencode_agent_dx-technical-writer.md",
+  "repo": "float-ritual-stack/floatctl",
+  "path": ".opencode/agent/dx-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03952",
+  "file": "corpus/florian-sanders_lab-manager__.claude_agents_documentation-maintainer.md",
+  "repo": "florian-sanders/lab-manager",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03953",
+  "file": "corpus/florianbeisel_codex-swarm__.codex_agents_technical-writer.toml",
+  "repo": "florianbeisel/codex-swarm",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03954",
+  "file": "corpus/fmarques80_codex-agents__agents_documentation-engineer.md",
+  "repo": "fmarques80/codex-agents",
+  "path": "agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03955",
+  "file": "corpus/fmlin0429712024_healthplan-process-poc__.claude_agents_research_report-generator-agent.md",
+  "repo": "fmlin0429712024/healthplan-process-poc",
+  "path": ".claude/agents/research/report-generator-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03956",
+  "file": "corpus/fnrhombus_Becky__.claude_agents_developmental-editor.md",
+  "repo": "fnrhombus/Becky",
+  "path": ".claude/agents/developmental-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03957",
+  "file": "corpus/fnrhombus_Becky__.claude_agents_line-editor.md",
+  "repo": "fnrhombus/Becky",
+  "path": ".claude/agents/line-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03958",
+  "file": "corpus/fortizfe_vinylmania__.claude_agents_docs-agent.md",
+  "repo": "fortizfe/vinylmania",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03959",
+  "file": "corpus/fperez08_lingoFlow__.github_agents_task-reporter.agent.md",
+  "repo": "fperez08/lingoFlow",
+  "path": ".github/agents/task-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

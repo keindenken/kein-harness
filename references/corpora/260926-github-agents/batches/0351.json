@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03510",
+  "file": "corpus/aman-raj-maq_Deterministic-Agentic__.github_agents_report-visual-migration.agent.md",
+  "repo": "aman-raj-maq/Deterministic-Agentic",
+  "path": ".github/agents/report-visual-migration.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03511",
+  "file": "corpus/amgoncalvesusp_FideliChem__.codex_agents_luna-docs.toml",
+  "repo": "amgoncalvesusp/FideliChem",
+  "path": ".codex/agents/luna-docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03512",
+  "file": "corpus/amitsingh2003_Restack__agents_claude_documentation.md",
+  "repo": "amitsingh2003/Restack",
+  "path": "agents/claude/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03513",
+  "file": "corpus/amolsurjuse_agentic-workflow-orchestrator__.github_agents_eh-91-instruction-editor.agent.md",
+  "repo": "amolsurjuse/agentic-workflow-orchestrator",
+  "path": ".github/agents/eh-91-instruction-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03514",
+  "file": "corpus/amrelbialy_editx__.github_agents_documentation-writer.agent.md",
+  "repo": "amrelbialy/editx",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03515",
+  "file": "corpus/and-mora_expenses-monitor__.github_agents_docs-architect.agent.md",
+  "repo": "and-mora/expenses-monitor",
+  "path": ".github/agents/docs-architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03516",
+  "file": "corpus/andragk_godot-mcp__.github_agents_documentation-generation-specialist.agent.md",
+  "repo": "andragk/godot-mcp",
+  "path": ".github/agents/documentation-generation-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03517",
+  "file": "corpus/andragk_godot-mcp__.github_agents_technical-writer.agent.md",
+  "repo": "andragk/godot-mcp",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03518",
+  "file": "corpus/andrebaboim_work-agents__.github_agents_studio-operations_technical-writer.md",
+  "repo": "andrebaboim/work-agents",
+  "path": ".github/agents/studio-operations/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03519",
+  "file": "corpus/andreibesleaga_GABBE__agents_skills_coding_documentation.skill.md",
+  "repo": "andreibesleaga/GABBE",
+  "path": "agents/skills/coding/documentation.skill.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

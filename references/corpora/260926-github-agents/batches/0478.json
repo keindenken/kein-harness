@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04780",
+  "file": "corpus/reallaksh19_3D_Converters_v1.78__agents_PR426_workreport.md",
+  "repo": "reallaksh19/3D_Converters_v1.78",
+  "path": "agents/PR426_workreport.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04781",
+  "file": "corpus/reberie_Portfolio__.claude_agents_shader-author.md",
+  "repo": "reberie/Portfolio",
+  "path": ".claude/agents/shader-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04782",
+  "file": "corpus/reconstitutechrist-rgb_AI-what__.github_agents_documentation.md",
+  "repo": "reconstitutechrist-rgb/AI-what",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04783",
+  "file": "corpus/reconstitutechrist-rgb_AI-what__.github_agents_typescript-react-editor.md",
+  "repo": "reconstitutechrist-rgb/AI-what",
+  "path": ".github/agents/typescript-react-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04784",
+  "file": "corpus/rectaris_gakumasu-timeline__.codex_agents_docs_researcher.toml",
+  "repo": "rectaris/gakumasu-timeline",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04785",
+  "file": "corpus/reecyp_notice-content-studio__agents_deck-json-author.md",
+  "repo": "reecyp/notice-content-studio",
+  "path": "agents/deck-json-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04786",
+  "file": "corpus/refuna_Agent_TT__.claude_agents_daily-report-qiu.md",
+  "repo": "refuna/Agent_TT",
+  "path": ".claude/agents/daily-report-qiu.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04787",
+  "file": "corpus/renatom11_agentic-fpga__agents_charters_architect_docs_lead.md",
+  "repo": "renatom11/agentic-fpga",
+  "path": "agents/charters/architect_docs_lead.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04788",
+  "file": "corpus/renatom11_agentic-fpga__agents_journals_claude_architect_docs_lead_agent.v03.md",
+  "repo": "renatom11/agentic-fpga",
+  "path": "agents/journals/claude_architect_docs_lead_agent.v03.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04789",
+  "file": "corpus/renevanosnabrugge_culture-engineer__.github_agents_style-editor.agent.md",
+  "repo": "renevanosnabrugge/culture-engineer",
+  "path": ".github/agents/style-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

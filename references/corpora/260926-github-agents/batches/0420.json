@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04200",
+  "file": "corpus/jimCresswell_jimcresswell.net__.claude_agents_docs-adr-expert.md",
+  "repo": "jimCresswell/jimcresswell.net",
+  "path": ".claude/agents/docs-adr-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04201",
+  "file": "corpus/jimCresswell_jimcresswell.net__.codex_agents_editor.toml",
+  "repo": "jimCresswell/jimcresswell.net",
+  "path": ".codex/agents/editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04202",
+  "file": "corpus/jitpass_jit__.claude_agents_jit-qa-docs.md",
+  "repo": "jitpass/jit",
+  "path": ".claude/agents/jit-qa-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04203",
+  "file": "corpus/jlacube_awesome-coding-assistants-tests__.claude_agents_documentation-writer.md",
+  "repo": "jlacube/awesome-coding-assistants-tests",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04204",
+  "file": "corpus/jlcatonjr_researchteam__.github_agents_references_instruction-authority.reference.md",
+  "repo": "jlcatonjr/researchteam",
+  "path": ".github/agents/references/instruction-authority.reference.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04205",
+  "file": "corpus/jlcatonjr_researchteam__.github_agents_references_orchestrator-spawn-authority.reference.md",
+  "repo": "jlcatonjr/researchteam",
+  "path": ".github/agents/references/orchestrator-spawn-authority.reference.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04206",
+  "file": "corpus/jm0rt1_mlx-testing__.github_agents_swift-code-editor.agent.md",
+  "repo": "jm0rt1/mlx-testing",
+  "path": ".github/agents/swift-code-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04207",
+  "file": "corpus/jmassardo_github-training__.github_agents_training-writer.md",
+  "repo": "jmassardo/github-training",
+  "path": ".github/agents/training-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04208",
+  "file": "corpus/jmccann1010_MyStudyHelper__.github_agents_technical-writer.agent.md",
+  "repo": "jmccann1010/MyStudyHelper",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04209",
+  "file": "corpus/jmolla31_elracodelarxiu__.github_agents_BlogEditor.agent.md",
+  "repo": "jmolla31/elracodelarxiu",
+  "path": ".github/agents/BlogEditor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

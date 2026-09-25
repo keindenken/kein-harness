@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04230",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_WR-003_digital_copywriter.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/WR-003_digital_copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04231",
+  "file": "corpus/jpdegamboa-git_Criteria.Agency__agents_WR-005_brand_copywriter.md",
+  "repo": "jpdegamboa-git/Criteria.Agency",
+  "path": "agents/WR-005_brand_copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04232",
+  "file": "corpus/jpeak5_lankit__.claude_agents_mikrotik-docs.md",
+  "repo": "jpeak5/lankit",
+  "path": ".claude/agents/mikrotik-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04233",
+  "file": "corpus/jpliem_gunting__.claude_agents_author-auditor.md",
+  "repo": "jpliem/gunting",
+  "path": ".claude/agents/author-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04234",
+  "file": "corpus/jpyo0803_codex-advisor-strategy-boilerplate__.codex_agents_docs-researcher.toml",
+  "repo": "jpyo0803/codex-advisor-strategy-boilerplate",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04235",
+  "file": "corpus/jqcortes_RockSmithTabConvertToMidi_GuitarPro__.github_agents_engineering-technical-writer.md",
+  "repo": "jqcortes/RockSmithTabConvertToMidi_GuitarPro",
+  "path": ".github/agents/engineering-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04236",
+  "file": "corpus/jtumidanski_Harbormaster__.claude_agents_service-documentation.md",
+  "repo": "jtumidanski/Harbormaster",
+  "path": ".claude/agents/service-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04237",
+  "file": "corpus/juanca202_exercise-skills__.claude_agents_docs-specialist.md",
+  "repo": "juanca202/exercise-skills",
+  "path": ".claude/agents/docs-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04238",
+  "file": "corpus/juangcarmona_github_copilot_000_hub__.github_agents_slides-author.agent.md",
+  "repo": "juangcarmona/github_copilot_000_hub",
+  "path": ".github/agents/slides-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04239",
+  "file": "corpus/juanjaragavi_prompts__.github_agents_skills_juan-jaramillo-job-persona_Juan_Jaramillo_Job_Applications_Report.md",
+  "repo": "juanjaragavi/prompts",
+  "path": ".github/agents/skills/juan-jaramillo-job-persona/Juan_Jaramillo_Job_Applications_Report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

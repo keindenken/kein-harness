@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00990",
+  "file": "corpus/Bidthedog_throng__.claude_agents_throng-editor-documents.md",
+  "repo": "Bidthedog/throng",
+  "path": ".claude/agents/throng-editor-documents.md",
+  "stars": 65,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00991",
+  "file": "corpus/NVIDIAGameWorks_toolkit-remix__.codex_agents_docs.toml",
+  "repo": "NVIDIAGameWorks/toolkit-remix",
+  "path": ".codex/agents/docs.toml",
+  "stars": 65,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00992",
+  "file": "corpus/lgbarn_shipyard__.claude_agents_shipyard-documenter.md",
+  "repo": "lgbarn/shipyard",
+  "path": ".claude/agents/shipyard-documenter.md",
+  "stars": 65,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00993",
+  "file": "corpus/rad-ui_ui__agents_development_verify-pnpm-usage-and-docs.md",
+  "repo": "rad-ui/ui",
+  "path": "agents/development/verify-pnpm-usage-and-docs.md",
+  "stars": 64,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00994",
+  "file": "corpus/telerik_blazor-docs__.github_agents_blazor-docs-writer.agent.md",
+  "repo": "telerik/blazor-docs",
+  "path": ".github/agents/blazor-docs-writer.agent.md",
+  "stars": 64,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00995",
+  "file": "corpus/Tuntii_RustAPI__.github_agents_docs-curator.agent.md",
+  "repo": "Tuntii/RustAPI",
+  "path": ".github/agents/docs-curator.agent.md",
+  "stars": 62,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00996",
+  "file": "corpus/btspoony_mstar-harness__agents_writing-specialist.md",
+  "repo": "btspoony/mstar-harness",
+  "path": "agents/writing-specialist.md",
+  "stars": 62,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00997",
+  "file": "corpus/btspoony_mstar-harness__codex_agents_writing-specialist.toml",
+  "repo": "btspoony/mstar-harness",
+  "path": "codex/agents/writing-specialist.toml",
+  "stars": 62,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00998",
+  "file": "corpus/depromeet_layer__.claude_agents_pr-writer.md",
+  "repo": "depromeet/layer",
+  "path": ".claude/agents/pr-writer.md",
+  "stars": 62,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00999",
+  "file": "corpus/jgphilpott_polyslice__.github_agents_docs-agent.md",
+  "repo": "jgphilpott/polyslice",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 62,
+  "copies_in_repos": 1
+ }
+]

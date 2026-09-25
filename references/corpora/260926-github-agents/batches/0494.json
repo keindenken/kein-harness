@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04940",
+  "file": "corpus/sora-kisaragi_ai-open-textbook__.codex_agents_problem-writer.toml",
+  "repo": "sora-kisaragi/ai-open-textbook",
+  "path": ".codex/agents/problem-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04941",
+  "file": "corpus/sora-kisaragi_ai-open-textbook__.codex_agents_release-editor.toml",
+  "repo": "sora-kisaragi/ai-open-textbook",
+  "path": ".codex/agents/release-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04942",
+  "file": "corpus/sori883_bookmark-rss__.codex_agents_tech-docs-searcher.toml",
+  "repo": "sori883/bookmark-rss",
+  "path": ".codex/agents/tech-docs-searcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04943",
+  "file": "corpus/souls-guild_soul-stack__.claude_agents_docs-writer.md",
+  "repo": "souls-guild/soul-stack",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04944",
+  "file": "corpus/souqly_souqly__.claude_agents_copywriter-fr.md",
+  "repo": "souqly/souqly",
+  "path": ".claude/agents/copywriter-fr.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04945",
+  "file": "corpus/sparkoo_csgo-2d-demo-viewer__.github_agents_agent-writer-specialist.md",
+  "repo": "sparkoo/csgo-2d-demo-viewer",
+  "path": ".github/agents/agent-writer-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04946",
+  "file": "corpus/spiggyBe_demo-use-LLM-and-script-orchestrators-Two-managers-in-one-project__.github_agents_10-retrospective-reporter.agent.en.md",
+  "repo": "spiggyBe/demo-use-LLM-and-script-orchestrators-Two-managers-in-one-project",
+  "path": ".github/agents/10-retrospective-reporter.agent.en.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04947",
+  "file": "corpus/spiralhouse_vagrant-orbstack-provider__.claude_agents_documentation-writer.md",
+  "repo": "spiralhouse/vagrant-orbstack-provider",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04948",
+  "file": "corpus/sportne_llm-tools__.codex_agents_commit-message-writer.toml",
+  "repo": "sportne/llm-tools",
+  "path": ".codex/agents/commit-message-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04949",
+  "file": "corpus/squne121_loop-protocol__.claude_agents_issue-editor.md",
+  "repo": "squne121/loop-protocol",
+  "path": ".claude/agents/issue-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

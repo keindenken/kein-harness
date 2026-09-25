@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03870",
+  "file": "corpus/edta27_paramaribo-letter__.codex_agents_editorial-content-lead.toml",
+  "repo": "edta27/paramaribo-letter",
+  "path": ".codex/agents/editorial-content-lead.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03871",
+  "file": "corpus/eduardoarantes_agentenv__.claude_agents_rust-coding-author.md",
+  "repo": "eduardoarantes/agentenv",
+  "path": ".claude/agents/rust-coding-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03872",
+  "file": "corpus/edurikelm_deportes-web__.opencode_agent_docs-writer.md",
+  "repo": "edurikelm/deportes-web",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03873",
+  "file": "corpus/edurikelm_saas-arriendos-v3__.opencode_agent_docs-writer.md",
+  "repo": "edurikelm/saas-arriendos-v3",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03874",
+  "file": "corpus/edwin-abraham-thomas_kernel-space__.github_agents_visual-editor.agent.md",
+  "repo": "edwin-abraham-thomas/kernel-space",
+  "path": ".github/agents/visual-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03875",
+  "file": "corpus/ege4516_google-in-a-day-crawler__agents_06_documentation.md",
+  "repo": "ege4516/google-in-a-day-crawler",
+  "path": "agents/06_documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03876",
+  "file": "corpus/ege4516_google-in-a-day-crawler-v2__agents_06_documentation.md",
+  "repo": "ege4516/google-in-a-day-crawler-v2",
+  "path": "agents/06_documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03877",
+  "file": "corpus/einstenrodriguesdev_drax-plugin-cc__agents_copywriter-performance.md",
+  "repo": "einstenrodriguesdev/drax-plugin-cc",
+  "path": "agents/copywriter-performance.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03878",
+  "file": "corpus/ek33450505_claude-agent-team__agents_archive_adr-writer.md",
+  "repo": "ek33450505/claude-agent-team",
+  "path": "agents/archive/adr-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03879",
+  "file": "corpus/ek33450505_claude-agent-team__agents_core_docs.md",
+  "repo": "ek33450505/claude-agent-team",
+  "path": "agents/core/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

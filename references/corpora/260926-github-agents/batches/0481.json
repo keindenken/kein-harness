@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04810",
+  "file": "corpus/rishikeshkmr1209_github-copilot-telemetry-bundle-main_js__.github_agents_report-generator-setup.agent.md",
+  "repo": "rishikeshkmr1209/github-copilot-telemetry-bundle-main_js",
+  "path": ".github/agents/report-generator-setup.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04811",
+  "file": "corpus/rivailruiz_codex-agency-agents__agents_specialists_engineering_engineering-technical-writer.md",
+  "repo": "rivailruiz/codex-agency-agents",
+  "path": "agents/specialists/engineering/engineering-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04812",
+  "file": "corpus/rivero76_smartats-sats__.claude_agents_adr-author.md",
+  "repo": "rivero76/smartats-sats",
+  "path": ".claude/agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04813",
+  "file": "corpus/rmartynenko_workflow-dev-1c-claude-code__.claude_agents_writer.md",
+  "repo": "rmartynenko/workflow-dev-1c-claude-code",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04814",
+  "file": "corpus/rmortes_svg-playground__.github_agents_docs-agent.md",
+  "repo": "rmortes/svg-playground",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04815",
+  "file": "corpus/robertsreberski_mono-agent__agents_docs-curator.toml",
+  "repo": "robertsreberski/mono-agent",
+  "path": "agents/docs-curator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04816",
+  "file": "corpus/robinallainmkg_glp1__.claude_agents_editorial.md",
+  "repo": "robinallainmkg/glp1",
+  "path": ".claude/agents/editorial.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04817",
+  "file": "corpus/roborew_opencode-config__agents_scribe.md",
+  "repo": "roborew/opencode-config",
+  "path": "agents/scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04818",
+  "file": "corpus/robotijn_ctoc__agents_documentation_documentation-updater.md",
+  "repo": "robotijn/ctoc",
+  "path": "agents/documentation/documentation-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04819",
+  "file": "corpus/rockyweng75_welcome-board__.github_agents_slide-editor.agent.md",
+  "repo": "rockyweng75/welcome-board",
+  "path": ".github/agents/slide-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

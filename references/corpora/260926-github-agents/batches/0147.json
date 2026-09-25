@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01470",
+  "file": "corpus/ovargas_virtual-team__agents_docs-locator.md",
+  "repo": "ovargas/virtual-team",
+  "path": "agents/docs-locator.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01471",
+  "file": "corpus/riddler_statifier__.claude_agents_docs.md",
+  "repo": "riddler/statifier",
+  "path": ".claude/agents/docs.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01472",
+  "file": "corpus/rogeroliveira84_react-dynamic-forms__.claude_agents_docs-writer.md",
+  "repo": "rogeroliveira84/react-dynamic-forms",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01473",
+  "file": "corpus/rommelporras_kiro-config__agents_prompts_devops-docs.md",
+  "repo": "rommelporras/kiro-config",
+  "path": "agents/prompts/devops-docs.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01474",
+  "file": "corpus/ruoyu123123_ruoyuai__.claude_agents_novel-skill-author.md",
+  "repo": "ruoyu123123/ruoyuai",
+  "path": ".claude/agents/novel-skill-author.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01475",
+  "file": "corpus/ruoyu123123_ruoyuai__.codex_agents_novel-writer.toml",
+  "repo": "ruoyu123123/ruoyuai",
+  "path": ".codex/agents/novel-writer.toml",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01476",
+  "file": "corpus/sddevelopment-be_quickstart_agent-augmented-development__.claude_agents_writer-editor.agent.md",
+  "repo": "sddevelopment-be/quickstart_agent-augmented-development",
+  "path": ".claude/agents/writer-editor.agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01477",
+  "file": "corpus/sddevelopment-be_quickstart_agent-augmented-development__.github_agents_approaches_prompt_documentation_01_documentation_structure.md",
+  "repo": "sddevelopment-be/quickstart_agent-augmented-development",
+  "path": ".github/agents/approaches/prompt_documentation/01_documentation_structure.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01478",
+  "file": "corpus/sddevelopment-be_quickstart_agent-augmented-development__.github_agents_directives_004_documentation_context_files.md",
+  "repo": "sddevelopment-be/quickstart_agent-augmented-development",
+  "path": ".github/agents/directives/004_documentation_context_files.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01479",
+  "file": "corpus/sddevelopment-be_quickstart_agent-augmented-development__.github_agents_writer-editor.agent.md",
+  "repo": "sddevelopment-be/quickstart_agent-augmented-development",
+  "path": ".github/agents/writer-editor.agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ }
+]

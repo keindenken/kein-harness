@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01420",
+  "file": "corpus/UndiFineD_hermes-fleetmanager-plugin__.github_agents_documentation.agent.md",
+  "repo": "UndiFineD/hermes-fleetmanager-plugin",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01421",
+  "file": "corpus/UndiFineD_hermes-fleetmanager-plugin__.github_agents_rules_documentation.rules.md",
+  "repo": "UndiFineD/hermes-fleetmanager-plugin",
+  "path": ".github/agents/rules/documentation.rules.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01422",
+  "file": "corpus/dcodx_gitarmor__.github_agents_documentation-agent.md",
+  "repo": "dcodx/gitarmor",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01423",
+  "file": "corpus/gandazgul_dotopencode__agents_docs-writer.md",
+  "repo": "gandazgul/dotopencode",
+  "path": "agents/docs-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01424",
+  "file": "corpus/kennedym-ds_copilot_orchestrator__.github_agents_docs.agent.md",
+  "repo": "kennedym-ds/copilot_orchestrator",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01425",
+  "file": "corpus/navox-labs_agents__.claude_agents_spec-writer.md",
+  "repo": "navox-labs/agents",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01426",
+  "file": "corpus/ngocsangyem_MeowKit__.claude_agents_journal-writer.md",
+  "repo": "ngocsangyem/MeowKit",
+  "path": ".claude/agents/journal-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01427",
+  "file": "corpus/schlessera_agentic-seo-stack__.claude_agents_content-editor.md",
+  "repo": "schlessera/agentic-seo-stack",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01428",
+  "file": "corpus/schlessera_agentic-seo-stack__.claude_agents_report-designer.md",
+  "repo": "schlessera/agentic-seo-stack",
+  "path": ".claude/agents/report-designer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01429",
+  "file": "corpus/schlessera_agentic-seo-stack__.claude_agents_report-generator.md",
+  "repo": "schlessera/agentic-seo-stack",
+  "path": ".claude/agents/report-generator.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ }
+]

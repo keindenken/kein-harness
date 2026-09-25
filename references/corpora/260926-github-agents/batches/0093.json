@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00930",
+  "file": "corpus/ansys_pydpf-core__.github_agents_PyDPFTutoWriter.agent.md",
+  "repo": "ansys/pydpf-core",
+  "path": ".github/agents/PyDPFTutoWriter.agent.md",
+  "stars": 92,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00931",
+  "file": "corpus/vsitzmann_deckwerk__.claude_agents_deck-author.md",
+  "repo": "vsitzmann/deckwerk",
+  "path": ".claude/agents/deck-author.md",
+  "stars": 92,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00932",
+  "file": "corpus/xiaolai_no-one-did-it__.claude_agents_laura-red-team-editor.md",
+  "repo": "xiaolai/no-one-did-it",
+  "path": ".claude/agents/laura-red-team-editor.md",
+  "stars": 91,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00933",
+  "file": "corpus/juspay_hyperswitch-control-center__.github_agents_rescript-11-docs-advisor.md",
+  "repo": "juspay/hyperswitch-control-center",
+  "path": ".github/agents/rescript-11-docs-advisor.md",
+  "stars": 90,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00934",
+  "file": "corpus/merlinhu1_truthmark__.codex_agents_truth-doc-writer.toml",
+  "repo": "merlinhu1/truthmark",
+  "path": ".codex/agents/truth-doc-writer.toml",
+  "stars": 89,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00935",
+  "file": "corpus/skanehira_dotfiles__agents_rules_core_documentation.md",
+  "repo": "skanehira/dotfiles",
+  "path": "agents/rules/core/documentation.md",
+  "stars": 89,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00936",
+  "file": "corpus/KiwiCanopy_KiwiDesk__.claude_agents_docs-steward.md",
+  "repo": "KiwiCanopy/KiwiDesk",
+  "path": ".claude/agents/docs-steward.md",
+  "stars": 88,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00937",
+  "file": "corpus/appboypov_pew-pew-plaza-packs__.claude_agents_bug-reporter-agent.md",
+  "repo": "appboypov/pew-pew-plaza-packs",
+  "path": ".claude/agents/bug-reporter-agent.md",
+  "stars": 88,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00938",
+  "file": "corpus/FlorianBruniaux_starmapper__.claude_agents_threat-reporter.md",
+  "repo": "FlorianBruniaux/starmapper",
+  "path": ".claude/agents/threat-reporter.md",
+  "stars": 87,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00939",
+  "file": "corpus/barkain_claude-code-workflow-orchestration__agents_documentation-expert.md",
+  "repo": "barkain/claude-code-workflow-orchestration",
+  "path": "agents/documentation-expert.md",
+  "stars": 85,
+  "copies_in_repos": 1
+ }
+]

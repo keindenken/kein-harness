@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03040",
+  "file": "corpus/Logan-Summerlin_Best-Generals-Analysis__.claude_agents_writer.md",
+  "repo": "Logan-Summerlin/Best-Generals-Analysis",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03041",
+  "file": "corpus/Loonz206_hello-next__.github_agents_docs.agent.md",
+  "repo": "Loonz206/hello-next",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03042",
+  "file": "corpus/LostAbaddon_InfoCollector__agents_report-generator.md",
+  "repo": "LostAbaddon/InfoCollector",
+  "path": "agents/report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03043",
+  "file": "corpus/LucasQuirino007_MRS-PoC__.github_agents_docs-agent.agent.md",
+  "repo": "LucasQuirino007/MRS-PoC",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03044",
+  "file": "corpus/LuisFaxas_shofar-ecommerce-platform__.claude_agents_kb-writer.md",
+  "repo": "LuisFaxas/shofar-ecommerce-platform",
+  "path": ".claude/agents/kb-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03045",
+  "file": "corpus/Lukk17_InstallationHelper__.codex_agents_docs-architect.toml",
+  "repo": "Lukk17/InstallationHelper",
+  "path": ".codex/agents/docs-architect.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03046",
+  "file": "corpus/Luscii_terraform-aws-ecs-fargate-datadog-container-definitions__.github_agents_documentation-specialist.md",
+  "repo": "Luscii/terraform-aws-ecs-fargate-datadog-container-definitions",
+  "path": ".github/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03047",
+  "file": "corpus/Luscii_terraform-aws-iam-policy-permission-boundary__.github_agents_documentation-specialist.md",
+  "repo": "Luscii/terraform-aws-iam-policy-permission-boundary",
+  "path": ".github/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03048",
+  "file": "corpus/MANDAI0571_stock-news-monitor__agents_04_note_editor.md",
+  "repo": "MANDAI0571/stock-news-monitor",
+  "path": "agents/04_note_editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03049",
+  "file": "corpus/MCDxAI_meteor-mcp-addon__.claude_agents_comprehensive-documentation-writer.md",
+  "repo": "MCDxAI/meteor-mcp-addon",
+  "path": ".claude/agents/comprehensive-documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

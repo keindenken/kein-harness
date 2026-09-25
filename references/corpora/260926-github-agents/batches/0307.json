@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03070",
+  "file": "corpus/MateoHeras77_jennyveraspa__.github_agents_blog-editorial-seo.agent.md",
+  "repo": "MateoHeras77/jennyveraspa",
+  "path": ".github/agents/blog-editorial-seo.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03071",
+  "file": "corpus/MatrixedMind_MatrixedMind__.codex_agents_gcp-docs-researcher.toml",
+  "repo": "MatrixedMind/MatrixedMind",
+  "path": ".codex/agents/gcp-docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03072",
+  "file": "corpus/MattGyverLee_SummerProj__Agents_lex-author.md",
+  "repo": "MattGyverLee/SummerProj",
+  "path": "Agents/lex-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03073",
+  "file": "corpus/MatthewTaormina_IT-EDU-SITE__.github_agents_content-editor.agent.md",
+  "repo": "MatthewTaormina/IT-EDU-SITE",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03074",
+  "file": "corpus/MatthewTaormina_IT-EDU-SITE__.github_agents_lesson-author.agent.md",
+  "repo": "MatthewTaormina/IT-EDU-SITE",
+  "path": ".github/agents/lesson-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03075",
+  "file": "corpus/MatthewTaormina_mcp-code-cst-editior__.github_agents_cst-editor.agent.md",
+  "repo": "MatthewTaormina/mcp-code-cst-editior",
+  "path": ".github/agents/cst-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03076",
+  "file": "corpus/Matute289_xindeler__.claude_agents_lore-writer.md",
+  "repo": "Matute289/xindeler",
+  "path": ".claude/agents/lore-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03077",
+  "file": "corpus/Matute289_xindeler__.codex_agents_npc-persona-writer.toml",
+  "repo": "Matute289/xindeler",
+  "path": ".codex/agents/npc-persona-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03078",
+  "file": "corpus/MauricioDuarte100_MyAIHackingStuff__agents_ctf-report-writer.md",
+  "repo": "MauricioDuarte100/MyAIHackingStuff",
+  "path": "agents/ctf-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03079",
+  "file": "corpus/MauricioDuarte100_MyAIHackingStuff__agents_documentation.md",
+  "repo": "MauricioDuarte100/MyAIHackingStuff",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

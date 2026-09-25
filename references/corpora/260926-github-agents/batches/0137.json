@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01370",
+  "file": "corpus/BrianMwas_koog-compose__.claude_agents_sample-author.md",
+  "repo": "BrianMwas/koog-compose",
+  "path": ".claude/agents/sample-author.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01371",
+  "file": "corpus/DevelopersCoffee_airo__.claude_agents_chief-documentation-officer.md",
+  "repo": "DevelopersCoffee/airo",
+  "path": ".claude/agents/chief-documentation-officer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01372",
+  "file": "corpus/Hack23_euparliamentmonitor__.github_agents_documentation-architect.md",
+  "repo": "Hack23/euparliamentmonitor",
+  "path": ".github/agents/documentation-architect.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01373",
+  "file": "corpus/PabloLION_bmad-plugin__.claude_agents_docs.md",
+  "repo": "PabloLION/bmad-plugin",
+  "path": ".claude/agents/docs.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01374",
+  "file": "corpus/Side-Projects-4-Fun_software-metrics-machine__.github_agents_docs-writer.agent.md",
+  "repo": "Side-Projects-4-Fun/software-metrics-machine",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01375",
+  "file": "corpus/azat-io_ai-config__agents_documentation-writer.md",
+  "repo": "azat-io/ai-config",
+  "path": "agents/documentation-writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01376",
+  "file": "corpus/bullish0x_GameStudio__.claude_agents_writer.md",
+  "repo": "bullish0x/GameStudio",
+  "path": ".claude/agents/writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01377",
+  "file": "corpus/bullish0x_GameStudio__.codex_agents_writer.toml",
+  "repo": "bullish0x/GameStudio",
+  "path": ".codex/agents/writer.toml",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01378",
+  "file": "corpus/datnguye_dbt-docs__.claude_agents_docs-dev.md",
+  "repo": "datnguye/dbt-docs",
+  "path": ".claude/agents/docs-dev.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01379",
+  "file": "corpus/hivellm_rulebook__.claude_agents_docs-writer.md",
+  "repo": "hivellm/rulebook",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ }
+]

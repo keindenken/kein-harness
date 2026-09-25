@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02260",
+  "file": "corpus/Babalsaab_Project_Starter__agents_pool_marketing_marketing_copywriter.yaml",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/pool/marketing/marketing_copywriter.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02261",
+  "file": "corpus/Babalsaab_Project_Starter__agents_pool_tech_technical_writer.yaml",
+  "repo": "Babalsaab/Project_Starter",
+  "path": "agents/pool/tech/technical_writer.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02262",
+  "file": "corpus/Bashara-aina_Babas_Swarms_bot__.opencode_agent_paper-wiki-writer.md",
+  "repo": "Bashara-aina/Babas_Swarms_bot",
+  "path": ".opencode/agent/paper-wiki-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02263",
+  "file": "corpus/Better-Social-Research_Urban-Research-Auto__.codex_agents_ar-results-writer.toml",
+  "repo": "Better-Social-Research/Urban-Research-Auto",
+  "path": ".codex/agents/ar-results-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02264",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_ai-ml_ai-ethics-validator_skills_validating-ai-ethics-and-fairness_assets_report_template.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/ai-ml/ai-ethics-validator/skills/validating-ai-ethics-and-fairness/assets/report_template.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02265",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_api-development_api-batch-processor_skills_skill-adapter_assets_progress_report_template.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/api-development/api-batch-processor/skills/skill-adapter/assets/progress_report_template.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02266",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_community_jeremy-firebase_000-usermanuals_009-google-ai-plugins-audit-report.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/community/jeremy-firebase/000-usermanuals/009-google-ai-plugins-audit-report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02267",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_devops_deployment-rollback-manager_skills_managing-deployment-rollbacks_assets_rollback_report_template.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/devops/deployment-rollback-manager/skills/managing-deployment-rollbacks/assets/rollback_report_template.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02268",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_mcp_project-health-auditor_skills_skill-adapter_assets_example_health_report.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/mcp/project-health-auditor/skills/skill-adapter/assets/example_health_report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02269",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_mcp_project-health-auditor_skills_skill-adapter_assets_health_report_template.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/mcp/project-health-auditor/skills/skill-adapter/assets/health_report_template.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04670",
+  "file": "corpus/papaknee_simple-voice-assistant__.github_agents_documentation-agent.agent.md",
+  "repo": "papaknee/simple-voice-assistant",
+  "path": ".github/agents/documentation-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04671",
+  "file": "corpus/paraspahwa_AI-Beauty__.github_agents_report-generation.agent.md",
+  "repo": "paraspahwa/AI-Beauty",
+  "path": ".github/agents/report-generation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04672",
+  "file": "corpus/parrfolio_RSDList__.github_agents_documentation.technical-writer.agent.md",
+  "repo": "parrfolio/RSDList",
+  "path": ".github/agents/documentation.technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04673",
+  "file": "corpus/parthibangit_DemoProject__.github_agents_jenkins-report-analyzer.agent.md",
+  "repo": "parthibangit/DemoProject",
+  "path": ".github/agents/jenkins-report-analyzer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04674",
+  "file": "corpus/partybrasil_Markdown-Live-Editor__.github_agents_markdown-live-editor-AutoDEV.agent.md",
+  "repo": "partybrasil/Markdown-Live-Editor",
+  "path": ".github/agents/markdown-live-editor-AutoDEV.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04675",
+  "file": "corpus/passelin_marketplace-test__agents_gem-documentation-writer.agent.md",
+  "repo": "passelin/marketplace-test",
+  "path": "agents/gem-documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04676",
+  "file": "corpus/paulmap_ethPOS__.opencode_agent_documentation-archivist.md",
+  "repo": "paulmap/ethPOS",
+  "path": ".opencode/agent/documentation-archivist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04677",
+  "file": "corpus/paulmap_ethPOS__.opencode_agent_documentation-synthesizer.md",
+  "repo": "paulmap/ethPOS",
+  "path": ".opencode/agent/documentation-synthesizer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04678",
+  "file": "corpus/pausf_libretto-automata__agents_plan-writer.md",
+  "repo": "pausf/libretto-automata",
+  "path": "agents/plan-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04679",
+  "file": "corpus/payamdav_pycrypto__.github_agents_senior_code_writer.agent.md",
+  "repo": "payamdav/pycrypto",
+  "path": ".github/agents/senior_code_writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

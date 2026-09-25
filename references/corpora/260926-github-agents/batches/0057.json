@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00570",
+  "file": "corpus/kungfu-systems_kungfu__framework_core_src_python_kungfu_agent_kfx-authoring.md",
+  "repo": "kungfu-systems/kungfu",
+  "path": "framework/core/src/python/kungfu/agent/kfx-authoring.md",
+  "stars": 4524,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00571",
+  "file": "corpus/parcadei_Continuous-Claude-v3__.claude_agents_scribe.md",
+  "repo": "parcadei/Continuous-Claude-v3",
+  "path": ".claude/agents/scribe.md",
+  "stars": 3943,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00572",
+  "file": "corpus/microsoft_apm__.apm_agents_doc-analyser.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/doc-analyser.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00573",
+  "file": "corpus/microsoft_apm__.apm_agents_spec-editor-synthesizer.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/spec-editor-synthesizer.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00574",
+  "file": "corpus/microsoft_apm__.apm_agents_spec-oci-editor.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/spec-oci-editor.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00575",
+  "file": "corpus/microsoft_apm__.apm_agents_spec-pkgmgr-editor.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/spec-pkgmgr-editor.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00576",
+  "file": "corpus/microsoft_apm__.apm_agents_spec-swagger-editor.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/spec-swagger-editor.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00577",
+  "file": "corpus/microsoft_apm__.apm_agents_spec-tag-architect.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/spec-tag-architect.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00578",
+  "file": "corpus/nicobailon_pi-subagents__agents_claude-code-writer.md",
+  "repo": "nicobailon/pi-subagents",
+  "path": "agents/claude-code-writer.md",
+  "stars": 3764,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00579",
+  "file": "corpus/nicobailon_pi-subagents__agents_codex-exec-writer.md",
+  "repo": "nicobailon/pi-subagents",
+  "path": "agents/codex-exec-writer.md",
+  "stars": 3764,
+  "copies_in_repos": 1
+ }
+]

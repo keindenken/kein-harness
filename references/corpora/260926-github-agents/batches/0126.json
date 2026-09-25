@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01260",
+  "file": "corpus/crewrig_crewrig__.claude_agents_copywriter.md",
+  "repo": "crewrig/crewrig",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01261",
+  "file": "corpus/crewrig_crewrig__.claude_agents_scenario-author.md",
+  "repo": "crewrig/crewrig",
+  "path": ".claude/agents/scenario-author.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01262",
+  "file": "corpus/crewrig_crewrig__.claude_agents_spec-author.md",
+  "repo": "crewrig/crewrig",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01263",
+  "file": "corpus/crewrig_crewrig__.github_agents_doc-writer.md",
+  "repo": "crewrig/crewrig",
+  "path": ".github/agents/doc-writer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01264",
+  "file": "corpus/dimitritholen_claude-task-manager__.claude_agents_verify-documentation.md",
+  "repo": "dimitritholen/claude-task-manager",
+  "path": ".claude/agents/verify-documentation.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01265",
+  "file": "corpus/eddiebelaval_squire__agents_editor-in-chief.md",
+  "repo": "eddiebelaval/squire",
+  "path": "agents/editor-in-chief.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01266",
+  "file": "corpus/eddiebelaval_squire__agents_text-editor-architect.md",
+  "repo": "eddiebelaval/squire",
+  "path": "agents/text-editor-architect.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01267",
+  "file": "corpus/goodguy1963_Copilot-Cockpit__.github_agents_documentation-specialist.agent.md",
+  "repo": "goodguy1963/Copilot-Cockpit",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01268",
+  "file": "corpus/goodguy1963_Copilot-Cockpit__.github_agents_system_knowledge_documentation.md",
+  "repo": "goodguy1963/Copilot-Cockpit",
+  "path": ".github/agents/system/knowledge/documentation.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01269",
+  "file": "corpus/joaquimscosta_arkhe-claude-plugins__.claude_agents_plugin-documentation-specialist.md",
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "path": ".claude/agents/plugin-documentation-specialist.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ }
+]

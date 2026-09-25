@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03150",
+  "file": "corpus/OlixIgnacious_agent-skills__agents_sdlc_technical-writer.md",
+  "repo": "OlixIgnacious/agent-skills",
+  "path": "agents/sdlc/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03151",
+  "file": "corpus/Olli0103_Quartz__.claude_agents_textkit-editor-specialist.md",
+  "repo": "Olli0103/Quartz",
+  "path": ".claude/agents/textkit-editor-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03152",
+  "file": "corpus/Omar-Elsayed33_ai-agent-toolkit__agents_technical-writer-agent.md",
+  "repo": "Omar-Elsayed33/ai-agent-toolkit",
+  "path": "agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03153",
+  "file": "corpus/OneTwoTen_doct-agents__agents_agent-authoring.agent.md",
+  "repo": "OneTwoTen/doct-agents",
+  "path": "agents/agent-authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03154",
+  "file": "corpus/Open-Harness-Engineering_ai-agents-oss-helper__agents_oss-technical-writer.md",
+  "repo": "Open-Harness-Engineering/ai-agents-oss-helper",
+  "path": "agents/oss-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03155",
+  "file": "corpus/OpenAnalystInc_Vibe-Marketer__.claude_agents_copywriter.md",
+  "repo": "OpenAnalystInc/Vibe-Marketer",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03156",
+  "file": "corpus/OpenDevicePartnership_pico-de-gallo__.opencode_agent_docs.md",
+  "repo": "OpenDevicePartnership/pico-de-gallo",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03157",
+  "file": "corpus/OpenEugene_PaintedPorch__.claude_agents_wikidown-editor.md",
+  "repo": "OpenEugene/PaintedPorch",
+  "path": ".claude/agents/wikidown-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03158",
+  "file": "corpus/OpenGeometry-io_auto-docs__.claude_agents_docs-author.md",
+  "repo": "OpenGeometry-io/auto-docs",
+  "path": ".claude/agents/docs-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03159",
+  "file": "corpus/Optiminz_ai-dev-orchestrator__.claude_agents_technical-writer.md",
+  "repo": "Optiminz/ai-dev-orchestrator",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

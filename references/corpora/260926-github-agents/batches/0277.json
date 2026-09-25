@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02770",
+  "file": "corpus/DAAF-Contribution-Community_daaf__.claude_agents_report-writer.md",
+  "repo": "DAAF-Contribution-Community/daaf",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02771",
+  "file": "corpus/DCSTOLF_speccraft__agents_arch-author.md",
+  "repo": "DCSTOLF/speccraft",
+  "path": "agents/arch-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02772",
+  "file": "corpus/DCSTOLF_speccraft__agents_pm-author.md",
+  "repo": "DCSTOLF/speccraft",
+  "path": "agents/pm-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02773",
+  "file": "corpus/DCSTOLF_speccraft__agents_spec-author.md",
+  "repo": "DCSTOLF/speccraft",
+  "path": "agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02774",
+  "file": "corpus/DEFRA_lap-modernisation-agents__.github_agents_documentation-lld.agent.md",
+  "repo": "DEFRA/lap-modernisation-agents",
+  "path": ".github/agents/documentation-lld.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02775",
+  "file": "corpus/DEFRA_lap-modernisation-agents__.github_agents_pdf-report-converter.agent.md",
+  "repo": "DEFRA/lap-modernisation-agents",
+  "path": ".github/agents/pdf-report-converter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02776",
+  "file": "corpus/DEFRA_lap-modernisation-agents__.github_agents_pdf-report-modernizer.agent.md",
+  "repo": "DEFRA/lap-modernisation-agents",
+  "path": ".github/agents/pdf-report-modernizer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02777",
+  "file": "corpus/DFNasutarou_QuizBook__.github_agents_quiz_writer.md",
+  "repo": "DFNasutarou/QuizBook",
+  "path": ".github/agents/quiz_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02778",
+  "file": "corpus/DINHDUY_mac-closed-display__.claude_agents_perf.spec-writer.md",
+  "repo": "DINHDUY/mac-closed-display",
+  "path": ".claude/agents/perf.spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02779",
+  "file": "corpus/DNYoussef_context-cascade__agents_tooling_documentation_api-documentation-specialist.md",
+  "repo": "DNYoussef/context-cascade",
+  "path": "agents/tooling/documentation/api-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

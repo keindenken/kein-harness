@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00020",
+  "file": "corpus/kwaroran_Risuai-Next__.github_agents_svelte-file-editor.agent.md",
+  "repo": "kwaroran/Risuai-Next",
+  "path": ".github/agents/svelte-file-editor.agent.md",
+  "stars": 34,
+  "copies_in_repos": 17
+ },
+ {
+  "id": "c00021",
+  "file": "corpus/gratajik_vscode-copilot-proxy__.claude_agents_support_analytics-reporter.agent.md",
+  "repo": "gratajik/vscode-copilot-proxy",
+  "path": ".claude/agents/support/analytics-reporter.agent.md",
+  "stars": 21,
+  "copies_in_repos": 17
+ },
+ {
+  "id": "c00022",
+  "file": "corpus/yangyuan-zhen_PolyWeather__.codex_agents_writer.toml",
+  "repo": "yangyuan-zhen/PolyWeather",
+  "path": ".codex/agents/writer.toml",
+  "stars": 310,
+  "copies_in_repos": 16
+ },
+ {
+  "id": "c00023",
+  "file": "corpus/CaullenOmdahl_expo-mcp-server__.claude_agents_technical-writer.md",
+  "repo": "CaullenOmdahl/expo-mcp-server",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 5,
+  "copies_in_repos": 14
+ },
+ {
+  "id": "c00024",
+  "file": "corpus/affaan-m_ECC__agents_docs-lookup.md",
+  "repo": "affaan-m/ECC",
+  "path": "agents/docs-lookup.md",
+  "stars": 267344,
+  "copies_in_repos": 13
+ },
+ {
+  "id": "c00025",
+  "file": "corpus/wshobson_agents__plugins_code-documentation_agents_docs-architect.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/code-documentation/agents/docs-architect.md",
+  "stars": 39956,
+  "copies_in_repos": 13
+ },
+ {
+  "id": "c00026",
+  "file": "corpus/chrisime_CRooD__.opencode_agent_adversarial-author.md",
+  "repo": "chrisime/CRooD",
+  "path": ".opencode/agent/adversarial-author.md",
+  "stars": 1,
+  "copies_in_repos": 13
+ },
+ {
+  "id": "c00027",
+  "file": "corpus/ruvnet_ruflo__v3_@claude-flow_cli_.claude_agents_documentation_api-docs_docs-api-openapi.md",
+  "repo": "ruvnet/ruflo",
+  "path": "v3/@claude-flow/cli/.claude/agents/documentation/api-docs/docs-api-openapi.md",
+  "stars": 73257,
+  "copies_in_repos": 12
+ },
+ {
+  "id": "c00028",
+  "file": "corpus/andywxy1_ceo-plugin__agents_unity-editor-tool-developer.md",
+  "repo": "andywxy1/ceo-plugin",
+  "path": "agents/unity-editor-tool-developer.md",
+  "stars": 6,
+  "copies_in_repos": 12
+ },
+ {
+  "id": "c00029",
+  "file": "corpus/Dao-AILab_dao-ailab.github.io__.github_agents_docs.agent.md",
+  "repo": "Dao-AILab/dao-ailab.github.io",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 2,
+  "copies_in_repos": 12
+ }
+]

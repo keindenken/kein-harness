@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02180",
+  "file": "corpus/edjchapman_Dotfiles__.claude_agents_dotfile-drift-reporter.md",
+  "repo": "edjchapman/Dotfiles",
+  "path": ".claude/agents/dotfile-drift-reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02181",
+  "file": "corpus/emersonjds_bolao-copa__.claude_agents_scribe.md",
+  "repo": "emersonjds/bolao-copa",
+  "path": ".claude/agents/scribe.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02182",
+  "file": "corpus/filthyrake_damens_mcps__.github_agents_documentation-expert.md",
+  "repo": "filthyrake/damens_mcps",
+  "path": ".github/agents/documentation-expert.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02183",
+  "file": "corpus/g-cqd_skills__agents_src_docs-writer.md",
+  "repo": "g-cqd/skills",
+  "path": "agents/src/docs-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02184",
+  "file": "corpus/gowizzard_dotfiles__.claude_agents_readme-generator-de.md",
+  "repo": "gowizzard/dotfiles",
+  "path": ".claude/agents/readme-generator-de.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02185",
+  "file": "corpus/hazlijohar95_hazlijohar.com__.claude_agents_technical-writer.md",
+  "repo": "hazlijohar95/hazlijohar.com",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02186",
+  "file": "corpus/hertz-ai_Nunba__.claude_agents_technical-writer.md",
+  "repo": "hertz-ai/Nunba",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02187",
+  "file": "corpus/hmcts_cft-workspace__.codex_agents_topic-writer.toml",
+  "repo": "hmcts/cft-workspace",
+  "path": ".codex/agents/topic-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02188",
+  "file": "corpus/howardc38_vibeproof__.codex_agents_v4-checker-author.toml",
+  "repo": "howardc38/vibeproof",
+  "path": ".codex/agents/v4-checker-author.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02189",
+  "file": "corpus/hugorodgerbrown_snowdesk-data-pipeline__.claude_agents_documenter.md",
+  "repo": "hugorodgerbrown/snowdesk-data-pipeline",
+  "path": ".claude/agents/documenter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

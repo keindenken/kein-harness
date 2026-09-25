@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01710",
+  "file": "corpus/wzxsph_StoryWeaver__agents_writer.md",
+  "repo": "wzxsph/StoryWeaver",
+  "path": "agents/writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01711",
+  "file": "corpus/GhostTypes_ff-5mp-api-ts__.claude_agents_fileoverview-docs-writer.md",
+  "repo": "GhostTypes/ff-5mp-api-ts",
+  "path": ".claude/agents/fileoverview-docs-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01712",
+  "file": "corpus/KevinRabun_judges__agents_documentation.judge.md",
+  "repo": "KevinRabun/judges",
+  "path": "agents/documentation.judge.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01713",
+  "file": "corpus/LARi-UQAC_ResearchTools__.claude_agents_authoring-loop.md",
+  "repo": "LARi-UQAC/ResearchTools",
+  "path": ".claude/agents/authoring-loop.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01714",
+  "file": "corpus/LARi-UQAC_ResearchTools__.opencode_agent_latex-writer.md",
+  "repo": "LARi-UQAC/ResearchTools",
+  "path": ".opencode/agent/latex-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01715",
+  "file": "corpus/LARi-UQAC_ResearchTools__.opencode_agent_local-writer.md",
+  "repo": "LARi-UQAC/ResearchTools",
+  "path": ".opencode/agent/local-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01716",
+  "file": "corpus/OrodruinLabs_CryptoExchanges.Net__.claude_agents_generated_documentation.md",
+  "repo": "OrodruinLabs/CryptoExchanges.Net",
+  "path": ".claude/agents/generated/documentation.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01717",
+  "file": "corpus/Saluana_or3-chat__.github_agents_documentation-architect.md",
+  "repo": "Saluana/or3-chat",
+  "path": ".github/agents/documentation-architect.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01718",
+  "file": "corpus/ankitsingh015_HuntMCP__.claude_agents_report-agent.md",
+  "repo": "ankitsingh015/HuntMCP",
+  "path": ".claude/agents/report-agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01719",
+  "file": "corpus/aphp_IG-fhir-dm__.claude_agents_docs-expert.md",
+  "repo": "aphp/IG-fhir-dm",
+  "path": ".claude/agents/docs-expert.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ }
+]

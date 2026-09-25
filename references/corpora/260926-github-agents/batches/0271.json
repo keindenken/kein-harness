@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02710",
+  "file": "corpus/BULDEE_ai-craftsman-superpowers__agents_doc-writer.md",
+  "repo": "BULDEE/ai-craftsman-superpowers",
+  "path": "agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02711",
+  "file": "corpus/Baba01hacker666_gemini-redteam__agents_redteam-report-writer.md",
+  "repo": "Baba01hacker666/gemini-redteam",
+  "path": "agents/redteam-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02712",
+  "file": "corpus/Bali-Zero_Teman2__.claude_agents_ledger-writer.md",
+  "repo": "Bali-Zero/Teman2",
+  "path": ".claude/agents/ledger-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02713",
+  "file": "corpus/BasPeter_data-vault__.codex_agents_copy-writer.toml",
+  "repo": "BasPeter/data-vault",
+  "path": ".codex/agents/copy-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02714",
+  "file": "corpus/BedFriendly_pingu-bot__.claude_agents_documentation-agent.md",
+  "repo": "BedFriendly/pingu-bot",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02715",
+  "file": "corpus/BenTheCloudGuy_foundryvtt-alienrpg-module__.github_agents_muthur-scenario-author.agent.md",
+  "repo": "BenTheCloudGuy/foundryvtt-alienrpg-module",
+  "path": ".github/agents/muthur-scenario-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02716",
+  "file": "corpus/BerryBless_WebProject__.codex_agents_git-commit-writer.toml",
+  "repo": "BerryBless/WebProject",
+  "path": ".codex/agents/git-commit-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02717",
+  "file": "corpus/Betancourt1_paper_atlas__.codex_agents_visual_editor.toml",
+  "repo": "Betancourt1/paper_atlas",
+  "path": ".codex/agents/visual_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02718",
+  "file": "corpus/BillMentzinis_ML_PROJECT_SPRING_2026__.claude_agents_results-reporter.md",
+  "repo": "BillMentzinis/ML_PROJECT_SPRING_2026",
+  "path": ".claude/agents/results-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02719",
+  "file": "corpus/BitMorpher_voice-transcription-engine__.github_agents_technical-writer.agent.md",
+  "repo": "BitMorpher/voice-transcription-engine",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

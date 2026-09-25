@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02980",
+  "file": "corpus/Josh-S-N2M_feature-pipeline__.claude_agents_intake-prd-author.md",
+  "repo": "Josh-S-N2M/feature-pipeline",
+  "path": ".claude/agents/intake-prd-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02981",
+  "file": "corpus/Joubertjr_ioc-esg-municipal__.claude_agents_resolution-reporter.md",
+  "repo": "Joubertjr/ioc-esg-municipal",
+  "path": ".claude/agents/resolution-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02982",
+  "file": "corpus/JozoSlejko_rds-farm__.github_agents_docs.agent.md",
+  "repo": "JozoSlejko/rds-farm",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02983",
+  "file": "corpus/JubaKitiashvili_everything-react-native-expo__.claude_agents_documentation-generator.md",
+  "repo": "JubaKitiashvili/everything-react-native-expo",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02984",
+  "file": "corpus/JucksonFive_poker-analyzer__.claude_agents_9-pr-writer.md",
+  "repo": "JucksonFive/poker-analyzer",
+  "path": ".claude/agents/9-pr-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02985",
+  "file": "corpus/JulianDeco_sist_clinica__.claude_agents_technical-writer.md",
+  "repo": "JulianDeco/sist_clinica",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02986",
+  "file": "corpus/Julioall_Chat66__.github_agents_chat66-technical-writer.agent.md",
+  "repo": "Julioall/Chat66",
+  "path": ".github/agents/chat66-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02987",
+  "file": "corpus/JustLikeFrank3_jobContextMCP__.github_agents_resume-writer.agent.md",
+  "repo": "JustLikeFrank3/jobContextMCP",
+  "path": ".github/agents/resume-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02988",
+  "file": "corpus/Jyerxa_Expositio__.claude_agents_documentation-updater.md",
+  "repo": "Jyerxa/Expositio",
+  "path": ".claude/agents/documentation-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02989",
+  "file": "corpus/K5-DoM_Novel-Writing-with-Codex__.claude_agents_prose-editor.md",
+  "repo": "K5-DoM/Novel-Writing-with-Codex",
+  "path": ".claude/agents/prose-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

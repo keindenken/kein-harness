@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02820",
+  "file": "corpus/DurdeuVlad_scriptorium__.claude_agents_line-editor.md",
+  "repo": "DurdeuVlad/scriptorium",
+  "path": ".claude/agents/line-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02821",
+  "file": "corpus/Duver0_AUTO_API_SCREENPLAY__.github_agents_api-report.md",
+  "repo": "Duver0/AUTO_API_SCREENPLAY",
+  "path": ".github/agents/api-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02822",
+  "file": "corpus/Duver0_ticketera__.opencode_agent_docs.md",
+  "repo": "Duver0/ticketera",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02823",
+  "file": "corpus/DynamoDS_.github-private__agents_dynamo-content-designer_assets_feature-documentation.md",
+  "repo": "DynamoDS/.github-private",
+  "path": "agents/dynamo-content-designer/assets/feature-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02824",
+  "file": "corpus/EMPChief_CLearning__.opencode_agent_subagents_documentation.md",
+  "repo": "EMPChief/CLearning",
+  "path": ".opencode/agent/subagents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02825",
+  "file": "corpus/Ed-Fi-Alliance-OSS_Fiona__.github_agents_azure-usage-report.agent.md",
+  "repo": "Ed-Fi-Alliance-OSS/Fiona",
+  "path": ".github/agents/azure-usage-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02826",
+  "file": "corpus/Eduschiliga_copilot-ia__.github_agents_quick-task-writer.agent.md",
+  "repo": "Eduschiliga/copilot-ia",
+  "path": ".github/agents/quick-task-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02827",
+  "file": "corpus/EdwinFermin_innvox__.claude_agents_spec_author.md",
+  "repo": "EdwinFermin/innvox",
+  "path": ".claude/agents/spec_author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02828",
+  "file": "corpus/Effilab_bing_ads_ruby_sdk__.github_agents_sdk-docs.agent.md",
+  "repo": "Effilab/bing_ads_ruby_sdk",
+  "path": ".github/agents/sdk-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02829",
+  "file": "corpus/EffortlessMetrics_demo-swarm__.claude_agents_adr-author.md",
+  "repo": "EffortlessMetrics/demo-swarm",
+  "path": ".claude/agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

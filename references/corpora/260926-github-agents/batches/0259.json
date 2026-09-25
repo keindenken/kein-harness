@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02590",
+  "file": "corpus/twaldin_dotfiles__agents_skills_using-the-work-system_authoring.md",
+  "repo": "twaldin/dotfiles",
+  "path": "agents/skills/using-the-work-system/authoring.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02591",
+  "file": "corpus/vibewatch_bizidea__.github_agents_reporter.agent.md",
+  "repo": "vibewatch/bizidea",
+  "path": ".github/agents/reporter.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02592",
+  "file": "corpus/vibewatch_bizidea__.github_agents_translate-zh-editor.agent.md",
+  "repo": "vibewatch/bizidea",
+  "path": ".github/agents/translate-zh-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02593",
+  "file": "corpus/vihaan-g_Fintech-Review-Intelligence__.claude_agents_insight-reporter.md",
+  "repo": "vihaan-g/Fintech-Review-Intelligence",
+  "path": ".claude/agents/insight-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02594",
+  "file": "corpus/vjpixel_diaria-studio__.claude_agents_auto-reporter.md",
+  "repo": "vjpixel/diaria-studio",
+  "path": ".claude/agents/auto-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02595",
+  "file": "corpus/voidsstr_reusable-agents__agents_implementer_ARTICLE_AUTHOR.md",
+  "repo": "voidsstr/reusable-agents",
+  "path": "agents/implementer/ARTICLE_AUTHOR.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02596",
+  "file": "corpus/webmaxru_github-agentic-workflows-book__.github_agents_chapter-author.agent.md",
+  "repo": "webmaxru/github-agentic-workflows-book",
+  "path": ".github/agents/chapter-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02597",
+  "file": "corpus/wobushiren79_IL__.claude_agents_framework-editor.md",
+  "repo": "wobushiren79/IL",
+  "path": ".claude/agents/framework-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02598",
+  "file": "corpus/xiaoshuangLi_aibo__agents_documentation.md",
+  "repo": "xiaoshuangLi/aibo",
+  "path": "agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02599",
+  "file": "corpus/yakir12_Fromage.jl__.codex_agents_docs-auditor.toml",
+  "repo": "yakir12/Fromage.jl",
+  "path": ".codex/agents/docs-auditor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

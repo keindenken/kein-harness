@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01570",
+  "file": "corpus/baddonkey_exif-turbo__.github_agents_documentation.agent.md",
+  "repo": "baddonkey/exif-turbo",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01571",
+  "file": "corpus/bostonaholic_team__agents_design-author.md",
+  "repo": "bostonaholic/team",
+  "path": "agents/design-author.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01572",
+  "file": "corpus/bostonaholic_team__agents_technical-writer.md",
+  "repo": "bostonaholic/team",
+  "path": "agents/technical-writer.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01573",
+  "file": "corpus/briancl2_CustomerNewsletter__.github_agents_editorial-analyst.agent.md",
+  "repo": "briancl2/CustomerNewsletter",
+  "path": ".github/agents/editorial-analyst.agent.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01574",
+  "file": "corpus/davesnx_setup__agents_skills_skill-creator_references_authoring.md",
+  "repo": "davesnx/setup",
+  "path": "agents/skills/skill-creator/references/authoring.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01575",
+  "file": "corpus/ironarachne_ironarachne__.codex_agents_pr-author.toml",
+  "repo": "ironarachne/ironarachne",
+  "path": ".codex/agents/pr-author.toml",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01576",
+  "file": "corpus/liortesta_ClawdAgent__.claude_agents_doc-writer.md",
+  "repo": "liortesta/ClawdAgent",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01577",
+  "file": "corpus/mixelpixx_SSH-Connect__.claude_agents_fleet-health-reporter.md",
+  "repo": "mixelpixx/SSH-Connect",
+  "path": ".claude/agents/fleet-health-reporter.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01578",
+  "file": "corpus/mixelpixx_SSH-Connect__.claude_agents_vps-health-reporter.md",
+  "repo": "mixelpixx/SSH-Connect",
+  "path": ".claude/agents/vps-health-reporter.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01579",
+  "file": "corpus/mrveiss_AutoBot-AI__.claude_agents_documentation-engineer-md.md",
+  "repo": "mrveiss/AutoBot-AI",
+  "path": ".claude/agents/documentation-engineer-md.md",
+  "stars": 11,
+  "copies_in_repos": 1
+ }
+]

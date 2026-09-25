@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01180",
+  "file": "corpus/taxideftis_bathos__.claude_agents__base_16-martin-monitoring-reporter.md",
+  "repo": "taxideftis/bathos",
+  "path": ".claude/agents/_base/16-martin-monitoring-reporter.md",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01181",
+  "file": "corpus/taxideftis_bathos__.claude_agents_martin-monitoring-reporter.md",
+  "repo": "taxideftis/bathos",
+  "path": ".claude/agents/martin-monitoring-reporter.md",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01182",
+  "file": "corpus/taxideftis_bathos__.claude_agents_timothy-doc-specialist.md",
+  "repo": "taxideftis/bathos",
+  "path": ".claude/agents/timothy-doc-specialist.md",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01183",
+  "file": "corpus/taxideftis_bathos__.codex_agents_martin-monitoring-reporter.toml",
+  "repo": "taxideftis/bathos",
+  "path": ".codex/agents/martin-monitoring-reporter.toml",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01184",
+  "file": "corpus/taxideftis_bathos__.codex_agents_nathanael-research-writer.toml",
+  "repo": "taxideftis/bathos",
+  "path": ".codex/agents/nathanael-research-writer.toml",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01185",
+  "file": "corpus/xujialiu_Zotero-TTS__.codex_agents_docs-translator.toml",
+  "repo": "xujialiu/Zotero-TTS",
+  "path": ".codex/agents/docs-translator.toml",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01186",
+  "file": "corpus/Borda_AI-Rig__plugins_cc_foundry_agents_doc-scribe.md",
+  "repo": "Borda/AI-Rig",
+  "path": "plugins/cc_foundry/agents/doc-scribe.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01187",
+  "file": "corpus/Not-Diamond_self-care__agents_skills_report-generator.md",
+  "repo": "Not-Diamond/self-care",
+  "path": "agents/skills/report-generator.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01188",
+  "file": "corpus/bejranonda_LLM-Autonomous-Agent-Plugin-for-Claude__agents_documentation-generator.md",
+  "repo": "bejranonda/LLM-Autonomous-Agent-Plugin-for-Claude",
+  "path": "agents/documentation-generator.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01189",
+  "file": "corpus/fusengine_agents__plugins_changelog-watcher_agents_changelog-watcher.md",
+  "repo": "fusengine/agents",
+  "path": "plugins/changelog-watcher/agents/changelog-watcher.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ }
+]

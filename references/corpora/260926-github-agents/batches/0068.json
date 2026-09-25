@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00680",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_rp-tick_subject-creation-guide.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/subject-creation-guide.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00681",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_rp-tick_writer-brief.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/writer-brief.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00682",
+  "file": "corpus/notnotype_neuro-book__packages_neuro-book_assets_reference_agent_workflow_authoring.md",
+  "repo": "notnotype/neuro-book",
+  "path": "packages/neuro-book/assets/reference/agent/workflow/authoring.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00683",
+  "file": "corpus/shinpr_claude-code-workflows__agents_prd-creator.md",
+  "repo": "shinpr/claude-code-workflows",
+  "path": "agents/prd-creator.md",
+  "stars": 684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00684",
+  "file": "corpus/shinpr_claude-code-workflows__agents_ui-spec-designer.md",
+  "repo": "shinpr/claude-code-workflows",
+  "path": "agents/ui-spec-designer.md",
+  "stars": 684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00685",
+  "file": "corpus/Doezer_Questarr__.claude_agents_api-documenter.md",
+  "repo": "Doezer/Questarr",
+  "path": ".claude/agents/api-documenter.md",
+  "stars": 663,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00686",
+  "file": "corpus/vchelaru_Gum__.claude_agents_docs-writer.md",
+  "repo": "vchelaru/Gum",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 619,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00687",
+  "file": "corpus/nWave-ai_nWave__docs_reference_agents_nw-documentarist.md",
+  "repo": "nWave-ai/nWave",
+  "path": "docs/reference/agents/nw-documentarist.md",
+  "stars": 616,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00688",
+  "file": "corpus/nWave-ai_nWave__nWave_agents_nw-documentarist.md",
+  "repo": "nWave-ai/nWave",
+  "path": "nWave/agents/nw-documentarist.md",
+  "stars": 616,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00689",
+  "file": "corpus/ww-w-ai_bkit-claude-code__agents_report-generator.md",
+  "repo": "ww-w-ai/bkit-claude-code",
+  "path": "agents/report-generator.md",
+  "stars": 599,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03570",
+  "file": "corpus/austinzhang323_habit-lab__.claude_agents_technical-writer.md",
+  "repo": "austinzhang323/habit-lab",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03571",
+  "file": "corpus/avivz_slideSonnet__.claude_agents_beamer-writer.md",
+  "repo": "avivz/slideSonnet",
+  "path": ".claude/agents/beamer-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03572",
+  "file": "corpus/aws-samples_sample-kiro-cli-multiagent-development__agents_technical-writer.md",
+  "repo": "aws-samples/sample-kiro-cli-multiagent-development",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03573",
+  "file": "corpus/aytekXR_ams-pulse__agents_definitions_DOC-01-docs.md",
+  "repo": "aytekXR/ams-pulse",
+  "path": "agents/definitions/DOC-01-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03574",
+  "file": "corpus/aytekXR_ams-pulse__agents_handoffs_validation_VAL-tenant-INT-report.md",
+  "repo": "aytekXR/ams-pulse",
+  "path": "agents/handoffs/validation/VAL-tenant-INT-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03575",
+  "file": "corpus/aytekXR_ams-pulse__agents_handoffs_wave-s105_WO-B1-integration-docs.md",
+  "repo": "aytekXR/ams-pulse",
+  "path": "agents/handoffs/wave-s105/WO-B1-integration-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03576",
+  "file": "corpus/aytekXR_ams-pulse__agents_handoffs_wave-s105_WO-B2b-marketplace-docs.md",
+  "repo": "aytekXR/ams-pulse",
+  "path": "agents/handoffs/wave-s105/WO-B2b-marketplace-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03577",
+  "file": "corpus/b08x_ruby-dev-plugin__agents_technical-writer.md",
+  "repo": "b08x/ruby-dev-plugin",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03578",
+  "file": "corpus/b100to_devops-configs-portfolio__.codex_agents_docs-writer.toml",
+  "repo": "b100to/devops-configs-portfolio",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03579",
+  "file": "corpus/b1o2d3y4_rr__.github_agents_code-editor.agent.md",
+  "repo": "b1o2d3y4/rr",
+  "path": ".github/agents/code-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

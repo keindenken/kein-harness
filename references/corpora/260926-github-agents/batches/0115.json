@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01150",
+  "file": "corpus/erikholmberg_ai-pm-toolkit__agents_system-prompts_docs-writer-agent.prompt.md",
+  "repo": "erikholmberg/ai-pm-toolkit",
+  "path": "agents/system-prompts/docs-writer-agent.prompt.md",
+  "stars": 32,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01151",
+  "file": "corpus/future-architect_uzomuzo-oss__.claude_agents_doc-updater.md",
+  "repo": "future-architect/uzomuzo-oss",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 32,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01152",
+  "file": "corpus/patrob_rpi-strategy__.claude_agents_doc-writer.md",
+  "repo": "patrob/rpi-strategy",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 32,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01153",
+  "file": "corpus/BrianArfi_ai-second-brain__.claude_agents_report-auditor.md",
+  "repo": "BrianArfi/ai-second-brain",
+  "path": ".claude/agents/report-auditor.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01154",
+  "file": "corpus/Mumbolian_open-code-public__.opencode_agent_bug-reporter.md",
+  "repo": "Mumbolian/open-code-public",
+  "path": ".opencode/agent/bug-reporter.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01155",
+  "file": "corpus/Mumbolian_open-code-public__.opencode_agent_code-writer.md",
+  "repo": "Mumbolian/open-code-public",
+  "path": ".opencode/agent/code-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01156",
+  "file": "corpus/Mumbolian_open-code-public__.opencode_agent_doc-writer.md",
+  "repo": "Mumbolian/open-code-public",
+  "path": ".opencode/agent/doc-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01157",
+  "file": "corpus/Mumbolian_open-code-public__.opencode_agent_pseudocode-writer.md",
+  "repo": "Mumbolian/open-code-public",
+  "path": ".opencode/agent/pseudocode-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01158",
+  "file": "corpus/Roasbeef_beefstack__agents_documentation-double-checker.md",
+  "repo": "Roasbeef/beefstack",
+  "path": "agents/documentation-double-checker.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01159",
+  "file": "corpus/kcenon_claude_code_agent__.claude_agents_prd-writer.md",
+  "repo": "kcenon/claude_code_agent",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ }
+]

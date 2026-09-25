@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00220",
+  "file": "corpus/mcp-tool-shop-org_polyglot-mcp__.claude_agents_marketing_launch-copywriter.md",
+  "repo": "mcp-tool-shop-org/polyglot-mcp",
+  "path": ".claude/agents/marketing/launch-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00221",
+  "file": "corpus/micronugget_duccinisv3__.github_agents_technical-writer.agent.md",
+  "repo": "micronugget/duccinisv3",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00222",
+  "file": "corpus/munlucky_code-cafe-manager__.claude_agents_documentation-agent.md",
+  "repo": "munlucky/code-cafe-manager",
+  "path": ".claude/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00223",
+  "file": "corpus/paodealho404_macroplay__.github_agents_gem-documentation-writer.agent.md",
+  "repo": "paodealho404/macroplay",
+  "path": ".github/agents/gem-documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00224",
+  "file": "corpus/pelchers_IDEAS_MANAGEMENT__.codex_agents_user-dev-docs-agent.md",
+  "repo": "pelchers/IDEAS_MANAGEMENT",
+  "path": ".codex/agents/user-dev-docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00225",
+  "file": "corpus/vedanta_auraengine-nx-1__.claude_agents_documentation-auditor.md",
+  "repo": "vedanta/auraengine-nx-1",
+  "path": ".claude/agents/documentation-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00226",
+  "file": "corpus/vedanta_auraengine-nx-1__.claude_agents_technical-writer.md",
+  "repo": "vedanta/auraengine-nx-1",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00227",
+  "file": "corpus/affaan-m_ECC__.kiro_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": ".kiro/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00228",
+  "file": "corpus/affaan-m_ECC__docs_tr_agents_docs-lookup.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/tr/agents/docs-lookup.md",
+  "stars": 267344,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00229",
+  "file": "corpus/ruvnet_ruflo__plugins_ruflo-docs_agents_docs-writer.md",
+  "repo": "ruvnet/ruflo",
+  "path": "plugins/ruflo-docs/agents/docs-writer.md",
+  "stars": 73257,
+  "copies_in_repos": 2
+ }
+]

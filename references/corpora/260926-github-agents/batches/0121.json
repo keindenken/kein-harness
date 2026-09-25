@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01210",
+  "file": "corpus/nibzard_agentprobe__.claude_agents_docs-expert.md",
+  "repo": "nibzard/agentprobe",
+  "path": ".claude/agents/docs-expert.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01211",
+  "file": "corpus/rremizov_django-random-queryset__.claude_agents_documentation-maintainer.md",
+  "repo": "rremizov/django-random-queryset",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01212",
+  "file": "corpus/rwiankowski_homeserver-nixos__.opencode_agent_technical-writer.md",
+  "repo": "rwiankowski/homeserver-nixos",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 26,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01213",
+  "file": "corpus/Intersect-Collaborations-LLC_research-workflow-assistant__.github_agents_academic-writer.agent.md",
+  "repo": "Intersect-Collaborations-LLC/research-workflow-assistant",
+  "path": ".github/agents/academic-writer.agent.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01214",
+  "file": "corpus/Parallel-7_FlashForgeWebUI__.claude_agents_documenter.md",
+  "repo": "Parallel-7/FlashForgeWebUI",
+  "path": ".claude/agents/documenter.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01215",
+  "file": "corpus/adamghill_sqliteo__AGENTS_code_editor_view_features.md",
+  "repo": "adamghill/sqliteo",
+  "path": "AGENTS/code_editor_view_features.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01216",
+  "file": "corpus/fockus_skill-memory-bank__agents_mb-wiki-author.md",
+  "repo": "fockus/skill-memory-bank",
+  "path": "agents/mb-wiki-author.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01217",
+  "file": "corpus/hdkhosravian_Cedrina__.claude_agents_documentation-generator.md",
+  "repo": "hdkhosravian/Cedrina",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01218",
+  "file": "corpus/hyhmrright_logic-lens__.claude_agents_skill-editor.md",
+  "repo": "hyhmrright/logic-lens",
+  "path": ".claude/agents/skill-editor.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01219",
+  "file": "corpus/lksnext-ai-lab_ai-core-tools__.github_agents_docs-manager.agent.md",
+  "repo": "lksnext-ai-lab/ai-core-tools",
+  "path": ".github/agents/docs-manager.agent.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ }
+]

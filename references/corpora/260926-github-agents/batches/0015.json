@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00150",
+  "file": "corpus/shanraisshan_claude-code-best-practice__development-workflows_rpi_.claude_agents_documentation-analyst-writer.md",
+  "repo": "shanraisshan/claude-code-best-practice",
+  "path": "development-workflows/rpi/.claude/agents/documentation-analyst-writer.md",
+  "stars": 66351,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00151",
+  "file": "corpus/wshobson_agents__plugins_seo-content-creation_agents_seo-content-writer.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/seo-content-creation/agents/seo-content-writer.md",
+  "stars": 39956,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00152",
+  "file": "corpus/github_awesome-copilot__agents_prd.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/prd.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00153",
+  "file": "corpus/github_awesome-copilot__agents_technical-content-evaluator.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/technical-content-evaluator.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00154",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_podcast-creator-team_podcast-editor.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/podcast-creator-team/podcast-editor.md",
+  "stars": 31792,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00155",
+  "file": "corpus/alirezarezvani_claude-skills__engineering_grill-with-docs_agents_cs-grill-with-docs.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "engineering/grill-with-docs/agents/cs-grill-with-docs.md",
+  "stars": 26453,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00156",
+  "file": "corpus/t8y2_dbx__agents_docs_agent-authoring.md",
+  "repo": "t8y2/dbx",
+  "path": "agents/docs/agent-authoring.md",
+  "stars": 20693,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00157",
+  "file": "corpus/t8y2_dbx__agents_docs_agent-authoring.zh-CN.md",
+  "repo": "t8y2/dbx",
+  "path": "agents/docs/agent-authoring.zh-CN.md",
+  "stars": 20693,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00158",
+  "file": "corpus/github_gh-aw__.github_agents_technical-doc-writer.agent.md",
+  "repo": "github/gh-aw",
+  "path": ".github/agents/technical-doc-writer.agent.md",
+  "stars": 5181,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00159",
+  "file": "corpus/dotnet_docs__.github_agents_docseditor.agent.md",
+  "repo": "dotnet/docs",
+  "path": ".github/agents/docseditor.agent.md",
+  "stars": 4769,
+  "copies_in_repos": 3
+ }
+]

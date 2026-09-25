@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03250",
+  "file": "corpus/RufusOliver_Holy-bible-A.S__.github_agents_translation-editor.agent.md",
+  "repo": "RufusOliver/Holy-bible-A.S",
+  "path": ".github/agents/translation-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03251",
+  "file": "corpus/Rybar_JS13K2025-black-cat__.github_agents_retrobuffer-editor-tooling.agent.md",
+  "repo": "Rybar/JS13K2025-black-cat",
+  "path": ".github/agents/retrobuffer-editor-tooling.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03252",
+  "file": "corpus/S-Riku-tus_ptcc_pokemon_ai_buttle__agents_alakazam_alakazam_ml_v20_VALIDATION_REPORT_V20.md",
+  "repo": "S-Riku-tus/ptcc_pokemon_ai_buttle",
+  "path": "agents/alakazam/alakazam_ml_v20/VALIDATION_REPORT_V20.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03253",
+  "file": "corpus/S06-2026-2_Openlift__.github_agents_ci-reporter.agent.md",
+  "repo": "S06-2026-2/Openlift",
+  "path": ".github/agents/ci-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03254",
+  "file": "corpus/SATananov_CANE_CORSO_LIVING_BOOK__.codex_agents_book_editor.toml",
+  "repo": "SATananov/CANE_CORSO_LIVING_BOOK",
+  "path": ".codex/agents/book_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03255",
+  "file": "corpus/SATananov_CANE_CORSO_LIVING_BOOK__.codex_agents_visual_localization_editor.toml",
+  "repo": "SATananov/CANE_CORSO_LIVING_BOOK",
+  "path": ".codex/agents/visual_localization_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03256",
+  "file": "corpus/SEKOIA-IO_automation-library__.github_agents_connector-technical-writer.md",
+  "repo": "SEKOIA-IO/automation-library",
+  "path": ".github/agents/connector-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03257",
+  "file": "corpus/SGC11PRO_finance-tracker__.opencode_agent_report-generator.md",
+  "repo": "SGC11PRO/finance-tracker",
+  "path": ".opencode/agent/report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03258",
+  "file": "corpus/SGS-Consulting_sgs-client-hub-migration__.claude_agents_migration-author.md",
+  "repo": "SGS-Consulting/sgs-client-hub-migration",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03259",
+  "file": "corpus/SJayKim_Autobook__.codex_agents_topic-writer.toml",
+  "repo": "SJayKim/Autobook",
+  "path": ".codex/agents/topic-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

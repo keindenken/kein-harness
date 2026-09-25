@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01430",
+  "file": "corpus/schlessera_agentic-seo-stack__.claude_agents_report-template-selector.md",
+  "repo": "schlessera/agentic-seo-stack",
+  "path": ".claude/agents/report-template-selector.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01431",
+  "file": "corpus/sintaxasn_Fluence.Wpf__.claude_agents_documentation-updater.md",
+  "repo": "sintaxasn/Fluence.Wpf",
+  "path": ".claude/agents/documentation-updater.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01432",
+  "file": "corpus/theam_claude-dev-kit__agents_e2e-author.md",
+  "repo": "theam/claude-dev-kit",
+  "path": "agents/e2e-author.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01433",
+  "file": "corpus/thesaifpasha_LGTM__agents_content-editor.md",
+  "repo": "thesaifpasha/LGTM",
+  "path": "agents/content-editor.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01434",
+  "file": "corpus/thesaifpasha_LGTM__agents_issue-writer.md",
+  "repo": "thesaifpasha/LGTM",
+  "path": "agents/issue-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01435",
+  "file": "corpus/tlennon-ie_neurodock__.claude_agents_skill-author.md",
+  "repo": "tlennon-ie/neurodock",
+  "path": ".claude/agents/skill-author.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01436",
+  "file": "corpus/tyevans_tackline__.claude_agents_agent-author.md",
+  "repo": "tyevans/tackline",
+  "path": ".claude/agents/agent-author.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01437",
+  "file": "corpus/tyevans_tackline__.claude_agents_skill-author.md",
+  "repo": "tyevans/tackline",
+  "path": ".claude/agents/skill-author.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01438",
+  "file": "corpus/vchelaru_FlatRedBall2__.claude_agents_docs-writer.md",
+  "repo": "vchelaru/FlatRedBall2",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01439",
+  "file": "corpus/yagizdo_quiver__agents_review_report-checker.md",
+  "repo": "yagizdo/quiver",
+  "path": "agents/review/report-checker.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ }
+]

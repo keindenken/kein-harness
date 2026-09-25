@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04170",
+  "file": "corpus/jelo-ca_agentic-task-scheduler__.github_agents_Documentation.agent.md",
+  "repo": "jelo-ca/agentic-task-scheduler",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04171",
+  "file": "corpus/jelo-ca_pharma_rag__.github_agents_documentation.agent.md",
+  "repo": "jelo-ca/pharma_rag",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04172",
+  "file": "corpus/jenivial_TCGStore-with-copilot__.github_agents_documentation-agent.md",
+  "repo": "jenivial/TCGStore-with-copilot",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04173",
+  "file": "corpus/jenkinsm13_resolve-mcp__agents_commercial-editor.md",
+  "repo": "jenkinsm13/resolve-mcp",
+  "path": "agents/commercial-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04174",
+  "file": "corpus/jenkinsm13_resolve-mcp__agents_documentary-editor.md",
+  "repo": "jenkinsm13/resolve-mcp",
+  "path": "agents/documentary-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04175",
+  "file": "corpus/jenkinsm13_resolve-mcp__agents_music-video-editor.md",
+  "repo": "jenkinsm13/resolve-mcp",
+  "path": "agents/music-video-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04176",
+  "file": "corpus/jenkinsm13_resolve-mcp__agents_social-media-editor.md",
+  "repo": "jenkinsm13/resolve-mcp",
+  "path": "agents/social-media-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04177",
+  "file": "corpus/jenkinsm13_resolve-mcp__agents_youtube-editor.md",
+  "repo": "jenkinsm13/resolve-mcp",
+  "path": "agents/youtube-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04178",
+  "file": "corpus/jeremy-newhouse_eck-e2e-weather-app__.claude_agents_technical-writer.md",
+  "repo": "jeremy-newhouse/eck-e2e-weather-app",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04179",
+  "file": "corpus/jeremymac904_LegendsOSv2.0__.claude_agents_legendsos-release-reporter.md",
+  "repo": "jeremymac904/LegendsOSv2.0",
+  "path": ".claude/agents/legendsos-release-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

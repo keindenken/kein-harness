@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02020",
+  "file": "corpus/MSFT-AI-BUILD-INTERNAL_agentic-squad__.github_agents_research_report.agent.md",
+  "repo": "MSFT-AI-BUILD-INTERNAL/agentic-squad",
+  "path": ".github/agents/research_report.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02021",
+  "file": "corpus/MayaDispeler_TheOrqestra__agents_technical-writer.md",
+  "repo": "MayaDispeler/TheOrqestra",
+  "path": "agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02022",
+  "file": "corpus/Michael-S-Phillips_SCAT__.claude_agents_docs.md",
+  "repo": "Michael-S-Phillips/SCAT",
+  "path": ".claude/agents/docs.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02023",
+  "file": "corpus/Nabi-Rahmani_flutter-claude-code__.claude_agents_technical-writer.md",
+  "repo": "Nabi-Rahmani/flutter-claude-code",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02024",
+  "file": "corpus/NobleDarkGames_thesparklingfarce__.claude_agents_editor-plugin-specialist.md",
+  "repo": "NobleDarkGames/thesparklingfarce",
+  "path": ".claude/agents/editor-plugin-specialist.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02025",
+  "file": "corpus/OnFinance_Maxwell__.claude_agents_report-writer.md",
+  "repo": "OnFinance/Maxwell",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02026",
+  "file": "corpus/PEZ_calva-at-nubank__.github_agents_clojure-editor.agent.md",
+  "repo": "PEZ/calva-at-nubank",
+  "path": ".github/agents/clojure-editor.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02027",
+  "file": "corpus/PabloLION_claude-hookwatch__.claude_agents_dev-docs.md",
+  "repo": "PabloLION/claude-hookwatch",
+  "path": ".claude/agents/dev-docs.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02028",
+  "file": "corpus/Rybar_textadventure__.github_agents_text-adventure-content-author.agent.md",
+  "repo": "Rybar/textadventure",
+  "path": ".github/agents/text-adventure-content-author.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02029",
+  "file": "corpus/Sertxito_boost_RAG-Azure__.github_agents_rag-generate-report.agent.md",
+  "repo": "Sertxito/boost_RAG-Azure",
+  "path": ".github/agents/rag-generate-report.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

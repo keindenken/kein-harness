@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04400",
+  "file": "corpus/lukepadiachy_api-demo-project__.github_agents_report-formatter.agent.md",
+  "repo": "lukepadiachy/api-demo-project",
+  "path": ".github/agents/report-formatter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04401",
+  "file": "corpus/lukesgood_datapond__.claude_agents_technical-writer-agent.md",
+  "repo": "lukesgood/datapond",
+  "path": ".claude/agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04402",
+  "file": "corpus/lumduan_quant-infra-db__.claude_agents_documentation-specialist.md",
+  "repo": "lumduan/quant-infra-db",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04403",
+  "file": "corpus/luodkrap_Lab-report-agent__.codex_agents_report-writer.toml",
+  "repo": "luodkrap/Lab-report-agent",
+  "path": ".codex/agents/report-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04404",
+  "file": "corpus/lurodrisilva_personal-skills__.claude_agents_calico-policy-author.md",
+  "repo": "lurodrisilva/personal-skills",
+  "path": ".claude/agents/calico-policy-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04405",
+  "file": "corpus/lvjagadeesh-learnings_e-pharmacy__.github_agents_agent-authoring-agent.agent.md",
+  "repo": "lvjagadeesh-learnings/e-pharmacy",
+  "path": ".github/agents/agent-authoring-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04406",
+  "file": "corpus/lxmeetlx_super-claude-md__agents_technical-writer_ZH.md",
+  "repo": "lxmeetlx/super-claude-md",
+  "path": "agents/technical-writer_ZH.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04407",
+  "file": "corpus/m-uesaka_quiz-generator-public__.claude_agents_quiz-writer.md",
+  "repo": "m-uesaka/quiz-generator-public",
+  "path": ".claude/agents/quiz-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04408",
+  "file": "corpus/m-yoshiro_ng-di-graph__.claude_agents_technical-writer.md",
+  "repo": "m-yoshiro/ng-di-graph",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04409",
+  "file": "corpus/maandagdev_AutoDemapper__.github_agents_reporter-agent.agent.md",
+  "repo": "maandagdev/AutoDemapper",
+  "path": ".github/agents/reporter-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

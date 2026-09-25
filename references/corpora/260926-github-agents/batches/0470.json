@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04700",
+  "file": "corpus/picklechips_foreman__.claude_agents_technical-writer.md",
+  "repo": "picklechips/foreman",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04701",
+  "file": "corpus/pierceboggan_scenario-grader-2__.github_agents_report-generator.agent.md",
+  "repo": "pierceboggan/scenario-grader-2",
+  "path": ".github/agents/report-generator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04702",
+  "file": "corpus/pierreg256_grumpydb__.claude_agents_docs-agent.md",
+  "repo": "pierreg256/grumpydb",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04703",
+  "file": "corpus/pillarmatcon_pillar-squad__.claude_agents_02-copywriter.md",
+  "repo": "pillarmatcon/pillar-squad",
+  "path": ".claude/agents/02-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04704",
+  "file": "corpus/pinecone-io_examples__.claude_agents_docs-updater.md",
+  "repo": "pinecone-io/examples",
+  "path": ".claude/agents/docs-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04705",
+  "file": "corpus/pinecone-io_rings__.claude_agents_impl-docs.md",
+  "repo": "pinecone-io/rings",
+  "path": ".claude/agents/impl-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04706",
+  "file": "corpus/pingles_nextexpress__.claude_agents_cs-authority.md",
+  "repo": "pingles/nextexpress",
+  "path": ".claude/agents/cs-authority.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04707",
+  "file": "corpus/piotrkrych2_monolynx__.claude_agents_technical-writer.md",
+  "repo": "piotrkrych2/monolynx",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04708",
+  "file": "corpus/pipeTawns-x_Landingpages-Carni.pwa__.claude_agents_carni-docs-curator.md",
+  "repo": "pipeTawns-x/Landingpages-Carni.pwa",
+  "path": ".claude/agents/carni-docs-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04709",
+  "file": "corpus/pipecrew-ai_pipecrew__agents_openapi-spec-editor.md",
+  "repo": "pipecrew-ai/pipecrew",
+  "path": "agents/openapi-spec-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

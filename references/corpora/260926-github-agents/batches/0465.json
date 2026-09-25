@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04650",
+  "file": "corpus/osama1998H_Cloudless__.claude_agents_documenter.md",
+  "repo": "osama1998H/Cloudless",
+  "path": ".claude/agents/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04651",
+  "file": "corpus/oscarsanzsanchez_airline-api__.claude_agents_ReadmeEditor.md",
+  "repo": "oscarsanzsanchez/airline-api",
+  "path": ".claude/agents/ReadmeEditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04652",
+  "file": "corpus/ossianravn_codex-polymarket-wired__.codex_agents_autocatalyst_rewriter.toml",
+  "repo": "ossianravn/codex-polymarket-wired",
+  "path": ".codex/agents/autocatalyst_rewriter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04653",
+  "file": "corpus/oungsi2000_todakun-ut__.claude_agents_qa-reporter.md",
+  "repo": "oungsi2000/todakun-ut",
+  "path": ".claude/agents/qa-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04654",
+  "file": "corpus/oussam1233_majalati__.github_agents_majalati-site-editor.agent.md",
+  "repo": "oussam1233/majalati",
+  "path": ".github/agents/majalati-site-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04655",
+  "file": "corpus/ownway22_dotnet-winforms-examples__.github_agents_documentation-expert.agent.md",
+  "repo": "ownway22/dotnet-winforms-examples",
+  "path": ".github/agents/documentation-expert.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04656",
+  "file": "corpus/p-aldighieri_PaperbackWriter__.claude_agents_discussion-writer.md",
+  "repo": "p-aldighieri/PaperbackWriter",
+  "path": ".claude/agents/discussion-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04657",
+  "file": "corpus/p-aldighieri_PaperbackWriter__.codex_agents_examples-writer.toml",
+  "repo": "p-aldighieri/PaperbackWriter",
+  "path": ".codex/agents/examples-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04658",
+  "file": "corpus/p-aldighieri_PaperbackWriter__.codex_agents_framing-writer.toml",
+  "repo": "p-aldighieri/PaperbackWriter",
+  "path": ".codex/agents/framing-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04659",
+  "file": "corpus/p-aldighieri_PaperbackWriter__.codex_agents_intro-writer.toml",
+  "repo": "p-aldighieri/PaperbackWriter",
+  "path": ".codex/agents/intro-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00260",
+  "file": "corpus/vibeeval_vibecosystem__agents_technical-writer.md",
+  "repo": "vibeeval/vibecosystem",
+  "path": "agents/technical-writer.md",
+  "stars": 534,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00261",
+  "file": "corpus/haowjy_creative-writing-skills__agents_editor.md",
+  "repo": "haowjy/creative-writing-skills",
+  "path": "agents/editor.md",
+  "stars": 486,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00262",
+  "file": "corpus/ZaxbyHub_opencode-swarm__.github_agents_docs-specialist.agent.md",
+  "repo": "ZaxbyHub/opencode-swarm",
+  "path": ".github/agents/docs-specialist.agent.md",
+  "stars": 478,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00263",
+  "file": "corpus/josstei_maestro-orchestrate__claude_src_agents_content-strategist.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/src/agents/content-strategist.md",
+  "stars": 462,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00264",
+  "file": "corpus/josstei_maestro-orchestrate__claude_src_agents_technical-writer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/src/agents/technical-writer.md",
+  "stars": 462,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00265",
+  "file": "corpus/CircleCI-Public_circleci-cli__agents_03-help-and-documentation.md",
+  "repo": "CircleCI-Public/circleci-cli",
+  "path": "agents/03-help-and-documentation.md",
+  "stars": 461,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00266",
+  "file": "corpus/bybren-llc_safe-agentic-workflow__.codex_agents_tech-writer.toml",
+  "repo": "bybren-llc/safe-agentic-workflow",
+  "path": ".codex/agents/tech-writer.toml",
+  "stars": 414,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00267",
+  "file": "corpus/Joonghyun-Lee-Frieren_oh-my-antigravity__agents_editor.md",
+  "repo": "Joonghyun-Lee-Frieren/oh-my-antigravity",
+  "path": "agents/editor.md",
+  "stars": 213,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00268",
+  "file": "corpus/finos_morphir__.claude_agents_kb-writer.md",
+  "repo": "finos/morphir",
+  "path": ".claude/agents/kb-writer.md",
+  "stars": 210,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00269",
+  "file": "corpus/thalysjuvenal_advpl-specialist__agents_docs-reference.md",
+  "repo": "thalysjuvenal/advpl-specialist",
+  "path": "agents/docs-reference.md",
+  "stars": 184,
+  "copies_in_repos": 2
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02630",
+  "file": "corpus/ABello2005_Terravon__.github_agents_documentation.agent.md",
+  "repo": "ABello2005/Terravon",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02631",
+  "file": "corpus/AIAppliedUK_sg-identity-techdocs__.claude_agents_scottish-gov-tech-author.md",
+  "repo": "AIAppliedUK/sg-identity-techdocs",
+  "path": ".claude/agents/scottish-gov-tech-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02632",
+  "file": "corpus/AIHeart-Professional_MCP_Server__.github_agents_doc-writer.agent.md",
+  "repo": "AIHeart-Professional/MCP_Server",
+  "path": ".github/agents/doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02633",
+  "file": "corpus/AIS-Commercial-Business-Unit_AgenticSDLC__.github_agents_ais.report.project.agent.md",
+  "repo": "AIS-Commercial-Business-Unit/AgenticSDLC",
+  "path": ".github/agents/ais.report.project.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02634",
+  "file": "corpus/AIS-Commercial-Business-Unit_AgenticSDLC__.github_agents_ais.report.standup.agent.md",
+  "repo": "AIS-Commercial-Business-Unit/AgenticSDLC",
+  "path": ".github/agents/ais.report.standup.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02635",
+  "file": "corpus/AIdome-co_aidome-blueprints__.github_agents_se-technical-writer.agent.md",
+  "repo": "AIdome-co/aidome-blueprints",
+  "path": ".github/agents/se-technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02636",
+  "file": "corpus/AND3SIL4_boots-understanding__.opencode_agent_graph-writer-agent.md",
+  "repo": "AND3SIL4/boots-understanding",
+  "path": ".opencode/agent/graph-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02637",
+  "file": "corpus/AO-HyS_aohys.com__.codex_agents_docs-researcher.toml",
+  "repo": "AO-HyS/aohys.com",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02638",
+  "file": "corpus/APGI-cmy_maturion-isms__.github_agents_report-writer-agent.md",
+  "repo": "APGI-cmy/maturion-isms",
+  "path": ".github/agents/report-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02639",
+  "file": "corpus/AR-92_zod-plugins__agents_creative_ad-copywriter.md",
+  "repo": "AR-92/zod-plugins",
+  "path": "agents/creative/ad-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

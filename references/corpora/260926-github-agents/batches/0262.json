@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02620",
+  "file": "corpus/412037-PACHECO_pokemon-tcg-tpi__.opencode_agent_docs-analyst.md",
+  "repo": "412037-PACHECO/pokemon-tcg-tpi",
+  "path": ".opencode/agent/docs-analyst.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02621",
+  "file": "corpus/42-saoh_mssql_ai_project__.codex_agents_docs_curator.toml",
+  "repo": "42-saoh/mssql_ai_project",
+  "path": ".codex/agents/docs_curator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02622",
+  "file": "corpus/4rtuz_story-maker__.claude_agents_editor-acto.md",
+  "repo": "4rtuz/story-maker",
+  "path": ".claude/agents/editor-acto.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02623",
+  "file": "corpus/4xeverburga_blog__.github_agents_article-editor.agent.md",
+  "repo": "4xeverburga/blog",
+  "path": ".github/agents/article-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02624",
+  "file": "corpus/6SNT-RADIO_6SNT-Studio__agents_10-technical-writer.md",
+  "repo": "6SNT-RADIO/6SNT-Studio",
+  "path": "agents/10-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02625",
+  "file": "corpus/7Spade_xuanwu-platform__.github_agents_xuanwu-docs.agent.md",
+  "repo": "7Spade/xuanwu-platform",
+  "path": ".github/agents/xuanwu-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02626",
+  "file": "corpus/7milch_7mimi-agent__.claude_agents_doc-updater.md",
+  "repo": "7milch/7mimi-agent",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02627",
+  "file": "corpus/7ports_voltron-glimpse__.claude_agents_docker-compose-editor.md",
+  "repo": "7ports/voltron-glimpse",
+  "path": ".claude/agents/docker-compose-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02628",
+  "file": "corpus/7ports_voltron-glimpse__.claude_agents_dockerfile-editor.md",
+  "repo": "7ports/voltron-glimpse",
+  "path": ".claude/agents/dockerfile-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02629",
+  "file": "corpus/884buildworks-lab_kj-dx-plan__.claude_agents_summary-editor.md",
+  "repo": "884buildworks-lab/kj-dx-plan",
+  "path": ".claude/agents/summary-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

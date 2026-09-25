@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00140",
+  "file": "corpus/gaurav2310a_AnikotoAPI_Clone__agents_technical-writer.md",
+  "repo": "gaurav2310a/AnikotoAPI_Clone",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00141",
+  "file": "corpus/rodrigobranas_f_ia_m2_4__agents_.agents_skills_mastra_references_embedded-docs.md",
+  "repo": "rodrigobranas/f_ia_m2_4",
+  "path": "agents/.agents/skills/mastra/references/embedded-docs.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00142",
+  "file": "corpus/AvaTar-ArTs_.Agent-skills__agents_1-eng-specialist-pack_technical-writer.md",
+  "repo": "AvaTar-ArTs/.Agent-skills",
+  "path": "agents/1-eng-specialist-pack/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00143",
+  "file": "corpus/Peter-N91_csq-fabric-demo__.github_agents_squad-iac-author.agent.md",
+  "repo": "Peter-N91/csq-fabric-demo",
+  "path": ".github/agents/squad-iac-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00144",
+  "file": "corpus/RemseyMailjard_superpowers__.github_agents_web-csv-reporter.agent.md",
+  "repo": "RemseyMailjard/superpowers",
+  "path": ".github/agents/web-csv-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00145",
+  "file": "corpus/drmoisan_TMW__.codex_agents_pr-author.toml",
+  "repo": "drmoisan/TMW",
+  "path": ".codex/agents/pr-author.toml",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00146",
+  "file": "corpus/jinwoonghong_MESAsim__.claude_agents_moai_manager-docs.md",
+  "repo": "jinwoonghong/MESAsim",
+  "path": ".claude/agents/moai/manager-docs.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00147",
+  "file": "corpus/lightspeedwp_block-theme-scaffold__.github_agents_reporting.agent.md",
+  "repo": "lightspeedwp/block-theme-scaffold",
+  "path": ".github/agents/reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00148",
+  "file": "corpus/ruvnet_ruflo__v3_@claude-flow_cli_.claude_agents_documentation_docs-api-openapi.md",
+  "repo": "ruvnet/ruflo",
+  "path": "v3/@claude-flow/cli/.claude/agents/documentation/docs-api-openapi.md",
+  "stars": 73257,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00149",
+  "file": "corpus/ruvnet_ruflo__.claude_agents_documentation_api-docs_docs-api-openapi.md",
+  "repo": "ruvnet/ruflo",
+  "path": ".claude/agents/documentation/api-docs/docs-api-openapi.md",
+  "stars": 73257,
+  "copies_in_repos": 3
+ }
+]

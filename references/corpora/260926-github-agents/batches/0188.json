@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01880",
+  "file": "corpus/withroka_roka__.github_agents_document.agent.md",
+  "repo": "withroka/roka",
+  "path": ".github/agents/document.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01881",
+  "file": "corpus/wyattowalsh_agents__agents_docs-writer.md",
+  "repo": "wyattowalsh/agents",
+  "path": "agents/docs-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01882",
+  "file": "corpus/wyattowalsh_agents__agents_skill-author.md",
+  "repo": "wyattowalsh/agents",
+  "path": "agents/skill-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01883",
+  "file": "corpus/zebbern_termstack__.github_agents_ut_writer.agent.md",
+  "repo": "zebbern/termstack",
+  "path": ".github/agents/ut_writer.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01884",
+  "file": "corpus/zircote-plugins_adr__agents_adr-author.md",
+  "repo": "zircote-plugins/adr",
+  "path": "agents/adr-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01885",
+  "file": "corpus/zoekdestep_pm-studio__.claude_agents_editor.md",
+  "repo": "zoekdestep/pm-studio",
+  "path": ".claude/agents/editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01886",
+  "file": "corpus/zolem_cc-sdlc__.claude_agents_plan-explainer.md",
+  "repo": "zolem/cc-sdlc",
+  "path": ".claude/agents/plan-explainer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01887",
+  "file": "corpus/1cloudy_vibe-coding-agent-template-v2__.claude_agents_studio-operations_analytics-reporter.md",
+  "repo": "1cloudy/vibe-coding-agent-template-v2",
+  "path": ".claude/agents/studio-operations/analytics-reporter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01888",
+  "file": "corpus/AdamKrysztopa_dependence-forecastability__.claude_agents_reporter.md",
+  "repo": "AdamKrysztopa/dependence-forecastability",
+  "path": ".claude/agents/reporter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01889",
+  "file": "corpus/AgentShekel_agentic-workflow__agents_specialists_dev-technical-writer.md",
+  "repo": "AgentShekel/agentic-workflow",
+  "path": "agents/specialists/dev-technical-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

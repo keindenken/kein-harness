@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03930",
+  "file": "corpus/existmaster_cortex-chat__.claude_agents_alfred_doc-syncer.md",
+  "repo": "existmaster/cortex-chat",
+  "path": ".claude/agents/alfred/doc-syncer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03931",
+  "file": "corpus/extenda_tech-radar__.github_agents_radar-writer.agent.md",
+  "repo": "extenda/tech-radar",
+  "path": ".github/agents/radar-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03932",
+  "file": "corpus/extractumio_ag3ntum__.claude_agents_doc-updater.md",
+  "repo": "extractumio/ag3ntum",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03933",
+  "file": "corpus/f0reachARR_wifiman__.codex_agents_pr-author.toml",
+  "repo": "f0reachARR/wifiman",
+  "path": ".codex/agents/pr-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03934",
+  "file": "corpus/f1soft611_SHMT-MES__.github_agents_report-writer.agent.md",
+  "repo": "f1soft611/SHMT-MES",
+  "path": ".github/agents/report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03935",
+  "file": "corpus/f2re_docomator__.codex_agents_docs-maintainer.toml",
+  "repo": "f2re/docomator",
+  "path": ".codex/agents/docs-maintainer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03936",
+  "file": "corpus/f2re_lecture-builder__.codex_agents_coherence-editor.toml",
+  "repo": "f2re/lecture-builder",
+  "path": ".codex/agents/coherence-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03937",
+  "file": "corpus/f2re_lecture-builder__.codex_agents_final-editor.toml",
+  "repo": "f2re/lecture-builder",
+  "path": ".codex/agents/final-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03938",
+  "file": "corpus/fahad0001_opair-ai-sdlc__.github_agents_report.agent.md",
+  "repo": "fahad0001/opair-ai-sdlc",
+  "path": ".github/agents/report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03939",
+  "file": "corpus/faizkhairi_claude-code-blueprint__agents_docs-writer.md",
+  "repo": "faizkhairi/claude-code-blueprint",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04150",
+  "file": "corpus/jaredcroxton_hermes-mirror__agents_skills_performos-agent-package_references_agentos-page-copy-patterns.md",
+  "repo": "jaredcroxton/hermes-mirror",
+  "path": "agents/skills/performos-agent-package/references/agentos-page-copy-patterns.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04151",
+  "file": "corpus/javiarmesto_CIRCE-Agent-Squad-for-Microsoft-Copilot-Studio__.github_agents_copilot-studio-author.md",
+  "repo": "javiarmesto/CIRCE-Agent-Squad-for-Microsoft-Copilot-Studio",
+  "path": ".github/agents/copilot-studio-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04152",
+  "file": "corpus/jayminwest_agentic-engineering-book__.claude_agents_experts_agent-authoring_agent-authoring-build-agent.md",
+  "repo": "jayminwest/agentic-engineering-book",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-build-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04153",
+  "file": "corpus/jayminwest_agentic-engineering-book__.claude_agents_experts_agent-authoring_agent-authoring-improve-agent.md",
+  "repo": "jayminwest/agentic-engineering-book",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-improve-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04154",
+  "file": "corpus/jayminwest_agentic-engineering-book__.claude_agents_experts_agent-authoring_agent-authoring-plan-agent.md",
+  "repo": "jayminwest/agentic-engineering-book",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-plan-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04155",
+  "file": "corpus/jayminwest_agentic-engineering-book__.claude_agents_experts_agent-authoring_agent-authoring-question-agent.md",
+  "repo": "jayminwest/agentic-engineering-book",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-question-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04156",
+  "file": "corpus/jccamargo94_gridforge__.opencode_agent_bug-reporter.md",
+  "repo": "jccamargo94/gridforge",
+  "path": ".opencode/agent/bug-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04157",
+  "file": "corpus/jccamargo94_gridforge__.opencode_agent_docs-maintainer.md",
+  "repo": "jccamargo94/gridforge",
+  "path": ".opencode/agent/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04158",
+  "file": "corpus/jcd3dr_youtube-factory__agents_script-writer.md",
+  "repo": "jcd3dr/youtube-factory",
+  "path": "agents/script-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04159",
+  "file": "corpus/jcoletti-brock_eRISReportUpdates__.github_agents_TechnicalWriter.agent.md",
+  "repo": "jcoletti-brock/eRISReportUpdates",
+  "path": ".github/agents/TechnicalWriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

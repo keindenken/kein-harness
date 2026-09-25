@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01250",
+  "file": "corpus/Geeksfino_finclip-chatkit__.github_agents_tech-writer.md",
+  "repo": "Geeksfino/finclip-chatkit",
+  "path": ".github/agents/tech-writer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01251",
+  "file": "corpus/Hack23_cia-compliance-manager__.github_agents_documentation-agent.md",
+  "repo": "Hack23/cia-compliance-manager",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01252",
+  "file": "corpus/HomericIntelligence_Odyssey__.claude_agents_documentation-engineer.md",
+  "repo": "HomericIntelligence/Odyssey",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01253",
+  "file": "corpus/HomericIntelligence_Odyssey__.claude_agents_documentation-specialist.md",
+  "repo": "HomericIntelligence/Odyssey",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01254",
+  "file": "corpus/Nordic-Accessibility-Community-Group_en-301-549-resources-and-eaa-monitoring__.github_agents_watcher_baseline-report.md",
+  "repo": "Nordic-Accessibility-Community-Group/en-301-549-resources-and-eaa-monitoring",
+  "path": ".github/agents/watcher/baseline-report.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01255",
+  "file": "corpus/TheLobbi_claude__.claude_agents_data-ai_analytics-reporter.md",
+  "repo": "TheLobbi/claude",
+  "path": ".claude/agents/data-ai/analytics-reporter.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01256",
+  "file": "corpus/TheLobbi_claude__.claude_agents_doc-writer.md",
+  "repo": "TheLobbi/claude",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01257",
+  "file": "corpus/TheLobbi_claude__.claude_agents_documentation_generate-api-docs.md",
+  "repo": "TheLobbi/claude",
+  "path": ".claude/agents/documentation/generate-api-docs.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01258",
+  "file": "corpus/biblcontentofficial-art_Premiere-Pro-edit-bibl__.claude_agents_cut-editor.md",
+  "repo": "biblcontentofficial-art/Premiere-Pro-edit-bibl",
+  "path": ".claude/agents/cut-editor.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01259",
+  "file": "corpus/biblcontentofficial-art_Premiere-Pro-edit-bibl__.claude_agents_subtitle-editor.md",
+  "repo": "biblcontentofficial-art/Premiere-Pro-edit-bibl",
+  "path": ".claude/agents/subtitle-editor.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02670",
+  "file": "corpus/Ahmed-aleryani_ai-team-demo__.codex_agents_report-editor.toml",
+  "repo": "Ahmed-aleryani/ai-team-demo",
+  "path": ".codex/agents/report-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02671",
+  "file": "corpus/Aiden-Coding_AiDocs__.github_agents_rust-expert-writer.agent.md",
+  "repo": "Aiden-Coding/AiDocs",
+  "path": ".github/agents/rust-expert-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02672",
+  "file": "corpus/Ajmalpshaik_Heron-AI__.codex_agents_heron-fragment-author.toml",
+  "repo": "Ajmalpshaik/Heron-AI",
+  "path": ".codex/agents/heron-fragment-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02673",
+  "file": "corpus/Ajmalpshaik_Heron-AI__.codex_agents_skill-author.toml",
+  "repo": "Ajmalpshaik/Heron-AI",
+  "path": ".codex/agents/skill-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02674",
+  "file": "corpus/AlanoLight_AGENTES-DE-MARKETING__.github_agents_conteudo-editorial.agent.md",
+  "repo": "AlanoLight/AGENTES-DE-MARKETING",
+  "path": ".github/agents/conteudo-editorial.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02675",
+  "file": "corpus/AlanoLight_AGENTES-DE-MARKETING__.github_agents_copywriter-conversao.agent.md",
+  "repo": "AlanoLight/AGENTES-DE-MARKETING",
+  "path": ".github/agents/copywriter-conversao.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02676",
+  "file": "corpus/AlejBlasco_claude-sdlc-kit__.claude_agents_technical-writer.md",
+  "repo": "AlejBlasco/claude-sdlc-kit",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02677",
+  "file": "corpus/AlexJSully_workspace-wiki__.github_agents_documentation.md",
+  "repo": "AlexJSully/workspace-wiki",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02678",
+  "file": "corpus/AlexanderVegazo26_agents__.claude_agents_technical-writer.md",
+  "repo": "AlexanderVegazo26/agents",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02679",
+  "file": "corpus/AlexandrSurkov_ForgentFramework__.github_agents_forgent-spec-editor.agent.md",
+  "repo": "AlexandrSurkov/ForgentFramework",
+  "path": ".github/agents/forgent-spec-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

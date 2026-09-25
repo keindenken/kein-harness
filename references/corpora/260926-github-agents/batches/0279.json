@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02790",
+  "file": "corpus/DeepL_api-docs__.claude_agents_docs-ia.md",
+  "repo": "DeepL/api-docs",
+  "path": ".claude/agents/docs-ia.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02791",
+  "file": "corpus/DeepL_api-docs__.claude_agents_docs-writer.md",
+  "repo": "DeepL/api-docs",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02792",
+  "file": "corpus/DeepingSeek_Repo_3__.github_agents_qa.bugreport.agent.md",
+  "repo": "DeepingSeek/Repo_3",
+  "path": ".github/agents/qa.bugreport.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02793",
+  "file": "corpus/Dejetins_custometry__.codex_agents_iteration_report_template.md",
+  "repo": "Dejetins/custometry",
+  "path": ".codex/agents/iteration_report_template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02794",
+  "file": "corpus/Dejetins_roehub.com__.codex_agents_generated_rl-trading-agent-platform-v1_22-final-docs-prompt-closure.md",
+  "repo": "Dejetins/roehub.com",
+  "path": ".codex/agents/generated/rl-trading-agent-platform-v1/22-final-docs-prompt-closure.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02795",
+  "file": "corpus/Dejetins_roehub.com__.codex_agents_generated_strategy-producer-paper-testnet-trading-v1_14-final-readiness-docs-closure.md",
+  "repo": "Dejetins/roehub.com",
+  "path": ".codex/agents/generated/strategy-producer-paper-testnet-trading-v1/14-final-readiness-docs-closure.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02796",
+  "file": "corpus/Dejetins_roehub.com__.codex_agents_generated_web-execution-telegram-notifications-v1_06-scheduled-reports.md",
+  "repo": "Dejetins/roehub.com",
+  "path": ".codex/agents/generated/web-execution-telegram-notifications-v1/06-scheduled-reports.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02797",
+  "file": "corpus/DevDizzle_gammarips-webapp__.claude_agents_gammarips-copywriter.md",
+  "repo": "DevDizzle/gammarips-webapp",
+  "path": ".claude/agents/gammarips-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02798",
+  "file": "corpus/DevExpGbb_gh-devlake__.github_agents_docs-writer.agent.md",
+  "repo": "DevExpGbb/gh-devlake",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02799",
+  "file": "corpus/DevLab-Innovations_expo-cloudkit__.claude_agents_technical-writer.md",
+  "repo": "DevLab-Innovations/expo-cloudkit",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

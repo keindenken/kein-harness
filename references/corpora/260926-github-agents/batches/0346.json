@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03460",
+  "file": "corpus/acor8826_Innovation1_FrontEnd__.claude_agents_australian-health-seo-copywriter.md",
+  "repo": "acor8826/Innovation1_FrontEnd",
+  "path": ".claude/agents/australian-health-seo-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03461",
+  "file": "corpus/actionbook_rust-skills__agents_docs-cache.md",
+  "repo": "actionbook/rust-skills",
+  "path": "agents/docs-cache.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03462",
+  "file": "corpus/adam-e-1064_gpx-editor-app__.github_agents_doc-writer.agent.md",
+  "repo": "adam-e-1064/gpx-editor-app",
+  "path": ".github/agents/doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03463",
+  "file": "corpus/adamayoung_TMDb__.claude_agents_documentation-writer.md",
+  "repo": "adamayoung/TMDb",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03464",
+  "file": "corpus/adriaalcala_claude-code-setup__agents_documentation-agent.md",
+  "repo": "adriaalcala/claude-code-setup",
+  "path": "agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03465",
+  "file": "corpus/adrian-xia_copilot-tools__.github_agents_docs-specialist.agent.md",
+  "repo": "adrian-xia/copilot-tools",
+  "path": ".github/agents/docs-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03466",
+  "file": "corpus/agentcage_agentcage__.claude_agents_docs-writer.md",
+  "repo": "agentcage/agentcage",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03467",
+  "file": "corpus/aghyara_GitHubCopilot_Customized__.github_agents_Documentation-Writer.agent.md",
+  "repo": "aghyara/GitHubCopilot_Customized",
+  "path": ".github/agents/Documentation-Writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03468",
+  "file": "corpus/agustinventura_agentic_engineering__.github_agents_documenter.md",
+  "repo": "agustinventura/agentic_engineering",
+  "path": ".github/agents/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03469",
+  "file": "corpus/ahmadasror_claude-setup__agents_api-writer.md",
+  "repo": "ahmadasror/claude-setup",
+  "path": "agents/api-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04620",
+  "file": "corpus/nukoinu_claude-agent-workbench__.claude_agents_contract-author.md",
+  "repo": "nukoinu/claude-agent-workbench",
+  "path": ".claude/agents/contract-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04621",
+  "file": "corpus/nukoinu_task-kit__.github_agents_document-author.agent.md",
+  "repo": "nukoinu/task-kit",
+  "path": ".github/agents/document-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04622",
+  "file": "corpus/nurakmaljalil91_FantasyTactics__.codex_agents_shader-author.toml",
+  "repo": "nurakmaljalil91/FantasyTactics",
+  "path": ".codex/agents/shader-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04623",
+  "file": "corpus/nyan-tama_Ghostrunner__.claude_agents_reporter.md",
+  "repo": "nyan-tama/Ghostrunner",
+  "path": ".claude/agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04624",
+  "file": "corpus/nyuchi_workspace-tools__.claude_agents_docs-curator.md",
+  "repo": "nyuchi/workspace-tools",
+  "path": ".claude/agents/docs-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04625",
+  "file": "corpus/oakwood-commons_scafctl-solution-plugin-template__.github_agents_solution-author.agent.md",
+  "repo": "oakwood-commons/scafctl-solution-plugin-template",
+  "path": ".github/agents/solution-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04626",
+  "file": "corpus/obada-foundation_obadafoundation.github.io__.claude_agents_content_content-editor.md",
+  "repo": "obada-foundation/obadafoundation.github.io",
+  "path": ".claude/agents/content/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04627",
+  "file": "corpus/obelisk-complex_claude-agents__agents_copywriter.md",
+  "repo": "obelisk-complex/claude-agents",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04628",
+  "file": "corpus/obelisk-complex_claude-agents__agents_opus-variants_video-script-copywriter-opus.md",
+  "repo": "obelisk-complex/claude-agents",
+  "path": "agents/opus-variants/video-script-copywriter-opus.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04629",
+  "file": "corpus/obscurepedia_napocalypse__.claude_agents_documentation.md",
+  "repo": "obscurepedia/napocalypse",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

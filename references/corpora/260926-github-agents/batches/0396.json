@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03960",
+  "file": "corpus/frame-lang_framec__.claude_agents_frame-rfc-author.md",
+  "repo": "frame-lang/framec",
+  "path": ".claude/agents/frame-rfc-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03961",
+  "file": "corpus/franccesco_bloomy-python__.claude_agents_mkdocs-documentation-writer.md",
+  "repo": "franccesco/bloomy-python",
+  "path": ".claude/agents/mkdocs-documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03962",
+  "file": "corpus/frankchou_claude-team__agents_copywriter.md",
+  "repo": "frankchou/claude-team",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03963",
+  "file": "corpus/fraperfra_landing-lead-__.claude_agents_copywriter.md",
+  "repo": "fraperfra/landing-lead-",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03964",
+  "file": "corpus/frdrpo_learning-pdm-fintech-delivery-engine__agents_docs.md",
+  "repo": "frdrpo/learning-pdm-fintech-delivery-engine",
+  "path": "agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03965",
+  "file": "corpus/fredydomingus22-wq_SmartMenu__agents_13_CMO_Copywriter.md",
+  "repo": "fredydomingus22-wq/SmartMenu",
+  "path": "agents/13_CMO_Copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03966",
+  "file": "corpus/freepik-company_knowledge-agent__.claude_agents_doc-checker.md",
+  "repo": "freepik-company/knowledge-agent",
+  "path": ".claude/agents/doc-checker.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03967",
+  "file": "corpus/freetison_kilocode-toolbox__agents_seo_seo-authority-builder.md",
+  "repo": "freetison/kilocode-toolbox",
+  "path": "agents/seo/seo-authority-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03968",
+  "file": "corpus/fryoll_zendure-local-ha__.github_agents_docs-maintainer.agent.md",
+  "repo": "fryoll/zendure-local-ha",
+  "path": ".github/agents/docs-maintainer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03969",
+  "file": "corpus/fuck-eer_foundit__.github_agents_technical-writer.md",
+  "repo": "fuck-eer/foundit",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

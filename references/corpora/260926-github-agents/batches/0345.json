@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03450",
+  "file": "corpus/abazarbaev-ctrl_harness__agents_pm_spec-author.md",
+  "repo": "abazarbaev-ctrl/harness",
+  "path": "agents/pm/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03451",
+  "file": "corpus/abdel2000-dply_defaultpwa__.github_agents_document.agent.md",
+  "repo": "abdel2000-dply/defaultpwa",
+  "path": ".github/agents/document.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03452",
+  "file": "corpus/abertanha_md-to-wiki-docs-skills__agents_format-mkdocs.md",
+  "repo": "abertanha/md-to-wiki-docs-skills",
+  "path": "agents/format-mkdocs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03453",
+  "file": "corpus/abhishekkapoorx_virality__.github_agents_docs-driven-feature.agent.md",
+  "repo": "abhishekkapoorx/virality",
+  "path": ".github/agents/docs-driven-feature.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03454",
+  "file": "corpus/abirGharbi-st_PFE_Chatbot_STM32Cube__.github_agents_ReportQualityAnalyzer.agent.md",
+  "repo": "abirGharbi-st/PFE_Chatbot_STM32Cube",
+  "path": ".github/agents/ReportQualityAnalyzer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03455",
+  "file": "corpus/abuklea_prompthub__.claude_agents_documentation-manager.md",
+  "repo": "abuklea/prompthub",
+  "path": ".claude/agents/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03456",
+  "file": "corpus/abuxton_rcg__.github_agents_blog-post-writer.md",
+  "repo": "abuxton/rcg",
+  "path": ".github/agents/blog-post-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03457",
+  "file": "corpus/aceqbit_AngularFrontendMigTestFolder__.github_agents_documentation.md",
+  "repo": "aceqbit/AngularFrontendMigTestFolder",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03458",
+  "file": "corpus/acid113_copilot-azure-devops-playwright-workflow__.github_agents_qa-result-reporter.agent.md",
+  "repo": "acid113/copilot-azure-devops-playwright-workflow",
+  "path": ".github/agents/qa-result-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03459",
+  "file": "corpus/acor8826_Innovation1_FrontEnd__.claude_agents_AUSTRALIAN_HEALTH_COPYWRITER_GUIDE.md",
+  "repo": "acor8826/Innovation1_FrontEnd",
+  "path": ".claude/agents/AUSTRALIAN_HEALTH_COPYWRITER_GUIDE.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

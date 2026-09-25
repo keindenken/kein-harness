@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05100",
+  "file": "corpus/urperfectdude_prashanta-is-a-dev__agents_copywriter.md",
+  "repo": "urperfectdude/prashanta-is-a-dev",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05101",
+  "file": "corpus/uruhayato373_doboku-note__.claude_agents_civil-textbook-rewriter.md",
+  "repo": "uruhayato373/doboku-note",
+  "path": ".claude/agents/civil-textbook-rewriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05102",
+  "file": "corpus/uruhayato373_doboku-note__.codex_agents_a8-report-collector.toml",
+  "repo": "uruhayato373/doboku-note",
+  "path": ".codex/agents/a8-report-collector.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05103",
+  "file": "corpus/uruhayato373_doboku-note__.codex_agents_civil-keiken-essay-writer.toml",
+  "repo": "uruhayato373/doboku-note",
+  "path": ".codex/agents/civil-keiken-essay-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05104",
+  "file": "corpus/uruhayato373_doboku-note__.codex_agents_note-cover-writer.toml",
+  "repo": "uruhayato373/doboku-note",
+  "path": ".codex/agents/note-cover-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05105",
+  "file": "corpus/usagiandkamex_agentic-ops-usecase__.github_agents_001-report-writer.agent.md",
+  "repo": "usagiandkamex/agentic-ops-usecase",
+  "path": ".github/agents/001-report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05106",
+  "file": "corpus/usagiandkamex_agentic-ops-usecase__.github_agents_002-report-writer.agent.md",
+  "repo": "usagiandkamex/agentic-ops-usecase",
+  "path": ".github/agents/002-report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05107",
+  "file": "corpus/usagiandkamex_agentic-ops-usecase__.github_agents_003-network-report-writer.agent.md",
+  "repo": "usagiandkamex/agentic-ops-usecase",
+  "path": ".github/agents/003-network-report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05108",
+  "file": "corpus/usepowershell_agentic-platform-engineering__.github_agents_module-authoring.md",
+  "repo": "usepowershell/agentic-platform-engineering",
+  "path": ".github/agents/module-authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05109",
+  "file": "corpus/usepowershell_agentic-platform-engineering__.github_agents_technical-writer.md",
+  "repo": "usepowershell/agentic-platform-engineering",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

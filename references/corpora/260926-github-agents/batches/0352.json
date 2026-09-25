@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03520",
+  "file": "corpus/andreibesleaga_GABBE__agents_skills_ops_runbook-authoring.skill.md",
+  "repo": "andreibesleaga/GABBE",
+  "path": "agents/skills/ops/runbook-authoring.skill.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03521",
+  "file": "corpus/andreroxhage_portfolio__.claude_agents_content-editor.md",
+  "repo": "andreroxhage/portfolio",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03522",
+  "file": "corpus/andresilva-cc_andresilva.cc__.claude_agents_copywriter.md",
+  "repo": "andresilva-cc/andresilva.cc",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03523",
+  "file": "corpus/andresjosehr_finance-utils__.claude_agents_technical-writer.md",
+  "repo": "andresjosehr/finance-utils",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03524",
+  "file": "corpus/andrewjknox_gtcb__.claude_agents_report-agent.md",
+  "repo": "andrewjknox/gtcb",
+  "path": ".claude/agents/report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03525",
+  "file": "corpus/andrey5608_agents-for-work__.github_agents_editorconfig-verifier.agent.md",
+  "repo": "andrey5608/agents-for-work",
+  "path": ".github/agents/editorconfig-verifier.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03526",
+  "file": "corpus/anhlt59_aws-monitoring__.claude_agents_technical-writer.md",
+  "repo": "anhlt59/aws-monitoring",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03527",
+  "file": "corpus/animeshkundu_pyflix__.claude_agents_code-editor.md",
+  "repo": "animeshkundu/pyflix",
+  "path": ".claude/agents/code-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03528",
+  "file": "corpus/animeshkundu_pyflix__.claude_agents_documenter.md",
+  "repo": "animeshkundu/pyflix",
+  "path": ".claude/agents/documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03529",
+  "file": "corpus/ansango_barebones-sveltekit-demo__.github_agents_JSDoc Docs.md",
+  "repo": "ansango/barebones-sveltekit-demo",
+  "path": ".github/agents/JSDoc Docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

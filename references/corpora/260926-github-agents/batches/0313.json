@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03130",
+  "file": "corpus/NhomNhem_solar-phobia__.codex_agents_writer.toml",
+  "repo": "NhomNhem/solar-phobia",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03131",
+  "file": "corpus/Nico2398_BlastSimulator2026__.github_agents_skeleton-writer.agent.md",
+  "repo": "Nico2398/BlastSimulator2026",
+  "path": ".github/agents/skeleton-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03132",
+  "file": "corpus/NicoENDYs_Editor-Videos-Basico__.github_agents_video-editor-architect.agent.md",
+  "repo": "NicoENDYs/Editor-Videos-Basico",
+  "path": ".github/agents/video-editor-architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03133",
+  "file": "corpus/NicolaeRotaru_ad-mycity__.claude_agents_ai-copywriter.md",
+  "repo": "NicolaeRotaru/ad-mycity",
+  "path": ".claude/agents/ai-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03134",
+  "file": "corpus/Nightdreams-bat_kairo__.claude_agents_email-copywriter.md",
+  "repo": "Nightdreams-bat/kairo",
+  "path": ".claude/agents/email-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03135",
+  "file": "corpus/NihadMemmedli_quorvex_ai__.claude_agents_bug-report-generator.md",
+  "repo": "NihadMemmedli/quorvex_ai",
+  "path": ".claude/agents/bug-report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03136",
+  "file": "corpus/Niki-3D_paczkomat-atlas__.claude_agents_postgis-query-author.md",
+  "repo": "Niki-3D/paczkomat-atlas",
+  "path": ".claude/agents/postgis-query-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03137",
+  "file": "corpus/NikoMix_IAMCP_rethink2026_usecase__.github_agents_technical-writer.agent.md",
+  "repo": "NikoMix/IAMCP_rethink2026_usecase",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03138",
+  "file": "corpus/Nnutural_Lesson-Exp-amr-robustness-radioml__.codex_agents_visualization_reporting.md",
+  "repo": "Nnutural/Lesson-Exp-amr-robustness-radioml",
+  "path": ".codex/agents/visualization_reporting.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03139",
+  "file": "corpus/NorthEndMakerspace_northendmakerspace.github.io__.github_agents_page-editor.agent.md",
+  "repo": "NorthEndMakerspace/northendmakerspace.github.io",
+  "path": ".github/agents/page-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

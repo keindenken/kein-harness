@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00040",
+  "file": "corpus/alphawizards_P6PlanningIntegration__.claude_agents_scout-report-suggest.md",
+  "repo": "alphawizards/P6PlanningIntegration",
+  "path": ".claude/agents/scout-report-suggest.md",
+  "stars": 1,
+  "copies_in_repos": 10
+ },
+ {
+  "id": "c00041",
+  "file": "corpus/Imbad0202_academic-research-skills__agents_report_compiler_agent.md",
+  "repo": "Imbad0202/academic-research-skills",
+  "path": "agents/report_compiler_agent.md",
+  "stars": 49461,
+  "copies_in_repos": 9
+ },
+ {
+  "id": "c00042",
+  "file": "corpus/rohitg00_awesome-claude-code-toolkit__agents_business-product_technical-writer.md",
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "agents/business-product/technical-writer.md",
+  "stars": 2645,
+  "copies_in_repos": 9
+ },
+ {
+  "id": "c00043",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_analytics-reporter_agents_analytics-reporter.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/analytics-reporter/agents/analytics-reporter.md",
+  "stars": 952,
+  "copies_in_repos": 9
+ },
+ {
+  "id": "c00044",
+  "file": "corpus/hamsaKsaier_whynot__.opencode_agent_report-distribution-agent.md",
+  "repo": "hamsaKsaier/whynot",
+  "path": ".opencode/agent/report-distribution-agent.md",
+  "stars": 4,
+  "copies_in_repos": 9
+ },
+ {
+  "id": "c00045",
+  "file": "corpus/48Nauts-Operator_opencode-baseline__.opencode_agent_subagents_core_documentation.md",
+  "repo": "48Nauts-Operator/opencode-baseline",
+  "path": ".opencode/agent/subagents/core/documentation.md",
+  "stars": 3,
+  "copies_in_repos": 9
+ },
+ {
+  "id": "c00046",
+  "file": "corpus/github_awesome-copilot__agents_ai-readiness-reporter.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/ai-readiness-reporter.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 8
+ },
+ {
+  "id": "c00047",
+  "file": "corpus/owshq-mec_semana-ai-data-engineer__.claude_agents_code-quality_code-documenter.md",
+  "repo": "owshq-mec/semana-ai-data-engineer",
+  "path": ".claude/agents/code-quality/code-documenter.md",
+  "stars": 122,
+  "copies_in_repos": 8
+ },
+ {
+  "id": "c00048",
+  "file": "corpus/openshift_certman-operator__.claude_agents_docs-agent.md",
+  "repo": "openshift/certman-operator",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 57,
+  "copies_in_repos": 8
+ },
+ {
+  "id": "c00049",
+  "file": "corpus/digaomatias_mymascada__.claude_agents_technical-writer.md",
+  "repo": "digaomatias/mymascada",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 8
+ }
+]

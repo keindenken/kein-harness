@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02320",
+  "file": "corpus/LosEvons_spoons16__.github_agents_cli-reporting.agent.md",
+  "repo": "LosEvons/spoons16",
+  "path": ".github/agents/cli-reporting.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02321",
+  "file": "corpus/MAXLINqaq_Claude-Code-Novel-Writer__.claude_agents_production-editor.md",
+  "repo": "MAXLINqaq/Claude-Code-Novel-Writer",
+  "path": ".claude/agents/production-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02322",
+  "file": "corpus/MEGODOG1110_stack-library__.codex_agents_discovery_authority-control-librarian.toml",
+  "repo": "MEGODOG1110/stack-library",
+  "path": ".codex/agents/discovery/authority-control-librarian.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02323",
+  "file": "corpus/MISJustice-Alliance_misjustice-alliance-firm__agents_it_ops_dev_team_technical-writer.yaml",
+  "repo": "MISJustice-Alliance/misjustice-alliance-firm",
+  "path": "agents/it_ops_dev/team/technical-writer.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02324",
+  "file": "corpus/Minkeisme1204_UAV-GNSS-Free-Visual-Localization-__.claude_agents_minkeis-cmake-editor.md",
+  "repo": "Minkeisme1204/UAV-GNSS-Free-Visual-Localization-",
+  "path": ".claude/agents/minkeis-cmake-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02325",
+  "file": "corpus/Mohandev23091987_PlaywrightMaybatchFramework__.github_agents_playwright-report-to-jira.agent.md",
+  "repo": "Mohandev23091987/PlaywrightMaybatchFramework",
+  "path": ".github/agents/playwright-report-to-jira.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02326",
+  "file": "corpus/MrMfrht_Zero-knowledge__.codex_agents_midnight-docs-researcher.toml",
+  "repo": "MrMfrht/Zero-knowledge",
+  "path": ".codex/agents/midnight-docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02327",
+  "file": "corpus/NabuxAi_NabuGate__agents_social-copywriter-agent.yaml",
+  "repo": "NabuxAi/NabuGate",
+  "path": "agents/social-copywriter-agent.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02328",
+  "file": "corpus/NeatooDotNet_RemoteFactory__.claude_agents_remotefactory-docs-writer.md",
+  "repo": "NeatooDotNet/RemoteFactory",
+  "path": ".claude/agents/remotefactory-docs-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02329",
+  "file": "corpus/NguyenHuuDinh135_Rate__.codex_agents_docs-researcher.toml",
+  "repo": "NguyenHuuDinh135/Rate",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

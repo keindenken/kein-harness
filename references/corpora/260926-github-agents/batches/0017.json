@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00170",
+  "file": "corpus/juliusz-cwiakalski_agentic-delivery-os__.opencode_agent_editor.md",
+  "repo": "juliusz-cwiakalski/agentic-delivery-os",
+  "path": ".opencode/agent/editor.md",
+  "stars": 38,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00171",
+  "file": "corpus/juliusz-cwiakalski_agentic-delivery-os__.opencode_agent_plan-writer.md",
+  "repo": "juliusz-cwiakalski/agentic-delivery-os",
+  "path": ".opencode/agent/plan-writer.md",
+  "stars": 38,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00172",
+  "file": "corpus/juliusz-cwiakalski_agentic-delivery-os__.opencode_agent_spec-writer.md",
+  "repo": "juliusz-cwiakalski/agentic-delivery-os",
+  "path": ".opencode/agent/spec-writer.md",
+  "stars": 38,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00173",
+  "file": "corpus/PackRat-AI_PackRat__.github_agents_ankane-readme-writer.agent.md",
+  "repo": "PackRat-AI/PackRat",
+  "path": ".github/agents/ankane-readme-writer.agent.md",
+  "stars": 36,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00174",
+  "file": "corpus/alexeyban_databricks-lab__Agents_confluence-documentation-generator.md",
+  "repo": "alexeyban/databricks-lab",
+  "path": "Agents/confluence-documentation-generator.md",
+  "stars": 29,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00175",
+  "file": "corpus/dal-go_dalgo__.github_agents_docs-writer.md",
+  "repo": "dal-go/dalgo",
+  "path": ".github/agents/docs-writer.md",
+  "stars": 26,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00176",
+  "file": "corpus/dal-go_dalgo__.github_agents_spec-writer.md",
+  "repo": "dal-go/dalgo",
+  "path": ".github/agents/spec-writer.md",
+  "stars": 26,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00177",
+  "file": "corpus/inbo_checklist__.github_agents_docs_agent.md",
+  "repo": "inbo/checklist",
+  "path": ".github/agents/docs_agent.md",
+  "stars": 21,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00178",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_copywriter.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/copywriter.md",
+  "stars": 13,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00179",
+  "file": "corpus/DUNHKpcc_dpcc-harness__.claude_agents_docs-researcher.md",
+  "repo": "DUNHKpcc/dpcc-harness",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 6,
+  "copies_in_repos": 3
+ }
+]

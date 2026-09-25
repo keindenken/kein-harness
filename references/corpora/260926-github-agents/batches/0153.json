@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01530",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-03-06-00-02.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-03-06-00-02.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01531",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-04-12-06-49.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-04-12-06-49.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01532",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-11-04-58-04.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-11-04-58-04.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01533",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-16-01-13-35.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-16-01-13-35.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01534",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-16-13-21-13.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-16-13-21-13.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01535",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-21-17-25-54.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-21-17-25-54.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01536",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-04-21-18-21-49.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-04-21-18-21-49.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01537",
+  "file": "corpus/drupaltools_skills__agents_drupal-documentation-expert.md",
+  "repo": "drupaltools/skills",
+  "path": "agents/drupal-documentation-expert.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01538",
+  "file": "corpus/editor-js_document-model__.github_agents_docs-updater.agent.md",
+  "repo": "editor-js/document-model",
+  "path": ".github/agents/docs-updater.agent.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01539",
+  "file": "corpus/ivklgn_ai-kit__agents_documentation-developer.md",
+  "repo": "ivklgn/ai-kit",
+  "path": "agents/documentation-developer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

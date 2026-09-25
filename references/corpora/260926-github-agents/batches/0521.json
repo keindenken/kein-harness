@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05210",
+  "file": "corpus/x85446_claudecodetricks__.claude_agents_documentation-expert.md",
+  "repo": "x85446/claudecodetricks",
+  "path": ".claude/agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05211",
+  "file": "corpus/xKai808_Hyo__agents_sam_website_docs_nel_report-2026-05-17.md",
+  "repo": "xKai808/Hyo",
+  "path": "agents/sam/website/docs/nel/report-2026-05-17.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05212",
+  "file": "corpus/xX2Angelo8Xx_Turbulence-Solutions-Safe-Agent-Workspace__.github_agents_story-writer.agent.md",
+  "repo": "xX2Angelo8Xx/Turbulence-Solutions-Safe-Agent-Workspace",
+  "path": ".github/agents/story-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05213",
+  "file": "corpus/xcasadio_CasaEngineMonogame__.claude_agents_editor-mgui.md",
+  "repo": "xcasadio/CasaEngineMonogame",
+  "path": ".claude/agents/editor-mgui.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05214",
+  "file": "corpus/xdevs23_workflow-skills__agents_copywriter.md",
+  "repo": "xdevs23/workflow-skills",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05215",
+  "file": "corpus/xhian7_powerhouse__.github_agents_core-editor.agent.md",
+  "repo": "xhian7/powerhouse",
+  "path": ".github/agents/core-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05216",
+  "file": "corpus/xianjun-zhang_productivity-tools__.codex_agents_docs-researcher.toml",
+  "repo": "xianjun-zhang/productivity-tools",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05217",
+  "file": "corpus/xinni-cap_my-thai-star__.github_agents_documentation-analyzer.agent.md",
+  "repo": "xinni-cap/my-thai-star",
+  "path": ".github/agents/documentation-analyzer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05218",
+  "file": "corpus/xscriptor-ai_agents__agents_content_technical-writer.md",
+  "repo": "xscriptor-ai/agents",
+  "path": "agents/content/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05219",
+  "file": "corpus/xsuntel_symfony-scripts__.claude_agents_utility-git-commit-author.md",
+  "repo": "xsuntel/symfony-scripts",
+  "path": ".claude/agents/utility-git-commit-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

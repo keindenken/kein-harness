@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02640",
+  "file": "corpus/AR-92_zod-plugins__agents_creative_copywriter.md",
+  "repo": "AR-92/zod-plugins",
+  "path": "agents/creative/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02641",
+  "file": "corpus/ASISaga_genesis.asisaga.com__.github_agents_content-author.agent.md",
+  "repo": "ASISaga/genesis.asisaga.com",
+  "path": ".github/agents/content-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02642",
+  "file": "corpus/AaronBuxbaum_haman__.github_agents_documentation.agent.md",
+  "repo": "AaronBuxbaum/haman",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02643",
+  "file": "corpus/AbelPuentesT_healthtrack-api__.claude_agents_api-documenter.md",
+  "repo": "AbelPuentesT/healthtrack-api",
+  "path": ".claude/agents/api-documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02644",
+  "file": "corpus/Abhimanyu-1G_Amd-Slingshot-__.github_agents_markdown-docs-specialist.agent.md",
+  "repo": "Abhimanyu-1G/Amd-Slingshot-",
+  "path": ".github/agents/markdown-docs-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02645",
+  "file": "corpus/Abhimanyu-s18_protrader-sim__.github_agents_Documentation.agent.md",
+  "repo": "Abhimanyu-s18/protrader-sim",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02646",
+  "file": "corpus/Abilityai_agent-ruby__.claude_agents_video-editor.md",
+  "repo": "Abilityai/agent-ruby",
+  "path": ".claude/agents/video-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02647",
+  "file": "corpus/AccessiTech_FrankenBrAIn__.github_agents_docs-scaffold.agent.md",
+  "repo": "AccessiTech/FrankenBrAIn",
+  "path": ".github/agents/docs-scaffold.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02648",
+  "file": "corpus/AcidicSoil_riseOnAgents__agents_architect_subagents_technical-writer.agent.md",
+  "repo": "AcidicSoil/riseOnAgents",
+  "path": "agents/architect/subagents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02649",
+  "file": "corpus/Aco-Lone_DBAnalysysMCP__.github_agents_detailed-design-author.agent.md",
+  "repo": "Aco-Lone/DBAnalysysMCP",
+  "path": ".github/agents/detailed-design-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

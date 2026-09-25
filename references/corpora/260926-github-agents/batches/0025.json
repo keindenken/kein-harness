@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00250",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_codebase-documenter_agents_codebase-documenter.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/codebase-documenter/agents/codebase-documenter.md",
+  "stars": 952,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00251",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_context7-docs-fetcher_agents_context7-docs-fetcher.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/context7-docs-fetcher/agents/context7-docs-fetcher.md",
+  "stars": 952,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00252",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_planning-prd-agent_agents_planning-prd-agent.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/planning-prd-agent/agents/planning-prd-agent.md",
+  "stars": 952,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00253",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_prd-specialist_agents_prd-specialist.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/prd-specialist/agents/prd-specialist.md",
+  "stars": 952,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00254",
+  "file": "corpus/borghei_Claude-Skills__.claude_agents_doc-generator.md",
+  "repo": "borghei/Claude-Skills",
+  "path": ".claude/agents/doc-generator.md",
+  "stars": 828,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00255",
+  "file": "corpus/alirezarezvani_claude-code-tresor__agents_docs-writer.md",
+  "repo": "alirezarezvani/claude-code-tresor",
+  "path": "agents/docs-writer.md",
+  "stars": 777,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00256",
+  "file": "corpus/AgriciDaniel_codex-seo__agents_seo-content.toml",
+  "repo": "AgriciDaniel/codex-seo",
+  "path": "agents/seo-content.toml",
+  "stars": 752,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00257",
+  "file": "corpus/Code-and-Sorts_awesome-copilot-agents__agents_ai-development-mode_prd-creation.agent.md",
+  "repo": "Code-and-Sorts/awesome-copilot-agents",
+  "path": "agents/ai-development-mode/prd-creation.agent.md",
+  "stars": 575,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00258",
+  "file": "corpus/vibeeval_vibecosystem__agents_copywriter.md",
+  "repo": "vibeeval/vibecosystem",
+  "path": "agents/copywriter.md",
+  "stars": 534,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00259",
+  "file": "corpus/vibeeval_vibecosystem__agents_documentation-architect.md",
+  "repo": "vibeeval/vibecosystem",
+  "path": "agents/documentation-architect.md",
+  "stars": 534,
+  "copies_in_repos": 2
+ }
+]

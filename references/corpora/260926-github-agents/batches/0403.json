@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04030",
+  "file": "corpus/hatsune1212_AIPOC__.github_agents_ticket-writer.agent.md",
+  "repo": "hatsune1212/AIPOC",
+  "path": ".github/agents/ticket-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04031",
+  "file": "corpus/hcd1983_comic-team__.claude_agents_video-editor.md",
+  "repo": "hcd1983/comic-team",
+  "path": ".claude/agents/video-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04032",
+  "file": "corpus/hdang205_thuvienso__.claude_agents_copywriter-seo.agent.md",
+  "repo": "hdang205/thuvienso",
+  "path": ".claude/agents/copywriter-seo.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04033",
+  "file": "corpus/hdang205_thuvienso__.claude_agents_documentation-writer.agent.md",
+  "repo": "hdang205/thuvienso",
+  "path": ".claude/agents/documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04034",
+  "file": "corpus/health-economics-guide_health-economics-guide__AGENTS_chapter-author.md",
+  "repo": "health-economics-guide/health-economics-guide",
+  "path": "AGENTS/chapter-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04035",
+  "file": "corpus/health-economics-guide_health-economics-guide__AGENTS_reference-editor.md",
+  "repo": "health-economics-guide/health-economics-guide",
+  "path": "AGENTS/reference-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04036",
+  "file": "corpus/hellosahib_thegeekdogs__agents_copywriter.md",
+  "repo": "hellosahib/thegeekdogs",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04037",
+  "file": "corpus/henilpatel05_secret-santa__.claude_agents_ux-copywriter.md",
+  "repo": "henilpatel05/secret-santa",
+  "path": ".claude/agents/ux-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04038",
+  "file": "corpus/henno_.claude__agents_context7-docs.md",
+  "repo": "henno/.claude",
+  "path": "agents/context7-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04039",
+  "file": "corpus/hernanosaurus_raptors__agents_copywriter.md",
+  "repo": "hernanosaurus/raptors",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

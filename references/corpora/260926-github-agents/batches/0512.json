@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05120",
+  "file": "corpus/vangjv_code-explore-document__.github_agents_ops-runbook-writer.agent.md",
+  "repo": "vangjv/code-explore-document",
+  "path": ".github/agents/ops-runbook-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05121",
+  "file": "corpus/varoonsahgal_great-sample-copilot-agents__agents_finance_kpi-commentary-writer.md",
+  "repo": "varoonsahgal/great-sample-copilot-agents",
+  "path": "agents/finance/kpi-commentary-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05122",
+  "file": "corpus/varoonsahgal_great-sample-copilot-agents__agents_hr-people_job-description-writer.md",
+  "repo": "varoonsahgal/great-sample-copilot-agents",
+  "path": "agents/hr-people/job-description-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05123",
+  "file": "corpus/vatsalsaglani_rafu__.claude_agents_documentor.md",
+  "repo": "vatsalsaglani/rafu",
+  "path": ".claude/agents/documentor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05124",
+  "file": "corpus/vbrajcic_fitness-claude__.claude_agents_bug-reporter.md",
+  "repo": "vbrajcic/fitness-claude",
+  "path": ".claude/agents/bug-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05125",
+  "file": "corpus/vbrajcic_pm-agents__agents_concise-feature-prd-writer.md",
+  "repo": "vbrajcic/pm-agents",
+  "path": "agents/concise-feature-prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05126",
+  "file": "corpus/vbrajcic_pm-agents__agents_prd-feature-extractor.md",
+  "repo": "vbrajcic/pm-agents",
+  "path": "agents/prd-feature-extractor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05127",
+  "file": "corpus/vbrajcic_pm-agents__agents_project-prd-writer-enhanced-v2.md",
+  "repo": "vbrajcic/pm-agents",
+  "path": "agents/project-prd-writer-enhanced-v2.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05128",
+  "file": "corpus/vbrajcic_pm-agents__agents_project-prd-writer-interactive.md",
+  "repo": "vbrajcic/pm-agents",
+  "path": "agents/project-prd-writer-interactive.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05129",
+  "file": "corpus/vbrajcic_pm-agents__agents_project-prd-writer.md",
+  "repo": "vbrajcic/pm-agents",
+  "path": "agents/project-prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

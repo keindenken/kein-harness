@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03760",
+  "file": "corpus/daniellepelley_benzene-typescript__.claude_agents_documentation-writer.md",
+  "repo": "daniellepelley/benzene-typescript",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03761",
+  "file": "corpus/danielrosehill_All-About-MCP__agents_chapter-writer.md",
+  "repo": "danielrosehill/All-About-MCP",
+  "path": "agents/chapter-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03762",
+  "file": "corpus/danielrosehill_Claude-Budgeting-Plugin__agents_report-generator.md",
+  "repo": "danielrosehill/Claude-Budgeting-Plugin",
+  "path": "agents/report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03763",
+  "file": "corpus/danielrosehill_Iran-Israel-War-2026-OSINT-Data__.claude_agents_analysis-report-updater.md",
+  "repo": "danielrosehill/Iran-Israel-War-2026-OSINT-Data",
+  "path": ".claude/agents/analysis-report-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03764",
+  "file": "corpus/danielrosehill_Iran-Israel-War-2026-OSINT-Data__.claude_agents_repo-docs-guardian.md",
+  "repo": "danielrosehill/Iran-Israel-War-2026-OSINT-Data",
+  "path": ".claude/agents/repo-docs-guardian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03765",
+  "file": "corpus/danielukea_.dotfiles__agents_.agents_skills_active-admin_references_arbre-decorators-authorization.md",
+  "repo": "danielukea/.dotfiles",
+  "path": "agents/.agents/skills/active-admin/references/arbre-decorators-authorization.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03766",
+  "file": "corpus/dankofly_Neuro-NLP-booster__agents_neuro-copywriter.md",
+  "repo": "dankofly/Neuro-NLP-booster",
+  "path": "agents/neuro-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03767",
+  "file": "corpus/dannyzia_carenet2__.github_agents_migration-author.agent.md",
+  "repo": "dannyzia/carenet2",
+  "path": ".github/agents/migration-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03768",
+  "file": "corpus/darioairoldi_Learn__.github_agents_01.00-article-writing_documentation-builder.agent.md",
+  "repo": "darioairoldi/Learn",
+  "path": ".github/agents/01.00-article-writing/documentation-builder.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03769",
+  "file": "corpus/darisadam_sonar-swift__.claude_agents_sonar-rule-author.md",
+  "repo": "darisadam/sonar-swift",
+  "path": ".claude/agents/sonar-rule-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

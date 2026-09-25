@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04530",
+  "file": "corpus/moonseer_program-signal__agents_author_base-author.md",
+  "repo": "moonseer/program-signal",
+  "path": "agents/author/base-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04531",
+  "file": "corpus/mordecai2508_gestion-logistica__.claude_agents_spec_author.md",
+  "repo": "mordecai2508/gestion-logistica",
+  "path": ".claude/agents/spec_author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04532",
+  "file": "corpus/mostafaelbesh_claude-code-subagents-course__.claude_agents_copywriter.md",
+  "repo": "mostafaelbesh/claude-code-subagents-course",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04533",
+  "file": "corpus/mpcs2013_decisya__.claude_agents_tech-writer.md",
+  "repo": "mpcs2013/decisya",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04534",
+  "file": "corpus/mreimitz_elabs-components__.codex_agents_brand-ui-docs-writer.toml",
+  "repo": "mreimitz/elabs-components",
+  "path": ".codex/agents/brand-ui-docs-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04535",
+  "file": "corpus/mrmsoc09_Kai__.codex_agents_reporting_agent.toml",
+  "repo": "mrmsoc09/Kai",
+  "path": ".codex/agents/reporting_agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04536",
+  "file": "corpus/mrpoptart_Entropy__.claude_agents_voice-editor.md",
+  "repo": "mrpoptart/Entropy",
+  "path": ".claude/agents/voice-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04537",
+  "file": "corpus/mrshuffhines-byte_tribal-cowboy-webhook__agents_copywriter-agent 2.md",
+  "repo": "mrshuffhines-byte/tribal-cowboy-webhook",
+  "path": "agents/copywriter-agent 2.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04538",
+  "file": "corpus/mrwogu_xiaomi-smart-fan-card__.claude_agents_documentation-editor.md",
+  "repo": "mrwogu/xiaomi-smart-fan-card",
+  "path": ".claude/agents/documentation-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04539",
+  "file": "corpus/murasamelabo_pptcreater__.github_agents_deck-copywriter.agent.md",
+  "repo": "murasamelabo/pptcreater",
+  "path": ".github/agents/deck-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

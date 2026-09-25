@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00180",
+  "file": "corpus/willtheorangeguy_Apache-File-Directory__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Apache-File-Directory",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 5,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00181",
+  "file": "corpus/GulajavaMinistudio_taaruf-kreator-cv-sourcecode__.github_agents_DocumentationWriter.agent.md",
+  "repo": "GulajavaMinistudio/taaruf-kreator-cv-sourcecode",
+  "path": ".github/agents/DocumentationWriter.agent.md",
+  "stars": 4,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00182",
+  "file": "corpus/pascalvanderheiden_code-under-construction-hackathon__.github_agents_reporter.agent.md",
+  "repo": "pascalvanderheiden/code-under-construction-hackathon",
+  "path": ".github/agents/reporter.agent.md",
+  "stars": 4,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00183",
+  "file": "corpus/LimiNode_log-it-cpp__.claude_agents_writer.md",
+  "repo": "LimiNode/log-it-cpp",
+  "path": ".claude/agents/writer.md",
+  "stars": 3,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00184",
+  "file": "corpus/llipe_dev-tasks__.claude_agents_technical-writer.md",
+  "repo": "llipe/dev-tasks",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00185",
+  "file": "corpus/nanikasheila_copilot-cli-workflow-framework__.github_agents_writer.agent.md",
+  "repo": "nanikasheila/copilot-cli-workflow-framework",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00186",
+  "file": "corpus/yzxoi_holos-research__agents_editor.md",
+  "repo": "yzxoi/holos-research",
+  "path": "agents/editor.md",
+  "stars": 2,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00187",
+  "file": "corpus/TikeDev_simmer__.claude_agents_document-csv-reporter.md",
+  "repo": "TikeDev/simmer",
+  "path": ".claude/agents/document-csv-reporter.md",
+  "stars": 2,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00188",
+  "file": "corpus/michelbr84_ClaudeMaxPower__.claude_agents_doc-writer.md",
+  "repo": "michelbr84/ClaudeMaxPower",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 2,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00189",
+  "file": "corpus/Cosnapdevelop_front_back__.claude_agents_.github_ISSUE_TEMPLATE_moderation_report.yml",
+  "repo": "Cosnapdevelop/front_back",
+  "path": ".claude/agents/.github/ISSUE_TEMPLATE/moderation_report.yml",
+  "stars": 1,
+  "copies_in_repos": 3
+ }
+]

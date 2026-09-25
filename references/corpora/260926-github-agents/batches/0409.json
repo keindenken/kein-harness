@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04090",
+  "file": "corpus/ianmerrill10_WaitingTheLongest__.github_agents_documentation-engineer.agent.md",
+  "repo": "ianmerrill10/WaitingTheLongest",
+  "path": ".github/agents/documentation-engineer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04091",
+  "file": "corpus/ianphil_mcp-code-execution-ts__.claude_agents_technical-writer.md",
+  "repo": "ianphil/mcp-code-execution-ts",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04092",
+  "file": "corpus/ibragimov-oasis_oasis-languages-jp__.github_agents_platform__github_workflows_resource-staleness-report.md",
+  "repo": "ibragimov-oasis/oasis-languages-jp",
+  "path": ".github/agents/platform/_github/workflows/resource-staleness-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04093",
+  "file": "corpus/ibragimov-oasis_oasis-languages-jp__.github_agents_platform_cookbook_copilot-sdk_nodejs_accessibility-report.md",
+  "repo": "ibragimov-oasis/oasis-languages-jp",
+  "path": ".github/agents/platform/cookbook/copilot-sdk/nodejs/accessibility-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04094",
+  "file": "corpus/icekidtech_connectX__.github_agents_technical-writer.agent.md",
+  "repo": "icekidtech/connectX",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04095",
+  "file": "corpus/idealic-ai_engine__agents_writer.md",
+  "repo": "idealic-ai/engine",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04096",
+  "file": "corpus/idjorgon_study-assistant__.github_agents_docs-agent.md",
+  "repo": "idjorgon/study-assistant",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04097",
+  "file": "corpus/iehality_RecursionTheory__.codex_agents_writer.toml",
+  "repo": "iehality/RecursionTheory",
+  "path": ".codex/agents/writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04098",
+  "file": "corpus/iesodias_gerador-conteudo__.github_agents_pesquisador-de-docs.md",
+  "repo": "iesodias/gerador-conteudo",
+  "path": ".github/agents/pesquisador-de-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04099",
+  "file": "corpus/illuminais_senac-tecnico-ia__.github_agents_deprecated_agentes_editor-tamanho.agent.md",
+  "repo": "illuminais/senac-tecnico-ia",
+  "path": ".github/agents/deprecated/agentes/editor-tamanho.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

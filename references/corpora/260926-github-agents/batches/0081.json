@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00810",
+  "file": "corpus/undeadlist_claude-code-agents__agents_pr-writer.md",
+  "repo": "undeadlist/claude-code-agents",
+  "path": "agents/pr-writer.md",
+  "stars": 149,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00811",
+  "file": "corpus/github_gh-aw-firewall__.github_agents_technical-writer.md",
+  "repo": "github/gh-aw-firewall",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 147,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00812",
+  "file": "corpus/polydera_trueform__agents_documentation_architecture.md",
+  "repo": "polydera/trueform",
+  "path": "agents/documentation_architecture.md",
+  "stars": 146,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00813",
+  "file": "corpus/systemcrash92_DogSprite__.claude_agents_editor-architect.md",
+  "repo": "systemcrash92/DogSprite",
+  "path": ".claude/agents/editor-architect.md",
+  "stars": 146,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00814",
+  "file": "corpus/dynamics365ninja_d365fo-mcp-server__.claude_agents_eval-author.md",
+  "repo": "dynamics365ninja/d365fo-mcp-server",
+  "path": ".claude/agents/eval-author.md",
+  "stars": 145,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00815",
+  "file": "corpus/letehaha_moneymatter__.claude_agents_i18n-editor.md",
+  "repo": "letehaha/moneymatter",
+  "path": ".claude/agents/i18n-editor.md",
+  "stars": 145,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00816",
+  "file": "corpus/flonat_flonat-research__.claude_agents_references_paper-critic_report-format.md",
+  "repo": "flonat/flonat-research",
+  "path": ".claude/agents/references/paper-critic/report-format.md",
+  "stars": 144,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00817",
+  "file": "corpus/flonat_flonat-research__.claude_agents_references_peer-reviewer_report-template.md",
+  "repo": "flonat/flonat-research",
+  "path": ".claude/agents/references/peer-reviewer/report-template.md",
+  "stars": 144,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00818",
+  "file": "corpus/flonat_flonat-research__.claude_agents_references_proposal-reviewer_report-template.md",
+  "repo": "flonat/flonat-research",
+  "path": ".claude/agents/references/proposal-reviewer/report-template.md",
+  "stars": 144,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00819",
+  "file": "corpus/flonat_flonat-research__.claude_agents_references_referee2-reviewer_report-template.md",
+  "repo": "flonat/flonat-research",
+  "path": ".claude/agents/references/referee2-reviewer/report-template.md",
+  "stars": 144,
+  "copies_in_repos": 1
+ }
+]

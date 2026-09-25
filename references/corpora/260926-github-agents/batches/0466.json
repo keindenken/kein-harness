@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04660",
+  "file": "corpus/p-aldighieri_PaperbackWriter__.codex_agents_motivation-writer.toml",
+  "repo": "p-aldighieri/PaperbackWriter",
+  "path": ".codex/agents/motivation-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04661",
+  "file": "corpus/paapsdiretoria-crypto_site-paaps__.claude_agents_copywriter-paaps.md",
+  "repo": "paapsdiretoria-crypto/site-paaps",
+  "path": ".claude/agents/copywriter-paaps.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04662",
+  "file": "corpus/pablostefan_linkedin__.github_agents_linkedin-post-editor.agent.md",
+  "repo": "pablostefan/linkedin",
+  "path": ".github/agents/linkedin-post-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04663",
+  "file": "corpus/pablotoledo_cv-vivo__.claude_agents_linkedin-editor.md",
+  "repo": "pablotoledo/cv-vivo",
+  "path": ".claude/agents/linkedin-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04664",
+  "file": "corpus/pakuula_calc_dsl__.github_agents_writer.agent.md",
+  "repo": "pakuula/calc_dsl",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04665",
+  "file": "corpus/paladini_mcp-me__agents_intro-writer.md",
+  "repo": "paladini/mcp-me",
+  "path": "agents/intro-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04666",
+  "file": "corpus/pank-suai_lab_comp_graphics_1__.opencode_agent_report.md",
+  "repo": "pank-suai/lab_comp_graphics_1",
+  "path": ".opencode/agent/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04667",
+  "file": "corpus/pank-suai_lab_comp_graphics_1__.opencode_agent_writer.md",
+  "repo": "pank-suai/lab_comp_graphics_1",
+  "path": ".opencode/agent/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04668",
+  "file": "corpus/panksooungman-dot_AI-Web-Master__agents_technical-writer.md",
+  "repo": "panksooungman-dot/AI-Web-Master",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04669",
+  "file": "corpus/pannatron_company-agent-core__.claude_agents_copywriter.md",
+  "repo": "pannatron/company-agent-core",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00700",
+  "file": "corpus/iota-uz_iota-sdk__.claude_agents_editor.md",
+  "repo": "iota-uz/iota-sdk",
+  "path": ".claude/agents/editor.md",
+  "stars": 464,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00701",
+  "file": "corpus/josstei_maestro-orchestrate__agents_content_strategist.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "agents/content_strategist.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00702",
+  "file": "corpus/josstei_maestro-orchestrate__agents_copywriter.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "agents/copywriter.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00703",
+  "file": "corpus/josstei_maestro-orchestrate__agents_technical_writer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "agents/technical_writer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00704",
+  "file": "corpus/josstei_maestro-orchestrate__claude_agents_content-strategist.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/agents/content-strategist.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00705",
+  "file": "corpus/josstei_maestro-orchestrate__claude_agents_copywriter.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/agents/copywriter.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00706",
+  "file": "corpus/josstei_maestro-orchestrate__claude_agents_technical-writer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/agents/technical-writer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00707",
+  "file": "corpus/frenzymath_Danus__agents_skills_human-summary_REPORT_WRITER_PROMPT.md",
+  "repo": "frenzymath/Danus",
+  "path": "agents/skills/human-summary/REPORT_WRITER_PROMPT.md",
+  "stars": 450,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00708",
+  "file": "corpus/frenzymath_Danus__agents_skills_write-paper_roles_PAPER_WRITER_PROMPT.md",
+  "repo": "frenzymath/Danus",
+  "path": "agents/skills/write-paper/roles/PAPER_WRITER_PROMPT.md",
+  "stars": 450,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00709",
+  "file": "corpus/litebase_litebase__.github_agents_docs.agent.md",
+  "repo": "litebase/litebase",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 448,
+  "copies_in_repos": 1
+ }
+]

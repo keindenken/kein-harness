@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01400",
+  "file": "corpus/s-hiraoku_synapse-a2a__.claude_agents_docs-excellence-architect.md",
+  "repo": "s-hiraoku/synapse-a2a",
+  "path": ".claude/agents/docs-excellence-architect.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01401",
+  "file": "corpus/sousaakira_Retro-Studio__agents_documentation.md",
+  "repo": "sousaakira/Retro-Studio",
+  "path": "agents/documentation.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01402",
+  "file": "corpus/synesenom_ran__.claude_agents_suggest-docs.md",
+  "repo": "synesenom/ran",
+  "path": ".claude/agents/suggest-docs.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01403",
+  "file": "corpus/ujuc_dotrc__agents_docs_reports_authoring-criteria-baseline.md",
+  "repo": "ujuc/dotrc",
+  "path": "agents/docs/reports/authoring-criteria-baseline.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01404",
+  "file": "corpus/us_shannon-on-claude-code__.claude_agents_report.md",
+  "repo": "us/shannon-on-claude-code",
+  "path": ".claude/agents/report.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01405",
+  "file": "corpus/xmtplabs_convos-ios__.claude_agents_prd-writer.md",
+  "repo": "xmtplabs/convos-ios",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 15,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01406",
+  "file": "corpus/Dynokostya_just-works__.codex_agents_prompt-writer.toml",
+  "repo": "Dynokostya/just-works",
+  "path": ".codex/agents/prompt-writer.toml",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01407",
+  "file": "corpus/Dynokostya_just-works__.codex_agents_swift-code-writer.toml",
+  "repo": "Dynokostya/just-works",
+  "path": ".codex/agents/swift-code-writer.toml",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01408",
+  "file": "corpus/Guust-Franssens_tableau-to-powerbi-migration__.github_agents_pbi-report-builder.agent.md",
+  "repo": "Guust-Franssens/tableau-to-powerbi-migration",
+  "path": ".github/agents/pbi-report-builder.agent.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01409",
+  "file": "corpus/TrayHard_d2r-ultra-utility__.claude_agents_std-docs-researcher.md",
+  "repo": "TrayHard/d2r-ultra-utility",
+  "path": ".claude/agents/std-docs-researcher.md",
+  "stars": 14,
+  "copies_in_repos": 1
+ }
+]

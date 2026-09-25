@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03110",
+  "file": "corpus/Muratayuduki_SpendOps_Dashboard__.codex_agents_document-author.toml",
+  "repo": "Muratayuduki/SpendOps_Dashboard",
+  "path": ".codex/agents/document-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03111",
+  "file": "corpus/MyLoVoid_BoardGameAssistant__.claude_agents_documentation-writer.md",
+  "repo": "MyLoVoid/BoardGameAssistant",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03112",
+  "file": "corpus/MysMon_Spec-Workflow-Toolkit__agents_technical-writer.md",
+  "repo": "MysMon/Spec-Workflow-Toolkit",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03113",
+  "file": "corpus/MythyaVerse_marketing-video-generation-pipeline__.claude_agents_video-editor.md",
+  "repo": "MythyaVerse/marketing-video-generation-pipeline",
+  "path": ".claude/agents/video-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03114",
+  "file": "corpus/NAYTOUX_Copilot-AI-Agent__.github_agents_Documentation-Worker.agent.md",
+  "repo": "NAYTOUX/Copilot-AI-Agent",
+  "path": ".github/agents/Documentation-Worker.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03115",
+  "file": "corpus/NaHSIT_RadarUpperComputer__.claude_agents_report-writer.md",
+  "repo": "NaHSIT/RadarUpperComputer",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03116",
+  "file": "corpus/Nabi-Rahmani_my-portfolio__.claude_agents_technical-writer.md",
+  "repo": "Nabi-Rahmani/my-portfolio",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03117",
+  "file": "corpus/Nameissammy_AgroCare__.github_agents_disease-report-ui-fixer.agent.md",
+  "repo": "Nameissammy/AgroCare",
+  "path": ".github/agents/disease-report-ui-fixer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03118",
+  "file": "corpus/Nano3559_InventarioAutopartesI__.opencode_agent_docs.md",
+  "repo": "Nano3559/InventarioAutopartesI",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03119",
+  "file": "corpus/Nasche12_agents-hq__.claude_agents_wochenreport.md",
+  "repo": "Nasche12/agents-hq",
+  "path": ".claude/agents/wochenreport.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

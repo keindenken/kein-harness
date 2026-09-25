@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00230",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-doc-synthesizer.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-doc-synthesizer.md",
+  "stars": 64459,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00231",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-doc-classifier.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-doc-classifier.md",
+  "stars": 64459,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00232",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-doc-verifier.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-doc-verifier.md",
+  "stars": 64459,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00233",
+  "file": "corpus/Imbad0202_academic-research-skills__deep-research_agents_editor_in_chief_agent.md",
+  "repo": "Imbad0202/academic-research-skills",
+  "path": "deep-research/agents/editor_in_chief_agent.md",
+  "stars": 49461,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00234",
+  "file": "corpus/github_awesome-copilot__agents_linkedin-post-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/linkedin-post-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00235",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_deep-research-team_report-generator.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/deep-research-team/report-generator.md",
+  "stars": 31792,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00236",
+  "file": "corpus/alirezarezvani_claude-skills__docs_agents_cs-skill-author.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "docs/agents/cs-skill-author.md",
+  "stars": 26453,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00237",
+  "file": "corpus/alirezarezvani_claude-skills__productivity_handoff_agents_cs-handoff-author.md",
+  "repo": "alirezarezvani/claude-skills",
+  "path": "productivity/handoff/agents/cs-handoff-author.md",
+  "stars": 26453,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00238",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__.claude_agents_narrative-director.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": ".claude/agents/narrative-director.md",
+  "stars": 25438,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00239",
+  "file": "corpus/NVIDIA_OpenShell__.claude_agents_arch-doc-writer.md",
+  "repo": "NVIDIA/OpenShell",
+  "path": ".claude/agents/arch-doc-writer.md",
+  "stars": 8796,
+  "copies_in_repos": 2
+ }
+]

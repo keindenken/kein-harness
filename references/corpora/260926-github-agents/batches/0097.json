@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00970",
+  "file": "corpus/kabegame_kabegame__.claude_agents_docs-researcher.md",
+  "repo": "kabegame/kabegame",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 72,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00971",
+  "file": "corpus/kabegame_kabegame__.claude_agents_docs-writer.md",
+  "repo": "kabegame/kabegame",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 72,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00972",
+  "file": "corpus/tranhieutt_software_development_department__.claude_agents_tech-writer.md",
+  "repo": "tranhieutt/software_development_department",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 72,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00973",
+  "file": "corpus/elastic_elastic-docs-skills__.github_agents_docs-freshness-checker.agent.md",
+  "repo": "elastic/elastic-docs-skills",
+  "path": ".github/agents/docs-freshness-checker.agent.md",
+  "stars": 71,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00974",
+  "file": "corpus/the-omega-institute_automath__.claude_agents_pub-editorial.md",
+  "repo": "the-omega-institute/automath",
+  "path": ".claude/agents/pub-editorial.md",
+  "stars": 71,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00975",
+  "file": "corpus/ursisterbtw_ccprompts__.claude_agents_documentation-writer.md",
+  "repo": "ursisterbtw/ccprompts",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 70,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00976",
+  "file": "corpus/career-ops-hq_career-ops-docs__.github_agents_docs-drift.agent.md",
+  "repo": "career-ops-hq/career-ops-docs",
+  "path": ".github/agents/docs-drift.agent.md",
+  "stars": 69,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00977",
+  "file": "corpus/donkeyProgramming_TheAssetEditor__.github_agents_theasseteditor.agent.md",
+  "repo": "donkeyProgramming/TheAssetEditor",
+  "path": ".github/agents/theasseteditor.agent.md",
+  "stars": 69,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00978",
+  "file": "corpus/john-paul-ruf_novel-engine__agents_AUTHOR-PROFILE.md",
+  "repo": "john-paul-ruf/novel-engine",
+  "path": "agents/AUTHOR-PROFILE.md",
+  "stars": 69,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00979",
+  "file": "corpus/nais_doc__.github_agents_docs-qa.agent.md",
+  "repo": "nais/doc",
+  "path": ".github/agents/docs-qa.agent.md",
+  "stars": 68,
+  "copies_in_repos": 1
+ }
+]

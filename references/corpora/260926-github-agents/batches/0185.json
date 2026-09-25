@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01850",
+  "file": "corpus/adeerkhan_vitruvius__.opencode_agent_writer.md",
+  "repo": "adeerkhan/vitruvius",
+  "path": ".opencode/agent/writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01851",
+  "file": "corpus/bensonz_stock-analysis__agents_DEEP_REPORT.md",
+  "repo": "bensonz/stock-analysis",
+  "path": "agents/DEEP_REPORT.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01852",
+  "file": "corpus/brainbytes-dev_everything-claude-marketing__agents_copywriter.md",
+  "repo": "brainbytes-dev/everything-claude-marketing",
+  "path": "agents/copywriter.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01853",
+  "file": "corpus/bschimke95_jara__.github_agents_documentation-expert.agent.md",
+  "repo": "bschimke95/jara",
+  "path": ".github/agents/documentation-expert.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01854",
+  "file": "corpus/contentful_optimization__.codex_agents_sdk-knowledge-author.toml",
+  "repo": "contentful/optimization",
+  "path": ".codex/agents/sdk-knowledge-author.toml",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01855",
+  "file": "corpus/coreycoto_git-slop__.codex_agents_docs-taxonomist.toml",
+  "repo": "coreycoto/git-slop",
+  "path": ".codex/agents/docs-taxonomist.toml",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01856",
+  "file": "corpus/corpora-inc_encorpora__.claude_agents_curriculum-author.md",
+  "repo": "corpora-inc/encorpora",
+  "path": ".claude/agents/curriculum-author.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01857",
+  "file": "corpus/csarcrr_invoicing-integration__.claude_agents_docs-writer.md",
+  "repo": "csarcrr/invoicing-integration",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01858",
+  "file": "corpus/cue-3_re-cue__.github_agents_documentation.agent.md",
+  "repo": "cue-3/re-cue",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01859",
+  "file": "corpus/danielrosehill_Claude-Sub-Agent-Network__agents_with-frontmatter_ux_css-editor.md",
+  "repo": "danielrosehill/Claude-Sub-Agent-Network",
+  "path": "agents/with-frontmatter/ux/css-editor.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

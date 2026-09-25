@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04440",
+  "file": "corpus/mashbynz_practice-ape__.github_agents_revenue-reporter.agent.md",
+  "repo": "mashbynz/practice-ape",
+  "path": ".github/agents/revenue-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04441",
+  "file": "corpus/mashbynz_practice-ape__.github_agents_team-reporter.agent.md",
+  "repo": "mashbynz/practice-ape",
+  "path": ".github/agents/team-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04442",
+  "file": "corpus/mashbynz_practice-ape__.github_agents_wip-reporter.agent.md",
+  "repo": "mashbynz/practice-ape",
+  "path": ".github/agents/wip-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04443",
+  "file": "corpus/masta-g3_rules__agents_docs-critic.md",
+  "repo": "masta-g3/rules",
+  "path": "agents/docs-critic.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04444",
+  "file": "corpus/matajoh_boc-physics__.github_agents_editor-lens.agent.md",
+  "repo": "matajoh/boc-physics",
+  "path": ".github/agents/editor-lens.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04445",
+  "file": "corpus/matasoanl2_BBB__.github_agents_reporting.agent.md",
+  "repo": "matasoanl2/BBB",
+  "path": ".github/agents/reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04446",
+  "file": "corpus/mateusmacedo_dmpf__.claude_agents_dmpf-context-author.md",
+  "repo": "mateusmacedo/dmpf",
+  "path": ".claude/agents/dmpf-context-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04447",
+  "file": "corpus/matheusvinicius1406-cpu_sexta-feira-os__.claude_agents_documentation.md",
+  "repo": "matheusvinicius1406-cpu/sexta-feira-os",
+  "path": ".claude/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04448",
+  "file": "corpus/mathiasb_cobalt-dingo__.claude_agents_read-only-reporter.md",
+  "repo": "mathiasb/cobalt-dingo",
+  "path": ".claude/agents/read-only-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04449",
+  "file": "corpus/mathisthomsen_historian-app__.claude_agents_ds-pattern-author.md",
+  "repo": "mathisthomsen/historian-app",
+  "path": ".claude/agents/ds-pattern-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

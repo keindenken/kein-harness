@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02300",
+  "file": "corpus/GrupoUS_aegiswallet__.github_agents_documentation.agent.md",
+  "repo": "GrupoUS/aegiswallet",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02301",
+  "file": "corpus/HeyItsGilbert_GilbertSanchezDotCom__.github_agents_BlogEditor.agent.md",
+  "repo": "HeyItsGilbert/GilbertSanchezDotCom",
+  "path": ".github/agents/BlogEditor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02302",
+  "file": "corpus/Hitaishkg_indian-trader__.claude_agents_docs-agent.md",
+  "repo": "Hitaishkg/indian-trader",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02303",
+  "file": "corpus/HomericIntelligence_Keystone__.claude_agents_documentation-specialist.md",
+  "repo": "HomericIntelligence/Keystone",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02304",
+  "file": "corpus/HomericIntelligence_Keystone__.claude_agents_junior-documentation-engineer.md",
+  "repo": "HomericIntelligence/Keystone",
+  "path": ".claude/agents/junior-documentation-engineer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02305",
+  "file": "corpus/IAbuElRuzz_CodingAgents__.claude_agents_ROLE_DOCUMENTATION_SPECIALIST.md",
+  "repo": "IAbuElRuzz/CodingAgents",
+  "path": ".claude/agents/ROLE_DOCUMENTATION_SPECIALIST.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02306",
+  "file": "corpus/Icontre2_fantasy-copilot__.claude_agents_copywriter.md",
+  "repo": "Icontre2/fantasy-copilot",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02307",
+  "file": "corpus/IsraelIyonsi_claude-engineering-workflow__agents_design_brand-copywriter.md",
+  "repo": "IsraelIyonsi/claude-engineering-workflow",
+  "path": "agents/design/brand-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02308",
+  "file": "corpus/JaZeR-444_scss-palette-library__.claude_agents_documentation-writer.md",
+  "repo": "JaZeR-444/scss-palette-library",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02309",
+  "file": "corpus/JaviMontano_mao-sovereign-architect__agents_technical-writer.md",
+  "repo": "JaviMontano/mao-sovereign-architect",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03710",
+  "file": "corpus/cleerox-svg_averrow__.claude_agents_web-copywriter.md",
+  "repo": "cleerox-svg/averrow",
+  "path": ".claude/agents/web-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03711",
+  "file": "corpus/cloudnnj_marketplace__agents_prd-writer_prd-writer.md",
+  "repo": "cloudnnj/marketplace",
+  "path": "agents/prd-writer/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03712",
+  "file": "corpus/cmillstead_business-team__agents_bt-copywriter.md",
+  "repo": "cmillstead/business-team",
+  "path": "agents/bt-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03713",
+  "file": "corpus/cmurphy88_gym-pad__.claude_agents_documentation-wizard.md",
+  "repo": "cmurphy88/gym-pad",
+  "path": ".claude/agents/documentation-wizard.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03714",
+  "file": "corpus/cnfairfax_Recording-Transcriber__.github_agents_docs.agent.md",
+  "repo": "cnfairfax/Recording-Transcriber",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03715",
+  "file": "corpus/codeking481-droid_alphatekx__.opencode_agent_green-card-reporter.md",
+  "repo": "codeking481-droid/alphatekx",
+  "path": ".opencode/agent/green-card-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03716",
+  "file": "corpus/codengine-technologies_HealthPlatform.Forge__agents_technical-writer.md",
+  "repo": "codengine-technologies/HealthPlatform.Forge",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03717",
+  "file": "corpus/codewriter3000_carbon-type__.github_agents_editor-core.agent.md",
+  "repo": "codewriter3000/carbon-type",
+  "path": ".github/agents/editor-core.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03718",
+  "file": "corpus/cody-test-org_datadict__.github_agents_phase5-documentation.agent.md",
+  "repo": "cody-test-org/datadict",
+  "path": ".github/agents/phase5-documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03719",
+  "file": "corpus/cogni-dao_cogni-signal-evm-contracts__.claude_agents_git-message-author.md",
+  "repo": "cogni-dao/cogni-signal-evm-contracts",
+  "path": ".claude/agents/git-message-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

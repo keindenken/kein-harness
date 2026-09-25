@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01320",
+  "file": "corpus/aayushostwal_nexus__agents_prd-writer-critic.md",
+  "repo": "aayushostwal/nexus",
+  "path": "agents/prd-writer-critic.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01321",
+  "file": "corpus/abdes_DroidNet__.github_agents_docs-agent.md",
+  "repo": "abdes/DroidNet",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01322",
+  "file": "corpus/betterup_codex-cli-subagents__agents_file-writer.md",
+  "repo": "betterup/codex-cli-subagents",
+  "path": "agents/file-writer.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01323",
+  "file": "corpus/chris-mclennan_mnml__.claude_agents_doc-updater.md",
+  "repo": "chris-mclennan/mnml",
+  "path": ".claude/agents/doc-updater.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01324",
+  "file": "corpus/ciscoittech_claude-agent-framework__.claude_agents_documentation-specialist.md",
+  "repo": "ciscoittech/claude-agent-framework",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01325",
+  "file": "corpus/neurawork-git_n8n-autopilot__agents_n8n-author.md",
+  "repo": "neurawork-git/n8n-autopilot",
+  "path": "agents/n8n-author.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01326",
+  "file": "corpus/shinpr_rashomon__agents_report-generator.md",
+  "repo": "shinpr/rashomon",
+  "path": "agents/report-generator.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01327",
+  "file": "corpus/shinpr_rashomon__agents_skill-eval-reporter.md",
+  "repo": "shinpr/rashomon",
+  "path": "agents/skill-eval-reporter.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01328",
+  "file": "corpus/stdgraph_graph-v3__.github_agents_archive_undirected_adjlist_conformance_report.md",
+  "repo": "stdgraph/graph-v3",
+  "path": ".github/agents/archive/undirected_adjlist_conformance_report.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01329",
+  "file": "corpus/trailcode_EzyCad__agents_conventions_user-docs-sync.md",
+  "repo": "trailcode/EzyCad",
+  "path": "agents/conventions/user-docs-sync.md",
+  "stars": 18,
+  "copies_in_repos": 1
+ }
+]

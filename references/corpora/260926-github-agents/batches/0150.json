@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01500",
+  "file": "corpus/ahostbr_kuroryuu-public__.claude_agents_prd-reporter.md",
+  "repo": "ahostbr/kuroryuu-public",
+  "path": ".claude/agents/prd-reporter.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01501",
+  "file": "corpus/asysta-act_agent-flow__agents_spec-writer.md",
+  "repo": "asysta-act/agent-flow",
+  "path": "agents/spec-writer.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01502",
+  "file": "corpus/carlsz_ux-agent-skills__agents_cuj-author.md",
+  "repo": "carlsz/ux-agent-skills",
+  "path": "agents/cuj-author.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01503",
+  "file": "corpus/daochild_agents-config__.opencode_agent_docs.md",
+  "repo": "daochild/agents-config",
+  "path": ".opencode/agent/docs.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01504",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-07-16-39-09.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-07-16-39-09.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01505",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-13-16-13-41.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-13-16-13-41.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01506",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-15-21-03-08.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-15-21-03-08.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01507",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-18-01-54-55.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-18-01-54-55.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01508",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-20-20-41-53.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-20-20-41-53.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01509",
+  "file": "corpus/didier-durand_opencode-vibe__agents_opencode-moltbook-report-2026-02-22-12-04-15.md",
+  "repo": "didier-durand/opencode-vibe",
+  "path": "agents/opencode-moltbook-report-2026-02-22-12-04-15.md",
+  "stars": 12,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05110",
+  "file": "corpus/usetheodev_judge-codex__agents_report-writer.md",
+  "repo": "usetheodev/judge-codex",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05111",
+  "file": "corpus/usopenmarket-a11y_finpilot__.claude_agents_qa-docs-agent.md",
+  "repo": "usopenmarket-a11y/finpilot",
+  "path": ".claude/agents/qa-docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05112",
+  "file": "corpus/usrrname_agent-skills__agents_adr-author.md",
+  "repo": "usrrname/agent-skills",
+  "path": "agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05113",
+  "file": "corpus/usst-yk_cumcm-math-modeling-codex-skill__agents_abstract_writer.md",
+  "repo": "usst-yk/cumcm-math-modeling-codex-skill",
+  "path": "agents/abstract_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05114",
+  "file": "corpus/usst-yk_cumcm-math-modeling-codex-skill__agents_writer.md",
+  "repo": "usst-yk/cumcm-math-modeling-codex-skill",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05115",
+  "file": "corpus/v-gittykat_trabalho-em-grupo-com-ia__.github_agents_report-agent.md",
+  "repo": "v-gittykat/trabalho-em-grupo-com-ia",
+  "path": ".github/agents/report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05116",
+  "file": "corpus/v0idsnacks_copilot-agent-foundry__.github_agents_docs-writer.agent.md",
+  "repo": "v0idsnacks/copilot-agent-foundry",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05117",
+  "file": "corpus/vadimpiven_interview-tasks__.claude_agents_instructions-editor.md",
+  "repo": "vadimpiven/interview-tasks",
+  "path": ".claude/agents/instructions-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05118",
+  "file": "corpus/valado_pantheon-mcp__agents_growth_marketing-copywriter.md",
+  "repo": "valado/pantheon-mcp",
+  "path": "agents/growth/marketing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05119",
+  "file": "corpus/vanctran_ra11y__.claude_agents_doc-writer.md",
+  "repo": "vanctran/ra11y",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04480",
+  "file": "corpus/metal-gogo_pickem-engine__.claude_agents_documentation-editor.md",
+  "repo": "metal-gogo/pickem-engine",
+  "path": ".claude/agents/documentation-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04481",
+  "file": "corpus/metasystem-core_core-os__.claude_agents_domain_irata-agent_IRATA_ANNEX_R_PROCESSING_REPORT.md",
+  "repo": "metasystem-core/core-os",
+  "path": ".claude/agents/domain/irata-agent/IRATA_ANNEX_R_PROCESSING_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04482",
+  "file": "corpus/metasystem-core_core-os__.claude_agents_domain_irata-agent_IRATA_TRACEABLE_PROCESSING_REPORT.md",
+  "repo": "metasystem-core/core-os",
+  "path": ".claude/agents/domain/irata-agent/IRATA_TRACEABLE_PROCESSING_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04483",
+  "file": "corpus/mia-cx_rule-composer__agents_quartz-docs-author.md",
+  "repo": "mia-cx/rule-composer",
+  "path": "agents/quartz-docs-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04484",
+  "file": "corpus/mia-cx_rule-composer__agents_skill-author.md",
+  "repo": "mia-cx/rule-composer",
+  "path": "agents/skill-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04485",
+  "file": "corpus/michael-haufschild-gib_MultiScoper__.claude_agents_technical-writer.md",
+  "repo": "michael-haufschild-gib/MultiScoper",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04486",
+  "file": "corpus/michaelcdippenaar_property_manager__.claude_agents_copywriter.md",
+  "repo": "michaelcdippenaar/property_manager",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04487",
+  "file": "corpus/michaeljabbour_amplifier-bundle-harness-machine__agents_spec-writer.md",
+  "repo": "michaeljabbour/amplifier-bundle-harness-machine",
+  "path": "agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04488",
+  "file": "corpus/michelabboud_claude-code-helper__agents_domain-experts_documentation-expert.md",
+  "repo": "michelabboud/claude-code-helper",
+  "path": "agents/domain-experts/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04489",
+  "file": "corpus/michelbr84_arcadeforge__.claude_agents_doc-writer.md",
+  "repo": "michelbr84/arcadeforge",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

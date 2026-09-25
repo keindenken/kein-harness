@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00720",
+  "file": "corpus/J-Tech-Japan_Sekiban__.claude_agents_tattletale-reporter.md",
+  "repo": "J-Tech-Japan/Sekiban",
+  "path": ".claude/agents/tattletale-reporter.md",
+  "stars": 379,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00721",
+  "file": "corpus/nth5693_gemini-kit__agents_docs-manager.md",
+  "repo": "nth5693/gemini-kit",
+  "path": "agents/docs-manager.md",
+  "stars": 374,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00722",
+  "file": "corpus/thoughtfulllc_gridland__.claude_agents_docs-mirror.md",
+  "repo": "thoughtfulllc/gridland",
+  "path": ".claude/agents/docs-mirror.md",
+  "stars": 362,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00723",
+  "file": "corpus/verifywise-ai_verifywise__agents_technical-writer.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/technical-writer.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00724",
+  "file": "corpus/verifywise-ai_verifywise__agents_ux-writer-content-strategist.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/ux-writer-content-strategist.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00725",
+  "file": "corpus/athola_claude-night-market__.claude_agents_documentation-mode.md",
+  "repo": "athola/claude-night-market",
+  "path": ".claude/agents/documentation-mode.md",
+  "stars": 337,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00726",
+  "file": "corpus/athola_claude-night-market__plugins_scribe_agents_doc-editor.md",
+  "repo": "athola/claude-night-market",
+  "path": "plugins/scribe/agents/doc-editor.md",
+  "stars": 337,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00727",
+  "file": "corpus/athola_claude-night-market__plugins_scribe_agents_doc-verifier.md",
+  "repo": "athola/claude-night-market",
+  "path": "plugins/scribe/agents/doc-verifier.md",
+  "stars": 337,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00728",
+  "file": "corpus/athola_claude-night-market__plugins_spec-kit_agents_spec-analyzer.md",
+  "repo": "athola/claude-night-market",
+  "path": "plugins/spec-kit/agents/spec-analyzer.md",
+  "stars": 337,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00729",
+  "file": "corpus/Cloud-Architekt_EntraOps__.github_agents_entraops.report.agent.md",
+  "repo": "Cloud-Architekt/EntraOps",
+  "path": ".github/agents/entraops.report.agent.md",
+  "stars": 328,
+  "copies_in_repos": 1
+ }
+]

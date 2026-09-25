@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01170",
+  "file": "corpus/tradermonty_claude-market-agents__.claude_agents_earnings-analysis-reporter.md",
+  "repo": "tradermonty/claude-market-agents",
+  "path": ".claude/agents/earnings-analysis-reporter.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01171",
+  "file": "corpus/tradermonty_claude-market-agents__.claude_agents_report-video-generator.md",
+  "repo": "tradermonty/claude-market-agents",
+  "path": ".claude/agents/report-video-generator.md",
+  "stars": 31,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01172",
+  "file": "corpus/Fearvox_multica-ultimate-workbench__agents_outer_claude-docs.md",
+  "repo": "Fearvox/multica-ultimate-workbench",
+  "path": "agents/outer/claude-docs.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01173",
+  "file": "corpus/Fearvox_multica-ultimate-workbench__agents_outer_claude-docs.original.md",
+  "repo": "Fearvox/multica-ultimate-workbench",
+  "path": "agents/outer/claude-docs.original.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01174",
+  "file": "corpus/bdfinst_interactive-cd__.claude_agents_cd-evaluation-report.md",
+  "repo": "bdfinst/interactive-cd",
+  "path": ".claude/agents/cd-evaluation-report.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01175",
+  "file": "corpus/cuentoneta_cuentoneta__.claude_agents_documentation-writer.md",
+  "repo": "cuentoneta/cuentoneta",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01176",
+  "file": "corpus/cuentoneta_cuentoneta__.claude_agents_plan-writer.md",
+  "repo": "cuentoneta/cuentoneta",
+  "path": ".claude/agents/plan-writer.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01177",
+  "file": "corpus/sabahattink_antigravity-fullstack-hq__agents_documentation-writer.md",
+  "repo": "sabahattink/antigravity-fullstack-hq",
+  "path": "agents/documentation-writer.md",
+  "stars": 30,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01178",
+  "file": "corpus/Gen-Verse_PAST-Bench__agents_agent-zero_plugins__text_editor_prompts_agent.system.tool.text_editor.md",
+  "repo": "Gen-Verse/PAST-Bench",
+  "path": "agents/agent-zero/plugins/_text_editor/prompts/agent.system.tool.text_editor.md",
+  "stars": 29,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01179",
+  "file": "corpus/emmanuelgjr_genai_incidents__.claude_agents_docs-warden.md",
+  "repo": "emmanuelgjr/genai_incidents",
+  "path": ".claude/agents/docs-warden.md",
+  "stars": 29,
+  "copies_in_repos": 1
+ }
+]

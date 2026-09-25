@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03010",
+  "file": "corpus/KolorBee_LNU-SecLLM__agents_reporting-remediation.md",
+  "repo": "KolorBee/LNU-SecLLM",
+  "path": "agents/reporting-remediation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03011",
+  "file": "corpus/KoriSeng_zero-trust-data-exchange-prototype__.github_agents_project-governance-docs.agent.md",
+  "repo": "KoriSeng/zero-trust-data-exchange-prototype",
+  "path": ".github/agents/project-governance-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03012",
+  "file": "corpus/Koshux_Portfolio__.github_agents_journey-author.agent.md",
+  "repo": "Koshux/Portfolio",
+  "path": ".github/agents/journey-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03013",
+  "file": "corpus/Koshux_Portfolio__.github_agents_spec-author.agent.md",
+  "repo": "Koshux/Portfolio",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03014",
+  "file": "corpus/Koshux_screen-reader-mirror__.github_agents_journey-author.agent.md",
+  "repo": "Koshux/screen-reader-mirror",
+  "path": ".github/agents/journey-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03015",
+  "file": "corpus/Koshux_screen-reader-mirror__.github_agents_spec-author.agent.md",
+  "repo": "Koshux/screen-reader-mirror",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03016",
+  "file": "corpus/Krealsion_Zengine__agents_decisions_a-maker-authors-the-two-files.md",
+  "repo": "Krealsion/Zengine",
+  "path": "agents/decisions/a-maker-authors-the-two-files.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03017",
+  "file": "corpus/Krealsion_Zengine__agents_workshop_editor-switch.md",
+  "repo": "Krealsion/Zengine",
+  "path": "agents/workshop/editor-switch.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03018",
+  "file": "corpus/KrishBakshi_content-agent__.codex_agents_content-writer.md",
+  "repo": "KrishBakshi/content-agent",
+  "path": ".codex/agents/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03019",
+  "file": "corpus/Krishp091205_gemini-config__agents_omniroute_OmniRoute-release-v3.8.50_docs_i18n_da_docs_architecture_CODEBASE_DOCUMENTATION.md",
+  "repo": "Krishp091205/gemini-config",
+  "path": "agents/omniroute/OmniRoute-release-v3.8.50/docs/i18n/da/docs/architecture/CODEBASE_DOCUMENTATION.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

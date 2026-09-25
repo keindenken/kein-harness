@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02760",
+  "file": "corpus/CodePhobiia_claude-roblox-game-studio__.claude_agents_writer.md",
+  "repo": "CodePhobiia/claude-roblox-game-studio",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02761",
+  "file": "corpus/Colten-Covington_Buzz-Stack__.github_agents_documentation-agent.md",
+  "repo": "Colten-Covington/Buzz-Stack",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02762",
+  "file": "corpus/ComputerSaysNull_claude-delegate-local-mcp__.claude_agents_docs-audit.md",
+  "repo": "ComputerSaysNull/claude-delegate-local-mcp",
+  "path": ".claude/agents/docs-audit.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02763",
+  "file": "corpus/Contoso-State_red-team-agent-orchestration__.claude_agents_redteam-reporting.md",
+  "repo": "Contoso-State/red-team-agent-orchestration",
+  "path": ".claude/agents/redteam-reporting.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02764",
+  "file": "corpus/Contoso-State_red-team-agent-orchestration__.github_agents_redteam-authorization.agent.md",
+  "repo": "Contoso-State/red-team-agent-orchestration",
+  "path": ".github/agents/redteam-authorization.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02765",
+  "file": "corpus/CortaLabs_osrs_hiscore_pull__.claude_agents_report.md",
+  "repo": "CortaLabs/osrs_hiscore_pull",
+  "path": ".claude/agents/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02766",
+  "file": "corpus/Corvidae-Coding-Projects_Thermite__.claude_agents_acto-doc-author.md",
+  "repo": "Corvidae-Coding-Projects/Thermite",
+  "path": ".claude/agents/acto-doc-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02767",
+  "file": "corpus/Crawford-Young_claude-config__agents_docs-agent.md",
+  "repo": "Crawford-Young/claude-config",
+  "path": "agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02768",
+  "file": "corpus/Crius-Technology_ISBN__.claude_agents_documentation-engineer.md",
+  "repo": "Crius-Technology/ISBN",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02769",
+  "file": "corpus/CseperkePapp_design-constraint-validator__.github_agents_constraint-author.md",
+  "repo": "CseperkePapp/design-constraint-validator",
+  "path": ".github/agents/constraint-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

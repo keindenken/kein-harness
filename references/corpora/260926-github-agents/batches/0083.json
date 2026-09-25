@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00830",
+  "file": "corpus/Azure_azure-sdk-tools__.github_agents_spec-writer.agent.md",
+  "repo": "Azure/azure-sdk-tools",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 135,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00831",
+  "file": "corpus/romangojiberryAI_gojiberryai-sales-os__agents_linkedin-copywriter.md",
+  "repo": "romangojiberryAI/gojiberryai-sales-os",
+  "path": "agents/linkedin-copywriter.md",
+  "stars": 134,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00832",
+  "file": "corpus/lablup_backend.ai-webui__.claude_agents_docs-update-writer.md",
+  "repo": "lablup/backend.ai-webui",
+  "path": ".claude/agents/docs-update-writer.md",
+  "stars": 133,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00833",
+  "file": "corpus/MillenniumDawn_Millennium-Dawn__.claude_agents_localisation-editor.md",
+  "repo": "MillenniumDawn/Millennium-Dawn",
+  "path": ".claude/agents/localisation-editor.md",
+  "stars": 131,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00834",
+  "file": "corpus/mikotoIO_mikoto__.claude_agents_technical-writer.md",
+  "repo": "mikotoIO/mikoto",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 131,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00835",
+  "file": "corpus/Infrasity-Labs_dev-gtm-claude-skills__.claude_agents_blog-writer.md",
+  "repo": "Infrasity-Labs/dev-gtm-claude-skills",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 129,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00836",
+  "file": "corpus/aaddrick_claude-pipeline__.claude_agents_cc-orchestration-writer.md",
+  "repo": "aaddrick/claude-pipeline",
+  "path": ".claude/agents/cc-orchestration-writer.md",
+  "stars": 129,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00837",
+  "file": "corpus/aaddrick_claude-pipeline__.claude_agents_phpdoc-writer.md",
+  "repo": "aaddrick/claude-pipeline",
+  "path": ".claude/agents/phpdoc-writer.md",
+  "stars": 129,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00838",
+  "file": "corpus/MicrosoftDocs_dataexplorer-docs__.github_agents_docs-image.agent.md",
+  "repo": "MicrosoftDocs/dataexplorer-docs",
+  "path": ".github/agents/docs-image.agent.md",
+  "stars": 127,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00839",
+  "file": "corpus/MicrosoftDocs_dataexplorer-docs__.github_agents_docs.agent.md",
+  "repo": "MicrosoftDocs/dataexplorer-docs",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 127,
+  "copies_in_repos": 1
+ }
+]

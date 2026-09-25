@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04390",
+  "file": "corpus/lrpthomas_Website_REPO__agents_AGENT_03_DOCUMENTATION.md",
+  "repo": "lrpthomas/Website_REPO",
+  "path": "agents/AGENT_03_DOCUMENTATION.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04391",
+  "file": "corpus/ltpitt_github-copilot-agentic-workflow-test__.github_agents_documentation-agent.md",
+  "repo": "ltpitt/github-copilot-agentic-workflow-test",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04392",
+  "file": "corpus/lucaa06_weft__.claude_agents_03-sviluppo_059-sviluppo-report.md",
+  "repo": "lucaa06/weft",
+  "path": ".claude/agents/03-sviluppo/059-sviluppo-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04393",
+  "file": "corpus/lucabrag_clo-author-template__.codex_agents_prose-editor.toml",
+  "repo": "lucabrag/clo-author-template",
+  "path": ".codex/agents/prose-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04394",
+  "file": "corpus/lucabrag_clo-author-template__.codex_agents_writer-critic.toml",
+  "repo": "lucabrag/clo-author-template",
+  "path": ".codex/agents/writer-critic.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04395",
+  "file": "corpus/lucacodorean_multi-agent-framework__.claude_agents_docs-agent.md",
+  "repo": "lucacodorean/multi-agent-framework",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04396",
+  "file": "corpus/lucas-campagna_ymx__.opencode_agent_scenario-author.md",
+  "repo": "lucas-campagna/ymx",
+  "path": ".opencode/agent/scenario-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04397",
+  "file": "corpus/lucastigrereal-dev_omnis-control__.claude_agents_documentation-scribe.md",
+  "repo": "lucastigrereal-dev/omnis-control",
+  "path": ".claude/agents/documentation-scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04398",
+  "file": "corpus/luiscortezvillca_test11__.claude_agents_marketing_copywriter.md",
+  "repo": "luiscortezvillca/test11",
+  "path": ".claude/agents/marketing/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04399",
+  "file": "corpus/luisgutierrezco_Obsidian__.opencode_agent_reportes-marcas.md",
+  "repo": "luisgutierrezco/Obsidian",
+  "path": ".opencode/agent/reportes-marcas.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

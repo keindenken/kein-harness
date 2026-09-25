@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03920",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-arch.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-arch.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03921",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-bench.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-bench.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03922",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-instructions.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-instructions.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03923",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-readme.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-readme.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03924",
+  "file": "corpus/escrivivir-co_mcp-novelist__.github_agents_editor.agent.md",
+  "repo": "escrivivir-co/mcp-novelist",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03925",
+  "file": "corpus/esdrasgbedozin_claude-methodology__agents_docs-maintainer.md",
+  "repo": "esdrasgbedozin/claude-methodology",
+  "path": "agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03926",
+  "file": "corpus/eskombro_the_ai_game_factory__.claude_agents_game-editor.md",
+  "repo": "eskombro/the_ai_game_factory",
+  "path": ".claude/agents/game-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03927",
+  "file": "corpus/eusouwillnunes_sistema-maestro__agents_copywriter.md",
+  "repo": "eusouwillnunes/sistema-maestro",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03928",
+  "file": "corpus/exeris-systems_exeris-tooling__.claude_agents_exeris-tooling-docs-adr.md",
+  "repo": "exeris-systems/exeris-tooling",
+  "path": ".claude/agents/exeris-tooling-docs-adr.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03929",
+  "file": "corpus/exhorte_Fluent__.claude_agents_documentation-curator.md",
+  "repo": "exhorte/Fluent",
+  "path": ".claude/agents/documentation-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01110",
+  "file": "corpus/Axel051171_UnifiedFloppyTool__.claude_agents_hardware-emulation-author.md",
+  "repo": "Axel051171/UnifiedFloppyTool",
+  "path": ".claude/agents/hardware-emulation-author.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01111",
+  "file": "corpus/Axel051171_UnifiedFloppyTool__.claude_agents_wiring-codegen-author.md",
+  "repo": "Axel051171/UnifiedFloppyTool",
+  "path": ".claude/agents/wiring-codegen-author.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01112",
+  "file": "corpus/MiguelAxcar_ai-rpi-protocol__agents_documentation-researcher.md",
+  "repo": "MiguelAxcar/ai-rpi-protocol",
+  "path": "agents/documentation-researcher.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01113",
+  "file": "corpus/Vaiz_rust-mcp-server__.github_agents_rust-docs.agent.md",
+  "repo": "Vaiz/rust-mcp-server",
+  "path": ".github/agents/rust-docs.agent.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01114",
+  "file": "corpus/egerev_superflow__agents_deep-doc-writer.md",
+  "repo": "egerev/superflow",
+  "path": "agents/deep-doc-writer.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01115",
+  "file": "corpus/iktok90-design_ai-smart-contract-auditor__agents_invariant-writer.md",
+  "repo": "iktok90-design/ai-smart-contract-auditor",
+  "path": "agents/invariant-writer.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01116",
+  "file": "corpus/iktok90-design_ai-smart-contract-auditor__agents_report-writer.md",
+  "repo": "iktok90-design/ai-smart-contract-auditor",
+  "path": "agents/report-writer.md",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01117",
+  "file": "corpus/jkroepke_okf-crossplane-v2__.codex_agents_okf-crossplane-core-docs-researcher.toml",
+  "repo": "jkroepke/okf-crossplane-v2",
+  "path": ".codex/agents/okf-crossplane-core-docs-researcher.toml",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01118",
+  "file": "corpus/jkroepke_okf-crossplane-v2__.codex_agents_okf-crossplane-docs-update-researcher.toml",
+  "repo": "jkroepke/okf-crossplane-v2",
+  "path": ".codex/agents/okf-crossplane-docs-update-researcher.toml",
+  "stars": 37,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01119",
+  "file": "corpus/ShellyUSA_Hubitat-Drivers__.github_agents_hubitat-docs-researcher.agent.md",
+  "repo": "ShellyUSA/Hubitat-Drivers",
+  "path": ".github/agents/hubitat-docs-researcher.agent.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ }
+]

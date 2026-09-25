@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02780",
+  "file": "corpus/DNYoussef_context-cascade__agents_tooling_documentation_developer-documentation-agent.md",
+  "repo": "DNYoussef/context-cascade",
+  "path": "agents/tooling/documentation/developer-documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02781",
+  "file": "corpus/DamarisDeng_arxiv-pull__.github_agents_report-visualizer.agent.md",
+  "repo": "DamarisDeng/arxiv-pull",
+  "path": ".github/agents/report-visualizer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02782",
+  "file": "corpus/DanielHyeon_EasySlide__.codex_agents_technical-doc-writer.md",
+  "repo": "DanielHyeon/EasySlide",
+  "path": ".codex/agents/technical-doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02783",
+  "file": "corpus/DanteZulli_dotfiles__agents_.agents_skills_context7-cli_references_docs.md",
+  "repo": "DanteZulli/dotfiles",
+  "path": "agents/.agents/skills/context7-cli/references/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02784",
+  "file": "corpus/DarakDuVal_plant-performance-kpi-platform__.github_agents_technical-writer.chatmode.md",
+  "repo": "DarakDuVal/plant-performance-kpi-platform",
+  "path": ".github/agents/technical-writer.chatmode.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02785",
+  "file": "corpus/DarkWinD90_floodfirepros__.claude_agents_ffp-documentation-agent.md",
+  "repo": "DarkWinD90/floodfirepros",
+  "path": ".claude/agents/ffp-documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02786",
+  "file": "corpus/DarlingMarketingandTech_Jacob-Darling-Martech-New-Website-Design__.claude_agents_conversion-copywriter.md",
+  "repo": "DarlingMarketingandTech/Jacob-Darling-Martech-New-Website-Design",
+  "path": ".claude/agents/conversion-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02787",
+  "file": "corpus/DarthSaul_fitness-tracker__.claude_agents_jsdoc-generator.md",
+  "repo": "DarthSaul/fitness-tracker",
+  "path": ".claude/agents/jsdoc-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02788",
+  "file": "corpus/Davinchi1352_bukoai__.claude_agents_desarrollador-editorial.md",
+  "repo": "Davinchi1352/bukoai",
+  "path": ".claude/agents/desarrollador-editorial.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02789",
+  "file": "corpus/DawsonHamera_vibe-plant-platform__.github_agents_technical-writer.agent.md",
+  "repo": "DawsonHamera/vibe-plant-platform",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

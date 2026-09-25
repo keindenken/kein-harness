@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02570",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_replication_Mirroring_synapse-link-log-full_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/replication/Mirroring/synapse-link-log-full/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02571",
+  "file": "corpus/sqlcss_copilot-agents__.github_agents_skills_kql-templates_sqldb_socrates_log-service-rcas_log-io-taking-longer_references_report.md",
+  "repo": "sqlcss/copilot-agents",
+  "path": ".github/agents/skills/kql-templates/sqldb/socrates/log-service-rcas/log-io-taking-longer/references/report.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02572",
+  "file": "corpus/studioKjm_webagent__.claude_agents_copywriter.md",
+  "repo": "studioKjm/webagent",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02573",
+  "file": "corpus/suciuvlad_dotfiles__agents_.agents_skills_marketing-brain_assets_template-brain_wiki_concepts_Topical Authority for Niche Sites.md",
+  "repo": "suciuvlad/dotfiles",
+  "path": "agents/.agents/skills/marketing-brain/assets/template-brain/wiki/concepts/Topical Authority for Niche Sites.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02574",
+  "file": "corpus/sundarshahi_drydock__agents_technical-writer.md",
+  "repo": "sundarshahi/drydock",
+  "path": "agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02575",
+  "file": "corpus/svg153_batalla-ias__.github_agents_speckit.ci-guard.report.agent.md",
+  "repo": "svg153/batalla-ias",
+  "path": ".github/agents/speckit.ci-guard.report.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02576",
+  "file": "corpus/szobonyaerik_agentic-avengers__agents_avenger-spec-writer.md",
+  "repo": "szobonyaerik/agentic-avengers",
+  "path": "agents/avenger-spec-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02577",
+  "file": "corpus/talkcozy_everything-codex__.codex_agents_docs.toml",
+  "repo": "talkcozy/everything-codex",
+  "path": ".codex/agents/docs.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02578",
+  "file": "corpus/tamzi_workers__agents_profiles_docWriter.yaml",
+  "repo": "tamzi/workers",
+  "path": "agents/profiles/docWriter.yaml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02579",
+  "file": "corpus/tejovanthn_rasikalife__.opencode_agent_docs-fetcher.md",
+  "repo": "tejovanthn/rasikalife",
+  "path": ".opencode/agent/docs-fetcher.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

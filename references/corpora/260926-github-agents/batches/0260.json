@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02600",
+  "file": "corpus/ybizeul_newsletter__.github_agents_editor.agent.md",
+  "repo": "ybizeul/newsletter",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02601",
+  "file": "corpus/yukke9265_Contract-Package-Workflow__.github_agents_contract-package-author.agent.md",
+  "repo": "yukke9265/Contract-Package-Workflow",
+  "path": ".github/agents/contract-package-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02602",
+  "file": "corpus/zoza1982_cairn__.claude_agents_technical-writer.md",
+  "repo": "zoza1982/cairn",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02603",
+  "file": "corpus/zulfahmi93_my-workflow__.claude_agents_technical-writer.md",
+  "repo": "zulfahmi93/my-workflow",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02604",
+  "file": "corpus/zulfahmi93_my-workflow__.codex_agents_technical-writer.toml",
+  "repo": "zulfahmi93/my-workflow",
+  "path": ".codex/agents/technical-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02605",
+  "file": "corpus/0GiS0_ghec-org-as-code__.github_agents_documentation.agent.md",
+  "repo": "0GiS0/ghec-org-as-code",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02606",
+  "file": "corpus/0ceanSlim_pubkey-quest__.claude_agents_item-reporter.md",
+  "repo": "0ceanSlim/pubkey-quest",
+  "path": ".claude/agents/item-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02607",
+  "file": "corpus/1029502701-cmd_ai-platform__.codex_agents_report-engine-engineer.md",
+  "repo": "1029502701-cmd/ai-platform",
+  "path": ".codex/agents/report-engine-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02608",
+  "file": "corpus/10Legs_freelance-developer-harness__.claude_agents_tech-writer.md",
+  "repo": "10Legs/freelance-developer-harness",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02609",
+  "file": "corpus/122sp7_xuanwu-app__.github_agents_server-action-writer.agent.md",
+  "repo": "122sp7/xuanwu-app",
+  "path": ".github/agents/server-action-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

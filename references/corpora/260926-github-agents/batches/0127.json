@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01270",
+  "file": "corpus/uhyo_ai-writes-tech-articles__.claude_agents_writer.md",
+  "repo": "uhyo/ai-writes-tech-articles",
+  "path": ".claude/agents/writer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01271",
+  "file": "corpus/widmogrod_mkunion__.claude_agents_technical-docs-writer.md",
+  "repo": "widmogrod/mkunion",
+  "path": ".claude/agents/technical-docs-writer.md",
+  "stars": 21,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01272",
+  "file": "corpus/DerOetzi_solaredge2mqtt__.github_agents_documentation-expert.md",
+  "repo": "DerOetzi/solaredge2mqtt",
+  "path": ".github/agents/documentation-expert.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01273",
+  "file": "corpus/david-vrba_DukOS__agents_prompts_copywriter.md",
+  "repo": "david-vrba/DukOS",
+  "path": "agents/prompts/copywriter.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01274",
+  "file": "corpus/jpantsjoha_pinescript-vscode-extension__.claude_agents_documentation.md",
+  "repo": "jpantsjoha/pinescript-vscode-extension",
+  "path": ".claude/agents/documentation.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01275",
+  "file": "corpus/khaoss85_AI-Team-Orchestrator__.claude_agents_docs-scribe.md",
+  "repo": "khaoss85/AI-Team-Orchestrator",
+  "path": ".claude/agents/docs-scribe.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01276",
+  "file": "corpus/kirich1409_claude-global-settings__agents_docs-writer.md",
+  "repo": "kirich1409/claude-global-settings",
+  "path": "agents/docs-writer.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01277",
+  "file": "corpus/kirich1409_claude-global-settings__agents_spec-author.md",
+  "repo": "kirich1409/claude-global-settings",
+  "path": "agents/spec-author.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01278",
+  "file": "corpus/michael-harris_devteam__agents_planning_prd-generator.md",
+  "repo": "michael-harris/devteam",
+  "path": "agents/planning/prd-generator.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01279",
+  "file": "corpus/michael-harris_devteam__agents_quality_documentation-coordinator.md",
+  "repo": "michael-harris/devteam",
+  "path": "agents/quality/documentation-coordinator.md",
+  "stars": 20,
+  "copies_in_repos": 1
+ }
+]

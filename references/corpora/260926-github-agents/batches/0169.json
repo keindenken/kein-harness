@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01690",
+  "file": "corpus/kamiazya_whiteboard__.claude_agents_technical-writer.md",
+  "repo": "kamiazya/whiteboard",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01691",
+  "file": "corpus/kiss-keray_keray_shell__agents_docs_safety-and-authorization.md",
+  "repo": "kiss-keray/keray_shell",
+  "path": "agents/docs/safety-and-authorization.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01692",
+  "file": "corpus/lordmos_scriptorium__agents_05-writer.md",
+  "repo": "lordmos/scriptorium",
+  "path": "agents/05-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01693",
+  "file": "corpus/memyselfandm_cconami__apps_dot-claude_agents_SUBAGENTS_README.md",
+  "repo": "memyselfandm/cconami",
+  "path": "apps/dot-claude/agents/SUBAGENTS_README.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01694",
+  "file": "corpus/microsoft_amplifier-bundle-recipes__agents_recipe-author.md",
+  "repo": "microsoft/amplifier-bundle-recipes",
+  "path": "agents/recipe-author.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01695",
+  "file": "corpus/mk2427_csft-tachyon-vacuum__agents_briefs_134-report-fixes.md",
+  "repo": "mk2427/csft-tachyon-vacuum",
+  "path": "agents/briefs/134-report-fixes.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01696",
+  "file": "corpus/narinsak-u_next-level-blog__.claude_agents_documentation-writer.md",
+  "repo": "narinsak-u/next-level-blog",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01697",
+  "file": "corpus/ngxtm_devkit__agents_docs-manager.md",
+  "repo": "ngxtm/devkit",
+  "path": "agents/docs-manager.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01698",
+  "file": "corpus/oaknational_oak-open-curriculum-ecosystem__.codex_agents_docs-adr-expert.toml",
+  "repo": "oaknational/oak-open-curriculum-ecosystem",
+  "path": ".codex/agents/docs-adr-expert.toml",
+  "stars": 8,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01699",
+  "file": "corpus/octave-commons_promethean__.claude_agents_optimized_code-documenter.md",
+  "repo": "octave-commons/promethean",
+  "path": ".claude/agents/optimized/code-documenter.md",
+  "stars": 8,
+  "copies_in_repos": 1
+ }
+]

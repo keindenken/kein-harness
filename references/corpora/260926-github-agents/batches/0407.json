@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04070",
+  "file": "corpus/hpark0011_mirror__.codex_agents_pm-spec-writer.toml",
+  "repo": "hpark0011/mirror",
+  "path": ".codex/agents/pm-spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04071",
+  "file": "corpus/hqqh4vmdmg-source_Transcript__.github_agents_docs-maintainer.md",
+  "repo": "hqqh4vmdmg-source/Transcript",
+  "path": ".github/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04072",
+  "file": "corpus/hraki1_portfolio__.claude_agents_content-editor.md",
+  "repo": "hraki1/portfolio",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04073",
+  "file": "corpus/hrzzzrh_QuantPyLab__.codex_agents_financial-report-extractor.toml",
+  "repo": "hrzzzrh/QuantPyLab",
+  "path": ".codex/agents/financial-report-extractor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04074",
+  "file": "corpus/hsc00_trust-vote-ai__.github_agents_docs-adr-engineer.agent.md",
+  "repo": "hsc00/trust-vote-ai",
+  "path": ".github/agents/docs-adr-engineer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04075",
+  "file": "corpus/hsiang-lee_my_opencode__agents_plan-writer.md",
+  "repo": "hsiang-lee/my_opencode",
+  "path": "agents/plan-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04076",
+  "file": "corpus/ht2-io_rmotly__.github_agents_docs-specialist.agent.md",
+  "repo": "ht2-io/rmotly",
+  "path": ".github/agents/docs-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04077",
+  "file": "corpus/huanyusun_ai-agency-kit__agents_engineering_technical-writer.yaml",
+  "repo": "huanyusun/ai-agency-kit",
+  "path": "agents/engineering/technical-writer.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04078",
+  "file": "corpus/humanaxiom_SFU-digital-twin__.github_agents_doc-writer.agent.md",
+  "repo": "humanaxiom/SFU-digital-twin",
+  "path": ".github/agents/doc-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04079",
+  "file": "corpus/hydrobiont_claude_subagents__agents_go-code-writer.md",
+  "repo": "hydrobiont/claude_subagents",
+  "path": "agents/go-code-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

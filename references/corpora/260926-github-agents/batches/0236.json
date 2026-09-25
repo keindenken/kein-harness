@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02360",
+  "file": "corpus/TomFahey_CodeClub-Calculator__.github_agents_lesson-author.agent.md",
+  "repo": "TomFahey/CodeClub-Calculator",
+  "path": ".github/agents/lesson-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02361",
+  "file": "corpus/Treytucker05_pt-study-sop__.claude_agents_writer.md",
+  "repo": "Treytucker05/pt-study-sop",
+  "path": ".claude/agents/writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02362",
+  "file": "corpus/Tsuchiya2_evaluator-driven-agent-flow__.claude_agents_evaluators_phase6-documentation_documentation-consistency-evaluator.md",
+  "repo": "Tsuchiya2/evaluator-driven-agent-flow",
+  "path": ".claude/agents/evaluators/phase6-documentation/documentation-consistency-evaluator.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02363",
+  "file": "corpus/Vahidrostami_delaunay__.github_agents_associate-editor.agent.md",
+  "repo": "Vahidrostami/delaunay",
+  "path": ".github/agents/associate-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02364",
+  "file": "corpus/Vahidrostami_delaunay__.github_agents_editor-in-chief.agent.md",
+  "repo": "Vahidrostami/delaunay",
+  "path": ".github/agents/editor-in-chief.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02365",
+  "file": "corpus/WannaCry081_Bunban__.opencode_agent_docs-maintainer.md",
+  "repo": "WannaCry081/Bunban",
+  "path": ".opencode/agent/docs-maintainer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02366",
+  "file": "corpus/Web-Dev-Codi_neovim-dot-files__.opencode_agent_neovim-docs-expert.md",
+  "repo": "Web-Dev-Codi/neovim-dot-files",
+  "path": ".opencode/agent/neovim-docs-expert.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02367",
+  "file": "corpus/Wondermove-Inc_new-mobile-app__.codex_agents_mobile-docs-researcher.toml",
+  "repo": "Wondermove-Inc/new-mobile-app",
+  "path": ".codex/agents/mobile-docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02368",
+  "file": "corpus/Wondermove-Inc_new-mobile-app__.codex_agents_wm-docs-researcher.toml",
+  "repo": "Wondermove-Inc/new-mobile-app",
+  "path": ".codex/agents/wm-docs-researcher.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02369",
+  "file": "corpus/WuSuBuDuoMing_paper-writer__.claude_agents_paper-writer.md",
+  "repo": "WuSuBuDuoMing/paper-writer",
+  "path": ".claude/agents/paper-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

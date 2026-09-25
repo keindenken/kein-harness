@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03670",
+  "file": "corpus/calc1f4r_Horus__.codex_agents_report-aggregator.toml",
+  "repo": "calc1f4r/Horus",
+  "path": ".codex/agents/report-aggregator.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03671",
+  "file": "corpus/calc1f4r_Horus__.codex_agents_variant-template-writer.toml",
+  "repo": "calc1f4r/Horus",
+  "path": ".codex/agents/variant-template-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03672",
+  "file": "corpus/calc1f4r_Horus__.github_agents_resources_invariant-report-templates.md",
+  "repo": "calc1f4r/Horus",
+  "path": ".github/agents/resources/invariant-report-templates.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03673",
+  "file": "corpus/calc1f4r_Horus__.github_agents_resources_report-indexing.md",
+  "repo": "calc1f4r/Horus",
+  "path": ".github/agents/resources/report-indexing.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03674",
+  "file": "corpus/calleyco_calleynye.com__.Codex_agents_site-copy-editor.md",
+  "repo": "calleyco/calleynye.com",
+  "path": ".Codex/agents/site-copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03675",
+  "file": "corpus/camcast3_walkthrough-app__.github_agents_walkthrough-writer.md",
+  "repo": "camcast3/walkthrough-app",
+  "path": ".github/agents/walkthrough-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03676",
+  "file": "corpus/camgrimsec_grimsec-suite__agents_11-oss-forensics-agent_assets_templates_forensic-report-template.md",
+  "repo": "camgrimsec/grimsec-suite",
+  "path": "agents/11-oss-forensics-agent/assets/templates/forensic-report-template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03677",
+  "file": "corpus/carl0zen_zenkit__agents_technical-writer.md",
+  "repo": "carl0zen/zenkit",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03678",
+  "file": "corpus/carlos-sobral_ai-squad__agents_tech-writer.md",
+  "repo": "carlos-sobral/ai-squad",
+  "path": "agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03679",
+  "file": "corpus/carlosabuter13-lab_ce-business-agent-system__.claude_agents_report-agent.md",
+  "repo": "carlosabuter13-lab/ce-business-agent-system",
+  "path": ".claude/agents/report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

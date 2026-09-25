@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01460",
+  "file": "corpus/davidabeyer_formaltask__agents_feature-audit-documentation.md",
+  "repo": "davidabeyer/formaltask",
+  "path": "agents/feature-audit-documentation.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01461",
+  "file": "corpus/fosrl_pangolin-kube-controller__.github_agents_docs-agent.agent.md",
+  "repo": "fosrl/pangolin-kube-controller",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01462",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_content-writer.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/content-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01463",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_editor.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/editor.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01464",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_reporting-agent.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/reporting-agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01465",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_reporting-specialist.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/reporting-specialist.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01466",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_scriptwriter.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/scriptwriter.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01467",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_technical-marketing-writer.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/technical-marketing-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01468",
+  "file": "corpus/lookatitude_beluga-ai__.claude_agents_docs-writer.md",
+  "repo": "lookatitude/beluga-ai",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01469",
+  "file": "corpus/openshift_deadmanssnitch-operator__.claude_agents_docs-agent.md",
+  "repo": "openshift/deadmanssnitch-operator",
+  "path": ".claude/agents/docs-agent.md",
+  "stars": 13,
+  "copies_in_repos": 1
+ }
+]

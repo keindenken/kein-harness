@@ -1,0 +1,34 @@
+[
+ {
+  "id": "c05260",
+  "file": "corpus/zjpiazza_directus-extensions__.github_agents_documentation-specialist.agent.md",
+  "repo": "zjpiazza/directus-extensions",
+  "path": ".github/agents/documentation-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05261",
+  "file": "corpus/zuzu59_z-skills__.claude_agents_explore-docs.md",
+  "repo": "zuzu59/z-skills",
+  "path": ".claude/agents/explore-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05262",
+  "file": "corpus/zx8086_devops-incident-analyzer__agents_landing-zone-terraform_knowledge_pvh_conventions_okf-authoring.md",
+  "repo": "zx8086/devops-incident-analyzer",
+  "path": "agents/landing-zone-terraform/knowledge/pvh/conventions/okf-authoring.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05263",
+  "file": "corpus/zzangoobrother_BLOG__.claude_agents_copy-editor.md",
+  "repo": "zzangoobrother/BLOG",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

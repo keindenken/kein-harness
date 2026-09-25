@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04580",
+  "file": "corpus/nice-and-precise_tebra-content-os__.claude_agents_citation-reporter.md",
+  "repo": "nice-and-precise/tebra-content-os",
+  "path": ".claude/agents/citation-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04581",
+  "file": "corpus/nichmorgan_cs599-llm-spring-26-jailbreak-hw3__.github_agents_jailbreak-report-pipeline.agent.md",
+  "repo": "nichmorgan/cs599-llm-spring-26-jailbreak-hw3",
+  "path": ".github/agents/jailbreak-report-pipeline.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04582",
+  "file": "corpus/nick4man_victory__.claude_agents_pdf-report-designer.md",
+  "repo": "nick4man/victory",
+  "path": ".claude/agents/pdf-report-designer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04583",
+  "file": "corpus/nickhou1983_Github-Copilot-MultiAgent__.github_agents_poetry-editor.agent.md",
+  "repo": "nickhou1983/Github-Copilot-MultiAgent",
+  "path": ".github/agents/poetry-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04584",
+  "file": "corpus/nickyat_claude-aa__agents_prd-writer.md",
+  "repo": "nickyat/claude-aa",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04585",
+  "file": "corpus/nikbyrd28-pixel_tb-solutions__.claude_agents_copywriter.md",
+  "repo": "nikbyrd28-pixel/tb-solutions",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04586",
+  "file": "corpus/nikhil02032022_AICRM__.github_agents_analytics-reporter.agent.md",
+  "repo": "nikhil02032022/AICRM",
+  "path": ".github/agents/analytics-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04587",
+  "file": "corpus/nikhillinit_Updog_restore__.claude_agents_docs-architect.md",
+  "repo": "nikhillinit/Updog_restore",
+  "path": ".claude/agents/docs-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04588",
+  "file": "corpus/nikhillinit_Updog_restore__.claude_agents_phoenix-brand-reporting-stylist.md",
+  "repo": "nikhillinit/Updog_restore",
+  "path": ".claude/agents/phoenix-brand-reporting-stylist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04589",
+  "file": "corpus/nikolasrieble_opencode-config__agents_docs.md",
+  "repo": "nikolasrieble/opencode-config",
+  "path": "agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

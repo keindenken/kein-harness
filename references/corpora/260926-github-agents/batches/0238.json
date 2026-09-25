@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02380",
+  "file": "corpus/ahsanhabib9191_paraphraser__.github_agents_documentation.md",
+  "repo": "ahsanhabib9191/paraphraser",
+  "path": ".github/agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02381",
+  "file": "corpus/aion-context_aion-context__.claude_agents_rfc-writer.md",
+  "repo": "aion-context/aion-context",
+  "path": ".claude/agents/rfc-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02382",
+  "file": "corpus/alexfilatov_seo-suite__agents_article-brief-writer.md",
+  "repo": "alexfilatov/seo-suite",
+  "path": "agents/article-brief-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02383",
+  "file": "corpus/alifakbar111_skillpass__.claude_agents_technical-writer.md",
+  "repo": "alifakbar111/skillpass",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02384",
+  "file": "corpus/alikasif_agents__.github_agents_documentation-subagent.agent.md",
+  "repo": "alikasif/agents",
+  "path": ".github/agents/documentation-subagent.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02385",
+  "file": "corpus/alliecatowo_patches__.codex_agents_docs-writer.toml",
+  "repo": "alliecatowo/patches",
+  "path": ".codex/agents/docs-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02386",
+  "file": "corpus/alucinari-co2_alucinari-co2.github.io__.github_agents_documentation-expert.agent.md",
+  "repo": "alucinari-co2/alucinari-co2.github.io",
+  "path": ".github/agents/documentation-expert.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02387",
+  "file": "corpus/andypbrowne_andypbrowne__.github_agents_blog-editor.agent.md",
+  "repo": "andypbrowne/andypbrowne",
+  "path": ".github/agents/blog-editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02388",
+  "file": "corpus/antonchirikalov_copilot-agents__agents_project-documenter.agent.md",
+  "repo": "antonchirikalov/copilot-agents",
+  "path": "agents/project-documenter.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02389",
+  "file": "corpus/araduti_Nova__.github_agents_documentation-engineer.md",
+  "repo": "araduti/Nova",
+  "path": ".github/agents/documentation-engineer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04140",
+  "file": "corpus/jamon8888_anno__.codex_agents_docs.toml",
+  "repo": "jamon8888/anno",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04141",
+  "file": "corpus/jananthan30_Resume-Builder__.claude_agents_resume-editor.md",
+  "repo": "jananthan30/Resume-Builder",
+  "path": ".claude/agents/resume-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04142",
+  "file": "corpus/jananthan30_Resume-Builder__.claude_agents_resume-writer.md",
+  "repo": "jananthan30/Resume-Builder",
+  "path": ".claude/agents/resume-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04143",
+  "file": "corpus/jandan138_Code-Auth__.codex_agents_doc-writer.md",
+  "repo": "jandan138/Code-Auth",
+  "path": ".codex/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04144",
+  "file": "corpus/jandan138_ConvertAsset__.codex_agents_docs-writer.md",
+  "repo": "jandan138/ConvertAsset",
+  "path": ".codex/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04145",
+  "file": "corpus/jandan138_ConvertAsset__.codex_agents_paper-writer.md",
+  "repo": "jandan138/ConvertAsset",
+  "path": ".codex/agents/paper-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04146",
+  "file": "corpus/jandan138_isaac-sim-streaming__.codex_agents_doc-writer.md",
+  "repo": "jandan138/isaac-sim-streaming",
+  "path": ".codex/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04147",
+  "file": "corpus/janjaszczak_cursor__agents_documentation-specialist.md",
+  "repo": "janjaszczak/cursor",
+  "path": "agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04148",
+  "file": "corpus/janneskruse_react-map-tools__.codex_agents_plan-writer.toml",
+  "repo": "janneskruse/react-map-tools",
+  "path": ".codex/agents/plan-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04149",
+  "file": "corpus/jaredcroxton_hermes-mirror__agents_skills_crew_crew-design-reference_references_authority.md",
+  "repo": "jaredcroxton/hermes-mirror",
+  "path": "agents/skills/crew/crew-design-reference/references/authority.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

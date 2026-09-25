@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02120",
+  "file": "corpus/DavidBatoDev_proyekto__.claude_agents_technical-writer.md",
+  "repo": "DavidBatoDev/proyekto",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02121",
+  "file": "corpus/FilippoScaramuzza_agentic-reviewer__.codex_agents_editor-in-chief.toml",
+  "repo": "FilippoScaramuzza/agentic-reviewer",
+  "path": ".codex/agents/editor-in-chief.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02122",
+  "file": "corpus/FilippoScaramuzza_agentic-reviewer__.codex_agents_report-compiler.toml",
+  "repo": "FilippoScaramuzza/agentic-reviewer",
+  "path": ".codex/agents/report-compiler.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02123",
+  "file": "corpus/Fredwei77_OpenClaw-AI-Agent__.claude_agents_api-documentation.md",
+  "repo": "Fredwei77/OpenClaw-AI-Agent",
+  "path": ".claude/agents/api-documentation.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02124",
+  "file": "corpus/Fridayxiao_ai-team-harness__agents_docs-maintainer.toml",
+  "repo": "Fridayxiao/ai-team-harness",
+  "path": "agents/docs-maintainer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02125",
+  "file": "corpus/HackerspaceMumbai_bethuya__.github_agents_reporter.md",
+  "repo": "HackerspaceMumbai/bethuya",
+  "path": ".github/agents/reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02126",
+  "file": "corpus/Henrik-Hung-Pham_playwright-ai-healer__.claude_agents_technical-writer.md",
+  "repo": "Henrik-Hung-Pham/playwright-ai-healer",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02127",
+  "file": "corpus/JF10R_Snitch__agents_skills_snitch_categories_28-authorization.md",
+  "repo": "JF10R/Snitch",
+  "path": "agents/skills/snitch/categories/28-authorization.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02128",
+  "file": "corpus/Jm-Paunlagui_CATHERINE__.claude_agents_senior-code-documentation-engineer.agent.md",
+  "repo": "Jm-Paunlagui/CATHERINE",
+  "path": ".claude/agents/senior-code-documentation-engineer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02129",
+  "file": "corpus/KMiseckas_kmMqtt__.github_agents_Documentation.agent.md",
+  "repo": "KMiseckas/kmMqtt",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

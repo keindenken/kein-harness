@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04870",
+  "file": "corpus/schuttpj86_github-agent-projects__.github_agents_tech-report.agent.md",
+  "repo": "schuttpj86/github-agent-projects",
+  "path": ".github/agents/tech-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04871",
+  "file": "corpus/scigns_witness__agents_community_documentation-lead.md",
+  "repo": "scigns/witness",
+  "path": "agents/community/documentation-lead.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04872",
+  "file": "corpus/scotlaclair_SOMAS__.github_agents_somas-documenter.md",
+  "repo": "scotlaclair/SOMAS",
+  "path": ".github/agents/somas-documenter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04873",
+  "file": "corpus/scubaninja_OctoCare__.github_agents_docs-writer.agent.md",
+  "repo": "scubaninja/OctoCare",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04874",
+  "file": "corpus/se0sangh0_inspector__.claude_agents_scenario-writer.md",
+  "repo": "se0sangh0/inspector",
+  "path": ".claude/agents/scenario-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04875",
+  "file": "corpus/sebastianerz28_forge__agents_bmad__bmad__memory_tech-writer-sidecar_documentation-standards.md",
+  "repo": "sebastianerz28/forge",
+  "path": "agents/bmad/_bmad/_memory/tech-writer-sidecar/documentation-standards.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04876",
+  "file": "corpus/sebavieira_fmai-marketing__.claude_agents_copywriter-instagram.md",
+  "repo": "sebavieira/fmai-marketing",
+  "path": ".claude/agents/copywriter-instagram.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04877",
+  "file": "corpus/sebavieira_fmai-marketing__.claude_agents_copywriter-linkedin.md",
+  "repo": "sebavieira/fmai-marketing",
+  "path": ".claude/agents/copywriter-linkedin.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04878",
+  "file": "corpus/sebyx07_meshara__.claude_agents_documentation-maintainer.md",
+  "repo": "sebyx07/meshara",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04879",
+  "file": "corpus/segunak_segunak.github.io__.github_agents_editor.md",
+  "repo": "segunak/segunak.github.io",
+  "path": ".github/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

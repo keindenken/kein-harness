@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00430",
+  "file": "corpus/ibragimov-oasis_name-navigator__.github_agents_platform_cookbook_copilot-sdk_go_accessibility-report.md",
+  "repo": "ibragimov-oasis/name-navigator",
+  "path": ".github/agents/platform/cookbook/copilot-sdk/go/accessibility-report.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00431",
+  "file": "corpus/ibragimov-oasis_name-navigator__.github_agents_platform_cookbook_copilot-sdk_python_accessibility-report.md",
+  "repo": "ibragimov-oasis/name-navigator",
+  "path": ".github/agents/platform/cookbook/copilot-sdk/python/accessibility-report.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00432",
+  "file": "corpus/ibragimov-oasis_name-navigator__.github_agents_platform_instructions_update-docs-on-code-change.instructions.md",
+  "repo": "ibragimov-oasis/name-navigator",
+  "path": ".github/agents/platform/instructions/update-docs-on-code-change.instructions.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00433",
+  "file": "corpus/ibragimov-oasis_name-navigator__.github_agents_platform_workflows_ospo-contributors-report.md",
+  "repo": "ibragimov-oasis/name-navigator",
+  "path": ".github/agents/platform/workflows/ospo-contributors-report.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00434",
+  "file": "corpus/infusionvictor_warren-buffett-jr__.claude_agents_visual-report.md",
+  "repo": "infusionvictor/warren-buffett-jr",
+  "path": ".claude/agents/visual-report.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00435",
+  "file": "corpus/j0hnnymiller_20260921-aiasd-green__.github_agents_technical-writer.agent.md",
+  "repo": "j0hnnymiller/20260921-aiasd-green",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00436",
+  "file": "corpus/jemai7579_copilot-dev__agents_product-writer.agent.md",
+  "repo": "jemai7579/copilot-dev",
+  "path": "agents/product-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00437",
+  "file": "corpus/k98co007_privatetrade__.github_agents_srs-author.agent.md",
+  "repo": "k98co007/privatetrade",
+  "path": ".github/agents/srs-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00438",
+  "file": "corpus/kinncj_Heimdall__.claude_agents_design-system-author.md",
+  "repo": "kinncj/Heimdall",
+  "path": ".claude/agents/design-system-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00439",
+  "file": "corpus/leftygbalogh_Rust_Terminal_Snake_Game__agents_technical-writer-live-examples.md",
+  "repo": "leftygbalogh/Rust_Terminal_Snake_Game",
+  "path": "agents/technical-writer-live-examples.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

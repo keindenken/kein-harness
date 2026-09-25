@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01190",
+  "file": "corpus/fusengine_agents__plugins_prompt-engineer_skills_prompt-library_templates_agents_technical-writer.md",
+  "repo": "fusengine/agents",
+  "path": "plugins/prompt-engineer/skills/prompt-library/templates/agents/technical-writer.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01191",
+  "file": "corpus/fusengine_agents__plugins_seo_agents_seo-content.md",
+  "repo": "fusengine/agents",
+  "path": "plugins/seo/agents/seo-content.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01192",
+  "file": "corpus/greystoke1337_localized-air-traffic-tracker__.claude_agents_technical-writer.md",
+  "repo": "greystoke1337/localized-air-traffic-tracker",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01193",
+  "file": "corpus/mrviduus_textstack__.claude_agents_tech-writer.md",
+  "repo": "mrviduus/textstack",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 28,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01194",
+  "file": "corpus/HashLips_agent-skills__agents_software-development_documentation-agent.md",
+  "repo": "HashLips/agent-skills",
+  "path": "agents/software-development/documentation-agent.md",
+  "stars": 27,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01195",
+  "file": "corpus/JoeyMckenzie_joeymckenzie.tech__.claude_agents_blog-editor.md",
+  "repo": "JoeyMckenzie/joeymckenzie.tech",
+  "path": ".claude/agents/blog-editor.md",
+  "stars": 27,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01196",
+  "file": "corpus/comeonzhj_DataAnalysis_ClaudeCode__.claude_agents_report_coder.md",
+  "repo": "comeonzhj/DataAnalysis_ClaudeCode",
+  "path": ".claude/agents/report_coder.md",
+  "stars": 27,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01197",
+  "file": "corpus/kubestellar_docs__.github_agents_technical-doc-writer.agent.md",
+  "repo": "kubestellar/docs",
+  "path": ".github/agents/technical-doc-writer.agent.md",
+  "stars": 27,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01198",
+  "file": "corpus/wegamekinglc_Derivatives-Algorithms-Lib__.codex_agents_dal-doc-writer.toml",
+  "repo": "wegamekinglc/Derivatives-Algorithms-Lib",
+  "path": ".codex/agents/dal-doc-writer.toml",
+  "stars": 27,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01199",
+  "file": "corpus/wegamekinglc_Derivatives-Algorithms-Lib__.codex_agents_dal-spec-writer.toml",
+  "repo": "wegamekinglc/Derivatives-Algorithms-Lib",
+  "path": ".codex/agents/dal-spec-writer.toml",
+  "stars": 27,
+  "copies_in_repos": 1
+ }
+]

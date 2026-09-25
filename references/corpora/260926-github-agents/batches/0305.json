@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03050",
+  "file": "corpus/MMUZAMMUL_AgiForge__agents_support_support-technical-writer.md",
+  "repo": "MMUZAMMUL/AgiForge",
+  "path": "agents/support/support-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03051",
+  "file": "corpus/Maese-Alfred_Prueba_Serenity__.github_agents_documentation.agent.md",
+  "repo": "Maese-Alfred/Prueba_Serenity",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03052",
+  "file": "corpus/Magh97_opencode-skills__.opencode_agent_docs.md",
+  "repo": "Magh97/opencode-skills",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03053",
+  "file": "corpus/MagicSHX_multi-agent-system__agents_technical_writer.yaml",
+  "repo": "MagicSHX/multi-agent-system",
+  "path": "agents/technical_writer.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03054",
+  "file": "corpus/MaintainTechnology_qm-mobile__.claude_agents_08-business-product_content-quality-editor.md",
+  "repo": "MaintainTechnology/qm-mobile",
+  "path": ".claude/agents/08-business-product/content-quality-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03055",
+  "file": "corpus/Manmaru-stack_manmarudairyreport__.github_agents_ManmaruDairyReport.agent.md",
+  "repo": "Manmaru-stack/manmarudairyreport",
+  "path": ".github/agents/ManmaruDairyReport.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03056",
+  "file": "corpus/Manuel20367_ai-copilot-learning-project__.github_agents_business-report-agent.agent.md",
+  "repo": "Manuel20367/ai-copilot-learning-project",
+  "path": ".github/agents/business-report-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03057",
+  "file": "corpus/MarceloClaro_OpenCode_Ecosystem__agents_00_editor_chefe_phd.md",
+  "repo": "MarceloClaro/OpenCode_Ecosystem",
+  "path": "agents/00_editor_chefe_phd.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03058",
+  "file": "corpus/MarceloClaro_OpenCode_Ecosystem__agents_docs-writer.md",
+  "repo": "MarceloClaro/OpenCode_Ecosystem",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03059",
+  "file": "corpus/MarceloClaro_OpenCode_Ecosystem__agents_reversa-report-agent.md",
+  "repo": "MarceloClaro/OpenCode_Ecosystem",
+  "path": "agents/reversa-report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

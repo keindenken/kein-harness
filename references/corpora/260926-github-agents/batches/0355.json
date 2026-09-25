@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03550",
+  "file": "corpus/arigsela_chores-tracker__.claude_agents_documentation-specialist.md",
+  "repo": "arigsela/chores-tracker",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03551",
+  "file": "corpus/armoin2018_ai-reviewer__.claude_agents_personas_rfq-writer.md",
+  "repo": "armoin2018/ai-reviewer",
+  "path": ".claude/agents/personas/rfq-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03552",
+  "file": "corpus/armoutihansen_frequency-beliefs__.claude_agents_paper-editor.md",
+  "repo": "armoutihansen/frequency-beliefs",
+  "path": ".claude/agents/paper-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03553",
+  "file": "corpus/armsteadj1_mcp-payment-proxy__.claude_agents_docs.md",
+  "repo": "armsteadj1/mcp-payment-proxy",
+  "path": ".claude/agents/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03554",
+  "file": "corpus/artechb152_geoInteractive__.codex_agents_hebrew-copy-editor.toml",
+  "repo": "artechb152/geoInteractive",
+  "path": ".codex/agents/hebrew-copy-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03555",
+  "file": "corpus/artechb152_geoInteractive__.codex_agents_military-geo-editor.toml",
+  "repo": "artechb152/geoInteractive",
+  "path": ".codex/agents/military-geo-editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03556",
+  "file": "corpus/arthurmenson_telecheckONE__agents_spec-corpus-agent.md",
+  "repo": "arthurmenson/telecheckONE",
+  "path": "agents/spec-corpus-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03557",
+  "file": "corpus/artubss_SKILLS-CLAUDE-CODE__agents_agents_documentation_se-technical-writer.md",
+  "repo": "artubss/SKILLS-CLAUDE-CODE",
+  "path": "agents/agents/documentation/se-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03558",
+  "file": "corpus/artubss_SKILLS-CLAUDE-CODE__agents_agents_documentation_technical-writer.md",
+  "repo": "artubss/SKILLS-CLAUDE-CODE",
+  "path": "agents/agents/documentation/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03559",
+  "file": "corpus/artubss_SKILLS-CLAUDE-CODE__agents_agents_podcast-creator-team_podcast-editor.md",
+  "repo": "artubss/SKILLS-CLAUDE-CODE",
+  "path": "agents/agents/podcast-creator-team/podcast-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

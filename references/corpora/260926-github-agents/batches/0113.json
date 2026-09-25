@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01130",
+  "file": "corpus/Aploide_spettro__agents_docs-writer.md",
+  "repo": "Aploide/spettro",
+  "path": "agents/docs-writer.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01131",
+  "file": "corpus/Dach-Coin_claude_rules_1c__.claude_agents_doc-writer.md",
+  "repo": "Dach-Coin/claude_rules_1c",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01132",
+  "file": "corpus/Nagarjuna2997_ios-agent-skill__.claude_agents_ios-docs.md",
+  "repo": "Nagarjuna2997/ios-agent-skill",
+  "path": ".claude/agents/ios-docs.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01133",
+  "file": "corpus/actionhero_keryx__.claude_agents_docs-sync.md",
+  "repo": "actionhero/keryx",
+  "path": ".claude/agents/docs-sync.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01134",
+  "file": "corpus/plugboard-dev_plugboard__.github_agents_docs.agent.md",
+  "repo": "plugboard-dev/plugboard",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01135",
+  "file": "corpus/rainday_smart-blog-skills__agents_blog-writer.md",
+  "repo": "rainday/smart-blog-skills",
+  "path": "agents/blog-writer.md",
+  "stars": 35,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01136",
+  "file": "corpus/bdougie_contributor.info__.claude_agents_developer-docs-writer.md",
+  "repo": "bdougie/contributor.info",
+  "path": ".claude/agents/developer-docs-writer.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01137",
+  "file": "corpus/benjaminr_claude-code-essentials__.claude_agents_documentation-generator.md",
+  "repo": "benjaminr/claude-code-essentials",
+  "path": ".claude/agents/documentation-generator.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01138",
+  "file": "corpus/lgz-star_novel-pro__agents_writer.md",
+  "repo": "lgz-star/novel-pro",
+  "path": "agents/writer.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01139",
+  "file": "corpus/opendefender_OpenRisk__.claude_agents_marketing_copywriter.md",
+  "repo": "opendefender/OpenRisk",
+  "path": ".claude/agents/marketing/copywriter.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ }
+]

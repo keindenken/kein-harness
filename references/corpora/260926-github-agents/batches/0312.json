@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03120",
+  "file": "corpus/NativeMojo_django-mojo__.codex_agents_docs-updater.toml",
+  "repo": "NativeMojo/django-mojo",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03121",
+  "file": "corpus/Navn2025_college-website__.claude_agents_spec-author.md",
+  "repo": "Navn2025/college-website",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03122",
+  "file": "corpus/NeelOS_DAILYDOTS__.github_agents_documentation.agent.md",
+  "repo": "NeelOS/DAILYDOTS",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03123",
+  "file": "corpus/Negri234279_rustforge__.claude_agents_cqrs-handler-writer.md",
+  "repo": "Negri234279/rustforge",
+  "path": ".claude/agents/cqrs-handler-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03124",
+  "file": "corpus/NeoCodeSmith_syndicate-ai__agents_marketing_social-authority-strategist.yaml",
+  "repo": "NeoCodeSmith/syndicate-ai",
+  "path": "agents/marketing/social-authority-strategist.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03125",
+  "file": "corpus/Neocmd_DomHouse__.claude_agents_domhouse-rule-author.md",
+  "repo": "Neocmd/DomHouse",
+  "path": ".claude/agents/domhouse-rule-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03126",
+  "file": "corpus/Nerfherder16_BrickLayer__.claude_agents_AUDIT_REPORT.md",
+  "repo": "Nerfherder16/BrickLayer",
+  "path": ".claude/agents/AUDIT_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03127",
+  "file": "corpus/NetWalking-Pro_NetWalking-Pro-OS__agents_personas_copywriter.md",
+  "repo": "NetWalking-Pro/NetWalking-Pro-OS",
+  "path": "agents/personas/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03128",
+  "file": "corpus/NetWalking-Pro_NetWalking-Pro-OS__agents_prompts_ghostwriter-pipeline.md",
+  "repo": "NetWalking-Pro/NetWalking-Pro-OS",
+  "path": "agents/prompts/ghostwriter-pipeline.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03129",
+  "file": "corpus/Nexcyfr_nexcy-site__.claude_agents_content-writer.md",
+  "repo": "Nexcyfr/nexcy-site",
+  "path": ".claude/agents/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

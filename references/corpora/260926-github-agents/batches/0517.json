@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05170",
+  "file": "corpus/waterwoods-ai_auto-academic__agents_report-compiler.md",
+  "repo": "waterwoods-ai/auto-academic",
+  "path": "agents/report-compiler.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05171",
+  "file": "corpus/wbiffi_agent-harness__.claude_agents_writer.md",
+  "repo": "wbiffi/agent-harness",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05172",
+  "file": "corpus/webmaxru_agent-package-manager-book__.github_agents_chapter-author.agent.md",
+  "repo": "webmaxru/agent-package-manager-book",
+  "path": ".github/agents/chapter-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05173",
+  "file": "corpus/webrcade_.github__agents_documentation-ghost.agent.md",
+  "repo": "webrcade/.github",
+  "path": "agents/documentation-ghost.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05174",
+  "file": "corpus/weiming-gu_PM-Project__.github_agents_code-docs.agent.md",
+  "repo": "weiming-gu/PM-Project",
+  "path": ".github/agents/code-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05175",
+  "file": "corpus/wellingtonpoll_claude-code-multiagentic-framework__.claude_agents_technical-writer.md",
+  "repo": "wellingtonpoll/claude-code-multiagentic-framework",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05176",
+  "file": "corpus/weniv_aiboot__.claude_agents_copywriter.md",
+  "repo": "weniv/aiboot",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05177",
+  "file": "corpus/weniv_aid__.claude_agents_copywriter.md",
+  "repo": "weniv/aid",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05178",
+  "file": "corpus/whdgur5717_react-design-editor__.codex_agents_design-editor-ux-expert.toml",
+  "repo": "whdgur5717/react-design-editor",
+  "path": ".codex/agents/design-editor-ux-expert.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05179",
+  "file": "corpus/whichguy_c-thru__agents_writer.md",
+  "repo": "whichguy/c-thru",
+  "path": "agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01140",
+  "file": "corpus/pCloud_pclsync__.claude_agents_pclsync-c-author.md",
+  "repo": "pCloud/pclsync",
+  "path": ".claude/agents/pclsync-c-author.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01141",
+  "file": "corpus/zekdevs_pi-config__agents_internal-documentation.md",
+  "repo": "zekdevs/pi-config",
+  "path": "agents/internal-documentation.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01142",
+  "file": "corpus/zekdevs_pi-config__agents_user-documentation.md",
+  "repo": "zekdevs/pi-config",
+  "path": "agents/user-documentation.md",
+  "stars": 34,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01143",
+  "file": "corpus/extenda_actions__.github_agents_docs-agent.agent.md",
+  "repo": "extenda/actions",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01144",
+  "file": "corpus/isac322_krema__.claude_agents_docs-seo.md",
+  "repo": "isac322/krema",
+  "path": ".claude/agents/docs-seo.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01145",
+  "file": "corpus/isac322_krema__.claude_agents_docs-writer.md",
+  "repo": "isac322/krema",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01146",
+  "file": "corpus/kupzed_catatz__.claude_agents_docs-researcher.md",
+  "repo": "kupzed/catatz",
+  "path": ".claude/agents/docs-researcher.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01147",
+  "file": "corpus/mylee04_claude-code-subagents__agents_business_content-marketer.md",
+  "repo": "mylee04/claude-code-subagents",
+  "path": "agents/business/content-marketer.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01148",
+  "file": "corpus/mylee04_claude-code-subagents__agents_product_api-documenter.md",
+  "repo": "mylee04/claude-code-subagents",
+  "path": "agents/product/api-documenter.md",
+  "stars": 33,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01149",
+  "file": "corpus/PolicyEngine_policyengine-claude__agents_report-logger.md",
+  "repo": "PolicyEngine/policyengine-claude",
+  "path": "agents/report-logger.md",
+  "stars": 32,
+  "copies_in_repos": 1
+ }
+]

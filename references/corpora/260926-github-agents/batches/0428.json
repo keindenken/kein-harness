@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04280",
+  "file": "corpus/kelvin-chappell_dotfiles__agents_.agents_skills_aws-iam_references_service-authorization.md",
+  "repo": "kelvin-chappell/dotfiles",
+  "path": "agents/.agents/skills/aws-iam/references/service-authorization.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04281",
+  "file": "corpus/kendreaditya_.config__agents_harness_codex_agents_docs-keeper.toml",
+  "repo": "kendreaditya/.config",
+  "path": "agents/harness/codex/agents/docs-keeper.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04282",
+  "file": "corpus/kennycyb_go-mod-checker__.github_agents_docs.agent.md",
+  "repo": "kennycyb/go-mod-checker",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04283",
+  "file": "corpus/kennyolofsson23-netizen_claude-code-config__agents_content-writer.md",
+  "repo": "kennyolofsson23-netizen/claude-code-config",
+  "path": "agents/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04284",
+  "file": "corpus/kesslernity_awesome-copilot-studio-agents__agents_finance_financial-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-studio-agents",
+  "path": "agents/finance/financial-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04285",
+  "file": "corpus/kesslernity_awesome-copilot-studio-agents__agents_it-ops_change-request-writer.md",
+  "repo": "kesslernity/awesome-copilot-studio-agents",
+  "path": "agents/it-ops/change-request-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04286",
+  "file": "corpus/kesslernity_awesome-copilot-studio-agents__agents_it-ops_incident-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-studio-agents",
+  "path": "agents/it-ops/incident-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04287",
+  "file": "corpus/kesslernity_awesome-copilot-studio-agents__agents_project-management_project-closure-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-studio-agents",
+  "path": "agents/project-management/project-closure-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04288",
+  "file": "corpus/kesslernity_awesome-copilot-studio-agents__agents_strategy-executive_board-report-writer.md",
+  "repo": "kesslernity/awesome-copilot-studio-agents",
+  "path": "agents/strategy-executive/board-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04289",
+  "file": "corpus/kevindm1989-afk_agent-os__.claude_agents_tech-writer.md",
+  "repo": "kevindm1989-afk/agent-os",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

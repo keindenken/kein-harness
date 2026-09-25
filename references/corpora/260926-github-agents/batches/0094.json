@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00940",
+  "file": "corpus/Ravikisha_PythonCentralHub__.claude_agents_content-author.md",
+  "repo": "Ravikisha/PythonCentralHub",
+  "path": ".claude/agents/content-author.md",
+  "stars": 83,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00941",
+  "file": "corpus/Kacep91_claude-agents__agents_prd-writer.md",
+  "repo": "Kacep91/claude-agents",
+  "path": "agents/prd-writer.md",
+  "stars": 82,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00942",
+  "file": "corpus/gpt-cmdr_ras-commander__.claude_agents_hec-hms-documentation-scout.md",
+  "repo": "gpt-cmdr/ras-commander",
+  "path": ".claude/agents/hec-hms-documentation-scout.md",
+  "stars": 82,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00943",
+  "file": "corpus/tobyilee_book-writer__.claude_agents_editor.md",
+  "repo": "tobyilee/book-writer",
+  "path": ".claude/agents/editor.md",
+  "stars": 82,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00944",
+  "file": "corpus/adrianosantostreina_delphi-dev__agents_delphi-spec-writer.md",
+  "repo": "adrianosantostreina/delphi-dev",
+  "path": "agents/delphi-spec-writer.md",
+  "stars": 81,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00945",
+  "file": "corpus/adrianosantostreina_delphi-dev__agents_delphi-writer.md",
+  "repo": "adrianosantostreina/delphi-dev",
+  "path": "agents/delphi-writer.md",
+  "stars": 81,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00946",
+  "file": "corpus/claude-world_director-mode-lite__agents_doc-writer.md",
+  "repo": "claude-world/director-mode-lite",
+  "path": "agents/doc-writer.md",
+  "stars": 81,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00947",
+  "file": "corpus/tyrchen_dotclaude__agents_doc-writer.md",
+  "repo": "tyrchen/dotclaude",
+  "path": "agents/doc-writer.md",
+  "stars": 81,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00948",
+  "file": "corpus/tyrchen_dotclaude__agents_tech-writer.md",
+  "repo": "tyrchen/dotclaude",
+  "path": "agents/tech-writer.md",
+  "stars": 81,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00949",
+  "file": "corpus/mukul975_Threatswarm__.claude_agents_report-writer.md",
+  "repo": "mukul975/Threatswarm",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 80,
+  "copies_in_repos": 1
+ }
+]

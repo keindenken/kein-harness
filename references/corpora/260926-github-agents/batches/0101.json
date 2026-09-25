@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01010",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_code-quality-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/code-quality-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01011",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_extension-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/extension-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01012",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_job-match-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/job-match-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01013",
+  "file": "corpus/saeedkolivand_ai-job-hunter-app__.claude_agents_scraping-applier-author.md",
+  "repo": "saeedkolivand/ai-job-hunter-app",
+  "path": ".claude/agents/scraping-applier-author.md",
+  "stars": 59,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01014",
+  "file": "corpus/iLearn-Lab_EvoHarness__.claude_agents_docs-curator.md",
+  "repo": "iLearn-Lab/EvoHarness",
+  "path": ".claude/agents/docs-curator.md",
+  "stars": 58,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01015",
+  "file": "corpus/stitchdata_docs__.github_agents_Draft-doc.agent.md",
+  "repo": "stitchdata/docs",
+  "path": ".github/agents/Draft-doc.agent.md",
+  "stars": 58,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01016",
+  "file": "corpus/stitchdata_docs__.github_agents_Plan-doc.agent.md",
+  "repo": "stitchdata/docs",
+  "path": ".github/agents/Plan-doc.agent.md",
+  "stars": 58,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01017",
+  "file": "corpus/longbridge_developers__.claude_agents_lb-docs.md",
+  "repo": "longbridge/developers",
+  "path": ".claude/agents/lb-docs.md",
+  "stars": 57,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01018",
+  "file": "corpus/The-AIOS_aios__agents_aios_communication_design-md-author.md",
+  "repo": "The-AIOS/aios",
+  "path": "agents/aios/communication/design-md-author.md",
+  "stars": 56,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01019",
+  "file": "corpus/getgaal_gaal__.github_agents_doc-writer.md",
+  "repo": "getgaal/gaal",
+  "path": ".github/agents/doc-writer.md",
+  "stars": 56,
+  "copies_in_repos": 1
+ }
+]

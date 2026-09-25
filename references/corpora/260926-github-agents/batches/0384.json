@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03840",
+  "file": "corpus/dpalfery_motorcycle-rag-system__.codex_agents_docs-dev.toml",
+  "repo": "dpalfery/motorcycle-rag-system",
+  "path": ".codex/agents/docs-dev.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03841",
+  "file": "corpus/dpovey_bottb__.claude_agents_tech-writer.md",
+  "repo": "dpovey/bottb",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03842",
+  "file": "corpus/dpwns523_test-codex-reporting__.codex_agents_aml-reporter.toml",
+  "repo": "dpwns523/test-codex-reporting",
+  "path": ".codex/agents/aml-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03843",
+  "file": "corpus/dpwns523_test-codex-reporting__.codex_agents_finance-reporter.toml",
+  "repo": "dpwns523/test-codex-reporting",
+  "path": ".codex/agents/finance-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03844",
+  "file": "corpus/dpwns523_test-codex-reporting__.codex_agents_report-analyst.toml",
+  "repo": "dpwns523/test-codex-reporting",
+  "path": ".codex/agents/report-analyst.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03845",
+  "file": "corpus/dpwns523_test-codex-reporting__.codex_agents_tracking-reporter.toml",
+  "repo": "dpwns523/test-codex-reporting",
+  "path": ".codex/agents/tracking-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03846",
+  "file": "corpus/draknarethorne_viper-health__.github_agents_ViperHealth-Documentation.agent.md",
+  "repo": "draknarethorne/viper-health",
+  "path": ".github/agents/ViperHealth-Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03847",
+  "file": "corpus/drew-mason_planning-poker-fluent__.claude_agents_sn-technical-writer.md",
+  "repo": "drew-mason/planning-poker-fluent",
+  "path": ".claude/agents/sn-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03848",
+  "file": "corpus/drewburton_Gym-App__.github_agents_documentation-writer.agent.md",
+  "repo": "drewburton/Gym-App",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03849",
+  "file": "corpus/drlc_ai-skills__agents_documentation-scope-planner.agent.md",
+  "repo": "drlc/ai-skills",
+  "path": "agents/documentation-scope-planner.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

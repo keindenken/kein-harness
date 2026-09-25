@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00010",
+  "file": "corpus/mrgoonie_human-mcp__.claude_agents_docs-manager.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".claude/agents/docs-manager.md",
+  "stars": 293,
+  "copies_in_repos": 32
+ },
+ {
+  "id": "c00011",
+  "file": "corpus/SuperClaude-Org_SuperClaude_Plugin__agents_sc-technical-writer.md",
+  "repo": "SuperClaude-Org/SuperClaude_Plugin",
+  "path": "agents/sc-technical-writer.md",
+  "stars": 55,
+  "copies_in_repos": 27
+ },
+ {
+  "id": "c00012",
+  "file": "corpus/CarlosCaPe_octorato__agents_marketing_marketing-book-co-author.md",
+  "repo": "CarlosCaPe/octorato",
+  "path": "agents/marketing/marketing-book-co-author.md",
+  "stars": 17,
+  "copies_in_repos": 27
+ },
+ {
+  "id": "c00013",
+  "file": "corpus/mrgoonie_human-mcp__.opencode_agent_docs-manager.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".opencode/agent/docs-manager.md",
+  "stars": 293,
+  "copies_in_repos": 26
+ },
+ {
+  "id": "c00014",
+  "file": "corpus/Tatsh_youtube-unofficial__.claude_agents_copy-editor.md",
+  "repo": "Tatsh/youtube-unofficial",
+  "path": ".claude/agents/copy-editor.md",
+  "stars": 56,
+  "copies_in_repos": 26
+ },
+ {
+  "id": "c00015",
+  "file": "corpus/affaan-m_ECC__.codex_agents_docs-researcher.toml",
+  "repo": "affaan-m/ECC",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 267344,
+  "copies_in_repos": 22
+ },
+ {
+  "id": "c00016",
+  "file": "corpus/github_awesome-copilot__agents_taxcore-technical-writer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/taxcore-technical-writer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 20
+ },
+ {
+  "id": "c00017",
+  "file": "corpus/wshobson_agents__plugins_seo-analysis-monitoring_agents_seo-authority-builder.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/seo-analysis-monitoring/agents/seo-authority-builder.md",
+  "stars": 39956,
+  "copies_in_repos": 19
+ },
+ {
+  "id": "c00018",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_documentation_documentation-engineer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/documentation/documentation-engineer.md",
+  "stars": 31792,
+  "copies_in_repos": 18
+ },
+ {
+  "id": "c00019",
+  "file": "corpus/LDJ-creat_video-helper__.github_agents_bmad-bmm-tech-writer-tech-writer.agent.md",
+  "repo": "LDJ-creat/video-helper",
+  "path": ".github/agents/bmad-bmm-tech-writer-tech-writer.agent.md",
+  "stars": 49,
+  "copies_in_repos": 18
+ }
+]

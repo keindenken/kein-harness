@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00730",
+  "file": "corpus/Fu-Jie_openwebui-extensions__.github_agents_doc-writer.agent.md",
+  "repo": "Fu-Jie/openwebui-extensions",
+  "path": ".github/agents/doc-writer.agent.md",
+  "stars": 317,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00731",
+  "file": "corpus/revfactory_webtoon-harness__.claude_agents_script-editor.md",
+  "repo": "revfactory/webtoon-harness",
+  "path": ".claude/agents/script-editor.md",
+  "stars": 317,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00732",
+  "file": "corpus/sazardev_shiki__.opencode_agent_docs-auditor.md",
+  "repo": "sazardev/shiki",
+  "path": ".opencode/agent/docs-auditor.md",
+  "stars": 308,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00733",
+  "file": "corpus/sweetcornna_mathodology__.claude_agents_mathodology-paper-editor.md",
+  "repo": "sweetcornna/mathodology",
+  "path": ".claude/agents/mathodology-paper-editor.md",
+  "stars": 302,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00734",
+  "file": "corpus/OpenFn_lightning__.claude_agents_react-collab-editor.md",
+  "repo": "OpenFn/lightning",
+  "path": ".claude/agents/react-collab-editor.md",
+  "stars": 299,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00735",
+  "file": "corpus/team-attention_stanford-cs146s-kr__.claude_agents_review-translation_report-integrator.md",
+  "repo": "team-attention/stanford-cs146s-kr",
+  "path": ".claude/agents/review-translation/report-integrator.md",
+  "stars": 296,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00736",
+  "file": "corpus/backbay-labs_clawdstrike__.codex_agents_docs-researcher.toml",
+  "repo": "backbay-labs/clawdstrike",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 290,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00737",
+  "file": "corpus/backbay-labs_clawdstrike__.codex_agents_openai-docs-researcher.toml",
+  "repo": "backbay-labs/clawdstrike",
+  "path": ".codex/agents/openai-docs-researcher.toml",
+  "stars": 290,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00738",
+  "file": "corpus/TheSoftwareHouse_copilot-collections__.github_agents_tsh-technical-writer.agent.md",
+  "repo": "TheSoftwareHouse/copilot-collections",
+  "path": ".github/agents/tsh-technical-writer.agent.md",
+  "stars": 284,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00739",
+  "file": "corpus/FormalizedFormalLogic_Foundation__.codex_agents_lean4-proof-writer.toml",
+  "repo": "FormalizedFormalLogic/Foundation",
+  "path": ".codex/agents/lean4-proof-writer.toml",
+  "stars": 280,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01120",
+  "file": "corpus/ShellyUSA_Hubitat-Drivers__.github_agents_shelly-script-author.agent.md",
+  "repo": "ShellyUSA/Hubitat-Drivers",
+  "path": ".github/agents/shelly-script-author.agent.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01121",
+  "file": "corpus/ShellyUSA_Hubitat-Drivers__.github_agents_universal-driver-author.agent.md",
+  "repo": "ShellyUSA/Hubitat-Drivers",
+  "path": ".github/agents/universal-driver-author.agent.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01122",
+  "file": "corpus/WeTheInternet_xapi__agents_tasks_reconcile-settings-schema-docs.md",
+  "repo": "WeTheInternet/xapi",
+  "path": "agents/tasks/reconcile-settings-schema-docs.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01123",
+  "file": "corpus/Zuehlke_labview-mcp__.claude_agents_labview-vi-editor.md",
+  "repo": "Zuehlke/labview-mcp",
+  "path": ".claude/agents/labview-vi-editor.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01124",
+  "file": "corpus/dynamics365ninja_d365fo-cli__.claude_agents_eval-author.md",
+  "repo": "dynamics365ninja/d365fo-cli",
+  "path": ".claude/agents/eval-author.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01125",
+  "file": "corpus/morfidon_ai-agents__agents_phase-08-testing-documentation-maintenance_2.documentation-drift-docs-vs-code-agent.md",
+  "repo": "morfidon/ai-agents",
+  "path": "agents/phase-08-testing-documentation-maintenance/2.documentation-drift-docs-vs-code-agent.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01126",
+  "file": "corpus/roadhero_claude-code-setup__agents_docs-reconciler.md",
+  "repo": "roadhero/claude-code-setup",
+  "path": "agents/docs-reconciler.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01127",
+  "file": "corpus/roadhero_claude-code-setup__agents_tech-writer.md",
+  "repo": "roadhero/claude-code-setup",
+  "path": "agents/tech-writer.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01128",
+  "file": "corpus/roneli_fastgql__.claude_agents_docs-guardian.md",
+  "repo": "roneli/fastgql",
+  "path": ".claude/agents/docs-guardian.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01129",
+  "file": "corpus/staffanm_ferenda__.claude_agents_docs-sync.md",
+  "repo": "staffanm/ferenda",
+  "path": ".claude/agents/docs-sync.md",
+  "stars": 36,
+  "copies_in_repos": 1
+ }
+]

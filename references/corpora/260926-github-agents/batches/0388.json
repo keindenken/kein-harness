@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03880",
+  "file": "corpus/ek33450505_claude-agent-team__agents_core_report-writer.md",
+  "repo": "ek33450505/claude-agent-team",
+  "path": "agents/core/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03881",
+  "file": "corpus/elbel13_elijahbelnap.com__.opencode_agent_prose-editor.md",
+  "repo": "elbel13/elijahbelnap.com",
+  "path": ".opencode/agent/prose-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03882",
+  "file": "corpus/electricddev_console-platform__.claude_agents_docs-writer.md",
+  "repo": "electricddev/console-platform",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03883",
+  "file": "corpus/electrocucaracha_gh-workflows__.github_agents_technical-writer.agent.md",
+  "repo": "electrocucaracha/gh-workflows",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03884",
+  "file": "corpus/elihuvillaraus_skills__agents_copywriter.agent.md",
+  "repo": "elihuvillaraus/skills",
+  "path": "agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03885",
+  "file": "corpus/elpis-dev_reactive-websockets__.github_agents_elpis-document-writer.agent.md",
+  "repo": "elpis-dev/reactive-websockets",
+  "path": ".github/agents/elpis-document-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03886",
+  "file": "corpus/elson-vinicius-lopes_CSharpEditor__.claude_agents_cseditor-architect.md",
+  "repo": "elson-vinicius-lopes/CSharpEditor",
+  "path": ".claude/agents/cseditor-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03887",
+  "file": "corpus/elson-vinicius-lopes_CSharpEditor__.claude_agents_cseditor-estruturas.md",
+  "repo": "elson-vinicius-lopes/CSharpEditor",
+  "path": ".claude/agents/cseditor-estruturas.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03888",
+  "file": "corpus/elson-vinicius-lopes_CSharpEditor__.claude_agents_cseditor-semantica.md",
+  "repo": "elson-vinicius-lopes/CSharpEditor",
+  "path": ".claude/agents/cseditor-semantica.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03889",
+  "file": "corpus/emanhthangngot_codex-template__.codex_agents_docs-researcher.toml",
+  "repo": "emanhthangngot/codex-template",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

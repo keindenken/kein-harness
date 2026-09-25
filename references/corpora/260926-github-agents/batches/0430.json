@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04300",
+  "file": "corpus/kimhons_WriteCrewA__.github_agents_docs-agent.md",
+  "repo": "kimhons/WriteCrewA",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04301",
+  "file": "corpus/kinncj_ideas-vault__.opencode_agent_technical-writer.md",
+  "repo": "kinncj/ideas-vault",
+  "path": ".opencode/agent/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04302",
+  "file": "corpus/kinncj_sample-ai-squad__.claude_agents_design-system-author.md",
+  "repo": "kinncj/sample-ai-squad",
+  "path": ".claude/agents/design-system-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04303",
+  "file": "corpus/kishimin-ai-create_TDD_todo_app__.github_agents_OpenApiWriterAgent.agent.md",
+  "repo": "kishimin-ai-create/TDD_todo_app",
+  "path": ".github/agents/OpenApiWriterAgent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04304",
+  "file": "corpus/kishimin-ai-create_diary__.codex_agents_ArticleWriterAgent.toml",
+  "repo": "kishimin-ai-create/diary",
+  "path": ".codex/agents/ArticleWriterAgent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04305",
+  "file": "corpus/kishimin-ai-create_diary__.codex_agents_PullRequestWriterAgent.toml",
+  "repo": "kishimin-ai-create/diary",
+  "path": ".codex/agents/PullRequestWriterAgent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04306",
+  "file": "corpus/kitariel_expo-mobile-template__.claude_agents_report.md",
+  "repo": "kitariel/expo-mobile-template",
+  "path": ".claude/agents/report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04307",
+  "file": "corpus/kittybbit_vscode-ajsbutler__.codex_agents_feature-author.toml",
+  "repo": "kittybbit/vscode-ajsbutler",
+  "path": ".codex/agents/feature-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04308",
+  "file": "corpus/kittybbit_vscode-ajsbutler__.codex_agents_plan-author.toml",
+  "repo": "kittybbit/vscode-ajsbutler",
+  "path": ".codex/agents/plan-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04309",
+  "file": "corpus/kjanat_github-labelmanager__.opencode_agent_docs.md",
+  "repo": "kjanat/github-labelmanager",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

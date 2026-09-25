@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00560",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_shared_tests_golden_04-write-with-approval.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/shared/tests/golden/04-write-with-approval.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00561",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_shared_tests_templates_read-then-write.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/shared/tests/templates/read-then-write.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00562",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_shared_tests_templates_write-with-approval.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/shared/tests/templates/write-with-approval.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00563",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_subagents_core_context-retriever_tests_04-content-extraction.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/subagents/core/context-retriever/tests/04-content-extraction.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00564",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_subagents_core_contextscout_tests_07-content-creation-discovery.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/subagents/core/contextscout/tests/07-content-creation-discovery.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00565",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_subagents_core_documentation_tests_02-create-documentation.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/subagents/core/documentation/tests/02-create-documentation.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00566",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_subagents_core_documentation_tests_03-update-documentation.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/subagents/core/documentation/tests/03-update-documentation.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00567",
+  "file": "corpus/NewFuture_DDNS__.github_agents_docs.agent.md",
+  "repo": "NewFuture/DDNS",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 4694,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00568",
+  "file": "corpus/zebbern_claude-code-guide__agents_.claude_agents_official-docs-researcher.md",
+  "repo": "zebbern/claude-code-guide",
+  "path": "agents/.claude/agents/official-docs-researcher.md",
+  "stars": 4635,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00569",
+  "file": "corpus/kungfu-systems_kungfu__framework_core_src_python_kungfu_agent_examples_report-mode.md",
+  "repo": "kungfu-systems/kungfu",
+  "path": "framework/core/src/python/kungfu/agent/examples/report-mode.md",
+  "stars": 4524,
+  "copies_in_repos": 1
+ }
+]

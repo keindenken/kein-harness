@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03700",
+  "file": "corpus/chuilishi_top5-remotion__.github_agents_clip-editor.agent.md",
+  "repo": "chuilishi/top5-remotion",
+  "path": ".github/agents/clip-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03701",
+  "file": "corpus/chuilishi_top5-remotion__.github_agents_copywriter.agent.md",
+  "repo": "chuilishi/top5-remotion",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03702",
+  "file": "corpus/chussenot_quivive__.claude_agents_docs-writer.md",
+  "repo": "chussenot/quivive",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03703",
+  "file": "corpus/cioaonk_tool-dev-practice__.claude_agents_usage-reporter.md",
+  "repo": "cioaonk/tool-dev-practice",
+  "path": ".claude/agents/usage-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03704",
+  "file": "corpus/citum_citum-core__.codex_agents_docs-curator.md",
+  "repo": "citum/citum-core",
+  "path": ".codex/agents/docs-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03705",
+  "file": "corpus/cjalex1313_trex-gym__.github_agents_code-writer.md",
+  "repo": "cjalex1313/trex-gym",
+  "path": ".github/agents/code-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03706",
+  "file": "corpus/ckarthikengr_liftingdiarycourse__.claude_agents_docs-claude-sync.md",
+  "repo": "ckarthikengr/liftingdiarycourse",
+  "path": ".claude/agents/docs-claude-sync.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03707",
+  "file": "corpus/claude-office-skills_claude-office-plugin__agents_report-writer.md",
+  "repo": "claude-office-skills/claude-office-plugin",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03708",
+  "file": "corpus/cleanshipcz_day-skipper-trainer-copy__.github_agents_documenter-knowledgebase.agent.md",
+  "repo": "cleanshipcz/day-skipper-trainer-copy",
+  "path": ".github/agents/documenter-knowledgebase.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03709",
+  "file": "corpus/clear-thinkers_survey_pipeline__.github_agents_report-412yz-report-writer.agent.md",
+  "repo": "clear-thinkers/survey_pipeline",
+  "path": ".github/agents/report-412yz-report-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

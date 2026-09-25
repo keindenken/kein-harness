@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05070",
+  "file": "corpus/trustsoft_CLIHub__.opencode_agent_docs-writer.md",
+  "repo": "trustsoft/CLIHub",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05071",
+  "file": "corpus/tryanglebuild_devcache__.claude_agents_copywriter-agent.md",
+  "repo": "tryanglebuild/devcache",
+  "path": ".claude/agents/copywriter-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05072",
+  "file": "corpus/ts-playwright-learn-siddhesh_playwright-bdd__.claude_agents_bdd-feature-author.md",
+  "repo": "ts-playwright-learn-siddhesh/playwright-bdd",
+  "path": ".claude/agents/bdd-feature-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05073",
+  "file": "corpus/tsim82_internal-ai-marketing-team__.claude_agents_copywriter.md",
+  "repo": "tsim82/internal-ai-marketing-team",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05074",
+  "file": "corpus/tthung1997_bgdesign__.github_agents_rules-writer-editor.agent.md",
+  "repo": "tthung1997/bgdesign",
+  "path": ".github/agents/rules-writer-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05075",
+  "file": "corpus/tttboy123_loom__.codex_agents_docs-researcher.toml",
+  "repo": "tttboy123/loom",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05076",
+  "file": "corpus/tuan3w_obsidian-vault-agent__agents_vault-editor.md",
+  "repo": "tuan3w/obsidian-vault-agent",
+  "path": "agents/vault-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05077",
+  "file": "corpus/tuan3w_obsidian-vault-agent__agents_vault-writer.md",
+  "repo": "tuan3w/obsidian-vault-agent",
+  "path": "agents/vault-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05078",
+  "file": "corpus/tuckerschreiber_jester__agents_report-writer.md",
+  "repo": "tuckerschreiber/jester",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05079",
+  "file": "corpus/tune-77_tune_lease_55__.codex_agents_report-stylist.toml",
+  "repo": "tune-77/tune_lease_55",
+  "path": ".codex/agents/report-stylist.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

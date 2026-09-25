@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04690",
+  "file": "corpus/peterson-rainey_creekside-agent-system__.claude_agents_weekly-client-report-agent.md",
+  "repo": "peterson-rainey/creekside-agent-system",
+  "path": ".claude/agents/weekly-client-report-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04691",
+  "file": "corpus/pgEdge_pgedge-postgres-mcp__.claude_agents_documentation-writer.md",
+  "repo": "pgEdge/pgedge-postgres-mcp",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04692",
+  "file": "corpus/pgbarletta_lstormm__.codex_agents_prwriter.md",
+  "repo": "pgbarletta/lstormm",
+  "path": ".codex/agents/prwriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04693",
+  "file": "corpus/phakawan_The-Cloud-Valley-Dragon-Nursery__agents_editor-stylist.md",
+  "repo": "phakawan/The-Cloud-Valley-Dragon-Nursery",
+  "path": "agents/editor-stylist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04694",
+  "file": "corpus/phatdet2312_Web_Pharma_QuangDuong__.codex_agents_doc-writer.toml",
+  "repo": "phatdet2312/Web_Pharma_QuangDuong",
+  "path": ".codex/agents/doc-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04695",
+  "file": "corpus/phelipperibeiro_spoiler__agents_engineering_eng.docs-writer.md",
+  "repo": "phelipperibeiro/spoiler",
+  "path": "agents/engineering/eng.docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04696",
+  "file": "corpus/philipStenger_masters-thesis__.github_agents_AcademicWriter.agent.md",
+  "repo": "philipStenger/masters-thesis",
+  "path": ".github/agents/AcademicWriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04697",
+  "file": "corpus/philngt_contextd__agents_pipeline_report-prompts.md",
+  "repo": "philngt/contextd",
+  "path": "agents/pipeline/report-prompts.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04698",
+  "file": "corpus/philngt_contextd__agents_pipeline_task-to-docs-map.md",
+  "repo": "philngt/contextd",
+  "path": "agents/pipeline/task-to-docs-map.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04699",
+  "file": "corpus/phucnguyen035_dotfiles__agents_.agents_skills_slidev_references_editor-vscode.md",
+  "repo": "phucnguyen035/dotfiles",
+  "path": "agents/.agents/skills/slidev/references/editor-vscode.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

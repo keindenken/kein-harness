@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02060",
+  "file": "corpus/dhalarewich_writers-room__agents_editor.md",
+  "repo": "dhalarewich/writers-room",
+  "path": "agents/editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02061",
+  "file": "corpus/dimbo1324_country-decision-atlas-r__.codex_agents_docs-keeper.toml",
+  "repo": "dimbo1324/country-decision-atlas-r",
+  "path": ".codex/agents/docs-keeper.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02062",
+  "file": "corpus/doozMen_tech-conf-agent__.claude_agents_documentation-writer.md",
+  "repo": "doozMen/tech-conf-agent",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02063",
+  "file": "corpus/dougborg_katana-openapi-client__.github_agents_documentation-writer.agent.md",
+  "repo": "dougborg/katana-openapi-client",
+  "path": ".github/agents/documentation-writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02064",
+  "file": "corpus/dpalfery_kyber-weave__.github_agents_architect_references_plan-authoring.md",
+  "repo": "dpalfery/kyber-weave",
+  "path": ".github/agents/architect/references/plan-authoring.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02065",
+  "file": "corpus/dylanburkey_superfly-cms__.claude_agents_editor.md",
+  "repo": "dylanburkey/superfly-cms",
+  "path": ".claude/agents/editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02066",
+  "file": "corpus/executeautomation_SeleniumCICDDemo__.github_agents_BugReporter.agent.md",
+  "repo": "executeautomation/SeleniumCICDDemo",
+  "path": ".github/agents/BugReporter.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02067",
+  "file": "corpus/feyza-droid_scenario-based-rl__agents__scenario_runner_mkdocs.yml",
+  "repo": "feyza-droid/scenario-based-rl",
+  "path": "agents/_scenario_runner/mkdocs.yml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02068",
+  "file": "corpus/guicheffer_devorch-cli__.claude_agents_docs-surgeon.md",
+  "repo": "guicheffer/devorch-cli",
+  "path": ".claude/agents/docs-surgeon.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02069",
+  "file": "corpus/homegrew_grew__.claude_agents_technical-writer.md",
+  "repo": "homegrew/grew",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

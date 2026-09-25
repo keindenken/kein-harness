@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00770",
+  "file": "corpus/mverab_eGEOagents__.claude_agents_geo-rewriter.md",
+  "repo": "mverab/eGEOagents",
+  "path": ".claude/agents/geo-rewriter.md",
+  "stars": 194,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00771",
+  "file": "corpus/yuanchuan_aivo__src_agent_builtin_agents_aivo-guide.md",
+  "repo": "yuanchuan/aivo",
+  "path": "src/agent/builtin_agents/aivo-guide.md",
+  "stars": 194,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00772",
+  "file": "corpus/sd0xdev_sd0x-harness__agents_brief-writer.md",
+  "repo": "sd0xdev/sd0x-harness",
+  "path": "agents/brief-writer.md",
+  "stars": 190,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00773",
+  "file": "corpus/lism-css_core__.claude_agents_lism-docs-editor.md",
+  "repo": "lism-css/core",
+  "path": ".claude/agents/lism-docs-editor.md",
+  "stars": 186,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00774",
+  "file": "corpus/lism-css_core__.claude_agents_lism-mcp-editor.md",
+  "repo": "lism-css/core",
+  "path": ".claude/agents/lism-mcp-editor.md",
+  "stars": 186,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00775",
+  "file": "corpus/tallesborges_agentic-system-prompts__agents_cline_tools_LoadMcpDocumentation.md",
+  "repo": "tallesborges/agentic-system-prompts",
+  "path": "agents/cline/tools/LoadMcpDocumentation.md",
+  "stars": 186,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00776",
+  "file": "corpus/fgsfds_Steam-Superheater__.opencode_agent_axaml-writer.md",
+  "repo": "fgsfds/Steam-Superheater",
+  "path": ".opencode/agent/axaml-writer.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00777",
+  "file": "corpus/fgsfds_Steam-Superheater__.opencode_agent_csharp-writer.md",
+  "repo": "fgsfds/Steam-Superheater",
+  "path": ".opencode/agent/csharp-writer.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00778",
+  "file": "corpus/fgsfds_Steam-Superheater__.opencode_agent_json-writer.md",
+  "repo": "fgsfds/Steam-Superheater",
+  "path": ".opencode/agent/json-writer.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00779",
+  "file": "corpus/fgsfds_Steam-Superheater__.opencode_agent_xmldocs-writer.md",
+  "repo": "fgsfds/Steam-Superheater",
+  "path": ".opencode/agent/xmldocs-writer.md",
+  "stars": 184,
+  "copies_in_repos": 1
+ }
+]

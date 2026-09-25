@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01960",
+  "file": "corpus/nicktodd_nodejs-course__.github_agents_lab-author.agent.md",
+  "repo": "nicktodd/nodejs-course",
+  "path": ".github/agents/lab-author.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01961",
+  "file": "corpus/opendatahub-io_docs-skills__agents_pr-synthesis-writer.md",
+  "repo": "opendatahub-io/docs-skills",
+  "path": "agents/pr-synthesis-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01962",
+  "file": "corpus/opendatahub-io_docs-skills__agents_synthesis-writer.md",
+  "repo": "opendatahub-io/docs-skills",
+  "path": "agents/synthesis-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01963",
+  "file": "corpus/rakeshgangwar_30Days30Agents__agents_Day-07-Task-Automation-Agent_beehive-mcp-server_docs_beehive-mcp-tools-documentation.md",
+  "repo": "rakeshgangwar/30Days30Agents",
+  "path": "agents/Day-07-Task-Automation-Agent/beehive-mcp-server/docs/beehive-mcp-tools-documentation.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01964",
+  "file": "corpus/rast-lab_BGGM__.claude_agents_docs-writer.md",
+  "repo": "rast-lab/BGGM",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01965",
+  "file": "corpus/rawatpranjal_tech-econ__.claude_agents_writer.md",
+  "repo": "rawatpranjal/tech-econ",
+  "path": ".claude/agents/writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01966",
+  "file": "corpus/renanlido_agentic-development-kit__.claude_agents_documenter.md",
+  "repo": "renanlido/agentic-development-kit",
+  "path": ".claude/agents/documenter.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01967",
+  "file": "corpus/rozensoftware_pythonami__.github_agents_python68k-documentation-maintainer.agent.md",
+  "repo": "rozensoftware/pythonami",
+  "path": ".github/agents/python68k-documentation-maintainer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01968",
+  "file": "corpus/shyamsridhar123_MayorWest__.github_agents_template-author.md",
+  "repo": "shyamsridhar123/MayorWest",
+  "path": ".github/agents/template-author.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01969",
+  "file": "corpus/sirbastiano_SimpleDet__.github_agents_docs-writer.agent.md",
+  "repo": "sirbastiano/SimpleDet",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

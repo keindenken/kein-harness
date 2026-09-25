@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03640",
+  "file": "corpus/brobro10000_context-os__agents_outputs_A2-wave4-accepted-mutation-integration-report.md",
+  "repo": "brobro10000/context-os",
+  "path": "agents/outputs/A2-wave4-accepted-mutation-integration-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03641",
+  "file": "corpus/brobro10000_context-os__agents_outputs_A3-phase01-contracts-report.md",
+  "repo": "brobro10000/context-os",
+  "path": "agents/outputs/A3-phase01-contracts-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03642",
+  "file": "corpus/brocahontaz_fjallos__.github_agents_phase-3-files-editor.md",
+  "repo": "brocahontaz/fjallos",
+  "path": ".github/agents/phase-3-files-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03643",
+  "file": "corpus/brohde_brohde.com__.claude_agents_copywriter.md",
+  "repo": "brohde/brohde.com",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03644",
+  "file": "corpus/brunocoelho-mgc_desafio-luizalabs-ultra-rapida__.claude_agents_sdd-author.md",
+  "repo": "brunocoelho-mgc/desafio-luizalabs-ultra-rapida",
+  "path": ".claude/agents/sdd-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03645",
+  "file": "corpus/bsamiee_Rasm__.claude_agents_prose-editor.md",
+  "repo": "bsamiee/Rasm",
+  "path": ".claude/agents/prose-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03646",
+  "file": "corpus/bspann_bmad-cowork__agents_tech-writer.md",
+  "repo": "bspann/bmad-cowork",
+  "path": "agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03647",
+  "file": "corpus/bthek1_model_playground__.github_agents_docs.agent.md",
+  "repo": "bthek1/model_playground",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03648",
+  "file": "corpus/buape_carbon__.claude_agents_carbon-docs-writer.md",
+  "repo": "buape/carbon",
+  "path": ".claude/agents/carbon-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03649",
+  "file": "corpus/buenhyden_hy-home.k8s__.codex_agents_docs-researcher.toml",
+  "repo": "buenhyden/hy-home.k8s",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02080",
+  "file": "corpus/jsavin_iac-mcp__.claude_agents_documentation-specialist.md",
+  "repo": "jsavin/iac-mcp",
+  "path": ".claude/agents/documentation-specialist.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02081",
+  "file": "corpus/jwilger_eventcore__.codex_agents_development-system-documentation-author.toml",
+  "repo": "jwilger/eventcore",
+  "path": ".codex/agents/development-system-documentation-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02082",
+  "file": "corpus/k-kohli10_radar-system__.claude_agents_docs-writer.md",
+  "repo": "k-kohli10/radar-system",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02083",
+  "file": "corpus/koryph_koryph__.codex_agents_koryph-feature-docs-author.toml",
+  "repo": "koryph/koryph",
+  "path": ".codex/agents/koryph-feature-docs-author.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02084",
+  "file": "corpus/ldelreguero_QACopilotKit_by_Lucas__.github_agents_skills_playwright-skill_ci_reporting-and-artifacts.md",
+  "repo": "ldelreguero/QACopilotKit_by_Lucas",
+  "path": ".github/agents/skills/playwright-skill/ci/reporting-and-artifacts.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02085",
+  "file": "corpus/microsoft_amplifier-bundle-modes__agents_mode-author.md",
+  "repo": "microsoft/amplifier-bundle-modes",
+  "path": "agents/mode-author.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02086",
+  "file": "corpus/mnfst_docs__.claude_agents_tech-writer.md",
+  "repo": "mnfst/docs",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02087",
+  "file": "corpus/mtgibbs_claude-hiring-assistant__.claude_agents_batch-reporter.md",
+  "repo": "mtgibbs/claude-hiring-assistant",
+  "path": ".claude/agents/batch-reporter.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02088",
+  "file": "corpus/oocx_tfplan2md-uat__.github_agents_technical-writer.agent.md",
+  "repo": "oocx/tfplan2md-uat",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02089",
+  "file": "corpus/pank-suai_lab_template__.github_agents_report.md",
+  "repo": "pank-suai/lab_template",
+  "path": ".github/agents/report.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

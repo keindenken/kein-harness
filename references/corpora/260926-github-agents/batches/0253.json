@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02530",
+  "file": "corpus/mxcl_pkg.so__agents_editorconfig.yml",
+  "repo": "mxcl/pkg.so",
+  "path": "agents/editorconfig.yml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02531",
+  "file": "corpus/mxcl_pkg.so__agents_neon-vision-editor.yml",
+  "repo": "mxcl/pkg.so",
+  "path": "agents/neon-vision-editor.yml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02532",
+  "file": "corpus/myenquiringmind_dev-standards-plugin__agents_document_doc-technical-writer.md",
+  "repo": "myenquiringmind/dev-standards-plugin",
+  "path": "agents/document/doc-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02533",
+  "file": "corpus/mytechsonamy_VibeFlow__agents_adr-author.md",
+  "repo": "mytechsonamy/VibeFlow",
+  "path": "agents/adr-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02534",
+  "file": "corpus/newCYS_NeuroGate-SecurityGateway__.opencode_agent_docs-adr.md",
+  "repo": "newCYS/NeuroGate-SecurityGateway",
+  "path": ".opencode/agent/docs-adr.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02535",
+  "file": "corpus/nlebovits_datos-escala-humana__.claude_agents_eng-copyeditor.md",
+  "repo": "nlebovits/datos-escala-humana",
+  "path": ".claude/agents/eng-copyeditor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02536",
+  "file": "corpus/ozkannceylan_amr-agent__.claude_agents_arch-docs.md",
+  "repo": "ozkannceylan/amr-agent",
+  "path": ".claude/agents/arch-docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02537",
+  "file": "corpus/patrick473_ag-schematics__.github_agents_schematic-author.agent.md",
+  "repo": "patrick473/ag-schematics",
+  "path": ".github/agents/schematic-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02538",
+  "file": "corpus/pkp124_fusa-agents__agents_design-author.md",
+  "repo": "pkp124/fusa-agents",
+  "path": "agents/design-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02539",
+  "file": "corpus/pluginagentmarketplace_custom-plugin-devrel-engineer__agents_04-technical-writer.md",
+  "repo": "pluginagentmarketplace/custom-plugin-devrel-engineer",
+  "path": "agents/04-technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

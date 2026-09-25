@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02720",
+  "file": "corpus/Blackhex_robot-factory__.github_agents_blocks-editor.agent.md",
+  "repo": "Blackhex/robot-factory",
+  "path": ".github/agents/blocks-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02721",
+  "file": "corpus/Bmwascher_parsec__agents_author.md",
+  "repo": "Bmwascher/parsec",
+  "path": "agents/author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02722",
+  "file": "corpus/BonJarber_claude-config__agents_docs-guardian.md",
+  "repo": "BonJarber/claude-config",
+  "path": "agents/docs-guardian.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02723",
+  "file": "corpus/BoonHow97_everything-codex__.codex_agents_docs-maintainer.toml",
+  "repo": "BoonHow97/everything-codex",
+  "path": ".codex/agents/docs-maintainer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02724",
+  "file": "corpus/BoozeLee_mistral-vibe-configuration__agents_documentation_expert.toml",
+  "repo": "BoozeLee/mistral-vibe-configuration",
+  "path": "agents/documentation_expert.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02725",
+  "file": "corpus/Borobalaz_DTI-MRI-Imaging__.github_agents_documentation.agent.md",
+  "repo": "Borobalaz/DTI-MRI-Imaging",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02726",
+  "file": "corpus/Borobalaz_OpenGlBase__.github_agents_documentation.agent.md",
+  "repo": "Borobalaz/OpenGlBase",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02727",
+  "file": "corpus/BoushiSeikatsu_ZMD__.github_agents_documenter.agent.md",
+  "repo": "BoushiSeikatsu/ZMD",
+  "path": ".github/agents/documenter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02728",
+  "file": "corpus/BoutLabs_hypeman-claude-plugin__agents_copywriter.md",
+  "repo": "BoutLabs/hypeman-claude-plugin",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02729",
+  "file": "corpus/BraveHunt25_trabajo_terminal_2026-2027__.github_agents_documentation-agent.agent.md",
+  "repo": "BraveHunt25/trabajo_terminal_2026-2027",
+  "path": ".github/agents/documentation-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

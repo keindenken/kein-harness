@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02650",
+  "file": "corpus/Aco-Lone_kpt-spec-proposer__.github_agents_spec-writer.md",
+  "repo": "Aco-Lone/kpt-spec-proposer",
+  "path": ".github/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02651",
+  "file": "corpus/ActianCorp_zeenea-platform-docs__.github_agents_documentation.agent.md",
+  "repo": "ActianCorp/zeenea-platform-docs",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02652",
+  "file": "corpus/AdamMcIntosh_roland__.github_agents_documentationrefactor-writer.agent.md",
+  "repo": "AdamMcIntosh/roland",
+  "path": ".github/agents/documentationrefactor-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02653",
+  "file": "corpus/AdamMcIntosh_roland__.github_agents_writer.agent.md",
+  "repo": "AdamMcIntosh/roland",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02654",
+  "file": "corpus/AdiKsOnDev_silent-code__.opencode_agent_documentation-manager.md",
+  "repo": "AdiKsOnDev/silent-code",
+  "path": ".opencode/agent/documentation-manager.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02655",
+  "file": "corpus/Adima232AB_Adima-ai__.github_agents_code-reporter.agent.md",
+  "repo": "Adima232AB/Adima-ai",
+  "path": ".github/agents/code-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02656",
+  "file": "corpus/Admiralhunter_PortfolioOS__agents_prompts_overlord-report.md",
+  "repo": "Admiralhunter/PortfolioOS",
+  "path": "agents/prompts/overlord-report.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02657",
+  "file": "corpus/AdobeDocs_blueprints-learn.de-DE__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.de-DE",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02658",
+  "file": "corpus/AdobeDocs_blueprints-learn.en__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.en",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02659",
+  "file": "corpus/AdobeDocs_blueprints-learn.es-ES__.github_agents_references_adobe-authoring-guidelines.md",
+  "repo": "AdobeDocs/blueprints-learn.es-ES",
+  "path": ".github/agents/references/adobe-authoring-guidelines.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

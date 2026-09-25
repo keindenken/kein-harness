@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03340",
+  "file": "corpus/Tharun2302_CPQ12__.claude_agents_documentation-engineer.md",
+  "repo": "Tharun2302/CPQ12",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03341",
+  "file": "corpus/TheBBz_siwETHOS__.github_agents_docs-agent.md",
+  "repo": "TheBBz/siwETHOS",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03342",
+  "file": "corpus/TheCowboyAI_cim-domain-agent__agents_documentation-expert.md",
+  "repo": "TheCowboyAI/cim-domain-agent",
+  "path": "agents/documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03343",
+  "file": "corpus/TheElysium_agent-workflow__.opencode_agent_code-writer.md",
+  "repo": "TheElysium/agent-workflow",
+  "path": ".opencode/agent/code-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03344",
+  "file": "corpus/TheKrystalShip_stash-lang__.claude_agents_stash-author.gotchas.md",
+  "repo": "TheKrystalShip/stash-lang",
+  "path": ".claude/agents/stash-author.gotchas.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03345",
+  "file": "corpus/TheLysdexicOne_icarus-wiki__.github_agents_fauna-multi-editor.agent.md",
+  "repo": "TheLysdexicOne/icarus-wiki",
+  "path": ".github/agents/fauna-multi-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03346",
+  "file": "corpus/TheTinkeringIdiot_claude__agents_docs-git-committer.md",
+  "repo": "TheTinkeringIdiot/claude",
+  "path": "agents/docs-git-committer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03347",
+  "file": "corpus/TheTinkeringIdiot_claude__agents_library-docs-writer.md",
+  "repo": "TheTinkeringIdiot/claude",
+  "path": "agents/library-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03348",
+  "file": "corpus/Theurrien_qualitative-research-analysis__.claude_agents_report-writer.md",
+  "repo": "Theurrien/qualitative-research-analysis",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03349",
+  "file": "corpus/Thor-DraperJr_thor-draperjr.github.io__.github_agents_voice-publish-editor.agent.md",
+  "repo": "Thor-DraperJr/thor-draperjr.github.io",
+  "path": ".github/agents/voice-publish-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

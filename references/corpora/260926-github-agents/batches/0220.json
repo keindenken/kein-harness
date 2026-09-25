@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02200",
+  "file": "corpus/kerryhatcher_myclaudes__agents_prd-writer.md",
+  "repo": "kerryhatcher/myclaudes",
+  "path": "agents/prd-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02201",
+  "file": "corpus/kerryhatcher_myclaudes__agents_reporter.md",
+  "repo": "kerryhatcher/myclaudes",
+  "path": "agents/reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02202",
+  "file": "corpus/keyboard-studio_keyboard-studio__.claude_agents_km-author.md",
+  "repo": "keyboard-studio/keyboard-studio",
+  "path": ".claude/agents/km-author.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02203",
+  "file": "corpus/kvantatech_RedLine__.github_agents_script-author.agent.md",
+  "repo": "kvantatech/RedLine",
+  "path": ".github/agents/script-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02204",
+  "file": "corpus/kvantatech_RedLine__.github_agents_spec-author.agent.md",
+  "repo": "kvantatech/RedLine",
+  "path": ".github/agents/spec-author.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02205",
+  "file": "corpus/lichtblick-suite_docs__.github_agents_lb-docs-writer.agent.md",
+  "repo": "lichtblick-suite/docs",
+  "path": ".github/agents/lb-docs-writer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02206",
+  "file": "corpus/licongxu_JXPaint__.claude_agents_paper-editor.md",
+  "repo": "licongxu/JXPaint",
+  "path": ".claude/agents/paper-editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02207",
+  "file": "corpus/lightdotnet_ModularMonolith__.claude_agents_documentation-writer.md",
+  "repo": "lightdotnet/ModularMonolith",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02208",
+  "file": "corpus/lutian_herdr-sdd-harness__.claude_agents_docs_filler.md",
+  "repo": "lutian/herdr-sdd-harness",
+  "path": ".claude/agents/docs_filler.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02209",
+  "file": "corpus/mavericken777_GlobalHalalDigitalTrust__.github_agents_halal-trust-editor.agent.md",
+  "repo": "mavericken777/GlobalHalalDigitalTrust",
+  "path": ".github/agents/halal-trust-editor.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

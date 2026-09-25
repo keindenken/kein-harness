@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01740",
+  "file": "corpus/sgomez_developer-skills__agents_code-author.md",
+  "repo": "sgomez/developer-skills",
+  "path": "agents/code-author.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01741",
+  "file": "corpus/steve-magne_hookstack__.claude_agents_hook-author.md",
+  "repo": "steve-magne/hookstack",
+  "path": ".claude/agents/hook-author.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01742",
+  "file": "corpus/stoa-platform_stoa__.claude_agents_docs-writer.md",
+  "repo": "stoa-platform/stoa",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01743",
+  "file": "corpus/unempyd_revenueos__agents_agency_content_content-copywriter.md",
+  "repo": "unempyd/revenueos",
+  "path": "agents/agency/content/content-copywriter.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01744",
+  "file": "corpus/unempyd_revenueos__agents_agency_email_email-copywriter.md",
+  "repo": "unempyd/revenueos",
+  "path": "agents/agency/email/email-copywriter.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01745",
+  "file": "corpus/viknesh20-20_claude-code-tool-kit__.claude_agents_documentation.md",
+  "repo": "viknesh20-20/claude-code-tool-kit",
+  "path": ".claude/agents/documentation.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01746",
+  "file": "corpus/willtheorangeguy_LEGO-Block-Creator__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/LEGO-Block-Creator",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01747",
+  "file": "corpus/yoheinakajima_prezograph__.github_agents_docs.md",
+  "repo": "yoheinakajima/prezograph",
+  "path": ".github/agents/docs.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01748",
+  "file": "corpus/zoologov_beadloom__.claude_agents_tech-writer.md",
+  "repo": "zoologov/beadloom",
+  "path": ".claude/agents/tech-writer.md",
+  "stars": 7,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01749",
+  "file": "corpus/AArlert_obsidian-auto-headings__.claude_agents_mech-editor.md",
+  "repo": "AArlert/obsidian-auto-headings",
+  "path": ".claude/agents/mech-editor.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

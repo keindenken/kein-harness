@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02160",
+  "file": "corpus/aussierobots_turul-mcp-framework__.claude_agents_docs-writer.md",
+  "repo": "aussierobots/turul-mcp-framework",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02161",
+  "file": "corpus/bdbch_ai-dotfiles__agents_issue-writer.md",
+  "repo": "bdbch/ai-dotfiles",
+  "path": "agents/issue-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02162",
+  "file": "corpus/bdbch_ai-dotfiles__agents_technical-writer.md",
+  "repo": "bdbch/ai-dotfiles",
+  "path": "agents/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02163",
+  "file": "corpus/becauseimclever_BudgetExperiment__.github_agents_dotnet-documentation-steward.agent.md",
+  "repo": "becauseimclever/BudgetExperiment",
+  "path": ".github/agents/dotnet-documentation-steward.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02164",
+  "file": "corpus/bigeasyfreeman_adlc__agents_PM-PRD-AGENT.md",
+  "repo": "bigeasyfreeman/adlc",
+  "path": "agents/PM-PRD-AGENT.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02165",
+  "file": "corpus/bketelsen_majordomo__agents_prd-writer.md",
+  "repo": "bketelsen/majordomo",
+  "path": "agents/prd-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02166",
+  "file": "corpus/bokralabs_mizan__.codex_agents_docs-researcher.toml",
+  "repo": "bokralabs/mizan",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02167",
+  "file": "corpus/brightbear2026_research-agent__.claude_agents_report-editor.md",
+  "repo": "brightbear2026/research-agent",
+  "path": ".claude/agents/report-editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02168",
+  "file": "corpus/bsvalues_terrafusion_os_1.0__.github_agents_COMPLETION_REPORT.md",
+  "repo": "bsvalues/terrafusion_os_1.0",
+  "path": ".github/agents/COMPLETION_REPORT.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02169",
+  "file": "corpus/careerchain-ys_stdd__.codex_agents_plan-writer.toml",
+  "repo": "careerchain-ys/stdd",
+  "path": ".codex/agents/plan-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

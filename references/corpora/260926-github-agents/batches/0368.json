@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03680",
+  "file": "corpus/caseproof_agents-assemble-workshop-exercise__agents_maya-angelou-writer.md",
+  "repo": "caseproof/agents-assemble-workshop-exercise",
+  "path": "agents/maya-angelou-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03681",
+  "file": "corpus/cask-labs_locus__agents_ephemeral_phase1-onboarding_1-documentation-and-ui-foundation-plan.md",
+  "repo": "cask-labs/locus",
+  "path": "agents/ephemeral/phase1-onboarding/1-documentation-and-ui-foundation-plan.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03682",
+  "file": "corpus/caupolicanquerales_multi_system_agent_mode__.github_agents_report_batch_processor.agent.md",
+  "repo": "caupolicanquerales/multi_system_agent_mode",
+  "path": ".github/agents/report_batch_processor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03683",
+  "file": "corpus/cbwinslow_Knowledge-Base__agents_documentation_technical_writer.md",
+  "repo": "cbwinslow/Knowledge-Base",
+  "path": "agents/documentation/technical_writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03684",
+  "file": "corpus/ccashwell_agentic-behavior-analysis__agents_assessment-report-writer.md",
+  "repo": "ccashwell/agentic-behavior-analysis",
+  "path": "agents/assessment-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03685",
+  "file": "corpus/ccashwell_agentic-behavior-analysis__agents_progress-report-writer.md",
+  "repo": "ccashwell/agentic-behavior-analysis",
+  "path": "agents/progress-report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03686",
+  "file": "corpus/ccrjohn8787_investing-agent__.claude_agents_report-eval-developer.md",
+  "repo": "ccrjohn8787/investing-agent",
+  "path": ".claude/agents/report-eval-developer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03687",
+  "file": "corpus/cdalsoniii_brightpath-coder__.github_agents_documentation-manager.agent.md",
+  "repo": "cdalsoniii/brightpath-coder",
+  "path": ".github/agents/documentation-manager.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03688",
+  "file": "corpus/cdalsoniii_brightpath-coder__.github_agents_reporting.agent.md",
+  "repo": "cdalsoniii/brightpath-coder",
+  "path": ".github/agents/reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03689",
+  "file": "corpus/cflorez-dev_AvCom-Fenix-EDS__.github_agents_author-mode-pattern.md",
+  "repo": "cflorez-dev/AvCom-Fenix-EDS",
+  "path": ".github/agents/author-mode-pattern.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

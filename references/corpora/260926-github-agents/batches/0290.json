@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02900",
+  "file": "corpus/Hack23_European-Parliament-MCP-Server__.github_agents_documentation-writer.md",
+  "repo": "Hack23/European-Parliament-MCP-Server",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02901",
+  "file": "corpus/Hack23_riksdagsmonitor__.github_agents_documentation-architect.md",
+  "repo": "Hack23/riksdagsmonitor",
+  "path": ".github/agents/documentation-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02902",
+  "file": "corpus/HaileyStorm_NBNv2-demos__.codex_agents_nbn_demo_docs_guard.toml",
+  "repo": "HaileyStorm/NBNv2-demos",
+  "path": ".codex/agents/nbn_demo_docs_guard.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02903",
+  "file": "corpus/Halomaster0_GTA-Housing-pipeline__.claude_agents_technical-writer.md",
+  "repo": "Halomaster0/GTA-Housing-pipeline",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02904",
+  "file": "corpus/HanStaehlin_resume-tailor-template__.claude_agents_senior-editor.md",
+  "repo": "HanStaehlin/resume-tailor-template",
+  "path": ".claude/agents/senior-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02905",
+  "file": "corpus/HannesForhoff_Rental-price-prediction__.github_agents_bmad-agent-bmm-tech-writer.agent.md",
+  "repo": "HannesForhoff/Rental-price-prediction",
+  "path": ".github/agents/bmad-agent-bmm-tech-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02906",
+  "file": "corpus/Hardonian_Zeo__agents_documentation-agent.md",
+  "repo": "Hardonian/Zeo",
+  "path": "agents/documentation-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02907",
+  "file": "corpus/HariKarthick22_indra__.claude_agents_inspection-report-analyzer.md",
+  "repo": "HariKarthick22/indra",
+  "path": ".claude/agents/inspection-report-analyzer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02908",
+  "file": "corpus/HarryJamesGreenblatt_sequitur_studios__.github_agents_editor.agent.md",
+  "repo": "HarryJamesGreenblatt/sequitur_studios",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02909",
+  "file": "corpus/HarshXor_claude-vibe-pentesting__.github_agents_ptes-reporting.agent.md",
+  "repo": "HarshXor/claude-vibe-pentesting",
+  "path": ".github/agents/ptes-reporting.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

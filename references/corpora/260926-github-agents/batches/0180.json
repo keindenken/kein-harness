@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01800",
+  "file": "corpus/mwguerra_console-agent__agents_docs-via-mcp.yaml",
+  "repo": "mwguerra/console-agent",
+  "path": "agents/docs-via-mcp.yaml",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01801",
+  "file": "corpus/nvdigitalsolutions_mcp-ai-wpoos__.github_agents_chat-ui-author.agent.md",
+  "repo": "nvdigitalsolutions/mcp-ai-wpoos",
+  "path": ".github/agents/chat-ui-author.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01802",
+  "file": "corpus/nvdigitalsolutions_mcp-ai-wpoos__.github_agents_slash-command-author.agent.md",
+  "repo": "nvdigitalsolutions/mcp-ai-wpoos",
+  "path": ".github/agents/slash-command-author.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01803",
+  "file": "corpus/nvdigitalsolutions_mcp-ai-wpoos__.github_agents_tool-author.agent.md",
+  "repo": "nvdigitalsolutions/mcp-ai-wpoos",
+  "path": ".github/agents/tool-author.agent.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01804",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.claude_agents_agents_academic-report-enhancement-agent-v1.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".claude/agents/agents/academic-report-enhancement-agent-v1.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01805",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents____foundational-report-generator-v3.0.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/___foundational-report-generator-v3.0.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01806",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents___dialectical-report-house-voice-generator-v3.0.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/__dialectical-report-house-voice-generator-v3.0.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01807",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents___foundational-report-house-voice-generator-v3.0.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/__foundational-report-house-voice-generator-v3.0.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01808",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents__deep-dive-report-generator-v2.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/_deep-dive-report-generator-v2.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01809",
+  "file": "corpus/pur3v4d3r_pur3-pkb-codebase__.github_agents__framework-synthesis-report-house-voice-generator-v3.0.0.md",
+  "repo": "pur3v4d3r/pur3-pkb-codebase",
+  "path": ".github/agents/_framework-synthesis-report-house-voice-generator-v3.0.0.md",
+  "stars": 6,
+  "copies_in_repos": 1
+ }
+]

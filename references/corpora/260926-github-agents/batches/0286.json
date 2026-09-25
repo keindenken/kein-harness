@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02860",
+  "file": "corpus/FaisalMashuri_hunian__.claude_agents_agent-copywriter.md",
+  "repo": "FaisalMashuri/hunian",
+  "path": ".claude/agents/agent-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02861",
+  "file": "corpus/FallenHoot_olinske__.github_agents_seo-distribution-editor.agent.md",
+  "repo": "FallenHoot/olinske",
+  "path": ".github/agents/seo-distribution-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02862",
+  "file": "corpus/FallenHoot_olinske__.github_agents_voice-editor.agent.md",
+  "repo": "FallenHoot/olinske",
+  "path": ".github/agents/voice-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02863",
+  "file": "corpus/FelipeAmalfi_AndroidCore__.github_agents_documentation.agent.md",
+  "repo": "FelipeAmalfi/AndroidCore",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02864",
+  "file": "corpus/FernuDev_claude-toolkit__agents_toolkit-commands-author.md",
+  "repo": "FernuDev/claude-toolkit",
+  "path": "agents/toolkit-commands-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02865",
+  "file": "corpus/Fiestaboard_FiestaBoard__.claude_agents_a11y-docs-auditor.md",
+  "repo": "Fiestaboard/FiestaBoard",
+  "path": ".claude/agents/a11y-docs-auditor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02866",
+  "file": "corpus/Fiestaboard_FiestaBoard__.claude_agents_docs-writer.md",
+  "repo": "Fiestaboard/FiestaBoard",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02867",
+  "file": "corpus/FortiumPartners_ai-mesh__.opencode_agent_api-documentation-specialist.md",
+  "repo": "FortiumPartners/ai-mesh",
+  "path": ".opencode/agent/api-documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02868",
+  "file": "corpus/FortiumPartners_ai-mesh__.opencode_agent_documentation-specialist.md",
+  "repo": "FortiumPartners/ai-mesh",
+  "path": ".opencode/agent/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02869",
+  "file": "corpus/FragileTech_fragile__.codex_agents_tldr-intro-writer.toml",
+  "repo": "FragileTech/fragile",
+  "path": ".codex/agents/tldr-intro-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

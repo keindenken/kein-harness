@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03320",
+  "file": "corpus/T-H-0-M_dotfiles__.opencode_agent_ts-docs.md",
+  "repo": "T-H-0-M/dotfiles",
+  "path": ".opencode/agent/ts-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03321",
+  "file": "corpus/THU-linxiang_auto-dev-agent-system__agents_prd-agent_skills_prd-normalize.md",
+  "repo": "THU-linxiang/auto-dev-agent-system",
+  "path": "agents/prd-agent/skills/prd-normalize.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03322",
+  "file": "corpus/TJZine_frame-compare__.codex_agents_docs-researcher.toml",
+  "repo": "TJZine/frame-compare",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03323",
+  "file": "corpus/TNC-IT-TEAM_TNC.Infrastructure.LandingZone__.github_agents_requirements-author.agent.md",
+  "repo": "TNC-IT-TEAM/TNC.Infrastructure.LandingZone",
+  "path": ".github/agents/requirements-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03324",
+  "file": "corpus/TOMTOM2004_knowledge__.codex_agents_editor-refiner.md",
+  "repo": "TOMTOM2004/knowledge",
+  "path": ".codex/agents/editor-refiner.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03325",
+  "file": "corpus/TSavo_sugar__.claude_agents_prompt-author.md",
+  "repo": "TSavo/sugar",
+  "path": ".claude/agents/prompt-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03326",
+  "file": "corpus/TaichiAkimoto_manga-mesh__.claude_agents_manga_story-editor.md",
+  "repo": "TaichiAkimoto/manga-mesh",
+  "path": ".claude/agents/manga/story-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03327",
+  "file": "corpus/Takas0522_ws-self-modernization__.github_agents_modernization-reporter.agent.md",
+  "repo": "Takas0522/ws-self-modernization",
+  "path": ".github/agents/modernization-reporter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03328",
+  "file": "corpus/Tamircohen28_headhunter__.opencode_agent_cover-letter-writer.md",
+  "repo": "Tamircohen28/headhunter",
+  "path": ".opencode/agent/cover-letter-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03329",
+  "file": "corpus/Tamircohen28_headhunter__.opencode_agent_study-guide-writer.md",
+  "repo": "Tamircohen28/headhunter",
+  "path": ".opencode/agent/study-guide-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

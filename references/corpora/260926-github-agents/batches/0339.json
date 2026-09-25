@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03390",
+  "file": "corpus/ViniciusKoiti_apresentacoes-remotion__.claude_agents_copywriter-linkedin.md",
+  "repo": "ViniciusKoiti/apresentacoes-remotion",
+  "path": ".claude/agents/copywriter-linkedin.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03391",
+  "file": "corpus/VladislavDegtyarenko_react-minesweeper__.codex_agents_pr-writer.md",
+  "repo": "VladislavDegtyarenko/react-minesweeper",
+  "path": ".codex/agents/pr-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03392",
+  "file": "corpus/VoidElle_portfolio__agents_content-editor.md",
+  "repo": "VoidElle/portfolio",
+  "path": "agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03393",
+  "file": "corpus/VortexyAether_cfd-ai-paper-skills__.codex_agents_figure_table_editor.toml",
+  "repo": "VortexyAether/cfd-ai-paper-skills",
+  "path": ".codex/agents/figure_table_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03394",
+  "file": "corpus/VortexyAether_cfd-ai-paper-skills__.codex_agents_managing_editor.toml",
+  "repo": "VortexyAether/cfd-ai-paper-skills",
+  "path": ".codex/agents/managing_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03395",
+  "file": "corpus/VortexyAether_cfd-ai-paper-skills__.codex_agents_prose_editor.toml",
+  "repo": "VortexyAether/cfd-ai-paper-skills",
+  "path": ".codex/agents/prose_editor.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03396",
+  "file": "corpus/VoxTechnologies_transmute-framework__agents_brd-writer.md",
+  "repo": "VoxTechnologies/transmute-framework",
+  "path": "agents/brd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03397",
+  "file": "corpus/VoxTechnologies_transmute-framework__agents_prd-writer.md",
+  "repo": "VoxTechnologies/transmute-framework",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03398",
+  "file": "corpus/Warnes-Innovations_cv-builder__.github_agents_cv-master-editor.agent.md",
+  "repo": "Warnes-Innovations/cv-builder",
+  "path": ".github/agents/cv-master-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03399",
+  "file": "corpus/Wcc723_2026-ai-adv-subagent-sample__.codex_agents_notion-api-writer.toml",
+  "repo": "Wcc723/2026-ai-adv-subagent-sample",
+  "path": ".codex/agents/notion-api-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

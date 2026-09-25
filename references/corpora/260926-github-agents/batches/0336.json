@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03360",
+  "file": "corpus/TrenchChef_mcp-multiagent-workflow__agents_05_docs_dx.md",
+  "repo": "TrenchChef/mcp-multiagent-workflow",
+  "path": "agents/05_docs_dx.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03361",
+  "file": "corpus/Tschucki_pr0p0ll__.claude_agents_pr0p0ll-filament-author.md",
+  "repo": "Tschucki/pr0p0ll",
+  "path": ".claude/agents/pr0p0ll-filament-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03362",
+  "file": "corpus/Tschucki_pr0p0ll__.claude_agents_pr0p0ll-inertia-author.md",
+  "repo": "Tschucki/pr0p0ll",
+  "path": ".claude/agents/pr0p0ll-inertia-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03363",
+  "file": "corpus/Tschucki_pr0p0ll__.claude_agents_pr0p0ll-job-author.md",
+  "repo": "Tschucki/pr0p0ll",
+  "path": ".claude/agents/pr0p0ll-job-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03364",
+  "file": "corpus/Turbo-Academy_squad-turbo-2026__.claude_agents_copywriter-turbo.md",
+  "repo": "Turbo-Academy/squad-turbo-2026",
+  "path": ".claude/agents/copywriter-turbo.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03365",
+  "file": "corpus/TylerGarlick_abraxas__.opencode_agent_docs-architect.md",
+  "repo": "TylerGarlick/abraxas",
+  "path": ".opencode/agent/docs-architect.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03366",
+  "file": "corpus/TylerGarlick_abraxas__.opencode_agent_skill-author.md",
+  "repo": "TylerGarlick/abraxas",
+  "path": ".opencode/agent/skill-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03367",
+  "file": "corpus/U-lis_dotclaude__agents_technical-writer.md",
+  "repo": "U-lis/dotclaude",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03368",
+  "file": "corpus/UIFoundry_uifoundry__.opencode_agent_docs-writer.md",
+  "repo": "UIFoundry/uifoundry",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03369",
+  "file": "corpus/UstinianDev_WeaveMD__.claude_agents_editor-opt-history-filetree.md",
+  "repo": "UstinianDev/WeaveMD",
+  "path": ".claude/agents/editor-opt-history-filetree.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

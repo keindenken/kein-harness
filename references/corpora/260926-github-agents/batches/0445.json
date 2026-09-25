@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04450",
+  "file": "corpus/matiaspautasso_claude-ai-engineering-framework__.claude_agents_core_3-docs-updater.md",
+  "repo": "matiaspautasso/claude-ai-engineering-framework",
+  "path": ".claude/agents/core/3-docs-updater.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04451",
+  "file": "corpus/matsengrp_plugins__agents_scientific-tex-editor.md",
+  "repo": "matsengrp/plugins",
+  "path": "agents/scientific-tex-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04452",
+  "file": "corpus/matsumaru-t_ai-humor-media__.codex_agents_article_editor_in_chief.toml",
+  "repo": "matsumaru-t/ai-humor-media",
+  "path": ".codex/agents/article_editor_in_chief.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04453",
+  "file": "corpus/matsumaru-t_ai-humor-media__.codex_agents_article_writer_naruse_poka.toml",
+  "repo": "matsumaru-t/ai-humor-media",
+  "path": ".codex/agents/article_writer_naruse_poka.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04454",
+  "file": "corpus/matsumaru-t_ai-humor-media__.codex_agents_article_writer_seto_mina.toml",
+  "repo": "matsumaru-t/ai-humor-media",
+  "path": ".codex/agents/article_writer_seto_mina.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04455",
+  "file": "corpus/matt-srini_sql-interview-practice__.github_agents_question-authoring.agent.md",
+  "repo": "matt-srini/sql-interview-practice",
+  "path": ".github/agents/question-authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04456",
+  "file": "corpus/matter-labs_zksync-js__.codex_agents_docs.toml",
+  "repo": "matter-labs/zksync-js",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04457",
+  "file": "corpus/matthewcorven_alt-tab__.github_agents_blog-editor.agent.md",
+  "repo": "matthewcorven/alt-tab",
+  "path": ".github/agents/blog-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04458",
+  "file": "corpus/matthewcorven_chattanooga-ai-gen-ai-wg__.github_agents_marp-deck-editor.agent.md",
+  "repo": "matthewcorven/chattanooga-ai-gen-ai-wg",
+  "path": ".github/agents/marp-deck-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04459",
+  "file": "corpus/matthewcorven_chattanooga-ai-gen-ai-wg__.github_agents_mermaid-diagram-editor.agent.md",
+  "repo": "matthewcorven/chattanooga-ai-gen-ai-wg",
+  "path": ".github/agents/mermaid-diagram-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

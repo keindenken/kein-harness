@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03910",
+  "file": "corpus/epicsagas_Velith__agents_continuity-editor.md",
+  "repo": "epicsagas/Velith",
+  "path": "agents/continuity-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03911",
+  "file": "corpus/equinor_fusion-skills__.github_agents_skill-authoring.agent.md",
+  "repo": "equinor/fusion-skills",
+  "path": ".github/agents/skill-authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03912",
+  "file": "corpus/erhankaraarslan_piyasa-analiz__.github_agents_report-analyzer.agent.md",
+  "repo": "erhankaraarslan/piyasa-analiz",
+  "path": ".github/agents/report-analyzer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03913",
+  "file": "corpus/erickGoJi_my-nvim-config__.github_agents_technical-writer.agent.md",
+  "repo": "erickGoJi/my-nvim-config",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03914",
+  "file": "corpus/erickson558_timezone__.claude_agents_spec-writer.md",
+  "repo": "erickson558/timezone",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03915",
+  "file": "corpus/eridanilabs_replicant-matrix__.github_agents_book-author.agent.md",
+  "repo": "eridanilabs/replicant-matrix",
+  "path": ".github/agents/book-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03916",
+  "file": "corpus/erikhinla_flow-as__.github_agents_RUNTIME_VALIDATION_REPORT.md",
+  "repo": "erikhinla/flow-as",
+  "path": ".github/agents/RUNTIME_VALIDATION_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03917",
+  "file": "corpus/erikunha_LAIbemage__.github_agents_plugin-author.agent.md",
+  "repo": "erikunha/LAIbemage",
+  "path": ".github/agents/plugin-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03918",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-agents.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-agents.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03919",
+  "file": "corpus/erkexzcx_flightlesssomething__.github_agents_writer-api.agent.md",
+  "repo": "erkexzcx/flightlesssomething",
+  "path": ".github/agents/writer-api.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00410",
+  "file": "corpus/adthomps_adthomps.github.io__.codex_agents_apt-api-docs-writer.md",
+  "repo": "adthomps/adthomps.github.io",
+  "path": ".codex/agents/apt-api-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00411",
+  "file": "corpus/adthomps_adthomps.github.io__.codex_agents_apt-implementation-blueprint-writer.md",
+  "repo": "adthomps/adthomps.github.io",
+  "path": ".codex/agents/apt-implementation-blueprint-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00412",
+  "file": "corpus/angadhn_botference__.claude_agents_editor.md",
+  "repo": "angadhn/botference",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00413",
+  "file": "corpus/anoop2811_software-factory-template__.opencode_agent_spec-writer.md",
+  "repo": "anoop2811/software-factory-template",
+  "path": ".opencode/agent/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00414",
+  "file": "corpus/astroville_sprout__.claude_agents_documentation-engineer.md",
+  "repo": "astroville/sprout",
+  "path": ".claude/agents/documentation-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00415",
+  "file": "corpus/azusagasaku_--claude-config__agents_unity-editor-tool-developer.md",
+  "repo": "azusagasaku/--claude-config",
+  "path": "agents/unity-editor-tool-developer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00416",
+  "file": "corpus/blecx_maestro__.github_agents_tutorial-author.md",
+  "repo": "blecx/maestro",
+  "path": ".github/agents/tutorial-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00417",
+  "file": "corpus/buisihung11_maxai__.github_agents_copywriter.agent.md",
+  "repo": "buisihung11/maxai",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00418",
+  "file": "corpus/codyglen91_OpenSource_4__agents_triage-demo_docs_technical-documentation.md",
+  "repo": "codyglen91/OpenSource_4",
+  "path": "agents/triage-demo/docs/technical-documentation.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00419",
+  "file": "corpus/damnq030198_Class-AI-Agent__.claude_agents_copywriter-seo.md",
+  "repo": "damnq030198/Class-AI-Agent",
+  "path": ".claude/agents/copywriter-seo.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

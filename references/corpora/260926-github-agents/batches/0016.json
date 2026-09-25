@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00160",
+  "file": "corpus/iannuttall_claude-agents__agents_content-writer.md",
+  "repo": "iannuttall/claude-agents",
+  "path": "agents/content-writer.md",
+  "stars": 2043,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00161",
+  "file": "corpus/microsoft_hve-core__.github_agents_engagement-reporting_engagement-report-generator.agent.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/agents/engagement-reporting/engagement-report-generator.agent.md",
+  "stars": 1478,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00162",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_visual-storyteller_agents_visual-storyteller.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/visual-storyteller/agents/visual-storyteller.md",
+  "stars": 952,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00163",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_content-creator_agents_content-creator.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/content-creator/agents/content-creator.md",
+  "stars": 952,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00164",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_changelog-generator_agents_changelog-generator.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/changelog-generator/agents/changelog-generator.md",
+  "stars": 952,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00165",
+  "file": "corpus/josstei_maestro-orchestrate__claude_src_agents_copywriter.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/src/agents/copywriter.md",
+  "stars": 462,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00166",
+  "file": "corpus/nth5693_gemini-kit__agents_copywriter.md",
+  "repo": "nth5693/gemini-kit",
+  "path": "agents/copywriter.md",
+  "stars": 374,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00167",
+  "file": "corpus/terragon-labs_terragon-oss__.claude_agents_docs-engineer.md",
+  "repo": "terragon-labs/terragon-oss",
+  "path": ".claude/agents/docs-engineer.md",
+  "stars": 259,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00168",
+  "file": "corpus/janskuba_go-to-market-orchestrator__agents_hook-writer.md",
+  "repo": "janskuba/go-to-market-orchestrator",
+  "path": "agents/hook-writer.md",
+  "stars": 204,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00169",
+  "file": "corpus/hamzafarooq_claude-code-starter__.claude_agents_copy-writer.md",
+  "repo": "hamzafarooq/claude-code-starter",
+  "path": ".claude/agents/copy-writer.md",
+  "stars": 144,
+  "copies_in_repos": 3
+ }
+]

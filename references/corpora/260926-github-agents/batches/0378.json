@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03780",
+  "file": "corpus/davlgd_create-gh-project__.claude_agents_documentation-maintainer.md",
+  "repo": "davlgd/create-gh-project",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03781",
+  "file": "corpus/dawsonblock_CLAUDE-GAME__.claude_agents_writer.md",
+  "repo": "dawsonblock/CLAUDE-GAME",
+  "path": ".claude/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03782",
+  "file": "corpus/daydeda_songsue__.claude_agents_drizzle-migration-author.md",
+  "repo": "daydeda/songsue",
+  "path": ".claude/agents/drizzle-migration-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03783",
+  "file": "corpus/dcapilla1991_project-amore__agents_editor.md",
+  "repo": "dcapilla1991/project-amore",
+  "path": "agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03784",
+  "file": "corpus/dcapilla1991_project-amore__agents_screenwriter.md",
+  "repo": "dcapilla1991/project-amore",
+  "path": "agents/screenwriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03785",
+  "file": "corpus/demaconsulting_SpdxWorkflows__.github_agents_technical-writer.md",
+  "repo": "demaconsulting/SpdxWorkflows",
+  "path": ".github/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03786",
+  "file": "corpus/deuxbomb_moneynews__.claude_agents_copywriter.md",
+  "repo": "deuxbomb/moneynews",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03787",
+  "file": "corpus/deuxbomb_moneynews__.claude_agents_editor-in-chief.md",
+  "repo": "deuxbomb/moneynews",
+  "path": ".claude/agents/editor-in-chief.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03788",
+  "file": "corpus/devRael1_TorBoxSDK__.codex_agents_docs.toml",
+  "repo": "devRael1/TorBoxSDK",
+  "path": ".codex/agents/docs.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03789",
+  "file": "corpus/developerz-ai_magik__.claude_agents_cli-author.md",
+  "repo": "developerz-ai/magik",
+  "path": ".claude/agents/cli-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03890",
+  "file": "corpus/emersonjds_bdaylist__.claude_agents_scribe.md",
+  "repo": "emersonjds/bdaylist",
+  "path": ".claude/agents/scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03891",
+  "file": "corpus/emersonjds_car-geo-api__.claude_agents_scribe.md",
+  "repo": "emersonjds/car-geo-api",
+  "path": ".claude/agents/scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03892",
+  "file": "corpus/emersonjds_redbar__.claude_agents_scribe.md",
+  "repo": "emersonjds/redbar",
+  "path": ".claude/agents/scribe.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03893",
+  "file": "corpus/emmahyde_dotfiles__.claude_agents_wiki-editor.md",
+  "repo": "emmahyde/dotfiles",
+  "path": ".claude/agents/wiki-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03894",
+  "file": "corpus/emscape_EmscapeForge__.claude_agents_content-editor.md",
+  "repo": "emscape/EmscapeForge",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03895",
+  "file": "corpus/emscape_EmscapeForge__.github_agents_content-editor.agent.md",
+  "repo": "emscape/EmscapeForge",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03896",
+  "file": "corpus/emssik_webinar.cc.2025.10.22__.claude_agents_agent.editor.md",
+  "repo": "emssik/webinar.cc.2025.10.22",
+  "path": ".claude/agents/agent.editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03897",
+  "file": "corpus/endresztellik-gif_DunApp__.claude_agents_documentation-writer.md",
+  "repo": "endresztellik-gif/DunApp",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03898",
+  "file": "corpus/engremran07_gsmvault__.claude_agents_documentation-keeper.md",
+  "repo": "engremran07/gsmvault",
+  "path": ".claude/agents/documentation-keeper.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03899",
+  "file": "corpus/engremran07_gsmvault__.github_agents_documentation-keeper.agent.md",
+  "repo": "engremran07/gsmvault",
+  "path": ".github/agents/documentation-keeper.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

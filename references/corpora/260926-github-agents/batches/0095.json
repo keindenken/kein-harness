@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00950",
+  "file": "corpus/GulajavaMinistudio_awesome-copilot-id__.agents_skills_impeccable_agents_impeccable_documenter.toml",
+  "repo": "GulajavaMinistudio/awesome-copilot-id",
+  "path": ".agents/skills/impeccable/agents/impeccable_documenter.toml",
+  "stars": 79,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00951",
+  "file": "corpus/andrewbartels1_SolidworksMCP-python__.github_agents_solidworks-mcp-skill-docs.agent.md",
+  "repo": "andrewbartels1/SolidworksMCP-python",
+  "path": ".github/agents/solidworks-mcp-skill-docs.agent.md",
+  "stars": 79,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00952",
+  "file": "corpus/bottobot_touchdesigner-mcp-server__.claude_agents_update-docs-agent.md",
+  "repo": "bottobot/touchdesigner-mcp-server",
+  "path": ".claude/agents/update-docs-agent.md",
+  "stars": 78,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00953",
+  "file": "corpus/bottobot_touchdesigner-mcp-server__.claude_agents_update-docs.md",
+  "repo": "bottobot/touchdesigner-mcp-server",
+  "path": ".claude/agents/update-docs.md",
+  "stars": 78,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00954",
+  "file": "corpus/bottobot_touchdesigner-mcp-server__.claude_agents_update-documentation.md",
+  "repo": "bottobot/touchdesigner-mcp-server",
+  "path": ".claude/agents/update-documentation.md",
+  "stars": 78,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00955",
+  "file": "corpus/Productfculty-aipm_PM-Copilot-by-Product-Faculty__agents_document-writer.md",
+  "repo": "Productfculty-aipm/PM-Copilot-by-Product-Faculty",
+  "path": "agents/document-writer.md",
+  "stars": 77,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00956",
+  "file": "corpus/Laith0003_ux-skill__agents_copy-writer.md",
+  "repo": "Laith0003/ux-skill",
+  "path": "agents/copy-writer.md",
+  "stars": 76,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00957",
+  "file": "corpus/noodlemctwoodle_Sentinel-As-Code__.github_agents_content-editor.agent.md",
+  "repo": "noodlemctwoodle/Sentinel-As-Code",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 75,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00958",
+  "file": "corpus/noodlemctwoodle_Sentinel-As-Code__.github_agents_rule-author.agent.md",
+  "repo": "noodlemctwoodle/Sentinel-As-Code",
+  "path": ".github/agents/rule-author.agent.md",
+  "stars": 75,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00959",
+  "file": "corpus/po4yka_RIPDPI__.claude_agents_coverage-reporter.md",
+  "repo": "po4yka/RIPDPI",
+  "path": ".claude/agents/coverage-reporter.md",
+  "stars": 75,
+  "copies_in_repos": 1
+ }
+]

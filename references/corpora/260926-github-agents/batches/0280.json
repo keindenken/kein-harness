@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02800",
+  "file": "corpus/DevSecNinja_truenas-apps__.github_agents_technical-writer.agent.md",
+  "repo": "DevSecNinja/truenas-apps",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02801",
+  "file": "corpus/Devpmdsoftware_all-claude-sub-agents-updated__.claude_agents_creative_visual-design_object-oriented-code-writer-agent.md",
+  "repo": "Devpmdsoftware/all-claude-sub-agents-updated",
+  "path": ".claude/agents/creative/visual-design/object-oriented-code-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02802",
+  "file": "corpus/Devpmdsoftware_all-claude-sub-agents-updated__.claude_agents_frontend_authority-without-intimidation.md",
+  "repo": "Devpmdsoftware/all-claude-sub-agents-updated",
+  "path": ".claude/agents/frontend/authority-without-intimidation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02803",
+  "file": "corpus/Devpmdsoftware_all-claude-sub-agents-updated__.claude_agents_ml-ai_automated-insights-reporting-agent.md",
+  "repo": "Devpmdsoftware/all-claude-sub-agents-updated",
+  "path": ".claude/agents/ml-ai/automated-insights-reporting-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02804",
+  "file": "corpus/Devpmdsoftware_all-claude-sub-agents-updated__.claude_agents_specialized_authority-expertise-positioning.md",
+  "repo": "Devpmdsoftware/all-claude-sub-agents-updated",
+  "path": ".claude/agents/specialized/authority-expertise-positioning.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02805",
+  "file": "corpus/Dezoxy_economy-check__.claude_agents_editor.md",
+  "repo": "Dezoxy/economy-check",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02806",
+  "file": "corpus/DidacLL_AgenticCareerBoost__agents_rules_roles_documentation.md",
+  "repo": "DidacLL/AgenticCareerBoost",
+  "path": "agents/rules/roles/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02807",
+  "file": "corpus/DiegoBulhoes_claude__agents_spec-writer.md",
+  "repo": "DiegoBulhoes/claude",
+  "path": "agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02808",
+  "file": "corpus/DimosGougousis_Implementation-Team__agents_design-authority.agent.md",
+  "repo": "DimosGougousis/Implementation-Team",
+  "path": "agents/design-authority.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02809",
+  "file": "corpus/Dishant1804_Langgraph-learnings__agents_ai_news_report_2025-06-05.md",
+  "repo": "Dishant1804/Langgraph-learnings",
+  "path": "agents/ai_news_report_2025-06-05.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

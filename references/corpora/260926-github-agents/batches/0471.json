@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04710",
+  "file": "corpus/piperendervt-glitch_sdnd-template__.claude_agents_editor.md",
+  "repo": "piperendervt-glitch/sdnd-template",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04711",
+  "file": "corpus/piquet-h_the-shifting-atlas__.github_agents_Docs_Editor.agent.md",
+  "repo": "piquet-h/the-shifting-atlas",
+  "path": ".github/agents/Docs_Editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04712",
+  "file": "corpus/pjmgomez_repository-skills__.github_agents_skill-author.agent.md",
+  "repo": "pjmgomez/repository-skills",
+  "path": ".github/agents/skill-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04713",
+  "file": "corpus/pkfamilyphones2022-lgtm_AIResumeBuilder__.github_agents_docs-maintainer.agent.md",
+  "repo": "pkfamilyphones2022-lgtm/AIResumeBuilder",
+  "path": ".github/agents/docs-maintainer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04714",
+  "file": "corpus/pkloehn1_techdocs-authoring__agents_technical-writer.md",
+  "repo": "pkloehn1/techdocs-authoring",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04715",
+  "file": "corpus/plipowczan_portfolio__.claude_agents_reports_seo-audit-2026-09-05_FULL-AUDIT-REPORT.md",
+  "repo": "plipowczan/portfolio",
+  "path": ".claude/agents/reports/seo-audit-2026-09-05/FULL-AUDIT-REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04716",
+  "file": "corpus/plivesey_big-basin-interview__.claude_agents_copywriter.md",
+  "repo": "plivesey/big-basin-interview",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04717",
+  "file": "corpus/plxzy255_MusicFloat__.codex_agents_report-curator.md",
+  "repo": "plxzy255/MusicFloat",
+  "path": ".codex/agents/report-curator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04718",
+  "file": "corpus/pmduc97_demo_ai_workspace__.github_agents_docs-agent.agent.md",
+  "repo": "pmduc97/demo_ai_workspace",
+  "path": ".github/agents/docs-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04719",
+  "file": "corpus/pnp_powershell__.codex_agents_docs-sync.toml",
+  "repo": "pnp/powershell",
+  "path": ".codex/agents/docs-sync.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

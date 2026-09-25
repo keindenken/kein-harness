@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00450",
+  "file": "corpus/noizu-labs-ml_NoizuPromptLingo__.claude_agents_npl-prd-editor.md",
+  "repo": "noizu-labs-ml/NoizuPromptLingo",
+  "path": ".claude/agents/npl-prd-editor.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00451",
+  "file": "corpus/okrlinkhub_okr-skills__.opencode_agent_content-writer.md",
+  "repo": "okrlinkhub/okr-skills",
+  "path": ".opencode/agent/content-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00452",
+  "file": "corpus/pedrohenriquesanchesleal4-debug_PortfolioV3__.opencode_agent_docs.md",
+  "repo": "pedrohenriquesanchesleal4-debug/PortfolioV3",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00453",
+  "file": "corpus/peintangos_deep-agents-example__.claude_agents_catchup-reporter.md",
+  "repo": "peintangos/deep-agents-example",
+  "path": ".claude/agents/catchup-reporter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00454",
+  "file": "corpus/pelchers_IDEAS_MANAGEMENT__.codex_agents_system-docs-agent.md",
+  "repo": "pelchers/IDEAS_MANAGEMENT",
+  "path": ".codex/agents/system-docs-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00455",
+  "file": "corpus/ramanathanmani_great-agent-hackathon-2026__.claude_agents_copywriter.md",
+  "repo": "ramanathanmani/great-agent-hackathon-2026",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00456",
+  "file": "corpus/ramanathanmani_great-agent-hackathon-2026__.claude_agents_spec-author.md",
+  "repo": "ramanathanmani/great-agent-hackathon-2026",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00457",
+  "file": "corpus/reshinto_algo_flow__.claude_agents_technical-writer.md",
+  "repo": "reshinto/algo_flow",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00458",
+  "file": "corpus/rmax-ai_ratelord__.opencode_agent_docs.md",
+  "repo": "rmax-ai/ratelord",
+  "path": ".opencode/agent/docs.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00459",
+  "file": "corpus/robertsinfosec_freebusy-api__.github_agents_technical-writer.agent.md",
+  "repo": "robertsinfosec/freebusy-api",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

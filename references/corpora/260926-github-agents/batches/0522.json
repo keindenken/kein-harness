@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05220",
+  "file": "corpus/yashs33244_devops-agent__agents_kagent_.github_data_agent-framework_resources_tool-docs.template.yaml",
+  "repo": "yashs33244/devops-agent",
+  "path": "agents/kagent/.github/data/agent-framework/resources/tool-docs.template.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05221",
+  "file": "corpus/yejun9052_leave-system-v2__.codex_agents_code-author.md",
+  "repo": "yejun9052/leave-system-v2",
+  "path": ".codex/agents/code-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05222",
+  "file": "corpus/yevhenbondarenko09_kzp-java-bondarenko__.github_agents_writer.agent.md",
+  "repo": "yevhenbondarenko09/kzp-java-bondarenko",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05223",
+  "file": "corpus/yoon-seonghun_Taskflow__.claude_agents_api-docs.md",
+  "repo": "yoon-seonghun/Taskflow",
+  "path": ".claude/agents/api-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05224",
+  "file": "corpus/yoshihiko555_Nudge__.claude_agents_spec-writer.md",
+  "repo": "yoshihiko555/Nudge",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05225",
+  "file": "corpus/yousrasd_Terrae__.github_agents_doc-agent.agent.md",
+  "repo": "yousrasd/Terrae",
+  "path": ".github/agents/doc-agent.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05226",
+  "file": "corpus/youzhenxing_info_hub__agents_FINAL_PROXY_FIX_REPORT.md",
+  "repo": "youzhenxing/info_hub",
+  "path": "agents/FINAL_PROXY_FIX_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05227",
+  "file": "corpus/youzhenxing_info_hub__agents_PROMPT_FIX_REPORT.md",
+  "repo": "youzhenxing/info_hub",
+  "path": "agents/PROMPT_FIX_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05228",
+  "file": "corpus/youzhenxing_info_hub__agents_PROXY_FIX_REPORT.md",
+  "repo": "youzhenxing/info_hub",
+  "path": "agents/PROXY_FIX_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05229",
+  "file": "corpus/youzhenxing_info_hub__agents_RSS_VERIFICATION_REPORT.md",
+  "repo": "youzhenxing/info_hub",
+  "path": "agents/RSS_VERIFICATION_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

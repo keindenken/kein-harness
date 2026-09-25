@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04190",
+  "file": "corpus/jg-chalk-io_Nora-LiveKit__.claude_agents_moai_doc-syncer.md",
+  "repo": "jg-chalk-io/Nora-LiveKit",
+  "path": ".claude/agents/moai/doc-syncer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04191",
+  "file": "corpus/jgaliana66_DAI_2.0__.github_agents_legacy_05-report-generator.agent.md",
+  "repo": "jgaliana66/DAI_2.0",
+  "path": ".github/agents/legacy/05-report-generator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04192",
+  "file": "corpus/jgherruzo_MetalSim-Studio__.opencode_agent_subagents_documentation-specialist.md",
+  "repo": "jgherruzo/MetalSim-Studio",
+  "path": ".opencode/agent/subagents/documentation-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04193",
+  "file": "corpus/jgherruzo_MetalSim-Studio__.opencode_agent_subagents_recipe-editor-specialist.md",
+  "repo": "jgherruzo/MetalSim-Studio",
+  "path": ".opencode/agent/subagents/recipe-editor-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04194",
+  "file": "corpus/jharbieh-microsoft_az-tracing__.github_agents_documentation-architect.agent.md",
+  "repo": "jharbieh-microsoft/az-tracing",
+  "path": ".github/agents/documentation-architect.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04195",
+  "file": "corpus/jhenriquedev_ai-devkit__agents_technical-integration-analyst_infra_integrations_technical-integration_methods_generate-technical-docs.yaml",
+  "repo": "jhenriquedev/ai-devkit",
+  "path": "agents/technical-integration-analyst/infra/integrations/technical-integration/methods/generate-technical-docs.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04196",
+  "file": "corpus/jhenriquedev_ai-devkit__agents_technical-integration-analyst_templates_generate-technical-docs-output.md",
+  "repo": "jhenriquedev/ai-devkit",
+  "path": "agents/technical-integration-analyst/templates/generate-technical-docs-output.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04197",
+  "file": "corpus/jhlee0409_sidedish__.claude_agents_korean-copywriter.md",
+  "repo": "jhlee0409/sidedish",
+  "path": ".claude/agents/korean-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04198",
+  "file": "corpus/jie3116_rqdf_management_system___agents_documentation.md",
+  "repo": "jie3116/rqdf_management_system_",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04199",
+  "file": "corpus/jikedh_jike__.github_agents_result-oriented-work-report.agent.md",
+  "repo": "jikedh/jike",
+  "path": ".github/agents/result-oriented-work-report.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

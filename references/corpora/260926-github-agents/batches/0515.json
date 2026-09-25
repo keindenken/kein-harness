@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05150",
+  "file": "corpus/vmihalis_hacker-bob__.claude_agents_report-writer.md",
+  "repo": "vmihalis/hacker-bob",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05151",
+  "file": "corpus/vouchington_vouchington__.codex_agents_playwright-authoring.toml",
+  "repo": "vouchington/vouchington",
+  "path": ".codex/agents/playwright-authoring.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05152",
+  "file": "corpus/vouchington_vouchington__.codex_agents_storybook-authoring.toml",
+  "repo": "vouchington/vouchington",
+  "path": ".codex/agents/storybook-authoring.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05153",
+  "file": "corpus/vrondelli_poker-team__.github_agents_domainspec-spec-writer.agent.md",
+  "repo": "vrondelli/poker-team",
+  "path": ".github/agents/domainspec-spec-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05154",
+  "file": "corpus/vsmash_vanilla-bean-slack-hooker__.claude_agents_copywriter.md",
+  "repo": "vsmash/vanilla-bean-slack-hooker",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05155",
+  "file": "corpus/vwade_node-builder__agents_contracts_docs-bot.yaml",
+  "repo": "vwade/node-builder",
+  "path": "agents/contracts/docs-bot.yaml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05156",
+  "file": "corpus/vytches_ddd__.claude_agents_documentation-master.md",
+  "repo": "vytches/ddd",
+  "path": ".claude/agents/documentation-master.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05157",
+  "file": "corpus/w4r10ck8_koffee__.github_agents_docs.agent.md",
+  "repo": "w4r10ck8/koffee",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05158",
+  "file": "corpus/wafer-space_wafer-space.github.io__.claude_agents_technical-writer.md",
+  "repo": "wafer-space/wafer-space.github.io",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05159",
+  "file": "corpus/wahidyankf_ose-rules__.claude_agents_docs-link-checker.md",
+  "repo": "wahidyankf/ose-rules",
+  "path": ".claude/agents/docs-link-checker.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

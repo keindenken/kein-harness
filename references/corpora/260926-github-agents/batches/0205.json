@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02050",
+  "file": "corpus/bearingfruitco_cc-boiler-js-public__.claude_agents_prd-writer.md",
+  "repo": "bearingfruitco/cc-boiler-js-public",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02051",
+  "file": "corpus/bearingfruitco_cc-boiler-js-public__.claude_agents_report-generator.md",
+  "repo": "bearingfruitco/cc-boiler-js-public",
+  "path": ".claude/agents/report-generator.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02052",
+  "file": "corpus/bravros_bravros__agents_claudemd-author.md",
+  "repo": "bravros/bravros",
+  "path": "agents/claudemd-author.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02053",
+  "file": "corpus/bula173_LogViewer__.github_agents_gh-actions-reporter.agent.md",
+  "repo": "bula173/LogViewer",
+  "path": ".github/agents/gh-actions-reporter.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02054",
+  "file": "corpus/cardinalconseils_claude-starter__agents_writer.md",
+  "repo": "cardinalconseils/claude-starter",
+  "path": "agents/writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02055",
+  "file": "corpus/clawdesk_clawdesk__agents_technical-writer.toml",
+  "repo": "clawdesk/clawdesk",
+  "path": "agents/technical-writer.toml",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02056",
+  "file": "corpus/colin-gourlay_todoist-playbook__.github_agents_prompt-template-author.agent.md",
+  "repo": "colin-gourlay/todoist-playbook",
+  "path": ".github/agents/prompt-template-author.agent.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02057",
+  "file": "corpus/coolcoolk_dogany-agent__agents_.template_.claude_agents_propagation-editor.md",
+  "repo": "coolcoolk/dogany-agent",
+  "path": "agents/.template/.claude/agents/propagation-editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02058",
+  "file": "corpus/cyverse-gis_eemt__.claude_agents_mkdocs-documentation-writer.md",
+  "repo": "cyverse-gis/eemt",
+  "path": ".claude/agents/mkdocs-documentation-writer.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02059",
+  "file": "corpus/d4rkd0s_seeq__.claude_agents_docs-editor.md",
+  "repo": "d4rkd0s/seeq",
+  "path": ".claude/agents/docs-editor.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ }
+]

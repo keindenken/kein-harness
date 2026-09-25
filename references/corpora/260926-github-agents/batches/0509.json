@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05090",
+  "file": "corpus/uaaps_uaaps_docs__.github_agents_pre-commit-docs.agent.md",
+  "repo": "uaaps/uaaps_docs",
+  "path": ".github/agents/pre-commit-docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05091",
+  "file": "corpus/uasaleem0_apex-v2__agents_story-writer.md",
+  "repo": "uasaleem0/apex-v2",
+  "path": "agents/story-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05092",
+  "file": "corpus/uhh-lt_dats__.github_agents_instruction-writer.agent.md",
+  "repo": "uhh-lt/dats",
+  "path": ".github/agents/instruction-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05093",
+  "file": "corpus/unfrgivn_abby-game__.opencode_agent_docs-writer.md",
+  "repo": "unfrgivn/abby-game",
+  "path": ".opencode/agent/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05094",
+  "file": "corpus/unicorn-plugins_finops-lab__.codex_agents_pptx-spec-writer.toml",
+  "repo": "unicorn-plugins/finops-lab",
+  "path": ".codex/agents/pptx-spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05095",
+  "file": "corpus/unthinkmedia_my-skills__.github_agents_custom-editor-specialist.agent.md",
+  "repo": "unthinkmedia/my-skills",
+  "path": ".github/agents/custom-editor-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05096",
+  "file": "corpus/unuserbaker_segunda__.opencode_agent_tech-writer.md",
+  "repo": "unuserbaker/segunda",
+  "path": ".opencode/agent/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05097",
+  "file": "corpus/ur-grue_autopunk-media-skills__agents_investigative-reporter-agent.md",
+  "repo": "ur-grue/autopunk-media-skills",
+  "path": "agents/investigative-reporter-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05098",
+  "file": "corpus/ur-grue_autopunk-media-skills__agents_magazine-editor-agent.md",
+  "repo": "ur-grue/autopunk-media-skills",
+  "path": "agents/magazine-editor-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05099",
+  "file": "corpus/urperfectdude_onesherpa-lander__.claude_agents_landing-copywriter.md",
+  "repo": "urperfectdude/onesherpa-lander",
+  "path": ".claude/agents/landing-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

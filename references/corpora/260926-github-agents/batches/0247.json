@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02470",
+  "file": "corpus/jezreel8858_deep-agents-copilot__.github_agents_docs-engineer.agent.md",
+  "repo": "jezreel8858/deep-agents-copilot",
+  "path": ".github/agents/docs-engineer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02471",
+  "file": "corpus/jigglypop_RBE__.claude_agents_perf-reporter.md",
+  "repo": "jigglypop/RBE",
+  "path": ".claude/agents/perf-reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02472",
+  "file": "corpus/jihys_azure-ai-search-deepdive__.github_agents_pr-author.agent.md",
+  "repo": "jihys/azure-ai-search-deepdive",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02473",
+  "file": "corpus/jimzord12_ai-fire-detection-arduino-system__.opencode_agent_academic-typst-writer.md",
+  "repo": "jimzord12/ai-fire-detection-arduino-system",
+  "path": ".opencode/agent/academic-typst-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02474",
+  "file": "corpus/joesuttondev_joesuttondev.github.io__.github_agents_copywriter.agent.md",
+  "repo": "joesuttondev/joesuttondev.github.io",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02475",
+  "file": "corpus/joesuttondev_joesuttondev.github.io__.github_agents_editor.agent.md",
+  "repo": "joesuttondev/joesuttondev.github.io",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02476",
+  "file": "corpus/jojojjjjj_summer-hardware-projects__.codex_agents_tech-writer.toml",
+  "repo": "jojojjjjj/summer-hardware-projects",
+  "path": ".codex/agents/tech-writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02477",
+  "file": "corpus/jonoisart_oc_agents__agents_cco_subagents_copywriter.md",
+  "repo": "jonoisart/oc_agents",
+  "path": "agents/cco/subagents/copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02478",
+  "file": "corpus/juanibosco_prod-review__agents_docs.md",
+  "repo": "juanibosco/prod-review",
+  "path": "agents/docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02479",
+  "file": "corpus/jwh3times_GuardianTracker__.codex_agents_docs-updater.toml",
+  "repo": "jwh3times/GuardianTracker",
+  "path": ".codex/agents/docs-updater.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

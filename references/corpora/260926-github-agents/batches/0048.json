@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00480",
+  "file": "corpus/affaan-m_ECC__docs_tr_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/tr/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00481",
+  "file": "corpus/affaan-m_ECC__docs_tr_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/tr/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00482",
+  "file": "corpus/affaan-m_ECC__docs_zh-CN_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/zh-CN/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00483",
+  "file": "corpus/affaan-m_ECC__docs_zh-CN_agents_tdd-guide.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/zh-CN/agents/tdd-guide.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00484",
+  "file": "corpus/affaan-m_ECC__docs_zh-TW_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": "docs/zh-TW/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00485",
+  "file": "corpus/Graphify-Labs_graphify__graphify_skills_agents_references_extraction-spec.md",
+  "repo": "Graphify-Labs/graphify",
+  "path": "graphify/skills/agents/references/extraction-spec.md",
+  "stars": 121387,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00486",
+  "file": "corpus/Graphify-Labs_graphify__graphify_skills_agents_references_transcribe.md",
+  "repo": "Graphify-Labs/graphify",
+  "path": "graphify/skills/agents/references/transcribe.md",
+  "stars": 121387,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00487",
+  "file": "corpus/astral-sh_uv__agents_prompts_editorialize-changelog.md",
+  "repo": "astral-sh/uv",
+  "path": "agents/prompts/editorialize-changelog.md",
+  "stars": 90174,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00488",
+  "file": "corpus/Egonex-AI_Understand-Anything__understand-anything-plugin_agents_article-analyzer.md",
+  "repo": "Egonex-AI/Understand-Anything",
+  "path": "understand-anything-plugin/agents/article-analyzer.md",
+  "stars": 84173,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00489",
+  "file": "corpus/Egonex-AI_Understand-Anything__understand-anything-plugin_agents_knowledge-graph-guide.md",
+  "repo": "Egonex-AI/Understand-Anything",
+  "path": "understand-anything-plugin/agents/knowledge-graph-guide.md",
+  "stars": 84173,
+  "copies_in_repos": 1
+ }
+]

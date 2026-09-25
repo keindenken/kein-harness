@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04860",
+  "file": "corpus/sane100400_Machine__.claude_agents_reporter.md",
+  "repo": "sane100400/Machine",
+  "path": ".claude/agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04861",
+  "file": "corpus/sangderenard_speaktome__AGENTS_experience_reports_archive_1749675095_v1_Docs_Update.md",
+  "repo": "sangderenard/speaktome",
+  "path": "AGENTS/experience_reports/archive/1749675095_v1_Docs_Update.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04862",
+  "file": "corpus/sangderenard_speaktome__AGENTS_messages_outbox_1749851344_Proposal_Diff_History_Editor.md",
+  "repo": "sangderenard/speaktome",
+  "path": "AGENTS/messages/outbox/1749851344_Proposal_Diff_History_Editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04863",
+  "file": "corpus/santosbruno94_Mortem-new__.claude_agents_editor-critico.md",
+  "repo": "santosbruno94/Mortem-new",
+  "path": ".claude/agents/editor-critico.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04864",
+  "file": "corpus/saptarshibasu_formal-methods__.codex_agents_tlaplus-spec-writer.toml",
+  "repo": "saptarshibasu/formal-methods",
+  "path": ".codex/agents/tlaplus-spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04865",
+  "file": "corpus/sarins-lab_azure-devops-agents__agents_technical-writer-agent.md",
+  "repo": "sarins-lab/azure-devops-agents",
+  "path": "agents/technical-writer-agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04866",
+  "file": "corpus/saschadudkin-sketch_rezidence4__.codex_agents_domhub-spec-writer.toml",
+  "repo": "saschadudkin-sketch/rezidence4",
+  "path": ".codex/agents/domhub-spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04867",
+  "file": "corpus/satryawiguna_ai-software-factory__agents_technical-writer.md",
+  "repo": "satryawiguna/ai-software-factory",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04868",
+  "file": "corpus/sb0rka_sb0rka__.claude_agents_migration-author.md",
+  "repo": "sb0rka/sb0rka",
+  "path": ".claude/agents/migration-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04869",
+  "file": "corpus/schumacher-m_dotfiles__.codex_agents_docs_researcher.toml",
+  "repo": "schumacher-m/dotfiles",
+  "path": ".codex/agents/docs_researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

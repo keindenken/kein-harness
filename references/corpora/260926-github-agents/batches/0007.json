@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00070",
+  "file": "corpus/Caykhongg_MindWell__.claude_agents_copywriter-seo.md",
+  "repo": "Caykhongg/MindWell",
+  "path": ".claude/agents/copywriter-seo.md",
+  "stars": 1,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00071",
+  "file": "corpus/AnthonyPuggs_codex-author__.claude_agents_editor.md",
+  "repo": "AnthonyPuggs/codex-author",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00072",
+  "file": "corpus/MaintainTechnology_humansoferp__.claude_agents_brand-copywriter.md",
+  "repo": "MaintainTechnology/humansoferp",
+  "path": ".claude/agents/brand-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00073",
+  "file": "corpus/gkswls5006-web_snake-game__.claude_agents_agency_copywriter.md",
+  "repo": "gkswls5006-web/snake-game",
+  "path": ".claude/agents/agency/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00074",
+  "file": "corpus/jackutea_Agents__.github_agents_program.editor.agent.md",
+  "repo": "jackutea/Agents",
+  "path": ".github/agents/program.editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00075",
+  "file": "corpus/k2works_case-study-bouquet__.claude_agents_xp-technical-writer.md",
+  "repo": "k2works/case-study-bouquet",
+  "path": ".claude/agents/xp-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00076",
+  "file": "corpus/knightdx91-alt_A-Bond-of-Scale-and-Silver__.claude_agents_book-writer.md",
+  "repo": "knightdx91-alt/A-Bond-of-Scale-and-Silver",
+  "path": ".claude/agents/book-writer.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00077",
+  "file": "corpus/koala-man-64_asset-allocation-contracts__.claude_agents_technical-writer-dev-advocate.md",
+  "repo": "koala-man-64/asset-allocation-contracts",
+  "path": ".claude/agents/technical-writer-dev-advocate.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00078",
+  "file": "corpus/vladiant_DepthEstimationDemo__.github_agents_technical-writer.agent.md",
+  "repo": "vladiant/DepthEstimationDemo",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00079",
+  "file": "corpus/affaan-m_ECC__.kiro_agents_doc-updater.md",
+  "repo": "affaan-m/ECC",
+  "path": ".kiro/agents/doc-updater.md",
+  "stars": 267344,
+  "copies_in_repos": 5
+ }
+]

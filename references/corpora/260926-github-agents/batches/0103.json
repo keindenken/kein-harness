@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01030",
+  "file": "corpus/chemistrywow31_A-Team__.codex_agents_generation_rule-writer.md",
+  "repo": "chemistrywow31/A-Team",
+  "path": ".codex/agents/generation/rule-writer.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01031",
+  "file": "corpus/chemistrywow31_A-Team__.codex_agents_generation_skill-writer.md",
+  "repo": "chemistrywow31/A-Team",
+  "path": ".codex/agents/generation/skill-writer.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01032",
+  "file": "corpus/gitlabhq_orbit-knowledge-graph__.opencode_agent_docs.md",
+  "repo": "gitlabhq/orbit-knowledge-graph",
+  "path": ".opencode/agent/docs.md",
+  "stars": 54,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01033",
+  "file": "corpus/babyworm_rtl-agent-team__agents_dc-report-parser.md",
+  "repo": "babyworm/rtl-agent-team",
+  "path": "agents/dc-report-parser.md",
+  "stars": 53,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01034",
+  "file": "corpus/babyworm_rtl-agent-team__agents_synthesis-reporter.md",
+  "repo": "babyworm/rtl-agent-team",
+  "path": "agents/synthesis-reporter.md",
+  "stars": 53,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01035",
+  "file": "corpus/chengyike20110519-create_MathModelRun__.claude_agents_mathmodel-writer.md",
+  "repo": "chengyike20110519-create/MathModelRun",
+  "path": ".claude/agents/mathmodel-writer.md",
+  "stars": 53,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01036",
+  "file": "corpus/Kanevry_session-orchestrator__agents_docs-writer.md",
+  "repo": "Kanevry/session-orchestrator",
+  "path": "agents/docs-writer.md",
+  "stars": 52,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01037",
+  "file": "corpus/Marcelo5444_agentic_learning__agents_reporter.md",
+  "repo": "Marcelo5444/agentic_learning",
+  "path": "agents/reporter.md",
+  "stars": 52,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01038",
+  "file": "corpus/documentdb_documentdb-kubernetes-operator__.github_agents_documentation-agent.md",
+  "repo": "documentdb/documentdb-kubernetes-operator",
+  "path": ".github/agents/documentation-agent.md",
+  "stars": 52,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01039",
+  "file": "corpus/lujiaheng-artpivot_openclaw-ecommerce-ad-skills__agents_copywriter.agent.yaml",
+  "repo": "lujiaheng-artpivot/openclaw-ecommerce-ad-skills",
+  "path": "agents/copywriter.agent.yaml",
+  "stars": 52,
+  "copies_in_repos": 1
+ }
+]

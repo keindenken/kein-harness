@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03170",
+  "file": "corpus/PabloHurtadoGonzalo86_service-portfolio__.claude_agents_api-documenter-mentor.md",
+  "repo": "PabloHurtadoGonzalo86/service-portfolio",
+  "path": ".claude/agents/api-documenter-mentor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03171",
+  "file": "corpus/PadmavathyBala_Playwright_Python__agents_brd-authoring.agent.md",
+  "repo": "PadmavathyBala/Playwright_Python",
+  "path": "agents/brd-authoring.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03172",
+  "file": "corpus/Pantani_apartamento-vila-mascote__.claude_agents_conversion-copywriter.md",
+  "repo": "Pantani/apartamento-vila-mascote",
+  "path": ".claude/agents/conversion-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03173",
+  "file": "corpus/Pantani_cartographer__.claude_agents_cartographer-route-report-builder.md",
+  "repo": "Pantani/cartographer",
+  "path": ".claude/agents/cartographer-route-report-builder.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03174",
+  "file": "corpus/PariBansal_Mind-Safe__.github_agents_DOCUMENTATION-KEEPER.agent.md",
+  "repo": "PariBansal/Mind-Safe",
+  "path": ".github/agents/DOCUMENTATION-KEEPER.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03175",
+  "file": "corpus/Partner-Offering-Catalog_copilot-hackathon-for-developers__.github_agents_technical-writer.agent.md",
+  "repo": "Partner-Offering-Catalog/copilot-hackathon-for-developers",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03176",
+  "file": "corpus/Partner-Offering-Catalog_overview__.github_agents_offering-author.agent.md",
+  "repo": "Partner-Offering-Catalog/overview",
+  "path": ".github/agents/offering-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03177",
+  "file": "corpus/PavelAntipov39_OAP__.claude_agents_editorial-quality-audit.md",
+  "repo": "PavelAntipov39/OAP",
+  "path": ".claude/agents/editorial-quality-audit.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03178",
+  "file": "corpus/PavelAntipov39_OAP__.github_agents_docs-spec-sync.agent.md",
+  "repo": "PavelAntipov39/OAP",
+  "path": ".github/agents/docs-spec-sync.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03179",
+  "file": "corpus/PedroRyanIsidorio_thierryProject__.claude_agents_conteudo-editorial.md",
+  "repo": "PedroRyanIsidorio/thierryProject",
+  "path": ".claude/agents/conteudo-editorial.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

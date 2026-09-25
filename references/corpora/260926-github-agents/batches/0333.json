@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03330",
+  "file": "corpus/Tamoura_Claude-Code-creates-the-SW-company__.claude_agents_technical-writer.md",
+  "repo": "Tamoura/Claude-Code-creates-the-SW-company",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03331",
+  "file": "corpus/Tarakesh-sampath_Interference-quantum-classifier__.opencode_agent_Qml-writer.md",
+  "repo": "Tarakesh-sampath/Interference-quantum-classifier",
+  "path": ".opencode/agent/Qml-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03332",
+  "file": "corpus/TariqBkn_augmented-engineer-mirror__.github_agents_Documentation.agent.md",
+  "repo": "TariqBkn/augmented-engineer-mirror",
+  "path": ".github/agents/Documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03333",
+  "file": "corpus/Taylor2512_prueba-plugin__.codex_agents_docs-researcher.toml",
+  "repo": "Taylor2512/prueba-plugin",
+  "path": ".codex/agents/docs-researcher.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03334",
+  "file": "corpus/TeknobuGroup_SoneloSolutionDevKit__.claude_agents_docs-maintainer.md",
+  "repo": "TeknobuGroup/SoneloSolutionDevKit",
+  "path": ".claude/agents/docs-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03335",
+  "file": "corpus/TermiSenpai_ZigZagPrototype__.claude_agents_unity-editor-tooling.md",
+  "repo": "TermiSenpai/ZigZagPrototype",
+  "path": ".claude/agents/unity-editor-tooling.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03336",
+  "file": "corpus/TerryTong-Git_AstraBashControl-backup__.claude_agents_pm_weekly-update-writer.md",
+  "repo": "TerryTong-Git/AstraBashControl-backup",
+  "path": ".claude/agents/pm/weekly-update-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03337",
+  "file": "corpus/ThaSMorato_skills__agents_fdd-writer.md",
+  "repo": "ThaSMorato/skills",
+  "path": "agents/fdd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03338",
+  "file": "corpus/ThaSMorato_skills__agents_hld-writer.md",
+  "repo": "ThaSMorato/skills",
+  "path": "agents/hld-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03339",
+  "file": "corpus/ThaSMorato_skills__agents_prd-writer.md",
+  "repo": "ThaSMorato/skills",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

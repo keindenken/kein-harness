@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03310",
+  "file": "corpus/StereotypicalCat_gacha-event-tracker__.claude_agents_adapter-author.md",
+  "repo": "StereotypicalCat/gacha-event-tracker",
+  "path": ".claude/agents/adapter-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03311",
+  "file": "corpus/Strike-Labs-LLC_testingcanon__.github_agents_03-acceptance-criteria-author.agent.md",
+  "repo": "Strike-Labs-LLC/testingcanon",
+  "path": ".github/agents/03-acceptance-criteria-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03312",
+  "file": "corpus/Striving2Builder_Take---App-Store-and-Ads-Asset-Studio__.claude_agents_copywriter.md",
+  "repo": "Striving2Builder/Take---App-Store-and-Ads-Asset-Studio",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03313",
+  "file": "corpus/Summoner-Network_summoner-agents__agents_agent_HSAgent_1_did_documentation.md",
+  "repo": "Summoner-Network/summoner-agents",
+  "path": "agents/agent_HSAgent_1/did_documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03314",
+  "file": "corpus/SunWoo1213_AI-Invest__.codex_agents_harness-doc-writer.toml",
+  "repo": "SunWoo1213/AI-Invest",
+  "path": ".codex/agents/harness-doc-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03315",
+  "file": "corpus/Superdanda_agent-kb__.codex_agents_doc-writer.md",
+  "repo": "Superdanda/agent-kb",
+  "path": ".codex/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03316",
+  "file": "corpus/SwatiDavari_Test_Dashboard__.github_agents_qik-thalam-author.agent.md",
+  "repo": "SwatiDavari/Test_Dashboard",
+  "path": ".github/agents/qik-thalam-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03317",
+  "file": "corpus/SylvainBertrand_stonky__.claude_agents_documentation-writer.md",
+  "repo": "SylvainBertrand/stonky",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03318",
+  "file": "corpus/T-H-0-M_dotfiles__.opencode_agent_go-docs.md",
+  "repo": "T-H-0-M/dotfiles",
+  "path": ".opencode/agent/go-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03319",
+  "file": "corpus/T-H-0-M_dotfiles__.opencode_agent_java-docs.md",
+  "repo": "T-H-0-M/dotfiles",
+  "path": ".opencode/agent/java-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

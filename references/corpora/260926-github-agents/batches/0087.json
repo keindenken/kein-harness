@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00870",
+  "file": "corpus/VKirill_claude-lane-stack__agents_codex_instructions_docs-maintain.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "agents/codex/instructions/docs-maintain.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00871",
+  "file": "corpus/VKirill_claude-lane-stack__agents_codex_instructions_writer-emergency.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "agents/codex/instructions/writer-emergency.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00872",
+  "file": "corpus/VKirill_claude-lane-stack__agents_grok_writer.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "agents/grok/writer.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00873",
+  "file": "corpus/VKirill_claude-lane-stack__plugins_lane-stack_agents_copy-lead.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "plugins/lane-stack/agents/copy-lead.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00874",
+  "file": "corpus/VKirill_claude-lane-stack__plugins_lane-stack_agents_docs-maintainer.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "plugins/lane-stack/agents/docs-maintainer.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00875",
+  "file": "corpus/VKirill_claude-lane-stack__plugins_lane-stack_agents_emergency-writer.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "plugins/lane-stack/agents/emergency-writer.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00876",
+  "file": "corpus/VKirill_claude-lane-stack__profiles_cursor_lane-writer_agents_lane-writer.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "profiles/cursor/lane-writer/agents/lane-writer.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00877",
+  "file": "corpus/ammarion_waf-detector__.claude_agents_documentation-maintainer.md",
+  "repo": "ammarion/waf-detector",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00878",
+  "file": "corpus/686f6c61_alfred-dev__agents_tech-writer.md",
+  "repo": "686f6c61/alfred-dev",
+  "path": "agents/tech-writer.md",
+  "stars": 115,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00879",
+  "file": "corpus/bladeofgod_flutter-ai-harness__.claude_agents_spec-writer.md",
+  "repo": "bladeofgod/flutter-ai-harness",
+  "path": ".claude/agents/spec-writer.md",
+  "stars": 115,
+  "copies_in_repos": 1
+ }
+]

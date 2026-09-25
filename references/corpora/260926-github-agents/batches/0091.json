@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00910",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_agent-authoring_agent-authoring-build-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-build-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00911",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_agent-authoring_agent-authoring-improve-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-improve-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00912",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_agent-authoring_agent-authoring-plan-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-plan-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00913",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_agent-authoring_agent-authoring-question-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/agent-authoring/agent-authoring-question-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00914",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_claude-config_improve-report-2026-02-05.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/claude-config/improve-report-2026-02-05.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00915",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_claude-config_pruning-report-2026-02-05.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/claude-config/pruning-report-2026-02-05.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00916",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_documentation_PRUNING_REPORT.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/documentation/PRUNING_REPORT.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00917",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_documentation_documentation-build-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/documentation/documentation-build-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00918",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_documentation_documentation-plan-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/documentation/documentation-plan-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00919",
+  "file": "corpus/jayminwest_kotadb__.claude_agents_experts_documentation_documentation-question-agent.md",
+  "repo": "jayminwest/kotadb",
+  "path": ".claude/agents/experts/documentation/documentation-question-agent.md",
+  "stars": 100,
+  "copies_in_repos": 1
+ }
+]

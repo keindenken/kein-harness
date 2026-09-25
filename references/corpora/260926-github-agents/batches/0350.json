@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03500",
+  "file": "corpus/alexoliveira55_Task-Pair-App__.github_agents_documentation_agent.md",
+  "repo": "alexoliveira55/Task-Pair-App",
+  "path": ".github/agents/documentation_agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03501",
+  "file": "corpus/aleynikovanton_pm-workflow__agents_prd-writer.md",
+  "repo": "aleynikovanton/pm-workflow",
+  "path": "agents/prd-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03502",
+  "file": "corpus/alienfast_claude__agents_technical-writer.md",
+  "repo": "alienfast/claude",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03503",
+  "file": "corpus/allanpk716_patent-disclosure-writer-skill__.claude_agents_31-patent-report-generator.md",
+  "repo": "allanpk716/patent-disclosure-writer-skill",
+  "path": ".claude/agents/31-patent-report-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03504",
+  "file": "corpus/allhandsondeck_HackYourFuture-Mentoring-Content__.github_agents_hyf-content-author.agent.md",
+  "repo": "allhandsondeck/HackYourFuture-Mentoring-Content",
+  "path": ".github/agents/hyf-content-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03505",
+  "file": "corpus/allwinwhp_DAR-Knowledgebase__agents_design-authority.md",
+  "repo": "allwinwhp/DAR-Knowledgebase",
+  "path": "agents/design-authority.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03506",
+  "file": "corpus/alpet83_pwm-protocol__.github_agents_pwm-editor-worker-cli.agent.md",
+  "repo": "alpet83/pwm-protocol",
+  "path": ".github/agents/pwm-editor-worker-cli.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03507",
+  "file": "corpus/alpheay_more-open-agents__agents_docs-writer.md",
+  "repo": "alpheay/more-open-agents",
+  "path": "agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03508",
+  "file": "corpus/alysonfs_nr_atua__.github_agents_brand-copywriter.agent.md",
+  "repo": "alysonfs/nr_atua",
+  "path": ".github/agents/brand-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03509",
+  "file": "corpus/amaiagalvez_madaia33__.github_agents_code-reviews_correction-report-2026-04-10.md",
+  "repo": "amaiagalvez/madaia33",
+  "path": ".github/agents/code-reviews/correction-report-2026-04-10.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

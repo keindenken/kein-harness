@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03540",
+  "file": "corpus/apenugon_clasp__agents_swarm_full_08-ai-platform_AI-007-separate-prompt-content-from-authority-bearing-policy-and-tool-grants.md",
+  "repo": "apenugon/clasp",
+  "path": "agents/swarm/full/08-ai-platform/AI-007-separate-prompt-content-from-authority-bearing-policy-and-tool-grants.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03541",
+  "file": "corpus/apenugon_clasp__agents_swarm_native-backend-v0_05-control-plane_CP-008-generate-human-readable-docs-from-the-same-declarations.md",
+  "repo": "apenugon/clasp",
+  "path": "agents/swarm/native-backend-v0/05-control-plane/CP-008-generate-human-readable-docs-from-the-same-declarations.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03542",
+  "file": "corpus/apholmes7-bot_hiddenharbours__agents_tools-editor.md",
+  "repo": "apholmes7-bot/hiddenharbours",
+  "path": "agents/tools-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03543",
+  "file": "corpus/applitools_ImageTester__.claude_agents_doc-writer.md",
+  "repo": "applitools/ImageTester",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03544",
+  "file": "corpus/aranjandev_jira2pr__.github_agents_pr-author.agent.md",
+  "repo": "aranjandev/jira2pr",
+  "path": ".github/agents/pr-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03545",
+  "file": "corpus/arbgjr_estoque__.claude_agents_adr-author.md",
+  "repo": "arbgjr/estoque",
+  "path": ".claude/agents/adr-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03546",
+  "file": "corpus/archemich_code-duels__.opencode_agent_tech-writer.md",
+  "repo": "archemich/code-duels",
+  "path": ".opencode/agent/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03547",
+  "file": "corpus/archetypal-cz_bashkirtseff__.claude_agents_editor.md",
+  "repo": "archetypal-cz/bashkirtseff",
+  "path": ".claude/agents/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03548",
+  "file": "corpus/ardamoustafa1_DesignOS__agents_copywriter.md",
+  "repo": "ardamoustafa1/DesignOS",
+  "path": "agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03549",
+  "file": "corpus/arielh1_porto-douro-trip__.claude_agents_reporter.md",
+  "repo": "arielh1/porto-douro-trip",
+  "path": ".claude/agents/reporter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

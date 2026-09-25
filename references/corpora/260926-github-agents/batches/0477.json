@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04770",
+  "file": "corpus/raphab3_caraDeAbelha__.github_agents_writer.agent.md",
+  "repo": "raphab3/caraDeAbelha",
+  "path": ".github/agents/writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04771",
+  "file": "corpus/rararulab_rara__.claude_agents_spec-author.md",
+  "repo": "rararulab/rara",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04772",
+  "file": "corpus/raro42_npp-rust__agents_tasks_done_WIP-2-20260829-1232-add-option-to-load-npp-rust-logs-into-the-editor.md",
+  "repo": "raro42/npp-rust",
+  "path": "agents/tasks/done/WIP-2-20260829-1232-add-option-to-load-npp-rust-logs-into-the-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04773",
+  "file": "corpus/rasterwebapps_BloodBank__.github_agents_docs-writer.md",
+  "repo": "rasterwebapps/BloodBank",
+  "path": ".github/agents/docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04774",
+  "file": "corpus/rasterwebapps_BloodBank__.github_agents_migration-author.md",
+  "repo": "rasterwebapps/BloodBank",
+  "path": ".github/agents/migration-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04775",
+  "file": "corpus/raulbellosom_omzone-v2__.github_agents_copywriter.agent.md",
+  "repo": "raulbellosom/omzone-v2",
+  "path": ".github/agents/copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04776",
+  "file": "corpus/raulbellosom_runly-erp__.github_agents_runly-copywriter.agent.md",
+  "repo": "raulbellosom/runly-erp",
+  "path": ".github/agents/runly-copywriter.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04777",
+  "file": "corpus/raven-sourav_Discovery-Call-Engine__agents_report-writer.md",
+  "repo": "raven-sourav/Discovery-Call-Engine",
+  "path": "agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04778",
+  "file": "corpus/raydocs_inktale__.opencode_agent_docs-scout.md",
+  "repo": "raydocs/inktale",
+  "path": ".opencode/agent/docs-scout.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04779",
+  "file": "corpus/rcforte_sdlc-harness__agents_tech-writer.md",
+  "repo": "rcforte/sdlc-harness",
+  "path": "agents/tech-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

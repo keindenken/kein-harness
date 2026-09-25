@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02500",
+  "file": "corpus/lklimek_claudius__agents_technical-writer-trillian.md",
+  "repo": "lklimek/claudius",
+  "path": "agents/technical-writer-trillian.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02501",
+  "file": "corpus/lonerzee_sechound-open__agents_reporter.md",
+  "repo": "lonerzee/sechound-open",
+  "path": "agents/reporter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02502",
+  "file": "corpus/lswank_black-book__agents_ad-copywriter.md",
+  "repo": "lswank/black-book",
+  "path": "agents/ad-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02503",
+  "file": "corpus/lswank_black-book__agents_case-study-writer.md",
+  "repo": "lswank/black-book",
+  "path": "agents/case-study-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02504",
+  "file": "corpus/lswank_black-book__agents_cold-outreach-copywriter.md",
+  "repo": "lswank/black-book",
+  "path": "agents/cold-outreach-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02505",
+  "file": "corpus/lswank_black-book__agents_investor-update-writer.md",
+  "repo": "lswank/black-book",
+  "path": "agents/investor-update-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02506",
+  "file": "corpus/lswank_black-book__agents_landing-page-copywriter.md",
+  "repo": "lswank/black-book",
+  "path": "agents/landing-page-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02507",
+  "file": "corpus/lswank_black-book__agents_operating-cadence-writer.md",
+  "repo": "lswank/black-book",
+  "path": "agents/operating-cadence-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02508",
+  "file": "corpus/lswank_black-book__agents_prd-writer.md",
+  "repo": "lswank/black-book",
+  "path": "agents/prd-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02509",
+  "file": "corpus/lswank_black-book__agents_user-story-writer.md",
+  "repo": "lswank/black-book",
+  "path": "agents/user-story-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

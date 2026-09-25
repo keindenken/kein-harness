@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01630",
+  "file": "corpus/Tristan578_project-forge__.claude_agents_docs-maintainer.md",
+  "repo": "Tristan578/project-forge",
+  "path": ".claude/agents/docs-maintainer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01631",
+  "file": "corpus/Tristan578_project-forge__.codex_agents_docs-guardian.toml",
+  "repo": "Tristan578/project-forge",
+  "path": ".codex/agents/docs-guardian.toml",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01632",
+  "file": "corpus/Wikid82_Charon__.claude_agents_docs-writer.md",
+  "repo": "Wikid82/Charon",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01633",
+  "file": "corpus/Wikid82_Charon__.github_agents_Doc_Writer.agent.md",
+  "repo": "Wikid82/Charon",
+  "path": ".github/agents/Doc_Writer.agent.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01634",
+  "file": "corpus/afborda_synthfin-core__.github_agents_documentation-keeper.agent.md",
+  "repo": "afborda/synthfin-core",
+  "path": ".github/agents/documentation-keeper.agent.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01635",
+  "file": "corpus/amp-labs_docs__.github_agents_ampersand-docs.agent.md",
+  "repo": "amp-labs/docs",
+  "path": ".github/agents/ampersand-docs.agent.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01636",
+  "file": "corpus/benshapyro_cadre-devkit-claude__agents_documentation-researcher.md",
+  "repo": "benshapyro/cadre-devkit-claude",
+  "path": "agents/documentation-researcher.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01637",
+  "file": "corpus/bitifet_SmarkForm__AGENTS_Documentation-Guidelines.md",
+  "repo": "bitifet/SmarkForm",
+  "path": "AGENTS/Documentation-Guidelines.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01638",
+  "file": "corpus/bitifet_SmarkForm__AGENTS_Documentation-Tracking.md",
+  "repo": "bitifet/SmarkForm",
+  "path": "AGENTS/Documentation-Tracking.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01639",
+  "file": "corpus/cantascendia_yakuten__.claude_agents_editorial-evidence.md",
+  "repo": "cantascendia/yakuten",
+  "path": ".claude/agents/editorial-evidence.md",
+  "stars": 9,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04950",
+  "file": "corpus/sridharan01234_pr-agent__.github_agents_docs-lookup.agent.md",
+  "repo": "sridharan01234/pr-agent",
+  "path": ".github/agents/docs-lookup.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04951",
+  "file": "corpus/srinilareddy_ai-data-analyst__.claude_agents_report-writer.md",
+  "repo": "srinilareddy/ai-data-analyst",
+  "path": ".claude/agents/report-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04952",
+  "file": "corpus/srmccray_hacking-game__.claude_agents_documentation-writer.md",
+  "repo": "srmccray/hacking-game",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04953",
+  "file": "corpus/srrrs-7_micro-services__.codex_agents_migration-author.toml",
+  "repo": "srrrs-7/micro-services",
+  "path": ".codex/agents/migration-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04954",
+  "file": "corpus/ssdavidai_jig__agents_documentation-noise-filter.md",
+  "repo": "ssdavidai/jig",
+  "path": "agents/documentation-noise-filter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04955",
+  "file": "corpus/ssec-jhu_enzyme-tk-app__.claude_agents_sync-docs.md",
+  "repo": "ssec-jhu/enzyme-tk-app",
+  "path": ".claude/agents/sync-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04956",
+  "file": "corpus/ssehrawat_claude-code-setup__.claude_agents_doc-maintainer.md",
+  "repo": "ssehrawat/claude-code-setup",
+  "path": ".claude/agents/doc-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04957",
+  "file": "corpus/ssherman_the-greatest__.claude_agents_technical-writer.md",
+  "repo": "ssherman/the-greatest",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04958",
+  "file": "corpus/ssid1998_BookmarkGuilt__.opencode_agent_sprinter_examples_SPRINT_REPORT.md",
+  "repo": "ssid1998/BookmarkGuilt",
+  "path": ".opencode/agent/sprinter/examples/SPRINT_REPORT.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04959",
+  "file": "corpus/ssmleo_govfolio__.codex_agents_spec-writer.toml",
+  "repo": "ssmleo/govfolio",
+  "path": ".codex/agents/spec-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

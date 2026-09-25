@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03240",
+  "file": "corpus/RintaroMasaoka_theoretical-physics-agents__.codex_agents_writer.md",
+  "repo": "RintaroMasaoka/theoretical-physics-agents",
+  "path": ".codex/agents/writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03241",
+  "file": "corpus/RobertoGtz_gaia-code-harness__.claude_agents_gherkin_author.md",
+  "repo": "RobertoGtz/gaia-code-harness",
+  "path": ".claude/agents/gherkin_author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03242",
+  "file": "corpus/RogueRope_docs__.claude_agents_web-copywriter-editor.md",
+  "repo": "RogueRope/docs",
+  "path": ".claude/agents/web-copywriter-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03243",
+  "file": "corpus/RomanMuchnyk_AnnTech__agents_technical-writer.agent.md",
+  "repo": "RomanMuchnyk/AnnTech",
+  "path": "agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03244",
+  "file": "corpus/RomashkaHEHE_Rolay-plugin__AGENTS_ideas_needs-discovery_last-editor-lineage.md",
+  "repo": "RomashkaHEHE/Rolay-plugin",
+  "path": "AGENTS/ideas/needs-discovery/last-editor-lineage.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03245",
+  "file": "corpus/RominaRenzini_ticketing-engine__.github_agents_documentation.agent.md",
+  "repo": "RominaRenzini/ticketing-engine",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03246",
+  "file": "corpus/Ron-Leizrowice_pwdft-rs__.claude_agents_shared_docs-drift.md",
+  "repo": "Ron-Leizrowice/pwdft-rs",
+  "path": ".claude/agents/shared/docs-drift.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03247",
+  "file": "corpus/RonkTsang_gemini-chat-extension__.codex_agents_i18n-writer.toml",
+  "repo": "RonkTsang/gemini-chat-extension",
+  "path": ".codex/agents/i18n-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03248",
+  "file": "corpus/RostK_dev-digest__.claude_agents_spec-author.md",
+  "repo": "RostK/dev-digest",
+  "path": ".claude/agents/spec-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03249",
+  "file": "corpus/Ru-kko_tractor-mono__.claude_agents_spec_author.md",
+  "repo": "Ru-kko/tractor-mono",
+  "path": ".claude/agents/spec_author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

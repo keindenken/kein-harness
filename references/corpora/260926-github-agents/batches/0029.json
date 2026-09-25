@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00290",
+  "file": "corpus/taurgis_has-marstek-local-api__.github_agents_official-docs-researcher.agent.md",
+  "repo": "taurgis/has-marstek-local-api",
+  "path": ".github/agents/official-docs-researcher.agent.md",
+  "stars": 33,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00291",
+  "file": "corpus/knacklabs_gantry__.codex_agents_docs-decomposer.toml",
+  "repo": "knacklabs/gantry",
+  "path": ".codex/agents/docs-decomposer.toml",
+  "stars": 32,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00292",
+  "file": "corpus/NickMonrad_kernel-ai-assistant__.github_agents_spec-writer.agent.md",
+  "repo": "NickMonrad/kernel-ai-assistant",
+  "path": ".github/agents/spec-writer.agent.md",
+  "stars": 31,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00293",
+  "file": "corpus/NickMonrad_kernel-ai-assistant__.github_agents_wasm-skill-author.agent.md",
+  "repo": "NickMonrad/kernel-ai-assistant",
+  "path": ".github/agents/wasm-skill-author.agent.md",
+  "stars": 31,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00294",
+  "file": "corpus/geckse_markdown-vdb__.claude_agents_prd-writer.md",
+  "repo": "geckse/markdown-vdb",
+  "path": ".claude/agents/prd-writer.md",
+  "stars": 27,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00295",
+  "file": "corpus/gigsmart_haiku-method__.claude_agents_blog-writer.md",
+  "repo": "gigsmart/haiku-method",
+  "path": ".claude/agents/blog-writer.md",
+  "stars": 24,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00296",
+  "file": "corpus/GulajavaMinistudio_sadayana-masjid-tv__.github_agents_DiataxisDocumentationArchitect.agent.md",
+  "repo": "GulajavaMinistudio/sadayana-masjid-tv",
+  "path": ".github/agents/DiataxisDocumentationArchitect.agent.md",
+  "stars": 23,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00297",
+  "file": "corpus/GulajavaMinistudio_sadayana-masjid-tv__.github_agents_ProductManagerPRD.agent.md",
+  "repo": "GulajavaMinistudio/sadayana-masjid-tv",
+  "path": ".github/agents/ProductManagerPRD.agent.md",
+  "stars": 23,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00298",
+  "file": "corpus/nasrulhazim_claude__agents_tech-writer.md",
+  "repo": "nasrulhazim/claude",
+  "path": "agents/tech-writer.md",
+  "stars": 23,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00299",
+  "file": "corpus/zhlhleo_codex-agent-automation__agents_documentation-engineer.toml",
+  "repo": "zhlhleo/codex-agent-automation",
+  "path": "agents/documentation-engineer.toml",
+  "stars": 22,
+  "copies_in_repos": 2
+ }
+]

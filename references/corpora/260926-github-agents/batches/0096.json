@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00960",
+  "file": "corpus/po4yka_RIPDPI__.codex_agents_coverage-reporter.toml",
+  "repo": "po4yka/RIPDPI",
+  "path": ".codex/agents/coverage-reporter.toml",
+  "stars": 75,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00961",
+  "file": "corpus/waldur_waldur-mastermind__.claude_agents_docs-writer.md",
+  "repo": "waldur/waldur-mastermind",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 75,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00962",
+  "file": "corpus/Hal0ai_hal0__.claude_agents_docs-verifier.md",
+  "repo": "Hal0ai/hal0",
+  "path": ".claude/agents/docs-verifier.md",
+  "stars": 74,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00963",
+  "file": "corpus/Hal0ai_hal0__.claude_agents_docs-writer.md",
+  "repo": "Hal0ai/hal0",
+  "path": ".claude/agents/docs-writer.md",
+  "stars": 74,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00964",
+  "file": "corpus/heggria_taskflow__packages_taskflow-core_src_agents_doc-writer.md",
+  "repo": "heggria/taskflow",
+  "path": "packages/taskflow-core/src/agents/doc-writer.md",
+  "stars": 74,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00965",
+  "file": "corpus/jikime_harness-lab__agents_editor.md",
+  "repo": "jikime/harness-lab",
+  "path": "agents/editor.md",
+  "stars": 74,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00966",
+  "file": "corpus/moodle_devdocs__.github_agents_backport-docs.agent.md",
+  "repo": "moodle/devdocs",
+  "path": ".github/agents/backport-docs.agent.md",
+  "stars": 74,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00967",
+  "file": "corpus/CooperAgent_cooper__.github_agents_sdd-writer-agent.md",
+  "repo": "CooperAgent/cooper",
+  "path": ".github/agents/sdd-writer-agent.md",
+  "stars": 73,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00968",
+  "file": "corpus/nylas_cli__.claude_agents_code-writer.md",
+  "repo": "nylas/cli",
+  "path": ".claude/agents/code-writer.md",
+  "stars": 73,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00969",
+  "file": "corpus/nylas_cli__.claude_agents_documentation-writer.md",
+  "repo": "nylas/cli",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 73,
+  "copies_in_repos": 1
+ }
+]

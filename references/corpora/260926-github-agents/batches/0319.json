@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03190",
+  "file": "corpus/PiyushPapaya_Cheirograph__.claude_agents_gestura-copywriter.md",
+  "repo": "PiyushPapaya/Cheirograph",
+  "path": ".claude/agents/gestura-copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03191",
+  "file": "corpus/PolicyEngine_.claude__agents_country-models_documentation-enricher.md",
+  "repo": "PolicyEngine/.claude",
+  "path": "agents/country-models/documentation-enricher.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03192",
+  "file": "corpus/Poliuk_rsm-orchestrator__agents_documentator.md",
+  "repo": "Poliuk/rsm-orchestrator",
+  "path": "agents/documentator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03193",
+  "file": "corpus/Polyhydra-Games_bedrock-c418-fixes__agents_docs-only.md",
+  "repo": "Polyhydra-Games/bedrock-c418-fixes",
+  "path": "agents/docs-only.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03194",
+  "file": "corpus/Porrrrrrg_Formal-Aware-AI-DV-Copilot__.codex_agents_docs_structure.toml",
+  "repo": "Porrrrrrg/Formal-Aware-AI-DV-Copilot",
+  "path": ".codex/agents/docs_structure.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03195",
+  "file": "corpus/PrVille_aio__.github_agents_node-author.agent.md",
+  "repo": "PrVille/aio",
+  "path": ".github/agents/node-author.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03196",
+  "file": "corpus/Prekzursil_Airline-Reservations-System__.github_agents_docs-gardener.agent.md",
+  "repo": "Prekzursil/Airline-Reservations-System",
+  "path": ".github/agents/docs-gardener.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03197",
+  "file": "corpus/PremModhaOfficial_NFR-pipeline__agents_sdk-doc-writer.md",
+  "repo": "PremModhaOfficial/NFR-pipeline",
+  "path": "agents/sdk-doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03198",
+  "file": "corpus/Presmanes3_queryforge__.github_agents_docs_writer.agent.md",
+  "repo": "Presmanes3/queryforge",
+  "path": ".github/agents/docs_writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03199",
+  "file": "corpus/PrideRock-CoPilot_RRLMS__.github_agents_regulatory-reporting-specialist.agent.md",
+  "repo": "PrideRock-CoPilot/RRLMS",
+  "path": ".github/agents/regulatory-reporting-specialist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

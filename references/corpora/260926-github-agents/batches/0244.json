@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02440",
+  "file": "corpus/doubts-suplab_eeik-bootstrap__.claude_agents_technical-writer.md",
+  "repo": "doubts-suplab/eeik-bootstrap",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02441",
+  "file": "corpus/doubts-suplab_eeik-bootstrap__.github_agents_technical-writer.agent.md",
+  "repo": "doubts-suplab/eeik-bootstrap",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02442",
+  "file": "corpus/drevantonder_finance__.opencode_agent_specialist-docs.md",
+  "repo": "drevantonder/finance",
+  "path": ".opencode/agent/specialist-docs.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02443",
+  "file": "corpus/durgadatta_nomi__.codex_agents_nomi-docs-rag-synthesizer.md",
+  "repo": "durgadatta/nomi",
+  "path": ".codex/agents/nomi-docs-rag-synthesizer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02444",
+  "file": "corpus/eli0shin_claude__agents_github-pr-author.md",
+  "repo": "eli0shin/claude",
+  "path": "agents/github-pr-author.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02445",
+  "file": "corpus/eliaspolovina_PSA-Website__.claude_agents_psa-copywriter.md",
+  "repo": "eliaspolovina/PSA-Website",
+  "path": ".claude/agents/psa-copywriter.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02446",
+  "file": "corpus/emanuele-artioli_presley__.claude_agents_paper-editor.md",
+  "repo": "emanuele-artioli/presley",
+  "path": ".claude/agents/paper-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02447",
+  "file": "corpus/eroslifestyle_Claude-Orchestrator-Plugin__agents_docs_core_DOCUMENTATION_INDEX.md",
+  "repo": "eroslifestyle/Claude-Orchestrator-Plugin",
+  "path": "agents/docs/core/DOCUMENTATION_INDEX.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02448",
+  "file": "corpus/evgeniyannenkov_agent-os__agents_documentation_technical-writer.md",
+  "repo": "evgeniyannenkov/agent-os",
+  "path": "agents/documentation/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02449",
+  "file": "corpus/ewe-studios_agentic-coding-starter__agents_documentation.md",
+  "repo": "ewe-studios/agentic-coding-starter",
+  "path": "agents/documentation.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04430",
+  "file": "corpus/mariaperezart_estudio__.claude_agents_copywriter.md",
+  "repo": "mariaperezart/estudio",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04431",
+  "file": "corpus/marinoscar_WellConnect__.claude_agents_docs-dev.md",
+  "repo": "marinoscar/WellConnect",
+  "path": ".claude/agents/docs-dev.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04432",
+  "file": "corpus/mariotinelli_nexum__.opencode_agent_subagents_plan-writer.md",
+  "repo": "mariotinelli/nexum",
+  "path": ".opencode/agent/subagents/plan-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04433",
+  "file": "corpus/mariotinelli_nexum__.opencode_agent_subagents_ttd-technical-writer.md",
+  "repo": "mariotinelli/nexum",
+  "path": ".opencode/agent/subagents/ttd-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04434",
+  "file": "corpus/marketingsmartcar_marketing-automacoes__agents_copywriter-ads.md",
+  "repo": "marketingsmartcar/marketing-automacoes",
+  "path": "agents/copywriter-ads.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04435",
+  "file": "corpus/markus41_nabip-association-ma__.github_agents_member-grid-editor-specialist.md",
+  "repo": "markus41/nabip-association-ma",
+  "path": ".github/agents/member-grid-editor-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04436",
+  "file": "corpus/marleentheyoung_ai-finance-paper__.claude_agents_reviewing_editor.md",
+  "repo": "marleentheyoung/ai-finance-paper",
+  "path": ".claude/agents/reviewing/editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04437",
+  "file": "corpus/marshadgani_Arshad.AI__.claude_agents_voltAgent-subagents_06-developer-experience_readme-generator.md",
+  "repo": "marshadgani/Arshad.AI",
+  "path": ".claude/agents/voltAgent-subagents/06-developer-experience/readme-generator.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04438",
+  "file": "corpus/martin-ramos_OES__.claude_agents_documentation-writer.md",
+  "repo": "martin-ramos/OES",
+  "path": ".claude/agents/documentation-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04439",
+  "file": "corpus/martins86_th-player__.github_agents_THP-Master-Developer_docs_templates-docs.md",
+  "repo": "martins86/th-player",
+  "path": ".github/agents/THP-Master-Developer/docs/templates-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

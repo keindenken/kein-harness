@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01060",
+  "file": "corpus/hex0xdeadbeef_claude-kit__.claude_agents_project-researcher_subagents_report.md",
+  "repo": "hex0xdeadbeef/claude-kit",
+  "path": ".claude/agents/project-researcher/subagents/report.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01061",
+  "file": "corpus/supertokens_docs__.opencode_agent_techincal-writer.md",
+  "repo": "supertokens/docs",
+  "path": ".opencode/agent/techincal-writer.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01062",
+  "file": "corpus/thegeronimo_hyperopen__.codex_agents_content_writer.toml",
+  "repo": "thegeronimo/hyperopen",
+  "path": ".codex/agents/content_writer.toml",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01063",
+  "file": "corpus/thegeronimo_hyperopen__.codex_agents_spec-writer.toml",
+  "repo": "thegeronimo/hyperopen",
+  "path": ".codex/agents/spec-writer.toml",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01064",
+  "file": "corpus/timothygrant80_cisTEM__.claude_agents_doxygen-doc-expert.md",
+  "repo": "timothygrant80/cisTEM",
+  "path": ".claude/agents/doxygen-doc-expert.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01065",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_api-documentation-generator.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/api-documentation-generator.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01066",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_code-documentation-auditor.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/code-documentation-auditor.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01067",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_code-metrics-reporter.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/code-metrics-reporter.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01068",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_docs-architect.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/docs-architect.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01069",
+  "file": "corpus/viksant_vibe-coding-tools-content__agents_seo-authority-builder.md",
+  "repo": "viksant/vibe-coding-tools-content",
+  "path": "agents/seo-authority-builder.md",
+  "stars": 45,
+  "copies_in_repos": 1
+ }
+]

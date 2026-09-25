@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02550",
+  "file": "corpus/safaothman1631_ERP__.github_agents_shadow-reporting-bi-engineer.agent.md",
+  "repo": "safaothman1631/ERP",
+  "path": ".github/agents/shadow-reporting-bi-engineer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02551",
+  "file": "corpus/sasatech-labs_skills__.claude_agents_guide-writer.md",
+  "repo": "sasatech-labs/skills",
+  "path": ".claude/agents/guide-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02552",
+  "file": "corpus/scorpion7slayer_NxtAIGen__.github_agents_documentation-writer.md",
+  "repo": "scorpion7slayer/NxtAIGen",
+  "path": ".github/agents/documentation-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02553",
+  "file": "corpus/scseong_dnchurch__.claude_agents_doc-editor.md",
+  "repo": "scseong/dnchurch",
+  "path": ".claude/agents/doc-editor.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02554",
+  "file": "corpus/sethwebster_AI__agents_docs-architect.md",
+  "repo": "sethwebster/AI",
+  "path": "agents/docs-architect.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02555",
+  "file": "corpus/shabib87_shabib87.github.io__.codex_agents_editor.toml",
+  "repo": "shabib87/shabib87.github.io",
+  "path": ".codex/agents/editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02556",
+  "file": "corpus/shabib87_shabib87.github.io__.codex_agents_historical-post-editor.toml",
+  "repo": "shabib87/shabib87.github.io",
+  "path": ".codex/agents/historical-post-editor.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02557",
+  "file": "corpus/shabib87_shabib87.github.io__.codex_agents_writer.toml",
+  "repo": "shabib87/shabib87.github.io",
+  "path": ".codex/agents/writer.toml",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02558",
+  "file": "corpus/shinglyu_shinglyu.github.io__.github_agents_editor.agent.md",
+  "repo": "shinglyu/shinglyu.github.io",
+  "path": ".github/agents/editor.agent.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02559",
+  "file": "corpus/silenceboychen_claude-code-maestro__agents_08-business-product_technical-writer.md",
+  "repo": "silenceboychen/claude-code-maestro",
+  "path": "agents/08-business-product/technical-writer.md",
+  "stars": 1,
+  "copies_in_repos": 1
+ }
+]

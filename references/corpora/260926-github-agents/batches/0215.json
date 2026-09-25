@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02150",
+  "file": "corpus/aazenkoff_copilot-agent-fabric__.github_agents_unity-editor-tool-developer.agent.md",
+  "repo": "aazenkoff/copilot-agent-fabric",
+  "path": ".github/agents/unity-editor-tool-developer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02151",
+  "file": "corpus/aktsmm_Agent-Customization__.github_agents_ReportWriter.agent.md",
+  "repo": "aktsmm/Agent-Customization",
+  "path": ".github/agents/ReportWriter.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02152",
+  "file": "corpus/andrewhowdencom_pi__agents_bug-report.md",
+  "repo": "andrewhowdencom/pi",
+  "path": "agents/bug-report.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02153",
+  "file": "corpus/apptivitypl_gopage__.claude_agents_docs-editor.md",
+  "repo": "apptivitypl/gopage",
+  "path": ".claude/agents/docs-editor.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02154",
+  "file": "corpus/aqua-019_satoshis-vision-v1__.claude_agents_docs-scribe.md",
+  "repo": "aqua-019/satoshis-vision-v1",
+  "path": ".claude/agents/docs-scribe.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02155",
+  "file": "corpus/arisng_dotnet10-demo__.github_agents_microsoft-docs.agent.md",
+  "repo": "arisng/dotnet10-demo",
+  "path": ".github/agents/microsoft-docs.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02156",
+  "file": "corpus/artssec_BurpSuite_con_MCP_y_VSCode__.github_agents_reporter.agent.md",
+  "repo": "artssec/BurpSuite_con_MCP_y_VSCode",
+  "path": ".github/agents/reporter.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02157",
+  "file": "corpus/ashrafmusa_agenticana__agents_documentation-writer.yaml",
+  "repo": "ashrafmusa/agenticana",
+  "path": "agents/documentation-writer.yaml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02158",
+  "file": "corpus/asvarnon_mcp-homelab__.github_agents_docs.agent.md",
+  "repo": "asvarnon/mcp-homelab",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02159",
+  "file": "corpus/auracarehq_auradefi__.codex_agents_gate-author.toml",
+  "repo": "auracarehq/auradefi",
+  "path": ".codex/agents/gate-author.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

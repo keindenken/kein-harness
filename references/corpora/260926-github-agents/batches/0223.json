@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c02230",
+  "file": "corpus/snesjhon_snesjhon__.claude_agents_reporter.md",
+  "repo": "snesjhon/snesjhon",
+  "path": ".claude/agents/reporter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02231",
+  "file": "corpus/stevedwray_proxmox-homelab__.opencode_agent_compose-writer.md",
+  "repo": "stevedwray/proxmox-homelab",
+  "path": ".opencode/agent/compose-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02232",
+  "file": "corpus/stevedwray_proxmox-homelab__.opencode_agent_contract-writer.md",
+  "repo": "stevedwray/proxmox-homelab",
+  "path": ".opencode/agent/contract-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02233",
+  "file": "corpus/stevedwray_proxmox-homelab__.opencode_agent_playbook-writer.md",
+  "repo": "stevedwray/proxmox-homelab",
+  "path": ".opencode/agent/playbook-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02234",
+  "file": "corpus/stevedwray_proxmox-homelab__.opencode_agent_stack-yaml-writer.md",
+  "repo": "stevedwray/proxmox-homelab",
+  "path": ".opencode/agent/stack-yaml-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02235",
+  "file": "corpus/stevedwray_proxmox-homelab__.opencode_agent_terragrunt-writer.md",
+  "repo": "stevedwray/proxmox-homelab",
+  "path": ".opencode/agent/terragrunt-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02236",
+  "file": "corpus/tapintomymind_tap-agents__agents__planned_technical-writer.md",
+  "repo": "tapintomymind/tap-agents",
+  "path": "agents/_planned/technical-writer.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02237",
+  "file": "corpus/tulgardinc_vibe-check__.claude_agents_documenter.md",
+  "repo": "tulgardinc/vibe-check",
+  "path": ".claude/agents/documenter.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02238",
+  "file": "corpus/wegamekinglc_calc-flow__.codex_agents_cf-spec-writer.toml",
+  "repo": "wegamekinglc/calc-flow",
+  "path": ".codex/agents/cf-spec-writer.toml",
+  "stars": 2,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c02239",
+  "file": "corpus/willtheorangeguy_Auto-Anouncements__.github_agents_docs-agent.md",
+  "repo": "willtheorangeguy/Auto-Anouncements",
+  "path": ".github/agents/docs-agent.md",
+  "stars": 2,
+  "copies_in_repos": 1
+ }
+]

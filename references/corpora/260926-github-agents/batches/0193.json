@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c01930",
+  "file": "corpus/bop-clocktower_canary__agents_agents_claude-code_harness-documentation-maintainer.md",
+  "repo": "bop-clocktower/canary",
+  "path": "agents/agents/claude-code/harness-documentation-maintainer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01931",
+  "file": "corpus/christianb93_WikiSpec__agents_wikispec-coder-agent.md",
+  "repo": "christianb93/WikiSpec",
+  "path": "agents/wikispec-coder-agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01932",
+  "file": "corpus/christianb93_WikiSpec__agents_wikispec-validation-agent.md",
+  "repo": "christianb93/WikiSpec",
+  "path": "agents/wikispec-validation-agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01933",
+  "file": "corpus/christopherqueenconsulting_linkedin_engagement_manager__.github_agents_documentation.agent.md",
+  "repo": "christopherqueenconsulting/linkedin_engagement_manager",
+  "path": ".github/agents/documentation.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01934",
+  "file": "corpus/cldmnky_grafoo__.github_agents_docs.agent.md",
+  "repo": "cldmnky/grafoo",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01935",
+  "file": "corpus/easonwang00_Startup-Agents__.claude_agents_content-strategist.md",
+  "repo": "easonwang00/Startup-Agents",
+  "path": ".claude/agents/content-strategist.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01936",
+  "file": "corpus/evanpaul90_becky__agents_claude-code_parker-docs-writer.md",
+  "repo": "evanpaul90/becky",
+  "path": "agents/claude-code/parker-docs-writer.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01937",
+  "file": "corpus/garochee33_DSH__agents_ORACLE_REPORT.md",
+  "repo": "garochee33/DSH",
+  "path": "agents/ORACLE_REPORT.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01938",
+  "file": "corpus/gh-agents-day_Playwright-automation-with-Java__.github_agents_report-analyzer-agent.agent.md",
+  "repo": "gh-agents-day/Playwright-automation-with-Java",
+  "path": ".github/agents/report-analyzer-agent.agent.md",
+  "stars": 4,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c01939",
+  "file": "corpus/gustavo-meilus_superpipelines__.codex_agents_superpipelines_parity-test-f_reporter.toml",
+  "repo": "gustavo-meilus/superpipelines",
+  "path": ".codex/agents/superpipelines/parity-test-f/reporter.toml",
+  "stars": 4,
+  "copies_in_repos": 1
+ }
+]

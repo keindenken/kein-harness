@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03900",
+  "file": "corpus/engremran07_gsmvault__.github_agents_documentation-orchestrator.agent.md",
+  "repo": "engremran07/gsmvault",
+  "path": ".github/agents/documentation-orchestrator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03901",
+  "file": "corpus/engremran07_gsmvault__.github_agents_revenue-reporting-auditor.agent.md",
+  "repo": "engremran07/gsmvault",
+  "path": ".github/agents/revenue-reporting-auditor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03902",
+  "file": "corpus/enhancedai-com_docs__.claude_agents_mintlify-docs-writer.md",
+  "repo": "enhancedai-com/docs",
+  "path": ".claude/agents/mintlify-docs-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03903",
+  "file": "corpus/eose23-beep_hair-by-william__.codex_agents_grant-writer.toml",
+  "repo": "eose23-beep/hair-by-william",
+  "path": ".codex/agents/grant-writer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03904",
+  "file": "corpus/eose23-beep_hair-by-william__.codex_agents_marketing-book-co-author.toml",
+  "repo": "eose23-beep/hair-by-william",
+  "path": ".codex/agents/marketing-book-co-author.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03905",
+  "file": "corpus/eose23-beep_hair-by-william__.codex_agents_report-distribution-agent.toml",
+  "repo": "eose23-beep/hair-by-william",
+  "path": ".codex/agents/report-distribution-agent.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03906",
+  "file": "corpus/eose23-beep_hair-by-william__.codex_agents_support-analytics-reporter.toml",
+  "repo": "eose23-beep/hair-by-william",
+  "path": ".codex/agents/support-analytics-reporter.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03907",
+  "file": "corpus/eose23-beep_hair-by-william__.codex_agents_unity-editor-tool-developer.toml",
+  "repo": "eose23-beep/hair-by-william",
+  "path": ".codex/agents/unity-editor-tool-developer.toml",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03908",
+  "file": "corpus/eosvn_world-master-tea-sponsor-deck__.claude_agents_content-editor.md",
+  "repo": "eosvn/world-master-tea-sponsor-deck",
+  "path": ".claude/agents/content-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03909",
+  "file": "corpus/epicsagas_Velith__agents_chapter-writer.md",
+  "repo": "epicsagas/Velith",
+  "path": "agents/chapter-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

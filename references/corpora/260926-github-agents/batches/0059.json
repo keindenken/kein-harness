@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c00590",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_opencode-agent_commands_kiro-spec-quick.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-quick.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00591",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_opencode-agent_commands_kiro-spec-tasks.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-tasks.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00592",
+  "file": "corpus/okteto_okteto__.claude_agents_pr-writer.md",
+  "repo": "okteto/okteto",
+  "path": ".claude/agents/pr-writer.md",
+  "stars": 3549,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00593",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-media-content_agents_podcast-content-analyzer.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-media-content/agents/podcast-content-analyzer.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00594",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-media-content_agents_podcast-transcriber.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-media-content/agents/podcast-transcriber.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00595",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-sales-marketing_agents_content-marketer.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-sales-marketing/agents/content-marketer.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00596",
+  "file": "corpus/SQLMesh_sqlmesh__.claude_agents_technical-writer.md",
+  "repo": "SQLMesh/sqlmesh",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 3298,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00597",
+  "file": "corpus/event-catalog_eventcatalog__.claude_agents_docs.md",
+  "repo": "event-catalog/eventcatalog",
+  "path": ".claude/agents/docs.md",
+  "stars": 2907,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00598",
+  "file": "corpus/jeremylongshore_tons-of-skills-marketplace__.claude_agents_omarchy-coverage-reporter.md",
+  "repo": "jeremylongshore/tons-of-skills-marketplace",
+  "path": ".claude/agents/omarchy-coverage-reporter.md",
+  "stars": 2790,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00599",
+  "file": "corpus/stellarlinkco_myclaude__agents_development-essentials_commands_docs.md",
+  "repo": "stellarlinkco/myclaude",
+  "path": "agents/development-essentials/commands/docs.md",
+  "stars": 2751,
+  "copies_in_repos": 1
+ }
+]

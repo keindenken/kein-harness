@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c04990",
+  "file": "corpus/taogya_LocalLLMBenchmark__.github_agents_docs-writer.agent.md",
+  "repo": "taogya/LocalLLMBenchmark",
+  "path": ".github/agents/docs-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04991",
+  "file": "corpus/tapanmeena_portfolio__.github_agents_content-editor.agent.md",
+  "repo": "tapanmeena/portfolio",
+  "path": ".github/agents/content-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04992",
+  "file": "corpus/tarekmodev_jenova__.claude_agents_technical-writer.md",
+  "repo": "tarekmodev/jenova",
+  "path": ".claude/agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04993",
+  "file": "corpus/tarikdeveci_agent-os__agents_career_outreach-writer.md",
+  "repo": "tarikdeveci/agent-os",
+  "path": "agents/career/outreach-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04994",
+  "file": "corpus/tarikdeveci_agent-os__agents_personal_document-writer.md",
+  "repo": "tarikdeveci/agent-os",
+  "path": "agents/personal/document-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04995",
+  "file": "corpus/taxlsj93_ai-faction-quiz__.claude_agents_doc-writer.md",
+  "repo": "taxlsj93/ai-faction-quiz",
+  "path": ".claude/agents/doc-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04996",
+  "file": "corpus/tayor_copilot-researcher__.github_agents_report-editor.agent.md",
+  "repo": "tayor/copilot-researcher",
+  "path": ".github/agents/report-editor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04997",
+  "file": "corpus/tcbuilds_nautilus__agents_technical-writer.md",
+  "repo": "tcbuilds/nautilus",
+  "path": "agents/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04998",
+  "file": "corpus/tdq_ora-components__.opencode_agent_ora-components-docs.md",
+  "repo": "tdq/ora-components",
+  "path": ".opencode/agent/ora-components-docs.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c04999",
+  "file": "corpus/tdspora_tdm_rulesgen__.claude_agents_rulesgen-technical-writer.md",
+  "repo": "tdspora/tdm_rulesgen",
+  "path": ".claude/agents/rulesgen-technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

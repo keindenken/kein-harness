@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c05140",
+  "file": "corpus/vinzenz_jules-agentic-software-builder-for-claude__.claude_agents_image-editor.md",
+  "repo": "vinzenz/jules-agentic-software-builder-for-claude",
+  "path": ".claude/agents/image-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05141",
+  "file": "corpus/virtues-os_virtues__agents_build_wiki-editor.md",
+  "repo": "virtues-os/virtues",
+  "path": "agents/build/wiki-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05142",
+  "file": "corpus/virtues-os_virtues__agents_plan_applet-authoring-plan.md",
+  "repo": "virtues-os/virtues",
+  "path": "agents/plan/applet-authoring-plan.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05143",
+  "file": "corpus/virtues-os_virtues__agents_record_editor-kernel-2026-09-14.md",
+  "repo": "virtues-os/virtues",
+  "path": "agents/record/editor-kernel-2026-09-14.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05144",
+  "file": "corpus/vishmatta_mindful-meals__.github_agents_docs-assistant.agent.md",
+  "repo": "vishmatta/mindful-meals",
+  "path": ".github/agents/docs-assistant.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05145",
+  "file": "corpus/vitalyruhl_euroJackpotOracle__.github_agents_docs.agent.md",
+  "repo": "vitalyruhl/euroJackpotOracle",
+  "path": ".github/agents/docs.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05146",
+  "file": "corpus/vladimir-shirmanov_tenax__.github_agents_templates_issue-task-report-template.md",
+  "repo": "vladimir-shirmanov/tenax",
+  "path": ".github/agents/templates/issue-task-report-template.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05147",
+  "file": "corpus/vladm3105_aiops_framework__agents_docs-specialist.md",
+  "repo": "vladm3105/aiops_framework",
+  "path": "agents/docs-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05148",
+  "file": "corpus/vladsk1_apologia-daily__.claude_agents_apologia-author.md",
+  "repo": "vladsk1/apologia-daily",
+  "path": ".claude/agents/apologia-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c05149",
+  "file": "corpus/vladsk1_apologia-daily__.claude_agents_apologia-editor.md",
+  "repo": "vladsk1/apologia-daily",
+  "path": ".claude/agents/apologia-editor.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]

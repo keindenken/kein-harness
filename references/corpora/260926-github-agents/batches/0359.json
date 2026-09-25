@@ -1,0 +1,82 @@
+[
+ {
+  "id": "c03590",
+  "file": "corpus/bebeggogo-byte_nedabahway-site__.claude_agents_engineering_dockerfile-author.md",
+  "repo": "bebeggogo-byte/nedabahway-site",
+  "path": ".claude/agents/engineering/dockerfile-author.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03591",
+  "file": "corpus/bebeggogo-byte_nedabahway-site__.claude_agents_writing_technical-writer.md",
+  "repo": "bebeggogo-byte/nedabahway-site",
+  "path": ".claude/agents/writing/technical-writer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03592",
+  "file": "corpus/behnamkhorsandian_TV__.github_agents_docs-version.agent.md",
+  "repo": "behnamkhorsandian/TV",
+  "path": ".github/agents/docs-version.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03593",
+  "file": "corpus/ben-roadley_benergy2__.github_agents_technical-writer.agent.md",
+  "repo": "ben-roadley/benergy2",
+  "path": ".github/agents/technical-writer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03594",
+  "file": "corpus/bencan1a_9boxer__.github_agents_documentation.md",
+  "repo": "bencan1a/9boxer",
+  "path": ".github/agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03595",
+  "file": "corpus/bencan1a_9boxer__.github_agents_user-documentation-expert.md",
+  "repo": "bencan1a/9boxer",
+  "path": ".github/agents/user-documentation-expert.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03596",
+  "file": "corpus/bendrikoff_Gladiarrow__.claude_agents_documentation-maintainer.md",
+  "repo": "bendrikoff/Gladiarrow",
+  "path": ".claude/agents/documentation-maintainer.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03597",
+  "file": "corpus/benkruger_flow__agents_documentation.md",
+  "repo": "benkruger/flow",
+  "path": "agents/documentation.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03598",
+  "file": "corpus/benthamite_dotfiles__agents_github-operation-authorizations.md",
+  "repo": "benthamite/dotfiles",
+  "path": "agents/github-operation-authorizations.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c03599",
+  "file": "corpus/berescristi-glitch_insuliniq__.claude_agents_copywriter.md",
+  "repo": "berescristi-glitch/insuliniq",
+  "path": ".claude/agents/copywriter.md",
+  "stars": 0,
+  "copies_in_repos": 1
+ }
+]
