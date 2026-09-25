@@ -454,7 +454,7 @@ def _section_ralplan_completed():
         must("opening ralplan round 1 for row3", ralplan(work, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving ralplan round 1 for row3", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing ralplan for row3", ralplan(work, "complete", str(ralplan_dest)))
+        must("completing ralplan for row3", ralplan(work, "close", str(ralplan_dest)))
 
         assert_stop_blocks("row3 ralplan completed", work, "invoke /kein:execute")
 
@@ -1002,7 +1002,7 @@ def _section_postbash_ordinary_path_associates_without_attach():
         must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
+        must("completing ralplan", ralplan(work, "close", str(ralplan_dest)))
 
         after_ralplan_complete = json.loads(fsd(work, "status", str(state_path)).stdout)
         if after_ralplan_complete["stages"]["ralplan"]["association"] != "kept" or after_ralplan_complete["stages"]["ralplan"]["run"] != str(ralplan_dest):

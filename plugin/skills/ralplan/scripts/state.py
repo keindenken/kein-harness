@@ -421,7 +421,7 @@ def validate_state(payload: Any) -> List[str]:
         errors.extend(_validate_findings(payload.get("findings")))
         errors.extend(_validate_closure(payload.get("closure")))
         if not roster_errors and any(value is not None for value in verdicts.values()):
-            # Keyed on a verdict being recorded, not on `Status`: the run that found this approved under `In Review`, and the incoherent word was only caught at `complete`, when nothing could rewrite it.
+            # Keyed on a verdict being recorded, not on `Status`: the run that found this approved under `In Review`, and the incoherent word was only caught at `close`, when nothing could rewrite it.
             errors.extend(_verdict_coherence(verdicts, payload.get("findings")))
         if plan.get("status") == "Approved":
             if not _blocking_pass(verdicts, digest):
@@ -965,15 +965,16 @@ def main() -> int:
                                 help="override one lane; repeatable. Blocking lanes are otherwise derived from --findings; advisory lanes stay unset unless named here")
     approve_parser.add_argument("--next", dest="next_action", default=None)
 
-    complete_parser = subparsers.add_parser("complete", help="compact an approved run to its receipt")
-    complete_parser.add_argument("destination", type=Path)
+    # `complete` stays as an alias for callers that learned it first. It is not the name because Claude Code refuses any Bash command naming `complete`, `eval`, `trap` or `source` once a session has entered a worktree with EnterWorktree, even as a plain argument.
+    close_parser = subparsers.add_parser("close", aliases=["complete"], help="compact an approved run to its receipt")
+    close_parser.add_argument("destination", type=Path)
 
     abort_parser = subparsers.add_parser("abort", help="compact to an aborted receipt")
     abort_parser.add_argument("destination", type=Path)
     abort_parser.add_argument("--reason", required=True)
 
     args = parser.parse_args()
-    builders = {"start", "open", "block", "revised", "approve", "complete", "abort"}
+    builders = {"start", "open", "block", "revised", "approve", "close", "complete", "abort"}
     if args.command in builders:
         try:
             if args.command == "start":
@@ -993,7 +994,7 @@ def main() -> int:
             elif args.command == "approve":
                 overrides = dict(item.split("=", 1) for item in args.verdict)
                 approve(args.destination, overrides, args.findings, args.next_action)
-            elif args.command == "complete":
+            elif args.command in ("close", "complete"):
                 complete(args.destination)
             else:
                 abort(args.destination, args.reason)

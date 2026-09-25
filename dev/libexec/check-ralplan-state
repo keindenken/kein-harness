@@ -87,7 +87,7 @@ refuse "a BLOCK with nothing blocking behind it" approve "$ST" --verdict archite
 printf '[{"lane":"critic@codex",%s,"blocking":null}]\n' "$F" > "$WORK/f-stranger.json"
 refuse "a finding from a lane outside the roster" approve "$ST" --findings "$WORK/f-stranger.json"
 
-# The word is checked the moment it is recorded, whatever the artifact's Status says. The run that found this approved under `In Review` and learned at `complete` that nothing could rewrite the word.
+# The word is checked the moment it is recorded, whatever the artifact's Status says. The run that found this approved under `In Review` and learned at `close` that nothing could rewrite the word.
 header "In Review" "Reviewing round 3." "body v2, closed"
 refuse "a PASS over the lane's own finding while Status is still In Review" approve "$ST" --findings "$WORK/f-carry.json" --verdict critic@claude=PASS
 header Approved "Approved at round 3." "body v2, closed"
@@ -101,7 +101,12 @@ fi
 refuse "a PASS overriding the lane's own finding on re-approval" approve "$ST" --findings "$WORK/f-approved.json" --verdict critic@claude=PASS
 refuse "re-approval that drops the findings it stood over" approve "$ST"
 must approve "$ST" --findings "$WORK/f-approved.json" --verdict critic@claude=REVISE --verdict architect@claude=BLOCK
-must complete "$ST"
+must close "$ST"
+# `complete` is kept as an alias for callers that learned it before the rename; the receipt above came from `close`, so only the name is checked here.
+if ! $CMD complete --help >/dev/null 2>&1; then
+  printf 'check-ralplan-state: the complete alias no longer parses\n' >&2
+  failures=$((failures + 1))
+fi
 
 if ! $CMD reconcile "$ST" >/dev/null 2>&1; then
   printf 'check-ralplan-state: the completed receipt does not reconcile\n' >&2

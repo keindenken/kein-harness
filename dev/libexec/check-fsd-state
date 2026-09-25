@@ -388,7 +388,7 @@ def _section_scenario2_full_drive_lifecycle():
         must("opening ralplan round 1", ralplan(work, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving ralplan round 1", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing ralplan", ralplan(work, "complete", str(ralplan_dest)))
+        must("completing ralplan", ralplan(work, "close", str(ralplan_dest)))
 
         gap5 = json.loads(fsd(work, "gap", str(fsd_state)).stdout)
         if not gap5["gap"] or gap5["next"] != "execute" or gap5["completed"] != "ralplan":
@@ -843,7 +843,7 @@ def _section_scenario7_ralplan_non_convergence_deferrals():
         ]))
         header("Approved", "approved at round 6 with deferrals", f"v{body_version}")
         must("approving round 6 with deferrals", ralplan(work, "approve", str(state_path), "--findings", str(deferred_path)))
-        must("completing the non-convergence run", ralplan(work, "complete", str(state_path)))
+        must("completing the non-convergence run", ralplan(work, "close", str(state_path)))
         receipt = read_json(state_path)
         if receipt.get("lifecycle") != "completed":
             failures.append("the non-convergence receipt did not complete")
@@ -1970,7 +1970,7 @@ def _section_scenario28_ralplan_completed_matching_receipt_refused():
         must("opening round 1 for scenario28", ralplan(work, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving round 1 for scenario28", ralplan(work, "approve", str(ralplan_dest)))
-        must("completing the matching ralplan run before this flow ever attaches it", ralplan(work, "complete", str(ralplan_dest)))
+        must("completing the matching ralplan run before this flow ever attaches it", ralplan(work, "close", str(ralplan_dest)))
         if read_json(ralplan_dest)["plan"]["path"] != str(plan_path):
             failures.append("the scenario28 fixture did not preserve a genuinely matching plan.path on its own completed receipt; this case proves nothing")
         if "repository" in read_json(ralplan_dest):
@@ -2296,7 +2296,7 @@ def _section_scenario35_ralplan_subdirectory_completes_execute_links():
         must("opening ralplan round 1 for scenario35", ralplan(subdir, "open", str(ralplan_dest)))
         write_plan(plan_path, "Approved", "good", "v0")
         must("approving ralplan round 1 for scenario35", ralplan(subdir, "approve", str(ralplan_dest)))
-        must("completing ralplan for scenario35", ralplan(subdir, "complete", str(ralplan_dest)))
+        must("completing ralplan for scenario35", ralplan(subdir, "close", str(ralplan_dest)))
         completed_ralplan = read_json(ralplan_dest)
         if "working_directory" in completed_ralplan:
             failures.append("ralplan's own completed receipt unexpectedly still carries working_directory; this case's premise (the completed shape drops it) no longer holds")
@@ -2845,7 +2845,7 @@ def _section_attach_terminal_candidate_message():
         must("opening the subdirectory ralplan run's round 1", ralplan(sub, "open", str(sub_ralplan_dest)))
         write_plan(sub_plan, "Approved", "good", "v0")
         must("approving the subdirectory ralplan run's round 1", ralplan(sub, "approve", str(sub_ralplan_dest)))
-        must("completing the subdirectory ralplan run, never attached while it was live", ralplan(sub, "complete", str(sub_ralplan_dest)))
+        must("completing the subdirectory ralplan run, never attached while it was live", ralplan(sub, "close", str(sub_ralplan_dest)))
         completed_sub = read_json(sub_ralplan_dest)
         if completed_sub.get("plan", {}).get("path") != relative_sub_plan:
             failures.append(f"the subdirectory-completed-ralplan fixture did not preserve the bare relative plan.path this case needs; this case proves nothing: {completed_sub.get('plan')}")
@@ -2873,7 +2873,7 @@ def _section_attach_terminal_candidate_message():
         must("opening the genuine completed ralplan run's round 1", ralplan(work, "open", str(genuine_ralplan_dest)))
         write_plan(genuine_ralplan_plan, "Approved", "good", "v0")
         must("approving the genuine completed ralplan run's round 1", ralplan(work, "approve", str(genuine_ralplan_dest)))
-        must("completing the genuine completed ralplan run, never attached while it was live", ralplan(work, "complete", str(genuine_ralplan_dest)))
+        must("completing the genuine completed ralplan run, never attached while it was live", ralplan(work, "close", str(genuine_ralplan_dest)))
         completed_genuine = read_json(genuine_ralplan_dest)
         if completed_genuine.get("plan", {}).get("path") != str(genuine_ralplan_plan):
             failures.append(f"the genuine-completed-ralplan fixture did not preserve the absolute plan.path this case needs; this case proves nothing: {completed_genuine.get('plan')}")

@@ -222,6 +222,8 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 
 The Orca model is one coordinator, one Run, a whole wave inside it. Moving `ocs team` onto the lead's existing Run would fix the first, but then every lane shares one inbox with whatever else the lead coordinates, and consuming a `worker_done` there means filtering by dispatch rather than draining. Not worth doing until a lead actually coordinates an Orca Run and starts a lane from it.
 
+Observed 2026-09-25: the binding outlives the lane. A message another session addressed to a descvi lead's terminal handle landed in the Run a finished `ocs team` planner lane had created, not anywhere the lead was waiting, and the idle lead was not woken by it (findings `260925-orca-messaging-between-peer-claude-sessions.md`).
+
 ## The lead prompt reaches a session only through a launcher Orca does not use — closed 2026-09-23
 
 `prompts/lead.md` reached a session through `~/.local/bin/claude-kein`, which ran `claude --append-system-prompt-file` on it and unset `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`. Orca restarts a session with the command its settings name (`claude --dangerously-skip-permissions ...`), so getting the lead prompt into an Orca session meant closing the pane, relaunching with `claude-kein` and `/resume`-ing. By then the launcher was also broken: its default path pointed at the hub's `prompts/`, which no longer exists.

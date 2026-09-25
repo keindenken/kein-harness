@@ -97,7 +97,7 @@ ocs state ralplan open    <state.json> [--lanes <roster>] # the next official ro
 ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
 ocs state ralplan revised <state.json> [--closure <file>] # Planner's revision landed
 ocs state ralplan approve <state.json> [--findings <file>] # every blocking lane answered this hash
-ocs state ralplan complete <state.json>                   # compact to the receipt
+ocs state ralplan close   <state.json>                    # compact to the receipt
 ocs state ralplan abort   <state.json> --reason <text>
 ```
 
