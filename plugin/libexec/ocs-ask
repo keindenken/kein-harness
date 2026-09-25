@@ -148,7 +148,7 @@ else
   prompt=$task
 fi
 
-# The vanilla home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca.
+# The plain home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca. `codex_vanilla_args` below strips what the plain home still carries.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
 
 work=$(mktemp -d "${TMPDIR:-/tmp}/ocs-ask.XXXXXX")
@@ -159,9 +159,12 @@ last="$work/response.txt"
 
 set -- codex exec --ephemeral --skip-git-repo-check --sandbox read-only \
   -m "$model" -c model_reasoning_effort="$effort"
-for override in $(codex_plugin_overrides "$codex_home"); do
-  set -- "$@" -c "$override"
-done
+vanilla=$(codex_vanilla_args "$codex_home")
+while IFS= read -r arg; do
+  [ -z "$arg" ] || set -- "$@" "$arg"
+done <<EOF
+$vanilla
+EOF
 set -- "$@" -C "$PWD" -o "$last" "$prompt"
 
 # stdin is closed because `codex exec` appends a non-terminal stdin to the prompt and reads it to EOF first, even when the prompt is an argument.

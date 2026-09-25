@@ -193,7 +193,7 @@ print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 fi
 [ -n "$effort" ] || effort=$DEFAULT_EFFORT
 
-# The vanilla home is pinned, never inherited, exactly as `ocs ask` does it.
+# The plain home is pinned, never inherited, exactly as `ocs ask` does it, and `codex_vanilla_args` strips what it still carries.
 # Orca launches whatever command its client is configured with, which on this machine was a launcher pointing at the tuned home; a lane answering as the operator's own tuned lead is not the canonical role.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
 
@@ -346,13 +346,17 @@ spec=$(
 # The role is substituted by the shell that launches the worker, so the command line stays short and the prompt's own quoting never reaches a tokenizer.
 # CODEX_HOME travels with the worker, not just with the trust check.
 # Resolving it here and then letting the worker inherit whatever the shell had would make the pinned home a fiction: it worked only because the tuned home is reached through a shell function rather than an exported variable.
-plugin_flags=''
-for override in $(codex_plugin_overrides "$codex_home"); do
-  plugin_flags="$plugin_flags -c '$override'"
-done
+# Each argument is quoted for the same reason as the writable roots: `notify=[]` is a glob to zsh.
+vanilla_flags=''
+vanilla=$(codex_vanilla_args "$codex_home")
+while IFS= read -r arg; do
+  [ -z "$arg" ] || vanilla_flags="$vanilla_flags $(sh_quote "$arg")"
+done <<EOF
+$vanilla
+EOF
 role_flag=''
 [ -z "$role" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags$role_flag"
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$vanilla_flags$role_flag"
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):

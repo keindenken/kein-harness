@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+#: Render what a codex lane sees under `codex_vanilla_args` and fail if the operator's plugins, apps, MCP servers or memories still reach it.
+#
+# Uses the local codex and the operator's own home, because the home is what the arguments have to neutralise. `codex debug prompt-input` shows the plugin and app sections; `codex mcp list --json` shows which servers would start. Memories do not show in either, so that half is covered only by the live measurement recorded in `vendor-home.sh`.
+set -eu
+
+command -v codex >/dev/null 2>&1 || { printf 'check-codex-vanilla: codex is not installed here; nothing measured\n'; exit 0; }
+. "${KEIN_ROOT:?}/libexec/lib/vendor-home.sh"
+home=${KEIN_CODEX_HOME:-$HOME/.codex}
+failures=0
+fail() { printf 'check-codex-vanilla: %s\n' "$1" >&2; failures=$((failures + 1)); }
+
+set --
+vanilla=$(codex_vanilla_args "$home")
+while IFS= read -r arg; do
+  [ -z "$arg" ] || set -- "$@" "$arg"
+done <<EOT
+$vanilla
+EOT
+
+prompt=$(cd "${TMPDIR:-/tmp}" && CODEX_HOME="$home" codex debug prompt-input "$@" x 2>/dev/null </dev/null) || fail "codex refused the arguments: $*"
+for section in plugins_instructions apps_instructions recommended_plugins; do
+  case $prompt in *"<$section>"*) fail "<$section> still reaches the lane" ;; esac
+done
+
+servers=$(CODEX_HOME="$home" codex mcp list --json "$@" 2>/dev/null </dev/null) || fail "codex mcp list refused the arguments"
+live=$(printf '%s' "$servers" | python3 -c 'import json,sys; print(" ".join(s["name"] for s in json.load(sys.stdin) if s.get("enabled")))')
+[ -z "$live" ] || fail "MCP servers still enabled for the lane: $live"
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-codex-vanilla: %d check(s) failed\n' "$failures" >&2
+  exit 1
+fi
+echo "check-codex-vanilla: no plugin, app or MCP server reaches a lane"

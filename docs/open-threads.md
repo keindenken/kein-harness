@@ -182,7 +182,7 @@ Both bridges pass `-c 'plugins."<name>".enabled=false'` for every plugin the hom
 
 Kept rather than removed, on the owner's call: it costs a dozen flags on a launch line and would begin working if a later version honours the key. `KEIN_CODEX_PLUGINS=inherit` stops passing them. `lanes.md` no longer claims the suppression, because a lead cannot act on a mechanism that does not fire.
 
-What would work is a home of the run's own, and that is the open half. The vendor's auth lives where its home does, so a separate home has to be given credentials before it will run — copied, symlinked, or provisioned — and that is a decision about credential handling rather than a shape this repository can pick on its own.
+What would work is a home of the run's own, and that is the open half. (2026-09-26: no longer needed. `--disable plugins` does what the per-plugin key did not, and the launch-flag route is closed below under "A Codex lane's vanilla state should come from its launch command".) The vendor's auth lives where its home does, so a separate home has to be given credentials before it will run — copied, symlinked, or provisioned — and that is a decision about credential handling rather than a shape this repository can pick on its own.
 
 One correction to the incident that started this. The `superpowers` procedure the first cross-vendor Executor cited as authority for not waiting on approval was never in its prompt: `config.toml` registers those skills under 6.2.0 and the disk holds 6.3.0, so none of them loaded, and the home's memories do not mention them. It read them off disk or asserted them without a source. No loaded plugin was speaking, which means suppressing plugins would not have prevented it even if the flags worked.
 
@@ -254,13 +254,13 @@ What is known: Claude Code loads a subdirectory's `CLAUDE.md` on its own but not
 
 Open: how omc's hook chose the file and when it fired (the source is worth reading before designing anything); whether generated per-directory docs stay accurate or become one more thing to keep up to date; and whether this belongs in the `instructions` skill, which already writes the root `AGENTS.md`.
 
-## A Codex lane's vanilla state should come from its launch command, not a separate home
+## A Codex lane's vanilla state should come from its launch command, not a separate home — closed 2026-09-26
 
-A Codex worker started by `ocs team` sometimes cited the `superpowers` plugin or answered in Korean. The owner traced both to Codex memories and has turned memories off (2026-09-23). That contradicts the last paragraph of "A vendor lane cannot be isolated from the operator's home" above, which says the home's memories do not mention `superpowers`. Reconcile the two when this is picked up.
+Done as the owner proposed: both bridges launch with `codex_vanilla_args` (`plugin/libexec/lib/vendor-home.sh`), which turns off plugins, apps, every MCP server the home declares, memories and the notifier, each measured against an empty `CODEX_HOME` on codex-cli 0.156.1. The comment there holds the measurements; `dev/kein-dev check-codex-vanilla` re-checks the plugin, app and MCP half. The largest finding was not memories: a read-only `ocs ask` lane had the operator's `filesystem` MCP server over all of `$HOME`, which runs outside the sandbox.
 
-The split so far is by home: the owner's own Codex runs under `~/.codex-orca` (the `orcodex` function in `~/.zshrc`), and a lane runs under `~/.codex` or `KEIN_CODEX_HOME`. That split has the same weakness as `claude-kein`: anything that launches plain `codex`, Orca included, lands in whichever home is the default. The direction is to make a lane vanilla through the flags `ocs ask` and `ocs team` pass (`-c` overrides for memories, instructions and the like), so whatever launches the operator's own session no longer matters.
+Two things still reach a lane. `hooks.json` stays on purpose, since Orca reads a worker's state through it. The home `AGENTS.md` stays because no config key separates it from the repository's; it is the operator's writing rules and does no harm today, but it is the one piece of the home a lane cannot shed.
 
-The same earlier thread measured one such override, `plugins."<name>".enabled=false`, as inert. So check each override with `codex debug prompt-input` rather than trust that it parses.
+On the memories contradiction noted above: memories do reach a lane (it quoted the summary when they were on), but the memory folder on 2026-09-26 mentions neither `superpowers` nor Korean, so whether memories caused those two incidents stays unconfirmed. The folder does hold summaries of other runs and a skill memories wrote, which is reason enough to keep them off.
 
 ## `ralplan` and `execute`: a fix that does not need another review, and run flags — raised 2026-09-24
 

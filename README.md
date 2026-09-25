@@ -274,10 +274,7 @@ no dependencies. An absolute path reuses an existing worktree instead. The run d
 worker, because `workspace-write` is scoped to the tree it holds and a report path outside that tree
 is one it cannot write.
 
-The provider runs with `CODEX_HOME` pinned to the vanilla Codex home, never inherited: a
-one-shot advisory call must not pick up the lead tuning in `~/.codex-orca`. `KEIN_CODEX_HOME`
-overrides it. Nothing about the role library depends on that home any more — it was where the
-library lived, which was an accident of where it was first written.
+The provider runs with `CODEX_HOME` pinned to the operator's plain Codex home, never inherited: a one-shot advisory call must not pick up the lead tuning in `~/.codex-orca`. `KEIN_CODEX_HOME` overrides it. That home is pinned for its credentials and carries much more, so both bridges launch with `codex_vanilla_args` (`plugin/libexec/lib/vendor-home.sh`): plugins, apps, every MCP server the home declares, memories and the notifier are off, and the comment there records the measurement behind each. Two things still reach a worker: the home's `hooks.json`, which Orca needs to see a worker go idle, and the home `AGENTS.md`, which no config key separates from the repository's. `KEIN_CODEX_VANILLA=off` launches with the home as it is. `dev/kein-dev check-codex-vanilla` re-checks the plugin, app and MCP half against the local codex.
 
 `--trace` writes the assembled prompt, the invocation, and the response under
 `$(ocs state-dir runs/ask)/`. On `ocs ask` it is the only persistence there is — without it nothing
