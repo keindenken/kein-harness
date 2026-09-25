@@ -6,14 +6,14 @@ Create a separate package for each lane containing only:
 
 - the original task or prompt-safe task summary;
 - the governing requirements and constraints;
-- the complete current canonical plan, with its `Status` line removed;
+- the path of the current canonical plan, which the lane reads itself;
 - the current review-content plan hash;
 - relevant repository evidence or exact locations;
 - the lane rubric and response shape below.
 
 Do not include state history. No lane receives another lane's response before returning its own. A fresh reviewer receives no previous finding, verdict, reviewer identity, revision note, change summary, claimed fix, closure result, or expected outcome.
 
-The removed line is why. Its reason half is required to say why approval is absent, which on any round after the first means naming the round, the verdicts it carried, and what the revision changed — four of the things in that list, arriving inside the artifact this package is required to carry whole. It is the same line the review hash already excludes, so removing it changes nothing a lane is being asked about.
+A path rather than a copy, because the plan is the largest thing in the package and a copy is paid for again in every lane of every round. The lane reads the file, so the file carries nothing on that list either: the `Status` line is bare while the gate is open (see [plan-gate.md](plan-gate.md)), and the run's account is in state.
 
 ## Architect lane
 
@@ -44,7 +44,7 @@ The verdict follows the findings rather than being decided beside them. `PASS` c
 
 **`Blocking` is the whole of the severity decision, and it is a claim rather than a weight.** Name the one ground the finding moves, or write `None`. Naming a ground is falsifiable and the lead reads it as such: a finding that concerns a gate is not the same as one that moves an Evidence Gate's bounded paths, and only the second is a ground. Preferences and non-consequential suggestions are not findings at all.
 
-**`REVISE` is for a defect that is real and does not make execution unsafe.** It reaches approval carried rather than costing a round, and it carries the full finding shape while it does. That channel is the reason a lane never has to inflate a finding to keep it from evaporating.
+**`REVISE` is for a defect that is real and does not make execution unsafe.** The word means "approve, and answer each of these", not "revise and review again": it reaches approval rather than costing a round, carried in the full finding shape, or corrected in the text after approval and recorded as a fix, which no lane reviews. That channel is the reason a lane never has to inflate a finding to keep it from evaporating.
 
 `UNCERTAINTY` is not the middle of that scale and never became it. It holds what the lane could not establish, which is a different thing from a defect it could.
 
@@ -66,9 +66,9 @@ What it is for: a defect the plan cannot settle and execution can, because the e
 
 ## Revision and closure
 
-Consolidate the round's findings into one correction brief for Planner, and ask it for the corrected fact rather than a record of the correction — the revision's two readers are a fresh lane the contract forbids seeing it and an implementer who cannot act on it. After any review-content change, clear every official verdict and send the complete revised plan to a new blind lane set.
+Consolidate the round's findings into one correction brief for Planner, and ask it for the corrected fact rather than a record of the correction — the revision's two readers are a fresh lane the contract forbids seeing it and an implementer who cannot act on it. After any review-content change, clear every official verdict and send the revised plan to a new blind lane set.
 
-A previous live reviewer of either role may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
+A previous live reviewer of either role may perform a primed closure check for a subtle, high-risk, partial, or reworded correction. A positive closure check cannot approve or replace a fresh lane, unless the run was started with `--primed`: then the reviewer that raised a `BLOCK` reviews its correction as the next official round, primed with the round files `block` wrote, and its verdict counts; a blocking lane that raised nothing still gets a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers.
 
 Its answer is one disposition per finding it was handed, recorded with `revised --closure`:
 
@@ -78,4 +78,4 @@ Its answer is one disposition per finding it was handed, recorded with `revised 
   Evidence: <what in the current text settles it>
 ```
 
-`REWORDED-ONLY` is why the reader has to be primed. A blind lane can judge whether the current text is right; only a reader holding the text the correction replaced can see that it was restated rather than fixed. The run ledger's `round-N-plan.md` and `round-N-findings.json` are that priming, so a fresh agent given both is as capable here as a continued one — which is what makes the check available after a resume, and to a vendor lane that cannot be continued at all.
+`REWORDED-ONLY` is why the reader has to be primed. A blind lane can judge whether the current text is right; only a reader holding the text the correction replaced can see that it was restated rather than fixed. The `round-<n>-plan.md` and `round-<n>-findings.json` that `block` writes beside the run are that priming, so a fresh agent given both is as capable here as a continued one — which is what makes the check available after a resume, and to a vendor lane that cannot be continued at all.

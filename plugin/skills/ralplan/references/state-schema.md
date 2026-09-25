@@ -34,6 +34,8 @@ Active, blocked, and interrupted state uses exactly these top-level fields:
 }
 ```
 
+Three more fields appear only when the run uses them. `primed: true` and `max_rounds: <n>` record `start --primed` and `start --max-rounds <n>`; neither changes afterwards, except that `open --max-rounds` may raise the bound when a round opens. `fixes` is written by `fix` alone (below).
+
 `input.summary` is required and is what reaches every lane in the review package; `input.reference` is optional and names the file `reconcile` re-hashes on resume. Name a file that already held the requirements — one written for the run records only that the lead's own text has not changed, and the lead is the one agent here no lane reviews.
 
 The keys of `verdicts` are the run's lane roster. It changes only when a round opens, through `open --lanes`, and a blocking role may change vendor there and may not leave: a lane that returned `BLOCK` cannot be dropped and the plan approved without it, and a codex lane that failed moves to another vendor at the next round instead of costing a new run. Each key is `<role>@<vendor>`, with `:advisory` appended for a lane that reports without gating approval — `architect@claude`, `critic@codex`, `critic@codex:advisory`. A default run is `architect@claude` and `critic@claude`. Each role needs at least one lane that is not advisory, since a role served only by advisory lanes cannot block anything. A finding carries the same lane identifier as the verdict it came from.
@@ -44,7 +46,9 @@ The verdict is checked against the findings rather than trusted beside them: `BL
 
 Approval is what may stand over findings, and `approve --findings` is therefore the only writer of them outside `block`. A finding naming a ground and carrying no deferral refuses the approval; one carrying a deferral records the lead's overruling of that ground and the catcher it named instead. Both survive compaction into the completed receipt, since a deferral that evaporated at compaction would vanish at the one moment it is addressed to — the executor picking the plan up.
 
-`revised` is the only writer of `closure` and it writes on every call, so omitting `--closure` records that the revision was not checked rather than leaving an earlier disposition standing over text it never read. Nothing reads the field for approval except one refusal: an `Approved` state cannot retain a disposition other than `CLOSED`. That is the contract's two halves as a mechanism — a positive closure check cannot approve, because `_blocking_pass` never looks here, and a negative one blocks.
+`fix` is the only writer of `fixes`, and only on an `Approved` state. Each entry is exactly `from`, `to` and `findings`: the review hash before and after Planner corrected the text, and the approved `REVISE` findings the correction answered, which leave `findings` in the same commit. A finding that names a ground, or carries a deferral, cannot be fixed this way. The verdicts stay as they were, bound to the first entry's `from`, which is the text the lanes read; the entries chain, and the last `to` is the plan as it stands. No lane reads a fix. The lead reads the diff, because the finding never touched whether the plan could be approved.
+
+`revised` is the only writer of `closure` and it writes on every call, so omitting `--closure` records that the revision was not checked rather than leaving an earlier disposition standing over text it never read. Nothing reads the field for approval except one refusal: an `Approved` state cannot retain a disposition other than `CLOSED`. That is the contract's two halves as a mechanism — a positive closure check cannot approve, because `_blocking_pass` never looks here, and a negative one blocks. A `--primed` run's reviewer approves through an official round's verdict, not through this field.
 
 Allowed nonterminal phases are `initializing`, `drafting`, `drafted`, `reviewing`, `revising`, `gathering_evidence`, `blocked`, and `interrupted`. Use the closest current activity; put the operationally exact continuation in `next_action`.
 
@@ -72,7 +76,7 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
 }
 ```
 
-`findings` is what the approved plan stands over, carried through from the approving state: `REVISE` items and any deferred `BLOCK`. Empty is the ordinary case and means the lanes found nothing, not that nothing was recorded.
+`findings` is what the approved plan stands over, carried through from the approving state: `REVISE` items and any deferred `BLOCK`. Empty is the ordinary case and means the lanes found nothing, not that nothing was recorded. `fixes` and `primed` carry through when the approved state had them, and `approvals` then bind to the first fix's `from` rather than to `plan.review_sha256`. `round` is the round the plan was approved at, since the `Status` line no longer says.
 
 ## Aborted receipt
 
@@ -92,16 +96,21 @@ The first durable checkpoint is the validated Planner-authored Draft: lifecycle 
 One subcommand per transition. Each reads the saved state and the plan file, builds the next state, and promotes it through the same validation, so nothing is passed that the two of them already know — the round number, both hashes, and the artifact's own `Status` are read, never supplied.
 
 ```sh
-ocs state ralplan start   --run-root <runs/ralplan> --slug <slug> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>]
-ocs state ralplan open    <state.json> [--lanes <roster>] # the next official round; a blocking role may change vendor here
+ocs state ralplan start   --run-root <runs/ralplan> --slug <slug> --plan <path> --summary <text> --lanes architect@claude,critic@claude [--input <path>] [--primed] [--max-rounds <n>]
+ocs state ralplan open    <state.json> [--lanes <roster>] [--max-rounds <higher>] # the next official round; a blocking role may change vendor here
 ocs state ralplan block   <state.json> --findings <file>  # the round's consolidated findings
 ocs state ralplan revised <state.json> [--closure <file>] # Planner's revision landed
 ocs state ralplan approve <state.json> [--findings <file>] # every blocking lane answered this hash
+ocs state ralplan fix     <state.json> --findings <file>  # after approval: REVISE findings corrected in the text, no new round
 ocs state ralplan close   <state.json>                    # compact to the receipt
 ocs state ralplan abort   <state.json> --reason <text>
 ```
 
 `start` names the run directory itself — `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json` — and prints the path it wrote, which is what every later command takes as its positional. Pass that path to `start` instead when a run directory already exists. Nothing needs creating first: a checkpoint makes its own parent directory.
+
+Under `--max-rounds`, `block` on the last allowed round moves to phase `blocked` rather than `revising`, and refuses unless the artifact already reads `Draft`; `open` refuses a round past the bound unless it raises it.
+
+Every `block` also writes `round-<n>-plan.md`, the text the round reviewed, and `round-<n>-findings.json` beside the run. They are the only copy of the reviewed text once Planner revises it, which is what a primed reader needs.
 
 `--next` overrides `next_action` on any of them; each carries a default. `approve` derives each blocking lane's verdict from the findings it is handed — `BLOCK` over a ground, `REVISE` over findings, `PASS` over none — and checks the word against those findings in the same commit, whatever the artifact's `Status` says. `--verdict <lane>=<verdict>` overrides one lane, and is the only way to set an advisory lane, which is otherwise left unset. A second `approve` on the same round and review hash restates the approval: words and findings are replaced together, and the findings cannot be dropped.
 
@@ -119,7 +128,7 @@ Three states per blocked round, and a lane returning is not one of them:
 2. the round is blocked — phase `revising`, consolidated findings persisted, every verdict cleared;
 3. the revision landed — phase `drafted`, findings cleared, which the transition rules permit only once the review hash has moved.
 
-`Status` stays `In Review` across all three: the run is open the whole time, and the artifact says so. Only `phase` moves.
+`Status` stays the bare `In Review` across all three: the run is open the whole time, and the artifact says so. Only `phase` moves.
 
 A verdict arriving is not a state worth writing. The next checkpoint clears the map, so a checkpoint holding one incoming verdict is erased before anything reads it, and a blocked round records its review in `findings`, which carries the lane on each entry. Wait for every dispatched lane to return, then write the checkpoint that resolves the round.
 

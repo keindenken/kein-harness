@@ -68,9 +68,9 @@ When an official round numbered 5 or higher resolves with a standing BLOCK:
 2. Split every standing ground by the list above.
 3. For each reversible ground, record an assumption. Defer the ground with `deferral.reason` saying why it does not hold for an unattended run, and `caught_by` = `fsd assumption A<n>; execute final audit`.
 4. For each irreversible ground, record a question. Defer the ground with `caught_by` = `fsd question Q<n>; tasks from <stories> start parked`.
-5. From that round's `reviewing` phase, run `ocs state ralplan approve <state> --findings <file>` with every standing ground deferred. The approving `Status` line's reason names every deferral and every parked story.
+5. From that round's `reviewing` phase, run `ocs state ralplan approve <state> --findings <file>` with every standing ground deferred. The deferrals are in the findings `approve` records, which the ralplan receipt carries, and the parked stories are in this flow's questions; the approving `Status` line names neither.
 6. After `ocs state execute start`, park the tasks normalized from those stories, then run `ocs state fsd guard <state>`.
 
-`ralplan` wants a deferred ground's `Caught by` in the plan's pre-mortem. Here it goes in the `Status` line, the receipt and the retrospective instead, because revising the plan moves the review hash and reopens the round, which is the loop this exit exists to break.
+`ralplan` wants a deferred ground's `Caught by` in the plan's pre-mortem. Here it goes in the finding's `deferral.caught_by`, which the receipt carries, and in the retrospective instead, because revising the plan moves the review hash and reopens the round, which is the loop this exit exists to break.
 
 A ground whose correction would edit AGENTS.md follows the AGENTS.md rule above. It never becomes a task.

@@ -109,7 +109,9 @@ def write_requirements(path, status):
 
 
 def write_plan(path, status, reason="reason", body="body"):
-    Path(path).write_text(f"# Check plan\n\nStatus: {status} — {reason}\n\n---\n\n{body}\n")
+    # `In Review` carries no reason: a lane reads this line while the gate is open, and the run's account lives in ralplan state.
+    line = status if status == "In Review" else f"{status} — {reason}"
+    Path(path).write_text(f"# Check plan\n\nStatus: {line}\n\n---\n\n{body}\n")
 
 
 def write_active_ledger(path, run_id, working_directory, repository, output_path):

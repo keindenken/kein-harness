@@ -1,7 +1,7 @@
 ---
 name: ralplan
 description: Use when an implementation plan needs evidence-grounded architecture and quality consensus before it is trusted for execution.
-argument-hint: "[what to plan] [--reviewer claude|codex]"
+argument-hint: "[what to plan] [--reviewer claude|codex] [--primed] [--max-rounds <n>]"
 ---
 
 # RALPLAN
@@ -45,16 +45,16 @@ Entry and resume:
 
 Each round, until the plan is approved or the run ends unapproved:
 
-4. Validate the artifact. The lead may edit only the workflow-owned `Status` line. Set `In Review`, refresh both recorded hashes, checkpoint, and assemble one separate package per lane from the review contract.
-5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the complete current plan and the same review-content plan hash. A lane's `BLOCK` blocks approval until the ground it named is answered.
-6. If a blocking ground is standing, set Draft with a concrete reason, persist the round's consolidated findings, clear every verdict, and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched.
-7. Otherwise approve, and a round that returned findings can still be that round. Carry `REVISE` findings into the approval rather than spending a round on them; a `BLOCK` reaches approval only with a deferral recorded against the ground it named, and its `Caught by` belongs in the plan's pre-mortem before the approval, not after. Set Approved and explain the approval, what it stands over, and any bounded Evidence Gates in the `Status` line's reason. Confirm the review hash did not change, checkpoint the Approved state, then compact it to the completed receipt.
+4. Validate the artifact. The lead may edit only the workflow-owned `Status` line. Set it to the bare `Status: In Review`, open the round, and assemble one separate package per lane from the review contract.
+5. Dispatch a fresh Architect and fresh Critic under their native read-only boundaries. They are blind to each other, previous rounds, claimed fixes, and expected outcomes. Each receives the plan's path and the same review-content plan hash. A lane's `BLOCK` blocks approval until the ground it named is answered.
+6. If a blocking ground is standing, `block` with the round's consolidated findings and ask Planner to revise the same artifact. Checkpoint when the round resolves, not when a lane returns. Any review-content change invalidates every prior verdict. Advance the round only when a new official lane set is dispatched. Under `--max-rounds`, a ground still standing at the last allowed round ends the run instead: set `Status: Draft`, then `block`, which records the run blocked; report the standing findings and stop unapproved.
+7. Otherwise approve, and a round that returned findings can still be that round. A `REVISE` finding reaches approval without a round: carry it as it stands, or, after `approve`, have Planner correct it in the text, leaving the `Status` line alone, read the diff yourself, and then record it with `fix`. A recorded fix cannot be taken back, so a diff you would not approve goes back to Planner before `fix`, not after. A `BLOCK` reaches approval only with a deferral recorded against the ground it named, and its `Caught by` belongs in the plan's pre-mortem before the approval, not after. Set `Status: Approved — <who agreed, and when>` in one line; what the approval stands over and its deferrals live in state and the receipt, and bounded Evidence Gates in the plan body, not in that line. Checkpoint the Approved state, then compact it to the completed receipt.
 
-Fresh official reviewers are mandatory after every review-content revision.
+Fresh official reviewers are mandatory after every review-content revision, except that a run started with `--primed` may send a `BLOCK` correction back to the reviewer that raised it, primed with the `round-<n>-plan.md` and `round-<n>-findings.json` that `block` left beside the run, and count its verdict. A blocking lane that raised nothing that round still gets a fresh lane.
 
 ## Dispatch
 
-Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history. Planner's first dispatch is not one of these — the `/plan` skill owns the first draft and dispatches Planner itself.
+Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history. `--primed` is the one exception, and only for the reviewer whose `BLOCK` the correction answers. Planner's first dispatch is not one of these — the `/plan` skill owns the first draft and dispatches Planner itself.
 
 An invocation may name another vendor for a review lane. Without such a flag every lane is native, and the rest of this section is the whole story.
 
@@ -66,6 +66,6 @@ Resolve a load-bearing empirical fact before approval when its result could chan
 
 Ask the user immediately only when an answer is necessary for the next approval or materially changes a review. Record useful non-blocking questions in the plan and continue.
 
-Around five unsuccessful official rounds is a diagnostic trigger, not a maximum, and it re-arms rather than being spent: a decision to continue covers the next five rounds, not the rest of the run. Reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff. Do not manufacture approval from repetition.
+Without `--max-rounds`, around five unsuccessful official rounds is a diagnostic trigger, not a maximum, and it re-arms rather than being spent: a decision to continue covers the next five rounds, not the rest of the run. Reassess whether the problem needs user authority, missing evidence, a bounded conditional plan, or an explicit Draft handoff. Do not manufacture approval from repetition.
 
 When the same defect class recurs against the same contract, revisit the contract or underlying design instead of polishing the same prose again. Evidence gathering does not authorize production implementation or scope expansion.

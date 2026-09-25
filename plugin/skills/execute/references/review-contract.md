@@ -35,7 +35,7 @@ The verdict follows the findings. `PASS` carries none; `REVISE` carries findings
 
 **`Severity` and `Blocks` answer different questions, and only the second decides acceptance.** Severity is how bad the defect is — the role's own calibration, kept. `Blocks` is whether *this task* is done, and it is a citation rather than a weight: quote the clause of the completion condition the finding defeats, verbatim, and the state checks that the clause is there. A `critical` defect outside this task's completion condition does not block this task; it becomes a task of its own. A `minor` one that defeats a clause blocks, because the task is not done.
 
-`REVISE` accepts. Its findings are real, carried on the task and into the receipt, and none of them says the task is incomplete. That channel is why a lane never has to inflate a finding to keep it from evaporating — and why a `PASS` that lists findings in prose is a contradiction the state now refuses.
+`REVISE` accepts. The word means "accept, and disposition each of these", not "revise and review again": a finding fixed in place is checked by the lead reading the diff, with no fresh lane. Its findings are real, carried on the task and into the receipt, and none of them says the task is incomplete. That channel is why a lane never has to inflate a finding to keep it from evaporating — and why a `PASS` that lists findings in prose is a contradiction the state now refuses.
 
 ## Correction and Closure
 

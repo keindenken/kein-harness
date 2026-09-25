@@ -65,6 +65,11 @@ COMPLETED_FIELDS = frozenset({
     # What the approved plan is standing over. A deferral that did not survive compaction would evaporate at the one moment it is addressed to: the executor picking the plan up.
     "findings",
 })
+# Present only when the run uses them, so a run that does not is shaped exactly as before.
+# `primed` and `max_rounds` are the invocation's flags, fixed at `start` (`max_rounds` may only be raised, at a round open); `fixes` is what a fix-it approval changed after the lanes read the plan.
+NONTERMINAL_OPTIONAL = frozenset({"primed", "max_rounds", "fixes"})
+COMPLETED_OPTIONAL = frozenset({"primed", "fixes", "round"})
+FIX_FIELDS = frozenset({"from", "to", "findings"})
 ABORTED_FIELDS = frozenset({
     "schema_version",
     "workflow",
@@ -110,10 +115,8 @@ CLOSURE_DISPOSITIONS = frozenset({"CLOSED", "PARTIAL", "NOT CLOSED", "REWORDED-O
 INPUT_FIELDS = frozenset({"reference", "summary", "sha256"})
 HEX_64 = re.compile(r"^[0-9a-f]{64}$")
 STATUS_PATTERN = re.compile(r"^Status:\s*(.*?)\s*$", re.MULTILINE)
-# One header line, `Status: <word> — <reason>`. Non-greedy up to the first em dash, so a reason
-# may carry its own; the dash rather than a period because a reason is full of periods and the
-# word has to stay recoverable from the left.
-STATUS_LINE_PATTERN = re.compile(r"^(.*?)\s+—\s+(\S.*)$")
+# One header line, `Status: <word>` or `Status: <word> — <reason>`. Non-greedy up to the first em dash, so a reason may carry its own; the dash rather than a period because a reason is full of periods and the word has to stay recoverable from the left.
+STATUS_LINE_PATTERN = re.compile(r"^(.*?)(?:\s+—\s+(\S.*))?$")
 HEADING_PATTERN = re.compile(r"^#\s+\S", re.MULTILINE)
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -136,7 +139,7 @@ def parse_plan_text(text: str) -> Dict[str, str]:
     """The header's machine-read half. Empty for an absent or malformed line; `validate_plan_text` says which."""
     statuses = STATUS_PATTERN.findall(text)
     match = STATUS_LINE_PATTERN.match(statuses[0]) if len(statuses) == 1 else None
-    return {"status": canonical_status(match.group(1)) if match else ""}
+    return {"status": canonical_status(match.group(1)) if match else "", "reason": (match.group(2) or "") if match else ""}
 
 
 def validate_plan_text(text: str) -> List[str]:
@@ -148,8 +151,14 @@ def validate_plan_text(text: str) -> List[str]:
         errors.append("Plan requires exactly one Status line")
         return errors
     match = STATUS_LINE_PATTERN.match(statuses[0])
-    if match is None or not canonical_status(match.group(1)):
-        errors.append("Status must read `Draft`, `In Review` or `Approved`, an em dash, then a non-empty reason")
+    status = canonical_status(match.group(1)) if match else ""
+    if not status:
+        errors.append("Status must read `Draft`, `In Review` or `Approved`, optionally followed by an em dash and a reason")
+    # A lane reviewing the plan reads this file, so while a gate is open the line carries nothing about the run: the round, the verdicts and the revisions live in state.
+    elif status == "In Review" and match.group(2):
+        errors.append("An `In Review` Status line carries no reason; the run's account lives in state")
+    elif status == "Approved" and not match.group(2):
+        errors.append("An `Approved` Status line carries a one-line reason")
     return errors
 
 
@@ -386,6 +395,64 @@ def _validate_closure(value: Any) -> List[str]:
     return errors
 
 
+def _validate_run_options(payload: Dict[str, Any]) -> List[str]:
+    errors: List[str] = []
+    if "primed" in payload and payload["primed"] is not True:
+        errors.append("`primed` is present only as true")
+    if "max_rounds" in payload and (type(payload["max_rounds"]) is not int or payload["max_rounds"] < 1):
+        errors.append("`max_rounds` must be a positive integer")
+    return errors
+
+
+def _validate_fixes(fixes: Any, current: str) -> List[str]:
+    """A fix-it approval's record: each entry moved the review hash from `from` to `to` and fixed the `REVISE` findings it lists.
+
+    The entries chain, and the last one ends at the plan as it stands, so the lanes' verdicts still bind to the text they read -- the first `from` -- while the plan on disk is the corrected one.
+    """
+    if not isinstance(fixes, list):
+        return ["`fixes` must be a list"]
+    if fixes == []:
+        return ["`fixes` is present only when a fix was recorded"]
+    errors: List[str] = []
+    expected_from = None
+    for index, fix in enumerate(fixes):
+        if not isinstance(fix, dict) or set(fix) != FIX_FIELDS:
+            errors.append(f"Fix {index} must use the exact fix field set")
+            continue
+        if not _valid_hash(fix.get("from")) or not _valid_hash(fix.get("to")) or fix["from"] == fix["to"]:
+            errors.append(f"Fix {index} must move the review hash from one valid hash to another")
+        if expected_from is not None and fix.get("from") != expected_from:
+            errors.append(f"Fix {index} does not start where the previous fix ended")
+        expected_from = fix.get("to")
+        fixed = fix.get("findings")
+        if not isinstance(fixed, list) or not fixed:
+            errors.append(f"Fix {index} must name the findings it fixed")
+            continue
+        errors.extend(f"Fix {index}: {error}" for error in _validate_findings(fixed))
+        if any(isinstance(item, dict) and (item.get("blocking") is not None or "deferral" in item) for item in fixed):
+            errors.append(f"Fix {index} may fix only a `REVISE` finding: one naming no ground and carrying no deferral")
+    if fixes and expected_from != current:
+        errors.append("The last fix must end at the plan's current review hash")
+    return errors
+
+
+def _approved_digest(payload: Dict[str, Any]) -> str:
+    """The review hash the lanes' verdicts bind to: the text before the first fix, or the plan as it stands."""
+    fixes = payload.get("fixes")
+    if isinstance(fixes, list) and fixes and isinstance(fixes[0], dict):
+        return fixes[0].get("from", "")
+    plan = payload.get("plan") if isinstance(payload.get("plan"), dict) else {}
+    return plan.get("review_sha256", "")
+
+
+def _reviewed_findings(payload: Dict[str, Any]) -> List[Any]:
+    """Every finding the lanes returned, including the ones a fix has since answered, which is what the verdict words summarise."""
+    findings = payload.get("findings") if isinstance(payload.get("findings"), list) else []
+    fixes = payload.get("fixes") if isinstance(payload.get("fixes"), list) else []
+    fixed = [item for fix in fixes if isinstance(fix, dict) and isinstance(fix.get("findings"), list) for item in fix["findings"]]
+    return findings + fixed
+
+
 def validate_state(payload: Any) -> List[str]:
     if not isinstance(payload, dict):
         return ["State must be a JSON object"]
@@ -398,9 +465,10 @@ def validate_state(payload: Any) -> List[str]:
         errors.append("State requires a run_id")
     lifecycle = payload.get("lifecycle")
     if lifecycle in NONTERMINAL_LIFECYCLES:
-        if set(payload) != NONTERMINAL_FIELDS:
+        if not NONTERMINAL_FIELDS <= set(payload) <= NONTERMINAL_FIELDS | NONTERMINAL_OPTIONAL:
             errors.append("Nonterminal state must use the exact resumable field set")
             return errors
+        errors.extend(_validate_run_options(payload))
         for key in ("working_directory", "repository", "next_action"):
             if not isinstance(payload.get(key), str) or not payload[key]:
                 errors.append(f"Nonterminal state requires non-empty {key}")
@@ -411,7 +479,12 @@ def validate_state(payload: Any) -> List[str]:
         errors.extend(_validate_input(payload.get("input")))
         errors.extend(_validate_plan_record(payload.get("plan")))
         plan = payload.get("plan") if isinstance(payload.get("plan"), dict) else {}
-        digest = plan.get("review_sha256", "")
+        fixes = payload.get("fixes", [])
+        if "fixes" in payload:
+            errors.extend(_validate_fixes(fixes, plan.get("review_sha256", "")))
+        if fixes and plan.get("status") != "Approved":
+            errors.append("Only an Approved state carries fixes")
+        digest = _approved_digest(payload)
         verdicts = payload.get("verdicts")
         roster_errors = _validate_roster(verdicts)
         errors.extend(roster_errors)
@@ -422,7 +495,7 @@ def validate_state(payload: Any) -> List[str]:
         errors.extend(_validate_closure(payload.get("closure")))
         if not roster_errors and any(value is not None for value in verdicts.values()):
             # Keyed on a verdict being recorded, not on `Status`: the run that found this approved under `In Review`, and the incoherent word was only caught at `close`, when nothing could rewrite it.
-            errors.extend(_verdict_coherence(verdicts, payload.get("findings")))
+            errors.extend(_verdict_coherence(verdicts, _reviewed_findings(payload)))
         if plan.get("status") == "Approved":
             if not _blocking_pass(verdicts, digest):
                 errors.append("Approved requires a fresh verdict on this hash from every blocking lane")
@@ -436,14 +509,19 @@ def validate_state(payload: Any) -> List[str]:
             ):
                 errors.append("Approved state cannot retain a closure disposition other than CLOSED")
     elif lifecycle == "completed":
-        if set(payload) != COMPLETED_FIELDS:
+        if not COMPLETED_FIELDS <= set(payload) <= COMPLETED_FIELDS | COMPLETED_OPTIONAL:
             errors.append("Completed receipts must use the exact compact field set")
             return errors
+        errors.extend(_validate_run_options(payload))
+        if "round" in payload and (type(payload["round"]) is not int or payload["round"] < 1):
+            errors.append("A completed receipt's round is the positive round it was approved at")
         if not _valid_timestamp(payload.get("completed_at")):
             errors.append("Completed receipt requires timezone-aware completed_at")
         errors.extend(_validate_plan_record(payload.get("plan"), completed=True))
         plan = payload.get("plan") if isinstance(payload.get("plan"), dict) else {}
-        digest = plan.get("review_sha256", "")
+        if "fixes" in payload:
+            errors.extend(_validate_fixes(payload.get("fixes"), plan.get("review_sha256", "")))
+        digest = _approved_digest(payload)
         approvals = payload.get("approvals")
         if not _blocking_pass(approvals, digest):
             errors.append("Completed receipt requires an exact-hash verdict from every blocking lane")
@@ -453,7 +531,7 @@ def validate_state(payload: Any) -> List[str]:
         errors.extend(_validate_findings(payload.get("findings")))
         if _unresolved(payload.get("findings")):
             errors.append("Completed receipt cannot retain a blocking finding without a deferral")
-        errors.extend(_verdict_coherence(approvals, payload.get("findings")))
+        errors.extend(_verdict_coherence(approvals, _reviewed_findings(payload)))
     elif lifecycle == "aborted":
         if set(payload) != ABORTED_FIELDS:
             errors.append("Aborted receipts must use the exact compact field set")
@@ -523,6 +601,56 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 gone = _blocking_roles(previous_verdicts) - _blocking_roles(candidate_verdicts)
                 if gone:
                     errors.append(f"A blocking role cannot leave the roster: {', '.join(sorted(gone))}")
+        # A fix-it approval: the plan was approved, then a `REVISE` finding was corrected in the text. The hash moves and the verdicts stay, bound to what the lanes read, with the move recorded as one more entry in `fixes`.
+        previous_fixes = previous.get("fixes", [])
+        candidate_fixes = candidate.get("fixes", [])
+        is_fix = (
+            previous_status == "Approved"
+            and candidate_status == "Approved"
+            and previous.get("phase") == "reviewing"
+            and candidate.get("phase") == "reviewing"
+            and previous.get("round") == candidate.get("round")
+            and previous_verdicts == candidate_verdicts
+            and isinstance(previous_fixes, list)
+            and isinstance(candidate_fixes, list)
+            and len(candidate_fixes) == len(previous_fixes) + 1
+            and candidate_fixes[:-1] == previous_fixes
+            and isinstance(candidate_fixes[-1], dict)
+            and candidate_fixes[-1].get("from") == previous_plan.get("review_sha256")
+            and candidate_fixes[-1].get("to") == candidate_plan.get("review_sha256")
+        )
+        if is_fix:
+            standing = previous.get("findings") if isinstance(previous.get("findings"), list) else []
+            fixed = candidate_fixes[-1].get("findings") if isinstance(candidate_fixes[-1].get("findings"), list) else []
+            remaining = list(standing)
+            for item in fixed:
+                if item in remaining:
+                    remaining.remove(item)
+                else:
+                    errors.append("A fix may name only a finding the approval stood over")
+            if candidate.get("findings") != remaining:
+                errors.append("A fix moves exactly the findings it names out of the standing list")
+        elif candidate_fixes != previous_fixes:
+            errors.append("`fixes` changes only by a fix after approval")
+        for key in ("primed",):
+            if previous.get(key) != candidate.get(key):
+                errors.append(f"Transition cannot change {key}")
+        if previous.get("max_rounds") != candidate.get("max_rounds"):
+            raised = (
+                opens_round
+                and type(previous.get("max_rounds")) is int
+                and type(candidate.get("max_rounds")) is int
+                and candidate["max_rounds"] > previous["max_rounds"]
+            )
+            if not raised:
+                errors.append("`max_rounds` can only be raised, when a round opens")
+        if (
+            opens_round
+            and type(candidate.get("max_rounds")) is int
+            and type(candidate.get("round")) is int
+            and candidate["round"] > candidate["max_rounds"]
+        ):
+            errors.append(f"Round {candidate['round']} exceeds --max-rounds {candidate['max_rounds']}; stop unapproved, or raise the bound when opening")
         previous_has_blocker = previous_has_block or bool(previous.get("findings"))
         # An approval already stamped on this round and hash may be restated: the verdict words and the findings it stands over are replaced together, and the coherence and deferral rules bind the restatement as they bound the first.
         approval_standing = (
@@ -543,7 +671,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             # A verdict is a statement about a round under review. Recorded anywhere else it is a
             # `PASS` with no gate behind it, which `Status` being free text can no longer catch.
             errors.append("Verdicts can only be recorded in a reviewing phase")
-        if previous_has_blocker and candidate.get("phase") == "reviewing" and not approval_standing:
+        if previous_has_blocker and candidate.get("phase") == "reviewing" and not approval_standing and not is_fix:
             errors.append(
                 "A recorded BLOCK or uncleared finding cannot enter a reviewing phase"
             )
@@ -565,7 +693,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 errors.append(
                     "Entering a reviewing phase must advance to a fresh round with empty verdicts"
                 )
-        if candidate_status == "Approved":
+        if candidate_status == "Approved" and not is_fix:
             if previous_has_blocker and not approval_standing:
                 # Findings reach approval only through `approve --findings`, which writes them in the same transition that stamps the verdicts. Ones already standing were never answered.
                 errors.append(
@@ -590,7 +718,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
         if type(previous_round) is int and type(candidate_round) is int:
             if candidate_round < previous_round or candidate_round > previous_round + 1:
                 errors.append("Round must remain stable or advance by one")
-        if previous_plan.get("review_sha256") != candidate_plan.get("review_sha256"):
+        if previous_plan.get("review_sha256") != candidate_plan.get("review_sha256") and not is_fix:
             verdicts = candidate.get("verdicts", {})
             if isinstance(verdicts, dict) and any(value is not None for value in verdicts.values()):
                 errors.append("A changed plan hash must clear every previous verdict")
@@ -602,6 +730,9 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
             errors.append("Completion requires an Approved previous state")
         if candidate.get("plan", {}).get("review_sha256") != previous_plan.get("review_sha256"):
             errors.append("Completion receipt must retain the approved review hash")
+        for key in ("fixes", "primed", "round"):
+            if previous.get(key) != candidate.get(key):
+                errors.append(f"Completion receipt must carry {key} as the approved state held it")
     return errors
 
 
@@ -745,7 +876,7 @@ def _advance(destination: Path, mutate, next_action: Optional[str], default_acti
 
 def start(destination: Path, plan: Path, summary: str, lanes: List[str],
           reference: Optional[Path], working_directory: Path, repository: Path,
-          next_action: Optional[str]) -> None:
+          next_action: Optional[str], primed: bool = False, max_rounds: Optional[int] = None) -> None:
     if destination.exists():
         raise ValueError(f"{destination} already exists; a run is started once")
     digest = sha256_file(reference) if reference is not None else hashlib.sha256(summary.encode("utf-8")).hexdigest()
@@ -769,15 +900,22 @@ def start(destination: Path, plan: Path, summary: str, lanes: List[str],
         "closure": [],
         "next_action": next_action or "dispatch round 1 fresh reviewers",
     }
+    if primed:
+        candidate["primed"] = True
+    if max_rounds is not None:
+        candidate["max_rounds"] = max_rounds
     _refresh(candidate)
     _commit(destination, candidate)
 
 
-def open_round(destination: Path, lanes: Optional[List[str]], next_action: Optional[str]) -> None:
+def open_round(destination: Path, lanes: Optional[List[str]], next_action: Optional[str],
+               max_rounds: Optional[int] = None) -> None:
     state = _load_json(destination)
     upcoming = state.get("round", 0) + 1 if isinstance(state.get("round"), int) else 1
 
     def mutate(candidate: Dict[str, Any]) -> None:
+        if max_rounds is not None:
+            candidate["max_rounds"] = max_rounds
         candidate["phase"] = "reviewing"
         candidate["round"] = upcoming
         candidate["verdicts"] = {lane: None for lane in (lanes or candidate["verdicts"])}
@@ -788,13 +926,28 @@ def open_round(destination: Path, lanes: Optional[List[str]], next_action: Optio
 
 def block(destination: Path, findings_path: Path, next_action: Optional[str]) -> None:
     findings = _load_findings(findings_path)
+    state = _load_json(destination)
+    # At the bound the run stops rather than revising: nothing is approved by running out of rounds, and whether to go on is the owner's call.
+    at_bound = type(state.get("max_rounds")) is int and state.get("round") == state["max_rounds"]
+    plan_path = Path(state["plan"]["path"])
+    if at_bound and parse_plan_text(plan_path.read_text())["status"] != "Draft":
+        raise ValueError(f"--max-rounds {state['max_rounds']} is reached: set the plan's Status to Draft first, so the stop this records is the one the artifact shows")
+    # The text this round reviewed and what it found, beside the run: the only copy a primed reader has once Planner revises the plan, since lanes read the file rather than a pasted package.
+    run_dir = destination.parent
+    run_dir.mkdir(parents=True, exist_ok=True)
+    (run_dir / f"round-{state.get('round')}-plan.md").write_text(plan_path.read_text())
+    (run_dir / f"round-{state.get('round')}-findings.json").write_text(json.dumps(findings, indent=2) + "\n")
 
     def mutate(candidate: Dict[str, Any]) -> None:
-        candidate["phase"] = "revising"
+        candidate["phase"] = "blocked" if at_bound else "revising"
         candidate["findings"] = findings
         candidate["verdicts"] = {lane: None for lane in candidate["verdicts"]}
 
-    _advance(destination, mutate, next_action, "ask Planner to revise the same artifact")
+    default = (
+        f"--max-rounds {state.get('max_rounds')} reached with a BLOCK standing: report the standing findings and stop; continuing takes a revision and `open --max-rounds <higher>`"
+        if at_bound else "ask Planner to revise the same artifact"
+    )
+    _advance(destination, mutate, next_action, default)
 
 
 def revised(destination: Path, closure_path: Optional[Path], next_action: Optional[str]) -> None:
@@ -835,6 +988,8 @@ def approve(destination: Path, overrides: Dict[str, str], findings_path: Optiona
     state = _load_json(destination)
     if state.get("phase") != "reviewing" or not isinstance(state.get("round"), int) or state["round"] < 1:
         raise ValueError("Approval must transition from an official reviewing round")
+    if state.get("fixes"):
+        raise ValueError("An approval is not restated after a fix: the lanes read the text before it, and a fix is recorded only once the lead has read its diff")
     findings = _load_findings(findings_path) if findings_path is not None else []
 
     def mutate(candidate: Dict[str, Any]) -> None:
@@ -855,10 +1010,34 @@ def approve(destination: Path, overrides: Dict[str, str], findings_path: Optiona
     _advance(destination, mutate, next_action, "compact to the completed receipt")
 
 
+def fix(destination: Path, findings_path: Path, next_action: Optional[str]) -> None:
+    """Approve over a corrected `REVISE` finding without another round.
+
+    The lanes' verdicts stay bound to the text they read; the plan moves to the corrected text, and the move is recorded with the findings it answered, which leave the standing list. The lead reads the diff -- no lane reviews a fix, because the finding never touched whether the plan could be approved.
+    """
+    state = _load_json(destination)
+    if state.get("plan", {}).get("status") != "Approved":
+        raise ValueError("A fix follows an approval; approve first, with the findings it stands over")
+    fixed = _load_findings(findings_path)
+    reviewed = state["plan"]["review_sha256"]
+
+    def mutate(candidate: Dict[str, Any]) -> None:
+        remaining = list(candidate.get("findings", []))
+        for item in fixed:
+            if item in remaining:
+                remaining.remove(item)
+        candidate["findings"] = remaining
+        candidate["fixes"] = list(candidate.get("fixes", [])) + [
+            {"from": reviewed, "to": candidate["plan"]["review_sha256"], "findings": fixed}
+        ]
+
+    _advance(destination, mutate, next_action, "compact to the completed receipt")
+
+
 def complete(destination: Path) -> None:
     state = _load_json(destination)
     plan = state.get("plan", {})
-    _commit(destination, {
+    receipt = {
         "schema_version": SCHEMA_VERSION,
         "workflow": "ralplan",
         "run_id": state.get("run_id"),
@@ -867,7 +1046,13 @@ def complete(destination: Path) -> None:
         "plan": {key: plan.get(key) for key in ("path", "artifact_sha256", "review_sha256")},
         "approvals": copy.deepcopy(state.get("verdicts", {})),
         "findings": copy.deepcopy(state.get("findings", [])),
-    })
+    }
+    for key in COMPLETED_OPTIONAL:
+        if key in state:
+            receipt[key] = copy.deepcopy(state[key])
+    # The round the plan was approved at: the one piece of the run's account the artifact no longer carries.
+    receipt["round"] = state.get("round")
+    _commit(destination, receipt)
 
 
 def abort(destination: Path, reason: str) -> None:
@@ -939,11 +1124,17 @@ def main() -> int:
     start_parser.add_argument("--input", type=Path, default=None, dest="reference", help="requirements path; omit to hash the summary instead")
     start_parser.add_argument("--working-directory", type=Path, default=None)
     start_parser.add_argument("--repository", type=Path, default=None)
+    start_parser.add_argument("--primed", action="store_true",
+                              help="after a BLOCK correction, the reviewer that raised it may check the fix and approve")
+    start_parser.add_argument("--max-rounds", type=int, default=None, dest="max_rounds",
+                              help="stop unapproved when a BLOCK still stands at this round")
     start_parser.add_argument("--next", dest="next_action", default=None)
 
     open_parser = subparsers.add_parser("open", help="open the next official round")
     open_parser.add_argument("destination", type=Path)
     open_parser.add_argument("--lanes", default=None, help="a new roster for this round; a blocking role may change vendor here and may not leave")
+    open_parser.add_argument("--max-rounds", type=int, default=None, dest="max_rounds",
+                             help="raise the run's round bound, to continue past it")
     open_parser.add_argument("--next", dest="next_action", default=None)
 
     block_parser = subparsers.add_parser("block", help="record the round's consolidated findings and return to Planner")
@@ -965,6 +1156,12 @@ def main() -> int:
                                 help="override one lane; repeatable. Blocking lanes are otherwise derived from --findings; advisory lanes stay unset unless named here")
     approve_parser.add_argument("--next", dest="next_action", default=None)
 
+    fix_parser = subparsers.add_parser("fix", help="after approval, record REVISE findings corrected in the plan without another round")
+    fix_parser.add_argument("destination", type=Path)
+    fix_parser.add_argument("--findings", type=Path, required=True,
+                            help="JSON array of the approved findings the correction answered, exactly as approval recorded them")
+    fix_parser.add_argument("--next", dest="next_action", default=None)
+
     # `complete` stays as an alias for callers that learned it first. It is not the name because Claude Code refuses any Bash command naming `complete`, `eval`, `trap` or `source` once a session has entered a worktree with EnterWorktree, even as a plain argument.
     close_parser = subparsers.add_parser("close", aliases=["complete"], help="compact an approved run to its receipt")
     close_parser.add_argument("destination", type=Path)
@@ -974,7 +1171,7 @@ def main() -> int:
     abort_parser.add_argument("--reason", required=True)
 
     args = parser.parse_args()
-    builders = {"start", "open", "block", "revised", "approve", "close", "complete", "abort"}
+    builders = {"start", "open", "block", "revised", "approve", "fix", "close", "complete", "abort"}
     if args.command in builders:
         try:
             if args.command == "start":
@@ -983,10 +1180,10 @@ def main() -> int:
                 start(destination, args.plan, args.summary,
                       [lane.strip() for lane in args.lanes.split(",") if lane.strip()],
                       args.reference, args.working_directory or here, args.repository or here,
-                      args.next_action)
+                      args.next_action, args.primed, args.max_rounds)
                 print(destination)
             elif args.command == "open":
-                open_round(args.destination, args.lanes.split(",") if args.lanes else None, args.next_action)
+                open_round(args.destination, args.lanes.split(",") if args.lanes else None, args.next_action, args.max_rounds)
             elif args.command == "block":
                 block(args.destination, args.findings, args.next_action)
             elif args.command == "revised":
@@ -994,6 +1191,8 @@ def main() -> int:
             elif args.command == "approve":
                 overrides = dict(item.split("=", 1) for item in args.verdict)
                 approve(args.destination, overrides, args.findings, args.next_action)
+            elif args.command == "fix":
+                fix(args.destination, args.findings, args.next_action)
             elif args.command in ("close", "complete"):
                 complete(args.destination)
             else:
