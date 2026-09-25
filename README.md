@@ -40,9 +40,11 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        are armed only while `/kein:fsd` runs.
   prompts/lead.md      the lead's standing prompt; `KEIN_LEAD_PROMPT` pins
                        another file or `none` turns it off
+  prompts/standing-prompt.md
+                       the rule for editing any agent instruction file,
+                       linked into the config home by `onboard`
   hud/                 the statusline renderer, the block that puts it in front
                        of Orca's, and the repair the hook runs
-  rules/               rule files, linked into the config home by `onboard`
   bin/                 ON the Bash tool's PATH while enabled. `ocs` only.
   libexec/             ocs subcommands, OFF PATH. `ocs-<name>` -> `ocs <name>`
     lib/               sourceable shell shared by more than one subcommand
@@ -71,10 +73,11 @@ anything on inference, because the library lived in `~/.codex-orca` and a machin
 had no way to re-render. A hash answers "has this moved" where the source is out of reach; the
 source is in the repository now, and a re-render says what moved and to what.
 
-`rules/` is not auto-discovered — Claude Code reads rules from the config home, which is
-why `/kein:onboard` links them there rather than the plugin shipping them into place. The
-symlink sits at the home level on purpose: these rules are meant to fire in every project,
-and a plugin-scoped copy would fire only where `kein` is enabled.
+A plugin cannot ship rules — they are not a plugin component — so Claude Code reads
+`standing-prompt.md` only from the config home, and `/kein:onboard` links that one file there.
+The link sits at the home level on purpose: the rule is meant to fire in every project, and a
+plugin-scoped copy would fire only where `kein` is enabled. It is the file and not `prompts/`,
+because `lead.md` beside it carries no `paths:` and would load into every session.
 
 Default locations Claude Code also auto-discovers, absent until needed:
 `.mcp.json`, `.lsp.json`, `output-styles/`, `monitors/`,

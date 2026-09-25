@@ -6,7 +6,7 @@ argument-hint: "[--check [path]]"
 
 # A repository's agent instructions
 
-Without `--check` this authors; with it, it reviews. Both judge against `${CLAUDE_PLUGIN_ROOT}/rules/standing-prompt.md`, so read that file whole before either, even if it loaded earlier in the session: it loads once, on the first file it matches, which may have been long ago.
+Without `--check` this authors; with it, it reviews. Both judge against `${CLAUDE_PLUGIN_ROOT}/prompts/standing-prompt.md`, so read that file whole before either, even if it loaded earlier in the session: it loads once, on the first file it matches, which may have been long ago.
 
 The content lives in AGENTS.md, and CLAUDE.md is the single line `@AGENTS.md`. Claude Code reads CLAUDE.md and imports AGENTS.md through that line, while Codex and other vendors read AGENTS.md directly, so one file serves every agent working in the repository.
 

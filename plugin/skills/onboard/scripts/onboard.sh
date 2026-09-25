@@ -47,7 +47,10 @@ case "$step" in all | rules | hud) ;; *) printf "onboard: no step '%s'\n" "$step
 KEIN_ROOT=${CLAUDE_PLUGIN_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/../../.." && pwd)}
 CONFIG_HOME=${CLAUDE_CONFIG_DIR:-$HOME/.claude}
 STATE="$CONFIG_HOME/kein/onboard"
-RULES_LINK="$CONFIG_HOME/rules/kein"
+RULES_LINK="$CONFIG_HOME/rules/kein-standing-prompt.md"
+RULES_TARGET="$KEIN_ROOT/prompts/standing-prompt.md"
+# The link used to be this one, to the plugin's `rules/` directory, which no longer exists.
+LEGACY_RULES_LINK="$CONFIG_HOME/rules/kein"
 # KEIN_ORCA_STATUSLINE points at another file, which is how this gets exercised without
 # writing to the statusline the running session is using.
 ORCA_STATUSLINE=${KEIN_ORCA_STATUSLINE:-$HOME/.orca/agent-hooks/claude-statusline.sh}
@@ -60,10 +63,12 @@ wants() { [ "$step" = all ] || [ "$step" = "$1" ]; }
 # --- rules ---------------------------------------------------------------------------
 # A symlink at the home level rather than inside the plugin, because these rules are meant
 # to fire in every project and a plugin-scoped copy would only fire where kein is enabled.
+# It links the one file, not `prompts/`: that directory also holds `lead.md`, which carries
+# no `paths:` and would load into every session, subagents and `claude -p` included.
 
 rules_state() {
   if [ -L "$RULES_LINK" ]; then
-    if [ "$(readlink "$RULES_LINK")" = "$KEIN_ROOT/rules" ]; then echo linked; else echo elsewhere; fi
+    if [ "$(readlink "$RULES_LINK")" = "$RULES_TARGET" ]; then echo linked; else echo elsewhere; fi
   elif [ -e "$RULES_LINK" ]; then
     echo occupied
   else
@@ -73,7 +78,7 @@ rules_state() {
 
 rules_status() {
   case "$(rules_state)" in
-    linked)    say rules already "$RULES_LINK -> $KEIN_ROOT/rules" ;;
+    linked)    say rules already "$RULES_LINK -> $RULES_TARGET" ;;
     elsewhere) say rules other   "$RULES_LINK points at $(readlink "$RULES_LINK")" ;;
     occupied)  say rules blocked "$RULES_LINK exists and is not a symlink" ;;
     absent)    say rules absent  "no link at $RULES_LINK" ;;
@@ -86,9 +91,14 @@ rules_apply() {
     occupied)  say rules blocked "$RULES_LINK exists and is not a symlink; move it first"; return 1 ;;
     elsewhere) say rules blocked "$RULES_LINK points elsewhere; remove it first"; return 1 ;;
   esac
+  if [ -L "$LEGACY_RULES_LINK" ]; then
+    case "$(readlink "$LEGACY_RULES_LINK")" in
+      */rules) rm "$LEGACY_RULES_LINK"; say rules removed "$LEGACY_RULES_LINK, the old link to the plugin's rules/ directory" ;;
+    esac
+  fi
   mkdir -p "$CONFIG_HOME/rules"
-  ln -s "$KEIN_ROOT/rules" "$RULES_LINK"
-  say rules applied "$RULES_LINK -> $KEIN_ROOT/rules"
+  ln -s "$RULES_TARGET" "$RULES_LINK"
+  say rules applied "$RULES_LINK -> $RULES_TARGET"
 }
 
 rules_remove() {

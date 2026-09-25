@@ -32,7 +32,7 @@ Three places, and no edit that cannot be undone. `~/.claude/settings.json` is ne
 
 | | |
 | :--- | :--- |
-| `<config home>/rules/kein` | symlink to the plugin's `rules/` |
+| `<config home>/rules/kein-standing-prompt.md` | symlink to the plugin's `prompts/standing-prompt.md` |
 | `<config home>/kein/onboard/` | the marker that arms the hook, the resolved plugin path, and a backup of Orca's statusline script |
 | `~/.orca/agent-hooks/claude-statusline.sh` | a block prepended in front of Orca's own relay |
 
