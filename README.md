@@ -32,8 +32,9 @@ plugin/                everything Claude Code loads. The symlink points HERE,
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
   hooks/hooks.json     SessionStart hands prompts/lead.md to an interactive main
-                       session (never a subagent or a `claude -p`),
-                       UserPromptSubmit keeps the HUD alive, PreToolUse on Bash
+                       session (never a subagent or a `claude -p`) and, on
+                       startup or resume in an Orca pane, binds the pane to its
+                       home Run (`ocs home-run`), UserPromptSubmit keeps the HUD alive, PreToolUse on Bash
                        refuses a subagent's git writes. The `fsd` skill's hooks
                        are not here: they sit in its SKILL.md frontmatter and
                        are armed only while `/kein:fsd` runs.

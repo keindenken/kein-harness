@@ -1,6 +1,6 @@
 # RALPLAN Cross-Vendor Lanes
 
-Read this only when the invocation names a vendor for a review lane.
+Read this only when the invocation names a vendor for a lane.
 A run without such a flag uses the native lanes described in the skill body and needs nothing here.
 
 ## Roster
@@ -17,9 +17,10 @@ A run without such a flag uses the native lanes described in the skill body and 
 A vendor suffixed `:advisory` records a verdict and contributes findings without gating approval.
 Every unsuffixed lane blocks, which is the rule the skill body already states for the native pair.
 
-Planner takes no vendor.
-`ocs ask` runs the vendor in a read-only sandbox and refuses the write-capable `planner` role, and a remote vendor authoring the canonical artifact would be writing with no workflow around the write.
-Refuse `--planner <vendor>` and say so rather than silently planning natively.
+`--planner codex` belongs to the `/plan` skill, and this skill passes it through.
+The first draft comes from the codex Planner `/plan` starts with `ocs team`, and every revision resumes that same worker, so it revises the plan it wrote instead of re-reading it cold: `ocs team codex --resume <run-dir> --task-file <the correction brief>`, where `<run-dir>` is the directory the last Planner invocation printed. After a compaction or a resume, that is the newest `runs/team/*-planner` under this tree's `ocs state-dir` whose `command.txt` carries a `session=` line.
+`ocs ask` cannot serve Planner: it runs the vendor read-only and refuses a role that writes.
+`codex` is the only other vendor; refuse any other `--planner` value and say so rather than silently planning natively.
 
 ## Mechanism
 

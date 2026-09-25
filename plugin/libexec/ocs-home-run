@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+#: Bind this Orca pane to its own home Run, creating it once, so mail reaches the lead before its first lane and after every one.
+#
+# Usage:
+#   ocs home-run [--hook]
+#
+# Orca delivers mail addressed to a terminal into the Run that terminal is bound to, and nudges the pane only while it is bound (findings 260925-orca-messaging-between-peer-claude-sessions.md). A lead was bound only as a side effect of `ocs team`'s `run-create`, so before its first lane mail sat unread, and every lane moved the binding to a Run that was over once the lane was.
+# This gives the pane one Run of its own, remembered by terminal handle, and rebinds to it: the SessionStart hook runs it at session start, and `ocs team` runs it when a lane ends.
+# `orca orchestration` identifies the caller by ORCA_TERMINAL_HANDLE, which a SessionStart hook inherits from the pane (findings 260926-sessionstart-hook-sees-orca-terminal-handle.md), and so does any headless `claude -p` a lead starts there. `--hook` therefore acts only for the interactive entrypoint, or an eval arm would rebind its lead's pane.
+#
+# Outside Orca, or with orchestration off, there is nothing to bind and it exits 0 saying nothing under `--hook`.
+set -u
+
+hook=0
+case "${1:-}" in
+  --hook) hook=1 ;;
+  '') ;;
+  -h|--help) sed -n '2,11p' "$0" | sed 's/^#:\{0,1\} \{0,1\}//'; exit 0 ;;
+  *) printf 'ocs home-run: unknown argument %s\n' "$1" >&2; exit 1 ;;
+esac
+
+say() { [ "$hook" -eq 1 ] || printf '%s\n' "$1"; }
+quit() { [ "$hook" -eq 1 ] || printf 'ocs home-run: %s\n' "$1" >&2; [ "$hook" -eq 1 ] && exit 0; exit "${2:-1}"; }
+
+if [ "$hook" -eq 1 ] && [ "${CLAUDE_CODE_ENTRYPOINT:-}" != "cli" ]; then
+  exit 0
+fi
+[ -n "${ORCA_TERMINAL_HANDLE:-}" ] || quit 'not inside an Orca terminal (no ORCA_TERMINAL_HANDLE); nothing to bind.' 0
+command -v orca >/dev/null 2>&1 || quit 'orca is not on PATH.'
+
+run_field() { python3 -c 'import json,sys
+try: d=json.load(sys.stdin)
+except Exception: print(""); raise SystemExit
+v=(d.get("result") or {}).get("run") or {}
+print(v.get(sys.argv[1]) or "" if d.get("ok") else ("!" + ((d.get("error") or {}).get("code") or "") if sys.argv[1] == "id" else ""))' "${1:-id}"; }
+
+# The record lives outside any repository: a pane outlives the worktree a lead happens to be in, and EnterWorktree moves the session without moving the pane.
+store=${XDG_STATE_HOME:-$HOME/.local/state}/kein/orca-home
+record=$store/$ORCA_TERMINAL_HANDLE
+
+current=$(orca orchestration run-current --json 2>/dev/null | run_field)
+case "$current" in '!'*) quit "Orca did not answer run-current (${current#!}); binding left as it is." ;; esac
+home=''
+[ -s "$record" ] && home=$(cat "$record")
+
+if [ -n "$home" ] && [ "$current" = "$home" ]; then
+  say "$home"
+  exit 0
+fi
+
+# At session start the pane may be coordinating a Run of its own -- Orca's orchestration loop, not a kein lane -- and taking the binding from it would divert that Run's mail. The hook rebinds only an unbound pane or one left on a kein Run; `ocs team` and an explicit call rebind unconditionally.
+if [ "$hook" -eq 1 ] && [ -n "$current" ]; then
+  objective=$(orca orchestration run-show --id "$current" --json 2>/dev/null | run_field objective)
+  case "$objective" in
+    'kein '*) ;;
+    *) exit 0 ;;
+  esac
+fi
+
+if [ -n "$home" ]; then
+  used=$(orca orchestration run-use --id "$home" --json 2>/dev/null | run_field)
+  if [ "$used" = "$home" ]; then
+    say "$home"
+    exit 0
+  fi
+  # Only a home Orca no longer knows (reset, or another profile) is replaced. Any other failure keeps the record, so a busy app does not abandon the home Run and the mail in it.
+  [ "$used" = "!run_not_found" ] || quit "could not rebind to the home Run $home (${used#!}); left as it is."
+fi
+
+created=$(orca orchestration run-create --objective "kein home: $ORCA_TERMINAL_HANDLE" --json 2>/dev/null | run_field)
+case "$created" in ''|'!'*) quit 'could not create a Run. Is orchestration enabled in Settings > Experimental?' ;; esac
+mkdir -p "$store" && printf '%s\n' "$created" > "$record"
+say "$created"

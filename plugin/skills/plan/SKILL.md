@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Use when an implementation plan should be written as a durable, reviewable artifact.
-argument-hint: "<what to plan>"
+argument-hint: "<what to plan> [--planner codex]"
 ---
 
 # Plan
@@ -17,8 +17,8 @@ Plan produces one canonical implementation plan artifact. Planner writes it; the
 ## Workflow
 
 1. Resolve the task, the repository, and the canonical plan path.
-2. Dispatch one fresh `kein:planner` with the Agent tool, supplying the canonical path, the template's absolute path, the requirements, and the repository root. A lane that cannot open that path — a vendor lane under its own sandbox — gets the file's contents instead, which is what `ocs ask --task-file` assembles.
-3. Validate the artifact against the template, then report its path.
+2. Dispatch one fresh `kein:planner` with the Agent tool, supplying the canonical path, the template's absolute path, the requirements, and the repository root. Under `--planner codex`, the Planner is instead `ocs team codex --agent planner --task-file <that brief>`, run from the tree the plan lives in: `ocs ask` runs read-only and refuses a role that writes. Keep the run directory it prints; a caller that revises the plan resumes that same worker with `ocs team codex --resume <run-dir>`.
+3. Validate the artifact against the template, then report its path, and under `--planner codex` the run directory too. A codex Planner writes under a sandbox scoped to the whole worktree, so under that flag also confirm `git status` shows nothing changed but the plan.
 
 ## Where the plan goes
 

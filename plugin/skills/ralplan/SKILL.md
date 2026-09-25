@@ -1,7 +1,7 @@
 ---
 name: ralplan
 description: Use when an implementation plan needs evidence-grounded architecture and quality consensus before it is trusted for execution.
-argument-hint: "[what to plan] [--reviewer claude|codex] [--primed] [--max-rounds <n>]"
+argument-hint: "[what to plan] [--reviewer claude|codex] [--planner codex] [--primed] [--max-rounds <n>]"
 ---
 
 # RALPLAN
@@ -31,7 +31,7 @@ Read each before the point its line names:
 - [state-schema.md](references/state-schema.md) before creating or resuming a run.
 - [plan-gate.md](references/plan-gate.md) before setting a status or computing a hash. The artifact's own contract arrives with the `/plan` invocation; this covers only what the gate adds to it.
 - [review-contract.md](references/review-contract.md) before assembling each official review package.
-- [lanes.md](references/lanes.md) only when the invocation names a vendor for the review lanes — `--reviewer codex`, `--reviewer claude,codex`.
+- [lanes.md](references/lanes.md) only when the invocation names a vendor for a lane — `--reviewer codex`, `--reviewer claude,codex`, `--planner codex`.
 
 ## Workflow
 
@@ -41,7 +41,7 @@ Entry and resume:
 
 1. Resolve the task, repository, and canonical plan path before dispatch. Default the plan to `<ocs state-dir plans>/<slug>.md`; follow the project's own convention instead when it already has one for plan artifacts.
 2. On resume, run `reconcile`. Treat its `required_action` as the exact next action; never infer continuity from conversation alone.
-3. For a new artifact, **run the `/plan` skill.** It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen when a round blocks, not by running `/plan` again.
+3. For a new artifact, **run the `/plan` skill**, passing `--planner` through when the invocation carries it. It owns first-draft production, from the canonical path through Planner's dispatch boundaries, and returns a valid `Draft`. Compute both hashes and checkpoint only once it has. Revisions are this workflow's own and happen when a round blocks, not by running `/plan` again.
 
 Each round, until the plan is approved or the run ends unapproved:
 
@@ -56,7 +56,7 @@ Fresh official reviewers are mandatory after every review-content revision, exce
 
 Dispatch `kein:planner`, `kein:architect`, and `kein:critic` with the Agent tool, one new agent per call, supplying the complete package the review contract defines for it. Never continue an existing agent for an official round: a fresh agent is what keeps a reviewer blind to earlier history. `--primed` is the one exception, and only for the reviewer whose `BLOCK` the correction answers. Planner's first dispatch is not one of these — the `/plan` skill owns the first draft and dispatches Planner itself.
 
-An invocation may name another vendor for a review lane. Without such a flag every lane is native, and the rest of this section is the whole story.
+An invocation may name another vendor for a review lane, or `--planner codex` for Planner, whose revisions then resume the codex worker that wrote the draft rather than dispatching `kein:planner`. Without such a flag every lane is native, and the rest of this section is the whole story.
 
 Put the blind lanes in one message: they then run concurrently, and neither can have seen the other's response, so the contract's blindness between them holds by construction rather than by the lead's care.
 

@@ -2,7 +2,8 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+#   ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] (<task...> | --task-file <path>)
+#   ocs team <provider> --resume <run-dir> [--model M] [--effort E] [--timeout S] (<task...> | --task-file <path>)
 #   ocs team close <run-dir> [--discard]
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
@@ -52,7 +53,8 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+usage: ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] (<task...> | --task-file <path>)
+       ocs team <provider> --resume <run-dir> [--model M] [--effort E] [--timeout S] (<task...> | --task-file <path>)
        ocs team close <run-dir> [--discard]
 
   providers: $PROVIDERS
@@ -68,7 +70,10 @@ usage: ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B]
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
   --timeout: seconds to wait for the worker (default: 3600)
-  --keep:    leave the worker terminal open after it completes
+  --resume:  continue the worker a previous invocation ran, in its session and
+             worktree, with this task. For a correction to its own work, which a
+             fresh worker would have to re-learn. Role, model and effort default
+             to that invocation's; the worktree must still exist.
   --check:   run every precondition, print what would be sent, and stop before
              anything is created. Nothing is spent and no file is written.
 
@@ -87,7 +92,7 @@ role=''
 model=''
 effort=''
 timeout=3600
-keep=0
+resume=''
 check=0
 worktree_arg=''
 branch=''
@@ -98,7 +103,8 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --agent) role=${2:-}; [ -n "$role" ] || { printf 'ocs team: missing role after --agent\n' >&2; exit 1; }; shift 2 ;;
     --agent=*) role=${1#--agent=}; shift ;;
-    --keep) keep=1; shift ;;
+    --resume) resume=${2:-}; [ -n "$resume" ] || { printf 'ocs team: missing run directory after --resume\n' >&2; exit 1; }; shift 2 ;;
+    --resume=*) resume=${1#--resume=}; shift ;;
     --branch) branch=${2:-}; [ -n "$branch" ] || { printf 'ocs team: missing name after --branch\n' >&2; exit 1; }; shift 2 ;;
     --branch=*) branch=${1#--branch=}; shift ;;
     --check) check=1; shift ;;
@@ -141,6 +147,30 @@ case " $PROVIDERS " in
   *) printf "ocs team: provider '%s' is not enabled. Enabled: %s\n" "$provider" "$PROVIDERS" >&2
      exit 1 ;;
 esac
+
+# A resumed worker keeps what its first invocation fixed: the tree it holds, its session, and its role.
+# The launch flags are not kept by the session: `codex resume` takes model, effort and sandbox from the home's config unless they are passed again, and a read-only session came back with full access when they were not (findings 260926-codex-resume-keeps-history-not-launch-config.md). So they are re-derived and passed exactly as for a fresh worker. The role prompt is not passed again: it is in the session's history, and the worker still followed it after a resume that omitted it.
+resume_session=''
+resume_record=''
+if [ -n "$resume" ]; then
+  resume=$(cd "$resume" 2>/dev/null && pwd) || { printf 'ocs team: no run directory at %s\n' "$1" >&2; exit 1; }
+  resume_record="$resume/command.txt"
+  [ -r "$resume_record" ] || { printf 'ocs team: %s has no command.txt; --resume takes the run directory a previous `ocs team` printed\n' "$resume" >&2; exit 1; }
+  { [ -z "$worktree_arg" ] && [ -z "$branch" ]; } || { printf 'ocs team: --resume runs in the worktree the worker already holds; drop --worktree and --branch\n' >&2; exit 1; }
+  [ "$check" -eq 0 ] || { printf 'ocs team: --check does not combine with --resume\n' >&2; exit 1; }
+  record_value() { sed -n "s/^$1=//p" "$resume_record" | tail -1; }
+  resume_session=$(record_value session)
+  prior_role=$(record_value role)
+  [ -n "$resume_session" ] || { printf 'ocs team: %s records no session to resume\n' "$resume" >&2; printf '  Only an invocation that ran to completion under this version records one.\n' >&2; exit 1; }
+  if [ -n "$role" ] && [ "$role" != "$prior_role" ]; then
+    printf 'ocs team: the worker being resumed was %s; a resume cannot change its role\n' "${prior_role:-(no role)}" >&2; exit 1
+  fi
+  role=$prior_role
+  [ -n "$model" ] || model=$(record_value model)
+  [ -n "$effort" ] || effort=$(record_value effort)
+  worktree_arg=$(record_value cwd)
+  [ -d "$worktree_arg" ] || { printf 'ocs team: the worktree %s is gone; a worker cannot be resumed without the tree it held\n' "$worktree_arg" >&2; exit 1; }
+fi
 
 roles="$KEIN_ROOT/agents"
 manifest="$KEIN_ROOT/agents.json"
@@ -196,6 +226,9 @@ fi
 # The plain home is pinned, never inherited, exactly as `ocs ask` does it, and `codex_vanilla_args` strips what it still carries.
 # Orca launches whatever command its client is configured with, which on this machine was a launcher pointing at the tuned home; a lane answering as the operator's own tuned lead is not the canonical role.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
+# A session lives under the home it was started in, so a resume reads the recorded one; `codex resume` in any other home would fail inside the worker terminal instead of here.
+# The first `CODEX_HOME=` line is the record's own; the launch line below it starts with the same assignment.
+[ -z "$resume" ] || codex_home=$(sed -n 's/^CODEX_HOME=//p' "$resume_record" | head -1)
 
 stamp=$(date +%y%m%d-%H%M%S)
 lead_main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null)" 2>/dev/null || true)
@@ -206,6 +239,11 @@ lead_main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir 2>/
 here=$PWD
 created_worktree=''
 base_branch=''
+# A resumed lane runs in the tree its first invocation created, so it carries that record forward: `ocs team close` on any run directory of the chain then knows which tree and branch to settle.
+if [ -n "$resume" ]; then
+  created_worktree=$(record_value created_worktree)
+  base_branch=$(record_value base)
+fi
 if [ -n "$branch" ]; then
   [ "$worktree_arg" = new ] || { printf 'ocs team: --branch names the branch of a worktree this command creates, so it needs `--worktree new`.\n' >&2; exit 1; }
   git check-ref-format --branch "$branch" >/dev/null 2>&1 || { printf "ocs team: '%s' is not a valid branch name\n" "$branch" >&2; exit 1; }
@@ -215,13 +253,22 @@ fi
 # A lane worktree that is created and then orphaned by a later refusal is the leak this guards: every exit after creation names it and how to close it.
 lane_worktree_notice() {
   [ -n "$created_worktree" ] || return 0
+  # A resume that stopped before recording anything holds a tree an earlier invocation made and still records; nothing new is orphaned.
+  [ -z "$resume" ] || [ -s "${dir:-/nonexistent}/command.txt" ] || return 0
   if [ -s "${dir:-/nonexistent}/command.txt" ]; then
     printf 'ocs team: this lane created %s. Once its branch is merged: ocs team close %s\n' "$created_worktree" "$dir" >&2
   else
     printf 'ocs team: this lane created %s and stopped before recording it; remove it with orca worktree rm --worktree path:%s --force\n' "$created_worktree" "$created_worktree" >&2
   fi
 }
-trap lane_worktree_notice EXIT
+# `run-create` below binds this terminal to the lane's Run, which is over once the lane is. Every exit after it rebinds the terminal to its home Run (`ocs home-run`), so the lead stays reachable by mail whichever way this command ends.
+run_id=''
+rebind_home() {
+  [ -n "$run_id" ] || return 0
+  "$KEIN_ROOT/libexec/ocs-home-run" >/dev/null 2>&1 || true
+}
+on_exit() { lane_worktree_notice; rebind_home; }
+trap on_exit EXIT
 
 case "$worktree_arg" in
   ''|current|.) worktree=$here ;;
@@ -326,7 +373,7 @@ role_file="$dir/role.md"
 # `developer_instructions` is a Codex configuration field, and an unrecognized field is ignored rather than refused.
 # A version that dropped it would leave a worker running with no role at all and nothing in the output to say so, so prove the injection lands before spending a session on it.
 # `debug prompt-input` renders the model-visible prompt without calling the model, which makes this about a second and free.
-if [ -n "$role" ] && ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
+if [ -n "$role" ] && [ -z "$resume_session" ] && ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
   printf 'ocs team: this provider build no longer accepts `developer_instructions`.\n' >&2
   printf '  A worker would start with no role prompt and nothing would report the omission.\n' >&2
   printf '  Re-check which field carries developer instructions before using this command.\n' >&2
@@ -355,8 +402,10 @@ done <<EOF
 $vanilla
 EOF
 role_flag=''
-[ -z "$role" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$vanilla_flags$role_flag"
+[ -z "$role" ] || [ -n "$resume_session" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
+codex_verb=codex
+[ -z "$resume_session" ] || codex_verb="codex resume $resume_session"
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree $codex_verb -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$vanilla_flags$role_flag"
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):
@@ -385,6 +434,11 @@ for prior in "$(dirname "$dir")"/*/command.txt; do
   case "$prior_status" in
     ''|completed|failed) continue ;;
   esac
+  # Two workers in one codex session interleave writes to the same rollout.
+  if [ -n "$resume_session" ] && [ "$(sed -n 's/^session=//p' "$prior" | tail -1)" = "$resume_session" ]; then
+    occupant="$prior_dispatch (status=$prior_status, $(dirname "$prior"), the same session)"
+    break
+  fi
   prior_spec="$(dirname "$prior")/spec.txt"
   prior_digest=$( [ -r "$prior_spec" ] && sed '/^## Output contract$/,$d' "$prior_spec" | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' | shasum -a 256 | cut -c1-64 || printf '' )
   if [ "$prior_digest" = "$spec_digest" ]; then
@@ -419,7 +473,7 @@ fi
 # Created here rather than where their paths were resolved, so that a check leaves the filesystem as
 # it found it and can be run as often as it is useful.
 mkdir -p "$dir" "$reports"
-[ -z "$role" ] || role_prompt_body "$roles/$role.md" > "$role_file"
+[ -z "$role" ] || [ -n "$resume_session" ] || role_prompt_body "$roles/$role.md" > "$role_file"
 
 
 fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
@@ -445,6 +499,8 @@ task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2
 {
   printf 'CODEX_HOME=%s\n' "$codex_home"
   printf 'cwd=%s\n' "$worktree"
+  printf 'role=%s\nmodel=%s\neffort=%s\n' "$role" "$model" "$effort"
+  [ -z "$resume" ] || printf 'resumes=%s\nsession=%s\n' "$resume" "$resume_session"
   if [ -n "$created_worktree" ]; then
     printf 'created_worktree=%s\n' "$created_worktree"
     printf 'branch=%s\n' "$(git -C "$created_worktree" branch --show-current)"
@@ -453,6 +509,8 @@ task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2
   printf '%s\n' "$launch"
 } > "$dir/command.txt"
 
+# The session a fresh worker starts is found afterwards by its rollout: written under this home after this point, in this tree, and carrying this lane's own report path.
+: > "$dir/.launched"
 handle=$(orca terminal create --worktree "path:$worktree" --title "kein-$lane" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
 if [ -z "$handle" ]; then
   printf 'ocs team: could not create a worker terminal in %s\n' "$worktree" >&2
@@ -487,13 +545,9 @@ print(" ".join(x for x in (e.get("code"), e.get("message")) if x))' 2>/dev/null)
     printf 'ocs team: the worker started but could not be attached to a dispatch.\n'
     printf '  orca: %s\n' "${reason:-no error returned}"
     printf '  task=%s marked failed.\n' "$task_id"
-    if [ "$keep" -eq 1 ]; then
-      printf '  terminal=%s left open (--keep): orca terminal close --terminal %s\n' "$handle" "$handle"
-    else
-      printf '  terminal=%s closed.\n' "$handle"
-    fi
+    printf '  terminal=%s closed.\n' "$handle"
   } | tee -a "$dir/command.txt" >&2
-  [ "$keep" -eq 1 ] || orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+  orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
   exit 1
 fi
 
@@ -503,12 +557,47 @@ fi
 # the case it was for.
 printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\nturn_start=%s\n' "$run_id" "$task_id" "$dispatch" "$handle" "$(printf '%s' "$started" | json_field turnStart)" >> "$dir/command.txt"
 
+# `run-create` moved this terminal onto the lane's Run, and completion is polled by dispatch id below, so nothing here needs the binding. Back on the home Run at once, mail sent to the lead while the lane runs lands where the lead reads it.
+"$KEIN_ROOT/libexec/ocs-home-run" >/dev/null 2>&1 || true
+
 # Orca pastes the brief into the worker's composer and presses Enter separately, and the Enter can be lost: a lane on 2026-09-19 sat 14 minutes with its brief unsent until the operator pressed it by hand. Orca's own receipt names this state ("holding the task unsent in its composer") but can also miss it.
 # `terminal read --screen` reports the composer's unsent text as `draft`, and nobody types into a worker's composer, so a draft still there one poll later is stuck input rather than input in flight. Enter alone submits it (measured the same day on a codex TUI holding a typed prompt).
 composer_draft() {
   orca terminal read --terminal "$handle" --screen --json 2>/dev/null | python3 -c 'import json,sys
 try: print("yes" if (((json.load(sys.stdin).get("result") or {}).get("terminal") or {}).get("draft") or "").strip() else "")
 except Exception: print("")' 2>/dev/null
+}
+
+# Recorded so a correction can resume this worker instead of starting a fresh one (`--resume <run-dir>`). A resumed worker keeps its session, which is already recorded.
+record_session() {
+  [ -z "$resume_session" ] || return 0
+  session=$(python3 - "$codex_home/sessions" "$dir/.launched" "$worktree" "$report" <<'PY' 2>/dev/null
+import json, os, sys
+root, marker, cwd, report = sys.argv[1:]
+since = os.path.getmtime(marker)
+found = []
+for base, _, files in os.walk(root):
+    for name in files:
+        path = os.path.join(base, name)
+        if not name.endswith(".jsonl") or os.path.getmtime(path) < since:
+            continue
+        try:
+            with open(path, encoding="utf-8") as handle:
+                meta = json.loads(handle.readline()).get("payload") or {}
+                if meta.get("cwd") != cwd:
+                    continue
+                if report in handle.read():
+                    found.append(meta.get("id") or meta.get("session_id") or "")
+        except (OSError, ValueError):
+            continue
+print(found[0] if len(found) == 1 else "")
+PY
+)
+  if [ -n "$session" ]; then
+    printf 'session=%s\n' "$session" >> "$dir/command.txt"
+  else
+    printf 'ocs team: could not identify the worker'\''s session, so this run cannot be resumed.\n' >&2
+  fi
 }
 
 # Poll the dispatch rather than wait on the Run mailbox.
@@ -552,10 +641,11 @@ while [ "$elapsed" -lt "$timeout" ]; do
 done
 
 # The same `worker_done` that settled the dispatch also lands in this lane's Run inbox, and Orca later nudges the lead's terminal with "You have 1 orchestration message" for a lane that is already over.
-# Consumed here so the nudge never comes. `check` only reads the Run the calling terminal is currently bound to, and each `run-create` rebinds it, so a lane whose Run was superseded by a later concurrent lane gets `consumer_fenced` and leaves its message alone.
-# Acknowledged only when every message in the delivery is this dispatch's `worker_done`: a delivery is acked whole, and anything else in it is the lead's to read.
+# Consumed here so the nudge never comes. `check` only reads the Run the calling terminal is currently bound to, and the terminal went back to its home Run once the dispatch attached, so this binds to the lane's Run for the ack and the EXIT trap returns it home.
+# Acknowledged only when every message in the delivery is this dispatch's `worker_done`: a delivery is acked whole. Mail for the lead reached the home Run while the lane ran, so nothing else should be here.
 case "$status" in
   completed|failed)
+    orca orchestration run-use --id "$run_id" --json >/dev/null 2>&1 || true
     delivery=$(orca orchestration check --run "$run_id" --types worker_done --json 2>/dev/null | python3 -c 'import json,sys
 try: r=json.load(sys.stdin).get("result") or {}
 except Exception: r={}
@@ -568,6 +658,8 @@ print(r.get("deliveryId") or "" if msgs and all(own(m) for m in msgs) else "")' 
 esac
 
 if [ "$status" != "completed" ]; then
+  # A failed worker's terminal is already gone, and it is the likeliest one to need a correction. A timed-out one is still live, and resuming its session under it would put two processes in one rollout.
+  [ "$status" != "failed" ] || record_session
   [ -n "$status" ] || status='unknown'
   # Written to the run record as well as stderr. A backgrounded caller sees no stderr until the
   # command returns, which on this path is the whole timeout, so the file is the copy that is there
@@ -583,7 +675,8 @@ if [ "$status" != "completed" ]; then
   exit 1
 fi
 
-[ "$keep" -eq 1 ] || orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+record_session
 
 if [ ! -s "$report" ]; then
   printf 'ocs team: the worker completed without writing %s\n' "$report" >&2

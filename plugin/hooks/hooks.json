@@ -8,6 +8,16 @@
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/lead-prompt.py\""
           }
         ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/libexec/ocs-home-run\" --hook",
+            "timeout": 20
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [

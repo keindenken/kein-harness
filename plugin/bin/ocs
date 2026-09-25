@@ -14,6 +14,31 @@ set -eu
 KEIN_ROOT=${CLAUDE_PLUGIN_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)}
 export KEIN_ROOT
 
+# Two harness trees on PATH means this `ocs` may not be the session's. Claude Code appends each loaded plugin's `bin/` to PATH, so a session pinned with `--plugin-dir` and launched from a shell that already had the harness gets its skills from the pinned tree and `ocs` from whichever `bin/` comes first, and nothing else says so. The Bash tool is not given CLAUDE_PLUGIN_ROOT, so PATH is the only place the mix is visible.
+self_root=$(CDPATH= cd -P -- "$(dirname -- "$0")/.." && pwd)
+other_roots=''
+old_ifs=$IFS
+IFS=:
+set -f
+for dir in $PATH; do
+  [ -f "$dir/ocs" ] && [ -x "$dir/ocs" ] || continue
+  root=$(CDPATH= cd -P -- "$dir/.." 2>/dev/null && pwd) || continue
+  [ "$root" = "$self_root" ] && continue
+  python3 -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get("name") == "kein" else 1)' "$root/.claude-plugin/plugin.json" 2>/dev/null || continue
+  printf '%s\n' "$other_roots" | grep -Fqx -- "$root" && continue
+  other_roots="$other_roots$root
+"
+done
+set +f
+IFS=$old_ifs
+if [ -n "$other_roots" ]; then
+  printf 'ocs: more than one kein harness is on PATH, so this ocs may not belong to the session.\n' >&2
+  printf '  this ocs: %s\n' "$self_root" >&2
+  printf '%s' "$other_roots" | while IFS= read -r root; do printf '  also:     %s\n' "$root" >&2; done
+  printf '  Launch the session from a shell whose PATH has no kein bin/, or remove the one that is not this session'\''s plugin.\n' >&2
+  exit 1
+fi
+
 KEIN_VERSION=$(
   sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' \
     "$KEIN_ROOT/.claude-plugin/plugin.json" 2>/dev/null | head -1

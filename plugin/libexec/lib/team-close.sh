@@ -79,9 +79,15 @@ if [ "$discard" -eq 0 ]; then
   fi
 fi
 
+# Every run directory and report in the tree is kept, not only the one named: a lane resumed for corrections leaves one of each per invocation, and all of them go with the tree otherwise.
 mkdir -p "$keep_root/runs/team" "$keep_root/reports"
-[ ! -e "$report" ] || cp "$report" "$keep_root/reports/$run_name.md"
-cp -R "$run_dir" "$keep_root/runs/team/"
+for kept in "$lane_state/runs/team"/*; do
+  [ -d "$kept" ] && cp -R "$kept" "$keep_root/runs/team/"
+done
+for kept in "$lane_state/reports"/*.md; do
+  [ -f "$kept" ] && cp "$kept" "$keep_root/reports/"
+done
+[ -d "$keep_root/runs/team/$run_name" ] || cp -R "$run_dir" "$keep_root/runs/team/"
 
 [ -z "$terminal" ] || orca terminal close --terminal "$terminal" --json >/dev/null 2>&1 || true
 
