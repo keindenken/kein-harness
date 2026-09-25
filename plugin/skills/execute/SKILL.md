@@ -1,7 +1,7 @@
 ---
 name: execute
 description: Use when a bounded code change or executable implementation plan should be carried through implementation, verification, independent review, correction, and final audit.
-argument-hint: "[plan path or task brief] [--reviewer claude|codex] [--executor claude|codex]"
+argument-hint: "[plan path or task brief] [--reviewer claude|codex] [--executor claude|codex] [--primed] [--max-rounds <n>]"
 ---
 
 # Execute
@@ -32,9 +32,9 @@ Read from this working directory when the skill loaded; `ocs state-dir` answers 
 ## Entry and Resume
 
 1. Resolve the canonical Git worktree and run root, the latter from `ocs state-dir runs/execute`. Resume or explicitly stop any occupying nonterminal run.
-2. On resume, run `reconcile` and follow its exact next action. An input it reports changed is amended with its reason when the change was authorized, and blocked when it was not; a run does not restart because its plan moved. A transcript or old agent handle never proves completion; fingerprint drift requires inspection and fresh evidence.
+2. On resume, run `reconcile` and follow its exact next action. An input it reports changed is amended with its reason when the change was authorized, and blocked when it was not; a run does not restart because its plan moved. A transcript or old agent handle never proves completion; fingerprint drift requires inspection and fresh evidence. Each acceptance already on the ledger records the plan revision it was made under; once `amend` moves the input, dispatch one fresh, independent re-confirmation lane per amendment, given the amendment and every task accepted under an earlier revision. A task it judges no longer satisfying its completion condition returns to correcting; a task it confirms moves to the amended revision. The run cannot complete while an accepted task still names a superseded one.
 3. Apply the executability gate. Approved, Draft, and unapproved plans and bounded briefs are eligible when outcome, scope, ordering, completion conditions, and verification paths require no invented material decision. Otherwise checkpoint `blocked`, and ask the one question that would unblock it when there is one.
-4. Normalize mechanically and open the run with `start` before dispatch. An unexpected Evidence Gate result blocks before dependent production work.
+4. Normalize mechanically and open the run with `start` before dispatch, passing `--primed` and `--max-rounds <n>` here when the invocation named them — both are fixed for the run's whole life. An unexpected Evidence Gate result blocks before dependent production work.
 
 ## Task Loop
 
@@ -42,9 +42,9 @@ Read from this working directory when the skill loaded; `ocs state-dir` answers 
 2. Apply repository testing policy first, then explicit input RED, test-first, or TDD requirements. If both are silent, Execute does not require strict TDD, but verification remains mandatory.
 3. After every implementation or correction, capture fresh Executor self-verification and the exact worktree fingerprint. Self-verification is not approval.
 4. Select at least one independent reviewer by risk and evidence question. Complementary read-only lanes may run concurrently when their dispatches share one message. Wait for all selected lanes, then issue one consolidated correction brief containing every `BLOCK` finding.
-5. On `BLOCK`, choose the original or a fresh Executor, start a correction round, clear stale evidence, correct, and verify again.
-6. After correction, dispatch at least one newly spawned blind reviewer over the complete current result. Exclude earlier findings, verdicts, identities, correction notes, claimed fixes, closure results, and desired outcomes. A previous reviewer cannot approve the correction; its separate closure check can block but cannot approve.
-7. Accept only when current-round verification and a fresh independent `PASS` or `REVISE` bind to the same task, round, and fingerprint. A `REVISE` lane's findings are dispositioned at acceptance — fixed before it with the verification path re-run and no fresh lane, promoted to an appended task, or carried on this one with a reason where the review contract requires it — and then written into the checkpoint with the acceptance.
+5. On `BLOCK`, choose the original or a fresh Executor, start a correction round, clear stale evidence, correct, and verify again — unless `--max-rounds <n>` is reached with the `BLOCK` still open, in which case checkpoint the task blocked instead of opening another round, and report the open findings. Nothing is accepted by running out of rounds.
+6. After correction, dispatch at least one newly spawned blind reviewer over the complete current result. Exclude earlier findings, verdicts, identities, correction notes, claimed fixes, closure results, and desired outcomes. A previous reviewer cannot approve the correction; its separate closure check can block but cannot approve — unless the run was started with `--primed`, in which case the reviewer that raised the `BLOCK` may check its own correction as this round's reviewer, and its verdict counts. A blocking lane that raised nothing this round still gets a fresh lane.
+7. Accept only when current-round verification and a fresh independent `PASS` or `REVISE` bind to the same task, round, and fingerprint — or, on a `--primed` run's closure check, one from the reviewer that raised the `BLOCK`, independent still required. A `REVISE` lane's findings are dispositioned at acceptance — fixed before it with the verification path re-run and no fresh lane, promoted to an appended task, or carried on this one with a reason where the review contract requires it — and then written into the checkpoint with the acceptance.
 8. A decision the run cannot take parks the tasks that depend on it — `park` — and the rest go on to acceptance. Finalization waits for the parked ones, not the other way round.
 
 ## Finalization

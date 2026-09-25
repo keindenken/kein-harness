@@ -39,7 +39,9 @@ The verdict follows the findings. `PASS` carries none; `REVISE` carries findings
 
 ## Correction and Closure
 
-Consolidate the `BLOCK` findings into one correction brief. After correction, require fresh `kein:executor` verification and at least one newly spawned, independent, new blind reviewer. A previous reviewer may run a primed closure check for a subtle or high-risk finding; its positive result cannot approve, while its negative result remains blocking and stays hidden from fresh reviewers.
+Consolidate the `BLOCK` findings into one correction brief. After correction, require fresh `kein:executor` verification and at least one newly spawned, independent, new blind reviewer. A previous reviewer may run a primed closure check for a subtle or high-risk finding; its positive result cannot approve, unless the run was started with `--primed`: then the reviewer that raised the `BLOCK` may check its own correction and its verdict counts toward acceptance, still bound to the same task, round, and fingerprint as any other verdict, and still required to be independent of the executor. A blocking lane that raised nothing this round still gets a fresh lane. A negative closure check remains blocking evidence and stays hidden from fresh reviewers, primed or not.
+
+A run started with `--max-rounds <n>` corrects at most `n` rounds per task, the first attempt counted as one of them. A `BLOCK` still open once the bound is reached stops the task rather than opening another round: it checkpoints blocked, and the lead reports the open findings. Nothing is accepted by running out of rounds; without the flag, correction is unbounded exactly as it always was.
 
 ## What acceptance carries
 
@@ -50,6 +52,12 @@ A task accepts over the findings a `REVISE` lane returned. Each is dispositioned
 - **Carry it.** Leave it on the task; it projects into the receipt as `carried_findings`, which is the residual risk the final report names. Carrying costs the least now and the most later, so an `important` or `critical` carried this way must record `carried_because` — the state refuses acceptance without it — and a promotion that did not happen is a written decision rather than a silence. Severity prices the carry; it never gates the acceptance.
 
 Nothing else is a disposition. A finding cannot be answered by deleting it from the list, because the receipt projects the list and a fresh audit reads the receipt.
+
+## Revision Re-confirmation
+
+Each acceptance records the input hash current at the moment it was made. `amend` moves the run's input without touching any acceptance already on the ledger, so an accepted task keeps naming the revision it was accepted under until something re-confirms it against the new one — the input-identity binding stays exactly as strict as it always was; `amend` is still the only way the input moves, and still only with a reason.
+
+After an `amend`, dispatch one fresh, independent lane per amendment — not per task — given the amendment and the complete current text of every task accepted under an earlier revision. For each, it judges whether the task still satisfies its completion condition under the amended plan. A task it confirms moves to the amended revision, its verdict appended to the acceptance's own reviewers alongside whatever verdict originally accepted it; a task it judges no longer satisfying returns to correcting, the same route a `BLOCK` reopens through. The run cannot complete while any accepted task still names a superseded revision.
 
 ## Final Audit
 

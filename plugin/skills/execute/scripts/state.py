@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import copy
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import datetime, timedelta
 import fcntl
 import hashlib
 import json
@@ -52,6 +52,13 @@ NONTERMINAL_FIELDS = frozenset({
     "input", "worktree", "phase", "tasks", "current_task_id", "current_round",
     "latest_verification", "unresolved_findings", "final_audit", "next_action",
 })
+# Present only when the run uses them, so a run that does not is shaped exactly as before.
+# `primed` and `max_rounds` are the invocation's flags, fixed at `start` and unchanged for the
+# rest of the run -- there is no dedicated round-opening command here to raise `max_rounds`
+# against, the way `ralplan open --max-rounds` can, so a run that needs a higher bound is
+# amended or aborted rather than resumed past its original one.
+NONTERMINAL_OPTIONAL = frozenset({"primed", "max_rounds"})
+COMPLETED_OPTIONAL = frozenset({"primed", "max_rounds"})
 COMPLETED_FIELDS = frozenset({
     "schema_version", "revision", "workflow", "run_id", "lifecycle", "completed_at", "input",
     "worktree", "accepted_tasks", "final_verification", "final_audit", "carried_findings",
@@ -95,12 +102,47 @@ FINDING_FIELDS = frozenset({
 # A `critical` that stays carried instead of becoming a task owes the receipt the reason, so a promotion that did not happen is a written decision rather than a silence.
 FINDING_OPTIONAL = frozenset({"carried_because"})
 BLOCKS_PREFIXES = ("regression: ", "instruction: ")
+# `input_sha256` is the input hash current when the task accepted -- the plan revision its acceptance
+# stands over. `amend` moves the run's input under a live ledger without touching this, so a task
+# accepted before the move still reads its own, now-superseded, hash until a re-confirmation lane
+# carries it forward; completion reads this against the run's current hash to find the ones that
+# never did. Optional, like `fixed`, so an acceptance written before this field existed still
+# validates -- `_acceptance_input_hash` says what an absent one reads as.
 ACCEPTANCE_FIELDS = frozenset({"round", "worktree_fingerprint", "reviewers"})
-ACCEPTANCE_OPTIONAL = frozenset({"fixed"})
+ACCEPTANCE_OPTIONAL = frozenset({"fixed", "input_sha256"})
 COMPLETED_INPUT_FIELDS = frozenset({"reference", "sha256"})
 COMPLETED_WORKTREE_FIELDS = frozenset({"root", "final_fingerprint"})
 ACCEPTED_TASK_FIELDS = frozenset({"id", "title", "completion_condition", "carried_findings"})
 ACCEPTED_TASK_OPTIONAL = frozenset({"fixed_findings"})
+# `observed_at` and `reviewed_at` are captured by whichever step ran before the checkpoint that
+# records them, so they should never read later than that checkpoint's own clock. A few seconds
+# of slack absorbs ordinary drift between the process that captured the evidence and the one now
+# checkpointing it, and the truncation to whole seconds every stamp in this file already writes
+# with, without opening a window wide enough to admit a fabricated future timestamp.
+FUTURE_TOLERANCE = timedelta(seconds=5)
+
+
+def _normalize_role(role: Any) -> str:
+    """`kein:<role>` and `<role>` name the same reviewer -- the prefix is how a lane was dispatched, not a second identity. Every place this file compares or looks up a role reads it through here first, so `kein:critic` and `critic` agree with each other and with `plugin/agents.json`, whichever spelling a given state was written with."""
+    if not isinstance(role, str):
+        return ""
+    return role[len("kein:"):] if role.startswith("kein:") else role
+
+
+_KNOWN_ROLES: Optional[frozenset] = None
+
+
+def _known_roles() -> frozenset:
+    """The rendered role manifest beside this script under the plugin root, resolved from this file's own location rather than the working directory: `plugin/skills/execute/scripts/state.py` -> `plugin/agents.json`. Cached for the process, since it does not change while one command runs."""
+    global _KNOWN_ROLES
+    if _KNOWN_ROLES is None:
+        manifest_path = Path(__file__).resolve().parents[3] / "agents.json"
+        try:
+            payload = json.loads(manifest_path.read_text())
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            payload = {}
+        _KNOWN_ROLES = frozenset(payload) if isinstance(payload, dict) else frozenset()
+    return _KNOWN_ROLES
 
 
 def _git_bytes(path: Path, args: List[str]) -> bytes:
@@ -380,7 +422,8 @@ def _validate_fingerprint(value: Any, label: str) -> List[str]:
     return errors
 
 
-def _validate_verification(value: Any, expected_round: Optional[int] = None, expected_fingerprint: Optional[str] = None) -> List[str]:
+def _validate_verification(value: Any, expected_round: Optional[int] = None, expected_fingerprint: Optional[str] = None,
+                            now: Optional[datetime] = None) -> List[str]:
     if not isinstance(value, dict) or set(value) != VERIFICATION_FIELDS:
         return ["Verification must use the exact field set"]
     errors: List[str] = []
@@ -390,6 +433,8 @@ def _validate_verification(value: Any, expected_round: Optional[int] = None, exp
         errors.append("Verification requires an integer exit_code")
     if not _valid_time(value.get("observed_at")):
         errors.append("Verification requires a timezone-aware observed_at")
+    elif now is not None and datetime.fromisoformat(value["observed_at"]) > now + FUTURE_TOLERANCE:
+        errors.append("Verification observed_at is later than this checkpoint's own clock read")
     if type(value.get("round")) is not int or value["round"] < 0:
         errors.append("Verification round must be non-negative")
     if not _valid_hash(value.get("worktree_fingerprint")):
@@ -401,12 +446,15 @@ def _validate_verification(value: Any, expected_round: Optional[int] = None, exp
     return errors
 
 
-def _validate_verdict(value: Any, task_id: str, round_number: int, fingerprint: str) -> List[str]:
+def _validate_verdict(value: Any, task_id: str, round_number: int, fingerprint: str,
+                       now: Optional[datetime] = None) -> List[str]:
     if not isinstance(value, dict) or set(value) != VERDICT_FIELDS:
         return ["Review verdict must use the exact field set"]
     errors: List[str] = []
     if not isinstance(value.get("reviewer_role"), str) or not value["reviewer_role"]:
         errors.append("Review verdict requires a reviewer_role")
+    elif _normalize_role(value["reviewer_role"]) not in _known_roles():
+        errors.append(f"Review verdict reviewer_role {value['reviewer_role']!r} is not in plugin/agents.json")
     if value.get("verdict") not in VERDICT_VALUES:
         errors.append(f"Review verdict must be one of {', '.join(sorted(VERDICT_VALUES))}")
     if value.get("task_id") != task_id:
@@ -417,6 +465,8 @@ def _validate_verdict(value: Any, task_id: str, round_number: int, fingerprint: 
         errors.append("Review verdict fingerprint does not match")
     if not _valid_time(value.get("reviewed_at")):
         errors.append("Review verdict requires a timezone-aware reviewed_at")
+    elif now is not None and datetime.fromisoformat(value["reviewed_at"]) > now + FUTURE_TOLERANCE:
+        errors.append("Review verdict reviewed_at is later than this checkpoint's own clock read")
     if type(value.get("fresh")) is not bool or type(value.get("independent")) is not bool:
         errors.append("Review verdict freshness and independence must be booleans")
     return errors
@@ -466,6 +516,9 @@ def _validate_findings(value: Any, completion_condition: Optional[str] = None, i
         for key in FINDING_FIELDS - {"blocks"}:
             if not isinstance(finding.get(key), str) or not finding[key].strip():
                 errors.append(f"Finding {index} requires non-empty {key}")
+        role = finding.get("reviewer_role")
+        if isinstance(role, str) and role.strip() and _normalize_role(role) not in _known_roles():
+            errors.append(f"Finding {index} reviewer_role {role!r} is not in plugin/agents.json")
         if finding.get("severity") not in {"critical", "important", "minor"}:
             errors.append(f"Finding {index} severity is invalid")
         if finding.get("confidence") not in {"high", "medium", "low"}:
@@ -518,7 +571,7 @@ def _uncaptioned_carry(findings: Any) -> bool:
 def _verdict_coherence(reviewers: Any, findings: Any) -> List[str]:
     """A verdict is a summary of the role's own findings, and the state can re-derive that summary.
 
-    `BLOCK` with nothing of that role blocking, `REVISE` with nothing of that role at all or with something blocking, `PASS` over a finding the same role wrote -- each is a disagreement between two things one lane produced, and the one place severity was ever adjudicated by anything but the lane.
+    `BLOCK` with nothing of that role blocking, `REVISE` with nothing of that role at all or with something blocking, `PASS` over a finding the same role wrote -- each is a disagreement between two things one lane produced, and the one place severity was ever adjudicated by anything but the lane. Matched on the normalized role, so a verdict spelled `kein:critic` and a finding spelled `critic` are read as the one reviewer they are.
     """
     if not isinstance(reviewers, list) or not isinstance(findings, list):
         return []
@@ -527,7 +580,8 @@ def _verdict_coherence(reviewers: Any, findings: Any) -> List[str]:
         if not isinstance(reviewer, dict):
             continue
         role = reviewer.get("reviewer_role")
-        mine = [f for f in findings if isinstance(f, dict) and f.get("reviewer_role") == role]
+        normalized_role = _normalize_role(role)
+        mine = [f for f in findings if isinstance(f, dict) and _normalize_role(f.get("reviewer_role")) == normalized_role]
         blocking = [f for f in mine if f.get("blocks") is not None]
         verdict = reviewer.get("verdict")
         if verdict == "BLOCK" and not blocking:
@@ -577,7 +631,27 @@ def _is_legacy_dispatch_seal(value: Any) -> bool:
     return isinstance(value, dict) and set(value) == FINGERPRINT_FIELDS
 
 
-def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = frozenset()) -> List[str]:
+def _acceptance_input_hash(acceptance: Any, input_value: Any) -> Optional[str]:
+    """The input hash an acceptance counts as having been made under, for the revision-confirmation gate.
+
+    An acceptance written before `input_sha256` existed carries none. Where the run has never been
+    amended, every acceptance necessarily predates the only input hash the run has ever had, so an
+    absent one reads as the run's current hash -- there is nothing else it could be. Where an
+    amendment has landed, an acceptance with no recorded hash cannot be told apart from one made
+    under any of the superseded hashes, so it reads as an unknown earlier revision -- `None`, which
+    never equals a current hash -- and needs the same re-confirmation a hash that plainly differs
+    would.
+    """
+    recorded = acceptance.get("input_sha256") if isinstance(acceptance, dict) else None
+    if isinstance(recorded, str):
+        return recorded
+    if isinstance(input_value, dict) and not input_value.get("amendments"):
+        return input_value.get("sha256")
+    return None
+
+
+def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = frozenset(),
+                    now: Optional[datetime] = None, primed: bool = False) -> List[str]:
     if not isinstance(task, dict) or set(task) - TASK_OPTIONAL != TASK_FIELDS:
         return [_field_set_error("Task must use the exact task field set", task, TASK_FIELDS, TASK_OPTIONAL)]
     if task.get("scope_fingerprint") is not None:
@@ -636,7 +710,7 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
         verification = []
     else:
         for item in verification:
-            errors.extend(_validate_verification(item))
+            errors.extend(_validate_verification(item, now=now))
     findings = task.get("unresolved_findings")
     errors.extend(_validate_findings(findings, task.get("completion_condition") if isinstance(task.get("completion_condition"), str) else None,
                                      inherited if task.get("status") != "accepted" else frozenset()))
@@ -648,6 +722,8 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
             acceptance_fingerprint = acceptance.get("worktree_fingerprint", "")
             if not _valid_hash(acceptance_fingerprint):
                 errors.append("Task acceptance requires a valid worktree fingerprint")
+            if "input_sha256" in acceptance and not _valid_hash(acceptance.get("input_sha256")):
+                errors.append("Task acceptance input_sha256 must be a valid hash when present")
             reviewers = acceptance.get("reviewers")
             if not isinstance(reviewers, list):
                 errors.append("Task acceptance reviewers must be a list")
@@ -674,7 +750,7 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
             if not fixed:
                 reviewed_fingerprint = acceptance_fingerprint
             for reviewer in reviewers:
-                errors.extend(_validate_verdict(reviewer, task.get("id", ""), task.get("round", -1), reviewed_fingerprint))
+                errors.extend(_validate_verdict(reviewer, task.get("id", ""), task.get("round", -1), reviewed_fingerprint, now=now))
             current_verification = any(
                 isinstance(item, dict) and item.get("exit_code") == 0
                 and item.get("round") == task.get("round")
@@ -684,9 +760,15 @@ def _validate_task(task: Any, current_fingerprint: str, inherited: frozenset = f
             if not current_verification:
                 errors.append("Accepted task requires current-round verification")
             # `REVISE` accepts: its findings are real, carried on the task, and not about whether the task is done. Only `BLOCK` says that.
+            # A closure check is ordinarily never fresh, so it never satisfies this on its own -- except
+            # for a run started `--primed`: there, the reviewer that raised the `BLOCK` may check its own
+            # correction and count, provided it is still independent of the executor. Nothing here checks
+            # that this particular reviewer is the one that raised it; that discipline is the review
+            # contract's, the same as ralplan trusts the roster rather than re-deriving lane identity.
             current_pass = any(
                 isinstance(item, dict) and item.get("verdict") in {"PASS", "REVISE"}
-                and item.get("fresh") is True and item.get("independent") is True
+                and (item.get("fresh") is True or (primed and item.get("fresh") is False))
+                and item.get("independent") is True
                 and item.get("round") == task.get("round")
                 and item.get("worktree_fingerprint") == reviewed_fingerprint
                 for item in reviewers
@@ -758,7 +840,17 @@ def _amendment_transition_errors(previous: Any, candidate: Any) -> List[str]:
     return []
 
 
-def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozenset()) -> List[str]:
+def _validate_run_options(payload: Dict[str, Any]) -> List[str]:
+    errors: List[str] = []
+    if "primed" in payload and payload["primed"] is not True:
+        errors.append("`primed` is present only as true")
+    if "max_rounds" in payload and (type(payload["max_rounds"]) is not int or payload["max_rounds"] < 1):
+        errors.append("`max_rounds` must be a positive integer")
+    return errors
+
+
+def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozenset(),
+                    now: Optional[datetime] = None) -> List[str]:
     del state_path
     if not isinstance(payload, dict):
         return ["State must be a JSON object"]
@@ -773,9 +865,10 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         errors.append("State requires a run_id")
     lifecycle = payload.get("lifecycle")
     if lifecycle in NONTERMINAL_LIFECYCLES:
-        if set(payload) != NONTERMINAL_FIELDS:
-            errors.append(_field_set_error("Nonterminal state must use the exact resumable field set", payload, NONTERMINAL_FIELDS))
+        if not NONTERMINAL_FIELDS <= set(payload) <= NONTERMINAL_FIELDS | NONTERMINAL_OPTIONAL:
+            errors.append(_field_set_error("Nonterminal state must use the exact resumable field set", payload, NONTERMINAL_FIELDS, NONTERMINAL_OPTIONAL))
             return errors
+        errors.extend(_validate_run_options(payload))
         if payload.get("phase") not in PHASES:
             errors.append("Nonterminal phase is invalid")
         if lifecycle == "blocked" and payload.get("phase") != "blocked":
@@ -823,13 +916,26 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         if not isinstance(tasks, list) or not tasks:
             errors.append("Nonterminal state requires at least one task")
             tasks = []
+        primed = payload.get("primed") is True
         identifiers = []
         for task in tasks:
-            errors.extend(_validate_task(task, current_fingerprint, inherited))
+            errors.extend(_validate_task(task, current_fingerprint, inherited, now, primed))
             if isinstance(task, dict):
                 identifiers.append(task.get("id"))
         if len(identifiers) != len(set(identifiers)):
             errors.append("Task ids must be unique")
+        # At the round bound, a task still reviewing a `BLOCK` cannot open another correction round --
+        # `validate_transition` refuses that below -- so the only way forward is to stop unapproved: the
+        # run's own phase must read `blocked`, the same way an unmet decision or a failed Evidence Gate
+        # already stops the run, so the lead's next action is to report the open findings rather than
+        # silently sit on a task nothing can advance.
+        max_rounds = payload.get("max_rounds")
+        if type(max_rounds) is int:
+            for task in tasks:
+                if (isinstance(task, dict) and task.get("status") == "reviewing"
+                        and isinstance(task.get("round"), int) and task["round"] + 1 >= max_rounds
+                        and _blocking(task.get("unresolved_findings")) and payload.get("phase") != "blocked"):
+                    errors.append(f"{task.get('id', '?')} is at --max-rounds {max_rounds}'s bound with an open BLOCK; checkpoint phase blocked and report the open findings")
         # The active-scope collision rule (tasks written at once only where their scopes do not meet, and never ahead of an earlier task whose scope meets theirs) is checked in `validate_transition`, not here, and only against tasks a transition newly dispatches or reopens into a write-active status -- see the comment there. Checking it as a standing fact about a snapshot in isolation would strand a run whose already-active tasks predate the root-scope reading `_scopes_collide` now gives an empty-parts entry (`.`, `./`, `""`): `validate_state` runs on the predecessor of every transition, including `abort`, so a run in that shape could never be checkpointed again, not even to end it.
         if payload.get("current_task_id") is not None and payload.get("current_task_id") not in identifiers:
             errors.append("current_task_id must identify a task")
@@ -841,14 +947,14 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
             latest_verification = []
         else:
             for item in latest_verification:
-                errors.extend(_validate_verification(item, expected_fingerprint=current_fingerprint))
+                errors.extend(_validate_verification(item, expected_fingerprint=current_fingerprint, now=now))
         final_audit = payload.get("final_audit")
         if not isinstance(final_audit, list):
             errors.append("final_audit must be a list")
             final_audit = []
         else:
             for verdict in final_audit:
-                errors.extend(_validate_verdict(verdict, "whole-change", payload.get("current_round", -1), current_fingerprint))
+                errors.extend(_validate_verdict(verdict, "whole-change", payload.get("current_round", -1), current_fingerprint, now=now))
         if payload.get("phase") == "regression_verifying" and latest_verification:
             if any(item.get("exit_code") != 0 for item in latest_verification if isinstance(item, dict)):
                 errors.append("Regression verification evidence must pass")
@@ -856,9 +962,10 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         if payload.get("phase") == "final_audit" and _blocking(payload.get("unresolved_findings")):
             errors.append("Final audit cannot retain a blocking finding")
     elif lifecycle == "completed":
-        if set(payload) != COMPLETED_FIELDS:
-            errors.append(_field_set_error("Completed receipt must use the exact compact field set", payload, COMPLETED_FIELDS))
+        if not COMPLETED_FIELDS <= set(payload) <= COMPLETED_FIELDS | COMPLETED_OPTIONAL:
+            errors.append(_field_set_error("Completed receipt must use the exact compact field set", payload, COMPLETED_FIELDS, COMPLETED_OPTIONAL))
             return errors
+        errors.extend(_validate_run_options(payload))
         if not _valid_time(payload.get("completed_at")):
             errors.append("Completed receipt requires timezone-aware completed_at")
         compact_input = payload.get("input")
@@ -899,7 +1006,7 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
             errors.append("Completed receipt requires final verification")
         else:
             for item in final_verification:
-                errors.extend(_validate_verification(item, expected_fingerprint=fingerprint))
+                errors.extend(_validate_verification(item, expected_fingerprint=fingerprint, now=now))
             if any(not isinstance(item, dict) or item.get("exit_code") != 0 for item in final_verification):
                 errors.append("Completed receipt requires passing final verification")
         errors.extend(_validate_findings(payload.get("carried_findings")))
@@ -914,7 +1021,7 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
         else:
             for verdict in final_audit:
                 round_number = verdict.get("round", -1) if isinstance(verdict, dict) else -1
-                errors.extend(_validate_verdict(verdict, "whole-change", round_number, fingerprint))
+                errors.extend(_validate_verdict(verdict, "whole-change", round_number, fingerprint, now=now))
                 if isinstance(verdict, dict) and not (
                     verdict.get("verdict") in {"PASS", "REVISE"} and verdict.get("fresh") is True and verdict.get("independent") is True
                 ):
@@ -935,9 +1042,10 @@ def validate_state(payload: Any, state_path: Path, inherited: frozenset = frozen
     return errors
 
 
-def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str, Any]) -> List[str]:
+def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str, Any],
+                         now: Optional[datetime] = None) -> List[str]:
     inherited = _legacy_findings(previous) if previous is not None else frozenset()
-    errors = validate_state(candidate, Path("state.json"), inherited)
+    errors = validate_state(candidate, Path("state.json"), inherited, now)
     if previous is None:
         if candidate.get("revision") != 0:
             errors.append("Initial state revision must be zero")
@@ -964,7 +1072,7 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 left, right = collision["tasks"]
                 errors.append(f"{left} and {right} cannot both be under way: their scopes meet at {', '.join(collision['paths'])}")
         return errors
-    previous_errors = validate_state(previous, Path("state.json"), inherited)
+    previous_errors = validate_state(previous, Path("state.json"), inherited, now)
     if candidate.get("lifecycle") == "completed" and _blocking(previous.get("unresolved_findings")):
         errors.append("Completion cannot retain a blocking finding")
     # The acceptance-level rule that an important or critical carry owes `carried_because` applies here too: the run-level `unresolved_findings` this checkpoint is about to freeze into the receipt's `carried_findings` is exactly the list an above-minor carry's cost-control reason is about, and the final audit's own stopping rule now ends every long audit by carrying findings at this level, which is what makes a stated reason here load-bearing rather than optional.
@@ -983,6 +1091,12 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     if candidate.get("lifecycle") in NONTERMINAL_LIFECYCLES:
         if previous.get("input") != candidate.get("input"):
             errors.extend(_amendment_transition_errors(previous.get("input"), candidate.get("input")))
+        # Fixed at `start`, for the life of the run: there is no round-opening command here to hook a
+        # raise onto the way `ralplan open --max-rounds` does, so a run that needs a higher bound is
+        # amended or aborted rather than resumed past its original one.
+        for key in ("primed", "max_rounds"):
+            if previous.get(key) != candidate.get(key):
+                errors.append(f"Transition cannot change {key}")
         if previous.get("worktree", {}).get("root") != candidate.get("worktree", {}).get("root"):
             errors.append("Transition cannot change canonical worktree")
         previous_phase = previous.get("phase")
@@ -1022,6 +1136,12 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                     errors.append("Correction must clear previous acceptance")
                 if task.get("latest_verification"):
                     errors.append("Correction must clear previous verification")
+                # At most `max_rounds` rounds per task, counting the first attempt (round 0) as one of
+                # them: a further correction is refused once it would need round `max_rounds` or later.
+                # Nothing is accepted by running out of rounds -- the run stops instead, at the invariant
+                # above requiring `blocked` once a task is stuck here with a `BLOCK` still open.
+                if type(candidate.get("max_rounds")) is int and new_round >= candidate["max_rounds"]:
+                    errors.append(f"{task['id']} cannot open round {new_round}: --max-rounds {candidate['max_rounds']} allows at most {candidate['max_rounds']} round(s) per task; checkpoint phase blocked and report the open findings instead")
             if old.get("scope") != task.get("scope") or old.get("completion_condition") != task.get("completion_condition"):
                 errors.append("Existing task scope and completion condition cannot change during execution")
             if new_status == "accepted" and old_status != "accepted":
@@ -1029,6 +1149,34 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
                 expected = scoped.get("fingerprint") if isinstance(scoped, dict) else None
                 if expected is not None and isinstance(task.get("acceptance"), dict) and task["acceptance"].get("worktree_fingerprint") != expected:
                     errors.append(f"{task['id']} acceptance must match its scope fingerprint at this checkpoint; the scope moved after review")
+            elif new_status == "accepted" and old_status == "accepted" and old.get("acceptance") != task.get("acceptance"):
+                # An amendment moves the run's input without touching an already-accepted task, so its
+                # acceptance still names the revision it was made under. The only route back to a current
+                # one is a re-confirmation lane: fresh and independent, judging the task against the
+                # amended plan, its verdict appended to the reviewers already on record rather than
+                # replacing them, with the round and the code it accepted left exactly as they were --
+                # only the revision moves. Everything else about an accepted task's facts is frozen.
+                old_acc = old.get("acceptance") if isinstance(old.get("acceptance"), dict) else {}
+                new_acc = task.get("acceptance") if isinstance(task.get("acceptance"), dict) else {}
+                old_reviewers = old_acc.get("reviewers") if isinstance(old_acc.get("reviewers"), list) else []
+                new_reviewers = new_acc.get("reviewers") if isinstance(new_acc.get("reviewers"), list) else []
+                is_confirmation = (
+                    new_acc.get("round") == old_acc.get("round")
+                    and new_acc.get("worktree_fingerprint") == old_acc.get("worktree_fingerprint")
+                    and new_acc.get("fixed") == old_acc.get("fixed")
+                    and len(new_reviewers) == len(old_reviewers) + 1
+                    and new_reviewers[:len(old_reviewers)] == old_reviewers
+                )
+                if not is_confirmation:
+                    errors.append(f"{task['id']} acceptance can only change by a re-confirmation lane appending one fresh independent verdict and moving input_sha256 to the run's current input hash")
+                else:
+                    added = new_reviewers[-1]
+                    if old_acc.get("input_sha256") == new_acc.get("input_sha256"):
+                        errors.append(f"{task['id']} re-confirmation must move input_sha256 to a different revision than it was accepted under")
+                    elif new_acc.get("input_sha256") != candidate.get("input", {}).get("sha256"):
+                        errors.append(f"{task['id']} re-confirmation must move input_sha256 to the run's current input hash")
+                    if not isinstance(added, dict) or added.get("fresh") is not True or added.get("independent") is not True:
+                        errors.append(f"{task['id']} re-confirmation verdict must be fresh and independent")
             # `dispatch_scope_fingerprint` may change on exactly two transitions: `pending -> implementing`, where `dispatch` (or `_autofill`, for any candidate that leaves it unfilled) seals it fresh, and `parked -> pending`, where `unpark` drops it so the next dispatch seals again. Every other transition must carry it forward unchanged -- explicitly including `accepted -> correcting`, which is not a write-active status and so was once missed here, the gap a forged seal could pass through unchecked.
             seal_may_change = (old_status == "pending" and new_status == "implementing") or (old_status == "parked" and new_status == "pending")
             if not seal_may_change and old.get("dispatch_scope_fingerprint") != task.get("dispatch_scope_fingerprint"):
@@ -1069,6 +1217,21 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     if candidate.get("lifecycle") == "completed":
         if any(task.get("status") != "accepted" for task in previous.get("tasks", [])):
             errors.append("Completion requires every task accepted")
+        # An amendment can move the run's input without unseating an already-accepted task, so a task
+        # accepted under a superseded revision is not, on its own, evidence the amendment left it
+        # untouched -- it is only evidence nobody has re-confirmed it yet. The run cannot complete while
+        # one stands unconfirmed against the input this checkpoint is about to freeze.
+        current_input_hash = previous.get("input", {}).get("sha256")
+        if any(
+            isinstance(task, dict) and task.get("status") == "accepted"
+            and isinstance(task.get("acceptance"), dict)
+            and _acceptance_input_hash(task["acceptance"], previous.get("input")) != current_input_hash
+            for task in previous.get("tasks", [])
+        ):
+            errors.append("Completion requires every accepted task confirmed against the run's current input revision")
+        for key in ("primed", "max_rounds"):
+            if previous.get(key) != candidate.get(key):
+                errors.append(f"Completion receipt must carry {key} as the run held it")
         final_fingerprint = candidate.get("worktree", {}).get("final_fingerprint")
         expected_input = {
             "reference": previous.get("input", {}).get("reference"),
@@ -1306,6 +1469,13 @@ def _autofill(candidate: Dict[str, Any], destination: Path, root: Optional[Path]
                 else:
                     parked_info.pop("route", None)
                     parked_info.pop("diverged_paths", None)
+            # The input hash current at the moment of acceptance -- the plan revision this acceptance is
+            # made under, and what a later `amend` moves away from underneath it.
+            acceptance = task.get("acceptance")
+            if isinstance(acceptance, dict) and acceptance.get("input_sha256") == AUTO:
+                input_value = candidate.get("input")
+                if isinstance(input_value, dict) and isinstance(input_value.get("sha256"), str):
+                    acceptance["input_sha256"] = input_value["sha256"]
             scoped = task.get("scope_fingerprint")
             fill(task, scoped["fingerprint"] if isinstance(scoped, dict) and _valid_hash(scoped.get("fingerprint")) else combined)
     fill(candidate, combined)
@@ -1316,9 +1486,13 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
 
 
 def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
+    # Read once, so every future-time check in this checkpoint -- the candidate's own and, inside
+    # `validate_transition`, the predecessor's -- reads the same instant rather than one that moves
+    # between two calls a few milliseconds apart.
+    now = datetime.now().astimezone()
     _root_value = candidate.get("worktree", {}).get("root") if isinstance(candidate.get("worktree"), dict) else candidate.get("worktree_root")
     _autofill(candidate, destination, Path(_root_value) if isinstance(_root_value, str) else None)
-    candidate_errors = validate_state(candidate, destination, _legacy_findings(_load(destination)) if destination.exists() else frozenset())
+    candidate_errors = validate_state(candidate, destination, _legacy_findings(_load(destination)) if destination.exists() else frozenset(), now)
     if candidate_errors:
         raise ValueError("; ".join(candidate_errors))
     lifecycle = candidate["lifecycle"]
@@ -1417,7 +1591,7 @@ def _promote(destination: Path, candidate: Dict[str, Any]) -> None:
 
     def validate_current_transition() -> None:
         previous = _load(destination) if destination.exists() else None
-        errors = validate_transition(previous, candidate)
+        errors = validate_transition(previous, candidate, now)
         if errors:
             raise ValueError("; ".join(errors))
 
@@ -1507,7 +1681,7 @@ def _load_tasks(path: Path) -> List[Dict[str, Any]]:
 
 def start(destination: Path, kind: str, reference: Optional[Path], summary: Optional[str],
           declared_status: Optional[str], worktree: Path, tasks_path: Path,
-          next_action: Optional[str]) -> None:
+          next_action: Optional[str], primed: bool = False, max_rounds: Optional[int] = None) -> None:
     if destination.exists():
         raise ValueError(f"{destination} already exists; a run is started once")
     root, common = canonical_worktree(worktree)
@@ -1527,7 +1701,7 @@ def start(destination: Path, kind: str, reference: Optional[Path], summary: Opti
         digest = _sha256_bytes(summary.encode("utf-8"))
         reference_value, summary_value = None, summary
     tasks = _load_tasks(tasks_path)
-    _promote(destination, {
+    candidate = {
         "schema_version": SCHEMA_VERSION,
         "revision": AUTO,
         "workflow": "execute",
@@ -1545,7 +1719,12 @@ def start(destination: Path, kind: str, reference: Optional[Path], summary: Opti
         "unresolved_findings": [],
         "final_audit": [],
         "next_action": next_action or f"dispatch {tasks[0]['id']} to an Executor",
-    })
+    }
+    if primed:
+        candidate["primed"] = True
+    if max_rounds is not None:
+        candidate["max_rounds"] = max_rounds
+    _promote(destination, candidate)
 
 
 def amend(destination: Path, reason: str, summary: Optional[str], next_action: Optional[str]) -> None:
@@ -1700,6 +1879,10 @@ def main() -> int:
     start_parser.add_argument("--worktree", type=Path, required=True, help="any path inside the canonical worktree")
     start_parser.add_argument("--tasks", type=Path, required=True, dest="tasks_path",
                               help="JSON array of tasks, each with id, title, scope, completion_condition, verification_path, rationale")
+    start_parser.add_argument("--primed", action="store_true",
+                              help="after a BLOCK correction, the reviewer that raised it may check the fix and approve")
+    start_parser.add_argument("--max-rounds", type=int, default=None, dest="max_rounds",
+                              help="stop each task blocked, unapproved, when a BLOCK still stands at this round")
     start_parser.add_argument("--next", dest="next_action", default=None)
 
     amend_parser = commands.add_parser("amend", help="the input changed under the run: re-hash it and record why, in place")
@@ -1773,7 +1956,7 @@ def main() -> int:
         if args.command == "start":
             destination = _resolve_start_destination(args)
             start(destination, args.kind, args.reference, args.summary, args.declared_status,
-                  args.worktree, args.tasks_path, args.next_action)
+                  args.worktree, args.tasks_path, args.next_action, args.primed, args.max_rounds)
             print(destination)
             return 0
         checkpoint(args.destination, args.candidate)
