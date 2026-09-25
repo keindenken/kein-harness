@@ -273,3 +273,9 @@ The same earlier thread measured one such override, `plugins."<name>".enabled=fa
 - `--round <n>`: run only the n-th round.
 
 Suggestions to weigh alongside, not yet discussed with the owner: `--max-rounds <n>` to stop at a bound and hand back `Draft` instead of re-arming the five-round trigger; `--lanes`/`--reviewer` presets such as a single-lane run; `--dry-run` that stops after the round-1 package is assembled so the package itself can be inspected (which would not have caught the `Status` leak in `docs/skills/ralplan/open.md`, since that one bypassed the package); and `--resume <run>` if resuming is not already implicit in the ledger.
+
+## A lead that never started an `ocs team` lane cannot be nudged by mail
+
+Measured 2026-09-25 (findings `260925-orca-messaging-between-peer-claude-sessions.md`): Orca types its "You have N orchestration message(s)" nudge into a pane about a second after mail arrives, but only when that pane is bound to a Run and has been seen idle. A busy pane gets it at its next idle, and a pane bound to no Run got none in twelve minutes. A lead is bound only as a side effect of its first `ocs team` lane, so before that, mail another session sends it just sits there.
+
+The direction is a home Run per lead: bound once at session start, so the lead is reachable from the first minute. Where to create it is open. The SessionStart hook runs before any Orca pane identity is known to be stable, and a lane's `run-create` would still move the binding off it (Orca 1.4.207 has no unbind, only `run-use`). So `ocs team` would also have to rebind to the home Run after starting its lane, and its `worker_done` cleanup, which assumes it is bound to the lane Run, would have to change with it. The cleanup is also not stopping the late nudges it exists to stop: the two descvi leads received 40 across their lanes, often two per lane.
