@@ -2,9 +2,11 @@
 #: Ask another vendor's CLI a question as a canonical role. Advisory only.
 #
 # Usage:
-#   ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
+#   ocs ask <provider> [--agent <role>] [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
 #
 # The assembled prompt is exactly the role prompt, a blank line, and the task.
+# Without `--agent` it is the task alone, answered at the `GENERAL_TIER` model: the counterpart of Claude's `general-purpose`, for a question no canonical role fits.
+# That is an absence rather than a role file, because a file under `agents/` would also render as a Claude subagent duplicating the built-in one, and because the lane's sandbox, not a role, is what bounds it.
 # Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
 # Put them in the task brief.
 set -eu
@@ -24,12 +26,16 @@ TIER_FAST_MODEL='gpt-5.6-luna'
 # Pinning medium everywhere corrects that and leaves the tier to mean model capability, which is the one thing it can mean on both sides.
 DEFAULT_EFFORT='medium'
 
+# The tier of a lane with no role. Claude's `general-purpose` inherits the lead's model, and the lead runs deep.
+GENERAL_TIER='deep'
+
 usage() {
   cat >&2 <<EOF
-usage: ocs ask <provider> --agent <role> [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
+usage: ocs ask <provider> [--agent <role>] [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
 
   providers: $PROVIDERS
-  roles:     read-only roles only; run with an unknown role to list them
+  roles:     read-only roles only; run with an unknown role to list them.
+             Without --agent the task goes alone, at the $GENERAL_TIER tier.
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
 
@@ -69,7 +75,6 @@ while [ $# -gt 0 ]; do
 done
 
 [ -n "$provider" ] || { printf 'ocs ask: no provider given\n' >&2; usage; exit 1; }
-[ -n "$role" ]     || { printf 'ocs ask: no role given (--agent <role>)\n' >&2; usage; exit 1; }
 # A lane package is a document, not a shell word. The first measured cross-vendor round wrote a
 # 646-line package and a wrapper script to get it through `argv`; `--task-file` is that wrapper.
 if [ -n "$task_file" ]; then
@@ -106,24 +111,28 @@ print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] == "re
 ' "$manifest"
 )
 
-case " $readonly_roles " in
-  *" $role "*) ;;
-  *)
-    if [ -f "$roles/$role.md" ]; then
-      printf "ocs ask: role '%s' is write-capable and is not available here.\n" "$role" >&2
-      printf '  `ask` is advisory. Use a workflow skill for work that changes files.\n' >&2
-    else
-      printf "ocs ask: unknown role '%s'\n" "$role" >&2
-    fi
-    printf '  available: %s\n' "$readonly_roles" >&2
-    exit 1 ;;
-esac
+if [ -n "$role" ]; then
+  case " $readonly_roles " in
+    *" $role "*) ;;
+    *)
+      if [ -f "$roles/$role.md" ]; then
+        printf "ocs ask: role '%s' is write-capable and is not available here.\n" "$role" >&2
+        printf '  `ask` is advisory. Use a workflow skill for work that changes files.\n' >&2
+      else
+        printf "ocs ask: unknown role '%s'\n" "$role" >&2
+      fi
+      printf '  available: %s\n' "$readonly_roles" >&2
+      exit 1 ;;
+  esac
+fi
 
 if [ -z "$model" ]; then
-  tier=$(python3 -c '
+  if [ -z "$role" ]; then tier=$GENERAL_TIER
+  else tier=$(python3 -c '
 import json, sys
 print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 ' "$manifest" "$role")
+  fi
   case "$tier" in
     deep)     model=$TIER_DEEP_MODEL ;;
     standard) model=$TIER_STANDARD_MODEL ;;
@@ -133,7 +142,11 @@ print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 fi
 [ -n "$effort" ] || effort=$DEFAULT_EFFORT
 
-prompt=$(printf '%s\n\n%s' "$(role_prompt_body "$roles/$role.md")" "$task")
+if [ -n "$role" ]; then
+  prompt=$(printf '%s\n\n%s' "$(role_prompt_body "$roles/$role.md")" "$task")
+else
+  prompt=$task
+fi
 
 # The vanilla home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}
@@ -157,7 +170,7 @@ status=0
 CODEX_HOME="$codex_home" "$@" </dev/null >"$work/stdout.txt" 2>"$work/stderr.txt" || status=$?
 
 if [ "$trace" -eq 1 ]; then
-  dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/ask)/$(date +%y%m%d-%H%M%S)-$role"
+  dir="$("$KEIN_ROOT/libexec/ocs-state-dir" runs/ask)/$(date +%y%m%d-%H%M%S)-${role:-general}"
   mkdir -p "$dir"
   printf '%s' "$prompt" > "$dir/prompt.txt"
   {

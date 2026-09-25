@@ -2,7 +2,7 @@
 #: Add one supervised teammate from another vendor's CLI as a canonical role.
 #
 # Usage:
-#   ocs team <provider> --agent <role> [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+#   ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
 #   ocs team close <run-dir> [--discard]
 #
 # This is the write-capable half of the bridge; `ocs ask` is the read-only half.
@@ -10,6 +10,7 @@
 # The role prompt goes in as `developer_instructions`, not into the task text.
 # Orca's `--inject` has exactly one slot, and everything put there lands under its `=== TASK ===` heading — so a role prompt sent that way tells the worker that its identity is part of the job.
 # `developer_instructions` appends to the developer message instead, which leaves identity, reporting rules, and the task each in their own layer.
+# Without `--agent` nothing is injected and the worker is the provider's own agent at the `GENERAL_TIER` model, the counterpart of Claude's `general-purpose`; `ocs ask` says why that is an absence and not a role file.
 # Orca owns the Run, Task, Dispatch, completion signal, and recovery, and none of that is reimplemented here.
 # What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
 # Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
@@ -30,6 +31,7 @@ TIER_DEEP_MODEL='gpt-5.6-sol'
 TIER_STANDARD_MODEL='gpt-5.6-terra'
 TIER_FAST_MODEL='gpt-5.6-luna'
 DEFAULT_EFFORT='medium'
+GENERAL_TIER='deep'
 
 # A worker reports by calling Orca from inside its own sandbox.
 # Under `read-only`, and under a plain `workspace-write`, that call fails with the app unreachable while the binary itself runs fine, so the lane completes its work and its verdict is never delivered.
@@ -50,11 +52,12 @@ STATE_DIRNAME='.agents'
 
 usage() {
   cat >&2 <<EOF
-usage: ocs team <provider> --agent <role> [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
+usage: ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B] [--check] [--model M] [--effort E] [--timeout S] [--keep] (<task...> | --task-file <path>)
        ocs team close <run-dir> [--discard]
 
   providers: $PROVIDERS
-  roles:     write-capable roles only; run with an unknown role to list them
+  roles:     write-capable roles only; run with an unknown role to list them.
+             Without --agent the worker gets no role prompt, at the $GENERAL_TIER tier.
   --worktree: where the worker writes. Default is here. \`new\` creates an
               Orca-managed worktree for this lane; a path uses an existing one.
   --branch:  with \`--worktree new\`, the lane's branch name (default: Orca's).
@@ -121,7 +124,6 @@ while [ $# -gt 0 ]; do
 done
 
 [ -n "$provider" ] || { printf 'ocs team: no provider given\n' >&2; usage; exit 1; }
-[ -n "$role" ]     || { printf 'ocs team: no role given (--agent <role>)\n' >&2; usage; exit 1; }
 # A lane package is a document, not a shell word. The first measured cross-vendor round wrote a
 # 646-line package and a wrapper script to get it through `argv`; `--task-file` is that wrapper.
 if [ -n "$task_file" ]; then
@@ -158,24 +160,30 @@ print(" ".join(sorted(k for k, v in manifest.items() if v["sandbox_mode"] != "re
 ' "$manifest"
 )
 
-case " $write_roles " in
-  *" $role "*) ;;
-  *)
-    if [ -f "$roles/$role.md" ]; then
-      printf 'ocs team: role %s is read-only. Use `ocs ask %s --agent %s` instead.\n' "$role" "$provider" "$role" >&2
-      printf '  A supervised session buys nothing for a lane that only reads.\n' >&2
-    else
-      printf "ocs team: unknown role '%s'\n" "$role" >&2
-    fi
-    printf '  available: %s\n' "$write_roles" >&2
-    exit 1 ;;
-esac
+if [ -n "$role" ]; then
+  case " $write_roles " in
+    *" $role "*) ;;
+    *)
+      if [ -f "$roles/$role.md" ]; then
+        printf 'ocs team: role %s is read-only. Use `ocs ask %s --agent %s` instead.\n' "$role" "$provider" "$role" >&2
+        printf '  A supervised session buys nothing for a lane that only reads.\n' >&2
+      else
+        printf "ocs team: unknown role '%s'\n" "$role" >&2
+      fi
+      printf '  available: %s\n' "$write_roles" >&2
+      exit 1 ;;
+  esac
+fi
+# Names the lane's branch, run directory, report and terminal whether or not it has a role.
+lane=${role:-general}
 
 if [ -z "$model" ]; then
-  tier=$(python3 -c '
+  if [ -z "$role" ]; then tier=$GENERAL_TIER
+  else tier=$(python3 -c '
 import json, sys
 print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 ' "$manifest" "$role")
+  fi
   case "$tier" in
     deep)     model=$TIER_DEEP_MODEL ;;
     standard) model=$TIER_STANDARD_MODEL ;;
@@ -229,7 +237,7 @@ case "$worktree_arg" in
     base_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)
     [ "$base_branch" != HEAD ] || base_branch=''
     worktree=$(
-      orca worktree create --name "${branch:-kein-$role-$stamp}" --repo "$repo_selector" \
+      orca worktree create --name "${branch:-kein-$lane-$stamp}" --repo "$repo_selector" \
         ${base_branch:+--base-branch "$base_branch"} --setup run --json 2>/dev/null |
       python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("result") or d).get("worktree",{}).get("path",""))' 2>/dev/null
     )
@@ -303,14 +311,14 @@ orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not re
 
 # Resolved from the worker's worktree, not the lead's: `workspace-write` is scoped to the tree the worker
 # holds, so a report path anywhere else is one the worker cannot write and the lane would complete silently.
-dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$role"
+dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$lane"
 
 # The report is the deliverable and does not belong in the tree the repository ignores. `runs/` is
 # declared transient in `.gitignore` and everything else under `.agents/kein/` is a kept record, so a
 # report written into `runs/` is the one file there worth keeping -- and the only reason the directory
 # cannot simply be deleted when it looks cluttered.
 reports="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" reports)"
-report="$reports/$stamp-$role.md"
+report="$reports/$stamp-$lane.md"
 
 # The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
 role_file="$dir/role.md"
@@ -318,7 +326,7 @@ role_file="$dir/role.md"
 # `developer_instructions` is a Codex configuration field, and an unrecognized field is ignored rather than refused.
 # A version that dropped it would leave a worker running with no role at all and nothing in the output to say so, so prove the injection lands before spending a session on it.
 # `debug prompt-input` renders the model-visible prompt without calling the model, which makes this about a second and free.
-if ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
+if [ -n "$role" ] && ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
   printf 'ocs team: this provider build no longer accepts `developer_instructions`.\n' >&2
   printf '  A worker would start with no role prompt and nothing would report the omission.\n' >&2
   printf '  Re-check which field carries developer instructions before using this command.\n' >&2
@@ -342,7 +350,9 @@ plugin_flags=''
 for override in $(codex_plugin_overrides "$codex_home"); do
   plugin_flags="$plugin_flags -c '$override'"
 done
-launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags -c developer_instructions=\"\$(cat '$role_file')\""
+role_flag=''
+[ -z "$role" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
+launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree codex -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$plugin_flags$role_flag"
 
 json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
 for k in sys.argv[1].split("."):
@@ -396,7 +406,7 @@ if [ "$check" -eq 1 ]; then
   # than per-invocation -- the run directory is composed from the resolved root and is not created
   # here -- so repeated checks add nothing further. What a check promises is that nothing was spent.
   printf 'ocs team: preconditions pass, and no worker holds this package. Nothing was spent.\n' >&2
-  printf '\nrole      %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "$role" "$worktree" "$report" "$dir"
+  printf '\nrole      %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "${role:-(none)}" "$worktree" "$report" "$dir"
   printf '\n--- launch ---\n%s\n' "$launch"
   printf '\n--- spec ---\n%s\n' "$spec"
   exit 0
@@ -405,7 +415,7 @@ fi
 # Created here rather than where their paths were resolved, so that a check leaves the filesystem as
 # it found it and can be run as often as it is useful.
 mkdir -p "$dir" "$reports"
-role_prompt_body "$roles/$role.md" > "$role_file"
+[ -z "$role" ] || role_prompt_body "$roles/$role.md" > "$role_file"
 
 
 fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
@@ -419,7 +429,7 @@ fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
 # deleting the Executor-vendor requirement: written by the mechanism rather than by a lead who forgets.
 printf '%s' "$spec" > "$dir/spec.txt"
 
-run_id=$(orca orchestration run-create --objective "kein $role lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
+run_id=$(orca orchestration run-create --objective "kein $lane lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
 [ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
 
 task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2>/dev/null | json_field task.id)
@@ -439,7 +449,7 @@ task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2
   printf '%s\n' "$launch"
 } > "$dir/command.txt"
 
-handle=$(orca terminal create --worktree "path:$worktree" --title "kein-$role" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
+handle=$(orca terminal create --worktree "path:$worktree" --title "kein-$lane" --command "$launch" --json 2>/dev/null | json_field terminal.handle)
 if [ -z "$handle" ]; then
   printf 'ocs team: could not create a worker terminal in %s\n' "$worktree" >&2
   printf '  Orca addresses terminals by worktree; this path must be one Orca knows.\n' >&2
