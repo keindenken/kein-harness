@@ -260,7 +260,7 @@ Done as the owner proposed: both bridges launch with `codex_vanilla_args` (`plug
 
 Two things still reach a lane. `hooks.json` stays on purpose, since Orca reads a worker's state through it. The home `AGENTS.md` stays because no config key separates it from the repository's; it is the operator's writing rules and does no harm today, but it is the one piece of the home a lane cannot shed.
 
-On the memories contradiction noted above: memories do reach a lane (it quoted the summary when they were on), but the memory folder on 2026-09-26 mentions neither `superpowers` nor Korean, so whether memories caused those two incidents stays unconfirmed. The folder does hold summaries of other runs and a skill memories wrote, which is reason enough to keep them off.
+On the memories contradiction noted above: the owner found the `superpowers` references and the Korean in the memory folder and cleared it, which is why the folder on 2026-09-26 mentions neither. The 2026-08-29 reading that memories were not involved was taken before that, on a folder that had not yet been looked at for this. Memories do reach a lane when on (it quoted the summary), and the folder still holds summaries of other runs and a skill memories wrote.
 
 ## `ralplan` and `execute`: a fix that does not need another review, and run flags — raised 2026-09-24
 
