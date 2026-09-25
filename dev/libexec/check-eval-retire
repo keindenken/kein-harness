@@ -128,8 +128,65 @@ with tempfile.TemporaryDirectory() as tmp:
     if (run_dir / "transcripts" / "bare").exists():
         failures.append("an empty transcript directory was created for a home that had none")
 
+    # --- sessions_outside, and the plumbing check that reads what it wrote --------------------
+    # `check_plumbing` has read `record["visited_outside"]` since the check was written, but
+    # nothing ever called `sessions_outside` to fill it in, so the isolation check always passed.
+    # This proves both ends: the function names the stray directory, and a record that carries
+    # its result actually fails the check that is supposed to catch one.
+    permitted = tmp / "worktrees" / "with-skill"
+    permitted.mkdir(parents=True)
+    stray = tmp / "elsewhere"
+    stray.mkdir()
+    home = tmp / "sessions-home"
+    stray_slug = str(stray.resolve()).replace("/", "-").replace(".", "-")
+    permitted_slug = str(permitted.resolve()).replace("/", "-").replace(".", "-")
+    (home / "projects" / permitted_slug).mkdir(parents=True)
+    (home / "projects" / stray_slug).mkdir(parents=True)
+
+    strayed = module.sessions_outside(home, [permitted])
+    if strayed != [stray_slug]:
+        failures.append(f"sessions_outside did not name the stray directory: {strayed}")
+
+    def minimal_record(visited_outside):
+        # Just enough for `check_plumbing` to reach the "no session ran outside" check on the
+        # `probe=False` path without raising on a field some other check reads.
+        record = {
+            "path": str(permitted), "expected_commit": "deadbeef",
+            "worktree": {"toplevel": str(permitted), "head": "deadbeef"},
+            "sanitized": ["nothing"], "plugins": {},
+            "run": {
+                "inventory": {"skills": ["kein:ralplan"], "plugins": [{"name": "kein"}], "mcp_servers": []},
+                "subagents_dispatched": [{"agent": "kein:planner", "background": False}],
+            },
+            "produced": ["plan.md"], "invoke": "", "team_traces": [], "ask_traces": [], "ralplan_lanes": [],
+        }
+        if visited_outside is not None:
+            record["visited_outside"] = visited_outside
+        return record
+
+    def isolation_check(record):
+        checks = module.check_plumbing({"with-skill": record}, False, {})
+        return next(c for c in checks if c["check"] == "no session ran outside an arm worktree")
+
+    wired = isolation_check(minimal_record(module.sessions_outside(home, [permitted])))
+    if wired["pass"]:
+        failures.append(f"check_plumbing passed with a stray directory on disk: {wired}")
+
+    (home / "projects" / stray_slug).rmdir()
+    clean = isolation_check(minimal_record(module.sessions_outside(home, [permitted])))
+    if not clean["pass"]:
+        failures.append(f"check_plumbing failed once the stray directory was gone: {clean}")
+
+    # Mutate the wiring back out: a record nothing ever wrote `visited_outside` into is exactly
+    # the bug this replaces, and it must go back to passing even with the stray directory
+    # restored -- proving the check's result depends on the write, not on something else.
+    (home / "projects" / stray_slug).mkdir(parents=True)
+    unwired = isolation_check(minimal_record(None))
+    if not unwired["pass"]:
+        failures.append("the pre-fix shape (no visited_outside key) unexpectedly failed; the mutation is not isolating what it should")
+
 if failures:
     for failure in failures:
         print(f"check-eval-retire: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-eval-retire: variant checkouts and config homes are retired, transcripts and their slugs survive")
+print("check-eval-retire: variant checkouts and config homes are retired, transcripts and their slugs survive, and a session outside its arm worktree fails the plumbing check")

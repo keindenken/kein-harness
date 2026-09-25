@@ -647,10 +647,24 @@ def launch_command(prompt, model, probe, plugin_dir, max_turns, denied=(), lead_
     return command
 
 
+def without_plugin_bins(path):
+    """PATH minus every plugin `bin/` the operator's own session put there.
+
+    Claude Code appends each loaded plugin's `bin/` to PATH, so a run launched from a session that has the harness hands every arm that session's `ocs` ahead of the arm's own: a `--variant` arm would run its skills from the pinned commit and its state commands from the operator's tree. `ocs` now refuses when it sees two harness trees, so an arm inheriting one would fail rather than mix. The arm's Claude Code appends its own plugins' `bin/` again.
+    """
+    kept = []
+    for entry in (path or "").split(os.pathsep):
+        if entry and entry.rstrip("/").endswith("/bin") and (Path(entry).parent / ".claude-plugin" / "plugin.json").is_file():
+            continue
+        kept.append(entry)
+    return os.pathsep.join(kept)
+
+
 def arm_environment(worktree, config_home, findings_dir=None):
     """The arm's environment: the operator's, with every variable that would leak their own state pinned."""
     return dict(os.environ, CLAUDE_CONFIG_DIR=str(config_home), KEIN_STATE_ROOT=str(worktree),
-                KEIN_FINDINGS_DIR=str(findings_dir or findings_dir_for(config_home)))
+                KEIN_FINDINGS_DIR=str(findings_dir or findings_dir_for(config_home)),
+                PATH=without_plugin_bins(os.environ.get("PATH", "")))
 
 
 def launch(arm, worktree, prompt, model, probe, timeout, events_path, config_home, plugin_dir, max_turns, denied=(), lead_prompt=None, findings_dir=None):
@@ -722,9 +736,18 @@ def resolve_arms(options, run_dir, model, plugins=("kein",)):
             plugin = prepare_plugin(run_dir / "plugin", model)
         else:
             plugin = prepare_plugins(plugin_sources(plugins, KEIN_REPO_ROOT), run_dir, model, "treatment")
+        # A `--variant` arm names the commit it pins; this pair copies whatever the harness
+        # repository holds right now, which is exactly the state a default run is usually
+        # measuring. Recorded here, beside `plugin`, so the manifest can say what ran rather
+        # than only where it was copied from -- `dirty` in particular, since an uncommitted
+        # change is the reason someone runs the default pair instead of pinning a `--variant`.
+        commit = run(["git", "rev-parse", "HEAD"], cwd=KEIN_REPO_ROOT).stdout.decode().strip()
+        dirty = bool(run(["git", "status", "--porcelain"], cwd=KEIN_REPO_ROOT).stdout.decode().strip())
         return {
             name: {**spec, "plugin": plugin if spec["inject"] else None,
-                   "role": "treatment" if spec["inject"] else "control"}
+                   "role": "treatment" if spec["inject"] else "control",
+                   "commit": commit if spec["inject"] else None,
+                   "dirty": dirty if spec["inject"] else None}
             for name, spec in ARMS.items()
             if not options.arm or name in options.arm
         }
@@ -1104,9 +1127,15 @@ def run_case_mode(options, model, config_home_root):
         marks = "".join("." if graded[g["name"]]["passed"] else "x" for g in graders)
         print(f"[{arm}] run {index + 1}/{replicates} exit={outcome['exit_code']} {outcome['seconds']}s "
               f"{outcome['assistant_turns']} turns  graders {marks}", file=sys.stderr)
+        # Read now, while this replicate's own config home still holds `projects/` -- it is
+        # retired to `transcripts/<arm>-<index>/` once every replicate has finished. Unlike the
+        # fixture pair, a replicate never shares its home, so its own worktree is the whole
+        # permitted set.
+        visited_outside = sessions_outside(homes[job], [worktree])
         if not options.keep:
             shutil.rmtree(worktree, ignore_errors=True)
-        return job, {"run": outcome, "produced": produced, "graders": graded, "artifacts": str(artifacts)}
+        return job, {"run": outcome, "produced": produced, "graders": graded, "artifacts": str(artifacts),
+                     "visited_outside": visited_outside}
 
     try:
         records = {arm: [None] * replicates for arm, _ in jobs}
@@ -1317,6 +1346,9 @@ def main():
     # One pinned config home for the whole run, created empty, so no arm inherits the operator's plugins or MCP servers.
     config_home = prepare_config_home(run_dir / "config-home")
     arms = resolve_arms(options, run_dir, model)
+    # Both arm worktrees share this one config home, so either arm's session landing in the
+    # other's is not a stray -- only a project directory naming neither is.
+    permitted_worktrees = [run_dir / "worktrees" / name for name in arms]
 
     try:
         records = {}
@@ -1344,12 +1376,20 @@ def main():
                 "sanitized": sanitized,
                 "sanitized_paths": touched,
                 "plugins": loaded,
+                # The harness repository's own commit (and whether it was dirty) as of the
+                # copy this arm ran, distinct from `expected_commit`, which is the fixture
+                # repository's. Null for the control arm, which carries no plugin copy.
+                "harness_commit": arms[arm].get("commit"),
+                "harness_dirty": arms[arm].get("dirty"),
                 "run": outcome,
                 "produced": produced,
                 "invoke": invoke,
                 "ask_traces": ask_traces(worktree),
                 "team_traces": team_traces(worktree),
                 "ralplan_lanes": ralplan_lanes(worktree),
+                # Read now, while the config home still holds `projects/` -- it is retired
+                # (see `retire_config_home`) once every arm has finished.
+                "visited_outside": sessions_outside(config_home, permitted_worktrees),
             }
             print(f"[{arm}] exit={outcome['exit_code']} {outcome['seconds']}s, {outcome['assistant_turns']} turns, {len(produced)} files", file=sys.stderr)
 

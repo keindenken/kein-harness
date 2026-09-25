@@ -7,10 +7,12 @@
 # else here reads a command line, so a change of that kind would surface only as a result nobody
 # could explain.
 import importlib.util
+import json
 import os
 import sys
 import tempfile
 from pathlib import Path
+from types import SimpleNamespace
 
 DEV_ROOT = Path(os.environ["KEIN_DEV_ROOT"])
 spec = importlib.util.spec_from_file_location("kein_eval_run", DEV_ROOT / "eval" / "run.py")
@@ -103,8 +105,79 @@ with tempfile.TemporaryDirectory() as tmp:
     if module.arm_environment(root / "worktree", home, supplied)["KEIN_FINDINGS_DIR"] != str(supplied):
         failures.append("an arm's supplied findings copy did not reach it")
 
+# --- an arm inherits no plugin bin/ from the operator's session ----------------------------------
+# A run launched from a session with the harness would otherwise put that session's `ocs` ahead of the arm's own, and `ocs` refuses two harness trees.
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    plugin_bin = root / "operator-plugin" / "bin"
+    plugin_bin.mkdir(parents=True)
+    (root / "operator-plugin" / ".claude-plugin").mkdir()
+    (root / "operator-plugin" / ".claude-plugin" / "plugin.json").write_text('{"name": "kein"}')
+    plain_bin = root / "tools" / "bin"
+    plain_bin.mkdir(parents=True)
+    kept = module.without_plugin_bins(os.pathsep.join([str(plain_bin), str(plugin_bin), "/usr/bin"]))
+    if str(plugin_bin) in kept.split(os.pathsep):
+        failures.append("an operator plugin's bin/ reached the arm's PATH")
+    if kept.split(os.pathsep) != [str(plain_bin), "/usr/bin"]:
+        failures.append(f"stripping plugin bins disturbed the rest of PATH: {kept}")
+    saved_path = os.environ.get("PATH", "")
+    os.environ["PATH"] = os.pathsep.join([str(plain_bin), str(plugin_bin)])
+    try:
+        if str(plugin_bin) in module.arm_environment(root / "worktree", root / "home")["PATH"].split(os.pathsep):
+            failures.append("arm_environment passed an operator plugin's bin/ through to the arm")
+    finally:
+        os.environ["PATH"] = saved_path
+
+# --- the default pair records the harness commit it ran, and whether it was dirty --------------
+# A `--variant` arm names the commit it pins in its own spec; the built-in pair copies whatever
+# the harness repository holds right now, which is exactly what a default run is usually
+# measuring, and until `resolve_arms` set it, nothing recorded which commit that was.
+with tempfile.TemporaryDirectory() as tmp:
+    root = Path(tmp)
+    repo = root / "harness"
+    repo.mkdir()
+    module.run(["git", "init", "--quiet", "--initial-branch", "main"], cwd=repo)
+    (repo / "marker.md").write_text("one\n")
+    module.run(["git", "add", "-A"], cwd=repo)
+    module.run(["git", "-c", "user.email=c@k", "-c", "user.name=c", "commit", "--quiet", "-m", "one"], cwd=repo)
+    head = module.run(["git", "rev-parse", "HEAD"], cwd=repo).stdout.decode().strip()
+
+    real_repo_root, real_prepare_plugin = module.KEIN_REPO_ROOT, module.prepare_plugin
+    module.KEIN_REPO_ROOT = repo
+    # `prepare_plugin` copies the real plugin tree and re-renders every agent, which this check
+    # has no need to pay for -- it is testing what `resolve_arms` records about the commit, not
+    # the copy itself, and `check-eval-launch` already runs without launching `claude`.
+    module.prepare_plugin = lambda path, model, source=None: Path(path)
+    try:
+        options = SimpleNamespace(variant=None, arm=None)
+
+        clean = module.resolve_arms(options, root / "clean-run", "sonnet")
+        if clean["with-skill"]["commit"] != head:
+            failures.append(f"the default pair did not record the harness commit: {clean['with-skill']}")
+        if clean["with-skill"]["dirty"] is not False:
+            failures.append(f"a clean harness tree was not recorded as clean: {clean['with-skill']}")
+        if clean["without-skill"]["commit"] is not None or clean["without-skill"]["dirty"] is not None:
+            failures.append("the control arm, which carries no plugin, claimed a harness commit anyway")
+
+        (repo / "marker.md").write_text("two\n")
+        dirty = module.resolve_arms(options, root / "dirty-run", "sonnet")
+        if dirty["with-skill"]["dirty"] is not True:
+            failures.append(f"an uncommitted change in the harness tree was not recorded as dirty: {dirty['with-skill']}")
+        if dirty["with-skill"]["commit"] != head:
+            failures.append("a dirty tree changed which commit was recorded, rather than only the dirty flag")
+
+        # The manifest-writing path itself: `records[arm]` pulls these two fields straight off
+        # the resolved arm spec (see `dev/eval/run.py`'s `main`), so proving that assignment
+        # round-trips through JSON is proving what the manifest will actually carry.
+        record = {"harness_commit": dirty["with-skill"].get("commit"), "harness_dirty": dirty["with-skill"].get("dirty")}
+        written_back = json.loads(json.dumps(record))
+        if written_back != {"harness_commit": head, "harness_dirty": True}:
+            failures.append(f"the harness commit/dirty fields did not survive a manifest round-trip: {written_back}")
+    finally:
+        module.KEIN_REPO_ROOT, module.prepare_plugin = real_repo_root, real_prepare_plugin
+
 if failures:
     for failure in failures:
         print(f"check-eval-launch: {failure}", file=sys.stderr)
     raise SystemExit(1)
-print("check-eval-launch: the default arm is bare, a lead prompt reaches every arm or none, a case gets exactly the plugins it chose, and no arm inherits the operator's findings")
+print("check-eval-launch: the default arm is bare, a lead prompt reaches every arm or none, a case gets exactly the plugins it chose, no arm inherits the operator's findings, the default pair records the harness commit and dirty flag it ran, and no arm inherits the operator's plugin bin/ directories")
