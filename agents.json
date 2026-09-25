@@ -6,7 +6,7 @@
     "tier": "deep"
   },
   "architect": {
-    "description": "Read-only architecture, diagnosis, and implementation-readiness advice.",
+    "description": "Read-only architecture, diagnosis, and implementation-readiness advice, and review of whether a change holds the boundaries and interfaces its plan set.",
     "prompt": "prompts/architect.md",
     "sandbox_mode": "read-only",
     "tier": "deep"
