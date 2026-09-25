@@ -1,20 +1,15 @@
 #!/usr/bin/env sh
 #: Fail when the rendered agents have drifted from the role library.
 #
-# One question, because the source is in the repository: does `plugin/agents/` still equal what
-# `render-agents` produces from `agents/` and `agents.json`.
+# One question, because the source is in the repository: do `plugin/agents/` and `plugin/agents.json` still equal what `render-agents` produces from `agents/`.
 #
-# It used to be three. The library lived in `~/.codex-orca`, so a machine without that home could
-# not re-render, and a recorded hash was the only way to ask whether the committed copy had been
-# hand-edited -- `ocs ask` and `ocs team` paid for that check on every dispatch. Moving the library
-# in deletes the reason: a hash says "this moved", a re-render says what moved and to what.
+# It used to be three. The library lived in `~/.codex-orca`, so a machine without that home could not re-render, and a recorded hash was the only way to ask whether the committed copy had been hand-edited -- `ocs ask` and `ocs team` paid for that check on every dispatch. Moving the library in deletes the reason: a hash says "this moved", a re-render says what moved and to what.
 set -eu
 
 scratch=$(mktemp -d "${TMPDIR:-/tmp}/kein-check.XXXXXX")
 trap 'rm -rf "$scratch"' EXIT INT TERM
 
-# Rendered without KEIN_TIER_MODEL, which an eval arm sets to collapse the tiers: comparing against
-# a collapsed render would report every role as drifted.
+# Rendered without KEIN_TIER_MODEL, which an eval arm sets to collapse the tiers: comparing against a collapsed render would report every role as drifted.
 mkdir -p "$scratch/plugin"
 KEIN_TIER_MODEL= "$KEIN_DEV_ROOT/libexec/render-agents" "$scratch/plugin/agents" >/dev/null
 

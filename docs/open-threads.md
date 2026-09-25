@@ -244,7 +244,7 @@ Two roles to add, raised 2026-09-23. Both are meant to consult other material an
 - `writer`: tuned for now to writing prompts, where "prompt" covers skills, `AGENTS.md` and every other instruction file. The rules it would work to already exist: `plugin/rules/standing-prompt.md`, `docs/project/prompt-edit-rules/`, and the `instructions`, `deliberate` and `sharpen` skills. A general prose-writing role may come later, and whether it shares this prompt is open.
 - `designer`: UI/UX.
 
-The route is the usual one: body in `agents/<name>.md`, tier and sandbox_mode in `agents.json`, then `dev/kein-dev render-agents` and `check-agents`. Settle each role's reason to exist with `/kein:deliberate` before writing it, above all what `writer` does that a lead running `instructions` or `sharpen` does not.
+The route is the usual one: body and its `description`, `tier` and `sandbox_mode` frontmatter in `agents/<name>.md`, then `dev/kein-dev render-agents` and `check-agents`. Settle each role's reason to exist with `/kein:deliberate` before writing it, above all what `writer` does that a lead running `instructions` or `sharpen` does not.
 
 ## Per-directory `AGENTS.md` for subagents
 

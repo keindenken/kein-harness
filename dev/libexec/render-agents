@@ -1,54 +1,72 @@
 #!/usr/bin/env sh
 #: Render the canonical role library into a vendor's agent definitions.
 #
-# `agents/` at the repository root is the source of truth: vendor-neutral role text plus
-# `agents.json`, which carries the two fields that are facts about a role rather than about a
-# vendor — `tier` and `sandbox_mode`.
+# `agents/<role>.md` at the repository root is the source of truth, one file per role: a vendor-neutral frontmatter of `description`, `tier` and `sandbox_mode`, then the role text. `tier` and `sandbox_mode` are facts about a role rather than about a vendor, and each vendor's render translates them.
 #
-# `plugin/agents/` is what Claude Code auto-discovers as subagents: the same body under Claude's
-# frontmatter. A second vendor gets its own target the same way, which is why the destination is an
-# argument rather than a constant.
+# `plugin/agents/` is what Claude Code auto-discovers as subagents: the same body under Claude's frontmatter. A second vendor gets its own target the same way, which is why the destination is an argument rather than a constant.
 #
-# There is no separate copy for Codex. `ocs ask` and `ocs team` strip the frontmatter at dispatch,
-# because a second rendered copy of a body that is already byte-identical is a thing to keep in step
-# for no gain.
+# There is no separate copy for Codex. `ocs ask` and `ocs team` strip the frontmatter at dispatch, because a second rendered copy of a body that is already byte-identical is a thing to keep in step for no gain.
 #
-# The render is deterministic, so `check-agents` re-runs it into a scratch directory and diffs.
-# That is the whole drift check, and it is why nothing here records a hash: a hash answers "has this
-# moved" only where the source is out of reach, which it no longer is.
+# The render is deterministic, so `check-agents` re-runs it into a scratch directory and diffs. That is the whole drift check, and it is why nothing here records a hash: a hash answers "has this moved" only where the source is out of reach, which it no longer is.
 set -eu
 
 # KEIN_ROLE_LIBRARY points the render at a library other than this checkout's.
-# `kein-dev eval` needs it: a `--variant` arm pins a commit, and its agents have to be rendered
-# from the role prompts *that commit* carries, or an ablation on a role prompt compares two copies
-# of the current one. Nothing else should set it.
+# `kein-dev eval` needs it: a `--variant` arm pins a commit, and its agents have to be rendered from the role prompts *that commit* carries, or an ablation on a role prompt compares two copies of the current one. Nothing else should set it.
+# KEIN_ROLE_MANIFEST is the same arm pinning a commit from before the frontmatter held these fields, when bare bodies sat beside a separate `agents.json`. Set, it is read in place of the frontmatter.
 source_dir=${KEIN_ROLE_LIBRARY:-$KEIN_REPO_ROOT/agents}
-source_manifest=${KEIN_ROLE_MANIFEST:-$KEIN_REPO_ROOT/agents.json}
+source_manifest=${KEIN_ROLE_MANIFEST:-}
 destination=${1:-$KEIN_ROOT/agents}
 
 [ -d "$source_dir" ] || { printf 'kein-dev render-agents: no role library at %s\n' "$source_dir" >&2; exit 1; }
-[ -f "$source_manifest" ] || { printf 'kein-dev render-agents: no manifest at %s\n' "$source_manifest" >&2; exit 1; }
+[ -z "$source_manifest" ] || [ -f "$source_manifest" ] || { printf 'kein-dev render-agents: no manifest at %s\n' "$source_manifest" >&2; exit 1; }
 
 mkdir -p "$destination"
-
-# Stale roles go, so the rendered copy mirrors the library rather than accumulating.
-for existing in "$destination"/*.md; do
-  [ -e "$existing" ] || continue
-  role=$(basename "$existing" .md)
-  [ -f "$source_dir/$role.md" ] || rm -f "$existing"
-done
-
-# The manifest travels with the agents it describes: `ocs` reads `sandbox_mode` to refuse a
-# write-capable role through a one-shot, and `tier` to pick a model. Neither is recoverable from the
-# Claude frontmatter, which holds their translation and not them.
-cp "$source_manifest" "$(dirname -- "$destination")/agents.json"
 
 python3 - "$source_dir" "$source_manifest" "$destination" <<'PY'
 import json, pathlib, sys
 
 source = pathlib.Path(sys.argv[1])
-manifest = json.loads(pathlib.Path(sys.argv[2]).read_text())
+legacy_manifest = sys.argv[2]
 destination = pathlib.Path(sys.argv[3])
+
+FIELDS = ("description", "tier", "sandbox_mode")
+SANDBOX_MODES = ("read-only", "workspace-write")
+
+
+def split_frontmatter(role, text):
+    """The role's fields and its body. Only `key: value` lines, and each value is taken verbatim to the end of the line: it is not YAML, so a quote is part of the value. A YAML parser is not in the standard library."""
+    lines = text.split("\n")
+    if lines[0] != "---" or "---" not in lines[1:]:
+        sys.exit(f"kein-dev render-agents: {role}: no frontmatter; {role}.md opens with `---`, then {', '.join(FIELDS)}")
+    end = lines.index("---", 1)
+    fields = {}
+    for line in lines[1:end]:
+        key, sep, value = line.partition(": ")
+        if not sep or key not in FIELDS or key in fields:
+            sys.exit(f"kein-dev render-agents: {role}: frontmatter line {line!r}; expected each of {', '.join(FIELDS)} once")
+        fields[key] = value.strip()
+    missing = [key for key in FIELDS if not fields.get(key)]
+    if missing:
+        sys.exit(f"kein-dev render-agents: {role}: frontmatter lacks {', '.join(missing)}")
+    return fields, "\n".join(lines[end + 1:]).lstrip("\n")
+
+
+if legacy_manifest:
+    manifest = json.loads(pathlib.Path(legacy_manifest).read_text())
+    bodies = {}
+    for role in manifest:
+        body_file = source / f"{role}.md"
+        if not body_file.exists():
+            sys.exit(f"kein-dev render-agents: {role}: named in the manifest, no {body_file}")
+        bodies[role] = body_file.read_text()
+        # A current library under a leftover manifest would otherwise ship its frontmatter inside every body.
+        if bodies[role].startswith("---\n"):
+            sys.exit(f"kein-dev render-agents: {role}: {body_file} carries its own frontmatter; a manifest is only for a library of bare bodies")
+else:
+    manifest, bodies = {}, {}
+    for body_file in sorted(source.glob("*.md")):
+        role = body_file.stem
+        manifest[role], bodies[role] = split_frontmatter(role, body_file.read_text())
 
 # Codex enforces read-only in its sandbox.
 # Claude has no subagent equivalent, so the closest honest translation is removing the mutating tools.
@@ -71,15 +89,26 @@ forced = os.environ.get("KEIN_TIER_MODEL")
 if forced:
     TIER_MODEL = {tier: forced for tier in TIER_MODEL}
 
+for role, fields in manifest.items():
+    if fields["tier"] not in TIER_MODEL:
+        sys.exit(f"kein-dev render-agents: {role}: unknown tier '{fields['tier']}'")
+    if fields["sandbox_mode"] not in SANDBOX_MODES:
+        sys.exit(f"kein-dev render-agents: {role}: unknown sandbox_mode '{fields['sandbox_mode']}'")
+
+# The manifest travels with the agents it describes: `ocs` reads `sandbox_mode` to refuse a write-capable role through a one-shot, and `tier` to pick a model. Neither is recoverable from the Claude frontmatter, which holds their translation and not them.
+(destination.parent / "agents.json").write_text(json.dumps(
+    {role: {key: manifest[role][key] for key in FIELDS} for role in manifest},
+    indent=2, sort_keys=True) + "\n")
+
+# Stale roles go, so the rendered copy mirrors the library rather than accumulating. After validation, so a refused render leaves the destination as it was.
+for existing in destination.glob("*.md"):
+    if existing.stem not in manifest:
+        existing.unlink()
+
 rendered = 0
 for role in sorted(manifest):
-    body_file = source / f"{role}.md"
-    if not body_file.exists():
-        sys.exit(f"kein-dev render-agents: {role}: named in agents.json, no {body_file}")
-    body = body_file.read_text().rstrip("\n")
+    body = bodies[role].rstrip("\n")
     tier = manifest[role]["tier"]
-    if tier not in TIER_MODEL:
-        sys.exit(f"kein-dev render-agents: {role}: unknown tier '{tier}'")
     lines = [
         "---",
         "# Generated by `kein-dev render-agents`. Edit the role library at agents/, not this file.",

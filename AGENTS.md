@@ -10,9 +10,9 @@ Claude Code용 `kein` 하네스를 만드는 리포다. 설치 방법, 로딩 �
 
 ## 에이전트 역할
 
-- 역할 본문은 `agents/`, tier와 sandbox_mode는 `agents.json`에서 고친다. `plugin/agents/`는 렌더 결과이므로 직접 고치지 않는다.
+- 역할은 frontmatter까지 `agents/<role>.md` 한 파일에서 고친다. `plugin/agents/`와 `plugin/agents.json`은 렌더 결과이므로 직접 고치지 않는다.
 - 고친 뒤에는 `dev/kein-dev render-agents`로 다시 렌더하고 `dev/kein-dev check-agents`로 드리프트가 없는지 확인한다.
-- 프롬프트 산문에 모델 이름을 쓰지 않는다. 모델은 `agents.json`의 `tier`가 정한다.
+- 프롬프트 산문에 모델 이름을 쓰지 않는다. 모델은 frontmatter의 `tier`가 정한다.
 
 ## 상태와 기록
 

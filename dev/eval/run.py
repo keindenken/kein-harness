@@ -241,24 +241,19 @@ def prepare_plugin(path, model, source=None):
     shutil.copytree(source or KEIN_ROOT, path, symlinks=True,
                     ignore=shutil.ignore_patterns("evals", "eval"))
     root = Path(source).parent if source else KEIN_REPO_ROOT
-    # The renderer comes from this tree, never from the copy. A `--variant` arm copies the
-    # plugin as it existed at some older commit, and the dev tooling has not lived inside
-    # the plugin since it moved to `dev/` -- nor, before that, under the same filename.
-    # Reaching into the copy for it fails outright on any commit whose layout differs.
-    # One renderer across every arm is also the correct experiment: the renderer is the
-    # instrument, and an arm that brought its own would differ from its neighbours by a
-    # variable nobody chose to test.
-    # The renderer is shared; the role library is not. An arm's agents have to come from the
-    # commit that arm pins, or a `--variant` ablation on a role prompt would compare two copies
-    # of the current one. Before the library moved to the repository root it lived inside the
-    # plugin, so a commit from then supplies it from the copy that was just made.
-    library, manifest = (root / "agents", root / "agents.json")
-    if not manifest.is_file():
-        library, manifest = (path / "prompts", path / "prompts" / "manifest.json")
+    # The renderer comes from this tree, never from the copy. A `--variant` arm copies the plugin as it existed at some older commit, and the dev tooling has not lived inside the plugin since it moved to `dev/` -- nor, before that, under the same filename. Reaching into the copy for it fails outright on any commit whose layout differs. One renderer across every arm is also the correct experiment: the renderer is the instrument, and an arm that brought its own would differ from its neighbours by a variable nobody chose to test.
+    # The renderer is shared; the role library is not. An arm's agents have to come from the commit that arm pins, or a `--variant` ablation on a role prompt would compare two copies of the current one. Before the library moved to the repository root it lived inside the plugin, so a commit from then supplies it from the copy that was just made.
+    # Three layouts, newest first: each role's fields in its own frontmatter; bare bodies beside a root `agents.json`; bare bodies and a manifest under the plugin's `prompts/`. The frontmatter is looked for first, so a stray `agents.json` left beside a current library does not pass for the middle one.
+    library, manifest = (root / "agents", "")
+    if not any(body.read_text().startswith("---\n") for body in library.glob("*.md")):
+        if (root / "agents.json").is_file():
+            manifest = str(root / "agents.json")
+        else:
+            library, manifest = (path / "prompts", str(path / "prompts" / "manifest.json"))
     run(
         [str(KEIN_DEV_ROOT / "libexec" / "render-agents"), str(path / "agents")],
         env=dict(os.environ, KEIN_ROOT=str(path), KEIN_TIER_MODEL=model,
-                 KEIN_ROLE_LIBRARY=str(library), KEIN_ROLE_MANIFEST=str(manifest)),
+                 KEIN_ROLE_LIBRARY=str(library), KEIN_ROLE_MANIFEST=manifest),
     )
     models = sorted({
         line.split(":", 1)[1].strip()

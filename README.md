@@ -7,9 +7,8 @@ Eleven skills, fourteen generated subagents, and a bridge CLI serving both vendo
 
 ```
 .agents/kein/          run state and work products, resolved by `ocs state-dir`
-agents/                the role library. Vendor-neutral prompt bodies; SOURCE
-agents.json            the two facts about a role that are not about a vendor:
-                       `tier` and `sandbox_mode`
+agents/                the role library, SOURCE. One file per role: a vendor-neutral
+                       frontmatter (`description`, `tier`, `sandbox_mode`), then the body
 docs/                  reference documentation
 README.md
 .claude-plugin/
@@ -55,23 +54,11 @@ plugin/                everything Claude Code loads. The symlink points HERE,
 The split exists because a plugin folder is loaded whole: with the repository root serving as the plugin, `docs/`, `README.md`, and the entire `.agents/` state tree were part of what Claude Code loaded.
 Artifacts still land at the repository root rather than inside `plugin/`, because `ocs state-dir` resolves through `git rev-parse --show-toplevel` and is unaffected by where the plugin sits.
 
-The role library at `agents/` is the source, and `plugin/agents/` is `kein-dev render-agents`
-rendering it under Claude's frontmatter — where `tier` becomes a `model:` and a `read-only`
-`sandbox_mode` becomes `disallowedTools:`. Edit the library, not the render.
+The role library at `agents/` is the source, one file per role, and `plugin/agents/` is `kein-dev render-agents` rendering it under Claude's frontmatter — where `tier` becomes a `model:` and a `read-only` `sandbox_mode` becomes `disallowedTools:`. Edit the library, not the render.
 
-There is no second rendered copy for the other vendor. `ocs ask` and `ocs team` strip the
-frontmatter at dispatch and hand the body over, because that block is Claude's translation of a
-role rather than the role, and the two bodies were byte-identical for as long as both existed.
-The facts the frontmatter was translated *from* are not recoverable from it, which is why
-`agents.json` ships beside the render: `ocs` reads `sandbox_mode` to refuse a write-capable role
-through a one-shot, and `tier` to pick a model.
+There is no second rendered copy for the other vendor. `ocs ask` and `ocs team` strip the frontmatter at dispatch and hand the body over, because that block is Claude's translation of a role rather than the role, and the two bodies were byte-identical for as long as both existed. The facts the frontmatter was translated *from* are not recoverable from it, which is why the render also writes them to `plugin/agents.json`: `ocs` reads `sandbox_mode` to refuse a write-capable role through a one-shot, and `tier` to pick a model.
 
-Drift is therefore one question — does `plugin/agents/` still equal what the renderer produces —
-and `kein-dev check-agents` answers it by re-rendering into a scratch directory and diffing. No
-hash is recorded anywhere. One used to be, and `ocs ask` and `ocs team` checked it before spending
-anything on inference, because the library lived in `~/.codex-orca` and a machine without that home
-had no way to re-render. A hash answers "has this moved" where the source is out of reach; the
-source is in the repository now, and a re-render says what moved and to what.
+Drift is therefore one question — does `plugin/agents/` still equal what the renderer produces — and `kein-dev check-agents` answers it by re-rendering into a scratch directory and diffing. No hash is recorded anywhere. One used to be, and `ocs ask` and `ocs team` checked it before spending anything on inference, because the library lived in `~/.codex-orca` and a machine without that home had no way to re-render. A hash answers "has this moved" where the source is out of reach; the source is in the repository now, and a re-render says what moved and to what.
 
 A plugin cannot ship rules — they are not a plugin component — so Claude Code reads
 `standing-prompt.md` only from the config home, and `/kein:onboard` links that one file there.
@@ -206,7 +193,7 @@ arbitrary older commit, whose `plugin/` has no development tooling in it at all.
 
 ```sh
 kein-dev help
-kein-dev render-agents    # agents/ + agents.json -> plugin/agents/
+kein-dev render-agents    # agents/ -> plugin/agents/ + plugin/agents.json
 kein-dev check-agents     # fail if the render has drifted
 kein-dev eval <fixture>   # A/B a skill variant against a pinned fixture
 ```
