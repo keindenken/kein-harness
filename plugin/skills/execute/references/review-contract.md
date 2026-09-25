@@ -2,9 +2,7 @@
 
 ## Reviewer Selection
 
-Choose lanes by the current evidence question. `kein:architect` normally evaluates boundaries and conformance; `kein:code-reviewer` normally evaluates correctness, regression, conventions, and maintainability. Use `kein:verifier` for proof adequacy, `kein:critic` for adversarial claims, `kein:tracer` or `kein:debugger` for causal uncertainty, `kein:test-engineer` for automated coverage and oracle quality, and `kein:qa-tester` for interactive runtime behavior.
-
-This is neither a fixed reviewer matrix nor a fixed reviewer count. Every implementation or correction round requires at least one independent reviewer; complementary read-only lanes may run concurrently.
+Choose lanes by the current evidence question. This is neither a fixed reviewer matrix nor a fixed reviewer count. Every implementation or correction round requires at least one independent reviewer; complementary read-only lanes may run concurrently.
 
 ## Official Package
 
