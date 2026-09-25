@@ -17,7 +17,7 @@ Claude Code용 `kein` 하네스를 만드는 리포다. 설치 방법, 로딩 �
 ## 상태와 기록
 
 - 런 상태와 작업 산출물은 `ocs state-dir`이 가리키는 `.agents/kein/` 아래에 둔다. `runs/`는 임시이고, `requirements/`, `plans/`, `handoff/`는 남기는 기록이다.
-- `docs/`는 참고 문서용이다. 스킬별 측정 결과는 `docs/skills/<skill>/YYMMDD-<주제>.md`, 보류한 일은 같은 폴더의 `open.md`, 스킬에 묶이지 않는 보류 건은 `docs/open-threads.md`에 둔다.
+- `docs/`는 참고 문서용이다. 스킬별 측정 결과는 `docs/skills/<skill>/YYMMDD-<주제>.md`, 보류한 일은 같은 폴더의 `open.md`, 스킬에 묶이지 않는 보류 건은 `docs/open-threads.md`에 둔다. 보류 항목이 닫히면 지우지 않고 같은 폴더의 `closed.md`, 또는 `docs/closed-threads.md`로 옮긴다.
 
 ## 스킬과 프롬프트 개선
 

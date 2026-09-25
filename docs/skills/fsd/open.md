@@ -2,10 +2,6 @@
 
 The state machine, execute's task parking and the stage-transition hooks landed in 20aa92c..91ef72a (execute run `260919-011818-fsd-u1-u3-u4`, completed after twelve tasks and seven final audits). What follows is what that run left for the skill prose and the live runs, and the risks it accepted instead of closing.
 
-## What the `fsd` SKILL.md had to say (story U5)
-
-Done in 2d94cb8: the skill text states each of these, and the 2026-09-23 run corrected three of its sentences against the code.
-
 ## Accepted residual risk
 
 Each of these fails open (a missing link, so no hook fires) or needs someone to act against the flow deliberately:
