@@ -40,7 +40,7 @@ It writes the prompt, the exact command, the response, and stderr under `ocs sta
 
 ## What the package carries that the native lane's does not
 
-`ocs ask` assembles the role prompt and nothing else.
+`ocs ask` assembles the role prompt and the user's and project's worker layers (`.agents/kein/prompts/worker.md`), and nothing else.
 It does not inject repository instructions, by design: it cannot know whether a repository's conventions bear on a given question, and the caller can.
 
 So a codex lane's package is the official package from the review contract plus the repository instructions a native lane receives from its own environment.

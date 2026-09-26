@@ -4,8 +4,8 @@
 # Usage:
 #   ocs ask <provider> [--agent <role>] [--trace] [--model M] [--effort E] (<task...> | --task-file <path>)
 #
-# The assembled prompt is exactly the role prompt, a blank line, and the task.
-# Without `--agent` it is the task alone, answered at the `GENERAL_TIER` model: the counterpart of Claude's `general-purpose`, for a question no canonical role fits.
+# The assembled prompt is the role prompt, then the user's and project's worker layers (`lib/agent-layers.sh`), then the task, each separated by a blank line.
+# Without `--agent` it is the layers and the task, answered at the `GENERAL_TIER` model: the counterpart of Claude's `general-purpose`, for a question no canonical role fits.
 # That is an absence rather than a role file, because a file under `agents/` would also render as a Claude subagent duplicating the built-in one, and because the lane's sandbox, not a role, is what bounds it.
 # Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
 # Put them in the task brief.
@@ -35,7 +35,7 @@ usage: ocs ask <provider> [--agent <role>] [--trace] [--model M] [--effort E] (<
 
   providers: $PROVIDERS
   roles:     read-only roles only; run with an unknown role to list them.
-             Without --agent the task goes alone, at the $GENERAL_TIER tier.
+             Without --agent the task goes with only the worker layers, at the $GENERAL_TIER tier.
   --model:   override the model the role's tier resolves to
   --effort:  override the reasoning effort (default: $DEFAULT_EFFORT)
 
@@ -99,6 +99,7 @@ manifest="$KEIN_ROOT/agents.json"
 [ -f "$manifest" ] || { printf 'ocs ask: no rendered agents. Run `kein-dev render-agents`.\n' >&2; exit 1; }
 
 . "$KEIN_ROOT/libexec/lib/role-prompt.sh"
+. "$KEIN_ROOT/libexec/lib/agent-layers.sh"
 . "$KEIN_ROOT/libexec/lib/vendor-home.sh"
 
 # Advisory only: the nine read-only roles.
@@ -142,11 +143,11 @@ print(json.load(open(sys.argv[1]))[sys.argv[2]]["tier"])
 fi
 [ -n "$effort" ] || effort=$DEFAULT_EFFORT
 
-if [ -n "$role" ]; then
-  prompt=$(printf '%s\n\n%s' "$(role_prompt_body "$roles/$role.md")" "$task")
-else
-  prompt=$task
-fi
+# The user's and the project's worker layers follow the role, as `ocs team` sends them; the plugin's Claude-side worker core does not.
+prompt=$task
+layers=$(agent_layers worker)
+[ -z "$layers" ] || prompt=$(printf '%s\n\n%s' "$layers" "$prompt")
+[ -z "$role" ] || prompt=$(printf '%s\n\n%s' "$(role_prompt_body "$roles/$role.md")" "$prompt")
 
 # The plain home is pinned, never inherited: a one-shot advisory call must not pick up the lead tuning that lives in ~/.codex-orca. `codex_vanilla_args` below strips what the plain home still carries.
 codex_home=${KEIN_CODEX_HOME:-$HOME/.codex}

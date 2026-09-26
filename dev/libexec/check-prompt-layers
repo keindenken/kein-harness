@@ -96,6 +96,30 @@ ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none | field context
 [ -z "$(ROLE=nobody run CLAUDE_CODE_ENTRYPOINT=cli)" ] || fail "an unknown role got output"
 ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_WORKER_PROMPT="$tmp/pinned.md" | field context | grep -qx PINNED_MARKER || fail "a pinned KEIN_WORKER_PROMPT was not used"
 
+# The vendor side: `ocs` sends the same two worker layers through `lib/agent-layers.sh`, and never the Claude-side core.
+sh_layers() { env -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" sh -c '. "$1/libexec/lib/agent-layers.sh"; agent_layers worker' _ "$KEIN_ROOT"; }
+py_layers=$(ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_WORKER_PROMPT="$tmp/pinned.md" | field context | grep -v '^PINNED_MARKER$' | grep -v '^$' || true)
+[ "$(sh_layers | grep -v '^$')" = "$py_layers" ] || fail "lib/agent-layers.sh and prompt-layers.py disagree on the worker layers"
+n=$(env -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/home" sh -c '. "$1/libexec/lib/agent-layers.sh"; agent_layers worker' _ "$KEIN_ROOT" | grep -c USER_WORKER_MARKER || true)
+[ "$n" -eq 1 ] || fail "agent-layers.sh gave a project rooted at home the user layer $n times"
+chmod 000 "$tmp/home/.agents/kein"
+sh_layers 2>&1 >/dev/null | grep -q unreadable || fail "agent-layers.sh was silent about a layer behind an unreadable directory"
+chmod 755 "$tmp/home/.agents/kein"
+mkdir -p "$tmp/bin"
+cat > "$tmp/bin/codex" <<'FAKE'
+#!/bin/sh
+# Stands in for codex exec: writes the prompt, the last argument, to the -o file.
+out=''; prev=''; for a in "$@"; do [ "$prev" = "-o" ] && out=$a; prev=$a; done
+[ -n "$out" ] && printf '%s' "$a" > "$out"
+FAKE
+chmod +x "$tmp/bin/codex"
+asked=$(env -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" PATH="$tmp/bin:$PATH" "$KEIN_ROOT/libexec/ocs-ask" codex --agent critic ASK_TASK_MARKER 2>/dev/null || true)
+order=$(printf '%s\n' "$asked" | grep -n -e USER_WORKER_MARKER -e PROJECT_WORKER_MARKER -e ASK_TASK_MARKER | cut -d: -f2- | tr '\n' ' ')
+[ "$order" = "USER_WORKER_MARKER PROJECT_WORKER_MARKER ASK_TASK_MARKER " ] || fail "ocs ask did not send the worker layers between the role and the task (got: $order)"
+role_line=$(sh -c '. "$1/libexec/lib/role-prompt.sh"; role_prompt_body "$1/agents/critic.md"' _ "$KEIN_ROOT" | sed -n '/./{p;q;}')
+printf '%s' "$asked" | head -1 | grep -qxF "$role_line" || fail "ocs ask did not open with the role prompt"
+printf '%s' "$asked" | grep -qF "$wmarker" && fail "ocs ask sent the Claude-side worker core"
+
 # Each event must run its own role, or each hook names the wrong event and injects the wrong prompt.
 python3 - "$KEIN_ROOT/hooks/hooks.json" <<'PY' || fail "hooks.json does not run prompt-layers.py lead on SessionStart and worker on SubagentStart"
 import json, sys

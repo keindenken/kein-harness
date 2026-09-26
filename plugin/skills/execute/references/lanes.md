@@ -38,7 +38,7 @@ The command is what enforces the environment, so there is nothing here for the l
 
 The home it pins is `KEIN_CODEX_HOME`, and without it the operator's own `~/.codex` — so a worker reads what that home carries: the skills its installed plugins publish into the prompt, its `AGENTS.md`, and its memories. Point `KEIN_CODEX_HOME` at a home of this run's own when a lane must not read those, and give that home credentials first: the vendor's auth lives where its home does.
 
-Two things do fall to the lead. The task package must carry the repository instructions, for the same reason a review lane's does — the bridge assembles the role prompt and nothing else. Which files those are is the repository's to settle, and it settles it by putting them where the vendor's own runtime looks: a rule kept only in a file that vendor never opens has to be carried by hand into every package, which makes it a rule the lead is remembering rather than one the repository holds. And the worker's report arrives as a file whose path the command prints; treat that file as the Executor's self-verification evidence, exactly as you would a native Executor's returned account, and hold it to the same standard. Self-verification is still not approval.
+Two things do fall to the lead. The task package must carry the repository instructions, for the same reason a review lane's does — the bridge assembles the role prompt and the worker layers and nothing else. Which files those are is the repository's to settle, and it settles it by putting them where the vendor's own runtime looks: a rule kept only in a file that vendor never opens has to be carried by hand into every package, which makes it a rule the lead is remembering rather than one the repository holds. And the worker's report arrives as a file whose path the command prints; treat that file as the Executor's self-verification evidence, exactly as you would a native Executor's returned account, and hold it to the same standard. Self-verification is still not approval.
 
 A vendor Executor is otherwise an ordinary Executor. It takes one task, its scope, completion condition, repository instructions, and verification path; its work is reviewed by the round's reviewer lanes; and a `BLOCK` returns to a correction round in the usual way. A correction may go to a fresh vendor Executor or a native one, whichever the evidence favours.
 
@@ -56,7 +56,7 @@ The mechanism is not a choice to make. `ocs ask` runs the vendor in a read-only 
 
 ## What the package carries that the native lane's does not
 
-`ocs ask` assembles the role prompt and nothing else. It does not inject repository instructions, by design: it cannot know whether a repository's conventions bear on a given question, and the caller can.
+`ocs ask` assembles the role prompt and the user's and project's worker layers (`.agents/kein/prompts/worker.md`), and nothing else. It does not inject repository instructions, by design: it cannot know whether a repository's conventions bear on a given question, and the caller can.
 
 So a codex lane's package is the review-contract package plus the repository instructions a native lane receives from its own environment — which the contract already requires for a final audit and which every round needs here. Quoting them or naming the file that holds them both work, since the lane runs with the worktree as its working directory. Do not restate the role prompt; `ask` already supplies it.
 

@@ -20,8 +20,8 @@ A worker's final message reaches you; text it merely prints does not. So a deliv
 
 A worker sees only the agents that existed when it started. It cannot reach one you opened later, so coordination between workers stays yours to carry.
 
-A Claude subagent starts with a worker prompt of its own: the plugin's, then `~/.agents/kein/prompts/worker.md` and the project's `.agents/kein/prompts/worker.md` when they exist. It already knows the limits the plugin enforces and how to reach you, so a brief need not repeat any of that. A worker through `ocs` gets none of it.
+A Claude subagent starts with a worker prompt of its own: the plugin's, then `~/.agents/kein/prompts/worker.md` and the project's `.agents/kein/prompts/worker.md` when they exist. It already knows the limits the plugin enforces and how to reach you, so a brief need not repeat any of that. A worker through `ocs` gets the two layers but not the plugin's part, which is about the Claude runtime.
 
 ## Commands
 
-`ocs ask <vendor>` opens a read-only cross-vendor worker and `ocs team <vendor>` a write-capable one. Both assemble the canonical role prompt and nothing else, so everything specific to this repository or this task goes in the package you pass.
+`ocs ask <vendor>` opens a read-only cross-vendor worker and `ocs team <vendor>` a write-capable one. Both assemble the canonical role prompt and the worker layers and nothing else, so anything else specific to this repository or this task goes in the package you pass.

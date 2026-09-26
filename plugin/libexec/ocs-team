@@ -11,7 +11,8 @@
 # The role prompt goes in as `developer_instructions`, not into the task text.
 # Orca's `--inject` has exactly one slot, and everything put there lands under its `=== TASK ===` heading — so a role prompt sent that way tells the worker that its identity is part of the job.
 # `developer_instructions` appends to the developer message instead, which leaves identity, reporting rules, and the task each in their own layer.
-# Without `--agent` nothing is injected and the worker is the provider's own agent at the `GENERAL_TIER` model, the counterpart of Claude's `general-purpose`; `ocs ask` says why that is an absence and not a role file.
+# The user's and the project's worker layers (`lib/agent-layers.sh`) follow the role in the same field; the plugin's Claude-side worker core does not.
+# Without `--agent` only those layers are injected and the worker is the provider's own agent at the `GENERAL_TIER` model, the counterpart of Claude's `general-purpose`; `ocs ask` says why that is an absence and not a role file.
 # Orca owns the Run, Task, Dispatch, completion signal, and recovery, and none of that is reimplemented here.
 # What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
 # Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
@@ -59,7 +60,7 @@ usage: ocs team <provider> [--agent <role>] [--worktree new|<path>] [--branch B]
 
   providers: $PROVIDERS
   roles:     write-capable roles only; run with an unknown role to list them.
-             Without --agent the worker gets no role prompt, at the $GENERAL_TIER tier.
+             Without --agent the worker gets only the worker layers, at the $GENERAL_TIER tier.
   --worktree: where the worker writes. Default is here. \`new\` creates an
               Orca-managed worktree for this lane; a path uses an existing one.
   --branch:  with \`--worktree new\`, the lane's branch name (default: Orca's).
@@ -178,6 +179,7 @@ manifest="$KEIN_ROOT/agents.json"
 [ -f "$manifest" ] || { printf 'ocs team: no rendered agents. Run `kein-dev render-agents`.\n' >&2; exit 1; }
 
 . "$KEIN_ROOT/libexec/lib/role-prompt.sh"
+. "$KEIN_ROOT/libexec/lib/agent-layers.sh"
 . "$KEIN_ROOT/libexec/lib/vendor-home.sh"
 
 # The five write-capable roles, and the exact complement of what `ocs ask` serves.
@@ -369,11 +371,15 @@ report="$reports/$stamp-$lane.md"
 
 # The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
 role_file="$dir/role.md"
+# A resumed worker already has its instructions in its session.
+# Resolved from where the lead stands, not from the lane's worktree, as the Claude-side hook resolves a subagent's: the layer is the lead's project's, whichever tree the worker writes in.
+layers=''
+[ -n "$resume_session" ] || layers=$(agent_layers worker)
 
 # `developer_instructions` is a Codex configuration field, and an unrecognized field is ignored rather than refused.
 # A version that dropped it would leave a worker running with no role at all and nothing in the output to say so, so prove the injection lands before spending a session on it.
 # `debug prompt-input` renders the model-visible prompt without calling the model, which makes this about a second and free.
-if [ -n "$role" ] && [ -z "$resume_session" ] && ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
+if [ -n "$role$layers" ] && [ -z "$resume_session" ] && ! CODEX_HOME="$codex_home" codex debug prompt-input -c 'developer_instructions=KEIN_ROLE_INJECTION_PROBE' x 2>/dev/null | grep -q KEIN_ROLE_INJECTION_PROBE; then
   printf 'ocs team: this provider build no longer accepts `developer_instructions`.\n' >&2
   printf '  A worker would start with no role prompt and nothing would report the omission.\n' >&2
   printf '  Re-check which field carries developer instructions before using this command.\n' >&2
@@ -402,7 +408,7 @@ done <<EOF
 $vanilla
 EOF
 role_flag=''
-[ -z "$role" ] || [ -n "$resume_session" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
+[ -z "$role$layers" ] || [ -n "$resume_session" ] || role_flag=" -c developer_instructions=\"\$(cat '$role_file')\""
 codex_verb=codex
 [ -z "$resume_session" ] || codex_verb="codex resume $resume_session"
 launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree $codex_verb -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$vanilla_flags$role_flag"
@@ -464,7 +470,7 @@ if [ "$check" -eq 1 ]; then
   # than per-invocation -- the run directory is composed from the resolved root and is not created
   # here -- so repeated checks add nothing further. What a check promises is that nothing was spent.
   printf 'ocs team: preconditions pass, and no worker holds this package. Nothing was spent.\n' >&2
-  printf '\nrole      %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "${role:-(none)}" "$worktree" "$report" "$dir"
+  printf '\nrole      %s\nlayers    %s\nworktree  %s\nreport    %s\nrun dir   %s\n' "${role:-(none)}" "$(printf '%s\n' "$layers" | sed -n 's/^<!-- kein worker layer: \(.*\) -->$/\1/p' | tr '\n' ' ')" "$worktree" "$report" "$dir"
   printf '\n--- launch ---\n%s\n' "$launch"
   printf '\n--- spec ---\n%s\n' "$spec"
   exit 0
@@ -473,7 +479,9 @@ fi
 # Created here rather than where their paths were resolved, so that a check leaves the filesystem as
 # it found it and can be run as often as it is useful.
 mkdir -p "$dir" "$reports"
-[ -z "$role" ] || [ -n "$resume_session" ] || role_prompt_body "$roles/$role.md" > "$role_file"
+if [ -n "$role$layers" ] && [ -z "$resume_session" ]; then
+  { [ -z "$role" ] || role_prompt_body "$roles/$role.md"; [ -z "$layers" ] || printf '\n%s\n' "$layers"; } > "$role_file"
+fi
 
 
 fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }

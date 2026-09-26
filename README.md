@@ -43,7 +43,7 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        `.agents/kein/prompts/lead.md`, when they exist.
                        `KEIN_LEAD_PROMPT` pins another core file or `none` turns
                        all of it off
-  prompts/worker.md    the same for every subagent, with `worker.md` layers and `KEIN_WORKER_PROMPT`
+  prompts/worker.md    the same for every subagent, with `worker.md` layers and `KEIN_WORKER_PROMPT`; `ocs ask` and `ocs team` send a vendor lane the two layers but not this Claude-side core, so write layers vendor-neutral
   prompts/standing-prompt.md
                        the rule for editing any agent instruction file,
                        linked into the config home by `onboard`
