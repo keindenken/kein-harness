@@ -21,6 +21,7 @@ One `/fsd` invocation can carry work through `interview → ralplan 1 → execut
 - A single retrospective and a single report for the whole chain, written by the last state's closeout.
 - Documentation: a conditional line in `plugin/skills/fsd/SKILL.md`, a continue branch in `references/closeout.md`, `references/state-schema.md`, and `references/decision-policy.md`'s split-story sentence.
 - Oracle coverage in `dev/libexec/check-fsd-state` and `dev/libexec/check-fsd-hooks`.
+- A shorter Stop-hook block reason for an active run with no gap, with the procedure for bringing a run to rest moved into `references/closeout.md`.
 
 ### Out of scope
 
@@ -48,6 +49,7 @@ One `/fsd` invocation can carry work through `interview → ralplan 1 → execut
 - Assumption, question and lesson ids are unique across the chain.
 - The hooks work on a chained state as on any other: the Stop hook blocks while it is active, and `ocs state ralplan start` / `ocs state execute start` link to the chained state.
 - The decision-policy split route's removed story becomes a candidate for the next slice instead of a separate pass after the run.
+- The Stop hook's block for an active run with no gap says only: the run and its running stage; that a lead waiting on another lane may end the turn once it has confirmed that lane is alive; that otherwise the stage continues, with `ocs state fsd gap <state>` for why it is stuck; and where in `references/closeout.md` the procedure for pausing or ending the run lives. It does not quote `next_action`, which is not updated as stages advance, nor the diagnosis, which `gap` prints. The pause/end procedure it carries today, including what to do when `close` refuses and when `halt` answers that close would succeed, moves to that section intact.
 
 ## Constraints
 
@@ -71,6 +73,7 @@ One `/fsd` invocation can carry work through `interview → ralplan 1 → execut
 - [ ] The last state's `close` refuses a retrospective missing any assumption, question or lesson id from any slice, and `report` lists every slice.
 - [ ] On slice k+1, the Stop hook blocks while it is active, and `ralplan start` / `execute start` are linked to slice k+1 by the hooks.
 - [ ] A state file written by the current schema behaves as before; `check-fsd-state`, `check-fsd-hooks`, `check-execute-state`, `check-ralplan-state`, and `claude plugin validate plugin --strict` pass.
+- [ ] The Stop hook's no-gap block reason names no command other than `ocs state fsd gap <state>`, and carries neither `next_action` nor the diagnosis; `references/closeout.md` holds the pause/end procedure it no longer carries; `check-fsd-hooks` pins the new reason and `check-fsd-state` or a docs check pins the procedure's presence.
 - [ ] `SKILL.md`, `closeout.md`, `state-schema.md` and `decision-policy.md` describe the chain.
 
 ## Decisions and rationale
@@ -81,6 +84,7 @@ One `/fsd` invocation can carry work through `interview → ralplan 1 → execut
 - **Coverage recorded at slice end only:** no plan-time deferral declaration is needed when what remains is computed from what was covered.
 - **Continue is one command:** a gap between closing k and starting k+1 would leave no active run, and the Stop hook would let the turn end there.
 - **An unanswered question stops the chain:** an `execute` run with a parked task stays nonterminal and occupies the worktree, so the next slice's `execute` could not start; the chain pauses as a run does today and continues after the answer.
+- **Shorter Stop-hook reason:** the block fires every time a turn ends while the run waits on a lane, the common case needs one sentence, and the rare pause/end procedure already has a home the lead reads on that path.
 - **No prose split rule:** ralplan's deferral test already states the principle, and a strict form would block continuing a story split off for non-convergence. The recorded reason for continuing, shown in the retrospective, is the measurement instead.
 
 ## Relevant system evidence
