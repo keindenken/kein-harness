@@ -93,6 +93,21 @@ def write_requirements(path, status):
     Path(path).write_text("\n".join(lines) + "\n")
 
 
+def write_requirements_with_criteria(path, status, criteria):
+    # Local to this file, the same shape `check-fsd-state`'s own helper of the same name writes and for the same reason -- neither `dev/libexec/check-*` script imports another. Every other heading keeps `write_requirements`'s plain `- item` placeholder; only `## Acceptance criteria` gets one real `- [ ] <text>` checkbox per entry, so `state.py`'s own `_acceptance_criteria` numbers them AC1, AC2, ... in document order.
+    lines = ["# Check requirements", "", f"Status: {status}", "Date: 2026-01-01", ""]
+    for heading in REQUIREMENTS_HEADINGS:
+        lines += [heading, ""]
+        if heading == "## Acceptance criteria":
+            lines += [f"- [ ] {item}" for item in criteria]
+        else:
+            lines.append("- item")
+        lines.append("")
+    if status == "Draft":
+        lines += ["## Blocking gaps", "", "- something unresolved", ""]
+    Path(path).write_text("\n".join(lines) + "\n")
+
+
 def write_plan(path, status, reason="reason", body="body"):
     Path(path).write_text(f"# Check plan\n\nStatus: {status} — {reason}\n\n---\n\n{body}\n")
 
@@ -1700,6 +1715,198 @@ def _section_rest_procedure_in_closeout():
             failures.append(f"rest-procedure-in-closeout: {heading!r} is missing {phrase!r}")
 
 # ---------------------------------------------------------------------------
+# Case: the hooks on a chained state work exactly as they do on any other state. Slice 1 is linked purely by `post-bash` watching its own real `ocs state ralplan start` and `ocs state execute start` commands and their own real stdout, never `attach`, then driven to a completed execute receipt and continued -- before any hook call on slice 2, a probe right there asserts slice 1 reads back `completed` and that a fresh `ocs state fsd start` for the same worktree already refuses on slice 2's own state path alone, never slice 1's. Slice 2's own ralplan-pending row is then checked: Stop blocks and pre-write denies naming the ordinary ralplan invocation and the requirements path, both remaining criteria (AC2 and the one whose own text carries a literal `<state>`) appear as their own exact list-entry line in each reason, `<state>` included verbatim -- `_gap_action` substitutes `<state>` only before the chain suffix separator -- and AC1, which slice 1 already covered, is named in neither reason. The continue reason driving this itself names no criterion id, so that last check cannot pass by accident. From there, post-skill and post-bash enter and link slice 2's own ralplan and execute runs the identical way slice 1's were, and the section ends on the no-gap block firing with its fixed reason text on slice 2's own state path once execute is genuinely running. Slice 1's own file is captured right after `continue` closes it and compared unchanged twice more: once post-skill has entered slice 2's ralplan, and again at the very end.
+
+def _section_chain_hooks():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        requirements_path = work / "req-chain-hooks.md"
+        state_criterion_text = "keep the <state> placeholder untouched in slice two's own plan"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", state_criterion_text])
+
+        # Approved requirements as the whole run's own input classify straight to entry `ralplan`, interview skipped -- the shape a chained state requires.
+        state_path = fsd_start(work, run_root, "chain-hooks", str(requirements_path))
+
+        # Slice 1: ralplan and execute each started for real, attached from nothing but post-bash watching their own start commands and stdout -- the same association path a live run takes, proving the gate's claim against it rather than against a shortcut `attach` fixture.
+        must("entering ralplan for chain-hooks slice 1", fsd(work, "enter", str(state_path), "ralplan"))
+        plan1_path = work / "plan-chain-hooks-1.md"
+        write_plan(plan1_path, "Draft", "first cut", "v0")
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        ralplan1_result = must("starting the ralplan run for chain-hooks slice 1",
+                               ralplan(work, "start", "--run-root", str(ralplan_run_root), "--slug", "chain-hooks",
+                                       "--input", str(requirements_path), "--plan", str(plan1_path), "--summary", "check",
+                                       "--lanes", "architect@claude,critic@claude"))
+        ralplan1_dest = Path(ralplan1_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 1: ocs state ralplan start", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug chain-hooks "
+                                f"--input {requirements_path} --plan {plan1_path} --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan1_result.stdout)
+        after_ralplan1_start = read_json(state_path)
+        if after_ralplan1_start["stages"]["ralplan"]["run"] != str(ralplan1_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 1's ralplan run from ocs state ralplan start's own stdout: {after_ralplan1_start['stages']['ralplan']}")
+
+        must("opening ralplan round 1 for chain-hooks slice 1", ralplan(work, "open", str(ralplan1_dest)))
+        write_plan(plan1_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for chain-hooks slice 1", ralplan(work, "approve", str(ralplan1_dest)))
+        must("completing ralplan for chain-hooks slice 1", ralplan(work, "close", str(ralplan1_dest)))
+
+        must("entering execute for chain-hooks slice 1", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks1_path = Path(tmp) / "chain-hooks-1-tasks.json"
+        tasks1_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        execute1_result = must("starting the execute run for chain-hooks slice 1",
+                               execute(work, "start", "--run-root", str(execute_run_root), "--slug", "chain-hooks",
+                                       "--kind", "plan", "--input", str(plan1_path), "--worktree", str(work), "--tasks", str(tasks1_path)))
+        execute1_dest = Path(execute1_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 1: ocs state execute start", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug chain-hooks "
+                                f"--kind plan --input {plan1_path} --worktree {work} --tasks {tasks1_path}",
+                                stdout=execute1_result.stdout)
+        after_execute1_start = read_json(state_path)
+        if after_execute1_start["stages"]["execute"]["run"] != str(execute1_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 1's execute run from ocs state execute start's own stdout: {after_execute1_start['stages']['execute']}")
+
+        drive_task_to_acceptance(work, execute1_dest, "task-001")
+        must("entering final_audit for chain-hooks slice 1", execute_to_final_audit(work, execute1_dest))
+        must("completing execute for chain-hooks slice 1", execute_complete(work, execute1_dest, ["task-001"]))
+
+        reason1 = "the rest still needs its own planning pass before either of us can size it"
+        continue1_result = must("continuing chain-hooks slice 1, covering AC1",
+                                 fsd(work, "continue", str(state_path), "--covered", "AC1", "--reason", reason1))
+        state2_path = Path(continue1_result.stdout.strip())
+        slice1_bytes_after_continue = state_path.read_bytes()
+
+        # Gate probe, before any hook call on slice 2: `hook.py`'s own state lookup (`_find_active_state_path`) needs no change on a chained state only if slice 1 already reads back terminal and a fresh `ocs state fsd start` for the very same worktree already refuses on slice 2 alone, with no `attach` or hook call against slice 2 yet.
+        slice1_after_continue = read_json(state_path)
+        if slice1_after_continue["lifecycle"] != "completed":
+            failures.append(f"chain-hooks gate probe: slice 1's own lifecycle was not completed right after continue: {slice1_after_continue['lifecycle']!r}")
+        probe_start = fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-hooks-gate-probe",
+                           "--input", str(requirements_path), "--worktree", str(work))
+        if probe_start.returncode == 0:
+            failures.append("chain-hooks gate probe: ocs state fsd start was accepted for a worktree a chained, still-active slice 2 already occupies")
+        if str(state2_path) not in probe_start.stderr:
+            failures.append(f"chain-hooks gate probe: ocs state fsd start's refusal did not name slice 2's own state path: {probe_start.stderr!r}")
+        if str(state_path) in probe_start.stderr:
+            failures.append(f"chain-hooks gate probe: ocs state fsd start's refusal named slice 1's own (completed, non-occupying) state path instead of slice 2's: {probe_start.stderr!r}")
+
+        quoted_requirements = shlex.quote(str(requirements_path))
+        expected_remaining_line_ac2 = "- AC2: second criterion"
+        expected_remaining_line_ac3 = f"- AC3: {state_criterion_text}"
+
+        # Slice 2's own ralplan-pending row blocks Stop and denies pre-write Write, each reason naming the ordinary ralplan invocation and the requirements path; `reason1` above names no criterion id at all, so a later exact-line check below cannot pass merely because the continue reason happened to mention one.
+        assert_stop_blocks("chain-hooks: slice 2 ralplan-pending, stop blocks naming the ordinary ralplan invocation and the requirements path",
+                            work, "invoke /kein:ralplan", required_substrings=(quoted_requirements,))
+        assert_pretool_denies("chain-hooks: slice 2 ralplan-pending, pre-write denies naming the ralplan invocation", work, "invoke /kein:ralplan")
+        assert_pretool_denies("chain-hooks: slice 2 ralplan-pending, pre-write denies naming the requirements path", work, quoted_requirements)
+
+        # Both remaining criteria reach the Stop reason and the pre-write reason as their own exact list-entry line (`- AC<n>: <text>`), not merely as a bare id a mutation dropping the line itself could still leave lying around in some other sentence; the literal `<state>` inside AC3's own text survives verbatim as part of that same exact line, since `_gap_action` substitutes `<state>` only before the chain suffix separator; and AC1, which slice 1 already covered, is named nowhere in either reason.
+        stop_row1 = run_hook(work, "stop", stop_payload(work))
+        stop_reason_row1 = ""
+        if stop_row1.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's stop hook exited {stop_row1.returncode} instead of blocking: {stop_row1.stderr!r}")
+        else:
+            try:
+                stop_reason_row1 = json.loads(stop_row1.stdout).get("reason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's stop hook did not block: stdout={stop_row1.stdout!r} stderr={stop_row1.stderr!r}")
+        prewrite_row1 = run_hook(work, "pre-write", pretool_payload(work, "Write"))
+        prewrite_reason_row1 = ""
+        if prewrite_row1.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's pre-write hook exited {prewrite_row1.returncode} instead of denying: {prewrite_row1.stderr!r}")
+        else:
+            try:
+                prewrite_reason_row1 = (json.loads(prewrite_row1.stdout).get("hookSpecificOutput") or {}).get("permissionDecisionReason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's pre-write hook did not deny: stdout={prewrite_row1.stdout!r} stderr={prewrite_row1.stderr!r}")
+        if expected_remaining_line_ac2 not in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason did not carry AC2's own exact list-entry line: {stop_reason_row1!r}")
+        if expected_remaining_line_ac2 not in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason did not carry AC2's own exact list-entry line: {prewrite_reason_row1!r}")
+        if expected_remaining_line_ac3 not in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason did not carry AC3's own exact list-entry line, <state> included verbatim: {stop_reason_row1!r}")
+        if expected_remaining_line_ac3 not in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason did not carry AC3's own exact list-entry line, <state> included verbatim: {prewrite_reason_row1!r}")
+        if "AC1" in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason named AC1, which slice 1 already covered: {stop_reason_row1!r}")
+        if "AC1" in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason named AC1, which slice 1 already covered: {prewrite_reason_row1!r}")
+
+        # Post-skill for `kein:ralplan` marks slice 2's own ralplan stage entered, and slice 1's file is untouched by it.
+        assert_postskill_silent("chain-hooks: post-skill kein:ralplan enters slice 2's ralplan stage", work, "kein:ralplan")
+        after_postskill2 = read_json(state2_path)
+        if after_postskill2["stages"]["ralplan"]["status"] != "entered":
+            failures.append(f"chain-hooks: post-skill kein:ralplan did not mark slice 2's ralplan stage entered: {after_postskill2['stages']['ralplan']}")
+        if state_path.read_bytes() != slice1_bytes_after_continue:
+            failures.append("chain-hooks: post-skill kein:ralplan for slice 2 changed slice 1's own file")
+
+        # Post-bash fed slice 2's own real `ocs state ralplan start` command and its own real stdout sets slice 2's own ralplan run link, the identical association path slice 1 took.
+        plan2_path = work / "plan-chain-hooks-2.md"
+        write_plan(plan2_path, "Draft", "first cut", "v0")
+        ralplan2_result = must("starting the ralplan run for chain-hooks slice 2",
+                               ralplan(work, "start", "--run-root", str(ralplan_run_root), "--slug", "chain-hooks-2",
+                                       "--input", str(requirements_path), "--plan", str(plan2_path), "--summary", "check",
+                                       "--lanes", "architect@claude,critic@claude"))
+        ralplan2_dest = Path(ralplan2_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 2: ocs state ralplan start", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug chain-hooks-2 "
+                                f"--input {requirements_path} --plan {plan2_path} --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan2_result.stdout)
+        after_ralplan2_start = read_json(state2_path)
+        if after_ralplan2_start["stages"]["ralplan"]["run"] != str(ralplan2_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 2's ralplan run from ocs state ralplan start's own stdout: {after_ralplan2_start['stages']['ralplan']}")
+
+        must("opening ralplan round 1 for chain-hooks slice 2", ralplan(work, "open", str(ralplan2_dest)))
+        write_plan(plan2_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for chain-hooks slice 2", ralplan(work, "approve", str(ralplan2_dest)))
+        must("completing ralplan for chain-hooks slice 2", ralplan(work, "close", str(ralplan2_dest)))
+
+        # With slice 2's own ralplan run completed, stop blocks naming the ordinary execute invocation and slice 2's own plan path -- the ordinary unchained ralplan-completed row, since the chain suffix belongs only to the ralplan-pending row. Post-bash then sets slice 2's own execute run link from its own real `ocs state execute start` command and stdout.
+        quoted_plan2 = shlex.quote(str(plan2_path))
+        assert_stop_blocks("chain-hooks: slice 2 ralplan completed, stop blocks naming execute and slice 2's own plan",
+                            work, "invoke /kein:execute", required_substrings=(quoted_plan2,))
+
+        must("entering execute for chain-hooks slice 2", fsd(work, "enter", str(state2_path), "execute"))
+        tasks2_path = Path(tmp) / "chain-hooks-2-tasks.json"
+        tasks2_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        execute2_result = must("starting the execute run for chain-hooks slice 2",
+                               execute(work, "start", "--run-root", str(execute_run_root), "--slug", "chain-hooks-2",
+                                       "--kind", "plan", "--input", str(plan2_path), "--worktree", str(work), "--tasks", str(tasks2_path)))
+        execute2_dest = Path(execute2_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 2: ocs state execute start", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug chain-hooks-2 "
+                                f"--kind plan --input {plan2_path} --worktree {work} --tasks {tasks2_path}",
+                                stdout=execute2_result.stdout)
+        after_execute2_start = read_json(state2_path)
+        if after_execute2_start["stages"]["execute"]["run"] != str(execute2_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 2's execute run from ocs state execute start's own stdout: {after_execute2_start['stages']['execute']}")
+
+        # With slice 2's own execute run genuinely running and linked, stop blocks with the fixed no-gap text, named against slice 2's own state path.
+        quoted_state2 = shlex.quote(str(state2_path))
+        expected_reason_slice2 = _expected_active_no_gap_reason(quoted_state2, "execute")
+        stop_result_slice2_execute = run_hook(work, "stop", stop_payload(work))
+        if stop_result_slice2_execute.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's stop hook exited {stop_result_slice2_execute.returncode} instead of blocking: {stop_result_slice2_execute.stderr!r}")
+        else:
+            try:
+                reason_slice2_execute = json.loads(stop_result_slice2_execute.stdout).get("reason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's stop hook did not block: stdout={stop_result_slice2_execute.stdout!r} stderr={stop_result_slice2_execute.stderr!r}")
+                reason_slice2_execute = None
+            if reason_slice2_execute is not None and reason_slice2_execute != expected_reason_slice2:
+                failures.append(
+                    "chain-hooks: slice 2's block reason (execute running) did not match its expected text exactly.\n"
+                    f"  got:      {reason_slice2_execute!r}\n"
+                    f"  expected: {expected_reason_slice2!r}"
+                )
+
+        # Slice 1's own file is unchanged from just after `continue` closed it to the end of this section.
+        if state_path.read_bytes() != slice1_bytes_after_continue:
+            failures.append("chain-hooks: slice 1's own file changed somewhere between continue and the end of the section")
+
+# ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every section here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
@@ -1738,6 +1945,7 @@ SECTIONS = [
     ("paused-lifecycle", (), _section_paused_lifecycle),
     ("active-no-gap-block", (), _section_active_no_gap_block),
     ("rest-procedure-in-closeout", (), _section_rest_procedure_in_closeout),
+    ("chain-hooks", (), _section_chain_hooks),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}

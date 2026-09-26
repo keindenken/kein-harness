@@ -204,11 +204,14 @@ def _find_active_state_path(fsd_module, execute_module, payload: Dict[str, Any])
     return fsd_module._find_nonterminal_fsd_run(run_root, worktree_root)
 
 
-def _gap_action(state_path: Path, gap_result: Dict[str, Any]) -> Optional[str]:
-    """The reason text a block or deny prints, with `<state>` -- the literal placeholder `fsd`'s own `gap()` writes into a closeout-row action -- replaced by the resolved state.json path, `shlex.quote`d so the printed reason still runs as one valid argument when the state.json path itself sits under a repository path holding a space, so the printed reason is a command the lead can run directly rather than a template they still have to fill in. `gap_result` is `fsd_module.gap(state)`'s own already-computed return value -- the caller's, not this function's, since `mode_stop` needs it for the gap-row check below and calling `gap()` a second time would re-read the linked run files off disk for no reason."""
+def _gap_action(fsd_module, state_path: Path, gap_result: Dict[str, Any]) -> Optional[str]:
+    """The reason text a block or deny prints, with `<state>` -- the literal placeholder `fsd`'s own `gap()` writes into a closeout-row action -- replaced by the resolved state.json path, `shlex.quote`d so the printed reason still runs as one valid argument when the state.json path itself sits under a repository path holding a space, so the printed reason is a command the lead can run directly rather than a template they still have to fill in.
+    The substitution runs only on the part of the action before its first `fsd_module.CHAIN_SUFFIX_SEPARATOR`: a chained state's ralplan-pending row appends a chain suffix after that separator, naming each remaining acceptance criterion's own text verbatim, and a criterion whose own text happens to contain the literal string `<state>` -- one describing the placeholder itself, say -- must reach the lead exactly as written rather than rewritten into a state path that criterion never named. `gap()`'s own fixed text -- the literal templates it writes for every row -- never itself contains the separator character; only the chained ralplan-pending row deliberately appends one, to mark where its own suffix begins. A free-text value `gap()` interpolates into some other row (an idea's own multi-line summary at the entry-pending row, say, or a corrupted occupant's raw `phase` field) could still happen to carry a newline of its own, coincidentally identical to the separator, and `partition` would split there the same way -- that is a property of matching one plain character, not a guarantee that only the chain suffix can ever produce one. An action with no such split at all has its whole text as the head `partition` returns, so every `<state>` in it is substituted.
+    `gap_result` is `fsd_module.gap(state)`'s own already-computed return value -- the caller's, not this function's, since `mode_stop` needs it for the gap-row check below and calling `gap()` a second time would re-read the linked run files off disk for no reason."""
     if gap_result.get("gap"):
         action = gap_result.get("action") or "advance the next stage"
-        return action.replace("<state>", shlex.quote(str(state_path)))
+        head, separator, tail = action.partition(fsd_module.CHAIN_SUFFIX_SEPARATOR)
+        return head.replace("<state>", shlex.quote(str(state_path))) + separator + tail
     return None
 
 
@@ -285,7 +288,7 @@ def mode_stop(payload: Dict[str, Any]) -> None:
         _allow()
     fsd_module, state_path, state = resolved
     gap_result = fsd_module.gap(state)
-    action = _gap_action(state_path, gap_result)
+    action = _gap_action(fsd_module, state_path, gap_result)
     if action:
         _block_stop(action)
     # No gap does not mean nothing is left to do: `gap()` only ever raises a row for a stage that has not started yet or has already finished, never for one that is genuinely still running, so a no-gap result over an `active` run can still be a turn ending mid-stage rather than a turn ending at a real stopping point. `interview` is the one exception: it is the one stage whose job is to wait on the user, so a turn ending while `interview` is the stage running is correct behaviour, and stays allowed. `running_stage` is also excluded when it is `None` -- ordinarily "nothing entered yet", already caught by the `gap: True` block above, but also, defensively, a hand-authored state no builder writes (every stage `skipped`, still `active`, no gap): `_active_no_gap_reason` reads `running_stage` by name throughout, and `None` there would print "None is the stage running" instead of naming anything real.
@@ -302,7 +305,7 @@ def mode_pre_write(payload: Dict[str, Any]) -> None:
     if resolved is None:
         _allow()
     fsd_module, state_path, state = resolved
-    action = _gap_action(state_path, fsd_module.gap(state))
+    action = _gap_action(fsd_module, state_path, fsd_module.gap(state))
     if action:
         _deny_pretool(action)
     _allow()
