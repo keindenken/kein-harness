@@ -290,6 +290,50 @@ def _listing(run_root):
     return sorted(str(p.relative_to(run_root)) for p in run_root.rglob("*"))
 
 
+def _find_line_starting_with(text, prefix):
+    # The one line in a multi-line block of text (a gap action, a report) that starts with `prefix`, or None -- used to pull out a single chain slice's own line so its content can be checked exactly, distinct from every other slice's own line.
+    for line in text.splitlines():
+        if line.startswith(prefix):
+            return line
+    return None
+
+
+def _section_between(text, start_heading, end_heading):
+    # The substring from `start_heading` up to (not including) the next occurrence of `end_heading` after it, or None when either heading is missing -- so a check for a phrase can be scoped to the one section it is supposed to appear under, rather than the whole document.
+    start = text.find(start_heading)
+    if start == -1:
+        return None
+    end = text.find(end_heading, start)
+    if end == -1:
+        return None
+    return text[start:end]
+
+
+def _collapse_whitespace(text):
+    return " ".join(text.split())
+
+
+def _expected_gap_earlier_line(slice_number, plan, ralplan, execute, reason):
+    # A chained state's own gap action names an earlier slice's receipts and reason together on the one line that names its own slice number, never another slice's -- built here independently of `state.py`'s own formatting so a mutation that shifted which slice's receipts land on which line still has an exact string to fail against.
+    return (f"- slice {slice_number}: plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}, "
+            f"continued because: {_collapse_whitespace(reason)}")
+
+
+def _expected_report_earlier_line(slice_number, plan, ralplan, execute, covered, reason):
+    return (f"- slice {slice_number}: plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}, "
+            f"covered {', '.join(covered)}, continued because: {_collapse_whitespace(reason)}")
+
+
+def _expected_report_current_line(slice_number, plan, ralplan, execute):
+    return (f"- slice {slice_number} (this state): plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}")
+
+
 def assert_refusal_untouched(label, work, state_path, run_root, argv, reason):
     # The shape every refusal fixture in this file shares: refused, for the named reason, with the targeted state file's own bytes and the whole run root's own directory listing identical before and after the call -- a refusal that changed either would mean `continue` wrote something before the check that refused it.
     before_bytes = state_path.read_bytes()
@@ -3473,6 +3517,337 @@ def _section_chain_schema():
             failures.append("checkpoint applied a continued removal it should have refused")
 
 # ---------------------------------------------------------------------------
+# Section "chain-gap-status": a chained state's own ralplan-pending row hands its planner the acceptance criteria still remaining and every earlier slice's own plan, ralplan receipt, execute receipt, and continue reason, never a criterion an earlier slice already covered; `status`'s own `chain` key carries the identical facts in structured form, present only once this state actually carries a `chain`; both tolerate an earlier slice that cannot be read.
+
+def _section_chain_gap_status():
+    # A dedicated proof that the unchained path is untouched, independent of chain-schema's own fixture shape: a plain, unchained ralplan-pending state's own action stays exactly `invoke /kein:ralplan <path>` and its own status key set stays exactly the unchained shape.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        unchained_requirements = work / "req-chain-gap-status-unchained.md"
+        write_requirements_with_criteria(unchained_requirements, "Approved", ["only criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the chain-gap-status unchained fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "unchained",
+                      "--input", str(unchained_requirements), "--worktree", str(work)))
+        unchained_state = require_path(result)
+        expected_unchained_action = f"invoke /kein:ralplan {shlex.quote(str(unchained_requirements))}"
+        gap_unchained = json.loads(fsd(work, "gap", str(unchained_state)).stdout)
+        if gap_unchained["action"] != expected_unchained_action:
+            failures.append(f"chain-gap-status's dedicated unchained fixture action did not match exactly: {gap_unchained['action']!r} != {expected_unchained_action!r}")
+        status_unchained = json.loads(fsd(work, "status", str(unchained_state)).stdout)
+        if set(status_unchained) != {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}:
+            failures.append(f"chain-gap-status's dedicated unchained fixture status key set changed: {sorted(status_unchained)}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-gap-status.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-gap-status slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-gap-status",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+
+        # Before slice 1 is ever continued, status is exactly the unchained key set (no chain key at all).
+        status_before_continue = json.loads(fsd(work, "status", str(slice1_state)).stdout)
+        if set(status_before_continue) != {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}:
+            failures.append(f"chain-gap-status's status on slice 1 before continuing did not have the exact unchained key set: {sorted(status_before_continue)}")
+
+        plan1_path = work / "plan-chain-gap-status-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-gap-status", requirements_path, plan1_path)
+        must("recording an assumption on chain-gap-status slice 1", fsd(work, "assume", str(slice1_state), "--stage", "execute",
+             "--decision", "log format", "--chosen", "json lines", "--alternatives", "csv,xml",
+             "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+        must("recording a lesson on chain-gap-status slice 1", fsd(work, "lesson", str(slice1_state),
+             "--line", "run check-fsd-state before every fsd change", "--why", "nothing else exercises this file"))
+        slice1_before_continue = read_json(slice1_state)
+        expected_plan1 = slice1_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan1 = slice1_before_continue["stages"]["ralplan"]["run"]
+        expected_execute1 = slice1_before_continue["stages"]["execute"]["run"]
+        if not expected_plan1 or not expected_ralplan1 or not expected_execute1:
+            failures.append("chain-gap-status's slice 1 fixture did not link ralplan and execute; this case proves nothing")
+
+        reason1 = "the rest needs more design work before it can be planned"
+        result = must("continuing chain-gap-status slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", reason1))
+        slice2_state = require_path(result)
+
+        # Slice 2's own ralplan-pending gap row names the criteria slice 1 left uncovered and slice 1's own receipts, never AC1 or its text; slice 1's own line carries its own receipts and reason together, not merely somewhere in the action.
+        gap2 = json.loads(fsd(work, "gap", str(slice2_state)).stdout)
+        if gap2 != {"gap": True, "completed": None, "next": "ralplan", "action": gap2["action"], "diagnosis": None}:
+            failures.append(f"chain-gap-status's slice 2 gap row did not match the exact ralplan-pending shape: {gap2}")
+        expected_head = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+        action2 = gap2["action"]
+        head2 = action2.split("\n", 1)[0]
+        if head2 != expected_head:
+            failures.append(f"chain-gap-status's slice 2 gap action head did not match: {head2!r} != {expected_head!r}")
+        expected_action2_slice1_line = _expected_gap_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, reason1)
+        actual_action2_slice1_line = _find_line_starting_with(action2, "- slice 1:")
+        if actual_action2_slice1_line != expected_action2_slice1_line:
+            failures.append(f"chain-gap-status's slice 2 gap action's own slice 1 line did not match exactly: {actual_action2_slice1_line!r} != {expected_action2_slice1_line!r}")
+        for needed in ("AC2", "second criterion", "AC3", "third criterion", "a path of its own"):
+            if needed not in action2:
+                failures.append(f"chain-gap-status's slice 2 gap action is missing {needed!r}: {action2!r}")
+        if re.search(r"\bAC1\b", action2):
+            failures.append(f"chain-gap-status's slice 2 gap action named AC1, which slice 1 already covered: {action2!r}")
+        if "first criterion" in action2:
+            failures.append(f"chain-gap-status's slice 2 gap action named AC1's own text, which slice 1 already covered: {action2!r}")
+
+        slice2_payload = read_json(slice2_state)
+        if slice2_payload["next_action"] != action2:
+            failures.append(f"chain-gap-status's slice 2 next_action did not match its own gap action: {slice2_payload['next_action']!r} != {action2!r}")
+
+        # status's own chain key carries the same facts in structured form, present before and unchanged after entering ralplan.
+        expected_chain = {
+            "slice": 2, "previous": str(slice1_state), "requirements": str(requirements_path),
+            "covered_by_earlier_slices": ["AC1"],
+            "remaining": [{"id": "AC2", "text": "second criterion"}, {"id": "AC3", "text": "third criterion"}],
+            "earlier_slices": [{
+                "slice": 1, "state": str(slice1_state), "plan": expected_plan1,
+                "ralplan": expected_ralplan1, "execute": expected_execute1,
+                "covered": ["AC1"], "reason": reason1,
+            }],
+        }
+        status2 = json.loads(fsd(work, "status", str(slice2_state)).stdout)
+        if status2.get("chain") != expected_chain:
+            failures.append(f"chain-gap-status's status chain key did not match: {status2.get('chain')!r} != {expected_chain!r}")
+
+        # An unreadable predecessor: gap, status, and report on slice 2 each exit 0 and tolerate it. Run here, before ralplan is entered, so slice 2's own entry-stage row is still the one gap fires.
+        moved_slice1 = work / "chain-gap-status-slice1-moved-away.json"
+        slice1_state.replace(moved_slice1)
+        gap2_after_move = must("gap on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "gap", str(slice2_state)))
+        gap2_after_move_payload = json.loads(gap2_after_move.stdout)
+        if not gap2_after_move_payload["gap"] or gap2_after_move_payload["next"] != "ralplan":
+            failures.append(f"chain-gap-status's gap did not still fire the ralplan row once slice 1 became unreadable: {gap2_after_move_payload}")
+        action2_after_move = gap2_after_move_payload["action"]
+        head2_after_move = action2_after_move.split("\n", 1)[0]
+        if head2_after_move != expected_head:
+            failures.append(f"chain-gap-status's gap action head changed once slice 1 became unreadable: {head2_after_move!r} != {expected_head!r}")
+        if "could not be read" not in action2_after_move:
+            failures.append(f"chain-gap-status's gap action did not tolerate the unreadable predecessor: {action2_after_move!r}")
+        status2_after_move = must("status on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "status", str(slice2_state)))
+        status2_after_move_payload = json.loads(status2_after_move.stdout)
+        if "error" not in status2_after_move_payload.get("chain", {}):
+            failures.append(f"chain-gap-status's status chain key carried no error once slice 1 became unreadable: {status2_after_move_payload.get('chain')!r}")
+        report2_after_move = must("report on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "report", str(slice2_state)))
+        slices_section2_after_move = _section_between(report2_after_move.stdout, "## Slices", "## Assumptions")
+        if slices_section2_after_move is None or "could not be read" not in slices_section2_after_move:
+            failures.append(f"chain-gap-status's report did not say could not be read between ## Slices and ## Assumptions: {report2_after_move.stdout!r}")
+        moved_slice1.replace(slice1_state)
+
+        must("entering ralplan for chain-gap-status slice 2", fsd(work, "enter", str(slice2_state), "ralplan"))
+        status2b = json.loads(fsd(work, "status", str(slice2_state)).stdout)
+        if status2b.get("chain") != expected_chain:
+            failures.append(f"chain-gap-status's status chain key changed once ralplan was entered: {status2b.get('chain')!r} != {expected_chain!r}")
+
+        # Continuing slice 2, covering AC2, with a two-line reason: it must still read as one line per slice in the gap suffix and in report, and its own second line must not surface as a bullet a reader could mistake for a remaining criterion.
+        plan2_path = work / "plan-chain-gap-status-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-gap-status-2", requirements_path, plan2_path)
+        slice2_before_continue = read_json(slice2_state)
+        expected_plan2 = slice2_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan2 = slice2_before_continue["stages"]["ralplan"]["run"]
+        expected_execute2 = slice2_before_continue["stages"]["execute"]["run"]
+
+        reason2 = "the last of the three needs its own slice\n- AC1: not actually a criterion"
+        result = must("continuing chain-gap-status slice 2, covering AC2",
+                      fsd(work, "continue", str(slice2_state), "--covered", "AC2", "--reason", reason2))
+        slice3_state = require_path(result)
+
+        # On this three-slice chain, each earlier slice's own line in slice 3's gap action must carry its own receipts and reason together, not another slice's: a mutation shifting receipts by one slice would still pass a check that only asks whether every path appears somewhere in the whole action.
+        gap3 = json.loads(fsd(work, "gap", str(slice3_state)).stdout)
+        action3 = gap3["action"]
+        expected_action3_slice1_line = _expected_gap_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, reason1)
+        expected_action3_slice2_line = _expected_gap_earlier_line(2, expected_plan2, expected_ralplan2, expected_execute2, reason2)
+        actual_action3_slice1_line = _find_line_starting_with(action3, "- slice 1:")
+        actual_action3_slice2_line = _find_line_starting_with(action3, "- slice 2:")
+        if actual_action3_slice1_line != expected_action3_slice1_line:
+            failures.append(f"chain-gap-status's slice 3 gap action's own slice 1 line did not match exactly: {actual_action3_slice1_line!r} != {expected_action3_slice1_line!r}")
+        if actual_action3_slice2_line != expected_action3_slice2_line:
+            failures.append(f"chain-gap-status's slice 3 gap action's own slice 2 line did not match exactly: {actual_action3_slice2_line!r} != {expected_action3_slice2_line!r}")
+        # The remaining-criteria bullets -- not the whole action, which now deliberately carries "AC1" inside slice 2's own free-text reason -- must name exactly the one criterion still open: a covered criterion offered again here, or a leaked line from slice 2's own two-line reason, would both show up as an extra or wrong bullet.
+        ac_bullet_lines = [line for line in action3.splitlines() if re.match(r"^- AC\d+:", line)]
+        if ac_bullet_lines != ["- AC3: third criterion"]:
+            failures.append(f"chain-gap-status's slice 3 gap action's own remaining-criteria bullets were not exactly AC3, so slice 2's own two-line reason leaked a line that reads as a criterion: {ac_bullet_lines!r}")
+
+        # status.chain on slice 3, with two earlier slices, carries each slice's own receipts and reason as its own entry, in order, reason 2 kept verbatim (not collapsed).
+        expected_chain3 = {
+            "slice": 3, "previous": str(slice2_state), "requirements": str(requirements_path),
+            "covered_by_earlier_slices": ["AC1", "AC2"],
+            "remaining": [{"id": "AC3", "text": "third criterion"}],
+            "earlier_slices": [
+                {"slice": 1, "state": str(slice1_state), "plan": expected_plan1,
+                 "ralplan": expected_ralplan1, "execute": expected_execute1,
+                 "covered": ["AC1"], "reason": reason1},
+                {"slice": 2, "state": str(slice2_state), "plan": expected_plan2,
+                 "ralplan": expected_ralplan2, "execute": expected_execute2,
+                 "covered": ["AC2"], "reason": reason2},
+            ],
+        }
+        status3 = json.loads(fsd(work, "status", str(slice3_state)).stdout)
+        if status3.get("chain") != expected_chain3:
+            failures.append(f"chain-gap-status's status chain key on slice 3 did not match: {status3.get('chain')!r} != {expected_chain3!r}")
+
+        # report on slice 3 carries the identical two earlier-slice lines, each exact, and the current-slice line for slice 3 itself, checked separately.
+        report3 = fsd(work, "report", str(slice3_state)).stdout
+        slices_section3 = _section_between(report3, "## Slices", "## Assumptions")
+        if slices_section3 is None:
+            failures.append(f"chain-gap-status's report on slice 3 printed no ## Slices section before ## Assumptions: {report3!r}")
+        else:
+            expected_report3_slice1_line = _expected_report_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, ["AC1"], reason1)
+            expected_report3_slice2_line = _expected_report_earlier_line(2, expected_plan2, expected_ralplan2, expected_execute2, ["AC2"], reason2)
+            expected_report3_current_line = _expected_report_current_line(3, None, None, None)
+            actual_report3_slice1_line = _find_line_starting_with(slices_section3, "- slice 1:")
+            actual_report3_slice2_line = _find_line_starting_with(slices_section3, "- slice 2:")
+            actual_report3_current_line = _find_line_starting_with(slices_section3, "- slice 3 (this state):")
+            if actual_report3_slice1_line != expected_report3_slice1_line:
+                failures.append(f"chain-gap-status's report slice 1 line did not match exactly: {actual_report3_slice1_line!r} != {expected_report3_slice1_line!r}")
+            if actual_report3_slice2_line != expected_report3_slice2_line:
+                failures.append(f"chain-gap-status's report slice 2 line did not match exactly: {actual_report3_slice2_line!r} != {expected_report3_slice2_line!r}")
+            if actual_report3_current_line != expected_report3_current_line:
+                failures.append(f"chain-gap-status's report current-slice line did not match exactly: {actual_report3_current_line!r} != {expected_report3_current_line!r}")
+
+        # An unreadable requirements document: status.chain.error and the ## Slices fallback line both say "could not be read", not a raw OS error string, and the fallback is itself a list line.
+        moved_requirements = work / "chain-gap-status-requirements-moved-away.md"
+        requirements_path.replace(moved_requirements)
+        status3_requirements_moved = must("status on chain-gap-status slice 3 while the requirements document is unreadable", fsd(work, "status", str(slice3_state)))
+        status3_requirements_moved_payload = json.loads(status3_requirements_moved.stdout)
+        requirements_error = status3_requirements_moved_payload.get("chain", {}).get("error", "")
+        if "could not be read" not in requirements_error:
+            failures.append(f"chain-gap-status's status chain error did not say the requirements document could not be read: {requirements_error!r}")
+        report3_requirements_moved = must("report on chain-gap-status slice 3 while the requirements document is unreadable", fsd(work, "report", str(slice3_state)))
+        slices_section3_requirements_moved = _section_between(report3_requirements_moved.stdout, "## Slices", "## Assumptions")
+        if slices_section3_requirements_moved is None or "could not be read" not in slices_section3_requirements_moved:
+            failures.append(f"chain-gap-status's report did not say could not be read between ## Slices and ## Assumptions once the requirements document was unreadable: {report3_requirements_moved.stdout!r}")
+        elif not any(line.startswith("- ") and "could not be read" in line for line in slices_section3_requirements_moved.splitlines()):
+            failures.append(f"chain-gap-status's report's could-not-be-read fallback was not its own list line: {slices_section3_requirements_moved!r}")
+        moved_requirements.replace(requirements_path)
+
+    # A separate, small three-slice chain whose own continue reasons never mention an AC id, so the "no already-covered criterion" check can hold cleanly here: the main fixture above's own reason 2 deliberately contains the text "AC1", to prove a two-line reason collapses onto one line instead of leaking a bullet, and that text alone would defeat a `\bAC1\b`/`\bAC2\b` absence check run against it.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-gap-status-clean-reasons.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the chain-gap-status clean-reasons slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-gap-status-clean",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan1_path = work / "plan-chain-gap-status-clean-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-gap-status-clean", requirements_path, plan1_path)
+        result = must("continuing the chain-gap-status clean-reasons slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs more design work"))
+        slice2_state = require_path(result)
+
+        plan2_path = work / "plan-chain-gap-status-clean-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-gap-status-clean-2", requirements_path, plan2_path)
+        result = must("continuing the chain-gap-status clean-reasons slice 2, covering AC2",
+                      fsd(work, "continue", str(slice2_state), "--covered", "AC2", "--reason", "needs its own slice"))
+        slice3_state = require_path(result)
+
+        gap3_clean = json.loads(fsd(work, "gap", str(slice3_state)).stdout)
+        action3_clean = gap3_clean["action"]
+        if re.search(r"\bAC1\b", action3_clean) or re.search(r"\bAC2\b", action3_clean):
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action named an already-covered criterion: {action3_clean!r}")
+        if "first criterion" in action3_clean or "second criterion" in action3_clean:
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action named an already-covered criterion's own text: {action3_clean!r}")
+        if "AC3" not in action3_clean or "third criterion" not in action3_clean:
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action is missing the one remaining criterion: {action3_clean!r}")
+
+# ---------------------------------------------------------------------------
+# Section "chain-final-close-report": the last slice's own `close` still requires every id the whole chain recorded, including one copied forward from an earlier slice untouched since; `report` on a chained state prints `## Slices` right before `## Assumptions`, one line per earlier slice plus one for the current slice, and prints no such section for a state that carries no `chain`.
+
+def _section_chain_final_close_report():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-final-close-report.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion", "second criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-final-close-report slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-final",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan1_path = work / "plan-chain-final-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-final", requirements_path, plan1_path)
+        must("recording an assumption on chain-final-close-report slice 1", fsd(work, "assume", str(slice1_state), "--stage", "execute",
+             "--decision", "log format", "--chosen", "json lines", "--alternatives", "csv,xml",
+             "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+        must("recording a lesson on chain-final-close-report slice 1", fsd(work, "lesson", str(slice1_state),
+             "--line", "run check-fsd-state before every fsd change", "--why", "nothing else exercises this file"))
+        slice1_before_continue = read_json(slice1_state)
+        expected_plan1 = slice1_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan1 = slice1_before_continue["stages"]["ralplan"]["run"]
+        expected_execute1 = slice1_before_continue["stages"]["execute"]["run"]
+
+        reason1 = "second criterion needs its own slice"
+        result = must("continuing chain-final-close-report slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", reason1))
+        slice2_state = require_path(result)
+
+        plan2_path = work / "plan-chain-final-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-final-2", requirements_path, plan2_path)
+        assumption2 = must("recording a second assumption on chain-final-close-report slice 2", fsd(work, "assume", str(slice2_state), "--stage", "execute",
+             "--decision", "retry policy", "--chosen", "exponential backoff", "--alternatives", "fixed delay,no retry",
+             "--reversal-cost", "rewrite the retry loop", "--where", "src/other.py"))
+        assumption2_id = assumption2.stdout.strip()
+        if assumption2_id != "A2":
+            failures.append(f"chain-final-close-report's second assumption was not minted A2, so slice 1's own A1 did not copy forward: {assumption2_id!r}")
+
+        slice2_before_close = read_json(slice2_state)
+        expected_plan2 = slice2_before_close["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan2 = slice2_before_close["stages"]["ralplan"]["run"]
+        expected_execute2 = slice2_before_close["stages"]["execute"]["run"]
+
+        must("entering closeout for chain-final-close-report slice 2", fsd(work, "closeout", str(slice2_state)))
+        run_dir2 = slice2_state.parent
+
+        # A retrospective citing A2 and L1 but not A1 -- copied forward from slice 1 -- is refused, naming A1.
+        bad_retro = run_dir2 / "retro-missing-a1.md"
+        bad_retro.write_text("# Retrospective\n\nA2 and L1 are both covered here.\n")
+        refuse("closing chain-final-close-report slice 2 without citing A1", fsd(work, "close", str(slice2_state), "--retro", str(bad_retro)),
+               reason="missing A1")
+
+        # A retrospective citing every id completes the run and relocates to the chain's own durable path, named from the literal slug this fixture chose (`--slug chain-final`), not derived from either slice's own run id.
+        good_retro = run_dir2 / "retro-final.md"
+        good_retro.write_text("# Retrospective\n\nA1, A2, and L1 are all covered here.\n")
+        must("closing chain-final-close-report slice 2 citing every id", fsd(work, "close", str(slice2_state), "--retro", str(good_retro)))
+        completed_slice2 = read_json(slice2_state)
+        if completed_slice2["lifecycle"] != "completed":
+            failures.append(f"chain-final-close-report's final close did not complete the run: {completed_slice2['lifecycle']!r}")
+        today = datetime.now().astimezone().strftime("%y%m%d")
+        expected_retro_path = work / ".agents" / "kein" / "retros" / f"{today}-chain-final.md"
+        if completed_slice2["retrospective"] != str(expected_retro_path):
+            failures.append(f"chain-final-close-report's close did not move the retrospective to the chain's own durable path: {completed_slice2['retrospective']!r} != {str(expected_retro_path)!r}")
+        if not expected_retro_path.is_file():
+            failures.append("chain-final-close-report's durable retrospective file does not exist")
+
+        # report on the completed slice 2 prints ## Slices before ## Assumptions, slice 1's own line and the current-slice line each exact and checked separately.
+        report_text = fsd(work, "report", str(slice2_state)).stdout
+        slices_section = _section_between(report_text, "## Slices", "## Assumptions")
+        if slices_section is None:
+            failures.append(f"chain-final-close-report's report did not print ## Slices before ## Assumptions: {report_text!r}")
+        else:
+            expected_slice1_line = _expected_report_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, ["AC1"], reason1)
+            expected_current_line = _expected_report_current_line(2, expected_plan2, expected_ralplan2, expected_execute2)
+            actual_slice1_line = _find_line_starting_with(slices_section, "- slice 1:")
+            actual_current_line = _find_line_starting_with(slices_section, "- slice 2 (this state):")
+            if actual_slice1_line != expected_slice1_line:
+                failures.append(f"chain-final-close-report's report slice 1 line did not match exactly: {actual_slice1_line!r} != {expected_slice1_line!r}")
+            if actual_current_line != expected_current_line:
+                failures.append(f"chain-final-close-report's report current-slice line did not match exactly: {actual_current_line!r} != {expected_current_line!r}")
+        for needed in ("A1", "A2", "L1"):
+            if needed not in report_text:
+                failures.append(f"chain-final-close-report's report is missing {needed!r}: {report_text!r}")
+
+        unchained_report = fsd(work, "report", str(slice1_state)).stdout
+        if "## Slices" in unchained_report:
+            failures.append("chain-final-close-report's report printed ## Slices for slice 1, which carries no chain of its own")
+
+# ---------------------------------------------------------------------------
 # Section "gap" (issue 1a): an entered stage whose association still reads "none" now carries a diagnosis on gap's own no-gap result -- the stage's name paired with the identical reason text `status` already shows beside it (`_none_association_reason`, read once and reused, never re-derived) -- so a lead no longer has to read `status` by hand to learn what `gap` itself could already see. `gap` still reports no gap throughout: a stage that is merely still running, with its ledger not yet completed, must never read as a gap of its own. Once the only entered stage is linked, the diagnosis clears to null. Registered under the literal name "gap" so `--only gap` runs just this section.
 
 def _section_gap_diagnosis_field():
@@ -4138,6 +4513,8 @@ SECTIONS = [
     ("chain-continue-after-pause", (), _section_chain_continue_after_pause),
     ("chain-refusals", (), _section_chain_refusals),
     ("chain-create-failure", (), _section_chain_create_failure),
+    ("chain-gap-status", (), _section_chain_gap_status),
+    ("chain-final-close-report", (), _section_chain_final_close_report),
     ("gap", (), _section_gap_diagnosis_field),
     ("attach", (), _section_attach_terminal_candidate_message),
     ("occupant", (), _section_occupant_facts),

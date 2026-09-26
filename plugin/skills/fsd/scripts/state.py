@@ -40,6 +40,9 @@ LESSON_FIELDS = frozenset({"id", "line", "why"})
 CHAIN_FIELDS = frozenset({"previous", "slice"})
 CONTINUED_FIELDS = frozenset({"covered", "reason", "next"})
 COVERED_ID_PATTERN = re.compile(r"^AC[1-9][0-9]*$")
+# The one newline separating a chained state's ordinary `invoke /kein:ralplan <path>` action from the chain suffix appended after it: the slice number, each remaining acceptance criterion, and every earlier slice's own receipts and continue reason.
+# A module constant rather than a literal at each call site, so this one value names the boundary everywhere it is built, rather than a bare newline repeated at each place that constructs it.
+CHAIN_SUFFIX_SEPARATOR = "\n"
 # A `- [ ]` / `- [x]` line under `## Acceptance criteria` is a criterion; `[ \t]*` stops at that same line's own end rather than crossing into the next line the way `\s*` would, and the captured group must start with a non-whitespace character, so a checkbox with nothing after it on its own line simply fails to match instead of swallowing the following line's text as its own.
 CHECKBOX_PATTERN = re.compile(r"^- \[[ xX]\][ \t]*(\S.*)$", re.MULTILINE)
 FSD_FIELDS = frozenset({
@@ -1211,7 +1214,12 @@ def gap(state: Dict[str, Any]) -> Dict[str, Any]:
             if blocked is not None:
                 return {"gap": True, "completed": None, "next": entry, "action": blocked, "diagnosis": None}
         target = state["input"].get("reference") or state["input"].get("summary")
-        return {"gap": True, "completed": None, "next": entry, "action": f"invoke /kein:{entry} {shlex.quote(target)}", "diagnosis": None}
+        if entry == "ralplan" and "chain" in state:
+            # A chained state's ralplan-pending row hands the next ralplan invocation what remains of the requirements and every earlier slice's own receipts, appended after `CHAIN_SUFFIX_SEPARATOR`.
+            action = _chain_ralplan_action(Path(target), state)
+        else:
+            action = f"invoke /kein:{entry} {shlex.quote(target)}"
+        return {"gap": True, "completed": None, "next": entry, "action": action, "diagnosis": None}
     if stages["ralplan"]["status"] == "pending":
         try:
             run_path = _resolve_association(state, "interview")
@@ -1300,6 +1308,8 @@ def status(state: Dict[str, Any]) -> Dict[str, Any]:
         stage_report[stage] = entry
     result: Dict[str, Any] = {"lifecycle": state["lifecycle"], "entry": state["entry"], "stages": stage_report}
     result.update(gap(state))
+    if "chain" in state:
+        result["chain"] = _chain_status(state)
     return result
 
 
@@ -1615,10 +1625,35 @@ def abort(destination: Path, reason: str, next_action: Optional[str]) -> None:
 # report
 
 
+def _chain_slices_lines(state: Dict[str, Any]) -> List[str]:
+    """`report`'s own `## Slices` section for a chained state: one line per earlier slice in chain order (its own plan path, ralplan receipt path, execute receipt path, covered ids, and continue reason, the reason collapsed to one line with `_one_line` so a multi-line `--reason` cannot itself start a line that reads as a criterion bullet), then one line for this state itself marked as the current slice (its own plan, ralplan receipt, and execute receipt, each or `none linked`), never its covered ids or reason since this state has not necessarily continued as of this report. A predecessor `_chain_status` could not read reports as one list line naming that instead of the earlier-slice walk -- the current slice's own line depends on nothing upstream, so it still prints."""
+    chain_view = _chain_status(state)
+    lines = ["## Slices", ""]
+    if "error" in chain_view:
+        lines.append(f"- {chain_view['error']}")
+    else:
+        for earlier in chain_view["earlier_slices"]:
+            lines.append(
+                f"- slice {earlier['slice']}: plan {earlier['plan'] or 'none linked'}, "
+                f"ralplan receipt {earlier['ralplan'] or 'none linked'}, "
+                f"execute receipt {earlier['execute'] or 'none linked'}, "
+                f"covered {', '.join(earlier['covered'])}, continued because: {_one_line(earlier['reason'])}"
+            )
+    lines.append(
+        f"- slice {chain_view['slice']} (this state): plan {_slice_plan_path(state) or 'none linked'}, "
+        f"ralplan receipt {_chain_receipt_path(state, 'ralplan') or 'none linked'}, "
+        f"execute receipt {_chain_receipt_path(state, 'execute') or 'none linked'}"
+    )
+    lines.append("")
+    return lines
+
+
 def report(state: Dict[str, Any]) -> str:
     lines: List[str] = []
     if state["lifecycle"] == "halted":
         lines += ["## Halted", "", (state.get("halt") or {}).get("reason", ""), ""]
+    if "chain" in state:
+        lines += _chain_slices_lines(state)
     lines += ["## Assumptions", ""]
     if state["assumptions"]:
         for item in state["assumptions"]:
@@ -1825,8 +1860,9 @@ def _chain_requirements_path(state: Dict[str, Any]) -> Optional[Path]:
     return path
 
 
-def _chain_predecessors(state: Dict[str, Any]) -> List[Tuple[Path, Dict[str, Any]]]:
-    """Every earlier slice of this state's own chain, walked back through `chain.previous` from slice k-1 to slice 1 and returned in slice order (slice 1 first). Raises `ValueError` the moment a predecessor cannot be trusted: unreadable, invalid against `validate_state`, missing its own `continued` (a slice `continue` never actually closed), a slice number that does not step down by exactly one, or a path already walked -- a cycle a corrupted `chain.previous` could otherwise loop on forever. An empty list when this state carries no `chain` at all, i.e. it is slice 1 itself."""
+def _chain_predecessors(state: Dict[str, Any], override: Optional[Dict[Path, Dict[str, Any]]] = None) -> List[Tuple[Path, Dict[str, Any]]]:
+    """Every earlier slice of this state's own chain, walked back through `chain.previous` from slice k-1 to slice 1 and returned in slice order (slice 1 first). Raises `ValueError` the moment a predecessor cannot be trusted: unreadable, invalid against `validate_state`, missing its own `continued` (a slice `continue` never actually closed), a slice number that does not step down by exactly one, or a path already walked -- a cycle a corrupted `chain.previous` could otherwise loop on forever. An empty list when this state carries no `chain` at all, i.e. it is slice 1 itself.
+    `override` maps a predecessor's own resolved path to the payload this walk should read for it instead of loading it from disk: `continue_chain` passes the closed candidate it is about to commit for the slice it is ending, keyed by that slice's own resolved path, so the walk from its own successor -- built before either of `continue_chain`'s two writes -- reads that slice's own `continued` from memory rather than from a file that does not carry it yet. Every other predecessor is still read from disk, exactly as without an override; `None` (every caller but `continue_chain`'s own action builder) reads every predecessor from disk, unchanged."""
     chain = state.get("chain")
     if chain is None:
         return []
@@ -1843,10 +1879,12 @@ def _chain_predecessors(state: Dict[str, Any]) -> List[Tuple[Path, Dict[str, Any
         if resolved in seen_paths:
             raise ValueError(f"earlier slice could not be read: {path} repeats a path this chain already walked")
         seen_paths.add(resolved)
-        try:
-            payload = _load(path)
-        except Exception:
-            raise ValueError(f"earlier slice could not be read: {path}")
+        payload = override.get(resolved) if override else None
+        if payload is None:
+            try:
+                payload = _load(path)
+            except Exception:
+                raise ValueError(f"earlier slice could not be read: {path}")
         if validate_state(payload):
             raise ValueError(f"earlier slice could not be read: {path} is not a valid fsd state")
         if "continued" not in payload:
@@ -1862,6 +1900,100 @@ def _chain_predecessors(state: Dict[str, Any]) -> List[Tuple[Path, Dict[str, Any
         expected_slice = predecessor_chain["slice"] - 1
     collected.reverse()
     return collected
+
+
+def _one_line(text: str) -> str:
+    """`text` collapsed onto a single line: every run of whitespace, embedded newlines included, becomes one space. A `--reason` a lead wrote across more than one line would otherwise break the one-line-per-slice shape of `gap`'s own chain suffix and `report`'s own `## Slices` section, and a line born partway through such a reason could itself start with `- AC<n>:`, indistinguishable from a genuine remaining-criterion bullet. `status`'s own `chain` key never calls this: it keeps a reason exactly as recorded."""
+    return " ".join(text.split())
+
+
+def _chain_receipt_path(payload: Dict[str, Any], stage: str) -> Optional[str]:
+    """The absolute path of a slice's own kept `stage` link -- `stages.<stage>.run` -- read straight off the slice's own payload rather than re-derived: a slice that has already closed carries whatever kept link `attach`/`post-bash` last wrote to it, with nothing left to resolve or re-verify. `None` when that slice never linked the stage."""
+    return (payload.get("stages") or {}).get(stage, {}).get("run")
+
+
+def _slice_plan_path(payload: Dict[str, Any]) -> Optional[str]:
+    """The plan a slice's own `ralplan` stage produced, the same precedence `gap`'s own ralplan-completed row and `_expected_execute_plan_reference` already give this question: `stages.ralplan.resolved_reference`, stored absolute at attach time, when present, else the kept ralplan receipt's own `plan.path`, tolerating a missing or unreadable receipt the same way every other read in this reader does. `None` when neither is available."""
+    ralplan_stage = (payload.get("stages") or {}).get("ralplan") or {}
+    resolved = ralplan_stage.get("resolved_reference")
+    if resolved:
+        return resolved
+    run = ralplan_stage.get("run")
+    if not run:
+        return None
+    try:
+        receipt = _load(Path(run))
+    except Exception:
+        return None
+    return receipt.get("plan", {}).get("path")
+
+
+def _chain_status(state: Dict[str, Any], override: Optional[Dict[Path, Dict[str, Any]]] = None) -> Dict[str, Any]:
+    """The one read `status`, `report`, `gap`'s own entry row, and `continue_chain`'s own next-slice action all share for a chained state -- exactly the `status` `chain` key's own shape, so `status` can assign this return value to that key with nothing further to build: `slice` and `previous`, straight from this state's own `chain`, are always present; `requirements`, `covered_by_earlier_slices`, `remaining`, and `earlier_slices` are present together once the read succeeds, or missing in favor of a single `error` key worded `could not be read` either way: `earlier slice could not be read: <path>` from `_chain_predecessors`, or `requirements document could not be read: <path>` when the linked path itself no longer opens. A caller tests `"error" in result` rather than catching anything of its own.
+    `covered_by_earlier_slices` is the union of every earlier slice's own `continued.covered`, de-duplicated and sorted by criterion number -- "covered by earlier slices" is a fact about the whole chain behind this state, not only its immediate predecessor. `remaining` is every criterion the requirements document holds, in document order, that is not in that union, each carrying its own text. `earlier_slices` walks the same predecessors in slice order, each entry naming its own state path, plan path, ralplan and execute receipt paths, covered ids, and continue reason.
+    `override` is passed straight through to `_chain_predecessors`; see that function's own docstring for what it is for."""
+    chain = state["chain"]
+    result: Dict[str, Any] = {"slice": chain["slice"], "previous": chain["previous"]}
+    try:
+        predecessors = _chain_predecessors(state, override)
+        requirements_path = _chain_requirements_path(state)
+        if requirements_path is None:
+            raise ValueError("no approved requirements document is linked to this run to continue from")
+        try:
+            criteria = _acceptance_criteria(requirements_path)
+        except Exception as exc:
+            raise ValueError(f"requirements document could not be read: {requirements_path}") from exc
+        covered_by_earlier_slices: List[str] = []
+        for _, payload in predecessors:
+            for criterion_id in payload["continued"]["covered"]:
+                if criterion_id not in covered_by_earlier_slices:
+                    covered_by_earlier_slices.append(criterion_id)
+        covered_by_earlier_slices.sort(key=lambda criterion_id: int(criterion_id[2:]))
+        remaining = [{"id": criterion_id, "text": text} for criterion_id, text in criteria
+                     if criterion_id not in covered_by_earlier_slices]
+        earlier_slices = []
+        for path, payload in predecessors:
+            predecessor_chain = payload.get("chain")
+            continued = payload["continued"]
+            earlier_slices.append({
+                "slice": predecessor_chain["slice"] if predecessor_chain else 1,
+                "state": str(path),
+                "plan": _slice_plan_path(payload),
+                "ralplan": _chain_receipt_path(payload, "ralplan"),
+                "execute": _chain_receipt_path(payload, "execute"),
+                "covered": continued["covered"],
+                "reason": continued["reason"],
+            })
+        result["requirements"] = str(requirements_path)
+        result["covered_by_earlier_slices"] = covered_by_earlier_slices
+        result["remaining"] = remaining
+        result["earlier_slices"] = earlier_slices
+    except Exception as exc:
+        result["error"] = str(exc)
+    return result
+
+
+def _chain_ralplan_action(requirements_path: Path, state: Dict[str, Any], override: Optional[Dict[Path, Dict[str, Any]]] = None) -> str:
+    """The action for a chained state whose `ralplan` is pending: the ordinary `invoke /kein:ralplan <requirements path>` gap already prints for any ralplan-pending row, then `CHAIN_SUFFIX_SEPARATOR`, then one suffix naming this slice's own number, each remaining acceptance criterion as `AC<n>` with its own text, the instruction to give this slice's own plan a path of its own, and, for every earlier slice, its own plan path, ralplan receipt path, execute receipt path, and continue reason (`_one_line`d, so a multi-line `--reason` stays on the one line its own slice occupies) -- covered criteria are never named here, only what remains is this slice's own planner's business. When the chain's own history cannot be read, `_chain_status`'s own error message (already worded `could not be read`) follows the same head instead, so the row still fires with something actionable.
+    `override` is passed straight through to `_chain_status`, for `continue_chain`'s own call computing the next slice's own action before either of its two writes, reading the slice it is ending from the closed candidate it is about to commit rather than from the file that does not carry `continued` yet."""
+    head = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+    chain_view = _chain_status(state, override)
+    if "error" in chain_view:
+        return head + CHAIN_SUFFIX_SEPARATOR + chain_view["error"]
+    lines = [f"slice {chain_view['slice']} of a chain.",
+             "remaining acceptance criteria for this slice's own ralplan to plan for:"]
+    for item in chain_view["remaining"]:
+        lines.append(f"- {item['id']}: {item['text']}")
+    lines.append("give this slice's own plan a path of its own, not a path an earlier slice's own plan already used.")
+    lines.append("earlier slices:")
+    for earlier in chain_view["earlier_slices"]:
+        lines.append(
+            f"- slice {earlier['slice']}: plan {earlier['plan'] or 'none linked'}, "
+            f"ralplan receipt {earlier['ralplan'] or 'none linked'}, "
+            f"execute receipt {earlier['execute'] or 'none linked'}, "
+            f"continued because: {_one_line(earlier['reason'])}"
+        )
+    return head + CHAIN_SUFFIX_SEPARATOR + "\n".join(lines)
 
 
 def _ralplan_entry_stages() -> Dict[str, Dict[str, Any]]:
@@ -1957,7 +2089,6 @@ def continue_chain(destination: Path, covered: List[str], reason: str) -> Path:
     next_destination = _mint_chain_destination(run_root, slug)
 
     next_slice = (state.get("chain") or {}).get("slice", 1) + 1
-    next_action = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
     next_candidate = {
         "schema_version": SCHEMA_VERSION, "workflow": "fsd", "run_id": next_destination.parent.name,
         "lifecycle": "active", "worktree": state["worktree"], "entry": "ralplan",
@@ -1968,7 +2099,7 @@ def continue_chain(destination: Path, covered: List[str], reason: str) -> Path:
         "questions": copy.deepcopy(state["questions"]),
         "lessons": copy.deepcopy(state["lessons"]),
         "retrospective": None,
-        "next_action": next_action,
+        "next_action": "",
         "chain": {"previous": str(destination), "slice": next_slice},
     }
     closed_candidate = copy.deepcopy(state)
@@ -1976,6 +2107,9 @@ def continue_chain(destination: Path, covered: List[str], reason: str) -> Path:
     closed_candidate["retrospective"] = None
     closed_candidate["continued"] = {"covered": covered_sorted, "reason": reason.strip(), "next": str(next_destination)}
     closed_candidate["next_action"] = f"continued in {next_destination}"
+
+    # The next slice's own action is computed here, before either write, with the slice this call is ending read from `closed_candidate` -- the one place its own `continued` already exists -- rather than from `destination`'s own file, which does not carry it until the second commit below lands.
+    next_candidate["next_action"] = _chain_ralplan_action(requirements_path, next_candidate, {destination: closed_candidate})
 
     next_errors = validate_transition(None, next_candidate)
     if next_errors:
