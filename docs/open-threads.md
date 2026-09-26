@@ -89,7 +89,6 @@ The owner's plan is to move it to a user-level path-scoped rule in `~/.claude/ru
 
 What is established: user-level path-scoped rules reach Claude subagents, injected once on the subagent's own first Read of a matching file (`~/Documents/wiki/findings/260926-path-scoped-rules-reach-subagents-once.md`). An executor edits existing files only after reading them, so it would get the rule before its first edit; a lane that only creates new source files without reading one would not.
 
-Still open:
+Moved 2026-09-26: `~/.claude/rules/no-hard-wrap.md`, `paths:` listing common source extensions plus `**/*.md` (the old line covered documents too), and the line removed from `~/.claude/CLAUDE.md`. A probe session confirmed one `nested_memory` injection in the main session and one in a subagent, each on its own read of a source file.
 
-- The `paths:` list. Many extensions is a length problem, not a design one — `paths:` takes a list. Whether it also accepts brace expansion (`**/*.{ts,tsx,py}`) is unmeasured here.
-- Whether it works: compare comment rewrites in descvi executor transcripts before and after the move.
+Still open: whether it works — compare comment rewrites in descvi executor transcripts before and after the move. Whether `paths:` accepts brace expansion (`**/*.{ts,tsx,py}`) is unmeasured, which is why the file lists extensions one per line.
