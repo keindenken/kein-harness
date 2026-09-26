@@ -20,8 +20,7 @@ Requirements: `.agents/kein/requirements/260926-open-items.md` (R1–R8). This f
 
 ## 3. execute state (execute) — R4, R3 execute side, R7.1, R7.2
 
-- [ ] executor running
-- [ ] review lane → commit
+- [x] 4a41c57, then three review rounds corrected in the kein-open-items worktree → 9f2e508, merged 85ab5e2
 
 ## 4. codex resume and `--planner codex` — R5, R6
 
@@ -38,5 +37,5 @@ Requirements: `.agents/kein/requirements/260926-open-items.md` (R1–R8). This f
 
 ## After all
 
-- [ ] move closed items (open-threads, execute/ralplan open.md) to closed files
-- [ ] full gate run on the final tree
+- [x] closed items moved → 60b834c
+- [x] full gate run on merged main 85ab5e2: every dev/kein-dev check and both plugin validations pass; both live descvi runs validate and reconcile
