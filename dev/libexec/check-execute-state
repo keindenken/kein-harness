@@ -136,7 +136,7 @@ def set_round(task_id, status, round_number, **fields):
     return mutate
 
 
-def _confirm_task(task_id, role="architect", word="PASS", fresh=True, independent=True, input_hash=None):
+def _confirm_task(task_id, role="architect", word="PASS", fresh=True, independent=True, input_hash=None, reviewed_at=None):
     """A re-confirmation lane's judgement on an already-accepted task (R4): appends one verdict to its
     acceptance's `reviewers`, leaving the round, the accepted worktree fingerprint, and what was fixed
     exactly as they were, and moves `input_sha256` to the run's current input hash -- or to `input_hash`,
@@ -145,9 +145,11 @@ def _confirm_task(task_id, role="architect", word="PASS", fresh=True, independen
     """
     def mutate(state):
         acc = by_id(state, task_id)["acceptance"]
+        # Stamped now by default: a re-confirmation has to be reviewed after the amendment it judges, and `amend` stamps that with the real clock.
+        stamp = reviewed_at or datetime.now().astimezone().isoformat(timespec="seconds")
         acc["reviewers"] = list(acc["reviewers"]) + [{
             "reviewer_role": role, "verdict": word, "task_id": task_id, "round": acc["round"],
-            "worktree_fingerprint": "auto", "reviewed_at": STAMP, "fresh": fresh, "independent": independent,
+            "worktree_fingerprint": "auto", "reviewed_at": stamp, "fresh": fresh, "independent": independent,
         }]
         acc["input_sha256"] = input_hash if input_hash is not None else state["input"]["sha256"]
     return mutate
@@ -2125,9 +2127,33 @@ def _section_revision_confirmation(tmp):
     must("verifying task-001", set_status("task-001", "verifying", latest_verification=[verification]))
     must("reviewing task-001", set_status("task-001", "reviewing"))
     original_hash = current()["input"]["sha256"]
-    must("accepting task-001", set_status("task-001", "accepted",
-        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
-                    "reviewers": [split_verdict("task-001")]}))
+
+    # F2 - a fresh acceptance's input_sha256 must be the run's current input hash; nothing else, and not
+    # both moved with the input in the same checkpoint. Checked from `reviewing`, before the real
+    # acceptance below, since neither refusal may leave the task actually accepted.
+    refuse("a fresh acceptance claiming an input_sha256 that is not the run's current one",
+        set_status("task-001", "accepted",
+            acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "a" * 64,
+                        "reviewers": [split_verdict("task-001")]}),
+        reason="input_sha256 must be the run's current input hash on a fresh acceptance")
+
+    def amend_and_accept(state):
+        state["phase"] = "task"
+        moved = state["input"]["summary"] + ", moved in the same checkpoint as an accept"
+        state["input"]["summary"] = moved
+        state["input"]["sha256"] = hashlib.sha256(moved.encode()).hexdigest()
+        state["input"]["amendments"] = list(state["input"].get("amendments") or []) + [
+            {"at": STAMP, "reason": "why", "from": original_hash, "to": state["input"]["sha256"]}]
+        by_id(state, "task-001").update({"status": "accepted", "round": 1,
+            "acceptance": {"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                           "reviewers": [split_verdict("task-001")]}})
+    refuse("moving the input and freshly accepting a task in the same checkpoint", amend_and_accept,
+        reason="cannot both move the input and newly accept a task")
+
+    # F2 - a fresh acceptance fills `input_sha256` even when the lead leaves the key out entirely, not
+    # only when it is written `"auto"`.
+    must("accepting task-001 with input_sha256 left out entirely", set_status("task-001", "accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-001")]}))
     if current()["tasks"][0]["acceptance"].get("input_sha256") != original_hash:
         failures.append("task-001's acceptance did not record the input hash it was made under")
 
@@ -2147,6 +2173,9 @@ def _section_revision_confirmation(tmp):
     amended_hash = amended["input"]["sha256"]
     if amended["tasks"][0]["status"] != "accepted" or amended["tasks"][0]["acceptance"].get("input_sha256") != original_hash:
         failures.append("the amendment unseated task-001's acceptance, or moved its recorded revision on its own; only a re-confirmation lane may move it")
+    # F6 - amend's default next_action names the re-confirmation lane and the task ids waiting on it.
+    if "re-confirmation" not in amended["next_action"] or "task-001" not in amended["next_action"]:
+        failures.append(f"amend's default next_action did not name the re-confirmation lane and task-001: {amended['next_action']!r}")
 
     def try_completion():
         prev = current()
@@ -2166,11 +2195,21 @@ def _section_revision_confirmation(tmp):
         failures.append("completion succeeded while task-001's acceptance still named a superseded input revision, and must not have")
     elif "confirmed against the run's current input revision" not in result.stderr:
         failures.append(f"completion with an unconfirmed accepted task was refused for the wrong reason: {result.stderr.strip()}")
+    elif "unconfirmed: task-001" not in result.stderr:
+        failures.append(f"the completion refusal did not name task-001 as the unconfirmed task: {result.stderr.strip()}")
 
     refuse("confirming with a non-fresh reviewer", _confirm_task("task-001", fresh=False), reason="fresh")
     refuse("confirming with a non-independent reviewer", _confirm_task("task-001", independent=False), reason="fresh")
     refuse("confirming to the revision it already held", _confirm_task("task-001", input_hash=original_hash), reason="different revision")
     refuse("confirming to a hash that is not the run's current one", _confirm_task("task-001", input_hash="a" * 64), reason="current input hash")
+    refuse("confirming with a verdict reviewed before the amendment", _confirm_task("task-001", reviewed_at=STAMP), reason="before the amendment")
+
+    # A re-confirmation is a new judgement of the amended plan, so a copy of a verdict already on the acceptance cannot stand in for the lane.
+    def confirm_with_copy(state):
+        acc = by_id(state, "task-001")["acceptance"]
+        acc["reviewers"] = list(acc["reviewers"]) + [dict(acc["reviewers"][0])]
+        acc["input_sha256"] = state["input"]["sha256"]
+    refuse("confirming with a copy of a verdict already on record", confirm_with_copy, reason="not a copy")
 
     must("a fresh independent lane re-confirms task-001 against the amended revision", _confirm_task("task-001"))
     if current()["tasks"][0]["acceptance"].get("input_sha256") != amended_hash:
@@ -2196,8 +2235,14 @@ def _section_revision_confirmation(tmp):
     legacy_must("dispatching task-001", set_status("task-001", "implementing"))
     legacy_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[verification]))
     legacy_must("reviewing task-001", set_status("task-001", "reviewing"))
-    legacy_must("accepting task-001 in the pre-input_sha256 shape", set_status("task-001", "accepted",
+    legacy_must("accepting task-001", set_status("task-001", "accepted",
         acceptance={"round": 1, "worktree_fingerprint": "auto", "reviewers": [split_verdict("task-001")]}))
+    # A fresh acceptance now fills `input_sha256` even when left out, so the pre-F2 shape this fixture is
+    # about -- a state written before the field existed -- is reproduced by dropping it directly, bypassing
+    # `checkpoint`, the same way other legacy fixtures in this file simulate a shape nothing writes anymore.
+    legacy_state = legacy_current()
+    del legacy_state["tasks"][0]["acceptance"]["input_sha256"]
+    write(legacy_state_path, legacy_state)
     if "input_sha256" in legacy_current()["tasks"][0]["acceptance"]:
         failures.append("the legacy fixture's acceptance carries input_sha256 and no longer exercises the field's absence")
 
@@ -2208,6 +2253,64 @@ def _section_revision_confirmation(tmp):
     legacy_must("dispatching the unrelated task-002 beside a legacy acceptance", set_status("task-002", "implementing"))
     if by_id(legacy_current(), "task-002")["status"] != "implementing":
         failures.append("checkpointing an unrelated task was blocked by a legacy acceptance missing input_sha256")
+
+    # F3 - re-confirming a task accepted with `fixed` findings must judge the tree as accepted, not the
+    # one the original reviewers read before the fix moved the acceptance's own fingerprint past them.
+    fixed_repo = _seeded_repo(tmp, "revision-fixed")
+    fixed_tasks = [{"id": "task-001", "title": "t", "scope": ["file.txt"], "completion_condition": "it works",
+                     "verification_path": ["true"], "rationale": "r"}]
+    fixed_state_path, fixed_candidate_path = _start_lane(fixed_repo, "260101-000000-fixed", fixed_tasks, "fixed fixture")
+    fixed_current, fixed_attempt, fixed_must, fixed_refuse = _checkpoint_helpers(fixed_repo, fixed_state_path, fixed_candidate_path)
+
+    fixed_must("dispatching task-001", set_status("task-001", "implementing"))
+    fixed_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[verification]))
+    fixed_must("reviewing task-001", set_status("task-001", "reviewing"))
+    pre_fix_fingerprint = fixed_current()["worktree"]["observed"]["fingerprint"]
+    fixed_finding = finding("code-reviewer", "minor", None)
+
+    def reviewed_at_prefix(word):
+        return dict(split_verdict("task-001", word, 1), worktree_fingerprint=pre_fix_fingerprint)
+
+    (fixed_repo / "file.txt").write_text("corrected\n")
+
+    # F3, minor regression - at a *first* acceptance nothing has been appended by re-confirmation yet, so
+    # every reviewer must share one fingerprint; a mix of the pre-fix reviewer and one that jumps ahead to
+    # read the tree as it will be accepted must be refused, not quietly excused the way a genuine
+    # re-confirmation verdict is.
+    fixed_refuse("a first-time fixed acceptance mixing a pre-fix reviewer with one reading ahead to the accepted tree",
+        set_status("task-001", "accepted",
+            latest_verification=[dict(verification, round=1)],
+            acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                        "reviewers": [reviewed_at_prefix("REVISE"),
+                                      dict(split_verdict("task-001", "PASS", 1), reviewer_role="architect", worktree_fingerprint="auto")],
+                        "fixed": [fixed_finding]}),
+        reason="must all have read one fingerprint at a first acceptance")
+
+    fixed_must("accepting task-001 over a fix the gates re-ran", set_status("task-001", "accepted",
+        latest_verification=[dict(verification, round=1)],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [reviewed_at_prefix("REVISE")], "fixed": [fixed_finding]}))
+    fixed_accepted = fixed_current()
+    post_fix_fingerprint = fixed_accepted["tasks"][0]["acceptance"]["worktree_fingerprint"]
+    if post_fix_fingerprint == pre_fix_fingerprint:
+        failures.append("the fixed acceptance's own fingerprint did not move past the pre-fix tree the reviewers read; the fixture does not isolate F3")
+
+    amend_fixed = run(fixed_repo, "amend", str(fixed_state_path), "--summary", "fixed fixture, amended", "--reason", "owner ruling")
+    if amend_fixed.returncode != 0:
+        failures.append(f"the fixed-acceptance fixture's amendment was refused: {amend_fixed.stderr.strip()}")
+
+    def confirm_at_prefix(state):
+        acc = by_id(state, "task-001")["acceptance"]
+        acc["reviewers"] = list(acc["reviewers"]) + [dict(split_verdict("task-001", "PASS", 1),
+            reviewer_role="architect", worktree_fingerprint=pre_fix_fingerprint)]
+        acc["input_sha256"] = state["input"]["sha256"]
+    fixed_refuse("confirming a fixed acceptance against the pre-fix fingerprint the reviewers read",
+        confirm_at_prefix, reason="acceptance's own worktree_fingerprint")
+
+    fixed_must("a fresh independent lane confirms task-001 reading the acceptance's own fingerprint",
+        _confirm_task("task-001"))
+    if fixed_current()["tasks"][0]["acceptance"]["reviewers"][-1]["worktree_fingerprint"] != post_fix_fingerprint:
+        failures.append("the confirmation verdict did not bind to the fixed acceptance's own worktree_fingerprint")
 
 
 def _section_primed_acceptance(tmp):
@@ -2254,9 +2357,88 @@ def _section_primed_acceptance(tmp):
            reason="fresh independent PASS or REVISE")
 
     current, attempt, must, refuse = lane("primed-on", primed=True)
+    if by_id(current(), "task-001").get("blocking_roles") != ["code-reviewer"]:
+        failures.append(f"blocking_roles was not autofilled from the round's own BLOCK finding: {by_id(current(), 'task-001').get('blocking_roles')!r}")
+
+    # F5, review round 2 - `blocking_roles` is frozen outside the transition that opens a correction, the
+    # same way `dispatch_scope_fingerprint` is: dropping it or rewriting it to name an uninvolved role on
+    # a self-loop (still `reviewing`, round unchanged) must both be refused, or --primed's role binding
+    # could be gamed after the fact.
+    def drop_blocking_roles(state):
+        state["phase"] = "task"
+        task = by_id(state, "task-001")
+        task.update({"status": "reviewing", "round": 2})
+        del task["blocking_roles"]
+    refuse("dropping blocking_roles on a reviewing self-loop", drop_blocking_roles,
+           reason="blocking_roles cannot change except when a correction opens")
+
+    def rewrite_blocking_roles(state):
+        state["phase"] = "task"
+        by_id(state, "task-001").update({"status": "reviewing", "round": 2, "blocking_roles": ["architect"]})
+    refuse("rewriting blocking_roles to an uninvolved role on a reviewing self-loop", rewrite_blocking_roles,
+           reason="blocking_roles cannot change except when a correction opens")
+
+    refuse("a primed closure check whose role never blocked this round", set_round("task-001", "accepted", 2,
+        unresolved_findings=[],
+        acceptance={"round": 2, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "architect", "verdict": "PASS", "task_id": "task-001",
+                                   "round": 2, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": False, "independent": True}]}),
+        reason="fresh independent PASS or REVISE")
     must("a same-reviewer closure check accepting under --primed", closure_check_acceptance())
     if current()["tasks"][0]["status"] != "accepted":
         failures.append("a primed run's closure-check acceptance did not stick")
+
+    # A task that never entered correction has no `blocking_roles`, whatever round a hand dispatch left it at, so under --primed no role may close it with a non-fresh verdict: it takes a fresh lane.
+    never_repo = _seeded_repo(tmp, "primed-never-blocked")
+    never_tasks = [{"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+                    "verification_path": ["true"], "rationale": "r"}]
+    never_run = never_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000000-never"
+    never_run.parent.mkdir(parents=True, exist_ok=True)
+    write(never_run.parent / "never-tasks.json", never_tasks)
+    never_state = never_run / "state.json"
+    result = run(never_repo, "start", str(never_state), "--kind", "brief", "--summary", "never blocked",
+                 "--worktree", str(never_repo), "--tasks", str(never_run.parent / "never-tasks.json"), "--primed")
+    if result.returncode != 0:
+        failures.append(f"the primed-never-blocked fixture did not start: {result.stderr.strip()}")
+    _, _, never_must, never_refuse = _checkpoint_helpers(never_repo, never_state, never_run / "candidate.json")
+    never_must("hand-dispatching task-001 at round 1", set_status("task-001", "implementing"))
+    never_must("verifying round 1", set_status("task-001", "verifying", latest_verification=[verification]))
+    never_must("reviewing round 1 with nothing found", set_status("task-001", "reviewing"))
+    never_refuse("a non-fresh verdict closing a never-blocked task under --primed", set_status("task-001", "accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "critic", "verdict": "PASS", "task_id": "task-001",
+                                   "round": 1, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": False, "independent": True}]}),
+        reason="fresh independent PASS or REVISE")
+
+    # F5 - round 0 never had a prior BLOCK to close, so a primed non-fresh verdict there is refused
+    # regardless of role.
+    round_zero_repo = _seeded_repo(tmp, "primed-round-zero")
+    round_zero_tasks = [{"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+                          "verification_path": ["true"], "rationale": "r"}]
+    round_zero_run_dir = round_zero_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000000-round-zero"
+    round_zero_run_dir.parent.mkdir(parents=True, exist_ok=True)
+    round_zero_tasks_path = round_zero_run_dir.parent / "round-zero-tasks.json"
+    write(round_zero_tasks_path, round_zero_tasks)
+    round_zero_state_path = round_zero_run_dir / "state.json"
+    start_result = run(round_zero_repo, "start", str(round_zero_state_path), "--kind", "brief",
+                        "--summary", "primed-round-zero", "--worktree", str(round_zero_repo),
+                        "--tasks", str(round_zero_tasks_path), "--primed")
+    if start_result.returncode != 0:
+        failures.append(f"the primed-round-zero fixture did not start: {start_result.stderr.strip()}")
+    dispatch_result = run(round_zero_repo, "dispatch", str(round_zero_state_path), "task-001")
+    if dispatch_result.returncode != 0:
+        failures.append(f"dispatching task-001 in the primed-round-zero fixture was refused: {dispatch_result.stderr.strip()}")
+    rz_current, rz_attempt, rz_must, rz_refuse = _checkpoint_helpers(round_zero_repo, round_zero_state_path, round_zero_run_dir / "candidate.json")
+    rz_must("verifying round 0", set_round("task-001", "verifying", 0, latest_verification=[dict(verification, round=0)]))
+    rz_must("reviewing round 0", set_round("task-001", "reviewing", 0))
+    rz_refuse("a primed non-fresh verdict accepting at round 0", set_round("task-001", "accepted", 0,
+        acceptance={"round": 0, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "code-reviewer", "verdict": "PASS", "task_id": "task-001",
+                                   "round": 0, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": False, "independent": True}]}),
+        reason="fresh independent PASS or REVISE")
 
 
 def _section_max_rounds(tmp):
@@ -2305,6 +2487,32 @@ def _section_max_rounds(tmp):
         state["lifecycle"] = "active"
         by_id(state, "task-001").update({"status": "correcting", "round": 1, "latest_verification": [], "acceptance": None})
     refuse("opening round 1 past --max-rounds 1", reopen_past_the_bound, reason="--max-rounds 1")
+
+    # F7 - `interrupted` is the other resting phase a live session already leaves a run in without
+    # touching it, so it counts as stopped at the bound exactly as `blocked` does.
+    interrupted_repo = _seeded_repo(tmp, "max-rounds-1-interrupted")
+    run_dir_i = interrupted_repo / ".agents" / "kein" / "runs" / "execute" / "260101-000000-interrupted"
+    run_dir_i.parent.mkdir(parents=True, exist_ok=True)
+    tasks_path_i = run_dir_i.parent / "interrupted-tasks.json"
+    write(tasks_path_i, tasks)
+    state_path_i = run_dir_i / "state.json"
+    result_i = run(interrupted_repo, "start", str(state_path_i), "--kind", "brief", "--summary", "max-rounds-1-interrupted",
+                   "--worktree", str(interrupted_repo), "--tasks", str(tasks_path_i), "--max-rounds", "1")
+    if result_i.returncode != 0:
+        failures.append(f"the max-rounds-1-interrupted fixture did not start: {result_i.stderr.strip()}")
+    dispatch_result_i = run(interrupted_repo, "dispatch", str(state_path_i), "task-001")
+    if dispatch_result_i.returncode != 0:
+        failures.append(f"dispatching task-001 in the max-rounds-1-interrupted fixture was refused: {dispatch_result_i.stderr.strip()}")
+    current_i, attempt_i, must_i, refuse_i = _checkpoint_helpers(interrupted_repo, state_path_i, run_dir_i / "candidate.json")
+    must_i("verifying round 0", set_round("task-001", "verifying", 0, latest_verification=[dict(verification, round=0)]))
+    must_i("reviewing round 0", set_round("task-001", "reviewing", 0))
+
+    def record_block_and_interrupt(state):
+        state["phase"] = "interrupted"
+        state["lifecycle"] = "interrupted"
+        by_id(state, "task-001").update({"status": "reviewing", "round": 0,
+            "unresolved_findings": [finding("code-reviewer", "important", "it works")]})
+    must_i("recording the open BLOCK while interrupted", record_block_and_interrupt)
 
     # Below the bound, an ordinary correction round still opens exactly as it always has.
     slack_repo = _seeded_repo(tmp, "max-rounds-2")
@@ -2360,13 +2568,69 @@ def _section_future_time(tmp):
                                    "fresh": True, "independent": True}]}),
         reason="later than this checkpoint's own clock read")
 
+    # F4 - a stamp already sitting on the predecessor is never re-checked against a later checkpoint's
+    # clock: the predecessor's own validation applies no clock at all, and a stamp the candidate merely
+    # carries forward unchanged is exempt too. An old future stamp already on disk -- written by hand
+    # here, standing in for one written before this rule existed -- must not wedge either an unrelated
+    # later checkpoint or an abort.
+    far_future = "2099-01-01T00:00:00+09:00"
+    old_repo = _seeded_repo(tmp, "future-time-old-stamp")
+    old_tasks = [
+        {"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+         "verification_path": ["true"], "rationale": "r"},
+        {"id": "task-002", "title": "t2", "scope": ["b.txt"], "completion_condition": "it also works",
+         "verification_path": ["true"], "rationale": "r"},
+    ]
+    old_state_path, old_candidate_path = _start_lane(old_repo, "260101-000000-old-stamp", old_tasks, "old-stamp fixture")
+    old_current, old_attempt, old_must, old_refuse = _checkpoint_helpers(old_repo, old_state_path, old_candidate_path)
+    old_verification = {"command": "true", "exit_code": 0, "observed_at": STAMP, "round": 1, "worktree_fingerprint": "auto"}
+    # Distinct content in each task's own scope, so the two tasks' `worktree_fingerprint`s genuinely
+    # differ and a record copied from one to the other cannot be mistaken for the same record.
+    (old_repo / "a.txt").write_text("task-001's own scope\n")
+    (old_repo / "b.txt").write_text("task-002's own scope\n")
+    old_must("dispatching task-001", set_status("task-001", "implementing"))
+    old_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[old_verification]))
+    old_must("reviewing task-001", set_status("task-001", "reviewing"))
+    old_must("accepting task-001", set_status("task-001", "accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [split_verdict("task-001")]}))
+    old_state = old_current()
+    old_state["tasks"][0]["acceptance"]["reviewers"][0]["reviewed_at"] = far_future
+    old_state["tasks"][0]["latest_verification"][0]["observed_at"] = far_future
+    write(old_state_path, old_state)
+
+    old_must("dispatching the unrelated task-002 beside an old future stamp", set_status("task-002", "implementing"))
+    if by_id(old_current(), "task-002")["status"] != "implementing":
+        failures.append("a checkpoint touching an unrelated task was blocked by an old future stamp on the predecessor")
+
+    # F4, minor regression - the exemption is the whole record, not the bare stamp string: a genuinely
+    # new verification borrowing the old future stamp for itself must still be refused.
+    old_refuse("a new verification record borrowing the old future stamp string for itself",
+        set_status("task-002", "verifying",
+            latest_verification=[{"command": "true", "exit_code": 0, "observed_at": far_future,
+                                   "round": 1, "worktree_fingerprint": "auto"}]),
+        reason="later than this checkpoint's own clock read")
+
+    settled_old = old_current()
+    abort_candidate = {"schema_version": 1, "revision": settled_old["revision"] + 1, "workflow": "execute",
+                        "run_id": settled_old["run_id"], "lifecycle": "aborted", "aborted_at": STAMP,
+                        "worktree_root": settled_old["worktree"]["root"], "reason": "future-time fixture done"}
+    write(old_candidate_path, abort_candidate)
+    result = run(old_repo, "checkpoint", str(old_state_path), str(old_candidate_path))
+    if result.returncode != 0:
+        failures.append(f"abort over a predecessor holding an old future stamp was refused: {result.stderr.strip()}")
+
 
 def _section_role_normalization(tmp):
     # R7.2 - `kein:<role>` and `<role>` name the one reviewer everywhere a role is compared, and a role
     # outside `plugin/agents.json` is refused outright.
     repo = _seeded_repo(tmp, "roles")
-    tasks = [{"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
-              "verification_path": ["true"], "rationale": "r"}]
+    tasks = [
+        {"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+         "verification_path": ["true"], "rationale": "r"},
+        {"id": "task-002", "title": "t2", "scope": ["b.txt"], "completion_condition": "it also works",
+         "verification_path": ["true"], "rationale": "r"},
+    ]
     state_path, candidate_path = _start_lane(repo, "260101-000000-roles", tasks, "roles fixture")
     current, attempt, must, refuse = _checkpoint_helpers(repo, state_path, candidate_path)
     verification = {"command": "true", "exit_code": 0, "observed_at": STAMP, "round": 1, "worktree_fingerprint": "auto"}
@@ -2395,6 +2659,115 @@ def _section_role_normalization(tmp):
                                    "fresh": True, "independent": True}]}))
     if current()["tasks"][0]["status"] != "accepted":
         failures.append("a kein:-prefixed REVISE did not accept over a bare-spelled finding of the same role")
+
+    # F1 (R7.2, cross-vendor) - `lanes.md`'s `<role>@<vendor>` recording must keep validating: the
+    # agents.json membership check strips both `kein:` and the vendor tail, but coherence strips only
+    # `kein:`, so `critic@claude` and `critic@codex` still block independently as the two lanes they are.
+    task_002_finding = finding("critic@codex", "minor", None)
+    must("dispatching task-002", set_status("task-002", "implementing"))
+    must("verifying task-002", set_status("task-002", "verifying", latest_verification=[dict(verification, round=1)]))
+    must("reviewing task-002", set_status("task-002", "reviewing"))
+    must("accepting task-002 with a cross-vendor REVISE over its own cross-vendor finding", set_status("task-002", "accepted",
+        unresolved_findings=[task_002_finding],
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "critic@codex", "verdict": "REVISE", "task_id": "task-002",
+                                   "round": 1, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": True, "independent": True}]}))
+    settled = current()
+    if settled["tasks"][1]["status"] != "accepted":
+        failures.append("a cross-vendor reviewer_role (critic@codex) did not accept and must have")
+
+    abort_candidate = {"schema_version": 1, "revision": settled["revision"] + 1, "workflow": "execute",
+                        "run_id": settled["run_id"], "lifecycle": "aborted", "aborted_at": STAMP,
+                        "worktree_root": settled["worktree"]["root"], "reason": "role-normalization fixture done"}
+    write(candidate_path, abort_candidate)
+    result = run(repo, "checkpoint", str(state_path), str(candidate_path))
+    if result.returncode != 0:
+        failures.append(f"abort over a predecessor holding a cross-vendor reviewer_role was refused: {result.stderr.strip()}")
+
+    final_fingerprint = settled["worktree"]["observed"]["fingerprint"]
+    receipt = {
+        "schema_version": 1, "revision": settled["revision"] + 1, "workflow": "execute", "run_id": settled["run_id"],
+        "lifecycle": "completed", "completed_at": STAMP,
+        "input": {"reference": None, "sha256": settled["input"]["sha256"]},
+        "worktree": {"root": settled["worktree"]["root"], "final_fingerprint": final_fingerprint},
+        "accepted_tasks": [
+            {"id": "task-001", "title": "t", "completion_condition": "it works",
+             "carried_findings": [finding("code-reviewer", "important", None, carried_because="tracked, not fixed")]},
+            {"id": "task-002", "title": "t2", "completion_condition": "it also works", "carried_findings": [task_002_finding]},
+        ],
+        "final_verification": [dict(verification, round=1, worktree_fingerprint=final_fingerprint)],
+        "final_audit": [{"reviewer_role": "critic@codex", "verdict": "PASS", "task_id": "whole-change", "round": 0,
+                          "worktree_fingerprint": final_fingerprint, "reviewed_at": STAMP,
+                          "fresh": True, "independent": True}],
+        "carried_findings": [],
+    }
+    write(candidate_path, receipt)
+    result = run(repo, "validate", str(candidate_path))
+    if result.returncode != 0:
+        failures.append(f"a completed receipt carrying a cross-vendor reviewer_role in final_audit failed to validate: {result.stderr.strip()}")
+
+    # F2 (R7.2) - `lead` is not a dispatched-agent role and never authors an accepting verdict: a NEW
+    # `lead` verdict is refused exactly as any other unknown role would be.
+    lead_repo = _seeded_repo(tmp, "roles-lead")
+    lead_tasks = [{"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+                   "verification_path": ["true"], "rationale": "r"}]
+    lead_state_path, lead_candidate_path = _start_lane(lead_repo, "260101-000000-lead", lead_tasks, "lead fixture")
+    lead_current, lead_attempt, lead_must, lead_refuse = _checkpoint_helpers(lead_repo, lead_state_path, lead_candidate_path)
+    lead_must("dispatching task-001", set_status("task-001", "implementing"))
+    lead_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[verification]))
+    lead_must("reviewing task-001", set_status("task-001", "reviewing"))
+    lead_refuse("a new verdict from lead", set_status("task-001", "accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "lead", "verdict": "PASS", "task_id": "task-001",
+                                   "round": 1, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": True, "independent": True}]}),
+        reason="not in plugin/agents.json")
+
+    # A predecessor carrying a legacy `lead@claude` FINDING -- not a fresh verdict -- must still
+    # checkpoint an unrelated task and abort: the legacy wedge this fix is actually about.
+    legacy_lead_repo = _seeded_repo(tmp, "roles-lead-legacy")
+    legacy_lead_tasks = [
+        {"id": "task-001", "title": "t", "scope": ["a.txt"], "completion_condition": "it works",
+         "verification_path": ["true"], "rationale": "r"},
+        {"id": "task-002", "title": "t2", "scope": ["b.txt"], "completion_condition": "it also works",
+         "verification_path": ["true"], "rationale": "r"},
+    ]
+    legacy_lead_state_path, legacy_lead_candidate_path = _start_lane(legacy_lead_repo, "260101-000000-lead-legacy", legacy_lead_tasks, "lead-legacy fixture")
+    legacy_lead_current, legacy_lead_attempt, legacy_lead_must, legacy_lead_refuse = _checkpoint_helpers(legacy_lead_repo, legacy_lead_state_path, legacy_lead_candidate_path)
+    legacy_lead_must("dispatching task-001", set_status("task-001", "implementing"))
+    legacy_lead_must("verifying task-001", set_status("task-001", "verifying", latest_verification=[verification]))
+    legacy_lead_must("reviewing task-001", set_status("task-001", "reviewing"))
+    # Written directly, bypassing `checkpoint`, to simulate a role already on the predecessor from before
+    # this restriction existed -- exactly what a fresh checkpoint introducing `lead@claude` for the first
+    # time is not, and correctly refuses on its own, as the `lead_refuse` case above already proved.
+    legacy_lead_state = legacy_lead_current()
+    by_id(legacy_lead_state, "task-001").update({"status": "correcting", "round": 2,
+        "latest_verification": [], "acceptance": None,
+        "unresolved_findings": [finding("lead@claude", "important", "it works")]})
+    write(legacy_lead_state_path, legacy_lead_state)
+
+    legacy_lead_must("dispatching the unrelated task-002 beside a lead@claude finding", set_status("task-002", "implementing"))
+    if by_id(legacy_lead_current(), "task-002")["status"] != "implementing":
+        failures.append("checkpointing an unrelated task was blocked by a legacy lead@claude finding")
+    # The grandfathered name licenses nothing new: a verdict is exempt only as the unchanged record, so a new accepting verdict under `lead@claude` is refused even though a finding on the predecessor spells it.
+    legacy_lead_must("verifying task-002", set_status("task-002", "verifying", latest_verification=[verification]))
+    legacy_lead_must("reviewing task-002", set_status("task-002", "reviewing"))
+    legacy_lead_refuse("a new lead@claude verdict borrowing a legacy finding's role", set_status("task-002", "accepted",
+        acceptance={"round": 1, "worktree_fingerprint": "auto", "input_sha256": "auto",
+                    "reviewers": [{"reviewer_role": "lead@claude", "verdict": "PASS", "task_id": "task-002",
+                                   "round": 1, "worktree_fingerprint": "auto", "reviewed_at": STAMP,
+                                   "fresh": True, "independent": True}]}),
+        reason="not in plugin/agents.json")
+
+    settled_legacy_lead = legacy_lead_current()
+    abort_candidate_lead = {"schema_version": 1, "revision": settled_legacy_lead["revision"] + 1, "workflow": "execute",
+                             "run_id": settled_legacy_lead["run_id"], "lifecycle": "aborted", "aborted_at": STAMP,
+                             "worktree_root": settled_legacy_lead["worktree"]["root"], "reason": "lead-legacy fixture done"}
+    write(legacy_lead_candidate_path, abort_candidate_lead)
+    result = run(legacy_lead_repo, "checkpoint", str(legacy_lead_state_path), str(legacy_lead_candidate_path))
+    if result.returncode != 0:
+        failures.append(f"abort over a predecessor holding a lead@claude finding was refused: {result.stderr.strip()}")
 # ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections together with whatever earlier ones the declared dependency map names (a shared fixture an earlier section built -- the first run's own checkpoint chain, or the split run's -- is rebuilt exactly as it would be on a full run); neither flag runs every section in order exactly as running this file always has.
 
