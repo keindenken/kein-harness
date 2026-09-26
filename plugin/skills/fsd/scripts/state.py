@@ -13,6 +13,7 @@ import re
 import shlex
 import sys
 import tempfile
+import time
 from typing import Any, Dict, List, Optional, Tuple
 
 
@@ -39,6 +40,8 @@ LESSON_FIELDS = frozenset({"id", "line", "why"})
 CHAIN_FIELDS = frozenset({"previous", "slice"})
 CONTINUED_FIELDS = frozenset({"covered", "reason", "next"})
 COVERED_ID_PATTERN = re.compile(r"^AC[1-9][0-9]*$")
+# A `- [ ]` / `- [x]` line under `## Acceptance criteria` is a criterion; `[ \t]*` stops at that same line's own end rather than crossing into the next line the way `\s*` would, and the captured group must start with a non-whitespace character, so a checkbox with nothing after it on its own line simply fails to match instead of swallowing the following line's text as its own.
+CHECKBOX_PATTERN = re.compile(r"^- \[[ xX]\][ \t]*(\S.*)$", re.MULTILINE)
 FSD_FIELDS = frozenset({
     "schema_version", "workflow", "run_id", "lifecycle", "worktree", "entry", "input",
     "agents_md", "halt", "stages", "assumptions", "questions", "lessons",
@@ -1783,6 +1786,228 @@ def _resolve_start_destination(args: Any) -> Path:
 
 
 # ---------------------------------------------------------------------------
+# continue: ends slice k and starts slice k+1 across two commits in one call. Between those two commits both states are briefly nonterminal at once; if the second commit then fails, the rollback below removes what the first one wrote, so a failed call never leaves the next slice orphaned behind a slice k that itself never closed.
+#
+# Refuses before writing anything: every check below reads only the file(s) already on disk and raises without touching either state, so a failure part-way through validation leaves slice k exactly as it was found. Once every check has passed, both candidates are built in memory and each is checked against `validate_transition` before either is committed, so a candidate that would fail its own transition check is never the reason a write is left half-done.
+
+
+def _acceptance_criteria(path: Path) -> List[Tuple[str, str]]:
+    """The requirements document's own `- [ ]` / `- [x]` lines under `## Acceptance criteria`, in document order, numbered AC1, AC2, ... -- the only identity this document already carries for its own criteria, since neither the template nor this reader assigns one otherwise. Read with `_interview_validate._section_body`, which stops at the next `#`/`##`/`###` heading, so a checkbox that sits under a later heading such as `## Deferred items` is never counted. An empty list when the section is missing, or carries no line `CHECKBOX_PATTERN` actually matches -- a checkbox with nothing after it on its own line is skipped rather than counted with empty text, so numbering can shift past a blank one instead of ever mixing its own text with a neighboring line's."""
+    text = Path(path).read_text()
+    body = _interview_validate._section_body(text, "## Acceptance criteria")
+    if not body:
+        return []
+    return [(f"AC{index}", match.group(1).strip()) for index, match in enumerate(CHECKBOX_PATTERN.finditer(body), start=1)]
+
+
+def _chain_requirements_path(state: Dict[str, Any]) -> Optional[Path]:
+    """The requirements document a chained state's `continue` reads criteria from, and stores as its successor's own `input.reference`: this state's own `input.reference` when its input is already a requirements document (an entry of `ralplan`, or a still-Draft one at entry `interview`); otherwise, when an idea led here, `stages.interview.resolved_reference` or the completed ledger's own `requirements_path` -- the identical reading `gap`'s own interview row already uses, gated the same way on the kept ledger's current `status` reading `completed` before the stored value is ever trusted. `None` for an execute-entry run, or a ralplan-entry run over a plan document -- neither ever names a requirements document to continue from. Always an absolute path: a relative value is joined onto `state["worktree"]` with the same plain join `classify_input` applies, with no further `.resolve()`."""
+    if state["input"].get("kind") == "requirements":
+        raw = state["input"].get("reference")
+    elif state["entry"] == "interview":
+        run_path = _resolve_association(state, "interview")
+        if run_path is None:
+            return None
+        try:
+            ledger = _parse_ledger(run_path.read_text())
+        except (OSError, UnicodeError):
+            return None
+        if ledger.get("status") != "completed":
+            return None
+        raw = state["stages"]["interview"].get("resolved_reference") or ledger.get("requirements_path")
+    else:
+        return None
+    if not raw:
+        return None
+    path = Path(raw)
+    if not path.is_absolute():
+        path = Path(state["worktree"]) / path
+    return path
+
+
+def _chain_predecessors(state: Dict[str, Any]) -> List[Tuple[Path, Dict[str, Any]]]:
+    """Every earlier slice of this state's own chain, walked back through `chain.previous` from slice k-1 to slice 1 and returned in slice order (slice 1 first). Raises `ValueError` the moment a predecessor cannot be trusted: unreadable, invalid against `validate_state`, missing its own `continued` (a slice `continue` never actually closed), a slice number that does not step down by exactly one, or a path already walked -- a cycle a corrupted `chain.previous` could otherwise loop on forever. An empty list when this state carries no `chain` at all, i.e. it is slice 1 itself."""
+    chain = state.get("chain")
+    if chain is None:
+        return []
+    collected: List[Tuple[Path, Dict[str, Any]]] = []
+    seen_paths: set = set()
+    current_path = chain["previous"]
+    expected_slice = chain["slice"] - 1
+    while True:
+        path = Path(current_path)
+        try:
+            resolved = path.resolve()
+        except Exception:
+            resolved = path
+        if resolved in seen_paths:
+            raise ValueError(f"earlier slice could not be read: {path} repeats a path this chain already walked")
+        seen_paths.add(resolved)
+        try:
+            payload = _load(path)
+        except Exception:
+            raise ValueError(f"earlier slice could not be read: {path}")
+        if validate_state(payload):
+            raise ValueError(f"earlier slice could not be read: {path} is not a valid fsd state")
+        if "continued" not in payload:
+            raise ValueError(f"earlier slice could not be read: {path} carries no continued")
+        predecessor_chain = payload.get("chain")
+        actual_slice = predecessor_chain["slice"] if predecessor_chain else 1
+        if actual_slice != expected_slice:
+            raise ValueError(f"earlier slice could not be read: {path} does not step down by one slice")
+        collected.append((path, payload))
+        if predecessor_chain is None:
+            break
+        current_path = predecessor_chain["previous"]
+        expected_slice = predecessor_chain["slice"] - 1
+    collected.reverse()
+    return collected
+
+
+def _ralplan_entry_stages() -> Dict[str, Dict[str, Any]]:
+    """The `stages` shape `start` already builds for an approved-requirements input -- interview skipped, ralplan pending, execute pending, closeout pending -- factored out here so the next slice `continue` mints carries the identical shape `chain`'s own cross-field rule requires, without re-deriving it from `start`'s own entry-classification logic, which this call already knows does not apply here."""
+    order = ("interview", "ralplan", "execute")
+    entry_index = order.index("ralplan")
+    stages = {stage: {"status": "skipped" if index < entry_index else "pending", "run": None, "resolved_reference": None}
+              for index, stage in enumerate(order)}
+    stages["closeout"] = {"status": "pending", "run": None, "resolved_reference": None}
+    return stages
+
+
+def _mint_stamp() -> str:
+    return f"{_execute.datetime.now().astimezone():%y%m%d-%H%M%S}"
+
+
+def _mint_chain_destination(run_root: Path, slug: str) -> Path:
+    """The next slice's own state.json, minted with `_execute.mint_run_dir` over the same run root and slug slice 1 already used, so every slice shares one slug and one run root. Because the slug is shared, a mint in the same wall-clock second as slice k's own directory would name that same directory -- a directory `mint_run_dir` never checks for existence on its own -- so this checks first, and when it collides, waits for the clock `mint_run_dir` itself reads (the `datetime` in `_execute`'s own module namespace) to move to the next second before minting once more. Only a second collision, after that wait, is ever refused: two mints a full second apart landing on the same name would mean the clock itself is not advancing, not an ordinary race."""
+    first = _execute.mint_run_dir(run_root, slug)
+    if not first.exists():
+        return (first / "state.json").resolve()
+    stamp_parts = first.name.split("-", 2)
+    first_stamp = f"{stamp_parts[0]}-{stamp_parts[1]}"
+    while _mint_stamp() == first_stamp:
+        time.sleep(0.02)
+    second = _execute.mint_run_dir(run_root, slug)
+    if second.exists():
+        raise ValueError(f"{second} already exists; continue could not mint a fresh run directory for the next slice, even after waiting a second")
+    return (second / "state.json").resolve()
+
+
+def continue_chain(destination: Path, covered: List[str], reason: str) -> Path:
+    """Ends the slice at `destination` and starts its successor in one call, refusing in the order below and leaving `destination`'s bytes and the run root's own listing untouched on every refusal; only once every check has passed does this mint the next slice's own directory and commit its opening checkpoint, then commit `destination` as `completed` with `continued` recording what it handed off. If minting that opening checkpoint itself raises -- its own directory created but nothing written into it -- the empty directory is removed before the error is re-raised; if the second commit raises instead, the next slice's file and its directory are both removed before the error is re-raised. Either way, a failed call leaves only `destination` on record, still active, never a stray empty run directory alongside it."""
+    destination = Path(destination).resolve()
+    state = _load(destination)
+    if state.get("lifecycle") != "active":
+        raise ValueError(f"continue requires an active run; lifecycle is {state.get('lifecycle')}")
+    if not reason or not reason.strip():
+        raise ValueError("continue needs --reason <text>")
+    requirements_path = _chain_requirements_path(state)
+    if requirements_path is None:
+        raise ValueError("no approved requirements document is linked to this run to continue from")
+    try:
+        requirements_approved = _requirements_status(requirements_path) == "Approved"
+    except (OSError, UnicodeError):
+        # A path this state already carries can still go missing or unreadable between when it was recorded and now; that reads the same as no approved document at all, not as an error this call lets escape uncaught.
+        requirements_approved = False
+    if not requirements_approved:
+        raise ValueError("no approved requirements document is linked to this run to continue from")
+    unanswered = [item for item in state["questions"] if item.get("answer") is None]
+    if unanswered:
+        raise ValueError("cannot continue while a question is unanswered: " + ", ".join(item["id"] for item in unanswered))
+    if _execute_lifecycle_or_none(state) != "completed":
+        raise ValueError(_execute_not_done_message(state))
+    root = Path(state["worktree"])
+    current_hash = _read_agents_md_hash(root)
+    if state["agents_md"][-1].get("sha256") != current_hash:
+        raise ValueError("AGENTS.md changed since the current span began")
+    predecessors = _chain_predecessors(state)
+
+    seen_ids: List[str] = []
+    for item in covered:
+        if item not in seen_ids:
+            seen_ids.append(item)
+    if not seen_ids:
+        raise ValueError("--covered names no acceptance criterion")
+
+    criteria = _acceptance_criteria(requirements_path)
+    criteria_ids = {criterion_id for criterion_id, _ in criteria}
+    for criterion_id in seen_ids:
+        if criterion_id not in criteria_ids:
+            raise ValueError(f"--covered names no such acceptance criterion: {criterion_id}")
+
+    already_covered: set = set()
+    for _, payload in predecessors:
+        already_covered.update(payload["continued"]["covered"])
+    if all(criterion_id in already_covered for criterion_id in seen_ids):
+        raise ValueError("--covered adds no acceptance criterion not already covered")
+
+    covered_sorted = sorted(seen_ids, key=lambda criterion_id: int(criterion_id[2:]))
+    remaining = [criterion_id for criterion_id, _ in criteria
+                 if criterion_id not in already_covered and criterion_id not in seen_ids]
+    if not remaining:
+        raise ValueError("no acceptance criterion would remain for the next slice")
+
+    run_root = destination.parent.parent
+    occupant = _find_nonterminal_fsd_run(run_root, root, exclude=destination)
+    if occupant is not None:
+        occupant_payload = _load(occupant)
+        raise ValueError(f"a nonterminal fsd run already exists for this worktree: {occupant} ({occupant_payload.get('lifecycle')})")
+
+    slug = _run_slug(state["run_id"])
+    next_destination = _mint_chain_destination(run_root, slug)
+
+    next_slice = (state.get("chain") or {}).get("slice", 1) + 1
+    next_action = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+    next_candidate = {
+        "schema_version": SCHEMA_VERSION, "workflow": "fsd", "run_id": next_destination.parent.name,
+        "lifecycle": "active", "worktree": state["worktree"], "entry": "ralplan",
+        "input": {"kind": "requirements", "reference": str(requirements_path), "summary": state["input"]["summary"]},
+        "agents_md": [{"span_started_at": _now(), "sha256": current_hash}],
+        "halt": None, "stages": _ralplan_entry_stages(),
+        "assumptions": copy.deepcopy(state["assumptions"]),
+        "questions": copy.deepcopy(state["questions"]),
+        "lessons": copy.deepcopy(state["lessons"]),
+        "retrospective": None,
+        "next_action": next_action,
+        "chain": {"previous": str(destination), "slice": next_slice},
+    }
+    closed_candidate = copy.deepcopy(state)
+    closed_candidate["lifecycle"] = "completed"
+    closed_candidate["retrospective"] = None
+    closed_candidate["continued"] = {"covered": covered_sorted, "reason": reason.strip(), "next": str(next_destination)}
+    closed_candidate["next_action"] = f"continued in {next_destination}"
+
+    next_errors = validate_transition(None, next_candidate)
+    if next_errors:
+        raise ValueError("; ".join(next_errors))
+    closed_errors = validate_transition(state, closed_candidate)
+    if closed_errors:
+        raise ValueError("; ".join(closed_errors))
+
+    try:
+        _commit(next_destination, next_candidate)
+    except Exception:
+        try:
+            next_destination.parent.rmdir()
+        except OSError:
+            pass
+        raise
+    try:
+        _commit(destination, closed_candidate)
+    except Exception:
+        try:
+            next_destination.unlink()
+        except OSError:
+            pass
+        try:
+            next_destination.parent.rmdir()
+        except OSError:
+            pass
+        raise
+    return next_destination
+
+
+# ---------------------------------------------------------------------------
 # CLI
 
 
@@ -1870,6 +2095,11 @@ def main() -> int:
     close_parser.add_argument("--retro", required=True, type=Path, dest="retro_path")
     close_parser.add_argument("--next", dest="next_action", default=None)
 
+    continue_parser = commands.add_parser("continue", help="end this slice and start the next, chained to it")
+    continue_parser.add_argument("state", type=Path)
+    continue_parser.add_argument("--covered", required=True, help="comma-separated acceptance criterion ids, e.g. AC1,AC3")
+    continue_parser.add_argument("--reason", required=True, help="what the next slice needs that this one could not take")
+
     halt_parser = commands.add_parser("halt", help="the end state for a run close refused; refused when close would succeed")
     halt_parser.add_argument("state", type=Path)
     halt_parser.add_argument("--reason", required=True)
@@ -1949,6 +2179,10 @@ def main() -> int:
         if args.command == "close":
             close(args.state, args.retro_path, args.next_action)
             print(args.state)
+            return 0
+        if args.command == "continue":
+            next_path = continue_chain(args.state, _split_csv(args.covered), args.reason)
+            print(next_path)
             return 0
         if args.command == "halt":
             halt(args.state, args.reason, args.next_action)
