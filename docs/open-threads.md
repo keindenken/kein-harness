@@ -81,15 +81,15 @@ What is known: Claude Code loads a subdirectory's `CLAUDE.md` on its own but not
 Open: how omc's hook chose the file and when it fired (the source is worth reading before designing anything); whether generated per-directory docs stay accurate or become one more thing to keep up to date; and whether this belongs in the `instructions` skill, which already writes the root `AGENTS.md`.
 
 
-## The global no-hard-wrap rule is followed late, not missed
+## The global no-hard-wrap rule is broken early and fixed late
 
-Reported by the owner 2026-09-26 from recent descvi `execute` traces: near the end of a task, executors often write comments hard-wrapped and then, partway through, go back and unwrap them — the work is done twice. The rule sits in `~/.claude/CLAUDE.md` and is not ambiguous; it even says already-wrapped comments in a file are not a convention to match.
+Reported by the owner 2026-09-26 from recent descvi `execute` traces, where the executors were Claude native subagents: comments get written hard-wrapped while the code is being written, and near the end of the task the executor notices and unwraps them — the work is done twice. The rule sits in `~/.claude/CLAUDE.md` and is not ambiguous. Whether the late fix is self-noticed or prompted by a reviewer has not been looked at, and why it is noticed only at the end is unknown.
 
-The owner is considering moving it to a user-level rule, `~/.claude/rules/` (not the plugin — it has nothing to do with kein), where `kein-standing-prompt.md` already lives. The hard part is `paths:`: comments can be in almost any file.
+The owner's plan is to move it to a user-level path-scoped rule in `~/.claude/rules/` (not the plugin — it has nothing to do with kein), beside `kein-standing-prompt.md`. Two reasons. The rule only matters for source code — `.ts`, `.tsx`, `.py` and the like, which an editor soft-wraps anyway — and hard-wrap there hurts on a narrow screen and, the owner suspects, costs an agent reading the file; in an extensionless script such as `plugin/bin/ocs` it matters little, and outside source editing it is dead text in every session. And a rule injected beside the first source file read should draw more attention than a line that is always in `CLAUDE.md`, at the point where the slip actually happens — early, while writing.
 
-Worth settling before choosing globs:
+What is established: user-level path-scoped rules reach Claude subagents, injected once on the subagent's own first Read of a matching file (`~/Documents/wiki/findings/260926-path-scoped-rules-reach-subagents-once.md`). An executor edits existing files only after reading them, so it would get the rule before its first edit; a lane that only creates new source files without reading one would not.
 
-- A rule without `paths:` loads at session start exactly as `CLAUDE.md` does, so it would change placement and nothing else. The only mechanism that differs is path-scoping, which injects the rule next to a Read result. That is also recorded in this file (the `writer` thread) as firing on a subagent's first Read of a matching file — i.e. early in the task, while the observed slip is at the end. Whether a path-scoped rule re-fires later in a session is unmeasured; if it does not, a broad glob mostly reproduces what `CLAUDE.md` already does.
-- Check which vendor the lanes in those traces ran on. An `ocs team` lane is Codex and reads neither `~/.claude/CLAUDE.md` nor `~/.claude/rules/`; if any of the slips were there, the fix is in the lane package, not in a rule.
-- Check whether the unwrapping is self-correction or a reviewer finding. If it is a reviewer, the rule is reaching review but not authorship, which points at what the executor is imitating (the wrapped comments already in descvi files) more than at where the rule lives.
-- A mechanism would hold it regardless of placement: a `PostToolUse` hook on `Edit`/`Write` that flags a comment block of consecutive lines broken mid-sentence. Crude, but it fires at the moment of writing, which neither `CLAUDE.md` nor a rule does.
+Still open:
+
+- The `paths:` list. Many extensions is a length problem, not a design one — `paths:` takes a list. Whether it also accepts brace expansion (`**/*.{ts,tsx,py}`) is unmeasured here.
+- Whether it works: compare comment rewrites in descvi executor transcripts before and after the move.
