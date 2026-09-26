@@ -6,11 +6,11 @@ The lead holds the map of which worker owns which file, and a worker's own write
 Scope is `agent_id`, which a subagent's tool events carry and the lead's do not (measured for Agent and Skill calls on 2.1.283). `agent_type` is not enough: a main session started with `--agent` carries it too, and would lose all dispatch. What is refused:
 
 - `Agent` or `Task` for any type but a lookup role. An omitted `subagent_type` is general-purpose, which writes.
-- `Skill` for the kein skills that dispatch workers, spelled with or without the plugin prefix, since the hook sees the literal the model wrote. Other skills pass: a role such as `designer` loads skills as reference, which is why `disallowedTools: Skill` in role frontmatter was never an option.
+- `Skill` for any kein skill not listed as non-dispatching, so a skill added later is refused until someone classifies it; `kein-dev bump-version` refuses to release while one is unclassified. A kein skill is `kein:<name>`, or a bare `<name>` that this plugin's `skills/` holds, since the hook sees the literal the model wrote. Every other skill passes: a role such as `designer` loads skills as reference, which is why `disallowedTools: Skill` in role frontmatter was never an option, and a skill that dispatches still has to go through `Agent` or `ocs`.
 - `Workflow`, which fans out by definition.
 - `ocs team` and `ocs ask` in a Bash command, including inside `sh -c` and `eval`, which start another vendor's worker.
 
-Not covered: `SendMessage` to a worker that already exists, which is also how siblings coordinate, and whatever a worker on another vendor does, since no Claude hook runs there.
+Not covered: `SendMessage` to a worker that already exists, which is also how siblings coordinate; whatever a worker on another vendor does, since no Claude hook runs there; and a worker starting an agent through another CLI (`claude -p`, `codex exec`, `orca`), which nothing in a worker's context suggests and which a measurement probe legitimately runs.
 
 Exit 2 blocks the call and hands the reason to the model that made it.
 """
@@ -23,7 +23,14 @@ import shlex
 import sys
 
 LOOKUP_TYPES = {"Explore", "kein:explore", "kein:document-specialist", "claude-code-guide"}
+# Every kein skill is in exactly one of these; `check-spawn-guard` fails otherwise. Only the first is read at runtime.
+NON_DISPATCHING_SKILLS = {"deliberate", "instructions", "interview", "handoff", "onboard", "ping"}
 DISPATCHING_SKILLS = {"execute", "ralplan", "plan", "fsd", "research"}
+KEIN_SKILLS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "skills")
+
+
+def _is_kein_skill(name: str) -> bool:
+    return os.path.isfile(os.path.join(KEIN_SKILLS_DIR, name, "SKILL.md"))
 
 
 SHELLS = {"sh", "bash", "zsh", "dash", "eval"}
@@ -86,9 +93,14 @@ def refusal(tool: str, tool_input: dict) -> str | None:
             return f"a {kind} subagent"
     elif tool == "Skill":
         name = str(tool_input.get("skill", "")).strip().lstrip("/").casefold()
-        # A bare name is refused too: the model writes `execute` as often as `kein:execute`, and the hook sees the literal.
-        if name.removeprefix("kein:") in DISPATCHING_SKILLS:
-            return f"the {name} skill"
+        if name.startswith("kein:"):
+            base = name[len("kein:"):]
+        elif ":" not in name and _is_kein_skill(name):
+            base = name
+        else:
+            return None
+        if base not in NON_DISPATCHING_SKILLS:
+            return f"the kein:{base} skill"
     elif tool == "Workflow":
         return "a workflow"
     elif tool == "Bash":

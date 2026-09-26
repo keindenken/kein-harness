@@ -33,6 +33,7 @@ refuse "a worker invoking /kein:ralplan"        sub Skill skill /kein:ralplan
 refuse "a worker invoking kein:plan"            sub Skill skill kein:plan
 refuse "a worker invoking kein:fsd"             sub Skill skill kein:fsd
 refuse "a worker invoking kein:research"        sub Skill skill kein:research
+refuse "a worker invoking an unknown kein skill" sub Skill skill kein:not-yet-classified
 refuse "a worker running a workflow"            sub Workflow "" ""
 refuse "a worker running ocs team"              sub Bash command 'ocs team codex --agent executor --task-file p'
 refuse "a worker running ocs ask after cd"      sub Bash command 'cd /x && ocs ask codex --agent critic --task-file p'
@@ -68,6 +69,8 @@ allow "a worker spawning claude-code-guide"     sub Agent subagent_type claude-c
 allow "a worker loading a reference skill"      sub Skill skill kein-findings:findings
 allow "a worker loading another plugin's plan"  sub Skill skill other:plan
 allow "a worker loading kein:deliberate"        sub Skill skill kein:deliberate
+allow "a worker loading bare interview"         sub Skill skill interview
+allow "a worker loading its own bare skill"     sub Skill skill my-own-skill
 allow "a worker running other ocs commands"     sub Bash command 'ocs state-dir runs/execute'
 allow "a worker mentioning ocs team in a string" sub Bash command 'grep -n "ocs team" lanes.md'
 allow "a worker writing ocs ask in a heredoc"   sub Bash command "cat > f.md <<'EOF'
@@ -93,6 +96,34 @@ printf 'not json' | python3 "$GUARD" 2>/dev/null || { printf 'check-spawn-guard:
 if [ -x /usr/bin/python3 ]; then
   PY=/usr/bin/python3 refuse "under /usr/bin/python3, a worker spawning an executor" sub Agent subagent_type kein:executor
   PY=/usr/bin/python3 allow "under /usr/bin/python3, a worker spawning Explore" sub Agent subagent_type Explore
+fi
+
+# A new kein skill is refused before anyone classifies it: copy the guard beside a skills/ tree that holds one.
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+mkdir -p "$tmp/hooks" "$tmp/skills/brand-new"
+cp "$GUARD" "$tmp/hooks/" && printf -- '---\nname: brand-new\n---\n' > "$tmp/skills/brand-new/SKILL.md"
+rc=0; printf '{"tool_name":"Skill","tool_input":{"skill":"brand-new"},"agent_id":"a1"}' | python3 "$tmp/hooks/spawn-guard.py" 2>/dev/null || rc=$?
+[ "$rc" -eq 2 ] || { printf 'check-spawn-guard: an unclassified bare kein skill exited %s, not 2\n' "$rc" >&2; failures=$((failures + 1)); }
+
+# Every kein skill sits in exactly one list, so adding a skill forces a decision about it.
+unclassified=$(python3 - "$GUARD" "$KEIN_ROOT/skills" <<'PY'
+import importlib.util, os, sys
+spec = importlib.util.spec_from_file_location("guard", sys.argv[1]); guard = importlib.util.module_from_spec(spec); spec.loader.exec_module(guard)
+present = {d for d in os.listdir(sys.argv[2]) if os.path.isfile(os.path.join(sys.argv[2], d, "SKILL.md"))}
+non, dis = guard.NON_DISPATCHING_SKILLS, guard.DISPATCHING_SKILLS
+for name in sorted(present - non - dis): print(f"{name}: in neither list")
+for name in sorted(non & dis): print(f"{name}: in both lists")
+for name in sorted((non | dis) - present): print(f"{name}: listed but no such skill")
+# The guard finds a bare kein skill by its folder, and Claude Code invokes it by its `name:`; the two must agree.
+import re
+for name in sorted(present):
+    m = re.search(r"^name:\s*(\S+)", open(os.path.join(sys.argv[2], name, "SKILL.md")).read(), re.M)
+    if m and m.group(1) != name: print(f"{name}: SKILL.md declares name {m.group(1)}, not its folder name")
+PY
+)
+if [ -n "$unclassified" ]; then
+  printf 'check-spawn-guard: kein skills not classified in spawn-guard.py (NON_DISPATCHING_SKILLS / DISPATCHING_SKILLS):\n%s\n' "$unclassified" >&2
+  failures=$((failures + 1))
 fi
 
 if [ "$failures" -ne 0 ]; then

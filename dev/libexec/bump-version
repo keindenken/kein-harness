@@ -49,6 +49,12 @@ fi
 
 current=$plugin_version
 
+# A release ships whatever skills the tree holds, and spawn-guard refuses a worker any kein skill it has not been told is safe. Classifying a new one is a decision nobody is prompted for otherwise.
+if ! "$(dirname "$0")/check-spawn-guard" >/dev/null; then
+  printf 'kein-dev bump-version: check-spawn-guard failed, not touching anything\n' >&2
+  exit 1
+fi
+
 if [ "$new_version" = "$current" ]; then
   printf 'kein-dev bump-version: already at %s\n' "$current" >&2
   exit 1
