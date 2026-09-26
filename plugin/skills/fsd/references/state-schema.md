@@ -12,8 +12,12 @@ Store state at `<run-root>/<YYMMDD-HHMMSS>-<slug>/state.json`, where the run roo
   "assumptions": [{"id": "A1", "stage": "…", "decision": "…", "chosen": "…", "alternatives": ["…"], "reversal_cost": "…", "where": "…"}],
   "questions":   [{"id": "Q1", "stage": "…", "question": "…", "options": ["…"], "recommended": "…", "why_irreversible": "…", "parks": "<task or story ids, or 'whole run'>", "answer": null | "<text>"}],
   "lessons":     [{"id": "L1", "line": "<proposed AGENTS.md line>", "why": "…"}],
-  "retrospective": "<path> | null", "next_action": "…" }
+  "retrospective": "<path> | null", "next_action": "…",
+  "chain": {"previous": "<absolute path of the predecessor's state.json>", "slice": 2},
+  "continued": {"covered": ["AC1", "AC3"], "reason": "…", "next": "<absolute path of the successor's state.json>"} }
 ```
+
+`chain` and `continued` are both optional; see "Chained slices" below for their writer, their shapes, and how they coexist on one state.
 
 No `revision` field: fsd is written by one lead's checkpoints in order, with no concurrent-lane scope machinery the way `execute` has, so there is nothing here that needs a lost-update counter. `checkpoint`, the escape hatch, promotes a hand-authored candidate onto a run `start` already created exactly as it does in `execute` and `ralplan` — it refuses outright, naming `start`, when `destination` does not exist yet, never creating one of its own — except over two things a hand-authored candidate is never trusted to set on its own even for an existing run: a stage's own `run` and `resolved_reference` change only through `attach`, the `post-bash` hook, or `enter` (see "Stage association" below), never through `checkpoint`, and a new `agents_md` span may only be appended on a `paused -> active` transition, the one transition `resume` itself ever makes when it opens one — `checkpoint` refuses both outright rather than letting a candidate bypass the belonging test on one or the AGENTS.md-hash comparison on the other. There is no `"auto"` sentinel for `agents_md`'s hash, because nothing in this shape is derived from a worktree read the way a fingerprint is — `start` and `resume` compute it internally rather than asking a candidate to fill a placeholder.
 
@@ -38,6 +42,7 @@ ocs state fsd lesson <state.json> --line <text> --why <text>
 ocs state fsd guard <state.json>
 ocs state fsd closeout <state.json>
 ocs state fsd close <state.json> --retro <path>
+ocs state fsd continue <state.json> --covered <AC ids> --reason <text>
 ocs state fsd halt <state.json> --reason <text>
 ocs state fsd report <state.json>
 ocs state fsd resume <state.json>
@@ -106,6 +111,62 @@ This is enforced mechanically, not left to the caller's discipline: when the out
 
 `close` only ever *relocates* the file — to the durable `retros/<YYMMDD>-<slug>.md` path, `<slug>` taken from the run's own `run_id` — on the `completed` outcome, and the move happens *before* the checkpoint that names the durable path is committed: if the commit is then refused, the move is undone and the run stays `active`, exactly as `close` found it, so the caller can simply retry; if the move itself fails, its error propagates before anything is committed, so the run is likewise untouched either way. If `--retro` already names the durable path (the caller wrote the retrospective straight there), nothing is moved and the checkpoint just records that path. Otherwise, `close` refuses outright, before moving anything, if a file already sits at the durable path — a same-day double-close on one run is surfaced rather than silently overwritten. On `paused`, or on any refusal, the file is left exactly where it was handed in, and `execute reconcile` on the still-blocked run keeps reporting the run's own `next_action`, not drift.
 
+## Chained slices
+
+A chain is a sequence of whole fsd states, each covering some of one requirements document's acceptance criteria and handing the rest to its successor. A criterion has no identity of its own in the requirements document — no id, no anchor — so `continue` numbers the `- [ ]` / `- [x]` lines under `## Acceptance criteria` as `AC1`, `AC2`, … in document order, reading only up to the next heading so a checkbox parked under `## Deferred items` is never counted; a requirements document with no checkbox criteria has no `AC` ids at all, and every `--covered` against it is refused.
+
+`chain` and `continued` are the two facts a chain adds, each with exactly one writer:
+
+- `chain` names a slice's predecessor and its own position: `{"previous": "<absolute path>", "slice": <integer ≥ 2>}`. It is written once, when `continue` mints the slice, requires that slice's `entry` be `ralplan`, its `input.kind` be `requirements`, and `stages.interview.status` be `skipped` — the shape `start` already builds for any other requirements-entry run — and never changes, appears, or disappears afterward; `checkpoint` refuses any candidate that differs from the stored value.
+- `continued` names what a slice handed off when `continue` closed it: `{"covered": ["AC1", "AC3"], "reason": "<text>", "next": "<absolute path>"}`, present only once that slice's own `lifecycle` is `completed` and its own `retrospective` is still `null` — a mid-chain close, never the chain's last state, which carries a real retrospective instead. `covered` is a non-empty list of ids matching `^AC[1-9][0-9]*$`, distinct and in ascending number order; it names what this slice took, and may repeat an id an earlier slice already covered, since `continue` only refuses when none of the named ids is new. `continued` may appear only on an `active → completed` transition, and `checkpoint` refuses a candidate whose `continued` differs from the one already stored.
+
+A mid-chain close uses the ordinary `completed` lifecycle, not a new one: every reader that already treats `completed` as terminal — `_find_nonterminal_fsd_run`, the hooks' own state lookup — needs nothing new to see a mid-chain slice as done, and `continued` alongside a `null` retrospective is what tells it apart from the chain's last state. This is also why a slice that paused and resumed before it was finally continued still ends with `retrospective` `null`: `continue` overwrites it to `null` in the same commit that adds `continued`, since only the last state's `close` ever writes a real one, and the draft file a pause left behind stays exactly where it was, under that slice's own run directory.
+
+The next slice starts with the closing slice's own `assumptions`, `questions`, and `lessons` copied verbatim, not read through the chain later: `_mint_id` then keeps numbering past every id already copied, so ids stay unique across the whole chain for free, and every reader that reads one state's own lists — `report`, the retrospective's id check — keeps working unchanged. `continue` refuses while any question is unanswered, so every question a later slice inherits is already answered.
+
+`ocs state fsd continue <state.json> --covered <AC ids> --reason <text>` ends the slice at `<state.json>` and starts its successor in one call. Repeated ids in `--covered` collapse to one; on success it prints the successor's absolute path, the same as `start` prints its own destination. It is its own subcommand rather than a `close` flag: `close` already has three outcomes about one retrospective, while `continue` takes none and always both ends one slice and starts the next.
+
+The successor is minted under the same run root and the same slug slice 1 used (`_run_slug` of the run being continued), so a chain's every slice shares one run directory prefix and the final `close` still names the durable retrospective after that one slug. Because the slug is shared, a mint in the same wall-clock second as the slice being closed would name that same directory; `continue` checks for that and, on a collision, waits for the clock to move to the next second before minting once more, refusing only if that second mint also collides.
+
+`continue` refuses before writing anything: every check below reads only files already on disk, and a refusal from any of them leaves the closing slice's bytes and the run root's own listing exactly as they were. Checked in this order, first match wins:
+
+| # | Refused when | Message contains |
+|---|---|---|
+| 1 | lifecycle is not `active` | `continue requires an active run` |
+| 2 | `--reason` empty after stripping | `continue needs --reason` |
+| 3 | no requirements document is linked to continue from, or its `Status` is not `Approved` | `no approved requirements document` |
+| 4 | a question is unanswered | `cannot continue while a question is unanswered` |
+| 5 | the linked `execute` run is not a `completed` receipt | `not completed` |
+| 6 | AGENTS.md changed since the current span began | `AGENTS.md changed since the current span began` |
+| 7 | an earlier slice cannot be read, is invalid, carries no `continued`, or does not step down by one slice | `earlier slice could not be read` |
+| 8 | `--covered` names nothing | `names no acceptance criterion` |
+| 9 | a named id is not one of the requirements' own criteria | `no such acceptance criterion` |
+| 10 | every named id is already covered by an earlier slice | `adds no acceptance criterion not already covered` |
+| 11 | nothing would remain for the next slice | `no acceptance criterion would remain` |
+| 12 | another nonterminal fsd run already exists for this worktree | `a nonterminal fsd run already exists` |
+| 13 | both of the successor's minted destinations already exist | `already exists` |
+
+The requirements document `continue` reads criteria from, and stores as the successor's own `input.reference`, is this slice's own `input.reference` when its input is already a requirements document; otherwise, when an idea led here, the completed interview's own `resolved_reference` or its ledger's `requirements_path` — the identical reading `gap`'s own interview row already uses. It is always absolute: a relative value is joined onto the worktree root with the same plain join `classify_input` applies, with no further resolve.
+
+Once every check passes, `continue` builds both the successor and the closed candidate in memory and validates each with `validate_transition` before writing either. It commits the successor first — minting its directory — then commits the closing slice; if that second commit fails, the successor's file and its directory are both removed before the error is re-raised, so a failed call never leaves the closing slice orphaned behind a successor that was never actually handed off. If the first commit fails, nothing was written at all.
+
+`status` on a state carrying `chain` gains one key, unchanged on any other state:
+
+```json
+"chain": {"slice": 2, "previous": "<path>", "requirements": "<path>",
+          "covered_by_earlier_slices": ["AC1"],
+          "remaining": [{"id": "AC2", "text": "…"}, {"id": "AC3", "text": "…"}],
+          "earlier_slices": [{"slice": 1, "state": "<path>", "plan": "<path> | null",
+                               "ralplan": "<path> | null", "execute": "<path> | null",
+                               "covered": ["AC1"], "reason": "…"}]}
+```
+
+`covered_by_earlier_slices` is the de-duplicated union of every earlier slice's own `continued.covered`, sorted by criterion number — a fact about the whole chain behind this state, not only its immediate predecessor. `remaining` is every criterion the requirements document holds, in document order, that is not in that union. When an earlier slice or the chain's own requirements document cannot be read, `chain` carries only `{"slice": …, "previous": "<path>", "error": "<text>"}` instead.
+
+`gap`'s entry-row action on a chained state whose `ralplan` is pending carries the same `invoke /kein:ralplan <requirements path>` any other ralplan-pending row does, then a suffix appended after `CHAIN_SUFFIX_SEPARATOR` (a newline): this slice's own number, each remaining criterion as `AC<n>` with its own text, the instruction to give this slice's plan a path of its own, and, for every earlier slice, its plan path, ralplan receipt path, execute receipt path, and continue reason. Covered criteria are never named there — only what remains is this slice's own planner's business. `continue` computes the successor's own `next_action` the same way, before either of its two writes, reading the slice it is closing from the candidate about to be committed rather than from the file that does not carry `continued` yet. When an earlier slice or the requirements document itself cannot be read, the row still fires, with a clause naming that instead of the suffix. `hook.py`'s `_gap_action` substitutes the printed `<state>` placeholder only in the part of the action before that first separator, so a criterion whose own text happens to contain the literal string `<state>` still reaches the lead verbatim.
+
+`report` on a state carrying `chain` prints `## Slices` right after `## Halted` (when present) and before `## Assumptions`: one line per earlier slice, in order, naming its plan path, ralplan receipt path, execute receipt path, covered ids, and continue reason, then one line for the state itself marked as the current slice, naming its own plan, ralplan receipt, and execute receipt (each or `none linked`), never covered ids or a reason, since this state has not necessarily continued as of this report. When an earlier slice or the requirements document itself cannot be read, that line names the error instead of the earlier-slice walk; the current slice's own line still prints, since it depends on nothing upstream. A state without `chain` prints no `## Slices` section at all.
+
 ## `report`
 
-`report <state>` renders in every lifecycle: a `## Halted` section first when `lifecycle` is `halted`, then `## Assumptions`, `## Parked questions` (each with how to answer — re-invoke `/kein:fsd` with the answers), `## Lesson proposals` (numbered, each vetoable), and `## Retrospective`. An empty list prints `None.`
+`report <state>` renders in every lifecycle: a `## Halted` section first when `lifecycle` is `halted`, then `## Slices` when the state carries a `chain` (see "Chained slices" above), then `## Assumptions`, `## Parked questions` (each with how to answer — re-invoke `/kein:fsd` with the answers), `## Lesson proposals` (numbered, each vetoable), and `## Retrospective`. An empty list prints `None.`

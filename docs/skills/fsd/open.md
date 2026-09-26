@@ -16,6 +16,12 @@ Each of these fails open (a missing link, so no hook fires) or needs someone to 
 - Interview's `output_path` and its completed `requirements_path` are assumed equal.
 - execute: a `parked → parked` checkpoint can rewrite the park record; the reference's wording about the seal on `parked → pending` is looser than the code; a root-scoped task's `scope_fingerprint` starts covering untracked files for runs in flight; parking a reopened `accepted → correcting` task means undoing its accepted content.
 
+## Deferred measurement
+
+Not an accepted risk, but a thing no run has yet exercised, so nothing here has been checked against a real one:
+
+- No live chained run (`ocs state fsd continue`) has gone end to end yet. Its first real use should measure: whether the lead actually continues rather than closes when acceptance criteria remain; whether ralplan's own planner uses the remaining criteria and earlier slices' receipts that `gap`'s chained action hands it; whether a later slice's plan lands at a path of its own rather than overwriting an earlier one; whether ralplan's review lanes approve a slice plan that deliberately covers only part of the acceptance criteria, since the first slice's own action carries no remaining-criteria suffix to say so; whether the lead passes `gap`'s multi-line action as the whole `/kein:ralplan` argument rather than only its first line, and which path it then gives `ocs state ralplan start --input`; and whether the requirements' acceptance criteria stayed unedited across slices, since `AC<n>` ids are positional.
+
 ## What would reopen the design
 
 The run went through three association designs before this one held: inference after the fact, then a strict-only rule that lost the flow's own runs, then linking at creation. If a live run (U6) shows the flow's own stage run going unlinked on the ordinary path, the first thing to check is whether the lead followed the U5 list above, and the second is post-bash's spelling coverage, before touching the belonging rule.

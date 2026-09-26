@@ -11,9 +11,17 @@ After the last plan task is accepted and before `execute`'s Finalization, find t
 In this order:
 
 1. `ocs state fsd closeout <state>`.
+
+   If acceptance criteria remain that this slice could not take -- because their plan needed what this slice revealed, or because [decision-policy.md](decision-policy.md)'s split route removed their story from this slice's plan -- take this branch instead of steps 2-5 below.
+   - `ocs state fsd continue <state> --covered <AC ids, comma-separated, e.g. AC1,AC3> --reason <what the next slice needs that could not be planned before, or which split story it carries and why it was split>`. `AC<n>` names the requirements' `## Acceptance criteria` checkboxes, in document order.
+   - From here on, use the path `continue` prints, and invoke the stage its own `gap` names exactly as printed.
+   - Give that slice's own plan a path of its own, never one an earlier slice's plan already used.
+   - If `continue` refuses because a question is unanswered, close this slice with steps 2-5 below instead -- lessons, the retrospective, `close`, and `report`. The run pauses; once the question is answered and the run resumed, `gap` names closeout again, so run step 1 and take this branch again.
+   - If `continue` refuses because no approved requirements document is linked to this run to continue from -- an execute-entry run, or one whose requirements are not yet Approved -- this run cannot chain: fall back to steps 2-5 below.
 2. Propose lessons for AGENTS.md: what this run taught that the next run in this repository should know and could not find by looking. Record each with `ocs state fsd lesson <state> --line <the proposed line> --why <what happened>`, and never edit AGENTS.md. If nothing was learned, record no lesson and write "no new lessons" in the retrospective. A lesson made up so that the list is not empty is worse than none.
 3. Write the retrospective under this run's own directory, next to its `state.json`. `close` moves it to `ocs state-dir retros/` once the run completes. It has these sections:
    - **Outcome:** the requirements, plan and `execute` receipt paths.
+   - On a chained run, **Slices:** every slice's plan, receipts and continue reason, from `report`'s `## Slices` section.
    - **Stages:** the entry stage, `ralplan`'s rounds, and the tasks accepted and parked.
    - **Assumptions:** every A<n>, with its reversal cost, the ones the user is most likely to veto first. The user reads this once, so the ones they would reverse must come before the ones they would accept without reading.
    - **Parked questions:** every Q<n>, with the recommended option.
