@@ -3,7 +3,7 @@
 
 Every worker brief says the same thing in prose: no git mutations, read-only git is fine, git state belongs to the lead. It failed on first contact when an executor ran `git stash push` on an untracked file (nothing captured) and then `git stash pop`, unpacking another session's June stash into a live worktree -- the stash stack is shared by every worktree of a repository, which is the reason the rule exists. This is that sentence as a mechanism.
 
-Scope is the one thing that separates a worker's call from the lead's: a subagent's tool events carry `agent_id` and `agent_type`, the lead's do not. The lead keeps its own prose rule. A worker's git call passes only when every `git` invocation in the command is read-only -- an allowlist of reading subcommands, plus the reading forms of the ones that go both ways (`branch`, `tag`, `config`, `remote`, `worktree`, `stash`, `reflog`, `notes`, `apply --check`). Anything else exits 2, which blocks the call and hands the reason back to the model.
+Scope is the one thing that separates a worker's call from the lead's: a subagent's tool events carry `agent_id`, the lead's do not. `agent_type` alone is not a worker: a main session started with `--agent` carries it too. The lead keeps its own prose rule. A worker's git call passes only when every `git` invocation in the command is read-only -- an allowlist of reading subcommands, plus the reading forms of the ones that go both ways (`branch`, `tag`, `config`, `remote`, `worktree`, `stash`, `reflog`, `notes`, `apply --check`). Anything else exits 2, which blocks the call and hands the reason back to the model.
 """
 import json
 import shlex
@@ -108,7 +108,7 @@ def main() -> int:
         return 0
     if not isinstance(payload, dict) or payload.get("tool_name") != "Bash":
         return 0
-    if not (payload.get("agent_id") or payload.get("agent_type")):
+    if not payload.get("agent_id"):
         return 0
     command = (payload.get("tool_input") or {}).get("command", "")
     if not isinstance(command, str):

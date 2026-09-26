@@ -2,6 +2,14 @@
 
 Items moved out of `docs/skills/execute/open.md` once closed, kept verbatim with a note on what closed them.
 
+## A dispatched worker sometimes invokes `/kein:execute` itself
+
+Closed 2026-09-26: `plugin/hooks/spawn-guard.py`, a PreToolUse hook, refuses a subagent's `Agent`/`Task` call for any type but a lookup role, its `Skill` call for the kein skills that dispatch workers, `Workflow`, and `ocs team`/`ocs ask`; the lead prompt's prose rule was removed with it. `disallowedTools: Skill` in role frontmatter was not used because it blocks every skill, including the reference skills roles such as `designer` load, and does not reach built-in subagent types. Left uncovered, by design or by reach: `SendMessage` to a worker that already exists (also how siblings coordinate), and anything a worker on another vendor does, since no Claude hook runs there.
+
+Seen rarely, reported by the owner 2026-09-26: a subagent `execute` spawned — `executor` or another lane — called the `execute` skill on its own task and started putting its own work through review. The lead prompt's "workers do not spawn writers" says in its own words that nothing in the harness enforces it; the brief is the only place it exists, and a worker's skill listing still shows `kein:execute`, whose description ("a bounded code change … carried through implementation, verification, independent review") matches the task the worker was just handed.
+
+No trace of an occurrence has been archived, so neither the frequency nor what in the brief preceded it is known. Candidates to weigh with `/kein:deliberate` once one is captured: a line in `execute`'s worker brief, a role-level refusal in `agents/*.md`, or a mechanism — a `PreToolUse` hook on `Skill` that refuses `kein:execute` (and the other orchestrating skills) outside the lead session. The hook is the only one that does not rely on the worker reading a sentence, which is the failure being described.
+
 ## One worktree admits one run, and that was never a bar to parallelism
 
 Closed 2026-09-26: recorded as an explanatory record rather than open work — the section's own last line already says nothing here needs changing.

@@ -1,0 +1,102 @@
+#!/usr/bin/env sh
+#: Feed the spawn guard the worker calls it must refuse and the ones it must not, and fail if either side moved.
+#
+# The guard is a PreToolUse hook that tells a worker's call from the lead's by the `agent_id` field a subagent's tool events carry. Whether Claude Code still sends that field on Agent and Skill calls is a live measurement; everything here is synthetic hook input.
+set -eu
+
+GUARD="${KEIN_ROOT:?}/hooks/spawn-guard.py"
+failures=0
+
+run() { python3 -c '
+import json,sys
+agent, tool, field, value = sys.argv[1:5]
+payload = {"tool_name": tool, "tool_input": {field: value} if field else {}, "session_id": "s", "cwd": "/tmp", "hook_event_name": "PreToolUse"}
+if agent == "sub":
+    payload["agent_id"] = "a1"; payload["agent_type"] = "kein:executor"
+elif agent == "agent-flag":
+    payload["agent_type"] = "lead"
+print(json.dumps(payload))' "$@" | "${PY:-python3}" "$GUARD" 2>/dev/null; }
+
+# Exit 2 is the only status Claude Code treats as a block; a crash exits 1 and lets the call through, so it counts as neither.
+status() { rc=0; run "$@" || rc=$?; echo "$rc"; }
+refuse() { label=$1; shift; rc=$(status "$@"); [ "$rc" -eq 2 ] || { printf 'check-spawn-guard: %s exited %s, not 2\n' "$label" "$rc" >&2; failures=$((failures + 1)); }; }
+allow()  { label=$1; shift; rc=$(status "$@"); [ "$rc" -eq 0 ] || { printf 'check-spawn-guard: %s exited %s, not 0\n' "$label" "$rc" >&2; failures=$((failures + 1)); }; }
+
+refuse "a worker spawning an executor"          sub Agent subagent_type kein:executor
+refuse "a worker spawning a reviewer"           sub Agent subagent_type kein:code-reviewer
+refuse "a worker spawning general-purpose"      sub Agent subagent_type general-purpose
+refuse "a worker spawning with no type"         sub Agent "" ""
+refuse "a worker spawning through Task"         sub Task subagent_type kein:writer
+refuse "a worker invoking kein:execute"         sub Skill skill kein:execute
+refuse "a worker invoking bare execute"         sub Skill skill execute
+refuse "a worker invoking /kein:ralplan"        sub Skill skill /kein:ralplan
+refuse "a worker invoking kein:plan"            sub Skill skill kein:plan
+refuse "a worker invoking kein:fsd"             sub Skill skill kein:fsd
+refuse "a worker invoking kein:research"        sub Skill skill kein:research
+refuse "a worker running a workflow"            sub Workflow "" ""
+refuse "a worker running ocs team"              sub Bash command 'ocs team codex --agent executor --task-file p'
+refuse "a worker running ocs ask after cd"      sub Bash command 'cd /x && ocs ask codex --agent critic --task-file p'
+refuse "a worker running ocs by path"           sub Bash command '/opt/kein/bin/ocs team codex'
+refuse "a worker running ocs behind env"        sub Bash command 'FOO=1 ocs ask codex'
+refuse "a worker running ocs with no spaces"    sub Bash command 'true;ocs team codex'
+refuse "a worker running ocs in a subshell"     sub Bash command '(ocs team codex)'
+refuse "a worker running ocs through sh -c"     sub Bash command "sh -c 'ocs team codex x'"
+refuse "a worker running ocs through bash -lc"  sub Bash command 'bash -lc "cd /x && ocs ask codex x"'
+refuse "a worker running ocs on a second line"  sub Bash command 'cd /x
+ocs team codex x'
+refuse "a worker running ocs in a for loop"     sub Bash command 'for f in a b; do ocs ask codex --task-file $f; done'
+refuse "a worker running ocs under if"          sub Bash command 'if true; then ocs team codex x; fi'
+refuse "a worker running ocs under timeout"     sub Bash command 'timeout 600 ocs team codex x'
+refuse "a worker running ocs through xargs -n1" sub Bash command 'ls | xargs -n1 ocs ask codex'
+refuse "a worker running ocs through eval"      sub Bash command 'eval "ocs team codex x"'
+refuse "a worker running ocs after bash --norc" sub Bash command 'bash --norc -c "ocs team codex"'
+refuse "a worker running ocs after a here-string" sub Bash command 'grep foo <<< "abc"
+ocs team codex x'
+refuse "a worker running ocs after a bit shift"  sub Bash command 'echo $((1<<2))
+ocs ask codex q'
+refuse "a worker running ocs after a quoted <<"  sub Bash command 'echo "use <<EOF for heredocs"
+ocs team codex x'
+refuse "a worker running libexec ocs-team"      sub Bash command '$KEIN_ROOT/libexec/ocs-team codex x'
+refuse "a worker invoking kein:Execute"         sub Skill skill 'kein:Execute'
+refuse "a worker invoking execute with a space" sub Skill skill 'kein:execute '
+
+allow "a worker spawning Explore"               sub Agent subagent_type Explore
+allow "a worker spawning lowercase explore"     sub Agent subagent_type explore
+allow "a worker spawning kein:explore"          sub Agent subagent_type kein:explore
+allow "a worker spawning document-specialist"   sub Agent subagent_type kein:document-specialist
+allow "a worker spawning claude-code-guide"     sub Agent subagent_type claude-code-guide
+allow "a worker loading a reference skill"      sub Skill skill kein-findings:findings
+allow "a worker loading another plugin's plan"  sub Skill skill other:plan
+allow "a worker loading kein:deliberate"        sub Skill skill kein:deliberate
+allow "a worker running other ocs commands"     sub Bash command 'ocs state-dir runs/execute'
+allow "a worker mentioning ocs team in a string" sub Bash command 'grep -n "ocs team" lanes.md'
+allow "a worker writing ocs ask in a heredoc"   sub Bash command "cat > f.md <<'EOF'
+Run ocs ask codex, don't run it here
+ocs team codex --agent executor x
+EOF"
+refuse "a worker running ocs after a heredoc"   sub Bash command "cat > f.md <<EOF
+text
+EOF
+ocs team codex x"
+allow "a worker running plain Bash"             sub Bash command 'ls -la'
+
+allow "the lead spawning an executor"           lead Agent subagent_type kein:executor
+allow "the lead invoking kein:execute"          lead Skill skill kein:execute
+allow "the lead running ocs team"               lead Bash command 'ocs team codex --agent executor'
+allow "the lead running a workflow"             lead Workflow "" ""
+allow "a lead started with --agent spawning"    agent-flag Agent subagent_type kein:executor
+allow "a lead started with --agent on execute"  agent-flag Skill skill kein:execute
+
+printf 'not json' | python3 "$GUARD" 2>/dev/null || { printf 'check-spawn-guard: malformed input was refused\n' >&2; failures=$((failures + 1)); }
+
+# Plain `python3` on PATH is what hooks.json runs, and on stock macOS that is 3.9.
+if [ -x /usr/bin/python3 ]; then
+  PY=/usr/bin/python3 refuse "under /usr/bin/python3, a worker spawning an executor" sub Agent subagent_type kein:executor
+  PY=/usr/bin/python3 allow "under /usr/bin/python3, a worker spawning Explore" sub Agent subagent_type Explore
+fi
+
+if [ "$failures" -ne 0 ]; then
+  printf 'check-spawn-guard: %d case(s) failed\n' "$failures" >&2
+  exit 1
+fi
+echo "check-spawn-guard: ok"

@@ -39,6 +39,15 @@
             "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/git-guard.py\""
           }
         ]
+      },
+      {
+        "matcher": "Agent|Task|Skill|Workflow|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/spawn-guard.py\""
+          }
+        ]
       }
     ]
   }

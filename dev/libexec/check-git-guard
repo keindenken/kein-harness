@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 #: Feed the git guard the worker calls it must refuse and the ones it must not, and fail if either side moved.
 #
-# The guard is a PreToolUse hook on Bash. It reads one thing to decide whose call it is -- the `agent_id` / `agent_type` fields a subagent's tool events carry -- and one thing to decide what the call does. Both halves are driven here from synthetic hook input, because the hook only loads at session start and a live probe cannot run inside the session that edits it.
+# The guard is a PreToolUse hook on Bash. It reads one thing to decide whose call it is -- the `agent_id` field a subagent's tool events carry -- and one thing to decide what the call does. Both halves are driven here from synthetic hook input, because the hook only loads at session start and a live probe cannot run inside the session that edits it.
 set -eu
 
 GUARD="${KEIN_ROOT:?}/hooks/git-guard.py"
@@ -13,6 +13,8 @@ agent, cmd = sys.argv[1], sys.stdin.read()
 payload = {"tool_name": "Bash", "tool_input": {"command": cmd}, "session_id": "s", "cwd": "/tmp", "hook_event_name": "PreToolUse"}
 if agent == "sub":
     payload["agent_id"] = "a1"; payload["agent_type"] = "kein:executor"
+elif agent == "agent-flag":
+    payload["agent_type"] = "lead"
 print(json.dumps(payload))' "$1" | python3 "$GUARD" 2>/dev/null; }
 
 refuse() { label=$1; shift; if run "$@"; then printf 'check-git-guard: %s was allowed and must not be\n' "$label" >&2; failures=$((failures + 1)); fi; }
@@ -65,6 +67,7 @@ allow  "git -C with a read"            sub 'git -C /other/tree log -1'
 # The lead is untouched.
 allow  "the lead's git stash pop"      main 'git stash pop'
 allow  "the lead's commit"             main 'git commit -q -m x'
+allow  "a lead started with --agent committing" agent-flag 'git commit -q -m x'
 
 if [ "$failures" -ne 0 ]; then
   printf 'check-git-guard: %d check(s) failed\n' "$failures" >&2

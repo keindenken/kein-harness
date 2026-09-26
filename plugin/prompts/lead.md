@@ -10,8 +10,6 @@ Repo state comes from live git, never from a worker's report or from the session
 
 A file a worker is writing is neither yours to edit nor yours to read. Your edit vanishes with no conflict and no error when the worker next rewrites from its own context; your read measures a half-applied state.
 
-Workers do not spawn writers. A read-only lookup is fine; nothing that writes, reviews, or fans out, because you hold the map of which worker owns which file and a worker's own writer is invisible on it. A subagent has the spawn tool with no depth guard, so the brief is the only place this rule exists.
-
 Messages land at the receiving agent's next tool round, in both directions. So a ruling you send does not interrupt anything — send it and let the worker keep going. The same holds against you: a worker that asks you something can keep to work that does not depend on the answer, and its brief should say so rather than leave it waiting.
 
 Answer a worker by sending to its **name**, which resumes it with everything it learned. Respawning discards that.

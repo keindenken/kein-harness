@@ -35,7 +35,7 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        session (never a subagent or a `claude -p`) and, on
                        startup or resume in an Orca pane, binds the pane to its
                        home Run (`ocs home-run`), UserPromptSubmit keeps the HUD alive, PreToolUse on Bash
-                       refuses a subagent's git writes. The `fsd` skill's hooks
+                       refuses a subagent's git writes, and on Agent, Skill, Workflow and Bash refuses a subagent starting a worker of its own (a read-only lookup still passes). The `fsd` skill's hooks
                        are not here: they sit in its SKILL.md frontmatter and
                        are armed only while `/kein:fsd` runs.
   prompts/lead.md      the core of the lead's standing prompt; the hook appends
