@@ -1,0 +1,83 @@
+== repos
+  topic:claude-code-subagents: total 76, new 1, corpus 779
+  topic:claude-subagents: total 29, new 0, corpus 779
+  topic:subagents: total 1169, new 0, corpus 779
+  topic:claude-code-agents: total 84, new 0, corpus 779
+  topic:claude-agents: total 131, new 0, corpus 779
+  topic:ai-agents claude: total 23838, new 0, corpus 779
+  topic:claude-code: total 77780, new 0, corpus 779
+  topic:opencode: total 7625, new 1, corpus 780
+  topic:codex-cli: total 2806, new 0, corpus 780
+  topic:github-copilot agents: total 1506, new 0, corpus 780
+  subagents in:name,description: total 6772, new 0, corpus 780
+  claude code agents in:name,description: total 47482, new 0, corpus 780
+  custom agents in:name,description copilot: total 583, new 0, corpus 780
+  codex agents in:name,description: total 23075, new 0, corpus 780
+  opencode agents in:name,description: total 7569, new 0, corpus 780
+  agent prompts in:name,description: total 19688, new 0, corpus 780
+  writing agents in:name,description: total 4406, new 1, corpus 781
+  ui ux agent in:name,description: total 669, new 59, corpus 840
+  design agent claude in:name,description: total 2298, new 48, corpus 888
+  designer agent in:name,description: total 1304, new 54, corpus 942
+  design system agent in:name,description: total 8107, new 42, corpus 984
+  frontend design claude in:name,description: total 375, new 54, corpus 1038
+  topic:design-systems claude: total 154, new 42, corpus 1080
+  topic:ui-design ai-agents: total 250, new 47, corpus 1127
+stage repos: 1127 repositories
+== trees
+stage trees: 676 candidates from 124 repositories; notes 2
+== code
+  filename:designer path:agents: corpus 251
+  filename:ui-designer path:agents: corpus 511
+  filename:ux-designer path:agents: corpus 770
+  filename:ui-ux path:agents: corpus 874
+  filename:design-system path:agents: corpus 1093
+  filename:frontend-design path:agents: corpus 1147
+  filename:accessibility path:agents: corpus 1389
+  filename:ux path:agents: corpus 1482
+  filename:designer path:.claude/agents: corpus 1780
+  filename:ui-designer path:.claude/agents: corpus 2023
+  filename:ux-designer path:.claude/agents: corpus 2247
+  filename:ui-ux path:.claude/agents: corpus 2373
+  filename:design-system path:.claude/agents: corpus 2659
+  filename:frontend-design path:.claude/agents: corpus 2827
+  filename:accessibility path:.claude/agents: corpus 3081
+  filename:ux path:.claude/agents: corpus 3221
+  filename:designer path:.github/agents: corpus 3513
+  filename:ui-designer path:.github/agents: corpus 3677
+  filename:ux-designer path:.github/agents: corpus 3886
+  filename:ui-ux path:.github/agents: corpus 4006
+  filename:design-system path:.github/agents: corpus 4101
+  filename:frontend-design path:.github/agents: corpus 4156
+  filename:accessibility path:.github/agents: corpus 4438
+  filename:ux path:.github/agents: corpus 4529
+  filename:designer path:.opencode/agent: corpus 4698
+  filename:ui-designer path:.opencode/agent: corpus 4698
+  filename:ux-designer path:.opencode/agent: corpus 4792
+  filename:ui-ux path:.opencode/agent: corpus 4830
+  filename:design-system path:.opencode/agent: corpus 4832
+  filename:frontend-design path:.opencode/agent: corpus 4832
+  filename:accessibility path:.opencode/agent: corpus 4841
+  filename:ux path:.opencode/agent: corpus 4865
+  filename:designer path:.codex/agents: corpus 5155
+  filename:ui-designer path:.codex/agents: corpus 5201
+  filename:ux-designer path:.codex/agents: corpus 5244
+  filename:ui-ux path:.codex/agents: corpus 5275
+  filename:design-system path:.codex/agents: corpus 5315
+  filename:frontend-design path:.codex/agents: corpus 5334
+  filename:accessibility path:.codex/agents: corpus 5423
+  filename:ux path:.codex/agents: corpus 5589
+  path:.claude/agents "UI/UX": corpus 5663
+  path:.claude/agents "you are a designer": corpus 5668
+  ! path:.claude/agents "design system" "you are" p3: gh: all shards failed (HTTP 503)
+  path:.claude/agents "design system" "you are": corpus 5735
+  path:.github/agents "UI/UX": corpus 5787
+  path:agents "UX designer": corpus 5832
+  path:agents "visual design" "you are": corpus 5893
+  path:agents "design tokens": corpus 5977
+  path:agents "WCAG" "you are" designer: corpus 6035
+stage code: 6035 candidates from 4536 repositories
+== raw
+stage raw: 6613 fetched from 4632 repositories, 0 failed
+== dedupe
+stage dedupe: 6613 files -> 5233 distinct texts

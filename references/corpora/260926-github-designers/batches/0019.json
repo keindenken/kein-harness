@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00335",
+  "kind": "agent",
+  "file": "corpus/The-Notorious-Avengers_Claude-Code-Cursor-Skills__agents_design-system-guardian.md",
+  "repo": "The-Notorious-Avengers/Claude-Code-Cursor-Skills",
+  "path": "agents/design-system-guardian.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00337",
+  "kind": "agent",
+  "file": "corpus/ZeusopenAI_ZEUS__agents_hermes_website_docs_user-guide_skills_bundled_creative_creative-claude-design.md",
+  "repo": "ZeusopenAI/ZEUS",
+  "path": "agents/hermes/website/docs/user-guide/skills/bundled/creative/creative-claude-design.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00338",
+  "kind": "agent",
+  "file": "corpus/astar-development_astar-dev-mono__.github_agents_Designer.reference.md",
+  "repo": "astar-development/astar-dev-mono",
+  "path": ".github/agents/Designer.reference.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00339",
+  "kind": "agent",
+  "file": "corpus/bhaskarmelkani_learn-ai__.claude_agents_design-system-enforcer.md",
+  "repo": "bhaskarmelkani/learn-ai",
+  "path": ".claude/agents/design-system-enforcer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00340",
+  "kind": "agent",
+  "file": "corpus/bryankthompson_agentgen__agents_development_ui-designer.md",
+  "repo": "bryankthompson/agentgen",
+  "path": "agents/development/ui-designer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00342",
+  "kind": "agent",
+  "file": "corpus/ganjardbc_coderium-web-v2__.opencode_agent_caf-ux-designer.md",
+  "repo": "ganjardbc/coderium-web-v2",
+  "path": ".opencode/agent/caf-ux-designer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00343",
+  "kind": "agent",
+  "file": "corpus/jeremyDevios_BudgetFlow__.github_agents_designer.agent.md",
+  "repo": "jeremyDevios/BudgetFlow",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00344",
+  "kind": "agent",
+  "file": "corpus/lindanimasinga_cs-lifestyle__.github_agents_izinga-food-web-ui-ux-designer.agent.md",
+  "repo": "lindanimasinga/cs-lifestyle",
+  "path": ".github/agents/izinga-food-web-ui-ux-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00345",
+  "kind": "agent",
+  "file": "corpus/pkirsanov_smackerel__.github_agents_bubbles_shared_ux-bootstrap.md",
+  "repo": "pkirsanov/smackerel",
+  "path": ".github/agents/bubbles_shared/ux-bootstrap.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00346",
+  "kind": "agent",
+  "file": "corpus/rodolfolermacontreras_Evolving-Multi-Agent-Framework__.github_agents_principal-ui-designer.agent.md",
+  "repo": "rodolfolermacontreras/Evolving-Multi-Agent-Framework",
+  "path": ".github/agents/principal-ui-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ }
+]

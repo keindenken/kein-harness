@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0045",
+  "kind": "skill",
+  "file": "corpus-skills/cloudflare_vibesdk__worker_agents_think_skills_frontend-design-saas_SKILL.md",
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-saas/SKILL.md",
+  "stars": 5322,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0046",
+  "kind": "skill",
+  "file": "corpus-skills/countbot-ai_CountBot__workspace_skills_web-design_SKILL.md",
+  "repo": "countbot-ai/CountBot",
+  "path": "workspace/skills/web-design/SKILL.md",
+  "stars": 765,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0047",
+  "kind": "skill",
+  "file": "corpus-skills/danielmiessler_LifeOS__LifeOS_install_skills_Webdesign_SKILL.md",
+  "repo": "danielmiessler/LifeOS",
+  "path": "LifeOS/install/skills/Webdesign/SKILL.md",
+  "stars": 18581,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0048",
+  "kind": "skill",
+  "file": "corpus-skills/dstackai_dstack__skills_dstack-prototyping_SKILL.md",
+  "repo": "dstackai/dstack",
+  "path": "skills/dstack-prototyping/SKILL.md",
+  "stars": 2214,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0049",
+  "kind": "skill",
+  "file": "corpus-skills/elayadesign_ai-design-skills__skills_landing-page-design_SKILL.md",
+  "repo": "elayadesign/ai-design-skills",
+  "path": "skills/landing-page-design/SKILL.md",
+  "stars": 947,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0050",
+  "kind": "skill",
+  "file": "corpus-skills/expo_skills__plugins_expo_skills_expo-design-system_SKILL.md",
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-design-system/SKILL.md",
+  "stars": 2432,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0051",
+  "kind": "skill",
+  "file": "corpus-skills/expo_skills__plugins_expo_skills_expo-native-ui_SKILL.md",
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-native-ui/SKILL.md",
+  "stars": 2432,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0052",
+  "kind": "skill",
+  "file": "corpus-skills/fengshao1227_ccg-workflow__templates_skills_domains_frontend-design_SKILL.md",
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/domains/frontend-design/SKILL.md",
+  "stars": 5829,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0053",
+  "kind": "skill",
+  "file": "corpus-skills/fengshao1227_ccg-workflow__templates_skills_impeccable_colorize_SKILL.md",
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/impeccable/colorize/SKILL.md",
+  "stars": 5829,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0054",
+  "kind": "skill",
+  "file": "corpus-skills/foru17_neko-master__.claude_skills_ui-conventions_SKILL.md",
+  "repo": "foru17/neko-master",
+  "path": ".claude/skills/ui-conventions/SKILL.md",
+  "stars": 3302,
+  "copies_in_repos": 1
+ }
+]

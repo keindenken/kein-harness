@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00602",
+  "kind": "agent",
+  "file": "corpus/verifywise-ai_verifywise__agents_interaction-designer.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/interaction-designer.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00603",
+  "kind": "agent",
+  "file": "corpus/verifywise-ai_verifywise__agents_ux-ui-designer.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/ux-ui-designer.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00605",
+  "kind": "agent",
+  "file": "corpus/verifywise-ai_verifywise__agents_visual-designer.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/visual-designer.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00607",
+  "kind": "agent",
+  "file": "corpus/educlopez_ui-craft__agents_design-reviewer.md",
+  "repo": "educlopez/ui-craft",
+  "path": "agents/design-reviewer.md",
+  "stars": 357,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00608",
+  "kind": "agent",
+  "file": "corpus/minicoohei_ai-agent-camp__.claude_agents_designer.md",
+  "repo": "minicoohei/ai-agent-camp",
+  "path": ".claude/agents/designer.md",
+  "stars": 347,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00611",
+  "kind": "agent",
+  "file": "corpus/pixel-cellar_Claude-Code-Game-Studios__.claude_agents_ux-designer.md",
+  "repo": "pixel-cellar/Claude-Code-Game-Studios",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 334,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00613",
+  "kind": "agent",
+  "file": "corpus/Adityaraj0421_naksha-studio__agents_design-critique.md",
+  "repo": "Adityaraj0421/naksha-studio",
+  "path": "agents/design-critique.md",
+  "stars": 319,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00614",
+  "kind": "agent",
+  "file": "corpus/Adityaraj0421_naksha-studio__agents_design-token-extractor.md",
+  "repo": "Adityaraj0421/naksha-studio",
+  "path": "agents/design-token-extractor.md",
+  "stars": 319,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00616",
+  "kind": "agent",
+  "file": "corpus/Prorise-cool_Claude-Code-Multi-Agent__.claude_agents_specialist_ui-ux-designer.md",
+  "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+  "path": ".claude/agents/specialist/ui-ux-designer.md",
+  "stars": 305,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00618",
+  "kind": "agent",
+  "file": "corpus/adamgell_cmtraceopen__.github_agents_designer.agent.md",
+  "repo": "adamgell/cmtraceopen",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 297,
+  "copies_in_repos": 1
+ }
+]

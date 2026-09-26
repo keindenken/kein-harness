@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00347",
+  "kind": "agent",
+  "file": "corpus/semaj90_deeds_web_app__.github_agents_design-system-steward.agent.md",
+  "repo": "semaj90/deeds_web_app",
+  "path": ".github/agents/design-system-steward.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00348",
+  "kind": "agent",
+  "file": "corpus/semaj90_deeds_web_app__.github_agents_playwright-ui-ux.agent.md",
+  "repo": "semaj90/deeds_web_app",
+  "path": ".github/agents/playwright-ui-ux.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00349",
+  "kind": "agent",
+  "file": "corpus/shadowfish07_NextPlay__.claude_agents_material-design-ui-designer.md",
+  "repo": "shadowfish07/NextPlay",
+  "path": ".claude/agents/material-design-ui-designer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00350",
+  "kind": "agent",
+  "file": "corpus/szabadkai_NotepadX__.github_agents_ux-designer.md",
+  "repo": "szabadkai/NotepadX",
+  "path": ".github/agents/ux-designer.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00351",
+  "kind": "agent",
+  "file": "corpus/1a2b3cw_claude-code-presets__.claude_agents_designer.md",
+  "repo": "1a2b3cw/claude-code-presets",
+  "path": ".claude/agents/designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00352",
+  "kind": "agent",
+  "file": "corpus/Anasabubakar_agent-swarm__agents_creative_ui-ux-scout.md",
+  "repo": "Anasabubakar/agent-swarm",
+  "path": "agents/creative/ui-ux-scout.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00353",
+  "kind": "agent",
+  "file": "corpus/Chinjila_ai-assisted-coding__.github_agents_ui-ux-enhancement.md",
+  "repo": "Chinjila/ai-assisted-coding",
+  "path": ".github/agents/ui-ux-enhancement.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00354",
+  "kind": "agent",
+  "file": "corpus/ChoiHyunjin_BybitTrading__.codex_agents_trading_ux-designer.spec.md",
+  "repo": "ChoiHyunjin/BybitTrading",
+  "path": ".codex/agents/trading/ux-designer.spec.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00355",
+  "kind": "agent",
+  "file": "corpus/CodeDiversity_copilot-agents__.github_agents_ux-designer.agent.md",
+  "repo": "CodeDiversity/copilot-agents",
+  "path": ".github/agents/ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00358",
+  "kind": "agent",
+  "file": "corpus/Danielpernnasc_microserviceRegisterTrain__.github_agents_sofia-ux.chatmode.md",
+  "repo": "Danielpernnasc/microserviceRegisterTrain",
+  "path": ".github/agents/sofia-ux.chatmode.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

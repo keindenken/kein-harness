@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00425",
+  "kind": "agent",
+  "file": "corpus/selvar2_social-ai-hybridrag__agents_ux-specialist.md",
+  "repo": "selvar2/social-ai-hybridrag",
+  "path": "agents/ux-specialist.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00427",
+  "kind": "agent",
+  "file": "corpus/thebobhuff_AtlasEngine__.github_agents_ui-designer.agent.md",
+  "repo": "thebobhuff/AtlasEngine",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00428",
+  "kind": "agent",
+  "file": "corpus/thebobhuff_AtlasEngine__.github_agents_ux-designer.agent.md",
+  "repo": "thebobhuff/AtlasEngine",
+  "path": ".github/agents/ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00429",
+  "kind": "agent",
+  "file": "corpus/tiagofur_creapolis-project__agents_ui-ux-designer.md",
+  "repo": "tiagofur/creapolis-project",
+  "path": "agents/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00430",
+  "kind": "agent",
+  "file": "corpus/uramigal8-a11y_New__.github_agents_gem-designer-mobile.agent.md",
+  "repo": "uramigal8-a11y/New",
+  "path": ".github/agents/gem-designer-mobile.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00432",
+  "kind": "agent",
+  "file": "corpus/work-w-chrstnrpj_Notable_Finance__.codex_agents_frontend-ui-ux-developer.toml",
+  "repo": "work-w-chrstnrpj/Notable_Finance",
+  "path": ".codex/agents/frontend-ui-ux-developer.toml",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00433",
+  "kind": "agent",
+  "file": "corpus/wskeei_OptiRoute-LastMile__.codex_agents_frontend-ux-auditor-planner.md",
+  "repo": "wskeei/OptiRoute-LastMile",
+  "path": ".codex/agents/frontend-ux-auditor-planner.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00436",
+  "kind": "agent",
+  "file": "corpus/www-e_Elostaz__.opencode_agent_ui-designer-and-code-perfector.md",
+  "repo": "www-e/Elostaz",
+  "path": ".opencode/agent/ui-designer-and-code-perfector.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00441",
+  "kind": "agent",
+  "file": "corpus/nextlevelbuilder_ui-ux-pro-max-skill__stack_.claude_agents_design-review.md",
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": "stack/.claude/agents/design-review.md",
+  "stars": 130594,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00442",
+  "kind": "agent",
+  "file": "corpus/Egonex-AI_Understand-Anything__understand-anything-plugin_agents_design-analyzer.md",
+  "repo": "Egonex-AI/Understand-Anything",
+  "path": "understand-anything-plugin/agents/design-analyzer.md",
+  "stars": 84173,
+  "copies_in_repos": 1
+ }
+]

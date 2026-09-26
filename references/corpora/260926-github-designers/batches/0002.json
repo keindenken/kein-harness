@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00025",
+  "kind": "agent",
+  "file": "corpus/Pana-g_autoresearch-cockpit__.github_agents_frontend-design.agent.md",
+  "repo": "Pana-g/autoresearch-cockpit",
+  "path": ".github/agents/frontend-design.agent.md",
+  "stars": 2,
+  "copies_in_repos": 15
+ },
+ {
+  "id": "c00027",
+  "kind": "agent",
+  "file": "corpus/lst97_claude-code-sub-agents__agents_development_ui-designer.md",
+  "repo": "lst97/claude-code-sub-agents",
+  "path": "agents/development/ui-designer.md",
+  "stars": 1689,
+  "copies_in_repos": 14
+ },
+ {
+  "id": "c00028",
+  "kind": "agent",
+  "file": "corpus/withkynam_vibecode-pro-max-kit__.claude_agents_vc-ui-ux-designer.md",
+  "repo": "withkynam/vibecode-pro-max-kit",
+  "path": ".claude/agents/vc-ui-ux-designer.md",
+  "stars": 1138,
+  "copies_in_repos": 14
+ },
+ {
+  "id": "c00029",
+  "kind": "agent",
+  "file": "corpus/yangyuan-zhen_PolyWeather__.codex_agents_designer.toml",
+  "repo": "yangyuan-zhen/PolyWeather",
+  "path": ".codex/agents/designer.toml",
+  "stars": 310,
+  "copies_in_repos": 13
+ },
+ {
+  "id": "c00031",
+  "kind": "agent",
+  "file": "corpus/goodscary_firstrubyfriend__.claude_agents_agent-os_ui-designer.md",
+  "repo": "goodscary/firstrubyfriend",
+  "path": ".claude/agents/agent-os/ui-designer.md",
+  "stars": 5,
+  "copies_in_repos": 13
+ },
+ {
+  "id": "c00033",
+  "kind": "agent",
+  "file": "corpus/acbcdev_RunTS__.claude_agents_ui-designer.md",
+  "repo": "acbcdev/RunTS",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 26,
+  "copies_in_repos": 12
+ },
+ {
+  "id": "c00036",
+  "kind": "agent",
+  "file": "corpus/iannuttall_claude-agents__agents_frontend-designer.md",
+  "repo": "iannuttall/claude-agents",
+  "path": "agents/frontend-designer.md",
+  "stars": 2043,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00038",
+  "kind": "agent",
+  "file": "corpus/STier-Ai_stier__.claude_agents_ui-designer.md",
+  "repo": "STier-Ai/stier",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 6,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00039",
+  "kind": "agent",
+  "file": "corpus/matheusallvarenga_claude-code-skills__agents_ui-ux-designer.md",
+  "repo": "matheusallvarenga/claude-code-skills",
+  "path": "agents/ui-ux-designer.md",
+  "stars": 5,
+  "copies_in_repos": 11
+ },
+ {
+  "id": "c00042",
+  "kind": "agent",
+  "file": "corpus/Yeachan-Heo_oh-my-claudecode__agents_designer.md",
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "path": "agents/designer.md",
+  "stars": 39353,
+  "copies_in_repos": 10
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00299",
+  "kind": "agent",
+  "file": "corpus/tmcleod3_voidforge__.claude_agents_celeborn-design-system.md",
+  "repo": "tmcleod3/voidforge",
+  "path": ".claude/agents/celeborn-design-system.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00303",
+  "kind": "agent",
+  "file": "corpus/codylejang_Scotty-Market__.claude_agents_frontend-designer.md",
+  "repo": "codylejang/Scotty-Market",
+  "path": ".claude/agents/frontend-designer.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00304",
+  "kind": "agent",
+  "file": "corpus/Citadel-Cloud-Management_citadel-saas-factory__.claude_agents_product-design_design-system.md",
+  "repo": "Citadel-Cloud-Management/citadel-saas-factory",
+  "path": ".claude/agents/product-design/design-system.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00310",
+  "kind": "agent",
+  "file": "corpus/orchestra-mcp_framework__.claude_agents_ui-ux-designer.md",
+  "repo": "orchestra-mcp/framework",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00311",
+  "kind": "agent",
+  "file": "corpus/q3ok_copilot-agent-php-orchestrator__.github_agents_Designer.agent.md",
+  "repo": "q3ok/copilot-agent-php-orchestrator",
+  "path": ".github/agents/Designer.agent.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00312",
+  "kind": "agent",
+  "file": "corpus/slabgorb-org_sidequest__.claude_agents_native_ux-designer.md",
+  "repo": "slabgorb-org/sidequest",
+  "path": ".claude/agents/native/ux-designer.md",
+  "stars": 3,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00314",
+  "kind": "agent",
+  "file": "corpus/Dragoon0x_studio__agents_design-system-auditor.md",
+  "repo": "Dragoon0x/studio",
+  "path": "agents/design-system-auditor.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00315",
+  "kind": "agent",
+  "file": "corpus/Omed0_convex-selfhost-starterkit__.claude_agents_ux-designer.md",
+  "repo": "Omed0/convex-selfhost-starterkit",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00316",
+  "kind": "agent",
+  "file": "corpus/SufficientDaikon_aether__agents_workers_frontend_ui-designer.agent.md",
+  "repo": "SufficientDaikon/aether",
+  "path": "agents/workers/frontend/ui-designer.agent.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00317",
+  "kind": "agent",
+  "file": "corpus/SufficientDaikon_sdd-vscode-agents__agents_ux-design.agent.md",
+  "repo": "SufficientDaikon/sdd-vscode-agents",
+  "path": "agents/ux-design.agent.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ }
+]

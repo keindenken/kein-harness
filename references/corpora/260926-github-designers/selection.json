@@ -1,0 +1,6836 @@
+{
+ "agents": [
+  {
+   "file": "cosmos-vibe_Nexus-acp__.opencode_agent_bmad-agent-bmm-ux-designer.md",
+   "repo": "cosmos-vibe/Nexus-acp",
+   "path": ".opencode/agent/bmad-agent-bmm-ux-designer.md",
+   "stars": 11,
+   "words": 84,
+   "members": 9,
+   "repos": 93,
+   "sample_repos": [
+    "5n10sndkts-eng/Pulau",
+    "AQUILA04/OmniShop360",
+    "AaronAbuUsama/zk-bank",
+    "Akotliar/sitemap-qa",
+    "BinaryVortex/BMAD-Full-Code-MCP-Server",
+    "ChrisPatten/capital-os",
+    "Commit-Software/kanban",
+    "CryptoDoru/BEOH"
+   ],
+   "id": "c00000",
+   "kind": "agent"
+  },
+  {
+   "file": "mrgoonie_human-mcp__.claude_agents_ui-ux-designer.md",
+   "repo": "mrgoonie/human-mcp",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 293,
+   "words": 1640,
+   "members": 33,
+   "repos": 77,
+   "sample_repos": [
+    "AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+    "CTNone/Cokit-Edit",
+    "CallmeChups/BotForex",
+    "Chunporo/NutriVision",
+    "DaiTNgo/trophy",
+    "Duy-Nguyen-2006/ForgeKit",
+    "HungTran0205/WORLDSCOLIDE",
+    "JasonTM17/CampusUTE_Kotlin_Project"
+   ],
+   "id": "c00001",
+   "kind": "agent"
+  },
+  {
+   "file": "github_awesome-copilot__agents_se-ux-ui-designer.agent.md",
+   "repo": "github/awesome-copilot",
+   "path": "agents/se-ux-ui-designer.agent.md",
+   "stars": 39388,
+   "words": 1587,
+   "members": 27,
+   "repos": 75,
+   "sample_repos": [
+    "Aaditya93/apple-website-clone",
+    "Aaditya93/green-tours-visa-letter",
+    "Aaditya93/mmm_backend",
+    "Aaditya93/portfolio",
+    "ArryoRuma/sippd",
+    "ArryoRuma/srcc-tech",
+    "Costumbres-Argentinas/site",
+    "Haseeb243/DeTrust"
+   ],
+   "id": "c00002",
+   "kind": "agent"
+  },
+  {
+   "file": "GammaLabTechnologies_harmonist__agents_design_design-ui-designer.md",
+   "repo": "GammaLabTechnologies/harmonist",
+   "path": "agents/design/design-ui-designer.md",
+   "stars": 2258,
+   "words": 1756,
+   "members": 26,
+   "repos": 62,
+   "sample_repos": [
+    "AbdulghaniKM/vuetail-template",
+    "Abdulrahman14Salah/egyptianlimestones.com",
+    "Anasabubakar/agent-swarm",
+    "Andrew417/angham-choir-app",
+    "BlackRoad-OS-Inc/blackroad-operator",
+    "CarlosCaPe/octorato",
+    "Cooyta/Website",
+    "Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts"
+   ],
+   "id": "c00003",
+   "kind": "agent"
+  },
+  {
+   "file": "LDJ-creat_video-helper__.github_agents_bmad-bmm-ux-designer.agent.md",
+   "repo": "LDJ-creat/video-helper",
+   "path": ".github/agents/bmad-bmm-ux-designer.agent.md",
+   "stars": 49,
+   "words": 83,
+   "members": 17,
+   "repos": 60,
+   "sample_repos": [
+    "AReid987/soundgrid",
+    "ArifMolon/senzey-bots",
+    "CarlosVerasteguii/Daticket",
+    "DrTrng/book-microservice",
+    "ElianoDeLaFlor/bmad_method",
+    "GaoZimeng0425/nemo-cli",
+    "Guilhem-Bonnet/grimoire-forge",
+    "Huy-pynok3/Godot"
+   ],
+   "id": "c00004",
+   "kind": "agent"
+  },
+  {
+   "file": "2SSK_dot-files__.claude_agents_ui-designer.md",
+   "repo": "2SSK/dot-files",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 251,
+   "words": 695,
+   "members": 25,
+   "repos": 49,
+   "sample_repos": [
+    "2SSK/dot-files",
+    "Alchemist-Aloha/SubagentHub",
+    "CodeWithBehnam/cc-docs",
+    "Divepit/claude-dotfiles",
+    "Eyner-schoonewolff/schedule-codebase",
+    "FabianM47/trading",
+    "JimScope/vendel",
+    "PeterGessler89/AiAgentFramework"
+   ],
+   "id": "c00006",
+   "kind": "agent"
+  },
+  {
+   "file": "ccplugins_awesome-claude-code-plugins__plugins_ui-designer_agents_ui-designer.md",
+   "repo": "ccplugins/awesome-claude-code-plugins",
+   "path": "plugins/ui-designer/agents/ui-designer.md",
+   "stars": 952,
+   "words": 1072,
+   "members": 14,
+   "repos": 39,
+   "sample_repos": [
+    "AvaTar-ArTs/.Agent-skills",
+    "AvaTar-ArTs/agent-skills",
+    "AvaTar-ArTs/all-agent-skills",
+    "LadyKerr/chapter-smith",
+    "NicholasSpisak/claude-code-subagents",
+    "PMDevSolutions/Aurelius",
+    "PMDevSolutions/Optia",
+    "ShaKy8/AI-NewsAggregator"
+   ],
+   "id": "c00007",
+   "kind": "agent"
+  },
+  {
+   "file": "wshobson_agents__plugins_multi-platform-apps_agents_ui-ux-designer.md",
+   "repo": "wshobson/agents",
+   "path": "plugins/multi-platform-apps/agents/ui-ux-designer.md",
+   "stars": 39956,
+   "words": 1188,
+   "members": 7,
+   "repos": 35,
+   "sample_repos": [
+    "0xharryriddle/codex-field-kit",
+    "AshtonYoon/claude-config",
+    "ChobanyanNarek/progressor-backend",
+    "HermeticOrmus/LibreUIUX-Claude-Code",
+    "JeffGreen311/eve-agent-v2-unleashed",
+    "Jhabbig/Habbig",
+    "Jotures/opencode-prueba",
+    "KENTAROSZK/claudecode-codex-settings"
+   ],
+   "id": "c00008",
+   "kind": "agent"
+  },
+  {
+   "file": "davila7_claude-code-templates__cli-tool_components_agents_development-team_ui-ux-designer.md",
+   "repo": "davila7/claude-code-templates",
+   "path": "cli-tool/components/agents/development-team/ui-ux-designer.md",
+   "stars": 31792,
+   "words": 2792,
+   "members": 13,
+   "repos": 31,
+   "sample_repos": [
+    "Alexyodude/BOM",
+    "CCrawford7/droidscan",
+    "Dannykkh/skill-olympus",
+    "Hussain-coder-eng/Sentiment-Analysis-on-Amazon-Foods",
+    "JSCEG/SENER_Analisis_Requisitos",
+    "Sansar35/claude-agent",
+    "SilvioBaratto/claude-agent-skills",
+    "TrevorEdris/fellowship-of-the-workflows"
+   ],
+   "id": "c00009",
+   "kind": "agent"
+  },
+  {
+   "file": "tjsasakifln_extra-cli__.codex_agents_ux-design-expert.md",
+   "repo": "tjsasakifln/extra-cli",
+   "path": ".codex/agents/ux-design-expert.md",
+   "stars": 1,
+   "words": 2267,
+   "members": 9,
+   "repos": 28,
+   "sample_repos": [
+    "Andre-cardia/nivel-ia",
+    "ClaudioASantana/wa-saas-monorepo",
+    "FLucasF/task-manager",
+    "GabrielTheDEV/My_AIOS_BRAIN",
+    "Gabrielloopes33/brieflow",
+    "Gabrielloopes33/site-alpendre",
+    "Gustavin37/oryon-prospector",
+    "MatheusSimonaci/auto-squad"
+   ],
+   "id": "c00010",
+   "kind": "agent"
+  },
+  {
+   "file": "mrgoonie_human-mcp__.opencode_agent_ui-ux-developer.md",
+   "repo": "mrgoonie/human-mcp",
+   "path": ".opencode/agent/ui-ux-developer.md",
+   "stars": 293,
+   "words": 605,
+   "members": 3,
+   "repos": 26,
+   "sample_repos": [
+    "AIA-11-HN-MIB/MIB-MockInterviewAIBot",
+    "Khang61/data-crawler-bot",
+    "LegacyAIDev/academic-asia-new",
+    "Tietve/Lawweb",
+    "dijnie2/proteus",
+    "docaohieu2808/n8n-helm-charts",
+    "droppii/vot-com-bot",
+    "dxthanh2002/ResolutionChange"
+   ],
+   "id": "c00012",
+   "kind": "agent"
+  },
+  {
+   "file": "zhlhleo_codex-agent-automation__agents_ui-designer.toml",
+   "repo": "zhlhleo/codex-agent-automation",
+   "path": "agents/ui-designer.toml",
+   "stars": 22,
+   "words": 185,
+   "members": 3,
+   "repos": 23,
+   "sample_repos": [
+    "AudioStakes/henteko-news",
+    "Marcel-Schlanzke1994/auto-leads",
+    "Orderlee/vlm-dataops-pipeline",
+    "UnbrokenMango21/watershed-water-quality-dashboard",
+    "digitie/kor-travel-concierge",
+    "digitie/kor-travel-docker-manager",
+    "digitie/kor-travel-geo",
+    "digitie/kor-travel-map"
+   ],
+   "id": "c00013",
+   "kind": "agent"
+  },
+  {
+   "file": "davila7_claude-code-templates__.claude_agents_cli-ui-designer.md",
+   "repo": "davila7/claude-code-templates",
+   "path": ".claude/agents/cli-ui-designer.md",
+   "stars": 31792,
+   "words": 1217,
+   "members": 6,
+   "repos": 21,
+   "sample_repos": [
+    "Justdvp/claude-code-templates",
+    "KeiosStarqua/youtube-music-cli",
+    "KrismithReddy12/claude-code-templates",
+    "Mishit18/claude-code-templates",
+    "STier-Ai/stier",
+    "Sansar35/claude-agent",
+    "davila7/claude-code-templates",
+    "dhananjay09892/KD-prompts"
+   ],
+   "id": "c00014",
+   "kind": "agent"
+  },
+  {
+   "file": "burkeholland_ultralight__agents_designer.agent.md",
+   "repo": "burkeholland/ultralight",
+   "path": "agents/designer.agent.md",
+   "stars": 30,
+   "words": 94,
+   "members": 11,
+   "repos": 21,
+   "sample_repos": [
+    "CosX/service-bus-explorer-tui",
+    "SK1417/assembly-line-supervision",
+    "askrinnik/AddressBook2025",
+    "brandeth/photosnap",
+    "burkeholland/ultralight",
+    "calca/caravella",
+    "fcocarrascob/Notebooks",
+    "filetug/filetug"
+   ],
+   "id": "c00015",
+   "kind": "agent"
+  },
+  {
+   "file": "Donchitos_Claude-Code-Game-Studios__.claude_agents_ux-designer.md",
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 25438,
+   "words": 777,
+   "members": 11,
+   "repos": 18,
+   "sample_repos": [
+    "CPMATOMACTIVITY/CCGS",
+    "Donchitos/Claude-Code-Game-Studios",
+    "Euraika-Labs/Codex-Code-Game-Studios",
+    "LoOO1224/Cinderkeep",
+    "MartyChouette/DatingDuchy",
+    "Negentropy-Laby/Constitution-Driven-Development",
+    "Shakhoyat/Ai-project-final",
+    "bullish0x/GameStudio"
+   ],
+   "id": "c00017",
+   "kind": "agent"
+  },
+  {
+   "file": "zhisheng17_claude_code_settings__agents_wshobson_agent_ui-ux-designer.md",
+   "repo": "zhisheng17/claude_code_settings",
+   "path": "agents/wshobson_agent/ui-ux-designer.md",
+   "stars": 69,
+   "words": 163,
+   "members": 5,
+   "repos": 16,
+   "sample_repos": [
+    "cloudnnj/marketplace",
+    "falvarez1/CentralCommand",
+    "heytulsiprasad/.claude",
+    "john-matlock-eng/lifestyle-spaces",
+    "jvmwu/renov-easy",
+    "leamas-ai/leamas.sh",
+    "lhaig/norman",
+    "louis70109/ndotfile"
+   ],
+   "id": "c00020",
+   "kind": "agent"
+  },
+  {
+   "file": "gaahzx_mega-brain__.claude_agents_design-system.md",
+   "repo": "gaahzx/mega-brain",
+   "path": ".claude/agents/design-system.md",
+   "stars": 5,
+   "words": 1064,
+   "members": 5,
+   "repos": 16,
+   "sample_repos": [
+    "ExpeditoJ/My-aiox",
+    "MarcoBolsa/legaltech-research",
+    "MarcoBolsa/motor-cotacoes",
+    "afonsolelis/20261sre-primeironome-ultimonome",
+    "afonsolelis/laudo_cards",
+    "arthurfbrandos-opb/zero-churn",
+    "automacoescomerciaisintegradas/xyzaios",
+    "edusantosrj/aios-core"
+   ],
+   "id": "c00021",
+   "kind": "agent"
+  },
+  {
+   "file": "wshobson_agents__plugins_ui-design_agents_ui-designer.md",
+   "repo": "wshobson/agents",
+   "path": "plugins/ui-design/agents/ui-designer.md",
+   "stars": 39956,
+   "words": 826,
+   "members": 6,
+   "repos": 15,
+   "sample_repos": [
+    "0xharryriddle/codex-field-kit",
+    "JeffGreen311/eve-agent-v2-unleashed",
+    "Jhabbig/Habbig",
+    "am-will/codex-agents",
+    "am-will/codex-skills",
+    "dmavridi6478/business",
+    "kiprotichgidii/agent-skills",
+    "p-o-ke-nae/pokemondamagecalculatorforstory"
+   ],
+   "id": "c00022",
+   "kind": "agent"
+  },
+  {
+   "file": "lst97_claude-code-sub-agents__agents_development_ux-designer.md",
+   "repo": "lst97/claude-code-sub-agents",
+   "path": "agents/development/ux-designer.md",
+   "stars": 1689,
+   "words": 861,
+   "members": 5,
+   "repos": 15,
+   "sample_repos": [
+    "Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts",
+    "Kindjhali/Opnix",
+    "LopeWale/amplLABS",
+    "alexnelja/mcp-toolkit",
+    "bryankthompson/agentgen",
+    "dan1d/claude-ninja",
+    "dobeutech/claudeconfig",
+    "getdatasurge/fresh-staged"
+   ],
+   "id": "c00023",
+   "kind": "agent"
+  },
+  {
+   "file": "poshan0126_dotclaude__agents_frontend-designer_frontend-designer.md",
+   "repo": "poshan0126/dotclaude",
+   "path": "agents/frontend-designer/frontend-designer.md",
+   "stars": 867,
+   "words": 866,
+   "members": 6,
+   "repos": 15,
+   "sample_repos": [
+    "8408323/ha-lymow",
+    "8408323/ha-plejd",
+    "Azzouz-billel/algeria-agri",
+    "Festo-Wampamba/Claude-Features",
+    "Hafiz-Mhf/hafiz-hq",
+    "Keagan-Herman/WaveForm",
+    "Macledahl/Claude-Code-Project-Template",
+    "Osman-625/Bulletin"
+   ],
+   "id": "c00024",
+   "kind": "agent"
+  },
+  {
+   "file": "Pana-g_autoresearch-cockpit__.github_agents_frontend-design.agent.md",
+   "repo": "Pana-g/autoresearch-cockpit",
+   "path": ".github/agents/frontend-design.agent.md",
+   "stars": 2,
+   "words": 614,
+   "members": 9,
+   "repos": 15,
+   "sample_repos": [
+    "DCx7C5/ai-marketplace",
+    "ErikAndreasKlokk/Portfolio",
+    "Pana-g/autoresearch-cockpit",
+    "Tinglum/localvip-stakeholder-support",
+    "Tinglum/tinglumgard",
+    "VictorVilelaSilva/FD4D",
+    "codyloyd/NFL-wins-draft",
+    "cpxlabs/lillys-box"
+   ],
+   "id": "c00025",
+   "kind": "agent"
+  },
+  {
+   "file": "lst97_claude-code-sub-agents__agents_development_ui-designer.md",
+   "repo": "lst97/claude-code-sub-agents",
+   "path": "agents/development/ui-designer.md",
+   "stars": 1689,
+   "words": 996,
+   "members": 5,
+   "repos": 14,
+   "sample_repos": [
+    "Crumbgrabber/llm_system_template_agents_skills_patterns_tools_prompts",
+    "LopeWale/amplLABS",
+    "aicreator350/aurionOFFICIELLE",
+    "alexnelja/mcp-toolkit",
+    "dan1d/claude-ninja",
+    "dobeutech/claudeconfig",
+    "getdatasurge/fresh-staged",
+    "keithk/deploy"
+   ],
+   "id": "c00027",
+   "kind": "agent"
+  },
+  {
+   "file": "withkynam_vibecode-pro-max-kit__.claude_agents_vc-ui-ux-designer.md",
+   "repo": "withkynam/vibecode-pro-max-kit",
+   "path": ".claude/agents/vc-ui-ux-designer.md",
+   "stars": 1138,
+   "words": 1807,
+   "members": 6,
+   "repos": 14,
+   "sample_repos": [
+    "BabatImReal/affiliate-blog-website-",
+    "HyuseCS/project-c",
+    "agenticbernie/ourdash",
+    "hdmGOAT/veent-event-scraper",
+    "julleycode/get-beam",
+    "lovecrushfamily/Manga2Anime",
+    "marsley01/Marsley-Portfolio-Web",
+    "potakaaa/cite-mind"
+   ],
+   "id": "c00028",
+   "kind": "agent"
+  },
+  {
+   "file": "yangyuan-zhen_PolyWeather__.codex_agents_designer.toml",
+   "repo": "yangyuan-zhen/PolyWeather",
+   "path": ".codex/agents/designer.toml",
+   "stars": 310,
+   "words": 1085,
+   "members": 3,
+   "repos": 13,
+   "sample_repos": [
+    "GIGI-proj/GIGI",
+    "KangSage/tech-blog",
+    "Orinks/AccessiWeather",
+    "RJJJJ/project2",
+    "brianmok888/nautilus_builder",
+    "ejoliet/s3peek",
+    "fucurry00/mistral-pdf2md",
+    "jacking7/G2B-BID-REPORT"
+   ],
+   "id": "c00029",
+   "kind": "agent"
+  },
+  {
+   "file": "goodscary_firstrubyfriend__.claude_agents_agent-os_ui-designer.md",
+   "repo": "goodscary/firstrubyfriend",
+   "path": ".claude/agents/agent-os/ui-designer.md",
+   "stars": 5,
+   "words": 1501,
+   "members": 6,
+   "repos": 13,
+   "sample_repos": [
+    "artisan-build/dogfood",
+    "artisan-build/vibe-kit",
+    "callowayproject/pybpmn-parser",
+    "cotw-fabier/championforms",
+    "cotw-fabier/surrealdartb",
+    "goodscary/firstrubyfriend",
+    "jsiebach/kirstensiebach",
+    "katokdoescode/note-builder"
+   ],
+   "id": "c00031",
+   "kind": "agent"
+  },
+  {
+   "file": "acbcdev_RunTS__.claude_agents_ui-designer.md",
+   "repo": "acbcdev/RunTS",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 26,
+   "words": 1166,
+   "members": 2,
+   "repos": 12,
+   "sample_repos": [
+    "Dlaby23/claude-agents-ultimate-collection",
+    "EthanTsui/lotto-v1",
+    "LorenFrankLab/rec_to_nwb_yaml_creator",
+    "Luks3110/loki-ai",
+    "ShaviJayakodi/STPManagement",
+    "acbcdev/RunTS",
+    "aikaisha/Nihon-finance-platform",
+    "anuraag2601/Jammy"
+   ],
+   "id": "c00033",
+   "kind": "agent"
+  },
+  {
+   "file": "iannuttall_claude-agents__agents_frontend-designer.md",
+   "repo": "iannuttall/claude-agents",
+   "path": "agents/frontend-designer.md",
+   "stars": 2043,
+   "words": 1003,
+   "members": 2,
+   "repos": 11,
+   "sample_repos": [
+    "Dlaby23/claude-agents-ultimate-collection",
+    "FarhoudFlair/PortfolioRebalancer",
+    "KIM-KYOUNG-OH/dotfiles",
+    "LayerTwo-Labs/drivechain-frontends",
+    "YPD-justin/is-flappybird",
+    "chhpt/claude-code-kit",
+    "ersinkoc/claude-code-subagents",
+    "iannuttall/claude-agents"
+   ],
+   "id": "c00036",
+   "kind": "agent"
+  },
+  {
+   "file": "STier-Ai_stier__.claude_agents_ui-designer.md",
+   "repo": "STier-Ai/stier",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 6,
+   "words": 1299,
+   "members": 3,
+   "repos": 11,
+   "sample_repos": [
+    "KeiosStarqua/youtube-music-cli",
+    "STier-Ai/stier",
+    "involvex/Involvex-Cli",
+    "involvex/awesome-github-app",
+    "involvex/create-magic-expo-app",
+    "involvex/dev",
+    "involvex/happy-vibecode",
+    "involvex/llms-remote"
+   ],
+   "id": "c00038",
+   "kind": "agent"
+  },
+  {
+   "file": "matheusallvarenga_claude-code-skills__agents_ui-ux-designer.md",
+   "repo": "matheusallvarenga/claude-code-skills",
+   "path": "agents/ui-ux-designer.md",
+   "stars": 5,
+   "words": 167,
+   "members": 7,
+   "repos": 11,
+   "sample_repos": [
+    "JackTiber/.claude",
+    "alexhatzo/agent-squared",
+    "esmevane/oneiros",
+    "kubrickcode/ai-config-toolkit",
+    "kubrickcode/cine-mirror",
+    "kubrickcode/github-project-status-viewer",
+    "kubrickcode/lingo-node",
+    "kubrickcode/tempest-city-defense"
+   ],
+   "id": "c00039",
+   "kind": "agent"
+  },
+  {
+   "file": "Yeachan-Heo_oh-my-claudecode__agents_designer.md",
+   "repo": "Yeachan-Heo/oh-my-claudecode",
+   "path": "agents/designer.md",
+   "stars": 39353,
+   "words": 1256,
+   "members": 7,
+   "repos": 10,
+   "sample_repos": [
+    "Abortbeen/Agentscope-code",
+    "Ewallyw/claude-config-public",
+    "TheTrustedAdvisor/omg",
+    "Yeachan-Heo/oh-my-claudecode",
+    "ibragimov-oasis/name-navigator",
+    "ibragimov-oasis/oasis-languages-jp",
+    "lucaspolizeli/oh-my-grok",
+    "m4d3bug/oh-my-openclaw"
+   ],
+   "id": "c00042",
+   "kind": "agent"
+  },
+  {
+   "file": "rohitg00_awesome-claude-code-toolkit__agents_core-development_ui-designer.md",
+   "repo": "rohitg00/awesome-claude-code-toolkit",
+   "path": "agents/core-development/ui-designer.md",
+   "stars": 2645,
+   "words": 477,
+   "members": 3,
+   "repos": 10,
+   "sample_repos": [
+    "Kacper0199/Opencode-Ultrathinker",
+    "Lua2147/claude-toolkit-catalog",
+    "Sansar35/claude-agent",
+    "anubhavg-icpl/vibe",
+    "costrict-plugins-repo/github-trending-plan",
+    "daviddan-241/Chat-bot",
+    "glfruit/claude-code-essentials",
+    "niels-kwg/toolkit"
+   ],
+   "id": "c00043",
+   "kind": "agent"
+  },
+  {
+   "file": "praveenperera_dotfiles__agents_project-skills_vercel-react-native-skills_rules_design-system-compound-components.md",
+   "repo": "praveenperera/dotfiles",
+   "path": "agents/project-skills/vercel-react-native-skills/rules/design-system-compound-components.md",
+   "stars": 4,
+   "words": 195,
+   "members": 1,
+   "repos": 10,
+   "sample_repos": [
+    "AyabongaQwabi/ayabonga-business",
+    "Connor-Adams/dotfiles",
+    "Flexiroom8/sitemirror",
+    "GLaDO8/dotfiles",
+    "carterdea/dots",
+    "kensleDev/dotfiles",
+    "mj-meyer/.dotfiles",
+    "praveenperera/dotfiles"
+   ],
+   "id": "c00045",
+   "kind": "agent"
+  },
+  {
+   "file": "TikeDev_simmer__.claude_agents_design-system-auditor.md",
+   "repo": "TikeDev/simmer",
+   "path": ".claude/agents/design-system-auditor.md",
+   "stars": 2,
+   "words": 1700,
+   "members": 8,
+   "repos": 8,
+   "sample_repos": [
+    "RemseyMailjard/superpowers",
+    "TikeDev/simmer",
+    "gautam-bansal-toddle/a11y-plugin",
+    "josephblais/jeeby-cms",
+    "rsamuels1/pwhl-fantasy",
+    "ryan0122/a11ypros",
+    "texterok/fintablo-product-tour-mvp",
+    "windyroad/windyroad"
+   ],
+   "id": "c00051",
+   "kind": "agent"
+  },
+  {
+   "file": "josipjelic_orchestrated-project-template__.claude_agents_ui-ux-designer.md",
+   "repo": "josipjelic/orchestrated-project-template",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 95,
+   "words": 3849,
+   "members": 2,
+   "repos": 7,
+   "sample_repos": [
+    "dynamicHarsh/sdlc-1",
+    "hdang205/thuvienso",
+    "hdtinh57/Claude-Code-development-harness-template",
+    "josipjelic/orchestrated-project-template",
+    "nguyentanquanfw-dev/Claude1",
+    "phidanghai-spec/orchestrated-fullstack-template",
+    "zzz9988/TemplateClaude"
+   ],
+   "id": "c00053",
+   "kind": "agent"
+  },
+  {
+   "file": "zebbern_termstack__.claude_agents_frontend-designer.md",
+   "repo": "zebbern/termstack",
+   "path": ".claude/agents/frontend-designer.md",
+   "stars": 5,
+   "words": 977,
+   "members": 2,
+   "repos": 7,
+   "sample_repos": [
+    "Ikerms10/skyglobal-crm",
+    "applitools/ImageTester",
+    "fredaum666/TesteBasic",
+    "fredaum666/dotclaude",
+    "fredaum666/testedasbixa",
+    "wiborg1992/speciale_ny",
+    "zebbern/termstack"
+   ],
+   "id": "c00055",
+   "kind": "agent"
+  },
+  {
+   "file": "nyldn_claude-octopus__agents_personas_ui-ux-designer.md",
+   "repo": "nyldn/claude-octopus",
+   "path": "agents/personas/ui-ux-designer.md",
+   "stars": 4101,
+   "words": 911,
+   "members": 3,
+   "repos": 6,
+   "sample_repos": [
+    "GongYuanCaiJi/dsh-claude-octopus",
+    "burgebj/claudeoctopus",
+    "hottweelz/agent-role-library",
+    "kannaka-labs/Kannaktopus",
+    "mhdxbilal/Ai",
+    "nyldn/claude-octopus"
+   ],
+   "id": "c00058",
+   "kind": "agent"
+  },
+  {
+   "file": "ccplugins_awesome-claude-code-plugins__plugins_brand-guardian_agents_brand-guardian.md",
+   "repo": "ccplugins/awesome-claude-code-plugins",
+   "path": "plugins/brand-guardian/agents/brand-guardian.md",
+   "stars": 952,
+   "words": 1233,
+   "members": 3,
+   "repos": 6,
+   "sample_repos": [
+    "NicholasSpisak/claude-code-subagents",
+    "Stanshy/AgentHub",
+    "arnaldo-delisio/claude-code-studio",
+    "ccplugins/awesome-claude-code-plugins",
+    "refcell/.claude",
+    "xbim08/awesome-claude-code-plugins"
+   ],
+   "id": "c00059",
+   "kind": "agent"
+  },
+  {
+   "file": "fdhhhdjd_Class-AI-Agent__.claude_agents_ui-ux-designer.md",
+   "repo": "fdhhhdjd/Class-AI-Agent",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 265,
+   "words": 618,
+   "members": 1,
+   "repos": 6,
+   "sample_repos": [
+    "Caykhongg/MindWell",
+    "ducthinh12345/AI_Agents_private",
+    "fdhhhdjd/Class-AI-Agent",
+    "lehieu2003/Hosipital-Management-System",
+    "ngolam111019/toolai",
+    "nguyenbinh1703/Agent-Ai"
+   ],
+   "id": "c00061",
+   "kind": "agent"
+  },
+  {
+   "file": "gurusup_claude-code-demo__.claude_agents_ui-ux-analyzer.md",
+   "repo": "gurusup/claude-code-demo",
+   "path": ".claude/agents/ui-ux-analyzer.md",
+   "stars": 75,
+   "words": 1018,
+   "members": 2,
+   "repos": 6,
+   "sample_repos": [
+    "SuperPiTT/larasuite",
+    "davidgranados/claude-code-demo",
+    "gurusup/claude-code-demo",
+    "gurusup/react-fastapi-boilerplate",
+    "pedroid999/test-claude-code-agents",
+    "sergiohb21/BlancAlergic-APP"
+   ],
+   "id": "c00062",
+   "kind": "agent"
+  },
+  {
+   "file": "leamas-ai_leamas.sh__kits_agents_claude-sub-agent_agents_ui-ux-master.md",
+   "repo": "leamas-ai/leamas.sh",
+   "path": "kits/agents/claude-sub-agent/agents/ui-ux-master.md",
+   "stars": 15,
+   "words": 1893,
+   "members": 1,
+   "repos": 6,
+   "sample_repos": [
+    "Dlaby23/claude-agents-ultimate-collection",
+    "anuraag2601/enhanced-claude-sub-agents",
+    "claimtec/iaindex",
+    "leamas-ai/leamas.sh",
+    "yonggao/claude-plugins",
+    "zhsama/claude-sub-agent"
+   ],
+   "id": "c00064",
+   "kind": "agent"
+  },
+  {
+   "file": "EricTechPro_fitbox__.claude_agents_premium-ux-designer.md",
+   "repo": "EricTechPro/fitbox",
+   "path": ".claude/agents/premium-ux-designer.md",
+   "stars": 14,
+   "words": 695,
+   "members": 3,
+   "repos": 6,
+   "sample_repos": [
+    "EricTechPro/fitbox",
+    "RDKeith/see_you_later",
+    "craigles75/Claude-Code-Agents",
+    "goodwiins/gentextAPI",
+    "sammydamz/emg-app",
+    "swallville/tax-calculator"
+   ],
+   "id": "c00065",
+   "kind": "agent"
+  },
+  {
+   "file": "osok_claude-code-project-memory-mcp__.claude_agents_frontend-design-agent.md",
+   "repo": "osok/claude-code-project-memory-mcp",
+   "path": ".claude/agents/frontend-design-agent.md",
+   "stars": 2,
+   "words": 852,
+   "members": 3,
+   "repos": 6,
+   "sample_repos": [
+    "osok/cc-dossi-agent",
+    "osok/cc-su-lp-activity-viewer",
+    "osok/cc-su-lp-kanbon",
+    "osok/claude-code-project-memory-mcp",
+    "osok/claude-code-startup-large-projects",
+    "osok/pony-net"
+   ],
+   "id": "c00067",
+   "kind": "agent"
+  },
+  {
+   "file": "timosur_agentic-coding-starter__.github_agents_03-design-system.agent.md",
+   "repo": "timosur/agentic-coding-starter",
+   "path": ".github/agents/03-design-system.agent.md",
+   "stars": 1,
+   "words": 1929,
+   "members": 3,
+   "repos": 6,
+   "sample_repos": [
+    "fokkerone/sanitron_app",
+    "timosur/agentic-coding-starter",
+    "timosur/cratekeeper-design",
+    "timosur/design-os-github-copilot",
+    "timosur/ferienhof-wiesengrund",
+    "timosur/product-hub-design"
+   ],
+   "id": "c00068",
+   "kind": "agent"
+  },
+  {
+   "file": "ForceMind_AI-Shakedown-Console__agents_content_design_design-ui-designer.md",
+   "repo": "ForceMind/AI-Shakedown-Console",
+   "path": "agents/content/design/design-ui-designer.md",
+   "stars": 0,
+   "words": 776,
+   "members": 5,
+   "repos": 6,
+   "sample_repos": [
+    "ForceMind/AI-Shakedown-Console",
+    "azusagasaku/--claude-config",
+    "jadephong/ProjectTemplate",
+    "lj19871202-sketch/requirement-agent-dispatch",
+    "partme-ai/workbuddy-agent-experts",
+    "yanghq168/jorge-agency"
+   ],
+   "id": "c00069",
+   "kind": "agent"
+  },
+  {
+   "file": "JoseCortezz25_aura__.claude_agents_ux-ui-designer.md",
+   "repo": "JoseCortezz25/aura",
+   "path": ".claude/agents/ux-ui-designer.md",
+   "stars": 0,
+   "words": 1478,
+   "members": 2,
+   "repos": 6,
+   "sample_repos": [
+    "JoseCortezz25/aura",
+    "JoseCortezz25/aura-notes",
+    "JoseCortezz25/guardian-landing-page",
+    "JoseCortezz25/perfect-store",
+    "JoseCortezz25/vibemail",
+    "JoseCortezz25/voto-claro-colombia"
+   ],
+   "id": "c00070",
+   "kind": "agent"
+  },
+  {
+   "file": "Kurdant_BLOCS_ACADENICE_B2__.github_agents_bmad-agent-bmm-ux-designer.md",
+   "repo": "Kurdant/BLOCS_ACADENICE_B2",
+   "path": ".github/agents/bmad-agent-bmm-ux-designer.md",
+   "stars": 0,
+   "words": 95,
+   "members": 2,
+   "repos": 6,
+   "sample_repos": [
+    "Kurdant/BLOCS_ACADENICE_B2",
+    "Kurdant/Kurdant_Website",
+    "Kurdant/NenaaPic",
+    "Raphte-byte/Veille_Tek-Business",
+    "YnsHlf212/OBSILOCK-javafx",
+    "zaturalive/CRM_COMMERCIAL"
+   ],
+   "id": "c00071",
+   "kind": "agent"
+  },
+  {
+   "file": "koala-man-64_asset-allocation-contracts__.claude_agents_frontend-design.md",
+   "repo": "koala-man-64/asset-allocation-contracts",
+   "path": ".claude/agents/frontend-design.md",
+   "stars": 0,
+   "words": 702,
+   "members": 2,
+   "repos": 6,
+   "sample_repos": [
+    "koala-man-64/asset-allocation-contracts",
+    "koala-man-64/asset-allocation-control-plane",
+    "koala-man-64/asset-allocation-jobs",
+    "koala-man-64/asset-allocation-runtime-common",
+    "koala-man-64/asset-allocation-ui",
+    "koala-man-64/helpful-scripts"
+   ],
+   "id": "c00072",
+   "kind": "agent"
+  },
+  {
+   "file": "davila7_claude-code-templates__cli-tool_components_agents_development-team_ui-designer.md",
+   "repo": "davila7/claude-code-templates",
+   "path": "cli-tool/components/agents/development-team/ui-designer.md",
+   "stars": 31792,
+   "words": 1044,
+   "members": 3,
+   "repos": 5,
+   "sample_repos": [
+    "Palamo-Dev-Studio/crash-log",
+    "Sansar35/claude-agent",
+    "davila7/claude-code-templates",
+    "dhananjay09892/KD-prompts",
+    "pratyush2514/sentiment_FrontEnd_NextJS"
+   ],
+   "id": "c00074",
+   "kind": "agent"
+  },
+  {
+   "file": "zereight_gitlab-mcp__.github_agents_designer.agent.md",
+   "repo": "zereight/gitlab-mcp",
+   "path": ".github/agents/designer.agent.md",
+   "stars": 2004,
+   "words": 456,
+   "members": 2,
+   "repos": 5,
+   "sample_repos": [
+    "doumeng/APD_VIS",
+    "jmstar85/oh-my-githubcopilot",
+    "preyan/0xchess",
+    "r3dlex/oh-my-githubcopilot",
+    "zereight/gitlab-mcp"
+   ],
+   "id": "c00077",
+   "kind": "agent"
+  },
+  {
+   "file": "maslennikov-ig_claude-code-orchestrator-kit__.claude_agents_frontend_workers_nextjs-ui-designer.md",
+   "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+   "path": ".claude/agents/frontend/workers/nextjs-ui-designer.md",
+   "stars": 253,
+   "words": 2897,
+   "members": 3,
+   "repos": 5,
+   "sample_repos": [
+    "RussianLioN/moltinger",
+    "maslennikov-ig/BuhBot",
+    "maslennikov-ig/MC-2",
+    "maslennikov-ig/claude-code-orchestrator-kit",
+    "tikh-iv/yt-dlp-telegram"
+   ],
+   "id": "c00079",
+   "kind": "agent"
+  },
+  {
+   "file": "first-fluke_fullstack-starter__.claude_agents_designer.md",
+   "repo": "first-fluke/fullstack-starter",
+   "path": ".claude/agents/designer.md",
+   "stars": 224,
+   "words": 267,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "first-fluke/fullstack-starter",
+    "gracefullight/krds",
+    "gracefullight/stock-checker",
+    "uts-iqc-group15/snake-ladder",
+    "wooloolies/edcurate"
+   ],
+   "id": "c00080",
+   "kind": "agent"
+  },
+  {
+   "file": "microsoft_FrontierWeekHack__.github_agents_ui-designer.agent.md",
+   "repo": "microsoft/FrontierWeekHack",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 60,
+   "words": 359,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "Vishwaksen0124/frontier-week-hack-agentathon",
+    "antonioRVR/Multi-Agent-Orchestration-Claims",
+    "binarygaragedev/FrontierWeekHack",
+    "martaldsantos/foundry-hackathon",
+    "microsoft/FrontierWeekHack"
+   ],
+   "id": "c00081",
+   "kind": "agent"
+  },
+  {
+   "file": "drn_dots__agents_skills_plannotator-visual-explainer_references_design-system.md",
+   "repo": "drn/dots",
+   "path": "agents/skills/plannotator-visual-explainer/references/design-system.md",
+   "stars": 23,
+   "words": 1505,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "Dyrean/dotfiles",
+    "Waishnav/agent-dots",
+    "bekapod/dotfiles",
+    "davesnx/setup",
+    "drn/dots"
+   ],
+   "id": "c00084",
+   "kind": "agent"
+  },
+  {
+   "file": "terrene-foundation_kailash-coc-claude-py__.claude_agents_frontend_uiux-designer.md",
+   "repo": "terrene-foundation/kailash-coc-claude-py",
+   "path": ".claude/agents/frontend/uiux-designer.md",
+   "stars": 13,
+   "words": 670,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "moistwet/fashionmaxxin",
+    "ry-se/nx-project-sentinel",
+    "terrene-foundation/kailash-coc-claude-py",
+    "terrene-foundation/kailash-coc-claude-rs",
+    "terrene-foundation/kailash-py"
+   ],
+   "id": "c00085",
+   "kind": "agent"
+  },
+  {
+   "file": "amurata_cc-tools__.claude_agents_creative_ux-designer.md",
+   "repo": "amurata/cc-tools",
+   "path": ".claude/agents/creative/ux-designer.md",
+   "stars": 6,
+   "words": 528,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "STAFE-GROUP-AB/2do-developer",
+    "amurata/GoogleFitNotionIntegration",
+    "amurata/cc-tools",
+    "arkatom/ai-instructions",
+    "jaydubya818/governed-claude-subagents"
+   ],
+   "id": "c00086",
+   "kind": "agent"
+  },
+  {
+   "file": "imMamdouhaboammar_riqor__.codex_agents_design-ui-designer.toml",
+   "repo": "imMamdouhaboammar/riqor",
+   "path": ".codex/agents/design-ui-designer.toml",
+   "stars": 4,
+   "words": 1476,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "eose23-beep/hair-by-william",
+    "iamaanahmad/portfolio",
+    "imMamdouhaboammar/riqor",
+    "shobi699/metro-line1-app",
+    "stanfliet/stanfliet-ota-energy-system"
+   ],
+   "id": "c00090",
+   "kind": "agent"
+  },
+  {
+   "file": "adamn1225_mjml-email-builder__.github_agents_ui-ux-designer.agent.md",
+   "repo": "adamn1225/mjml-email-builder",
+   "path": ".github/agents/ui-ux-designer.agent.md",
+   "stars": 1,
+   "words": 1797,
+   "members": 3,
+   "repos": 5,
+   "sample_repos": [
+    "NTS-Client-Portal/nts-client-connect",
+    "adamn1225/adam-noahs-stuff",
+    "adamn1225/mjml-email-builder",
+    "adamn1225/noetic-meetings",
+    "adamn1225/nts-claims-tracker"
+   ],
+   "id": "c00095",
+   "kind": "agent"
+  },
+  {
+   "file": "serpro-workshop-fortaleza_datacorp-sifap-modernization-team-kit__.github_agents_se-ux-ui-designer.agent.md",
+   "repo": "serpro-workshop-fortaleza/datacorp-sifap-modernization-team-kit",
+   "path": ".github/agents/se-ux-ui-designer.agent.md",
+   "stars": 0,
+   "words": 1228,
+   "members": 1,
+   "repos": 5,
+   "sample_repos": [
+    "serpro-workshop-fortaleza/datacorp-sifap-modernization-team-kit",
+    "serpro-workshop-fortaleza/novo-sifap-cynara",
+    "serpro-workshop-fortaleza/sifap-modernization-clodoaldo",
+    "serpro-workshop-fortaleza/sifap-modernization-paula",
+    "serpro-workshop-fortaleza/sifap-rodrigo2"
+   ],
+   "id": "c00098",
+   "kind": "agent"
+  },
+  {
+   "file": "gsd-build_get-shit-done__agents_gsd-ui-checker.md",
+   "repo": "gsd-build/get-shit-done",
+   "path": "agents/gsd-ui-checker.md",
+   "stars": 64459,
+   "words": 1623,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "charlesribeiro/fm-synthesis-guide",
+    "davepoon/buildwithclaude",
+    "gsd-build/get-shit-done",
+    "nnexai/git-stacks"
+   ],
+   "id": "c00102",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_agents-design-experience_agents_ui-ux-designer.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/agents-design-experience/agents/ui-ux-designer.md",
+   "stars": 3542,
+   "words": 318,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "UncleTawnos/klakier",
+    "cameronsjo/saved-reddit-exporter",
+    "davepoon/buildwithclaude",
+    "thedixitjain/the-mega-skill-library"
+   ],
+   "id": "c00104",
+   "kind": "agent"
+  },
+  {
+   "file": "EveryInc_claude_commands__agents_design-implementation-reviewer.md",
+   "repo": "EveryInc/claude_commands",
+   "path": "agents/design-implementation-reviewer.md",
+   "stars": 536,
+   "words": 679,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "EveryInc/claude_commands",
+    "Leo-Atienza/atlas-claude",
+    "barkleesanders/claude-code-starter",
+    "futuretyler/compound-engineering"
+   ],
+   "id": "c00107",
+   "kind": "agent"
+  },
+  {
+   "file": "nth5693_gemini-kit__agents_ui-designer.md",
+   "repo": "nth5693/gemini-kit",
+   "path": "agents/ui-designer.md",
+   "stars": 374,
+   "words": 625,
+   "members": 4,
+   "repos": 4,
+   "sample_repos": [
+    "ZDarow/z-setup",
+    "dgkngk/super-kit",
+    "infodungeon/keyforge",
+    "nth5693/gemini-kit"
+   ],
+   "id": "c00108",
+   "kind": "agent"
+  },
+  {
+   "file": "EricTechPro_match-me__.claude_agents_premium-ui-designer.md",
+   "repo": "EricTechPro/match-me",
+   "path": ".claude/agents/premium-ui-designer.md",
+   "stars": 160,
+   "words": 580,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "EricTechPro/match-me",
+    "ankityagi/testAI",
+    "nordeim/Chronos",
+    "stevenfitz008/design-claude"
+   ],
+   "id": "c00109",
+   "kind": "agent"
+  },
+  {
+   "file": "LordKuper_rimworld-workmanager__.claude_agents_asd-ux-designer.md",
+   "repo": "LordKuper/rimworld-workmanager",
+   "path": ".claude/agents/asd-ux-designer.md",
+   "stars": 10,
+   "words": 749,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "LordKuper/rimworld-common",
+    "LordKuper/rimworld-equipmentmanager",
+    "LordKuper/rimworld-outfitmanager",
+    "LordKuper/rimworld-workmanager"
+   ],
+   "id": "c00112",
+   "kind": "agent"
+  },
+  {
+   "file": "borgius_kanban-lite__.github_agents_gem-designer.agent.md",
+   "repo": "borgius/kanban-lite",
+   "path": ".github/agents/gem-designer.agent.md",
+   "stars": 8,
+   "words": 1253,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "Code8Soumya/NITR",
+    "borgius/kanban-lite",
+    "coopfeathy/isaac-cfi",
+    "dwaytu/Capstone-Main"
+   ],
+   "id": "c00113",
+   "kind": "agent"
+  },
+  {
+   "file": "ye-lynn-htet_ylh-portfolio__.claude_agents_frontend-design.md",
+   "repo": "ye-lynn-htet/ylh-portfolio",
+   "path": ".claude/agents/frontend-design.md",
+   "stars": 7,
+   "words": 1406,
+   "members": 2,
+   "repos": 4,
+   "sample_repos": [
+    "GrievanceID/Platform",
+    "pudaa/Acquisition",
+    "pudaa/SMT2",
+    "ye-lynn-htet/ylh-portfolio"
+   ],
+   "id": "c00114",
+   "kind": "agent"
+  },
+  {
+   "file": "mazenyassergithub_oh-my-claudecode__agents_designer-high.md",
+   "repo": "mazenyassergithub/oh-my-claudecode",
+   "path": "agents/designer-high.md",
+   "stars": 6,
+   "words": 512,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "chanhee-kang/oh-my-gemini",
+    "mazenyassergithub/oh-my-claudecode",
+    "setaman/banking",
+    "ssccio/cc-on-web-base"
+   ],
+   "id": "c00116",
+   "kind": "agent"
+  },
+  {
+   "file": "slabgorb_gamebox__.claude_agents_ux-designer.md",
+   "repo": "slabgorb/gamebox",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 5,
+   "words": 830,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "slabgorb-org/sidequest",
+    "slabgorb/arcade",
+    "slabgorb/gamebox",
+    "slabgorb/slabgorb.github.io"
+   ],
+   "id": "c00117",
+   "kind": "agent"
+  },
+  {
+   "file": "byronwade_byronwade.com__.claude_agents_ui-designer.md",
+   "repo": "byronwade/byronwade.com",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 3,
+   "words": 864,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "byronwade/Shopify-Zugzwang",
+    "byronwade/byronwade.com",
+    "byronwade/designcontracts.sh",
+    "byronwade/zugzology.com"
+   ],
+   "id": "c00118",
+   "kind": "agent"
+  },
+  {
+   "file": "FlojoInc_balustrade__.claude_agents__packs_saas_ui-ux-designer.md",
+   "repo": "FlojoInc/balustrade",
+   "path": ".claude/agents/_packs/saas/ui-ux-designer.md",
+   "stars": 2,
+   "words": 785,
+   "members": 2,
+   "repos": 4,
+   "sample_repos": [
+    "FlojoInc/balustrade",
+    "bcooke/roughly",
+    "bleuropa/gridroom",
+    "bleuropa/open_balustrade"
+   ],
+   "id": "c00119",
+   "kind": "agent"
+  },
+  {
+   "file": "LilyDesignSystem_lily-design-system-html-css-js-examples__AGENTS_nhs-uk-design-system-references.md",
+   "repo": "LilyDesignSystem/lily-design-system-html-css-js-examples",
+   "path": "AGENTS/nhs-uk-design-system-references.md",
+   "stars": 2,
+   "words": 104,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "LilyDesignSystem/lily-design-system",
+    "LilyDesignSystem/lily-design-system-angular-examples",
+    "LilyDesignSystem/lily-design-system-html-css-js-examples",
+    "LilyDesignSystem/lily-design-system-react-headless"
+   ],
+   "id": "c00121",
+   "kind": "agent"
+  },
+  {
+   "file": "osok_claude-code-project-memory-mcp__.claude_agents_ui-ux-design-agent.md",
+   "repo": "osok/claude-code-project-memory-mcp",
+   "path": ".claude/agents/ui-ux-design-agent.md",
+   "stars": 2,
+   "words": 767,
+   "members": 2,
+   "repos": 4,
+   "sample_repos": [
+    "osok/cc-su-lp-activity-viewer",
+    "osok/cc-su-lp-kanbon",
+    "osok/claude-code-project-memory-mcp",
+    "osok/claude-code-startup-large-projects"
+   ],
+   "id": "c00123",
+   "kind": "agent"
+  },
+  {
+   "file": "samuelbonifacio015_Listalico__.claude_agents_ux-ui-designer.md",
+   "repo": "samuelbonifacio015/Listalico",
+   "path": ".claude/agents/ux-ui-designer.md",
+   "stars": 2,
+   "words": 2196,
+   "members": 4,
+   "repos": 4,
+   "sample_repos": [
+    "MF24026/eternova",
+    "ethan0c/HelthyWebsite",
+    "longsizhuo/mc-website",
+    "samuelbonifacio015/Listalico"
+   ],
+   "id": "c00124",
+   "kind": "agent"
+  },
+  {
+   "file": "AISecurity365_syntro__.claude_agents_ui-designer.md",
+   "repo": "AISecurity365/syntro",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 1,
+   "words": 1271,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "AISecurity365/syntro",
+    "AndyMarigoldLabs/prediction-maff",
+    "kolezka/raqz.pl",
+    "oxfordtrauma/kadoorie-livewire-components"
+   ],
+   "id": "c00125",
+   "kind": "agent"
+  },
+  {
+   "file": "kentonium3_kg-automation__.claude_agents_designer-dagmar.md",
+   "repo": "kentonium3/kg-automation",
+   "path": ".claude/agents/designer-dagmar.md",
+   "stars": 1,
+   "words": 87,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "garrison-hq/muster",
+    "kentonium3/kg-automation",
+    "mgifford/vital-core",
+    "spec-kitty/spec-kitty-open-packs"
+   ],
+   "id": "c00126",
+   "kind": "agent"
+  },
+  {
+   "file": "shyamsridhar123_ATV-AgentSkillsDemo__.github_agents_ux-designer.agent.md",
+   "repo": "shyamsridhar123/ATV-AgentSkillsDemo",
+   "path": ".github/agents/ux-designer.agent.md",
+   "stars": 1,
+   "words": 1263,
+   "members": 2,
+   "repos": 4,
+   "sample_repos": [
+    "shyamsridhar123/ATV-AgentSkillsDemo",
+    "stephschofield/beth",
+    "stephschofield/stephschofield",
+    "stephschofield/v0-all-the-vibes-site"
+   ],
+   "id": "c00128",
+   "kind": "agent"
+  },
+  {
+   "file": "Peter-N91_csq-fabric-demo__.github_agents_ux-ui-designer.agent.md",
+   "repo": "Peter-N91/csq-fabric-demo",
+   "path": ".github/agents/ux-ui-designer.agent.md",
+   "stars": 0,
+   "words": 1565,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "Peter-N91/csq-fabric-demo",
+    "Peter-N91/hve-squad-demo3",
+    "percebus/ai-tooling",
+    "sohamda/model-upgrade-automation"
+   ],
+   "id": "c00130",
+   "kind": "agent"
+  },
+  {
+   "file": "jmagly_carbonyl-agent__.codex_agents_product-designer.md",
+   "repo": "jmagly/carbonyl-agent",
+   "path": ".codex/agents/product-designer.md",
+   "stars": 0,
+   "words": 213,
+   "members": 3,
+   "repos": 4,
+   "sample_repos": [
+    "jmagly/carbonyl-agent",
+    "paulmap/ethPOS",
+    "robit-man/Zoomer",
+    "robit-man/transcribe-cli"
+   ],
+   "id": "c00131",
+   "kind": "agent"
+  },
+  {
+   "file": "jmsD3v_Phone-Store-Landing__.claude_agents_ui-ux-designer.md",
+   "repo": "jmsD3v/Phone-Store-Landing",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 0,
+   "words": 1632,
+   "members": 1,
+   "repos": 4,
+   "sample_repos": [
+    "jmsD3v/Phone-Store-Landing",
+    "nhantruong/ClaudeProjects",
+    "quoctuancqt/claude-tenplate",
+    "wikiepeidia/mindguard-project"
+   ],
+   "id": "c00132",
+   "kind": "agent"
+  },
+  {
+   "file": "gsd-build_get-shit-done__agents_gsd-ui-auditor.md",
+   "repo": "gsd-build/get-shit-done",
+   "path": "agents/gsd-ui-auditor.md",
+   "stars": 64459,
+   "words": 2310,
+   "members": 3,
+   "repos": 3,
+   "sample_repos": [
+    "JHamidun/claude-code-config-pack",
+    "davepoon/buildwithclaude",
+    "gsd-build/get-shit-done"
+   ],
+   "id": "c00133",
+   "kind": "agent"
+  },
+  {
+   "file": "microsoft_hve-core__.github_agents_project-planning_ux-ui-designer.agent.md",
+   "repo": "microsoft/hve-core",
+   "path": ".github/agents/project-planning/ux-ui-designer.agent.md",
+   "stars": 1478,
+   "words": 1912,
+   "members": 2,
+   "repos": 3,
+   "sample_repos": [
+    "asiapartners/hve-innovation",
+    "juanjosworkbox/hve_laxian",
+    "microsoft/hve-core"
+   ],
+   "id": "c00135",
+   "kind": "agent"
+  },
+  {
+   "file": "NYCU-Chung_my-claude-devteam__agents_frontend-designer.md",
+   "repo": "NYCU-Chung/my-claude-devteam",
+   "path": "agents/frontend-designer.md",
+   "stars": 269,
+   "words": 1306,
+   "members": 2,
+   "repos": 3,
+   "sample_repos": [
+    "NYCU-Chung/my-claude-devteam",
+    "Zarky05/my-claude-devteam",
+    "fankachang/SonicSlicer"
+   ],
+   "id": "c00139",
+   "kind": "agent"
+  },
+  {
+   "file": "juliusz-cwiakalski_agentic-delivery-os__.opencode_agent_designer.md",
+   "repo": "juliusz-cwiakalski/agentic-delivery-os",
+   "path": ".opencode/agent/designer.md",
+   "stars": 38,
+   "words": 512,
+   "members": 3,
+   "repos": 3,
+   "sample_repos": [
+    "MikeStitt/book-em-danno",
+    "juliusz-cwiakalski/agentic-delivery-os",
+    "simodev25/KairosMesh"
+   ],
+   "id": "c00142",
+   "kind": "agent"
+  },
+  {
+   "file": "bullish0x_GameStudio__.codex_agents_ux-designer.toml",
+   "repo": "bullish0x/GameStudio",
+   "path": ".codex/agents/ux-designer.toml",
+   "stars": 15,
+   "words": 719,
+   "members": 3,
+   "repos": 3,
+   "sample_repos": [
+    "NhomNhem/afterimage-tokyo",
+    "NhomNhem/solar-phobia",
+    "bullish0x/GameStudio"
+   ],
+   "id": "c00150",
+   "kind": "agent"
+  },
+  {
+   "file": "KimPlaybit_Starcraft-2-Editor-Skills__.github_agents_galaxy-ui-designer.agent.md",
+   "repo": "KimPlaybit/Starcraft-2-Editor-Skills",
+   "path": ".github/agents/galaxy-ui-designer.agent.md",
+   "stars": 10,
+   "words": 245,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "KimPlaybit/Alcyone_Frontlines",
+    "KimPlaybit/Starcraft-2-Editor-Skills",
+    "KimPlaybit/Ultrasikism"
+   ],
+   "id": "c00152",
+   "kind": "agent"
+  },
+  {
+   "file": "vedanta_the-system__.claude_agents_ux-analyzer.md",
+   "repo": "vedanta/the-system",
+   "path": ".claude/agents/ux-analyzer.md",
+   "stars": 9,
+   "words": 1340,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "vedanta/auraengine-nx-1",
+    "vedanta/the-fleet",
+    "vedanta/the-system"
+   ],
+   "id": "c00154",
+   "kind": "agent"
+  },
+  {
+   "file": "Yan-Acadenice_BYAN__.claude_agents_bmad-bmm-ux-designer.md",
+   "repo": "Yan-Acadenice/BYAN",
+   "path": ".claude/agents/bmad-bmm-ux-designer.md",
+   "stars": 8,
+   "words": 51,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "Ts8r/Wacdo_quentin",
+    "Yan-Acadenice/BYAN",
+    "zaturalive/CRM_COMMERCIAL"
+   ],
+   "id": "c00155",
+   "kind": "agent"
+  },
+  {
+   "file": "LimiNode_kurlyk__.claude_agents_designer.md",
+   "repo": "LimiNode/kurlyk",
+   "path": ".claude/agents/designer.md",
+   "stars": 5,
+   "words": 532,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "LimiNode/Consolix",
+    "LimiNode/kurlyk",
+    "LimiNode/log-it-cpp"
+   ],
+   "id": "c00158",
+   "kind": "agent"
+  },
+  {
+   "file": "tremtec_maestro__.opencode_agent_ux-designer.md",
+   "repo": "tremtec/maestro",
+   "path": ".opencode/agent/ux-designer.md",
+   "stars": 5,
+   "words": 199,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "marco-souza/djc",
+    "podcodar/webapp",
+    "tremtec/maestro"
+   ],
+   "id": "c00159",
+   "kind": "agent"
+  },
+  {
+   "file": "ambient-code_workflows__agents_steve-ux_designer.md",
+   "repo": "ambient-code/workflows",
+   "path": "agents/steve-ux_designer.md",
+   "stars": 4,
+   "words": 679,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "ambient-code/workflows",
+    "jeremyeder/baz-platform",
+    "swghosh/ambient-workflows"
+   ],
+   "id": "c00160",
+   "kind": "agent"
+  },
+  {
+   "file": "YanBerdin_YanBerdin__.github_agents_ui-ux-pro-max.agent.md",
+   "repo": "YanBerdin/YanBerdin",
+   "path": ".github/agents/ui-ux-pro-max.agent.md",
+   "stars": 2,
+   "words": 2782,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "YanBerdin/YanBerdin",
+    "YanBerdin/next-portfolio",
+    "YanBerdin/rougecardinalcompany"
+   ],
+   "id": "c00164",
+   "kind": "agent"
+  },
+  {
+   "file": "mashharuki_floci-sample__.codex_agents_apple-style-ui-designer.md",
+   "repo": "mashharuki/floci-sample",
+   "path": ".codex/agents/apple-style-ui-designer.md",
+   "stars": 2,
+   "words": 453,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "mashharuki/AWS-SummitHackathon-2026",
+    "mashharuki/floci-sample",
+    "mashharuki/solana-agent-repo"
+   ],
+   "id": "c00166",
+   "kind": "agent"
+  },
+  {
+   "file": "danielnogueira2007_site-ar-cerimonial-final__agents_development_ux-designer.agent.md",
+   "repo": "danielnogueira2007/site-ar-cerimonial-final",
+   "path": "agents/development/ux-designer.agent.md",
+   "stars": 1,
+   "words": 583,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "advogadaleticiabarros-del/CRMLRTICIA",
+    "danielnogueira2007/site-ar-cerimonial-final",
+    "prosystemcomercial-JESSICA/crmcomercialprosystem"
+   ],
+   "id": "c00170",
+   "kind": "agent"
+  },
+  {
+   "file": "lifesawesome_GitHubCopilot_Customized__.github_agents_Frontend-Designer.agent.md",
+   "repo": "lifesawesome/GitHubCopilot_Customized",
+   "path": ".github/agents/Frontend-Designer.agent.md",
+   "stars": 1,
+   "words": 478,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "aghyara/GitHubCopilot_Customized",
+    "dhavalshah01/GitHubCopilot_Customized",
+    "lifesawesome/GitHubCopilot_Customized"
+   ],
+   "id": "c00171",
+   "kind": "agent"
+  },
+  {
+   "file": "dertder25t-png_FocusDeck__.opencode_agent_bmad-agent-bmm-ux-designer.md",
+   "repo": "dertder25t-png/FocusDeck",
+   "path": ".opencode/agent/bmad-agent-bmm-ux-designer.md",
+   "stars": 1,
+   "words": 642,
+   "members": 2,
+   "repos": 3,
+   "sample_repos": [
+    "AReid987/sol-itaire",
+    "SwiftAkira/SpeedLink",
+    "dertder25t-png/FocusDeck"
+   ],
+   "id": "c00173",
+   "kind": "agent"
+  },
+  {
+   "file": "nullmastermind_godot-turnbase__.claude_agents_osf-uiux-designer.md",
+   "repo": "nullmastermind/godot-turnbase",
+   "path": ".claude/agents/osf-uiux-designer.md",
+   "stars": 1,
+   "words": 1001,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "nullmastermind/godot-turnbase",
+    "nullmastermind/roxy-browser-profile-manager",
+    "phantanquoc/ERP_V6"
+   ],
+   "id": "c00176",
+   "kind": "agent"
+  },
+  {
+   "file": "svallory_hyper-coding__.claude_agents_ux-design-specialist.md",
+   "repo": "svallory/hyper-coding",
+   "path": ".claude/agents/ux-design-specialist.md",
+   "stars": 1,
+   "words": 601,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "svallory/hyper-coding",
+    "svallory/mintlify-tsdocs",
+    "svallory/mitosis-plugins"
+   ],
+   "id": "c00177",
+   "kind": "agent"
+  },
+  {
+   "file": "BorderlessBitsLLC_borderlessbits.com__.claude_agents_ux-ui-designer.md",
+   "repo": "BorderlessBitsLLC/borderlessbits.com",
+   "path": ".claude/agents/ux-ui-designer.md",
+   "stars": 0,
+   "words": 3319,
+   "members": 3,
+   "repos": 3,
+   "sample_repos": [
+    "BorderlessBitsLLC/borderlessbits.com",
+    "GodSpeedAI/VibesPro",
+    "carloscroc/merge_app"
+   ],
+   "id": "c00178",
+   "kind": "agent"
+  },
+  {
+   "file": "Brahiamm56_E-commerce-AlgoDiferente__.codex_agents_ui-ux-designer.toml",
+   "repo": "Brahiamm56/E-commerce-AlgoDiferente",
+   "path": ".codex/agents/ui-ux-designer.toml",
+   "stars": 0,
+   "words": 2897,
+   "members": 3,
+   "repos": 3,
+   "sample_repos": [
+    "Brahiamm56/E-commerce-AlgoDiferente",
+    "Pato214151/ducklab",
+    "atondix-projects/franken-solution"
+   ],
+   "id": "c00179",
+   "kind": "agent"
+  },
+  {
+   "file": "Phloraxx_CodeResidency__.github_agents_Designer.agent.md",
+   "repo": "Phloraxx/CodeResidency",
+   "path": ".github/agents/Designer.agent.md",
+   "stars": 0,
+   "words": 107,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "Phloraxx/CodeResidency",
+    "Wrapzii/Orchestration",
+    "mhz1g21/card-centering-calculator"
+   ],
+   "id": "c00181",
+   "kind": "agent"
+  },
+  {
+   "file": "artemislab_kerios__.claude_agents_ux-designer.md",
+   "repo": "artemislab/kerios",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 0,
+   "words": 541,
+   "members": 2,
+   "repos": 3,
+   "sample_repos": [
+    "artemislab/kerios",
+    "foutoucour/guitar-exercises",
+    "foutoucour/guitar-match"
+   ],
+   "id": "c00182",
+   "kind": "agent"
+  },
+  {
+   "file": "diesaldano_diezproducciones.ar__.github_agents_frontend-designer.agent.md",
+   "repo": "diesaldano/diezproducciones.ar",
+   "path": ".github/agents/frontend-designer.agent.md",
+   "stars": 0,
+   "words": 647,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "diesaldano/diezproducciones.ar",
+    "diesaldano/managment-app",
+    "diesaldano/sistema-preventa"
+   ],
+   "id": "c00183",
+   "kind": "agent"
+  },
+  {
+   "file": "dsyorkd_ci-image__.claude_agents_ui-ux-designer.md",
+   "repo": "dsyorkd/ci-image",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 0,
+   "words": 456,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "dsyorkd/ci-image",
+    "dsyorkd/kubes-aura",
+    "dsyorkd/pi-controller"
+   ],
+   "id": "c00184",
+   "kind": "agent"
+  },
+  {
+   "file": "ducanhnguyen223_future-box__.claude_agents_agent-uiux.md",
+   "repo": "ducanhnguyen223/future-box",
+   "path": ".claude/agents/agent-uiux.md",
+   "stars": 0,
+   "words": 1750,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "ducanhnguyen223/future-box",
+    "tungdtfgw/future-box-co1205",
+    "tungdtfgw/future-boxes-cc-starter"
+   ],
+   "id": "c00185",
+   "kind": "agent"
+  },
+  {
+   "file": "et0175_iwonder__.claude_agents_interface-design.md",
+   "repo": "et0175/iwonder",
+   "path": ".claude/agents/interface-design.md",
+   "stars": 0,
+   "words": 438,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "et0175/iwonder",
+    "et0175/meal-planner",
+    "et0175/nonogram"
+   ],
+   "id": "c00186",
+   "kind": "agent"
+  },
+  {
+   "file": "jechamo_Estructura_inicial_claude__.codex_agents_ux-designer.toml",
+   "repo": "jechamo/Estructura_inicial_claude",
+   "path": ".codex/agents/ux-designer.toml",
+   "stars": 0,
+   "words": 114,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "jechamo/Estructura_inicial_claude",
+    "jechamo/rrss-automation-app",
+    "jechamo/sdd_agents_simple"
+   ],
+   "id": "c00190",
+   "kind": "agent"
+  },
+  {
+   "file": "jechamo_Estructura_inicial_claude__.github_agents_ux-designer.agent.md",
+   "repo": "jechamo/Estructura_inicial_claude",
+   "path": ".github/agents/ux-designer.agent.md",
+   "stars": 0,
+   "words": 423,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "jechamo/Estructura_inicial_claude",
+    "jechamo/rrss-automation-app",
+    "jechamo/sdd_agents_simple"
+   ],
+   "id": "c00191",
+   "kind": "agent"
+  },
+  {
+   "file": "kinncj_MAPLE-claude-code-opus-max__.claude_agents_design-system-author.md",
+   "repo": "kinncj/MAPLE-claude-code-opus-max",
+   "path": ".claude/agents/design-system-author.md",
+   "stars": 0,
+   "words": 406,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "kinncj/MAPLE-claude-code-opus-max",
+    "kinncj/sample-MAPLE",
+    "kinncj/sample-ai-squad"
+   ],
+   "id": "c00193",
+   "kind": "agent"
+  },
+  {
+   "file": "koala-man-64_asset-allocation__.github_agents_frontend-design.agent.md",
+   "repo": "koala-man-64/asset-allocation",
+   "path": ".github/agents/frontend-design.agent.md",
+   "stars": 0,
+   "words": 285,
+   "members": 2,
+   "repos": 3,
+   "sample_repos": [
+    "koala-man-64/asset-allocation",
+    "koala-man-64/asset-allocation-control-plane",
+    "koala-man-64/asset-allocation-jobs"
+   ],
+   "id": "c00194",
+   "kind": "agent"
+  },
+  {
+   "file": "pelchers_IDEAS_MANAGEMENT__.codex_agents_deprecated_planning-frontend-design-orchestrator.md",
+   "repo": "pelchers/IDEAS_MANAGEMENT",
+   "path": ".codex/agents/deprecated/planning-frontend-design-orchestrator.md",
+   "stars": 0,
+   "words": 47,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "pelchers/IDEAS_MANAGEMENT",
+    "pelchers/MockTrialGame",
+    "pelchers/SessionSaver"
+   ],
+   "id": "c00196",
+   "kind": "agent"
+  },
+  {
+   "file": "roman-ryzenadvanced_SuperCharged-Claude-Code-Upgrade__agents_agents_design_ui-ux-pro-max.md",
+   "repo": "roman-ryzenadvanced/SuperCharged-Claude-Code-Upgrade",
+   "path": "agents/agents/design/ui-ux-pro-max.md",
+   "stars": 0,
+   "words": 1519,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "roman-ryzenadvanced/SuperCharged-Claude-Code-Upgrade",
+    "roman-ryzenadvanced/claude-code-glm-suite",
+    "romangalaxys10-spec/SuperCharged-Claude-Code-Upgrade"
+   ],
+   "id": "c00197",
+   "kind": "agent"
+  },
+  {
+   "file": "sawrus_gemma__.codex_agents_designer.toml",
+   "repo": "sawrus/gemma",
+   "path": ".codex/agents/designer.toml",
+   "stars": 0,
+   "words": 629,
+   "members": 1,
+   "repos": 3,
+   "sample_repos": [
+    "sawrus/gemma",
+    "sawrus/telegram_inbox_for_legacy_devices",
+    "sawrus/x10"
+   ],
+   "id": "c00198",
+   "kind": "agent"
+  },
+  {
+   "file": "shanraisshan_claude-code-best-practice__development-workflows_rpi_.claude_agents_ux-designer.md",
+   "repo": "shanraisshan/claude-code-best-practice",
+   "path": "development-workflows/rpi/.claude/agents/ux-designer.md",
+   "stars": 66351,
+   "words": 59,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Recepay6358/claude-code-best-practice",
+    "shanraisshan/claude-code-best-practice"
+   ],
+   "id": "c00202",
+   "kind": "agent"
+  },
+  {
+   "file": "wshobson_agents__plugins_accessibility-compliance_agents_ui-visual-validator.md",
+   "repo": "wshobson/agents",
+   "path": "plugins/accessibility-compliance/agents/ui-visual-validator.md",
+   "stars": 39956,
+   "words": 1242,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "HermeticOrmus/LibreUIUX-Claude-Code",
+    "wshobson/agents"
+   ],
+   "id": "c00203",
+   "kind": "agent"
+  },
+  {
+   "file": "davila7_claude-code-templates__cli-tool_components_agents_development-tools_ascii-ui-mockup-generator.md",
+   "repo": "davila7/claude-code-templates",
+   "path": "cli-tool/components/agents/development-tools/ascii-ui-mockup-generator.md",
+   "stars": 31792,
+   "words": 324,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Dannykkh/skill-olympus",
+    "davila7/claude-code-templates"
+   ],
+   "id": "c00208",
+   "kind": "agent"
+  },
+  {
+   "file": "microsoft_apm__.apm_agents_devx-ux-expert.agent.md",
+   "repo": "microsoft/apm",
+   "path": ".apm/agents/devx-ux-expert.agent.md",
+   "stars": 3901,
+   "words": 761,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "githubnext/apm",
+    "microsoft/apm"
+   ],
+   "id": "c00214",
+   "kind": "agent"
+  },
+  {
+   "file": "wesammustafa_Claude-Code-Everything-You-Need-to-Know__.claude_agents_ux-designer.md",
+   "repo": "wesammustafa/Claude-Code-Everything-You-Need-to-Know",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 3049,
+   "words": 2218,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "thedixitjain/the-mega-skill-library",
+    "wesammustafa/Claude-Code-Everything-You-Need-to-Know"
+   ],
+   "id": "c00215",
+   "kind": "agent"
+  },
+  {
+   "file": "feiskyer_claude-code-settings__agents_ui-engineer.md",
+   "repo": "feiskyer/claude-code-settings",
+   "path": "agents/ui-engineer.md",
+   "stars": 1655,
+   "words": 439,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "feiskyer/claude-code-settings",
+    "leamas-ai/leamas.sh"
+   ],
+   "id": "c00217",
+   "kind": "agent"
+  },
+  {
+   "file": "amd_gaia__.claude_agents_ui-ux-designer.md",
+   "repo": "amd/gaia",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 1570,
+   "words": 557,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "amd/gaia",
+    "secure-workflows/gaia"
+   ],
+   "id": "c00218",
+   "kind": "agent"
+  },
+  {
+   "file": "ccplugins_awesome-claude-code-plugins__plugins_mobile-ux-optimizer_agents_mobile-ux-optimizer.md",
+   "repo": "ccplugins/awesome-claude-code-plugins",
+   "path": "plugins/mobile-ux-optimizer/agents/mobile-ux-optimizer.md",
+   "stars": 952,
+   "words": 472,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ccplugins/awesome-claude-code-plugins",
+    "xbim08/awesome-claude-code-plugins"
+   ],
+   "id": "c00223",
+   "kind": "agent"
+  },
+  {
+   "file": "partme-ai_full-stack-skills__agents_pencil-ui-designer.md",
+   "repo": "partme-ai/full-stack-skills",
+   "path": "agents/pencil-ui-designer.md",
+   "stars": 677,
+   "words": 660,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "partme-ai/full-stack-skills",
+    "xp13910818313/pencil-skills"
+   ],
+   "id": "c00226",
+   "kind": "agent"
+  },
+  {
+   "file": "vibeeval_vibecosystem__agents_designer.md",
+   "repo": "vibeeval/vibecosystem",
+   "path": "agents/designer.md",
+   "stars": 534,
+   "words": 973,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "rubicanjr/FinCognis",
+    "vibeeval/vibecosystem"
+   ],
+   "id": "c00228",
+   "kind": "agent"
+  },
+  {
+   "file": "me2resh_apexyard__.claude_agents_ux-designer.md",
+   "repo": "me2resh/apexyard",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 513,
+   "words": 287,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "AAbdulghany/fms",
+    "me2resh/apexyard"
+   ],
+   "id": "c00230",
+   "kind": "agent"
+  },
+  {
+   "file": "coco-research_coco__agents_ui-ux-designer.md",
+   "repo": "coco-research/coco",
+   "path": "agents/ui-ux-designer.md",
+   "stars": 500,
+   "words": 1456,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "coco-research/coco",
+    "q404365631/coco"
+   ],
+   "id": "c00231",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__claude_src_agents_design-system-engineer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "claude/src/agents/design-system-engineer.md",
+   "stars": 462,
+   "words": 2425,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "josstei/maestro-orchestrate",
+    "thedixitjain/the-mega-skill-library"
+   ],
+   "id": "c00232",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__claude_src_agents_ux-designer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "claude/src/agents/ux-designer.md",
+   "stars": 462,
+   "words": 1619,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "josstei/maestro-orchestrate",
+    "thedixitjain/the-mega-skill-library"
+   ],
+   "id": "c00233",
+   "kind": "agent"
+  },
+  {
+   "file": "Ibrahim-3d_orchestrator-supaconductor__agents_ux-designer.md",
+   "repo": "Ibrahim-3d/orchestrator-supaconductor",
+   "path": "agents/ux-designer.md",
+   "stars": 377,
+   "words": 653,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "AhmedElhadarey/Gilfoyle",
+    "Ibrahim-3d/orchestrator-supaconductor"
+   ],
+   "id": "c00234",
+   "kind": "agent"
+  },
+  {
+   "file": "Owl-Listener_designpowers__agents_design-strategist.md",
+   "repo": "Owl-Listener/designpowers",
+   "path": "agents/design-strategist.md",
+   "stars": 246,
+   "words": 1281,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Owl-Listener/designpowers",
+    "samcusano/Takorin"
+   ],
+   "id": "c00236",
+   "kind": "agent"
+  },
+  {
+   "file": "Garudex-Labs_caracal__.github_agents_integration-ux-critic.agent.md",
+   "repo": "Garudex-Labs/caracal",
+   "path": ".github/agents/integration-ux-critic.agent.md",
+   "stars": 214,
+   "words": 772,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Garudex-Labs/caracal",
+    "RAWx18/authority-layer"
+   ],
+   "id": "c00237",
+   "kind": "agent"
+  },
+  {
+   "file": "NicholasSpisak_claude-code-subagents__agents_specialized-agents_ui-ux-analyst.md",
+   "repo": "NicholasSpisak/claude-code-subagents",
+   "path": "agents/specialized-agents/ui-ux-analyst.md",
+   "stars": 213,
+   "words": 577,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "NicholasSpisak/claude-code-subagents",
+    "cloudnnj/marketplace"
+   ],
+   "id": "c00238",
+   "kind": "agent"
+  },
+  {
+   "file": "rennf93_roboco__agents_prompts_identities_ux-qa.md",
+   "repo": "rennf93/roboco",
+   "path": "agents/prompts/identities/ux-qa.md",
+   "stars": 176,
+   "words": 164,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "rennf93/robo-fleet",
+    "rennf93/roboco"
+   ],
+   "id": "c00239",
+   "kind": "agent"
+  },
+  {
+   "file": "team-attention_hoyeon__agents_ux-reviewer.md",
+   "repo": "team-attention/hoyeon",
+   "path": "agents/ux-reviewer.md",
+   "stars": 174,
+   "words": 800,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "sr-ai-dev/sr-harness",
+    "team-attention/hoyeon"
+   ],
+   "id": "c00240",
+   "kind": "agent"
+  },
+  {
+   "file": "riowang88_tvbox-source-aggregator__.claude_agents_frontend-designer.md",
+   "repo": "riowang88/tvbox-source-aggregator",
+   "path": ".claude/agents/frontend-designer.md",
+   "stars": 162,
+   "words": 104,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "SnailInLeaves/tvbox-source-aggregator",
+    "riowang88/tvbox-source-aggregator"
+   ],
+   "id": "c00241",
+   "kind": "agent"
+  },
+  {
+   "file": "burkeholland_max__agents_designer.agent.md",
+   "repo": "burkeholland/max",
+   "path": "agents/designer.agent.md",
+   "stars": 142,
+   "words": 211,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "bketelsen/max",
+    "burkeholland/max"
+   ],
+   "id": "c00242",
+   "kind": "agent"
+  },
+  {
+   "file": "ChrisRoyse_610ClaudeSubagents__agents_visual-design-master.md",
+   "repo": "ChrisRoyse/610ClaudeSubagents",
+   "path": "agents/visual-design-master.md",
+   "stars": 116,
+   "words": 1855,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ChrisRoyse/610ClaudeSubagents",
+    "masharratt/claude-flow-novice"
+   ],
+   "id": "c00247",
+   "kind": "agent"
+  },
+  {
+   "file": "HermeticOrmus_LibreUIUX-Claude-Code__plugins_design-mastery_agents_design-master.md",
+   "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+   "path": "plugins/design-mastery/agents/design-master.md",
+   "stars": 103,
+   "words": 1090,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "HermeticOrmus/LibreUIUX-Claude-Code",
+    "HermeticOrmus/design-mastery-claude-code"
+   ],
+   "id": "c00249",
+   "kind": "agent"
+  },
+  {
+   "file": "jjongguet_oh-my-product__agents_designer.md",
+   "repo": "jjongguet/oh-my-product",
+   "path": "agents/designer.md",
+   "stars": 99,
+   "words": 195,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "jjongguet/oh-my-product",
+    "r3dlex/oh-my-antigravity"
+   ],
+   "id": "c00251",
+   "kind": "agent"
+  },
+  {
+   "file": "davidmatousek_tachi__.claude_agents_ux-ui-designer.md",
+   "repo": "davidmatousek/tachi",
+   "path": ".claude/agents/ux-ui-designer.md",
+   "stars": 94,
+   "words": 938,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "davidmatousek/agentic-oriented-development-kit",
+    "davidmatousek/tachi"
+   ],
+   "id": "c00252",
+   "kind": "agent"
+  },
+  {
+   "file": "flick-git-anhnv_claude__.claude_agents_ui-ux-designer.md",
+   "repo": "flick-git-anhnv/claude",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 90,
+   "words": 463,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "flick-git-anhnv/KztekAdbTool",
+    "flick-git-anhnv/claude"
+   ],
+   "id": "c00253",
+   "kind": "agent"
+  },
+  {
+   "file": "flick-git-anhnv_claude__.claude_agents_ux-ui-reviewer.md",
+   "repo": "flick-git-anhnv/claude",
+   "path": ".claude/agents/ux-ui-reviewer.md",
+   "stars": 90,
+   "words": 1893,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "flick-git-anhnv/KztekAdbTool",
+    "flick-git-anhnv/claude"
+   ],
+   "id": "c00254",
+   "kind": "agent"
+  },
+  {
+   "file": "0ldh_claude-code-agents-orchestra__agents_design_ui-ux-designer.md",
+   "repo": "0ldh/claude-code-agents-orchestra",
+   "path": "agents/design/ui-ux-designer.md",
+   "stars": 84,
+   "words": 159,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "0ldh/claude-code-agents-orchestra",
+    "emirhan2823/myclaudeagents"
+   ],
+   "id": "c00255",
+   "kind": "agent"
+  },
+  {
+   "file": "9thLevelSoftware_legion__agents_design-ui-designer.md",
+   "repo": "9thLevelSoftware/legion",
+   "path": "agents/design-ui-designer.md",
+   "stars": 77,
+   "words": 1127,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "9thLevelSoftware/legion",
+    "9thLevelSoftware/legion-ascended"
+   ],
+   "id": "c00256",
+   "kind": "agent"
+  },
+  {
+   "file": "cmaneu_entra-local__.github_agents_designer.agent.md",
+   "repo": "cmaneu/entra-local",
+   "path": ".github/agents/designer.agent.md",
+   "stars": 59,
+   "words": 606,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "cmaneu/entra-local",
+    "sinedied/a-team"
+   ],
+   "id": "c00257",
+   "kind": "agent"
+  },
+  {
+   "file": "proflead_codex-agents-library__.codex_agents_uiux_designer.toml",
+   "repo": "proflead/codex-agents-library",
+   "path": ".codex/agents/uiux_designer.toml",
+   "stars": 46,
+   "words": 450,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "VoltKraft/immich-folder-watch",
+    "proflead/codex-agents-library"
+   ],
+   "id": "c00260",
+   "kind": "agent"
+  },
+  {
+   "file": "TechNickAI_claude_telemetry__.claude_agents_ux-designer.md",
+   "repo": "TechNickAI/claude_telemetry",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 31,
+   "words": 1150,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "TechNickAI/claude_telemetry",
+    "jmcveen/growth-mastery-1648e850"
+   ],
+   "id": "c00261",
+   "kind": "agent"
+  },
+  {
+   "file": "kinncj_MAPLE__.claude_agents_design-system-author.md",
+   "repo": "kinncj/MAPLE",
+   "path": ".claude/agents/design-system-author.md",
+   "stars": 24,
+   "words": 492,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "kinncj/Heimdall",
+    "kinncj/MAPLE"
+   ],
+   "id": "c00262",
+   "kind": "agent"
+  },
+  {
+   "file": "Itachi-1824_claude-god-mode__agents_design-critic.md",
+   "repo": "Itachi-1824/claude-god-mode",
+   "path": "agents/design-critic.md",
+   "stars": 20,
+   "words": 553,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Itachi-1824/claude-god-mode",
+    "elixpo/claudeOps.elixpo"
+   ],
+   "id": "c00263",
+   "kind": "agent"
+  },
+  {
+   "file": "ai-analyst-lab_ai-analyst-plus__agents_north-star_designer.md",
+   "repo": "ai-analyst-lab/ai-analyst-plus",
+   "path": "agents/north-star/designer.md",
+   "stars": 20,
+   "words": 92,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "UDDEISHYA/Github_AI_Analyst_Version_1",
+    "ai-analyst-lab/ai-analyst-plus"
+   ],
+   "id": "c00264",
+   "kind": "agent"
+  },
+  {
+   "file": "proflead_copilot-agent-library__agents_design_design-system.agent.md",
+   "repo": "proflead/copilot-agent-library",
+   "path": "agents/design/design-system.agent.md",
+   "stars": 20,
+   "words": 370,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "proflead/claude-code-agent-library",
+    "proflead/copilot-agent-library"
+   ],
+   "id": "c00265",
+   "kind": "agent"
+  },
+  {
+   "file": "darktaoist_aura__.claude_agents_ux-designer.md",
+   "repo": "darktaoist/aura",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 19,
+   "words": 442,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Roy-wonji/claude-config",
+    "darktaoist/aura"
+   ],
+   "id": "c00266",
+   "kind": "agent"
+  },
+  {
+   "file": "russbeye_claude-memory-bank__agents_ux-design-expert.md",
+   "repo": "russbeye/claude-memory-bank",
+   "path": "agents/ux-design-expert.md",
+   "stars": 19,
+   "words": 1081,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "alsjdhdhxn/my-project",
+    "russbeye/claude-memory-bank"
+   ],
+   "id": "c00267",
+   "kind": "agent"
+  },
+  {
+   "file": "Azure-Samples_tutor__.github_agents_ui-agent.agent.md",
+   "repo": "Azure-Samples/tutor",
+   "path": ".github/agents/ui-agent.agent.md",
+   "stars": 17,
+   "words": 1781,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Azure-Samples/tutor",
+    "Cataldir/microsoft-iq"
+   ],
+   "id": "c00268",
+   "kind": "agent"
+  },
+  {
+   "file": "ajsai47_cofounder__agents_design_ui-designer.md",
+   "repo": "ajsai47/cofounder",
+   "path": "agents/design/ui-designer.md",
+   "stars": 15,
+   "words": 4247,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ajsai47/cofounder",
+    "ajsai47/get-cofounder"
+   ],
+   "id": "c00270",
+   "kind": "agent"
+  },
+  {
+   "file": "jlcatonjr_Learn-Python-for-Stats-and-Econ__.github_agents_.agentteams-backups_20260519-223553_visual-designer.agent.md",
+   "repo": "jlcatonjr/Learn-Python-for-Stats-and-Econ",
+   "path": ".github/agents/.agentteams-backups/20260519-223553/visual-designer.agent.md",
+   "stars": 15,
+   "words": 319,
+   "members": 5,
+   "repos": 2,
+   "sample_repos": [
+    "jlcatonjr/Learn-Python-for-Stats-and-Econ",
+    "jlcatonjr/Macroeconomics-Growth-and-Monetary-Equilibrium"
+   ],
+   "id": "c00272",
+   "kind": "agent"
+  },
+  {
+   "file": "MarceloClaro_OpenCode_Ecosystem__agents_reversa-design-system.md",
+   "repo": "MarceloClaro/OpenCode_Ecosystem",
+   "path": "agents/reversa-design-system.md",
+   "stars": 12,
+   "words": 296,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "MarceloClaro/OpenCode_Ecosystem",
+    "MarceloClaro/opencode-ecosystem-core"
+   ],
+   "id": "c00273",
+   "kind": "agent"
+  },
+  {
+   "file": "southleft_altitude__.claude_agents_mm_mm-ui-ux-reviewer.md",
+   "repo": "southleft/altitude",
+   "path": ".claude/agents/mm/mm-ui-ux-reviewer.md",
+   "stars": 12,
+   "words": 490,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "WeekendDevsOrg/claudeUsageTracker",
+    "southleft/altitude"
+   ],
+   "id": "c00274",
+   "kind": "agent"
+  },
+  {
+   "file": "Innei_claude-code__agents_ui-designer.md",
+   "repo": "Innei/claude-code",
+   "path": "agents/ui-designer.md",
+   "stars": 10,
+   "words": 512,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Innei/claude-code",
+    "ishiko732/vibe-coding-presets"
+   ],
+   "id": "c00275",
+   "kind": "agent"
+  },
+  {
+   "file": "ariobarin_agentic-engineering-101__.claude_agents_ui-ux-designer.md",
+   "repo": "ariobarin/agentic-engineering-101",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 10,
+   "words": 990,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ariobarin/agentic-engineering-101",
+    "ariobarin/docbot"
+   ],
+   "id": "c00277",
+   "kind": "agent"
+  },
+  {
+   "file": "frankxai_agentic-creator-os__.claude_agents_ui-ux-design-guidance.md",
+   "repo": "frankxai/agentic-creator-os",
+   "path": ".claude/agents/ui-ux-design-guidance.md",
+   "stars": 10,
+   "words": 686,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "frankxai/agentic-creator-os",
+    "frankxai/frankx.ai-vercel-website"
+   ],
+   "id": "c00280",
+   "kind": "agent"
+  },
+  {
+   "file": "frankxai_agentic-creator-os__.claude_agents_ux-design-development.md",
+   "repo": "frankxai/agentic-creator-os",
+   "path": ".claude/agents/ux-design-development.md",
+   "stars": 10,
+   "words": 1732,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "frankxai/agentic-creator-os",
+    "frankxai/frankx.ai-vercel-website"
+   ],
+   "id": "c00281",
+   "kind": "agent"
+  },
+  {
+   "file": "rafaelkamimura_claude-tools__agents_ui-ux-designer.md",
+   "repo": "rafaelkamimura/claude-tools",
+   "path": "agents/ui-ux-designer.md",
+   "stars": 10,
+   "words": 479,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "rafaelkamimura/claude-config",
+    "rafaelkamimura/claude-tools"
+   ],
+   "id": "c00283",
+   "kind": "agent"
+  },
+  {
+   "file": "CambridgeMonorail_react-weapons-of-choice__.github_agents_ui-designer.agent.md",
+   "repo": "CambridgeMonorail/react-weapons-of-choice",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 8,
+   "words": 957,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "CambridgeMonorail/WallRun",
+    "CambridgeMonorail/react-weapons-of-choice"
+   ],
+   "id": "c00286",
+   "kind": "agent"
+  },
+  {
+   "file": "clafollett_codetriever__.claude_agents_ux-designer.md",
+   "repo": "clafollett/codetriever",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 8,
+   "words": 859,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "clafollett/codetriever",
+    "clafollett/maos"
+   ],
+   "id": "c00287",
+   "kind": "agent"
+  },
+  {
+   "file": "Caioohv_ai-workflow__.claude_agents_design-system.md",
+   "repo": "Caioohv/ai-workflow",
+   "path": ".claude/agents/design-system.md",
+   "stars": 7,
+   "words": 644,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Caioohv/acessocatolico",
+    "Caioohv/ai-workflow"
+   ],
+   "id": "c00290",
+   "kind": "agent"
+  },
+  {
+   "file": "hannsxpeter_godpowers__agents_ui.md",
+   "repo": "hannsxpeter/godpowers",
+   "path": "agents/ui.md",
+   "stars": 6,
+   "words": 79,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "hannsxpeter/godpowers",
+    "hannsxpeter/scriveno"
+   ],
+   "id": "c00292",
+   "kind": "agent"
+  },
+  {
+   "file": "yu-iskw_llmops-demo-ts__.claude_agents_designer.md",
+   "repo": "yu-iskw/llmops-demo-ts",
+   "path": ".claude/agents/designer.md",
+   "stars": 6,
+   "words": 301,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "yu-iskw/llmops-demo-ts",
+    "yu-iskw/software-development-team-plugin"
+   ],
+   "id": "c00294",
+   "kind": "agent"
+  },
+  {
+   "file": "wespiper_pyresume__.claude_agents_ui-ux-engineer.md",
+   "repo": "wespiper/pyresume",
+   "path": ".claude/agents/ui-ux-engineer.md",
+   "stars": 5,
+   "words": 585,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Musab122333/CV-parser",
+    "wespiper/pyresume"
+   ],
+   "id": "c00295",
+   "kind": "agent"
+  },
+  {
+   "file": "blue68_artifact-gated-agents__.codex_agents_senior-ui-designer.toml",
+   "repo": "blue68/artifact-gated-agents",
+   "path": ".codex/agents/senior-ui-designer.toml",
+   "stars": 5,
+   "words": 68,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "blue68/artifact-gated-agents",
+    "blue68/smartfactory"
+   ],
+   "id": "c00296",
+   "kind": "agent"
+  },
+  {
+   "file": "MakInShort_Hangla-Coders-SIH2026174__.opencode_agent_ui-designer.md",
+   "repo": "MakInShort/Hangla-Coders-SIH2026174",
+   "path": ".opencode/agent/ui-designer.md",
+   "stars": 4,
+   "words": 193,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "MakInShort/Hangla-Coders-SIH2026174",
+    "yash2744/AI---Human---Activity---Recognition-for-Bas-Experiment-SIH-2026-"
+   ],
+   "id": "c00297",
+   "kind": "agent"
+  },
+  {
+   "file": "navikt_crm-ips__.github_agents_designer.agent.md",
+   "repo": "navikt/crm-ips",
+   "path": ".github/agents/designer.agent.md",
+   "stars": 4,
+   "words": 2073,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "navikt/crm-ips",
+    "navikt/hovmester"
+   ],
+   "id": "c00298",
+   "kind": "agent"
+  },
+  {
+   "file": "tmcleod3_voidforge__.claude_agents_celeborn-design-system.md",
+   "repo": "tmcleod3/voidforge",
+   "path": ".claude/agents/celeborn-design-system.md",
+   "stars": 4,
+   "words": 256,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "tmcleod3/voidforge",
+    "tmcleod3/voidforge-site"
+   ],
+   "id": "c00299",
+   "kind": "agent"
+  },
+  {
+   "file": "codylejang_Scotty-Market__.claude_agents_frontend-designer.md",
+   "repo": "codylejang/Scotty-Market",
+   "path": ".claude/agents/frontend-designer.md",
+   "stars": 3,
+   "words": 746,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "AndrewChang-cpu/scotty-market",
+    "codylejang/Scotty-Market"
+   ],
+   "id": "c00303",
+   "kind": "agent"
+  },
+  {
+   "file": "Citadel-Cloud-Management_citadel-saas-factory__.claude_agents_product-design_design-system.md",
+   "repo": "Citadel-Cloud-Management/citadel-saas-factory",
+   "path": ".claude/agents/product-design/design-system.md",
+   "stars": 3,
+   "words": 314,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Citadel-Cloud-Management/citadel-saas-factory",
+    "HarshChavan999/citadel-saas-factory"
+   ],
+   "id": "c00304",
+   "kind": "agent"
+  },
+  {
+   "file": "orchestra-mcp_framework__.claude_agents_ui-ux-designer.md",
+   "repo": "orchestra-mcp/framework",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 3,
+   "words": 279,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "orchestra-mcp/framework",
+    "orchestra-mcp/pack-react-frontend"
+   ],
+   "id": "c00310",
+   "kind": "agent"
+  },
+  {
+   "file": "q3ok_copilot-agent-php-orchestrator__.github_agents_Designer.agent.md",
+   "repo": "q3ok/copilot-agent-php-orchestrator",
+   "path": ".github/agents/Designer.agent.md",
+   "stars": 3,
+   "words": 562,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "q3ok/copilot-agent-php-orchestrator",
+    "q3ok/neonrift-shadow-protocol"
+   ],
+   "id": "c00311",
+   "kind": "agent"
+  },
+  {
+   "file": "slabgorb-org_sidequest__.claude_agents_native_ux-designer.md",
+   "repo": "slabgorb-org/sidequest",
+   "path": ".claude/agents/native/ux-designer.md",
+   "stars": 3,
+   "words": 579,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "slabgorb-org/sidequest",
+    "slabgorb/arcade"
+   ],
+   "id": "c00312",
+   "kind": "agent"
+  },
+  {
+   "file": "Dragoon0x_studio__agents_design-system-auditor.md",
+   "repo": "Dragoon0x/studio",
+   "path": "agents/design-system-auditor.md",
+   "stars": 2,
+   "words": 204,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Dragoon0x/studio",
+    "lama-assaf/atelier"
+   ],
+   "id": "c00314",
+   "kind": "agent"
+  },
+  {
+   "file": "Omed0_convex-selfhost-starterkit__.claude_agents_ux-designer.md",
+   "repo": "Omed0/convex-selfhost-starterkit",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 2,
+   "words": 429,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Omed0/convex-selfhost-starterkit",
+    "jenidub/trainingx"
+   ],
+   "id": "c00315",
+   "kind": "agent"
+  },
+  {
+   "file": "SufficientDaikon_aether__agents_workers_frontend_ui-designer.agent.md",
+   "repo": "SufficientDaikon/aether",
+   "path": "agents/workers/frontend/ui-designer.agent.md",
+   "stars": 2,
+   "words": 304,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "SufficientDaikon/aether",
+    "waseemsaher/Ather"
+   ],
+   "id": "c00316",
+   "kind": "agent"
+  },
+  {
+   "file": "SufficientDaikon_sdd-vscode-agents__agents_ux-design.agent.md",
+   "repo": "SufficientDaikon/sdd-vscode-agents",
+   "path": "agents/ux-design.agent.md",
+   "stars": 2,
+   "words": 568,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "SufficientDaikon/copilot-ux-design",
+    "SufficientDaikon/sdd-vscode-agents"
+   ],
+   "id": "c00317",
+   "kind": "agent"
+  },
+  {
+   "file": "Tamoura_Claude-Code-creates-the-SW-company__.claude_agents_briefs_ui-ux-designer.md",
+   "repo": "Tamoura/Claude-Code-creates-the-SW-company",
+   "path": ".claude/agents/briefs/ui-ux-designer.md",
+   "stars": 2,
+   "words": 595,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Tamoura/Claude-Code-creates-the-SW-company",
+    "Tamoura/KarimSW"
+   ],
+   "id": "c00318",
+   "kind": "agent"
+  },
+  {
+   "file": "bpmforge_attest__agents_design-iterator.md",
+   "repo": "bpmforge/attest",
+   "path": "agents/design-iterator.md",
+   "stars": 2,
+   "words": 2499,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "bpmforge/attest",
+    "bpmforge/attest-claude"
+   ],
+   "id": "c00320",
+   "kind": "agent"
+  },
+  {
+   "file": "bpmforge_attest__agents_design-system-lead.md",
+   "repo": "bpmforge/attest",
+   "path": "agents/design-system-lead.md",
+   "stars": 2,
+   "words": 1737,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "bpmforge/attest",
+    "bpmforge/attest-claude"
+   ],
+   "id": "c00321",
+   "kind": "agent"
+  },
+  {
+   "file": "bpmforge_attest__agents_frontend-design.md",
+   "repo": "bpmforge/attest",
+   "path": "agents/frontend-design.md",
+   "stars": 2,
+   "words": 4549,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "bpmforge/attest",
+    "bpmforge/attest-claude"
+   ],
+   "id": "c00322",
+   "kind": "agent"
+  },
+  {
+   "file": "mrjonesbot_claude-code__agents_design-review.md",
+   "repo": "mrjonesbot/claude-code",
+   "path": "agents/design-review.md",
+   "stars": 2,
+   "words": 767,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "kamsinwaukwa-ctrl/sayarMVP",
+    "mrjonesbot/claude-code"
+   ],
+   "id": "c00324",
+   "kind": "agent"
+  },
+  {
+   "file": "openplanr_planr-pipeline__agents_modes_default_designer.md",
+   "repo": "openplanr/planr-pipeline",
+   "path": "agents/modes/default/designer.md",
+   "stars": 2,
+   "words": 562,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "openplanr/OpenPlanr",
+    "openplanr/planr-pipeline"
+   ],
+   "id": "c00325",
+   "kind": "agent"
+  },
+  {
+   "file": "Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_design-system.md",
+   "repo": "Brmbobo/Web2podcast",
+   "path": ".claude/agents/enterprise-frontend-design/agents/design-system.md",
+   "stars": 1,
+   "words": 1140,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Brmbobo/Lead-Gen",
+    "Brmbobo/Web2podcast"
+   ],
+   "id": "c00326",
+   "kind": "agent"
+  },
+  {
+   "file": "CodySwannGT_advisory-rankings__.codex_agents_lisa_ux-ui-designer.toml",
+   "repo": "CodySwannGT/advisory-rankings",
+   "path": ".codex/agents/lisa/ux-ui-designer.toml",
+   "stars": 1,
+   "words": 437,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "CodySwannGT/advisory-rankings",
+    "CodySwannGT/api-creator"
+   ],
+   "id": "c00330",
+   "kind": "agent"
+  },
+  {
+   "file": "Nickolai-Brennan_DZIRE_v1__.github_agents_design-system-brand-agent.md",
+   "repo": "Nickolai-Brennan/DZIRE_v1",
+   "path": ".github/agents/design-system-brand-agent.md",
+   "stars": 1,
+   "words": 95,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Nickolai-Brennan/DZIRE_v1",
+    "Nickolai-Brennan/Template_WebApp-JS-FastAPI-PostgreSqL"
+   ],
+   "id": "c00331",
+   "kind": "agent"
+  },
+  {
+   "file": "Tanish-Dev_copilot-agents__agents_ui-designer.agent.md",
+   "repo": "Tanish-Dev/copilot-agents",
+   "path": "agents/ui-designer.agent.md",
+   "stars": 1,
+   "words": 1058,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Tanish-Dev/copilot-agents",
+    "Tanish-Dev/vk-studio"
+   ],
+   "id": "c00334",
+   "kind": "agent"
+  },
+  {
+   "file": "The-Notorious-Avengers_Claude-Code-Cursor-Skills__agents_design-system-guardian.md",
+   "repo": "The-Notorious-Avengers/Claude-Code-Cursor-Skills",
+   "path": "agents/design-system-guardian.md",
+   "stars": 1,
+   "words": 989,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "The-Notorious-Avengers/Claude-Code-Cursor-Skills",
+    "jzferrell26/dm-skills"
+   ],
+   "id": "c00335",
+   "kind": "agent"
+  },
+  {
+   "file": "ZeusopenAI_ZEUS__agents_hermes_website_docs_user-guide_skills_bundled_creative_creative-claude-design.md",
+   "repo": "ZeusopenAI/ZEUS",
+   "path": "agents/hermes/website/docs/user-guide/skills/bundled/creative/creative-claude-design.md",
+   "stars": 1,
+   "words": 3943,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Zeus-Center/Zeus",
+    "ZeusopenAI/ZEUS"
+   ],
+   "id": "c00337",
+   "kind": "agent"
+  },
+  {
+   "file": "astar-development_astar-dev-mono__.github_agents_Designer.reference.md",
+   "repo": "astar-development/astar-dev-mono",
+   "path": ".github/agents/Designer.reference.md",
+   "stars": 1,
+   "words": 65,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "astar-development/astar-dev-mono",
+    "astar-development/astar-dev-onedrive-sync-client-original"
+   ],
+   "id": "c00338",
+   "kind": "agent"
+  },
+  {
+   "file": "bhaskarmelkani_learn-ai__.claude_agents_design-system-enforcer.md",
+   "repo": "bhaskarmelkani/learn-ai",
+   "path": ".claude/agents/design-system-enforcer.md",
+   "stars": 1,
+   "words": 65,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "bhaskarmelkani/chatter",
+    "bhaskarmelkani/learn-ai"
+   ],
+   "id": "c00339",
+   "kind": "agent"
+  },
+  {
+   "file": "bryankthompson_agentgen__agents_development_ui-designer.md",
+   "repo": "bryankthompson/agentgen",
+   "path": "agents/development/ui-designer.md",
+   "stars": 1,
+   "words": 1445,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Kindjhali/Opnix",
+    "bryankthompson/agentgen"
+   ],
+   "id": "c00340",
+   "kind": "agent"
+  },
+  {
+   "file": "ganjardbc_coderium-web-v2__.opencode_agent_caf-ux-designer.md",
+   "repo": "ganjardbc/coderium-web-v2",
+   "path": ".opencode/agent/caf-ux-designer.md",
+   "stars": 1,
+   "words": 613,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "ganjardbc/coderium-web-v2",
+    "ganjardbc/umkm-pos"
+   ],
+   "id": "c00342",
+   "kind": "agent"
+  },
+  {
+   "file": "jeremyDevios_BudgetFlow__.github_agents_designer.agent.md",
+   "repo": "jeremyDevios/BudgetFlow",
+   "path": ".github/agents/designer.agent.md",
+   "stars": 1,
+   "words": 295,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "jeremyDevios/BudgetFlow",
+    "jeremyDevios/levelUp"
+   ],
+   "id": "c00343",
+   "kind": "agent"
+  },
+  {
+   "file": "lindanimasinga_cs-lifestyle__.github_agents_izinga-food-web-ui-ux-designer.agent.md",
+   "repo": "lindanimasinga/cs-lifestyle",
+   "path": ".github/agents/izinga-food-web-ui-ux-designer.agent.md",
+   "stars": 1,
+   "words": 447,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "lindanimasinga/cs-lifestyle",
+    "lindanimasinga/ingalabesi-web"
+   ],
+   "id": "c00344",
+   "kind": "agent"
+  },
+  {
+   "file": "pkirsanov_smackerel__.github_agents_bubbles_shared_ux-bootstrap.md",
+   "repo": "pkirsanov/smackerel",
+   "path": ".github/agents/bubbles_shared/ux-bootstrap.md",
+   "stars": 1,
+   "words": 165,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "pkirsanov/research-lab",
+    "pkirsanov/smackerel"
+   ],
+   "id": "c00345",
+   "kind": "agent"
+  },
+  {
+   "file": "rodolfolermacontreras_Evolving-Multi-Agent-Framework__.github_agents_principal-ui-designer.agent.md",
+   "repo": "rodolfolermacontreras/Evolving-Multi-Agent-Framework",
+   "path": ".github/agents/principal-ui-designer.agent.md",
+   "stars": 1,
+   "words": 849,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "rodolfolermacontreras/Evolving-Multi-Agent-Framework",
+    "rodolfolermacontreras/small-business-claude"
+   ],
+   "id": "c00346",
+   "kind": "agent"
+  },
+  {
+   "file": "semaj90_deeds_web_app__.github_agents_design-system-steward.agent.md",
+   "repo": "semaj90/deeds_web_app",
+   "path": ".github/agents/design-system-steward.agent.md",
+   "stars": 1,
+   "words": 271,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "semaj90/deeds_web_app",
+    "semaj90/mau5law"
+   ],
+   "id": "c00347",
+   "kind": "agent"
+  },
+  {
+   "file": "semaj90_deeds_web_app__.github_agents_playwright-ui-ux.agent.md",
+   "repo": "semaj90/deeds_web_app",
+   "path": ".github/agents/playwright-ui-ux.agent.md",
+   "stars": 1,
+   "words": 403,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "semaj90/deeds_web_app",
+    "semaj90/mau5law"
+   ],
+   "id": "c00348",
+   "kind": "agent"
+  },
+  {
+   "file": "shadowfish07_NextPlay__.claude_agents_material-design-ui-designer.md",
+   "repo": "shadowfish07/NextPlay",
+   "path": ".claude/agents/material-design-ui-designer.md",
+   "stars": 1,
+   "words": 504,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "shadowfish07/NextPlay",
+    "shadowfish07/ReadeckAPP"
+   ],
+   "id": "c00349",
+   "kind": "agent"
+  },
+  {
+   "file": "szabadkai_NotepadX__.github_agents_ux-designer.md",
+   "repo": "szabadkai/NotepadX",
+   "path": ".github/agents/ux-designer.md",
+   "stars": 1,
+   "words": 413,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "szabadkai/NotepadX",
+    "szabadkai/dropPod"
+   ],
+   "id": "c00350",
+   "kind": "agent"
+  },
+  {
+   "file": "1a2b3cw_claude-code-presets__.claude_agents_designer.md",
+   "repo": "1a2b3cw/claude-code-presets",
+   "path": ".claude/agents/designer.md",
+   "stars": 0,
+   "words": 228,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "1a2b3cw/claude-code-presets",
+    "1a2b3cw/learning-companion"
+   ],
+   "id": "c00351",
+   "kind": "agent"
+  },
+  {
+   "file": "Anasabubakar_agent-swarm__agents_creative_ui-ux-scout.md",
+   "repo": "Anasabubakar/agent-swarm",
+   "path": "agents/creative/ui-ux-scout.md",
+   "stars": 0,
+   "words": 1110,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Anasabubakar/agent-swarm",
+    "agent-swarm0/Swarm"
+   ],
+   "id": "c00352",
+   "kind": "agent"
+  },
+  {
+   "file": "Chinjila_ai-assisted-coding__.github_agents_ui-ux-enhancement.md",
+   "repo": "Chinjila/ai-assisted-coding",
+   "path": ".github/agents/ui-ux-enhancement.md",
+   "stars": 0,
+   "words": 283,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Chinjila/ai-assisted-coding",
+    "durangogt/genai-summarizer-web-app"
+   ],
+   "id": "c00353",
+   "kind": "agent"
+  },
+  {
+   "file": "ChoiHyunjin_BybitTrading__.codex_agents_trading_ux-designer.spec.md",
+   "repo": "ChoiHyunjin/BybitTrading",
+   "path": ".codex/agents/trading/ux-designer.spec.md",
+   "stars": 0,
+   "words": 664,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ChoiHyunjin/BybitTrading",
+    "ChoiHyunjin/ai_skills"
+   ],
+   "id": "c00354",
+   "kind": "agent"
+  },
+  {
+   "file": "CodeDiversity_copilot-agents__.github_agents_ux-designer.agent.md",
+   "repo": "CodeDiversity/copilot-agents",
+   "path": ".github/agents/ux-designer.agent.md",
+   "stars": 0,
+   "words": 168,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "CodeDiversity/copilot-agents",
+    "CodeDiversity/mini-wordle"
+   ],
+   "id": "c00355",
+   "kind": "agent"
+  },
+  {
+   "file": "Danielpernnasc_microserviceRegisterTrain__.github_agents_sofia-ux.chatmode.md",
+   "repo": "Danielpernnasc/microserviceRegisterTrain",
+   "path": ".github/agents/sofia-ux.chatmode.md",
+   "stars": 0,
+   "words": 1039,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Danielpernnasc/microserviceRegisterTrain",
+    "ricardobalbino/code-dynamics"
+   ],
+   "id": "c00358",
+   "kind": "agent"
+  },
+  {
+   "file": "Gowshik-S_DevElan__.claude_agents_Design.agent.md",
+   "repo": "Gowshik-S/DevElan",
+   "path": ".claude/agents/Design.agent.md",
+   "stars": 0,
+   "words": 1726,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Gowshik-S/DevElan",
+    "Gowshik-S/Maverick-Coding-Platform"
+   ],
+   "id": "c00360",
+   "kind": "agent"
+  },
+  {
+   "file": "Handsomeboy990_craft-suite__agents_design_ui-ux-engineer.md",
+   "repo": "Handsomeboy990/craft-suite",
+   "path": "agents/design/ui-ux-engineer.md",
+   "stars": 0,
+   "words": 321,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Handsomeboy990/craft-suite",
+    "SAGBO4/dev-tool"
+   ],
+   "id": "c00361",
+   "kind": "agent"
+  },
+  {
+   "file": "Hot-Sweeper_peak-and-peak-studio__.github_agents_ui-ux-perfectionist.agent.md",
+   "repo": "Hot-Sweeper/peak-and-peak-studio",
+   "path": ".github/agents/ui-ux-perfectionist.agent.md",
+   "stars": 0,
+   "words": 764,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Hot-Sweeper/peak-and-peak-studio",
+    "Hot-Sweeper/prizm"
+   ],
+   "id": "c00362",
+   "kind": "agent"
+  },
+  {
+   "file": "InnoMikitaKutas_accelerator-test-task__.claude_agents_frontend-design-agent.md",
+   "repo": "InnoMikitaKutas/accelerator-test-task",
+   "path": ".claude/agents/frontend-design-agent.md",
+   "stars": 0,
+   "words": 234,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "InnoMikitaKutas/accelerator-test-task",
+    "YuriiYInno/Innogram"
+   ],
+   "id": "c00363",
+   "kind": "agent"
+  },
+  {
+   "file": "IslamSolimanInnowise_frontend-accelerator-task__.claude_agents_ui-designer.md",
+   "repo": "IslamSolimanInnowise/frontend-accelerator-task",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 0,
+   "words": 235,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "IslamSolimanInnowise/frontend-accelerator-task",
+    "akhramtsou-dev/fe-accelerator-trials"
+   ],
+   "id": "c00364",
+   "kind": "agent"
+  },
+  {
+   "file": "Mandeepthenoncoder_JulyCrm__agents_ui-ux-expert.md",
+   "repo": "Mandeepthenoncoder/JulyCrm",
+   "path": "agents/ui-ux-expert.md",
+   "stars": 0,
+   "words": 1009,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Mandeepthenoncoder/JulyCrm",
+    "Sairajgoud-kodipaka/Sarkar_CRM"
+   ],
+   "id": "c00365",
+   "kind": "agent"
+  },
+  {
+   "file": "Monsoft-Solutions_monsoft-website__agents_ui-ux-designer.md",
+   "repo": "Monsoft-Solutions/monsoft-website",
+   "path": "agents/ui-ux-designer.md",
+   "stars": 0,
+   "words": 1308,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Monsoft-Solutions/monsoft-website",
+    "Monsoft-Solutions/website-template-v2"
+   ],
+   "id": "c00368",
+   "kind": "agent"
+  },
+  {
+   "file": "Smith-Happens_xlightsfpptester__agents_-03-agents_development-architecture_user-experience_ui-ux-designer.md",
+   "repo": "Smith-Happens/xlightsfpptester",
+   "path": "agents/-03-agents/development-architecture/user-experience/ui-ux-designer.md",
+   "stars": 0,
+   "words": 1838,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "Smith-Happens/xlightsfpptester",
+    "turbobeest/atomic-claude"
+   ],
+   "id": "c00370",
+   "kind": "agent"
+  },
+  {
+   "file": "Tanish-Dev_Ignisia-temporary__.github_agents_frontend-designer.agent.md",
+   "repo": "Tanish-Dev/Ignisia-temporary",
+   "path": ".github/agents/frontend-designer.agent.md",
+   "stars": 0,
+   "words": 476,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "Tanish-Dev/Ignisia-temporary",
+    "darshannayak21/ignisiakawebsite"
+   ],
+   "id": "c00371",
+   "kind": "agent"
+  },
+  {
+   "file": "UpStackLabs_nexus-frontend__.claude_agents_design-system-generator.md",
+   "repo": "UpStackLabs/nexus-frontend",
+   "path": ".claude/agents/design-system-generator.md",
+   "stars": 0,
+   "words": 396,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "UpStackLabs/nexus-frontend",
+    "nesrineD/muslimin-e.v."
+   ],
+   "id": "c00372",
+   "kind": "agent"
+  },
+  {
+   "file": "adriebaselmans_ai-dev-team-core__.github_agents_ux-ui-designer.agent.md",
+   "repo": "adriebaselmans/ai-dev-team-core",
+   "path": ".github/agents/ux-ui-designer.agent.md",
+   "stars": 0,
+   "words": 56,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "adriebaselmans/ai-dev-team-core",
+    "adriebaselmans/shooter"
+   ],
+   "id": "c00374",
+   "kind": "agent"
+  },
+  {
+   "file": "aegidati_agentic-demo-project__.github_agents_ux-navigator.agent.md",
+   "repo": "aegidati/agentic-demo-project",
+   "path": ".github/agents/ux-navigator.agent.md",
+   "stars": 0,
+   "words": 522,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "aegidati/agentic-demo-project",
+    "aegidati/agentic-project-template"
+   ],
+   "id": "c00376",
+   "kind": "agent"
+  },
+  {
+   "file": "alvintoh_aether-flow__.claude_agents_design.md",
+   "repo": "alvintoh/aether-flow",
+   "path": ".claude/agents/design.md",
+   "stars": 0,
+   "words": 1167,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "alvintoh/aether-flow",
+    "alvintoh/dev-portfolio-v1"
+   ],
+   "id": "c00377",
+   "kind": "agent"
+  },
+  {
+   "file": "arayhan_rocsteer-landing-page__.claude_agents_ui-designer.md",
+   "repo": "arayhan/rocsteer-landing-page",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 0,
+   "words": 528,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "arayhan/rocsteer-landing-page",
+    "arayhan/slidemaster"
+   ],
+   "id": "c00380",
+   "kind": "agent"
+  },
+  {
+   "file": "bagnascojhoel_bagnascojhoel-blog__.github_agents_Designer.agent.md",
+   "repo": "bagnascojhoel/bagnascojhoel-blog",
+   "path": ".github/agents/Designer.agent.md",
+   "stars": 0,
+   "words": 551,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "bagnascojhoel/bagnascojhoel-blog",
+    "bagnascojhoel/bagnascojhoel-website"
+   ],
+   "id": "c00382",
+   "kind": "agent"
+  },
+  {
+   "file": "blecx_AI-Agent-Framework__.github_agents_blecs_blecs.ux.review.md",
+   "repo": "blecx/AI-Agent-Framework",
+   "path": ".github/agents/blecs/blecs.ux.review.md",
+   "stars": 0,
+   "words": 44,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "blecx/AI-Agent-Framework",
+    "blecx/maestro"
+   ],
+   "id": "c00383",
+   "kind": "agent"
+  },
+  {
+   "file": "buisihung11_maxai__.github_agents_ui-ux-designer.agent.md",
+   "repo": "buisihung11/maxai",
+   "path": ".github/agents/ui-ux-designer.agent.md",
+   "stars": 0,
+   "words": 229,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "buisihung11/maxai",
+    "buisihung11/prototype-zero"
+   ],
+   "id": "c00384",
+   "kind": "agent"
+  },
+  {
+   "file": "cmwen_quick-log-app__.github_agents_experience-designer.agent.md",
+   "repo": "cmwen/quick-log-app",
+   "path": ".github/agents/experience-designer.agent.md",
+   "stars": 0,
+   "words": 449,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "cmwen/quick-log-app",
+    "cmwen/receipt-quest-app"
+   ],
+   "id": "c00385",
+   "kind": "agent"
+  },
+  {
+   "file": "dadadan23_world-pulse__.github_agents_ux-designer.agent.md",
+   "repo": "dadadan23/world-pulse",
+   "path": ".github/agents/ux-designer.agent.md",
+   "stars": 0,
+   "words": 1575,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "dadadan23/world-pulse",
+    "mkspwr12/options-scanner-frontend"
+   ],
+   "id": "c00387",
+   "kind": "agent"
+  },
+  {
+   "file": "g-nogueira_BudgedManager__.github_agents_ui-designer.agent.md",
+   "repo": "g-nogueira/BudgedManager",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 0,
+   "words": 2048,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "g-nogueira/BudgedManager",
+    "g-nogueira/thermo-replacer"
+   ],
+   "id": "c00389",
+   "kind": "agent"
+  },
+  {
+   "file": "gpwork4u_google-chat-bot__.claude_agents_ui-designer.md",
+   "repo": "gpwork4u/google-chat-bot",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 0,
+   "words": 1492,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "gpwork4u/google-chat-bot",
+    "gpwork4u/specflow-v2-demo"
+   ],
+   "id": "c00391",
+   "kind": "agent"
+  },
+  {
+   "file": "hbarbhaya3-a11y_Krogers__agents_ui-designer.md",
+   "repo": "hbarbhaya3-a11y/Krogers",
+   "path": "agents/ui-designer.md",
+   "stars": 0,
+   "words": 224,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "hbarbhaya3-a11y/Krogers",
+    "hbarbhaya3-a11y/md"
+   ],
+   "id": "c00392",
+   "kind": "agent"
+  },
+  {
+   "file": "hbarbhaya3-a11y_Krogers__agents_ux-designer.md",
+   "repo": "hbarbhaya3-a11y/Krogers",
+   "path": "agents/ux-designer.md",
+   "stars": 0,
+   "words": 237,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "hbarbhaya3-a11y/Krogers",
+    "hbarbhaya3-a11y/md"
+   ],
+   "id": "c00393",
+   "kind": "agent"
+  },
+  {
+   "file": "hieumh_base-nextjs-app__.github_agents_ui-ux-designer.agent.md",
+   "repo": "hieumh/base-nextjs-app",
+   "path": ".github/agents/ui-ux-designer.agent.md",
+   "stars": 0,
+   "words": 858,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "hieumh/base-nextjs-app",
+    "hieumh/tracking-finance-stock"
+   ],
+   "id": "c00394",
+   "kind": "agent"
+  },
+  {
+   "file": "hoatv2211_hoatv2211.github.io__.github_agents_ui-designer.agent.md",
+   "repo": "hoatv2211/hoatv2211.github.io",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 0,
+   "words": 299,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "hoatv2211/hoatv2211.github.io",
+    "hoatv2211/mad-game-hub-shared"
+   ],
+   "id": "c00395",
+   "kind": "agent"
+  },
+  {
+   "file": "jagadeesh-profile_InstantDeploy__.claude_agents_ui-ux-designer.md",
+   "repo": "jagadeesh-profile/InstantDeploy",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 0,
+   "words": 1035,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "jagadeesh-profile/InstantDeploy",
+    "jagadeesh-profile/free-ai-api-cost-calculator"
+   ],
+   "id": "c00399",
+   "kind": "agent"
+  },
+  {
+   "file": "jmagly_carbonyl-agent__.codex_agents_ux-lead.md",
+   "repo": "jmagly/carbonyl-agent",
+   "path": ".codex/agents/ux-lead.md",
+   "stars": 0,
+   "words": 223,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "jmagly/carbonyl-agent",
+    "paulmap/ethPOS"
+   ],
+   "id": "c00402",
+   "kind": "agent"
+  },
+  {
+   "file": "josesiqueira_claude-code-template__.claude_agents_frontend-designer.md",
+   "repo": "josesiqueira/claude-code-template",
+   "path": ".claude/agents/frontend-designer.md",
+   "stars": 0,
+   "words": 665,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "josesiqueira/claude-code-template",
+    "josesiqueira/werewolf"
+   ],
+   "id": "c00403",
+   "kind": "agent"
+  },
+  {
+   "file": "mariorivzz_portfolio__.github_agents_ui-designer.agent.md",
+   "repo": "mariorivzz/portfolio",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 0,
+   "words": 597,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "mariorivzz/portfolio",
+    "mariorivzz/portfolio-en"
+   ],
+   "id": "c00405",
+   "kind": "agent"
+  },
+  {
+   "file": "mdchosen10_react-next-js-project-typescript-typescript__.claude_agents_design-system.md",
+   "repo": "mdchosen10/react-next-js-project-typescript-typescript",
+   "path": ".claude/agents/design-system.md",
+   "stars": 0,
+   "words": 957,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "mdchosen10/react-next-js-project-typescript-typescript",
+    "mdchosen10/sinan-ai-consulting-608918"
+   ],
+   "id": "c00406",
+   "kind": "agent"
+  },
+  {
+   "file": "meetpateldev18_fleet-flow26__.github_agents_ui-ux-agent.md",
+   "repo": "meetpateldev18/fleet-flow26",
+   "path": ".github/agents/ui-ux-agent.md",
+   "stars": 0,
+   "words": 3892,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "meetpateldev18/fleet-flow26",
+    "urvagandhi/Odoo-Hackathon-26"
+   ],
+   "id": "c00407",
+   "kind": "agent"
+  },
+  {
+   "file": "micronugget_duccinisv3__.github_agents_ux-ui-designer.agent.md",
+   "repo": "micronugget/duccinisv3",
+   "path": ".github/agents/ux-ui-designer.agent.md",
+   "stars": 0,
+   "words": 813,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "micronugget/duccinisv3",
+    "micronugget/friday-night-skate-too"
+   ],
+   "id": "c00408",
+   "kind": "agent"
+  },
+  {
+   "file": "mikinamateusz-svg_desert__agents_bmad-create-ux-design_steps_step-06-design-system.md",
+   "repo": "mikinamateusz-svg/desert",
+   "path": "agents/bmad-create-ux-design/steps/step-06-design-system.md",
+   "stars": 0,
+   "words": 1289,
+   "members": 3,
+   "repos": 2,
+   "sample_repos": [
+    "mikinamateusz-svg/desert",
+    "sebastianerz28/forge"
+   ],
+   "id": "c00409",
+   "kind": "agent"
+  },
+  {
+   "file": "min3rd_awesome-agents__.github_agents_ui-ux-designer.agent.md",
+   "repo": "min3rd/awesome-agents",
+   "path": ".github/agents/ui-ux-designer.agent.md",
+   "stars": 0,
+   "words": 1159,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "min3rd/awesome-agents",
+    "thanhqn318/awesome-agents"
+   ],
+   "id": "c00410",
+   "kind": "agent"
+  },
+  {
+   "file": "nige123_go-jmp.nigelhamilton.com__agents_UX_ARIA.md",
+   "repo": "nige123/go-jmp.nigelhamilton.com",
+   "path": "agents/UX_ARIA.md",
+   "stars": 0,
+   "words": 172,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "nige123/go-jmp.nigelhamilton.com",
+    "nige123/jmp.nigelhamilton.com"
+   ],
+   "id": "c00416",
+   "kind": "agent"
+  },
+  {
+   "file": "nogamsung_assetlog__.claude_agents_ui-designer.md",
+   "repo": "nogamsung/assetlog",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 0,
+   "words": 134,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "nogamsung/assetlog",
+    "nogamsung/claude-code-starter"
+   ],
+   "id": "c00417",
+   "kind": "agent"
+  },
+  {
+   "file": "onronder_DuruNotes__.claude_agents_ux-design-systems-expert.md",
+   "repo": "onronder/DuruNotes",
+   "path": ".claude/agents/ux-design-systems-expert.md",
+   "stars": 0,
+   "words": 744,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "onronder/DuruNotes",
+    "onronder/duru26"
+   ],
+   "id": "c00418",
+   "kind": "agent"
+  },
+  {
+   "file": "polsalarm_negosyonav__.claude_agents_design-system-guard.md",
+   "repo": "polsalarm/negosyonav",
+   "path": ".claude/agents/design-system-guard.md",
+   "stars": 0,
+   "words": 351,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "polsalarm/negosyonav",
+    "r-curio/negosyo-nav"
+   ],
+   "id": "c00419",
+   "kind": "agent"
+  },
+  {
+   "file": "ryasrk_AgentBrokeTheMatrix-CopilotVersion__.github_agents_ui-ux-auditor.agent.md",
+   "repo": "ryasrk/AgentBrokeTheMatrix-CopilotVersion",
+   "path": ".github/agents/ui-ux-auditor.agent.md",
+   "stars": 0,
+   "words": 670,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "ryasrk/AgentBrokeTheMatrix-CopilotVersion",
+    "ryasrk/MultiAgents-Openclaw"
+   ],
+   "id": "c00422",
+   "kind": "agent"
+  },
+  {
+   "file": "sekka1_Boiler-plate-webapp-cloudflare__.github_agents_frontend-design-expert.agent.md",
+   "repo": "sekka1/Boiler-plate-webapp-cloudflare",
+   "path": ".github/agents/frontend-design-expert.agent.md",
+   "stars": 0,
+   "words": 673,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "sekka1/Boiler-plate-webapp-cloudflare",
+    "sekka1/Dashboard"
+   ],
+   "id": "c00424",
+   "kind": "agent"
+  },
+  {
+   "file": "selvar2_social-ai-hybridrag__agents_ux-specialist.md",
+   "repo": "selvar2/social-ai-hybridrag",
+   "path": "agents/ux-specialist.md",
+   "stars": 0,
+   "words": 970,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "selvar2/social-ai-hybridrag",
+    "selvar2/social-ai-vector-rag"
+   ],
+   "id": "c00425",
+   "kind": "agent"
+  },
+  {
+   "file": "thebobhuff_AtlasEngine__.github_agents_ui-designer.agent.md",
+   "repo": "thebobhuff/AtlasEngine",
+   "path": ".github/agents/ui-designer.agent.md",
+   "stars": 0,
+   "words": 268,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "thebobhuff/AtlasEngine",
+    "thebobhuff/AtlasWriter"
+   ],
+   "id": "c00427",
+   "kind": "agent"
+  },
+  {
+   "file": "thebobhuff_AtlasEngine__.github_agents_ux-designer.agent.md",
+   "repo": "thebobhuff/AtlasEngine",
+   "path": ".github/agents/ux-designer.agent.md",
+   "stars": 0,
+   "words": 161,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "thebobhuff/AtlasEngine",
+    "thebobhuff/AtlasWriter"
+   ],
+   "id": "c00428",
+   "kind": "agent"
+  },
+  {
+   "file": "tiagofur_creapolis-project__agents_ui-ux-designer.md",
+   "repo": "tiagofur/creapolis-project",
+   "path": "agents/ui-ux-designer.md",
+   "stars": 0,
+   "words": 1305,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "tiagofur/creapolis-project",
+    "tiagofur/template-project"
+   ],
+   "id": "c00429",
+   "kind": "agent"
+  },
+  {
+   "file": "uramigal8-a11y_New__.github_agents_gem-designer-mobile.agent.md",
+   "repo": "uramigal8-a11y/New",
+   "path": ".github/agents/gem-designer-mobile.agent.md",
+   "stars": 0,
+   "words": 1670,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "uramigal8-a11y/New",
+    "uramigal8-a11y/Team"
+   ],
+   "id": "c00430",
+   "kind": "agent"
+  },
+  {
+   "file": "work-w-chrstnrpj_Notable_Finance__.codex_agents_frontend-ui-ux-developer.toml",
+   "repo": "work-w-chrstnrpj/Notable_Finance",
+   "path": ".codex/agents/frontend-ui-ux-developer.toml",
+   "stars": 0,
+   "words": 1780,
+   "members": 3,
+   "repos": 2,
+   "sample_repos": [
+    "work-w-chrstnrpj/Notable_Finance",
+    "work-w-chrstnrpj/ai-project-structure-template"
+   ],
+   "id": "c00432",
+   "kind": "agent"
+  },
+  {
+   "file": "wskeei_OptiRoute-LastMile__.codex_agents_frontend-ux-auditor-planner.md",
+   "repo": "wskeei/OptiRoute-LastMile",
+   "path": ".codex/agents/frontend-ux-auditor-planner.md",
+   "stars": 0,
+   "words": 1044,
+   "members": 1,
+   "repos": 2,
+   "sample_repos": [
+    "wskeei/OptiRoute-LastMile",
+    "wskeei/intelligent_meal_planner"
+   ],
+   "id": "c00433",
+   "kind": "agent"
+  },
+  {
+   "file": "www-e_Elostaz__.opencode_agent_ui-designer-and-code-perfector.md",
+   "repo": "www-e/Elostaz",
+   "path": ".opencode/agent/ui-designer-and-code-perfector.md",
+   "stars": 0,
+   "words": 821,
+   "members": 2,
+   "repos": 2,
+   "sample_repos": [
+    "www-e/Elostaz",
+    "www-e/Omar"
+   ],
+   "id": "c00436",
+   "kind": "agent"
+  },
+  {
+   "file": "nextlevelbuilder_ui-ux-pro-max-skill__stack_.claude_agents_design-review.md",
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "path": "stack/.claude/agents/design-review.md",
+   "stars": 130594,
+   "words": 681,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "nextlevelbuilder/ui-ux-pro-max-skill"
+   ],
+   "id": "c00441",
+   "kind": "agent"
+  },
+  {
+   "file": "Egonex-AI_Understand-Anything__understand-anything-plugin_agents_design-analyzer.md",
+   "repo": "Egonex-AI/Understand-Anything",
+   "path": "understand-anything-plugin/agents/design-analyzer.md",
+   "stars": 84173,
+   "words": 347,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Egonex-AI/Understand-Anything"
+   ],
+   "id": "c00442",
+   "kind": "agent"
+  },
+  {
+   "file": "github_awesome-copilot__agents_gem-designer.agent.md",
+   "repo": "github/awesome-copilot",
+   "path": "agents/gem-designer.agent.md",
+   "stars": 39388,
+   "words": 535,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "github/awesome-copilot"
+   ],
+   "id": "c00449",
+   "kind": "agent"
+  },
+  {
+   "file": "musistudio_claude-code-router__docs_src_content_docs_en_configuration_agents_claude-design.md",
+   "repo": "musistudio/claude-code-router",
+   "path": "docs/src/content/docs/en/configuration/agents/claude-design.md",
+   "stars": 37423,
+   "words": 423,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "musistudio/claude-code-router"
+   ],
+   "id": "c00452",
+   "kind": "agent"
+  },
+  {
+   "file": "musistudio_claude-code-router__docs_src_content_docs_zh_configuration_agents_claude-design.md",
+   "repo": "musistudio/claude-code-router",
+   "path": "docs/src/content/docs/zh/configuration/agents/claude-design.md",
+   "stars": 37423,
+   "words": 210,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "musistudio/claude-code-router"
+   ],
+   "id": "c00453",
+   "kind": "agent"
+  },
+  {
+   "file": "davila7_claude-code-templates__cli-tool_components_agents_ui-analysis_screenshot-ui-analyzer.md",
+   "repo": "davila7/claude-code-templates",
+   "path": "cli-tool/components/agents/ui-analysis/screenshot-ui-analyzer.md",
+   "stars": 31792,
+   "words": 214,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davila7/claude-code-templates"
+   ],
+   "id": "c00464",
+   "kind": "agent"
+  },
+  {
+   "file": "Donchitos_Claude-Code-Game-Studios__.claude_agents_prototyper.md",
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "path": ".claude/agents/prototyper.md",
+   "stars": 25438,
+   "words": 1804,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Donchitos/Claude-Code-Game-Studios"
+   ],
+   "id": "c00468",
+   "kind": "agent"
+  },
+  {
+   "file": "Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_specialists_prototyper.md",
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "path": "CCGS Skill Testing Framework/agents/specialists/prototyper.md",
+   "stars": 25438,
+   "words": 950,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Donchitos/Claude-Code-Game-Studios"
+   ],
+   "id": "c00478",
+   "kind": "agent"
+  },
+  {
+   "file": "Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_specialists_ux-designer.md",
+   "repo": "Donchitos/Claude-Code-Game-Studios",
+   "path": "CCGS Skill Testing Framework/agents/specialists/ux-designer.md",
+   "stars": 25438,
+   "words": 641,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Donchitos/Claude-Code-Game-Studios"
+   ],
+   "id": "c00481",
+   "kind": "agent"
+  },
+  {
+   "file": "MemTensor_MemOS__.claude_agents_design-reviewer.md",
+   "repo": "MemTensor/MemOS",
+   "path": ".claude/agents/design-reviewer.md",
+   "stars": 11583,
+   "words": 235,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "MemTensor/MemOS"
+   ],
+   "id": "c00483",
+   "kind": "agent"
+  },
+  {
+   "file": "Devin-AXIS_iPolloWork__examples_plugin-packages_figma_agents_design-parity-review-agent.md",
+   "repo": "Devin-AXIS/iPolloWork",
+   "path": "examples/plugin-packages/figma/agents/design-parity-review-agent.md",
+   "stars": 6699,
+   "words": 71,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Devin-AXIS/iPolloWork"
+   ],
+   "id": "c00486",
+   "kind": "agent"
+  },
+  {
+   "file": "Devin-AXIS_iPolloWork__examples_plugin-packages_figma_agents_design-system-rules-agent.md",
+   "repo": "Devin-AXIS/iPolloWork",
+   "path": "examples/plugin-packages/figma/agents/design-system-rules-agent.md",
+   "stars": 6699,
+   "words": 91,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Devin-AXIS/iPolloWork"
+   ],
+   "id": "c00487",
+   "kind": "agent"
+  },
+  {
+   "file": "ZSeven-W_openpencil__crates_op-ai-skills_skills_phases_agent_design-agent.md",
+   "repo": "ZSeven-W/openpencil",
+   "path": "crates/op-ai-skills/skills/phases/agent/design-agent.md",
+   "stars": 6023,
+   "words": 4477,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "ZSeven-W/openpencil"
+   ],
+   "id": "c00490",
+   "kind": "agent"
+  },
+  {
+   "file": "darrenhinde_OpenAgentsControl__evals_agents_core_opencoder_tests_contextscout-integration_02-ui-patterns-uses-contextscout.yaml",
+   "repo": "darrenhinde/OpenAgentsControl",
+   "path": "evals/agents/core/opencoder/tests/contextscout-integration/02-ui-patterns-uses-contextscout.yaml",
+   "stars": 4879,
+   "words": 274,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "darrenhinde/OpenAgentsControl"
+   ],
+   "id": "c00495",
+   "kind": "agent"
+  },
+  {
+   "file": "darrenhinde_OpenAgentsControl__evals_agents_subagents_core_contextscout_tests_08-ui-development-discovery.yaml",
+   "repo": "darrenhinde/OpenAgentsControl",
+   "path": "evals/agents/subagents/core/contextscout/tests/08-ui-development-discovery.yaml",
+   "stars": 4879,
+   "words": 295,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "darrenhinde/OpenAgentsControl"
+   ],
+   "id": "c00496",
+   "kind": "agent"
+  },
+  {
+   "file": "JimLiu_baoyu-design__skills_baoyu-design_agents_design-system-checker.md",
+   "repo": "JimLiu/baoyu-design",
+   "path": "skills/baoyu-design/agents/design-system-checker.md",
+   "stars": 4195,
+   "words": 317,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "JimLiu/baoyu-design"
+   ],
+   "id": "c00497",
+   "kind": "agent"
+  },
+  {
+   "file": "gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_agents_validate-design.md",
+   "repo": "gotalab/cc-sdd",
+   "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/validate-design.md",
+   "stars": 3684,
+   "words": 533,
+   "members": 9,
+   "repos": 1,
+   "sample_repos": [
+    "gotalab/cc-sdd"
+   ],
+   "id": "c00499",
+   "kind": "agent"
+  },
+  {
+   "file": "gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_validate-design.md",
+   "repo": "gotalab/cc-sdd",
+   "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/validate-design.md",
+   "stars": 3684,
+   "words": 186,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "gotalab/cc-sdd"
+   ],
+   "id": "c00501",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_meeting-bots_agents_design-boss.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/meeting-bots/agents/design-boss.md",
+   "stars": 3542,
+   "words": 470,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davepoon/buildwithclaude"
+   ],
+   "id": "c00504",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_meeting-bots_agents_design-cynic.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/meeting-bots/agents/design-cynic.md",
+   "stars": 3542,
+   "words": 385,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davepoon/buildwithclaude"
+   ],
+   "id": "c00505",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_meeting-bots_agents_design-pusher.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/meeting-bots/agents/design-pusher.md",
+   "stars": 3542,
+   "words": 349,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davepoon/buildwithclaude"
+   ],
+   "id": "c00506",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_meeting-bots_agents_design-rookie.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/meeting-bots/agents/design-rookie.md",
+   "stars": 3542,
+   "words": 378,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davepoon/buildwithclaude"
+   ],
+   "id": "c00507",
+   "kind": "agent"
+  },
+  {
+   "file": "davepoon_buildwithclaude__plugins_meeting-bots_agents_design-watcher.md",
+   "repo": "davepoon/buildwithclaude",
+   "path": "plugins/meeting-bots/agents/design-watcher.md",
+   "stars": 3542,
+   "words": 395,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "davepoon/buildwithclaude"
+   ],
+   "id": "c00508",
+   "kind": "agent"
+  },
+  {
+   "file": "centminmod_my-claude-code-setup__.claude_agents_ux-design-expert.md",
+   "repo": "centminmod/my-claude-code-setup",
+   "path": ".claude/agents/ux-design-expert.md",
+   "stars": 2644,
+   "words": 955,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "centminmod/my-claude-code-setup"
+   ],
+   "id": "c00510",
+   "kind": "agent"
+  },
+  {
+   "file": "softaworks_agent-toolkit__agents_ascii-ui-mockup-generator.md",
+   "repo": "softaworks/agent-toolkit",
+   "path": "agents/ascii-ui-mockup-generator.md",
+   "stars": 2502,
+   "words": 457,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "softaworks/agent-toolkit"
+   ],
+   "id": "c00511",
+   "kind": "agent"
+  },
+  {
+   "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-reference-packs_references_design-system-packs.md",
+   "repo": "Orkas-AI/Orkas",
+   "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/references/design-system-packs.md",
+   "stars": 2124,
+   "words": 879,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Orkas-AI/Orkas"
+   ],
+   "id": "c00517",
+   "kind": "agent"
+  },
+  {
+   "file": "DynamoDS_Dynamo__.github_agents_dynamo-ux-designer.agent.md",
+   "repo": "DynamoDS/Dynamo",
+   "path": ".github/agents/dynamo-ux-designer.agent.md",
+   "stars": 2025,
+   "words": 83,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "DynamoDS/Dynamo"
+   ],
+   "id": "c00519",
+   "kind": "agent"
+  },
+  {
+   "file": "microsoft_hve-core__docs_reference_agents_project-planning_ux-ui-designer.md",
+   "repo": "microsoft/hve-core",
+   "path": "docs/reference/agents/project-planning/ux-ui-designer.md",
+   "stars": 1478,
+   "words": 456,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "microsoft/hve-core"
+   ],
+   "id": "c00531",
+   "kind": "agent"
+  },
+  {
+   "file": "plugin87_ux-ui-agent-skills__.claude_agents_design-critic.md",
+   "repo": "plugin87/ux-ui-agent-skills",
+   "path": ".claude/agents/design-critic.md",
+   "stars": 1471,
+   "words": 841,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "plugin87/ux-ui-agent-skills"
+   ],
+   "id": "c00532",
+   "kind": "agent"
+  },
+  {
+   "file": "Salomondiei08_oh-my-hermes__agents_designer.md",
+   "repo": "Salomondiei08/oh-my-hermes",
+   "path": "agents/designer.md",
+   "stars": 864,
+   "words": 355,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Salomondiei08/oh-my-hermes"
+   ],
+   "id": "c00541",
+   "kind": "agent"
+  },
+  {
+   "file": "borghei_Claude-Skills__agents_cs-design-lead.md",
+   "repo": "borghei/Claude-Skills",
+   "path": "agents/cs-design-lead.md",
+   "stars": 828,
+   "words": 1631,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "borghei/Claude-Skills"
+   ],
+   "id": "c00544",
+   "kind": "agent"
+  },
+  {
+   "file": "assistant-ui_tool-ui__.claude_agents_tool-ui-designer.md",
+   "repo": "assistant-ui/tool-ui",
+   "path": ".claude/agents/tool-ui-designer.md",
+   "stars": 780,
+   "words": 307,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "assistant-ui/tool-ui"
+   ],
+   "id": "c00549",
+   "kind": "agent"
+  },
+  {
+   "file": "notnotype_neuro-book__.omp_agents_designer.md",
+   "repo": "notnotype/neuro-book",
+   "path": ".omp/agents/designer.md",
+   "stars": 698,
+   "words": 65,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "notnotype/neuro-book"
+   ],
+   "id": "c00550",
+   "kind": "agent"
+  },
+  {
+   "file": "shinpr_claude-code-workflows__agents_design-sync.md",
+   "repo": "shinpr/claude-code-workflows",
+   "path": "agents/design-sync.md",
+   "stars": 684,
+   "words": 1673,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "shinpr/claude-code-workflows"
+   ],
+   "id": "c00554",
+   "kind": "agent"
+  },
+  {
+   "file": "shinpr_claude-code-workflows__agents_ui-analyzer.md",
+   "repo": "shinpr/claude-code-workflows",
+   "path": "agents/ui-analyzer.md",
+   "stars": 684,
+   "words": 509,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "shinpr/claude-code-workflows"
+   ],
+   "id": "c00559",
+   "kind": "agent"
+  },
+  {
+   "file": "ZacheryGlass_.claude__agents_ui-ux-consultant.md",
+   "repo": "ZacheryGlass/.claude",
+   "path": "agents/ui-ux-consultant.md",
+   "stars": 599,
+   "words": 324,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "ZacheryGlass/.claude"
+   ],
+   "id": "c00569",
+   "kind": "agent"
+  },
+  {
+   "file": "giselles-ai_giselle__.claude_agents_ux-guardian.md",
+   "repo": "giselles-ai/giselle",
+   "path": ".claude/agents/ux-guardian.md",
+   "stars": 554,
+   "words": 574,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "giselles-ai/giselle"
+   ],
+   "id": "c00570",
+   "kind": "agent"
+  },
+  {
+   "file": "kwakseongjae_oh-my-design__.claude_agents_omd-designer-review.md",
+   "repo": "kwakseongjae/oh-my-design",
+   "path": ".claude/agents/omd-designer-review.md",
+   "stars": 523,
+   "words": 270,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "kwakseongjae/oh-my-design"
+   ],
+   "id": "c00575",
+   "kind": "agent"
+  },
+  {
+   "file": "kwakseongjae_oh-my-design__.claude_agents_omd-ui-junior.md",
+   "repo": "kwakseongjae/oh-my-design",
+   "path": ".claude/agents/omd-ui-junior.md",
+   "stars": 523,
+   "words": 738,
+   "members": 3,
+   "repos": 1,
+   "sample_repos": [
+    "kwakseongjae/oh-my-design"
+   ],
+   "id": "c00576",
+   "kind": "agent"
+  },
+  {
+   "file": "kwakseongjae_oh-my-design__.claude_agents_omd-ux-engineer.md",
+   "repo": "kwakseongjae/oh-my-design",
+   "path": ".claude/agents/omd-ux-engineer.md",
+   "stars": 523,
+   "words": 1885,
+   "members": 3,
+   "repos": 1,
+   "sample_repos": [
+    "kwakseongjae/oh-my-design"
+   ],
+   "id": "c00577",
+   "kind": "agent"
+  },
+  {
+   "file": "kwakseongjae_oh-my-design__.codex_agents_omd-designer-review.toml",
+   "repo": "kwakseongjae/oh-my-design",
+   "path": ".codex/agents/omd-designer-review.toml",
+   "stars": 523,
+   "words": 343,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "kwakseongjae/oh-my-design"
+   ],
+   "id": "c00580",
+   "kind": "agent"
+  },
+  {
+   "file": "me2resh_apexyard__.claude_agents_ui-designer.md",
+   "repo": "me2resh/apexyard",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 513,
+   "words": 506,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "me2resh/apexyard"
+   ],
+   "id": "c00581",
+   "kind": "agent"
+  },
+  {
+   "file": "AgentSkillOS_SkillAnything__agents_designer.md",
+   "repo": "AgentSkillOS/SkillAnything",
+   "path": "agents/designer.md",
+   "stars": 471,
+   "words": 993,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "AgentSkillOS/SkillAnything"
+   ],
+   "id": "c00584",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__agents_design_system_engineer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "agents/design_system_engineer.md",
+   "stars": 462,
+   "words": 116,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "josstei/maestro-orchestrate"
+   ],
+   "id": "c00587",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__agents_ux_designer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "agents/ux_designer.md",
+   "stars": 462,
+   "words": 98,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "josstei/maestro-orchestrate"
+   ],
+   "id": "c00588",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__claude_agents_design-system-engineer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "claude/agents/design-system-engineer.md",
+   "stars": 462,
+   "words": 228,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "josstei/maestro-orchestrate"
+   ],
+   "id": "c00591",
+   "kind": "agent"
+  },
+  {
+   "file": "josstei_maestro-orchestrate__claude_agents_ux-designer.md",
+   "repo": "josstei/maestro-orchestrate",
+   "path": "claude/agents/ux-designer.md",
+   "stars": 462,
+   "words": 205,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "josstei/maestro-orchestrate"
+   ],
+   "id": "c00592",
+   "kind": "agent"
+  },
+  {
+   "file": "ccpk1_ChoreOps__.github_agents_dashboard-ux-builder.agent.md",
+   "repo": "ccpk1/ChoreOps",
+   "path": ".github/agents/dashboard-ux-builder.agent.md",
+   "stars": 430,
+   "words": 385,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "ccpk1/ChoreOps"
+   ],
+   "id": "c00594",
+   "kind": "agent"
+  },
+  {
+   "file": "dsifry_metaswarm__agents_designer-agent.md",
+   "repo": "dsifry/metaswarm",
+   "path": "agents/designer-agent.md",
+   "stars": 419,
+   "words": 1412,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "dsifry/metaswarm"
+   ],
+   "id": "c00596",
+   "kind": "agent"
+  },
+  {
+   "file": "hezo-ai_hezo__agents_app-dev_ui-designer.md",
+   "repo": "hezo-ai/hezo",
+   "path": "agents/app-dev/ui-designer.md",
+   "stars": 393,
+   "words": 775,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "hezo-ai/hezo"
+   ],
+   "id": "c00597",
+   "kind": "agent"
+  },
+  {
+   "file": "verifywise-ai_verifywise__agents_brand-designer.md",
+   "repo": "verifywise-ai/verifywise",
+   "path": "agents/brand-designer.md",
+   "stars": 358,
+   "words": 474,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "verifywise-ai/verifywise"
+   ],
+   "id": "c00600",
+   "kind": "agent"
+  },
+  {
+   "file": "verifywise-ai_verifywise__agents_design-systems-lead.md",
+   "repo": "verifywise-ai/verifywise",
+   "path": "agents/design-systems-lead.md",
+   "stars": 358,
+   "words": 499,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "verifywise-ai/verifywise"
+   ],
+   "id": "c00601",
+   "kind": "agent"
+  },
+  {
+   "file": "verifywise-ai_verifywise__agents_interaction-designer.md",
+   "repo": "verifywise-ai/verifywise",
+   "path": "agents/interaction-designer.md",
+   "stars": 358,
+   "words": 481,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "verifywise-ai/verifywise"
+   ],
+   "id": "c00602",
+   "kind": "agent"
+  },
+  {
+   "file": "verifywise-ai_verifywise__agents_ux-ui-designer.md",
+   "repo": "verifywise-ai/verifywise",
+   "path": "agents/ux-ui-designer.md",
+   "stars": 358,
+   "words": 548,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "verifywise-ai/verifywise"
+   ],
+   "id": "c00603",
+   "kind": "agent"
+  },
+  {
+   "file": "verifywise-ai_verifywise__agents_visual-designer.md",
+   "repo": "verifywise-ai/verifywise",
+   "path": "agents/visual-designer.md",
+   "stars": 358,
+   "words": 499,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "verifywise-ai/verifywise"
+   ],
+   "id": "c00605",
+   "kind": "agent"
+  },
+  {
+   "file": "educlopez_ui-craft__agents_design-reviewer.md",
+   "repo": "educlopez/ui-craft",
+   "path": "agents/design-reviewer.md",
+   "stars": 357,
+   "words": 354,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "educlopez/ui-craft"
+   ],
+   "id": "c00607",
+   "kind": "agent"
+  },
+  {
+   "file": "minicoohei_ai-agent-camp__.claude_agents_designer.md",
+   "repo": "minicoohei/ai-agent-camp",
+   "path": ".claude/agents/designer.md",
+   "stars": 347,
+   "words": 557,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "minicoohei/ai-agent-camp"
+   ],
+   "id": "c00608",
+   "kind": "agent"
+  },
+  {
+   "file": "pixel-cellar_Claude-Code-Game-Studios__.claude_agents_ux-designer.md",
+   "repo": "pixel-cellar/Claude-Code-Game-Studios",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 334,
+   "words": 224,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "pixel-cellar/Claude-Code-Game-Studios"
+   ],
+   "id": "c00611",
+   "kind": "agent"
+  },
+  {
+   "file": "Adityaraj0421_naksha-studio__agents_design-critique.md",
+   "repo": "Adityaraj0421/naksha-studio",
+   "path": "agents/design-critique.md",
+   "stars": 319,
+   "words": 1397,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Adityaraj0421/naksha-studio"
+   ],
+   "id": "c00613",
+   "kind": "agent"
+  },
+  {
+   "file": "Adityaraj0421_naksha-studio__agents_design-token-extractor.md",
+   "repo": "Adityaraj0421/naksha-studio",
+   "path": "agents/design-token-extractor.md",
+   "stars": 319,
+   "words": 668,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Adityaraj0421/naksha-studio"
+   ],
+   "id": "c00614",
+   "kind": "agent"
+  },
+  {
+   "file": "Prorise-cool_Claude-Code-Multi-Agent__.claude_agents_specialist_ui-ux-designer.md",
+   "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+   "path": ".claude/agents/specialist/ui-ux-designer.md",
+   "stars": 305,
+   "words": 1899,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Prorise-cool/Claude-Code-Multi-Agent"
+   ],
+   "id": "c00616",
+   "kind": "agent"
+  },
+  {
+   "file": "adamgell_cmtraceopen__.github_agents_designer.agent.md",
+   "repo": "adamgell/cmtraceopen",
+   "path": ".github/agents/designer.agent.md",
+   "stars": 297,
+   "words": 210,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "adamgell/cmtraceopen"
+   ],
+   "id": "c00618",
+   "kind": "agent"
+  },
+  {
+   "file": "responsibleai_ASSERT__.github_agents_designer.md",
+   "repo": "responsibleai/ASSERT",
+   "path": ".github/agents/designer.md",
+   "stars": 280,
+   "words": 398,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "responsibleai/ASSERT"
+   ],
+   "id": "c00620",
+   "kind": "agent"
+  },
+  {
+   "file": "avivl_claude-007-agents__.claude_agents_design_ux-designer.md",
+   "repo": "avivl/claude-007-agents",
+   "path": ".claude/agents/design/ux-designer.md",
+   "stars": 270,
+   "words": 3060,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "avivl/claude-007-agents"
+   ],
+   "id": "c00621",
+   "kind": "agent"
+  },
+  {
+   "file": "pamirtuna_gamestudio-subagents__agents_ui_ux_agent.md",
+   "repo": "pamirtuna/gamestudio-subagents",
+   "path": "agents/ui_ux_agent.md",
+   "stars": 262,
+   "words": 718,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "pamirtuna/gamestudio-subagents"
+   ],
+   "id": "c00627",
+   "kind": "agent"
+  },
+  {
+   "file": "Manabu-GT_DebugOverlay-Android__.claude_agents_ui-designer.md",
+   "repo": "Manabu-GT/DebugOverlay-Android",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 246,
+   "words": 912,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Manabu-GT/DebugOverlay-Android"
+   ],
+   "id": "c00628",
+   "kind": "agent"
+  },
+  {
+   "file": "fpindej_netrock__.claude_agents_ux-designer.md",
+   "repo": "fpindej/netrock",
+   "path": ".claude/agents/ux-designer.md",
+   "stars": 234,
+   "words": 446,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "fpindej/netrock"
+   ],
+   "id": "c00629",
+   "kind": "agent"
+  },
+  {
+   "file": "curiositech_some_claude_skills__.github_agents_native_app_designer.md",
+   "repo": "curiositech/some_claude_skills",
+   "path": ".github/agents/native_app_designer.md",
+   "stars": 231,
+   "words": 1880,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "curiositech/some_claude_skills"
+   ],
+   "id": "c00630",
+   "kind": "agent"
+  },
+  {
+   "file": "curiositech_some_claude_skills__.github_agents_web_design_expert.md",
+   "repo": "curiositech/some_claude_skills",
+   "path": ".github/agents/web_design_expert.md",
+   "stars": 231,
+   "words": 395,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "curiositech/some_claude_skills"
+   ],
+   "id": "c00631",
+   "kind": "agent"
+  },
+  {
+   "file": "johnrogers_claude-swift-engineering__plugins_swift-engineering_agents_swift-ui-design.md",
+   "repo": "johnrogers/claude-swift-engineering",
+   "path": "plugins/swift-engineering/agents/swift-ui-design.md",
+   "stars": 231,
+   "words": 530,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "johnrogers/claude-swift-engineering"
+   ],
+   "id": "c00632",
+   "kind": "agent"
+  },
+  {
+   "file": "NicholasSpisak_claude-code-subagents__agents_core_frontend-ux-specialist.md",
+   "repo": "NicholasSpisak/claude-code-subagents",
+   "path": "agents/core/frontend-ux-specialist.md",
+   "stars": 213,
+   "words": 627,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "NicholasSpisak/claude-code-subagents"
+   ],
+   "id": "c00635",
+   "kind": "agent"
+  },
+  {
+   "file": "FerroxLabs_ijfw__claude_agents_ijfw-design-critic.md",
+   "repo": "FerroxLabs/ijfw",
+   "path": "claude/agents/ijfw-design-critic.md",
+   "stars": 211,
+   "words": 667,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "FerroxLabs/ijfw"
+   ],
+   "id": "c00638",
+   "kind": "agent"
+  },
+  {
+   "file": "FerroxLabs_ijfw__claude_agents_ijfw-ui-auditor.md",
+   "repo": "FerroxLabs/ijfw",
+   "path": "claude/agents/ijfw-ui-auditor.md",
+   "stars": 211,
+   "words": 2037,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "FerroxLabs/ijfw"
+   ],
+   "id": "c00639",
+   "kind": "agent"
+  },
+  {
+   "file": "viplismism_rlm-cli__.github_agents_ui-agent.agent.md",
+   "repo": "viplismism/rlm-cli",
+   "path": ".github/agents/ui-agent.agent.md",
+   "stars": 210,
+   "words": 868,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "viplismism/rlm-cli"
+   ],
+   "id": "c00640",
+   "kind": "agent"
+  },
+  {
+   "file": "VishalJ99_claude-docker__.claude_agents_ux-ui-designer.md",
+   "repo": "VishalJ99/claude-docker",
+   "path": ".claude/agents/ux-ui-designer.md",
+   "stars": 188,
+   "words": 812,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "VishalJ99/claude-docker"
+   ],
+   "id": "c00644",
+   "kind": "agent"
+  },
+  {
+   "file": "rennf93_roboco__agents_prompts_teams_ux_ui.md",
+   "repo": "rennf93/roboco",
+   "path": "agents/prompts/teams/ux_ui.md",
+   "stars": 176,
+   "words": 1465,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "rennf93/roboco"
+   ],
+   "id": "c00646",
+   "kind": "agent"
+  },
+  {
+   "file": "Zettelgarden_Zettelgarden__.claude_agents_ui-ux-designer.md",
+   "repo": "Zettelgarden/Zettelgarden",
+   "path": ".claude/agents/ui-ux-designer.md",
+   "stars": 168,
+   "words": 434,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Zettelgarden/Zettelgarden"
+   ],
+   "id": "c00649",
+   "kind": "agent"
+  },
+  {
+   "file": "jitpass_jit__.claude_agents_jit-qa-ux.md",
+   "repo": "jitpass/jit",
+   "path": ".claude/agents/jit-qa-ux.md",
+   "stars": 161,
+   "words": 447,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "jitpass/jit"
+   ],
+   "id": "c00650",
+   "kind": "agent"
+  },
+  {
+   "file": "antropos17_Aegis__.codex_agents_ui-designer.toml",
+   "repo": "antropos17/Aegis",
+   "path": ".codex/agents/ui-designer.toml",
+   "stars": 152,
+   "words": 140,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "antropos17/Aegis"
+   ],
+   "id": "c00652",
+   "kind": "agent"
+  },
+  {
+   "file": "serpro69_claude-toolbox__.codex_agents_design-reviewer.toml",
+   "repo": "serpro69/claude-toolbox",
+   "path": ".codex/agents/design-reviewer.toml",
+   "stars": 149,
+   "words": 1777,
+   "members": 2,
+   "repos": 1,
+   "sample_repos": [
+    "serpro69/claude-toolbox"
+   ],
+   "id": "c00654",
+   "kind": "agent"
+  },
+  {
+   "file": "undeadlist_claude-code-agents__agents_ui-auditor.md",
+   "repo": "undeadlist/claude-code-agents",
+   "path": "agents/ui-auditor.md",
+   "stars": 149,
+   "words": 383,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "undeadlist/claude-code-agents"
+   ],
+   "id": "c00655",
+   "kind": "agent"
+  },
+  {
+   "file": "wlsdks_ontology-atlas__.claude_agents_design-system.md",
+   "repo": "wlsdks/ontology-atlas",
+   "path": ".claude/agents/design-system.md",
+   "stars": 139,
+   "words": 483,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "wlsdks/ontology-atlas"
+   ],
+   "id": "c00657",
+   "kind": "agent"
+  },
+  {
+   "file": "selmakcby_claude-agents-skills__agents_ui-agent.md",
+   "repo": "selmakcby/claude-agents-skills",
+   "path": "agents/ui-agent.md",
+   "stars": 133,
+   "words": 245,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "selmakcby/claude-agents-skills"
+   ],
+   "id": "c00659",
+   "kind": "agent"
+  },
+  {
+   "file": "levu304_claude-code-boilerplate__.claude_agents_uiux-designer.md",
+   "repo": "levu304/claude-code-boilerplate",
+   "path": ".claude/agents/uiux-designer.md",
+   "stars": 130,
+   "words": 531,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "levu304/claude-code-boilerplate"
+   ],
+   "id": "c00660",
+   "kind": "agent"
+  },
+  {
+   "file": "aaddrick_claude-pipeline__.claude_agents_ux-reviewer.md",
+   "repo": "aaddrick/claude-pipeline",
+   "path": ".claude/agents/ux-reviewer.md",
+   "stars": 129,
+   "words": 1272,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "aaddrick/claude-pipeline"
+   ],
+   "id": "c00661",
+   "kind": "agent"
+  },
+  {
+   "file": "senaiverse_reactnative-expo-ai-agent-system-workflow__ready-to-use_agents_tier-1-daily_design-token-guardian.md",
+   "repo": "senaiverse/reactnative-expo-ai-agent-system-workflow",
+   "path": "ready-to-use/agents/tier-1-daily/design-token-guardian.md",
+   "stars": 126,
+   "words": 541,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "senaiverse/reactnative-expo-ai-agent-system-workflow"
+   ],
+   "id": "c00664",
+   "kind": "agent"
+  },
+  {
+   "file": "Rigos0_superturtle__.claude_agents_ux-reviewer.md",
+   "repo": "Rigos0/superturtle",
+   "path": ".claude/agents/ux-reviewer.md",
+   "stars": 123,
+   "words": 663,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Rigos0/superturtle"
+   ],
+   "id": "c00680",
+   "kind": "agent"
+  },
+  {
+   "file": "VKirill_claude-lane-stack__plugins_lane-stack_agents_design-lead.md",
+   "repo": "VKirill/claude-lane-stack",
+   "path": "plugins/lane-stack/agents/design-lead.md",
+   "stars": 117,
+   "words": 880,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "VKirill/claude-lane-stack"
+   ],
+   "id": "c00681",
+   "kind": "agent"
+  },
+  {
+   "file": "ChrisRoyse_610ClaudeSubagents__agents_micro-interaction-designer.md",
+   "repo": "ChrisRoyse/610ClaudeSubagents",
+   "path": "agents/micro-interaction-designer.md",
+   "stars": 116,
+   "words": 1797,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "ChrisRoyse/610ClaudeSubagents"
+   ],
+   "id": "c00683",
+   "kind": "agent"
+  },
+  {
+   "file": "ChrisRoyse_610ClaudeSubagents__agents_performance-ux-optimizer.md",
+   "repo": "ChrisRoyse/610ClaudeSubagents",
+   "path": "agents/performance-ux-optimizer.md",
+   "stars": 116,
+   "words": 1883,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "ChrisRoyse/610ClaudeSubagents"
+   ],
+   "id": "c00684",
+   "kind": "agent"
+  },
+  {
+   "file": "danielmeppiel_awesome-ai-native__.github_agents_gh-pages-designer.chatmode.md",
+   "repo": "danielmeppiel/awesome-ai-native",
+   "path": ".github/agents/gh-pages-designer.chatmode.md",
+   "stars": 112,
+   "words": 172,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "danielmeppiel/awesome-ai-native"
+   ],
+   "id": "c00690",
+   "kind": "agent"
+  },
+  {
+   "file": "Toskysun_sub-agents__agents_google-ui-designer.md",
+   "repo": "Toskysun/sub-agents",
+   "path": "agents/google-ui-designer.md",
+   "stars": 111,
+   "words": 372,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Toskysun/sub-agents"
+   ],
+   "id": "c00691",
+   "kind": "agent"
+  },
+  {
+   "file": "Toskysun_sub-agents__agents_mobile-ui-designer.md",
+   "repo": "Toskysun/sub-agents",
+   "path": "agents/mobile-ui-designer.md",
+   "stars": 111,
+   "words": 334,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "Toskysun/sub-agents"
+   ],
+   "id": "c00692",
+   "kind": "agent"
+  },
+  {
+   "file": "TheBeardedBearSAS_claude-craft__.claude_agents_ui-designer.md",
+   "repo": "TheBeardedBearSAS/claude-craft",
+   "path": ".claude/agents/ui-designer.md",
+   "stars": 105,
+   "words": 829,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "TheBeardedBearSAS/claude-craft"
+   ],
+   "id": "c00694",
+   "kind": "agent"
+  },
+  {
+   "file": "TheJacksonCode_Agent-Architecture__agents_designer.md",
+   "repo": "TheJacksonCode/Agent-Architecture",
+   "path": "agents/designer.md",
+   "stars": 102,
+   "words": 567,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "TheJacksonCode/Agent-Architecture"
+   ],
+   "id": "c00697",
+   "kind": "agent"
+  },
+  {
+   "file": "TheJacksonCode_Agent-Architecture__agents_res_ux.md",
+   "repo": "TheJacksonCode/Agent-Architecture",
+   "path": "agents/res_ux.md",
+   "stars": 102,
+   "words": 608,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "TheJacksonCode/Agent-Architecture"
+   ],
+   "id": "c00699",
+   "kind": "agent"
+  },
+  {
+   "file": "xuanbingbingo_claude-standard-dev-team__agents_ui-designer.md",
+   "repo": "xuanbingbingo/claude-standard-dev-team",
+   "path": "agents/ui-designer.md",
+   "stars": 101,
+   "words": 986,
+   "members": 1,
+   "repos": 1,
+   "sample_repos": [
+    "xuanbingbingo/claude-standard-dev-team"
+   ],
+   "id": "c00701",
+   "kind": "agent"
+  }
+ ],
+ "skills": [
+  {
+   "repo": "Galaxy-Dawn/claude-scholar",
+   "path": "skills/frontend-design/SKILL.md",
+   "file": "Galaxy-Dawn_claude-scholar__skills_frontend-design_SKILL.md",
+   "words": 585,
+   "sha": "7e389e7556f36e983a4b02b710070d3ac54e858e082e7071f2a0378051d654cf",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": [
+    "freestylefly/wesight/SKILLs/frontend-design/SKILL.md",
+    "ThinkInAIXYZ/deepchat/resources/skills/frontend-design/SKILL.md",
+    "cloudflare/vibesdk/worker/agents/think/skills/frontend-design/SKILL.md",
+    "shobcoder/shob/skills/frontend-design/SKILL.md",
+    "mrgoonie/claudekit-skills/.claude/skills/frontend-design/SKILL.md",
+    "AgentWorkforce/relay/.claude/skills/frontend-design/SKILL.md",
+    "digitalsamba/claude-code-video-toolkit/.claude/skills/frontend-design/SKILL.md",
+    "dtsola/xiaoyaosearch/.claude/skills/frontend-design/SKILL.md",
+    "composio-community/awesome-claude-plugins/frontend-design/skills/frontend-design/SKILL.md",
+    "steipete/agent-scripts/skills/frontend-design/SKILL.md",
+    "anbeime/skill/skills/frontend-design/frontend-design/SKILL.md"
+   ]
+  },
+  {
+   "repo": "Kiranism/next-shadcn-dashboard-starter",
+   "path": ".agents/skills/web-design-guidelines/SKILL.md",
+   "file": "Kiranism_next-shadcn-dashboard-starter__.agents_skills_web-design-guidelines_SKILL.md",
+   "words": 176,
+   "sha": "c2bd6243267c97f5a735156649e17422233fe1c081c2556cb398e2362b12e936",
+   "kind": "skill",
+   "name": "web-design-guidelines",
+   "copies": [
+    "awesome-dsh-plugin/awesome-dsh-plugin/.agents/skills/web-design-guidelines/SKILL.md",
+    "jarrodwatts/claude-code-config/skills/web-design-guidelines/SKILL.md"
+   ]
+  },
+  {
+   "repo": "tech-leads-club/agent-skills",
+   "path": "packages/skills-catalog/skills/(design)/frontend-design/SKILL.md",
+   "file": "tech-leads-club_agent-skills__packages_skills-catalog_skills_(design)_frontend-design_SKILL.md",
+   "words": 1289,
+   "sha": "27c005b5bfdf0a02678f2ade532028b63dc5443791bff28ab63f0b4d857085fb",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": [
+    "holaboss-ai/holaOS/runtime/harnesses/src/embedded-skills/frontend-design/SKILL.md",
+    "yournextstore/yournextstore/.agents/skills/frontend-design/SKILL.md"
+   ]
+  },
+  {
+   "repo": "AgentWorkforce/relay",
+   "path": ".agents/skills/emil-design-eng/SKILL.md",
+   "file": "AgentWorkforce_relay__.agents_skills_emil-design-eng_SKILL.md",
+   "words": 3887,
+   "sha": "7cae333032940e9df7b9a64e1315e2556772b4b5c794fed23c9266f80a454fee",
+   "kind": "skill",
+   "name": "emil-design-eng",
+   "copies": [
+    "spree/spree/.agents/skills/emil-design-eng/SKILL.md"
+   ]
+  },
+  {
+   "repo": "HKUDS/DeepCode",
+   "path": "core/skills/builtin/frontend-design/SKILL.md",
+   "file": "HKUDS_DeepCode__core_skills_builtin_frontend-design_SKILL.md",
+   "words": 1336,
+   "sha": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": [
+    "iflytek/skillhub/builtin-skills/skills/frontend-design/SKILL.md"
+   ]
+  },
+  {
+   "repo": "Leonxlnx/taste-skill",
+   "path": "skills/taste-skill/SKILL.md",
+   "file": "Leonxlnx_taste-skill__skills_taste-skill_SKILL.md",
+   "words": 12853,
+   "sha": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89",
+   "kind": "skill",
+   "name": "taste-skill",
+   "copies": [
+    "huytieu/COG-second-brain/.claude/skills/taste-skill/SKILL.md"
+   ]
+  },
+  {
+   "repo": "Leonxlnx/taste-skill",
+   "path": "skills/taste-skill-v1/SKILL.md",
+   "file": "Leonxlnx_taste-skill__skills_taste-skill-v1_SKILL.md",
+   "words": 2937,
+   "sha": "033d45af1ed23832730642f95f40ab49db7fb5222848489a6c5656144bfc6dae",
+   "kind": "skill",
+   "name": "taste-skill-v1",
+   "copies": [
+    "oracle-devrel/oracle-ai-developer-hub/workshops/soccer-analytics-agent/.claude/skills/taste-skill/SKILL.md"
+   ]
+  },
+  {
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "path": ".claude/skills/ui-styling/SKILL.md",
+   "file": "nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_ui-styling_SKILL.md",
+   "words": 1277,
+   "sha": "625e302c60ee8f2e22d56cbe638c4a739e2657f566dae42689503ad517c30f1e",
+   "kind": "skill",
+   "name": "ui-styling",
+   "copies": [
+    "mrgoonie/claudekit-skills/.claude/skills/ui-styling/SKILL.md"
+   ]
+  },
+  {
+   "repo": "AIPexStudio/AIPex",
+   "path": "packages/browser-runtime/src/skill/built-in/ux-audit-walkthrough/SKILL.md",
+   "file": "AIPexStudio_AIPex__packages_browser-runtime_src_skill_built-in_ux-audit-walkthrough_SKILL.md",
+   "words": 1098,
+   "sha": "83eec61296e988b4ea5964f13c69934fbecfac8c7c44a67efae223b298ff86b9",
+   "kind": "skill",
+   "name": "ux-audit-walkthrough",
+   "copies": []
+  },
+  {
+   "repo": "Affitor/affiliate-skills",
+   "path": "skills/landing/landing-page-creator/SKILL.md",
+   "file": "Affitor_affiliate-skills__skills_landing_landing-page-creator_SKILL.md",
+   "words": 2000,
+   "sha": "69ba5e0cc356c0dea74a74c9ae588422a7d84b37d30a4c44f4dce8fab2b87676",
+   "kind": "skill",
+   "name": "landing-page-creator",
+   "copies": []
+  },
+  {
+   "repo": "Archive228/loopkit",
+   "path": "skills/design-system/SKILL.md",
+   "file": "Archive228_loopkit__skills_design-system_SKILL.md",
+   "words": 154,
+   "sha": "6101d23c6f89269d91d0cdb6b028a234f9755e851b1373fc51a14635fa00b55b",
+   "kind": "skill",
+   "name": "design-system",
+   "copies": []
+  },
+  {
+   "repo": "BankrBot/skills",
+   "path": "ethskills-frontend-ux/SKILL.md",
+   "file": "BankrBot_skills__ethskills-frontend-ux_SKILL.md",
+   "words": 50,
+   "sha": "6e3ae373523d64f692b767738cee35d63e0ccda2a04aa7c2b85b1ca5c6bde6eb",
+   "kind": "skill",
+   "name": "ethskills-frontend-ux",
+   "copies": []
+  },
+  {
+   "repo": "CloudAI-X/claude-workflow-v2",
+   "path": "skills/web-design-guidelines/SKILL.md",
+   "file": "CloudAI-X_claude-workflow-v2__skills_web-design-guidelines_SKILL.md",
+   "words": 981,
+   "sha": "0f0b4d9af56b6a502f8fcd8f52e4acc0fbc5441a78537a4b1b2a56f47ac2dd86",
+   "kind": "skill",
+   "name": "web-design-guidelines",
+   "copies": []
+  },
+  {
+   "repo": "ConardLi/garden-skills",
+   "path": "skills/web-design-engineer/SKILL.md",
+   "file": "ConardLi_garden-skills__skills_web-design-engineer_SKILL.md",
+   "words": 5332,
+   "sha": "00633aa430281e9921c35bb181ab233879d2a21e999d605fc330258a54e26df1",
+   "kind": "skill",
+   "name": "web-design-engineer",
+   "copies": []
+  },
+  {
+   "repo": "Destynova2/cli-code-skills",
+   "path": "cli-forge-choice-ux/SKILL.md",
+   "file": "Destynova2_cli-code-skills__cli-forge-choice-ux_SKILL.md",
+   "words": 1431,
+   "sha": "2836d4930364f0092b11529fee1baa206895b10d9fb76502578adcce5b6f0e7e",
+   "kind": "skill",
+   "name": "cli-forge-choice-ux",
+   "copies": []
+  },
+  {
+   "repo": "EveryInc/compound-engineering-plugin",
+   "path": "skills/ce-prototype/SKILL.md",
+   "file": "EveryInc_compound-engineering-plugin__skills_ce-prototype_SKILL.md",
+   "words": 1257,
+   "sha": "de1b34ef13dffcf882021bc8e600abb64bd9265fb624b35dd9800ce6412c78fb",
+   "kind": "skill",
+   "name": "ce-prototype",
+   "copies": []
+  },
+  {
+   "repo": "Galaxy-Dawn/claude-scholar",
+   "path": "skills/ui-ux-pro-max/SKILL.md",
+   "file": "Galaxy-Dawn_claude-scholar__skills_ui-ux-pro-max_SKILL.md",
+   "words": 556,
+   "sha": "bfc986f0747554d1078e80e103e5ef9bbd0907efeee26f781e2a404e1763e0ee",
+   "kind": "skill",
+   "name": "ui-ux-pro-max",
+   "copies": []
+  },
+  {
+   "repo": "Galaxy-Dawn/claude-scholar",
+   "path": "skills/web-design-reviewer/SKILL.md",
+   "file": "Galaxy-Dawn_claude-scholar__skills_web-design-reviewer_SKILL.md",
+   "words": 1572,
+   "sha": "8d31fcdcfc6ddb813e529cf0b199046c4492ac59264c79aa957d2f679527b02e",
+   "kind": "skill",
+   "name": "web-design-reviewer",
+   "copies": []
+  },
+  {
+   "repo": "Leonxlnx/taste-skill",
+   "path": "skills/gpt-tasteskill/SKILL.md",
+   "file": "Leonxlnx_taste-skill__skills_gpt-tasteskill_SKILL.md",
+   "words": 1134,
+   "sha": "2e64c269953f2656c21bf5a0fa6b4568e82fe0c72b36e8f84758e090349966a5",
+   "kind": "skill",
+   "name": "gpt-tasteskill",
+   "copies": []
+  },
+  {
+   "repo": "Light0305/Light-skills",
+   "path": "skills/light-frontend-design/SKILL.md",
+   "file": "Light0305_Light-skills__skills_light-frontend-design_SKILL.md",
+   "words": 1230,
+   "sha": "13d53e3f6ca1a8a0d2b5ce8bfe245f2febb9c1ca3b28dbe27b82ad301ae330f1",
+   "kind": "skill",
+   "name": "light-frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "LottieFiles/motion-design-skill",
+   "path": "skills/motion-design/SKILL.md",
+   "file": "LottieFiles_motion-design-skill__skills_motion-design_SKILL.md",
+   "words": 1714,
+   "sha": "8729ecbc7e5736c1295baaa8ba0384bb4b1aac9cf91b83fcdc64d9548a57bb19",
+   "kind": "skill",
+   "name": "motion-design",
+   "copies": []
+  },
+  {
+   "repo": "MengTo/Skills",
+   "path": "agent-skills/web-design/css-border-gradient/SKILL.md",
+   "file": "MengTo_Skills__agent-skills_web-design_css-border-gradient_SKILL.md",
+   "words": 387,
+   "sha": "6c5e1924a7ec55044aca52801cd30efb06cb922fa47e4c4b85d16b39471c922a",
+   "kind": "skill",
+   "name": "css-border-gradient",
+   "copies": []
+  },
+  {
+   "repo": "Mesh-LLM/mesh-llm",
+   "path": ".agents/skills/plugin-web-ui-extension/SKILL.md",
+   "file": "Mesh-LLM_mesh-llm__.agents_skills_plugin-web-ui-extension_SKILL.md",
+   "words": 1093,
+   "sha": "45458fad2735d01aed76ee358d380499e71bdb2577537994b6209becefd5824a",
+   "kind": "skill",
+   "name": "plugin-web-ui-extension",
+   "copies": []
+  },
+  {
+   "repo": "Orkas-AI/Orkas",
+   "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-craft-checks/SKILL.md",
+   "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-craft-checks_SKILL.md",
+   "words": 1532,
+   "sha": "e0bba6a3597e20cb9a7806274b293b15387a08d7c6ee44fe220a4f616f8cfa29",
+   "kind": "skill",
+   "name": "ui-craft-checks",
+   "copies": []
+  },
+  {
+   "repo": "Orkas-AI/Orkas",
+   "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-design-source/SKILL.md",
+   "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-design-source_SKILL.md",
+   "words": 2272,
+   "sha": "b81e9c7493125f08c8247f2417eaf0fd7cf49d953c4aee04c6c910c3ff65e0c1",
+   "kind": "skill",
+   "name": "ui-design-source",
+   "copies": []
+  },
+  {
+   "repo": "Orkas-AI/Orkas",
+   "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/SKILL.md",
+   "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-reference-packs_SKILL.md",
+   "words": 603,
+   "sha": "106817c7ea8b104b3f9b006f455e3fa5c2f2f140fb9653ff94eada1ae706ae29",
+   "kind": "skill",
+   "name": "ui-reference-packs",
+   "copies": []
+  },
+  {
+   "repo": "Owl-Listener/designer-skills",
+   "path": "designer-toolkit/skills/design-system-adoption/SKILL.md",
+   "file": "Owl-Listener_designer-skills__designer-toolkit_skills_design-system-adoption_SKILL.md",
+   "words": 332,
+   "sha": "b3d02041af933bd3941bdb408d2b467375f8a44efdcc718aa59a4a76f11fe4cb",
+   "kind": "skill",
+   "name": "design-system-adoption",
+   "copies": []
+  },
+  {
+   "repo": "Owl-Listener/designer-skills",
+   "path": "interaction-design/skills/error-handling-ux/SKILL.md",
+   "file": "Owl-Listener_designer-skills__interaction-design_skills_error-handling-ux_SKILL.md",
+   "words": 307,
+   "sha": "b0bc3af42aa16f23a342de2c885d178c4f5c1102b30d9f95f2cddaa0b43ad14b",
+   "kind": "skill",
+   "name": "error-handling-ux",
+   "copies": []
+  },
+  {
+   "repo": "Owl-Listener/designer-skills",
+   "path": "ui-design/skills/typography-scale/SKILL.md",
+   "file": "Owl-Listener_designer-skills__ui-design_skills_typography-scale_SKILL.md",
+   "words": 247,
+   "sha": "85c9d1aced667b6ef84643bf857c564d996484421e4c027dedd6d160d9f09ed1",
+   "kind": "skill",
+   "name": "typography-scale",
+   "copies": []
+  },
+  {
+   "repo": "RightNow-AI/openfang",
+   "path": "crates/openfang-skills/bundled/css-expert/SKILL.md",
+   "file": "RightNow-AI_openfang__crates_openfang-skills_bundled_css-expert_SKILL.md",
+   "words": 433,
+   "sha": "ca02c989abdaf8bd2a93b1635a5f25b405257b62bf3243b2fcebcbca99edb4fa",
+   "kind": "skill",
+   "name": "css-expert",
+   "copies": []
+  },
+  {
+   "repo": "SpaceZephyr/design-buddy",
+   "path": "space-brand-ui-design/SKILL.md",
+   "file": "SpaceZephyr_design-buddy__space-brand-ui-design_SKILL.md",
+   "words": 700,
+   "sha": "14f135587c6410ccfc095913ce51db3e8997eb89dade33f4e48263ffaf3e1752",
+   "kind": "skill",
+   "name": "space-brand-ui-design",
+   "copies": []
+  },
+  {
+   "repo": "TencentCloudBase/CloudBase-AI-Toolkit",
+   "path": "config/.claude/skills/ui-design/SKILL.md",
+   "file": "TencentCloudBase_CloudBase-AI-Toolkit__config_.claude_skills_ui-design_SKILL.md",
+   "words": 2133,
+   "sha": "74b7746c87e7ec6480b590a0ad4932f9e87348487e282fbb03c83b1cd0030b1a",
+   "kind": "skill",
+   "name": "ui-design",
+   "copies": []
+  },
+  {
+   "repo": "Uxcel-Lab/product-skills",
+   "path": "ux/foundations/color/SKILL.md",
+   "file": "Uxcel-Lab_product-skills__ux_foundations_color_SKILL.md",
+   "words": 1188,
+   "sha": "a7b03a26325e4f0e0d2c2620d10a954371973ecb416f69552851f4743dafe8fe",
+   "kind": "skill",
+   "name": "color",
+   "copies": []
+  },
+  {
+   "repo": "Uxcel-Lab/product-skills",
+   "path": "ux/foundations/typography/SKILL.md",
+   "file": "Uxcel-Lab_product-skills__ux_foundations_typography_SKILL.md",
+   "words": 1107,
+   "sha": "717f55ac4d77ec93af8fc1e3aa9005645d696dcf434560b5f270f7ca9fc2eb9c",
+   "kind": "skill",
+   "name": "typography",
+   "copies": []
+  },
+  {
+   "repo": "Uxcel-Lab/product-skills",
+   "path": "ux/screens/landing-page/SKILL.md",
+   "file": "Uxcel-Lab_product-skills__ux_screens_landing-page_SKILL.md",
+   "words": 1688,
+   "sha": "261154d49fe8f20bafad6735a61dda06879083a52ea931e84eba6c693ea74237",
+   "kind": "skill",
+   "name": "landing-page",
+   "copies": []
+  },
+  {
+   "repo": "addyosmani/agent-skills",
+   "path": "skills/frontend-ui-engineering/SKILL.md",
+   "file": "addyosmani_agent-skills__skills_frontend-ui-engineering_SKILL.md",
+   "words": 1581,
+   "sha": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e",
+   "kind": "skill",
+   "name": "frontend-ui-engineering",
+   "copies": []
+  },
+  {
+   "repo": "anbeime/skill",
+   "path": "skills/web-design-analyzer/web-design-analyzer/SKILL.md",
+   "file": "anbeime_skill__skills_web-design-analyzer_web-design-analyzer_SKILL.md",
+   "words": 292,
+   "sha": "ab55a959a86c7dd78bed21884282c8c000dc75f0ceaf040072bd4c91f567a0f3",
+   "kind": "skill",
+   "name": "web-design-analyzer",
+   "copies": []
+  },
+  {
+   "repo": "anthropics/claude-plugins-official",
+   "path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
+   "file": "anthropics_claude-plugins-official__plugins_frontend-design_skills_frontend-design_SKILL.md",
+   "words": 1516,
+   "sha": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "avibebuilder/claude-prime",
+   "path": ".claude/skills/frontend-design/SKILL.md",
+   "file": "avibebuilder_claude-prime__.claude_skills_frontend-design_SKILL.md",
+   "words": 1111,
+   "sha": "64fc4563c051d10c0a90ae96b61426d44127403368aba3e73a7eb14eafed7b52",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+   "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+   "file": "awesome-dsh-plugin_awesome-dsh-plugin__.agents_skills_ui-ux-pro-max_SKILL.md",
+   "words": 2118,
+   "sha": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9",
+   "kind": "skill",
+   "name": "ui-ux-pro-max",
+   "copies": []
+  },
+  {
+   "repo": "beshuaxian/higgsfield-seedance2-jineng",
+   "path": "skills/06-motion-design-ad/SKILL.md",
+   "file": "beshuaxian_higgsfield-seedance2-jineng__skills_06-motion-design-ad_SKILL.md",
+   "words": 8453,
+   "sha": "297124ca7e0a6743cbbc79c8de3de4ef722cc81f0d01c1cbfbf05b0ec574d29f",
+   "kind": "skill",
+   "name": "06-motion-design-ad",
+   "copies": []
+  },
+  {
+   "repo": "bytedance/deer-flow",
+   "path": "skills/public/frontend-design/SKILL.md",
+   "file": "bytedance_deer-flow__skills_public_frontend-design_SKILL.md",
+   "words": 994,
+   "sha": "f187caf13081bd3b5509f4c7424b7b507e3140020daaf3454b9181d1af4f61ca",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "catlog22/Claude-Code-Workflow",
+   "path": ".claude/skills/team-motion-design/SKILL.md",
+   "file": "catlog22_Claude-Code-Workflow__.claude_skills_team-motion-design_SKILL.md",
+   "words": 607,
+   "sha": "ec8553e9a3cb351666cd0513963c72bd4a182d1c5a1870aa6bf2ba58c3bcb070",
+   "kind": "skill",
+   "name": "team-motion-design",
+   "copies": []
+  },
+  {
+   "repo": "catlog22/Claude-Code-Workflow",
+   "path": ".codex/skills/team-ux-improve/SKILL.md",
+   "file": "catlog22_Claude-Code-Workflow__.codex_skills_team-ux-improve_SKILL.md",
+   "words": 1132,
+   "sha": "4a09a84cbf4b57eb2deccf031597cddd338e9c40395ef900e87095215a92d579",
+   "kind": "skill",
+   "name": "team-ux-improve",
+   "copies": []
+  },
+  {
+   "repo": "cloudflare/vibesdk",
+   "path": "worker/agents/think/skills/frontend-design-landing-page/SKILL.md",
+   "file": "cloudflare_vibesdk__worker_agents_think_skills_frontend-design-landing-page_SKILL.md",
+   "words": 11148,
+   "sha": "bb620c71dd6762ca61ee5acb563c710600f961eeb6ccc6eb1f7003359f2aa9aa",
+   "kind": "skill",
+   "name": "frontend-design-landing-page",
+   "copies": []
+  },
+  {
+   "repo": "cloudflare/vibesdk",
+   "path": "worker/agents/think/skills/frontend-design-saas/SKILL.md",
+   "file": "cloudflare_vibesdk__worker_agents_think_skills_frontend-design-saas_SKILL.md",
+   "words": 14232,
+   "sha": "e0283287a2bf95f5659c62c31f4fa27bea9a4df492d7f5f4ad9955d775cb2f9b",
+   "kind": "skill",
+   "name": "frontend-design-saas",
+   "copies": []
+  },
+  {
+   "repo": "countbot-ai/CountBot",
+   "path": "workspace/skills/web-design/SKILL.md",
+   "file": "countbot-ai_CountBot__workspace_skills_web-design_SKILL.md",
+   "words": 317,
+   "sha": "46c88a51f673f6b8cc90552fc3c043201f68ccd0019e3fdf8766bde5e9b8a6c4",
+   "kind": "skill",
+   "name": "web-design",
+   "copies": []
+  },
+  {
+   "repo": "danielmiessler/LifeOS",
+   "path": "LifeOS/install/skills/Webdesign/SKILL.md",
+   "file": "danielmiessler_LifeOS__LifeOS_install_skills_Webdesign_SKILL.md",
+   "words": 2356,
+   "sha": "73c201e3f91205a6c1cfc7d116ab38bbc4cef9c42802fc8868e2bf360312e362",
+   "kind": "skill",
+   "name": "webdesign",
+   "copies": []
+  },
+  {
+   "repo": "dstackai/dstack",
+   "path": "skills/dstack-prototyping/SKILL.md",
+   "file": "dstackai_dstack__skills_dstack-prototyping_SKILL.md",
+   "words": 842,
+   "sha": "ba03e0cddb37eac74a71783857c90a6b2454e06624c26848fe91f123b0a3ecb8",
+   "kind": "skill",
+   "name": "dstack-prototyping",
+   "copies": []
+  },
+  {
+   "repo": "elayadesign/ai-design-skills",
+   "path": "skills/landing-page-design/SKILL.md",
+   "file": "elayadesign_ai-design-skills__skills_landing-page-design_SKILL.md",
+   "words": 2708,
+   "sha": "3aae79f3d33ea293491fe6251f9fee56ee0cbb7aa66d41b3f29cfc662e4bbdd6",
+   "kind": "skill",
+   "name": "landing-page-design",
+   "copies": []
+  },
+  {
+   "repo": "expo/skills",
+   "path": "plugins/expo/skills/expo-design-system/SKILL.md",
+   "file": "expo_skills__plugins_expo_skills_expo-design-system_SKILL.md",
+   "words": 2767,
+   "sha": "b841a830e70cf06b14ad38f6ccaf7fa1ea60c57b4b7f78de650f3157dbbc3ff0",
+   "kind": "skill",
+   "name": "expo-design-system",
+   "copies": []
+  },
+  {
+   "repo": "expo/skills",
+   "path": "plugins/expo/skills/expo-native-ui/SKILL.md",
+   "file": "expo_skills__plugins_expo_skills_expo-native-ui_SKILL.md",
+   "words": 1703,
+   "sha": "52d8c3bdf6d466dda826a89b3d0846b5014233c1e399f01ab193be7b1baccf53",
+   "kind": "skill",
+   "name": "expo-native-ui",
+   "copies": []
+  },
+  {
+   "repo": "fengshao1227/ccg-workflow",
+   "path": "templates/skills/domains/frontend-design/SKILL.md",
+   "file": "fengshao1227_ccg-workflow__templates_skills_domains_frontend-design_SKILL.md",
+   "words": 1806,
+   "sha": "9ca32e75324fac2352d5bdd072c34be3631691bbe0ed882087687512efc8027a",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "fengshao1227/ccg-workflow",
+   "path": "templates/skills/impeccable/colorize/SKILL.md",
+   "file": "fengshao1227_ccg-workflow__templates_skills_impeccable_colorize_SKILL.md",
+   "words": 964,
+   "sha": "fb5e2490674802b8c814c9e28482604942e425466b3b417f294f9aadb36a0d54",
+   "kind": "skill",
+   "name": "colorize",
+   "copies": []
+  },
+  {
+   "repo": "foru17/neko-master",
+   "path": ".claude/skills/ui-conventions/SKILL.md",
+   "file": "foru17_neko-master__.claude_skills_ui-conventions_SKILL.md",
+   "words": 446,
+   "sha": "2fbab5f3d56fc9808abb2a8f4b9bae37c490106ecc6cc27e25150746e6565915",
+   "kind": "skill",
+   "name": "ui-conventions",
+   "copies": []
+  },
+  {
+   "repo": "freshtechbro/claudedesignskills",
+   "path": "plugins/bundles/meta-skills/skills/modern-web-design/SKILL.md",
+   "file": "freshtechbro_claudedesignskills__plugins_bundles_meta-skills_skills_modern-web-design_SKILL.md",
+   "words": 3235,
+   "sha": "062b0120b59067744c135ec5d49d71e468b8e16de92ec2dec6fc19c41c4a9a24",
+   "kind": "skill",
+   "name": "modern-web-design",
+   "copies": []
+  },
+  {
+   "repo": "gajjalaashok75-UI/gakrcli-plugins-official",
+   "path": "skill-plugins/stitch-ui-design/skills/stitch-ui-design/SKILL.md",
+   "file": "gajjalaashok75-UI_gakrcli-plugins-official__skill-plugins_stitch-ui-design_skills_stitch-ui-design_SKILL.md",
+   "words": 1560,
+   "sha": "0ee5311760838a9f01f6def6c39af71329aa5f377f704223de7ec7b2a5d0bc4c",
+   "kind": "skill",
+   "name": "stitch-ui-design",
+   "copies": []
+  },
+  {
+   "repo": "google-labs-code/stitch-skills",
+   "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md",
+   "file": "google-labs-code_stitch-skills__plugins_stitch-design_skills_manage-design-system_SKILL.md",
+   "words": 745,
+   "sha": "5ce0b8adb5261e8a926fc0942d679cda0421ac29e8159a6ee38e5d940bc9658e",
+   "kind": "skill",
+   "name": "manage-design-system",
+   "copies": []
+  },
+  {
+   "repo": "google-labs-code/stitch-skills",
+   "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md",
+   "file": "google-labs-code_stitch-skills__plugins_stitch-utilities_skills_taste-design_SKILL.md",
+   "words": 1771,
+   "sha": "e425fdb7ab250764f6229c48941f97e20bd6a7ba9e25a628f1e0ebeb008e8bff",
+   "kind": "skill",
+   "name": "taste-design",
+   "copies": []
+  },
+  {
+   "repo": "guokaigdg/animal-island-ui",
+   "path": "skills/animal-island-ui-style/SKILL.md",
+   "file": "guokaigdg_animal-island-ui__skills_animal-island-ui-style_SKILL.md",
+   "words": 793,
+   "sha": "b4c29a9dbea261253c3fd965e5f298938b6b6a65b2ab619ebe4de35559351d63",
+   "kind": "skill",
+   "name": "animal-island-ui-style",
+   "copies": []
+  },
+  {
+   "repo": "himself65/finance-skills",
+   "path": "plugins/ui-tools/skills/generative-ui/SKILL.md",
+   "file": "himself65_finance-skills__plugins_ui-tools_skills_generative-ui_SKILL.md",
+   "words": 1612,
+   "sha": "65a0c18c2deb07fc2661ee765ee9cefd6e0f5d18f9d4ab39f8d593eb821e876a",
+   "kind": "skill",
+   "name": "generative-ui",
+   "copies": []
+  },
+  {
+   "repo": "holaboss-ai/holaOS",
+   "path": "runtime/harnesses/src/embedded-skills/interface-design/SKILL.md",
+   "file": "holaboss-ai_holaOS__runtime_harnesses_src_embedded-skills_interface-design_SKILL.md",
+   "words": 3769,
+   "sha": "ef72be15bee95fab9a737ee7adc22f3c64755cf32a09a8ab3e13fb12e239af15",
+   "kind": "skill",
+   "name": "interface-design",
+   "copies": []
+  },
+  {
+   "repo": "huytieu/COG-second-brain",
+   "path": ".agents/skills/taste-skill/SKILL.md",
+   "file": "huytieu_COG-second-brain__.agents_skills_taste-skill_SKILL.md",
+   "words": 76,
+   "sha": "d8e4a51ee68afa3404af270d3952ae0f8a01c9ce93b04ebe7e29947cd2518db3",
+   "kind": "skill",
+   "name": "taste-skill",
+   "copies": []
+  },
+  {
+   "repo": "ibelick/ui-skills",
+   "path": "skills/baseline-ui/SKILL.md",
+   "file": "ibelick_ui-skills__skills_baseline-ui_SKILL.md",
+   "words": 508,
+   "sha": "fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f",
+   "kind": "skill",
+   "name": "baseline-ui",
+   "copies": []
+  },
+  {
+   "repo": "ibelick/ui-skills",
+   "path": "skills/improve-ui/SKILL.md",
+   "file": "ibelick_ui-skills__skills_improve-ui_SKILL.md",
+   "words": 1114,
+   "sha": "fa2ac808f6d9dab7bb3620880b014d2c18e227e5b006102856038096e573e69a",
+   "kind": "skill",
+   "name": "improve-ui",
+   "copies": []
+  },
+  {
+   "repo": "ibelick/ui-skills",
+   "path": "skills/ui-skills-root/SKILL.md",
+   "file": "ibelick_ui-skills__skills_ui-skills-root_SKILL.md",
+   "words": 236,
+   "sha": "d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c",
+   "kind": "skill",
+   "name": "ui-skills-root",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/make-interfaces-feel-better",
+   "path": "skills/make-interfaces-feel-better/SKILL.md",
+   "file": "jakubkrehel_make-interfaces-feel-better__skills_make-interfaces-feel-better_SKILL.md",
+   "words": 1842,
+   "sha": "c1d508fa7bef8e47ee682b4f214c7a4ed1416b91d05a97285e555bad1c41a23e",
+   "kind": "skill",
+   "name": "make-interfaces-feel-better",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/skills",
+   "path": "skills/better-colors/SKILL.md",
+   "file": "jakubkrehel_skills__skills_better-colors_SKILL.md",
+   "words": 1260,
+   "sha": "cde9dd40cb183b383514e1a2c76bf74c9d914f5f6722ee6079d3f9cd121862c1",
+   "kind": "skill",
+   "name": "better-colors",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/skills",
+   "path": "skills/better-interface/SKILL.md",
+   "file": "jakubkrehel_skills__skills_better-interface_SKILL.md",
+   "words": 1554,
+   "sha": "57412a685bd1a654f81def820099481b7df6ddf8f4bc06989a1b875b1d01c036",
+   "kind": "skill",
+   "name": "better-interface",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/skills",
+   "path": "skills/better-typography/SKILL.md",
+   "file": "jakubkrehel_skills__skills_better-typography_SKILL.md",
+   "words": 1638,
+   "sha": "717f615910470bd2b7c662cce2af2ebd11cd887379a6ea93455c45f3c5ba378d",
+   "kind": "skill",
+   "name": "better-typography",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/skills",
+   "path": "skills/better-ui/SKILL.md",
+   "file": "jakubkrehel_skills__skills_better-ui_SKILL.md",
+   "words": 1086,
+   "sha": "2482b7b89d851a3128d36edf5367f3223e113a4ef421b7358c7e6de3f2c83faf",
+   "kind": "skill",
+   "name": "better-ui",
+   "copies": []
+  },
+  {
+   "repo": "jakubkrehel/skills",
+   "path": "skills/interface-review/SKILL.md",
+   "file": "jakubkrehel_skills__skills_interface-review_SKILL.md",
+   "words": 1786,
+   "sha": "65783ac261ee1a33da11bbbbdb6e71ab6162fc24a2450f91781457b41b9a6d13",
+   "kind": "skill",
+   "name": "interface-review",
+   "copies": []
+  },
+  {
+   "repo": "jezweb/claude-skills",
+   "path": "plugins/dev-tools/skills/ux-audit/SKILL.md",
+   "file": "jezweb_claude-skills__plugins_dev-tools_skills_ux-audit_SKILL.md",
+   "words": 4777,
+   "sha": "1d80c3fcd1d18c98f4fef677b2dc8a56ffca6b7f5eb680d310ccc08adc263c95",
+   "kind": "skill",
+   "name": "ux-audit",
+   "copies": []
+  },
+  {
+   "repo": "jezweb/claude-skills",
+   "path": "plugins/frontend/skills/tailwind-theme-builder/SKILL.md",
+   "file": "jezweb_claude-skills__plugins_frontend_skills_tailwind-theme-builder_SKILL.md",
+   "words": 1725,
+   "sha": "2cac96e01201f0ce8fddf9de8c04f554097ad01901d2e6ec0524d3523f91fb09",
+   "kind": "skill",
+   "name": "tailwind-theme-builder",
+   "copies": []
+  },
+  {
+   "repo": "julianoczkowski/designer-skills",
+   "path": "frontend-design/SKILL.md",
+   "file": "julianoczkowski_designer-skills__frontend-design_SKILL.md",
+   "words": 1611,
+   "sha": "6a078fa3e5a5cef2656d621a90c8dff8191bd9d8a3724df1b98760262c88ef60",
+   "kind": "skill",
+   "name": "frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "kylezantos/design-motion-principles",
+   "path": "skills/design-motion-principles/SKILL.md",
+   "file": "kylezantos_design-motion-principles__skills_design-motion-principles_SKILL.md",
+   "words": 957,
+   "sha": "599f42dbf011df38f3fcaf1497533af447d91cf97443b92439455af103c25b2e",
+   "kind": "skill",
+   "name": "design-motion-principles",
+   "copies": []
+  },
+  {
+   "repo": "lobehub/lobehub",
+   "path": ".agents/skills/design-prototype/SKILL.md",
+   "file": "lobehub_lobehub__.agents_skills_design-prototype_SKILL.md",
+   "words": 813,
+   "sha": "a6d653021c5539ca0fdff545662f4bb3042ad9b12d073702720b065c8b109cee",
+   "kind": "skill",
+   "name": "design-prototype",
+   "copies": []
+  },
+  {
+   "repo": "lobehub/lobehub",
+   "path": ".agents/skills/ux/SKILL.md",
+   "file": "lobehub_lobehub__.agents_skills_ux_SKILL.md",
+   "words": 1537,
+   "sha": "f909e4ebd2d4c1f09fa80a11cc0421c54374deaa76990a1ba2266ae8197eb3f1",
+   "kind": "skill",
+   "name": "ux",
+   "copies": []
+  },
+  {
+   "repo": "lobehub/lobehub",
+   "path": ".agents/skills/ux-audit/SKILL.md",
+   "file": "lobehub_lobehub__.agents_skills_ux-audit_SKILL.md",
+   "words": 2925,
+   "sha": "4e3ccc0f494657bed66765c3718a0e2d6541ae13fad9606c3d20869e35fb3c3e",
+   "kind": "skill",
+   "name": "ux-audit",
+   "copies": []
+  },
+  {
+   "repo": "mastepanoski/claude-skills",
+   "path": "skills/ui-design-review/SKILL.md",
+   "file": "mastepanoski_claude-skills__skills_ui-design-review_SKILL.md",
+   "words": 4259,
+   "sha": "ea4b8f8acb2fb9b41a82c731163271091686ce06f3a6a344e0817da6c3123077",
+   "kind": "skill",
+   "name": "ui-design-review",
+   "copies": []
+  },
+  {
+   "repo": "mastepanoski/claude-skills",
+   "path": "skills/ux-audit-rethink/SKILL.md",
+   "file": "mastepanoski_claude-skills__skills_ux-audit-rethink_SKILL.md",
+   "words": 4537,
+   "sha": "b08edef5e24d3a1a377ac3710682a593bce744f26a4195269ce2f2f9178b9012",
+   "kind": "skill",
+   "name": "ux-audit-rethink",
+   "copies": []
+  },
+  {
+   "repo": "mateaix/mateclaw",
+   "path": "mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+   "file": "mateaix_mateclaw__mateclaw-server_src_main_resources_skills_popular-web-designs_SKILL.md",
+   "words": 1403,
+   "sha": "b6aa057df4dd557bcdaa397ea454210dc40e433bb3bf3bfdf0b4c8dee124b7a2",
+   "kind": "skill",
+   "name": "popular-web-designs",
+   "copies": []
+  },
+  {
+   "repo": "mattpocock/skills",
+   "path": "skills/engineering/prototype/SKILL.md",
+   "file": "mattpocock_skills__skills_engineering_prototype_SKILL.md",
+   "words": 487,
+   "sha": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3",
+   "kind": "skill",
+   "name": "prototype",
+   "copies": []
+  },
+  {
+   "repo": "mavlink/qgroundcontrol",
+   "path": "tools/skills/qt-ui-design/SKILL.md",
+   "file": "mavlink_qgroundcontrol__tools_skills_qt-ui-design_SKILL.md",
+   "words": 3876,
+   "sha": "e6f6df0ad1d7eb14312daf74c6e7ff429af5e3dae1023c981f4e27c0967560ed",
+   "kind": "skill",
+   "name": "qt-ui-design",
+   "copies": []
+  },
+  {
+   "repo": "melandlabs/openloomi",
+   "path": "skills/ui-ux-pro-max/SKILL.md",
+   "file": "melandlabs_openloomi__skills_ui-ux-pro-max_SKILL.md",
+   "words": 6466,
+   "sha": "9bd26c52dfd10dfd613dd3cc85df217dc25a172e380bde41fdfa6fedda288b2a",
+   "kind": "skill",
+   "name": "ui-ux-pro-max",
+   "copies": []
+  },
+  {
+   "repo": "microsoft/hve-core",
+   "path": ".github/skills/design-thinking/ux-artifacts/SKILL.md",
+   "file": "microsoft_hve-core__.github_skills_design-thinking_ux-artifacts_SKILL.md",
+   "words": 1466,
+   "sha": "5b420e4024ad6b9764f539ddb73064d1b62ef30870843b8c91c45312c27bfff8",
+   "kind": "skill",
+   "name": "ux-artifacts",
+   "copies": []
+  },
+  {
+   "repo": "microsoft/power-platform-skills",
+   "path": "plugins/mcp-apps/skills/generate-mcp-app-ui/SKILL.md",
+   "file": "microsoft_power-platform-skills__plugins_mcp-apps_skills_generate-mcp-app-ui_SKILL.md",
+   "words": 1655,
+   "sha": "79ac41013a6e7aad5108f49267e4bc24d6ab01b91f15a732fbd5655690782eb1",
+   "kind": "skill",
+   "name": "generate-mcp-app-ui",
+   "copies": []
+  },
+  {
+   "repo": "nWave-ai/nWave",
+   "path": "nWave/skills/nw-ux-principles/SKILL.md",
+   "file": "nWave-ai_nWave__nWave_skills_nw-ux-principles_SKILL.md",
+   "words": 1147,
+   "sha": "feb8d25506c463a51ce2aed572e626c26c4bc2ad0163f4b538b451724e86d81a",
+   "kind": "skill",
+   "name": "nw-ux-principles",
+   "copies": []
+  },
+  {
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "path": ".claude/skills/design-system/SKILL.md",
+   "file": "nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_design-system_SKILL.md",
+   "words": 924,
+   "sha": "8aa5ff93320559a6e5289d37b6b06b3307737dbfb4a6f3fc44135c705613c511",
+   "kind": "skill",
+   "name": "design-system",
+   "copies": []
+  },
+  {
+   "repo": "nexu-io/open-design",
+   "path": "design-templates/web-prototype-taste-editorial/SKILL.md",
+   "file": "nexu-io_open-design__design-templates_web-prototype-taste-editorial_SKILL.md",
+   "words": 469,
+   "sha": "02a9ffad31dd2e2a25ffbe635a4538cba99aacfe60925323c4ba546d7f0fea2d",
+   "kind": "skill",
+   "name": "web-prototype-taste-editorial",
+   "copies": []
+  },
+  {
+   "repo": "nimadorostkar/Claude-Skills-collection",
+   "path": "skills/design/visual-design/SKILL.md",
+   "file": "nimadorostkar_Claude-Skills-collection__skills_design_visual-design_SKILL.md",
+   "words": 866,
+   "sha": "0d7222c68ded10e653be021d915dd211c0f458d6acd46de5dfe36d751a06557b",
+   "kind": "skill",
+   "name": "visual-design",
+   "copies": []
+  },
+  {
+   "repo": "paperclipai/paperclip",
+   "path": ".agents/skills/create-issue-interaction-ui/SKILL.md",
+   "file": "paperclipai_paperclip__.agents_skills_create-issue-interaction-ui_SKILL.md",
+   "words": 1702,
+   "sha": "721819ad168f9b1d3e444bad4df1f95020ae0e55de79faf9671d5f1dc50db2d6",
+   "kind": "skill",
+   "name": "create-issue-interaction-ui",
+   "copies": []
+  },
+  {
+   "repo": "paperclipai/paperclip",
+   "path": "packages/skills-catalog/catalog/bundled/product/wireframe/SKILL.md",
+   "file": "paperclipai_paperclip__packages_skills-catalog_catalog_bundled_product_wireframe_SKILL.md",
+   "words": 1637,
+   "sha": "6992047cc97b67211cc8c1183718ab9aa26b8afc34c70d54d20558c215daaf48",
+   "kind": "skill",
+   "name": "wireframe",
+   "copies": []
+  },
+  {
+   "repo": "plannotator/effective-html",
+   "path": "skills/html-prototype/SKILL.md",
+   "file": "plannotator_effective-html__skills_html-prototype_SKILL.md",
+   "words": 897,
+   "sha": "8987dda45224350254af30cafa72e721c6d91e1972e794e8e839406f77814368",
+   "kind": "skill",
+   "name": "html-prototype",
+   "copies": []
+  },
+  {
+   "repo": "plannotator/effective-html",
+   "path": "skills/html-wireframe/SKILL.md",
+   "file": "plannotator_effective-html__skills_html-wireframe_SKILL.md",
+   "words": 710,
+   "sha": "b1d649ef9052f2ed8baabaf483ed527208a2e481281ed3925ec8b84ba641d4c1",
+   "kind": "skill",
+   "name": "html-wireframe",
+   "copies": []
+  },
+  {
+   "repo": "plugin87/ux-ui-agent-skills",
+   "path": ".claude/skills/design-component/SKILL.md",
+   "file": "plugin87_ux-ui-agent-skills__.claude_skills_design-component_SKILL.md",
+   "words": 1348,
+   "sha": "e35325764a67028e7a92585303dbcd0ee90894933bdf92989e907c2041eb8fd6",
+   "kind": "skill",
+   "name": "design-component",
+   "copies": []
+  },
+  {
+   "repo": "plugin87/ux-ui-agent-skills",
+   "path": ".claude/skills/migrate-design-system/SKILL.md",
+   "file": "plugin87_ux-ui-agent-skills__.claude_skills_migrate-design-system_SKILL.md",
+   "words": 222,
+   "sha": "168802c20099cf629f58c67406644a63207370e5f89777e7642df593309612fe",
+   "kind": "skill",
+   "name": "migrate-design-system",
+   "copies": []
+  },
+  {
+   "repo": "plugin87/ux-ui-agent-skills",
+   "path": ".claude/skills/prototype/SKILL.md",
+   "file": "plugin87_ux-ui-agent-skills__.claude_skills_prototype_SKILL.md",
+   "words": 238,
+   "sha": "8a3ca88c6dfcf0ebecdbc94e01e019591cdd08cb7f16f07419b65c81884a6fd4",
+   "kind": "skill",
+   "name": "prototype",
+   "copies": []
+  },
+  {
+   "repo": "rohitg00/pro-workflow",
+   "path": "skills/design-engineering/SKILL.md",
+   "file": "rohitg00_pro-workflow__skills_design-engineering_SKILL.md",
+   "words": 747,
+   "sha": "1d735e5d49bc65388b9e9bb43299ac0d6395a9e337638c7851a612f8574f13b5",
+   "kind": "skill",
+   "name": "design-engineering",
+   "copies": []
+  },
+  {
+   "repo": "rshankras/claude-code-apple-skills",
+   "path": "skills/design/ui-prototyping/SKILL.md",
+   "file": "rshankras_claude-code-apple-skills__skills_design_ui-prototyping_SKILL.md",
+   "words": 1632,
+   "sha": "771ae3453cd618da72346a9f477356ea2900ee6b28230e4cc79941e0d1d0d7af",
+   "kind": "skill",
+   "name": "ui-prototyping",
+   "copies": []
+  },
+  {
+   "repo": "rshankras/claude-code-apple-skills",
+   "path": "skills/ios/ui-review/SKILL.md",
+   "file": "rshankras_claude-code-apple-skills__skills_ios_ui-review_SKILL.md",
+   "words": 1071,
+   "sha": "b30deda74af3e0fa8e3c74975244e11b5477c3f9bba169929b919a03ffea37bd",
+   "kind": "skill",
+   "name": "ui-review",
+   "copies": []
+  },
+  {
+   "repo": "runkids/skillshare",
+   "path": ".skillshare/skills/skillshare-ui-website-style/SKILL.md",
+   "file": "runkids_skillshare__.skillshare_skills_skillshare-ui-website-style_SKILL.md",
+   "words": 2500,
+   "sha": "e566bbdcbb9348b415d29064681959b9bf64b0d071036324cc2468cd21626c0d",
+   "kind": "skill",
+   "name": "skillshare-ui-website-style",
+   "copies": []
+  },
+  {
+   "repo": "samuelclay/NewsBlur",
+   "path": ".claude/skills/make-interfaces-feel-better/SKILL.md",
+   "file": "samuelclay_NewsBlur__.claude_skills_make-interfaces-feel-better_SKILL.md",
+   "words": 908,
+   "sha": "0b8693a52cfb61fbfb60dbbd164b58f36e29c113b19aba502f22e87970876ab9",
+   "kind": "skill",
+   "name": "make-interfaces-feel-better",
+   "copies": []
+  },
+  {
+   "repo": "seaworld008/Commonly-used-high-value-skills",
+   "path": "openclaw-skills/ui-ux-pro-max/SKILL.md",
+   "file": "seaworld008_Commonly-used-high-value-skills__openclaw-skills_ui-ux-pro-max_SKILL.md",
+   "words": 1403,
+   "sha": "41ccf421965450292154081f8a22c99f90eca6109600920e9bc7ddddceb5b7b7",
+   "kind": "skill",
+   "name": "ui-ux-pro-max",
+   "copies": []
+  },
+  {
+   "repo": "shobcoder/shob",
+   "path": "skills/ui-ux-pro-max/SKILL.md",
+   "file": "shobcoder_shob__skills_ui-ux-pro-max_SKILL.md",
+   "words": 2239,
+   "sha": "d688e30643320149eff6f0fca49eb8f3eb295140127f7c8a6cc185d5346f14d5",
+   "kind": "skill",
+   "name": "ui-ux-pro-max",
+   "copies": []
+  },
+  {
+   "repo": "sickn33/agentic-awesome-skills",
+   "path": "plugins/agentic-awesome-skills/skills/design-it/brutalist-typography/SKILL.md",
+   "file": "sickn33_agentic-awesome-skills__plugins_agentic-awesome-skills_skills_design-it_brutalist-typography_SKILL.md",
+   "words": 923,
+   "sha": "50810bc17af13bc3b072fffd69b53174b9e8a85b1dcd90f2572ce5d9dc561b54",
+   "kind": "skill",
+   "name": "brutalist-typography",
+   "copies": []
+  },
+  {
+   "repo": "softaworks/agent-toolkit",
+   "path": "dist/plugins/design-system-starter/skills/design-system-starter/SKILL.md",
+   "file": "softaworks_agent-toolkit__dist_plugins_design-system-starter_skills_design-system-starter_SKILL.md",
+   "words": 1892,
+   "sha": "f5efbd8477895d0f995359a6236029e8ec26ad90f8040fbc3cf98cf4aa8d3170",
+   "kind": "skill",
+   "name": "design-system-starter",
+   "copies": []
+  },
+  {
+   "repo": "spree/spree",
+   "path": ".agents/skills/pick-ui-library/SKILL.md",
+   "file": "spree_spree__.agents_skills_pick-ui-library_SKILL.md",
+   "words": 658,
+   "sha": "4b889bd6c08358499ac4a7202b8af71ffbd3485d2468f7b09d0613bbe7b24bf4",
+   "kind": "skill",
+   "name": "pick-ui-library",
+   "copies": []
+  },
+  {
+   "repo": "spree/spree",
+   "path": ".agents/skills/prototype/SKILL.md",
+   "file": "spree_spree__.agents_skills_prototype_SKILL.md",
+   "words": 1220,
+   "sha": "2ad8401c4deaddb54947fb65247f790e7b3d8784e35312bcbedbfb1d59cd89ce",
+   "kind": "skill",
+   "name": "prototype",
+   "copies": []
+  },
+  {
+   "repo": "suleimanodetoro/skills",
+   "path": "skills/design-interface/SKILL.md",
+   "file": "suleimanodetoro_skills__skills_design-interface_SKILL.md",
+   "words": 1237,
+   "sha": "9ae764002f0f01b4cdf14effff2278e3208274044472bb9e09ce93289ecf0369",
+   "kind": "skill",
+   "name": "design-interface",
+   "copies": []
+  },
+  {
+   "repo": "suleimanodetoro/skills",
+   "path": "skills/review-interface/SKILL.md",
+   "file": "suleimanodetoro_skills__skills_review-interface_SKILL.md",
+   "words": 1138,
+   "sha": "ac19f2bf5256b8cc40dd189b8a4043312d959ddc1b63d1252812f1e7290d31eb",
+   "kind": "skill",
+   "name": "review-interface",
+   "copies": []
+  },
+  {
+   "repo": "tutti-os/tutti",
+   "path": "packages/ui/system/agent/tutti-ui-system/SKILL.md",
+   "file": "tutti-os_tutti__packages_ui_system_agent_tutti-ui-system_SKILL.md",
+   "words": 1486,
+   "sha": "829ebd56e09ef29df89e220c9ab27ca1d950f2301f7920770bd002c7f078fc8e",
+   "kind": "skill",
+   "name": "tutti-ui-system",
+   "copies": []
+  },
+  {
+   "repo": "tw93/Waza",
+   "path": "plugins/waza/skills/ui/SKILL.md",
+   "file": "tw93_Waza__plugins_waza_skills_ui_SKILL.md",
+   "words": 2233,
+   "sha": "30ac6005c3563d43803c6c40e4ae0e1b35960a0bd9af0b3b388b73914ca8330a",
+   "kind": "skill",
+   "name": "ui",
+   "copies": []
+  },
+  {
+   "repo": "vinvcn/mattpocock-skills-zh-CN",
+   "path": "skills/engineering/prototype/SKILL.md",
+   "file": "vinvcn_mattpocock-skills-zh-CN__skills_engineering_prototype_SKILL.md",
+   "words": 181,
+   "sha": "e397520fd089e7df7140732ad6c402e358f6f9afcbeb54eec1a4a2b80fc90415",
+   "kind": "skill",
+   "name": "prototype",
+   "copies": []
+  },
+  {
+   "repo": "warpdotdev/warp",
+   "path": ".agents/skills/gui-ui-guidelines/SKILL.md",
+   "file": "warpdotdev_warp__.agents_skills_gui-ui-guidelines_SKILL.md",
+   "words": 553,
+   "sha": "5cd64fa7549527ea337739aae669aa145559d2c87b2fc0488c024a0dacf6af61",
+   "kind": "skill",
+   "name": "gui-ui-guidelines",
+   "copies": []
+  },
+  {
+   "repo": "warpdotdev/warp",
+   "path": ".agents/skills/tui-ui-guidelines/SKILL.md",
+   "file": "warpdotdev_warp__.agents_skills_tui-ui-guidelines_SKILL.md",
+   "words": 897,
+   "sha": "96e028fa9abacea3b7ef7d1c08f28413f7c3d3bcc04de7cd93bcc956be7ec80b",
+   "kind": "skill",
+   "name": "tui-ui-guidelines",
+   "copies": []
+  },
+  {
+   "repo": "withkynam/vibecode-pro-max-kit",
+   "path": ".claude/skills/vc-frontend-design/SKILL.md",
+   "file": "withkynam_vibecode-pro-max-kit__.claude_skills_vc-frontend-design_SKILL.md",
+   "words": 1229,
+   "sha": "257faafcf29704d3be4bb3d5f639cac0ba92bf7aa59db988bcd6872bec4c5258",
+   "kind": "skill",
+   "name": "vc-frontend-design",
+   "copies": []
+  },
+  {
+   "repo": "wondelai/skills",
+   "path": "hooked-ux/SKILL.md",
+   "file": "wondelai_skills__hooked-ux_SKILL.md",
+   "words": 1998,
+   "sha": "775ae946b15f03d787077c35d166a9addb1e241cb9ffea03ceee3a1be198175e",
+   "kind": "skill",
+   "name": "hooked-ux",
+   "copies": []
+  },
+  {
+   "repo": "wondelai/skills",
+   "path": "lean-ux/SKILL.md",
+   "file": "wondelai_skills__lean-ux_SKILL.md",
+   "words": 2255,
+   "sha": "4fe0a10132650ad36bc79676b12c8f58b19035a40ac6587c864387d0f808cf04",
+   "kind": "skill",
+   "name": "lean-ux",
+   "copies": []
+  },
+  {
+   "repo": "xjtulyc/MedgeClaw",
+   "path": "skills/svg-ui-templates/SKILL.md",
+   "file": "xjtulyc_MedgeClaw__skills_svg-ui-templates_SKILL.md",
+   "words": 250,
+   "sha": "34498b56517d174cfc1766dff7246cc31e10c84f75f8f78cc395fc304802ce20",
+   "kind": "skill",
+   "name": "svg-ui-templates",
+   "copies": []
+  },
+  {
+   "repo": "yunshu0909/yunshu_skillshub",
+   "path": "ui-design/SKILL.md",
+   "file": "yunshu0909_yunshu_skillshub__ui-design_SKILL.md",
+   "words": 244,
+   "sha": "d70108ceec4748e1202924f3e6f0839d1eb313cb5feef5fc184b15d466e5ce98",
+   "kind": "skill",
+   "name": "ui-design",
+   "copies": []
+  }
+ ]
+}

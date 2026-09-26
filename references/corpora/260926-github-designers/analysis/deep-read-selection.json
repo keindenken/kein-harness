@@ -1,0 +1,546 @@
+[
+ {
+  "id": "c00001",
+  "kind": "agent",
+  "file": "corpus/mrgoonie_human-mcp__.claude_agents_ui-ux-designer.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 293,
+  "copies_in_repos": 77,
+  "outputs": [
+   "html-mockup",
+   "production-code",
+   "design-tokens",
+   "design-system-docs",
+   "spec-or-handoff",
+   "visual-asset"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "c00002",
+  "kind": "agent",
+  "file": "corpus/github_awesome-copilot__agents_se-ux-ui-designer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/se-ux-ui-designer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 75,
+  "outputs": [
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create"
+  ]
+ },
+ {
+  "id": "c00003",
+  "kind": "agent",
+  "file": "corpus/GammaLabTechnologies_harmonist__agents_design_design-ui-designer.md",
+  "repo": "GammaLabTechnologies/harmonist",
+  "path": "agents/design/design-ui-designer.md",
+  "stars": 2258,
+  "copies_in_repos": 62,
+  "outputs": [
+   "design-tokens",
+   "design-system-docs",
+   "production-code",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create",
+   "review"
+  ]
+ },
+ {
+  "id": "c00009",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_development-team_ui-ux-designer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/development-team/ui-ux-designer.md",
+  "stars": 31792,
+  "copies_in_repos": 31,
+  "outputs": [
+   "written-critique",
+   "spec-or-handoff",
+   "redesign-existing"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00013",
+  "kind": "agent",
+  "file": "corpus/zhlhleo_codex-agent-automation__agents_ui-designer.toml",
+  "repo": "zhlhleo/codex-agent-automation",
+  "path": "agents/ui-designer.toml",
+  "stars": 22,
+  "copies_in_repos": 23,
+  "outputs": [
+   "spec-or-handoff",
+   "written-critique"
+  ],
+  "modes": [
+   "create",
+   "revise-existing"
+  ]
+ },
+ {
+  "id": "c00062",
+  "kind": "agent",
+  "file": "corpus/gurusup_claude-code-demo__.claude_agents_ui-ux-analyzer.md",
+  "repo": "gurusup/claude-code-demo",
+  "path": ".claude/agents/ui-ux-analyzer.md",
+  "stars": 75,
+  "copies_in_repos": 6,
+  "outputs": [
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00079",
+  "kind": "agent",
+  "file": "corpus/maslennikov-ig_claude-code-orchestrator-kit__.claude_agents_frontend_workers_nextjs-ui-designer.md",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "path": ".claude/agents/frontend/workers/nextjs-ui-designer.md",
+  "stars": 253,
+  "copies_in_repos": 5,
+  "outputs": [
+   "production-code",
+   "design-tokens",
+   "design-system-docs",
+   "spec-or-handoff",
+   "visual-asset"
+  ],
+  "modes": [
+   "create",
+   "review"
+  ]
+ },
+ {
+  "id": "c00102",
+  "kind": "agent",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-ui-checker.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-ui-checker.md",
+  "stars": 64459,
+  "copies_in_repos": 4,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00133",
+  "kind": "agent",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-ui-auditor.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-ui-auditor.md",
+  "stars": 64459,
+  "copies_in_repos": 3,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00158",
+  "kind": "agent",
+  "file": "corpus/LimiNode_kurlyk__.claude_agents_designer.md",
+  "repo": "LimiNode/kurlyk",
+  "path": ".claude/agents/designer.md",
+  "stars": 5,
+  "copies_in_repos": 3,
+  "outputs": [
+   "production-code",
+   "design-tokens",
+   "other"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "c00181",
+  "kind": "agent",
+  "file": "corpus/Phloraxx_CodeResidency__.github_agents_Designer.agent.md",
+  "repo": "Phloraxx/CodeResidency",
+  "path": ".github/agents/Designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3,
+  "outputs": [],
+  "modes": [
+   "create",
+   "revise-existing"
+  ]
+ },
+ {
+  "id": "c00214",
+  "kind": "agent",
+  "file": "corpus/microsoft_apm__.apm_agents_devx-ux-expert.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/devx-ux-expert.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 2,
+  "outputs": [
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00263",
+  "kind": "agent",
+  "file": "corpus/Itachi-1824_claude-god-mode__agents_design-critic.md",
+  "repo": "Itachi-1824/claude-god-mode",
+  "path": "agents/design-critic.md",
+  "stars": 20,
+  "copies_in_repos": 2,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00286",
+  "kind": "agent",
+  "file": "corpus/CambridgeMonorail_react-weapons-of-choice__.github_agents_ui-designer.agent.md",
+  "repo": "CambridgeMonorail/react-weapons-of-choice",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 2,
+  "outputs": [
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "c00298",
+  "kind": "agent",
+  "file": "corpus/navikt_crm-ips__.github_agents_designer.agent.md",
+  "repo": "navikt/crm-ips",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 2,
+  "outputs": [
+   "prototype",
+   "redesign-existing",
+   "design-system-docs",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "c00320",
+  "kind": "agent",
+  "file": "corpus/bpmforge_attest__agents_design-iterator.md",
+  "repo": "bpmforge/attest",
+  "path": "agents/design-iterator.md",
+  "stars": 2,
+  "copies_in_repos": 2,
+  "outputs": [
+   "redesign-existing",
+   "design-tokens",
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "c00337",
+  "kind": "agent",
+  "file": "corpus/ZeusopenAI_ZEUS__agents_hermes_website_docs_user-guide_skills_bundled_creative_creative-claude-design.md",
+  "repo": "ZeusopenAI/ZEUS",
+  "path": "agents/hermes/website/docs/user-guide/skills/bundled/creative/creative-claude-design.md",
+  "stars": 1,
+  "copies_in_repos": 2,
+  "outputs": [
+   "html-mockup",
+   "prototype",
+   "production-code",
+   "redesign-existing",
+   "other"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "c00351",
+  "kind": "agent",
+  "file": "corpus/1a2b3cw_claude-code-presets__.claude_agents_designer.md",
+  "repo": "1a2b3cw/claude-code-presets",
+  "path": ".claude/agents/designer.md",
+  "stars": 0,
+  "copies_in_repos": 2,
+  "outputs": [
+   "html-mockup",
+   "design-tokens",
+   "design-system-docs",
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create",
+   "review"
+  ]
+ },
+ {
+  "id": "s0037",
+  "kind": "skill",
+  "file": "corpus-skills/anthropics_claude-plugins-official__plugins_frontend-design_skills_frontend-design_SKILL.md",
+  "repo": "anthropics/claude-plugins-official",
+  "path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "stars": 33646,
+  "copies_in_repos": 1,
+  "outputs": [
+   "production-code",
+   "design-tokens",
+   "written-critique"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "s0005",
+  "kind": "skill",
+  "file": "corpus-skills/Leonxlnx_taste-skill__skills_taste-skill_SKILL.md",
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill/SKILL.md",
+  "stars": 77572,
+  "copies_in_repos": 2,
+  "outputs": [
+   "production-code",
+   "redesign-existing"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "s0013",
+  "kind": "skill",
+  "file": "corpus-skills/ConardLi_garden-skills__skills_web-design-engineer_SKILL.md",
+  "repo": "ConardLi/garden-skills",
+  "path": "skills/web-design-engineer/SKILL.md",
+  "stars": 10402,
+  "copies_in_repos": 1,
+  "outputs": [
+   "html-mockup",
+   "prototype",
+   "production-code",
+   "redesign-existing",
+   "written-critique",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "s0003",
+  "kind": "skill",
+  "file": "corpus-skills/AgentWorkforce_relay__.agents_skills_emil-design-eng_SKILL.md",
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "stars": 793,
+  "copies_in_repos": 2,
+  "outputs": [
+   "production-code",
+   "written-critique"
+  ],
+  "modes": [
+   "create",
+   "review"
+  ]
+ },
+ {
+  "id": "s0078",
+  "kind": "skill",
+  "file": "corpus-skills/lobehub_lobehub__.agents_skills_ux-audit_SKILL.md",
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux-audit/SKILL.md",
+  "stars": 81797,
+  "copies_in_repos": 1,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "s0072",
+  "kind": "skill",
+  "file": "corpus-skills/jezweb_claude-skills__plugins_dev-tools_skills_ux-audit_SKILL.md",
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/dev-tools/skills/ux-audit/SKILL.md",
+  "stars": 969,
+  "copies_in_repos": 1,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "s0093",
+  "kind": "skill",
+  "file": "corpus-skills/plannotator_effective-html__skills_html-prototype_SKILL.md",
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-prototype/SKILL.md",
+  "stars": 1664,
+  "copies_in_repos": 1,
+  "outputs": [
+   "html-mockup",
+   "prototype"
+  ],
+  "modes": [
+   "create"
+  ]
+ },
+ {
+  "id": "s0094",
+  "kind": "skill",
+  "file": "corpus-skills/plannotator_effective-html__skills_html-wireframe_SKILL.md",
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-wireframe/SKILL.md",
+  "stars": 1664,
+  "copies_in_repos": 1,
+  "outputs": [
+   "wireframe",
+   "html-mockup"
+  ],
+  "modes": [
+   "create"
+  ]
+ },
+ {
+  "id": "s0109",
+  "kind": "skill",
+  "file": "corpus-skills/suleimanodetoro_skills__skills_design-interface_SKILL.md",
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/design-interface/SKILL.md",
+  "stars": 816,
+  "copies_in_repos": 1,
+  "outputs": [
+   "production-code",
+   "redesign-existing",
+   "spec-or-handoff"
+  ],
+  "modes": [
+   "create",
+   "revise-existing"
+  ]
+ },
+ {
+  "id": "s0110",
+  "kind": "skill",
+  "file": "corpus-skills/suleimanodetoro_skills__skills_review-interface_SKILL.md",
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/review-interface/SKILL.md",
+  "stars": 816,
+  "copies_in_repos": 1,
+  "outputs": [
+   "written-critique"
+  ],
+  "modes": [
+   "review"
+  ]
+ },
+ {
+  "id": "s0024",
+  "kind": "skill",
+  "file": "corpus-skills/Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-design-source_SKILL.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-design-source/SKILL.md",
+  "stars": 1303,
+  "copies_in_repos": 1,
+  "outputs": [
+   "spec-or-handoff",
+   "redesign-existing",
+   "production-code"
+  ],
+  "modes": [
+   "create",
+   "revise-existing"
+  ]
+ },
+ {
+  "id": "s0061",
+  "kind": "skill",
+  "file": "corpus-skills/holaboss-ai_holaOS__runtime_harnesses_src_embedded-skills_interface-design_SKILL.md",
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/interface-design/SKILL.md",
+  "stars": 9617,
+  "copies_in_repos": 1,
+  "outputs": [
+   "production-code",
+   "design-system-docs"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ },
+ {
+  "id": "s0112",
+  "kind": "skill",
+  "file": "corpus-skills/tw93_Waza__plugins_waza_skills_ui_SKILL.md",
+  "repo": "tw93/Waza",
+  "path": "plugins/waza/skills/ui/SKILL.md",
+  "stars": 6873,
+  "copies_in_repos": 1,
+  "outputs": [
+   "production-code",
+   "redesign-existing",
+   "spec-or-handoff",
+   "visual-asset",
+   "written-critique"
+  ],
+  "modes": [
+   "create",
+   "revise-existing",
+   "review"
+  ]
+ }
+]

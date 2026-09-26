@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00318",
+  "kind": "agent",
+  "file": "corpus/Tamoura_Claude-Code-creates-the-SW-company__.claude_agents_briefs_ui-ux-designer.md",
+  "repo": "Tamoura/Claude-Code-creates-the-SW-company",
+  "path": ".claude/agents/briefs/ui-ux-designer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00320",
+  "kind": "agent",
+  "file": "corpus/bpmforge_attest__agents_design-iterator.md",
+  "repo": "bpmforge/attest",
+  "path": "agents/design-iterator.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00321",
+  "kind": "agent",
+  "file": "corpus/bpmforge_attest__agents_design-system-lead.md",
+  "repo": "bpmforge/attest",
+  "path": "agents/design-system-lead.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00322",
+  "kind": "agent",
+  "file": "corpus/bpmforge_attest__agents_frontend-design.md",
+  "repo": "bpmforge/attest",
+  "path": "agents/frontend-design.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00324",
+  "kind": "agent",
+  "file": "corpus/mrjonesbot_claude-code__agents_design-review.md",
+  "repo": "mrjonesbot/claude-code",
+  "path": "agents/design-review.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00325",
+  "kind": "agent",
+  "file": "corpus/openplanr_planr-pipeline__agents_modes_default_designer.md",
+  "repo": "openplanr/planr-pipeline",
+  "path": "agents/modes/default/designer.md",
+  "stars": 2,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00326",
+  "kind": "agent",
+  "file": "corpus/Brmbobo_Web2podcast__.claude_agents_enterprise-frontend-design_agents_design-system.md",
+  "repo": "Brmbobo/Web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/design-system.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00330",
+  "kind": "agent",
+  "file": "corpus/CodySwannGT_advisory-rankings__.codex_agents_lisa_ux-ui-designer.toml",
+  "repo": "CodySwannGT/advisory-rankings",
+  "path": ".codex/agents/lisa/ux-ui-designer.toml",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00331",
+  "kind": "agent",
+  "file": "corpus/Nickolai-Brennan_DZIRE_v1__.github_agents_design-system-brand-agent.md",
+  "repo": "Nickolai-Brennan/DZIRE_v1",
+  "path": ".github/agents/design-system-brand-agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00334",
+  "kind": "agent",
+  "file": "corpus/Tanish-Dev_copilot-agents__agents_ui-designer.agent.md",
+  "repo": "Tanish-Dev/copilot-agents",
+  "path": "agents/ui-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 2
+ }
+]

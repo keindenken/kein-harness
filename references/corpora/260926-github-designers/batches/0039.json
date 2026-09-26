@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0035",
+  "kind": "skill",
+  "file": "corpus-skills/addyosmani_agent-skills__skills_frontend-ui-engineering_SKILL.md",
+  "repo": "addyosmani/agent-skills",
+  "path": "skills/frontend-ui-engineering/SKILL.md",
+  "stars": 88172,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0036",
+  "kind": "skill",
+  "file": "corpus-skills/anbeime_skill__skills_web-design-analyzer_web-design-analyzer_SKILL.md",
+  "repo": "anbeime/skill",
+  "path": "skills/web-design-analyzer/web-design-analyzer/SKILL.md",
+  "stars": 5449,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0037",
+  "kind": "skill",
+  "file": "corpus-skills/anthropics_claude-plugins-official__plugins_frontend-design_skills_frontend-design_SKILL.md",
+  "repo": "anthropics/claude-plugins-official",
+  "path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "stars": 33646,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0038",
+  "kind": "skill",
+  "file": "corpus-skills/avibebuilder_claude-prime__.claude_skills_frontend-design_SKILL.md",
+  "repo": "avibebuilder/claude-prime",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "stars": 115,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0039",
+  "kind": "skill",
+  "file": "corpus-skills/awesome-dsh-plugin_awesome-dsh-plugin__.agents_skills_ui-ux-pro-max_SKILL.md",
+  "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+  "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+  "stars": 8244,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0040",
+  "kind": "skill",
+  "file": "corpus-skills/beshuaxian_higgsfield-seedance2-jineng__skills_06-motion-design-ad_SKILL.md",
+  "repo": "beshuaxian/higgsfield-seedance2-jineng",
+  "path": "skills/06-motion-design-ad/SKILL.md",
+  "stars": 757,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0041",
+  "kind": "skill",
+  "file": "corpus-skills/bytedance_deer-flow__skills_public_frontend-design_SKILL.md",
+  "repo": "bytedance/deer-flow",
+  "path": "skills/public/frontend-design/SKILL.md",
+  "stars": 80230,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0042",
+  "kind": "skill",
+  "file": "corpus-skills/catlog22_Claude-Code-Workflow__.claude_skills_team-motion-design_SKILL.md",
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".claude/skills/team-motion-design/SKILL.md",
+  "stars": 2136,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0043",
+  "kind": "skill",
+  "file": "corpus-skills/catlog22_Claude-Code-Workflow__.codex_skills_team-ux-improve_SKILL.md",
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".codex/skills/team-ux-improve/SKILL.md",
+  "stars": 2136,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0044",
+  "kind": "skill",
+  "file": "corpus-skills/cloudflare_vibesdk__worker_agents_think_skills_frontend-design-landing-page_SKILL.md",
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-landing-page/SKILL.md",
+  "stars": 5322,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00639",
+  "kind": "agent",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-ui-auditor.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-ui-auditor.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00640",
+  "kind": "agent",
+  "file": "corpus/viplismism_rlm-cli__.github_agents_ui-agent.agent.md",
+  "repo": "viplismism/rlm-cli",
+  "path": ".github/agents/ui-agent.agent.md",
+  "stars": 210,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00644",
+  "kind": "agent",
+  "file": "corpus/VishalJ99_claude-docker__.claude_agents_ux-ui-designer.md",
+  "repo": "VishalJ99/claude-docker",
+  "path": ".claude/agents/ux-ui-designer.md",
+  "stars": 188,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00646",
+  "kind": "agent",
+  "file": "corpus/rennf93_roboco__agents_prompts_teams_ux_ui.md",
+  "repo": "rennf93/roboco",
+  "path": "agents/prompts/teams/ux_ui.md",
+  "stars": 176,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00649",
+  "kind": "agent",
+  "file": "corpus/Zettelgarden_Zettelgarden__.claude_agents_ui-ux-designer.md",
+  "repo": "Zettelgarden/Zettelgarden",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 168,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00650",
+  "kind": "agent",
+  "file": "corpus/jitpass_jit__.claude_agents_jit-qa-ux.md",
+  "repo": "jitpass/jit",
+  "path": ".claude/agents/jit-qa-ux.md",
+  "stars": 161,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00652",
+  "kind": "agent",
+  "file": "corpus/antropos17_Aegis__.codex_agents_ui-designer.toml",
+  "repo": "antropos17/Aegis",
+  "path": ".codex/agents/ui-designer.toml",
+  "stars": 152,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00654",
+  "kind": "agent",
+  "file": "corpus/serpro69_claude-toolbox__.codex_agents_design-reviewer.toml",
+  "repo": "serpro69/claude-toolbox",
+  "path": ".codex/agents/design-reviewer.toml",
+  "stars": 149,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00655",
+  "kind": "agent",
+  "file": "corpus/undeadlist_claude-code-agents__agents_ui-auditor.md",
+  "repo": "undeadlist/claude-code-agents",
+  "path": "agents/ui-auditor.md",
+  "stars": 149,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00657",
+  "kind": "agent",
+  "file": "corpus/wlsdks_ontology-atlas__.claude_agents_design-system.md",
+  "repo": "wlsdks/ontology-atlas",
+  "path": ".claude/agents/design-system.md",
+  "stars": 139,
+  "copies_in_repos": 1
+ }
+]

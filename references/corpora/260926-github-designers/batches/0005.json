@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00080",
+  "kind": "agent",
+  "file": "corpus/first-fluke_fullstack-starter__.claude_agents_designer.md",
+  "repo": "first-fluke/fullstack-starter",
+  "path": ".claude/agents/designer.md",
+  "stars": 224,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00081",
+  "kind": "agent",
+  "file": "corpus/microsoft_FrontierWeekHack__.github_agents_ui-designer.agent.md",
+  "repo": "microsoft/FrontierWeekHack",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 60,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00084",
+  "kind": "agent",
+  "file": "corpus/drn_dots__agents_skills_plannotator-visual-explainer_references_design-system.md",
+  "repo": "drn/dots",
+  "path": "agents/skills/plannotator-visual-explainer/references/design-system.md",
+  "stars": 23,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00085",
+  "kind": "agent",
+  "file": "corpus/terrene-foundation_kailash-coc-claude-py__.claude_agents_frontend_uiux-designer.md",
+  "repo": "terrene-foundation/kailash-coc-claude-py",
+  "path": ".claude/agents/frontend/uiux-designer.md",
+  "stars": 13,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00086",
+  "kind": "agent",
+  "file": "corpus/amurata_cc-tools__.claude_agents_creative_ux-designer.md",
+  "repo": "amurata/cc-tools",
+  "path": ".claude/agents/creative/ux-designer.md",
+  "stars": 6,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00090",
+  "kind": "agent",
+  "file": "corpus/imMamdouhaboammar_riqor__.codex_agents_design-ui-designer.toml",
+  "repo": "imMamdouhaboammar/riqor",
+  "path": ".codex/agents/design-ui-designer.toml",
+  "stars": 4,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00095",
+  "kind": "agent",
+  "file": "corpus/adamn1225_mjml-email-builder__.github_agents_ui-ux-designer.agent.md",
+  "repo": "adamn1225/mjml-email-builder",
+  "path": ".github/agents/ui-ux-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00098",
+  "kind": "agent",
+  "file": "corpus/serpro-workshop-fortaleza_datacorp-sifap-modernization-team-kit__.github_agents_se-ux-ui-designer.agent.md",
+  "repo": "serpro-workshop-fortaleza/datacorp-sifap-modernization-team-kit",
+  "path": ".github/agents/se-ux-ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00102",
+  "kind": "agent",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-ui-checker.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-ui-checker.md",
+  "stars": 64459,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00104",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_agents-design-experience_agents_ui-ux-designer.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/agents-design-experience/agents/ui-ux-designer.md",
+  "stars": 3542,
+  "copies_in_repos": 4
+ }
+]

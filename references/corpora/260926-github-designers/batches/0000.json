@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00000",
+  "kind": "agent",
+  "file": "corpus/cosmos-vibe_Nexus-acp__.opencode_agent_bmad-agent-bmm-ux-designer.md",
+  "repo": "cosmos-vibe/Nexus-acp",
+  "path": ".opencode/agent/bmad-agent-bmm-ux-designer.md",
+  "stars": 11,
+  "copies_in_repos": 93
+ },
+ {
+  "id": "c00001",
+  "kind": "agent",
+  "file": "corpus/mrgoonie_human-mcp__.claude_agents_ui-ux-designer.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 293,
+  "copies_in_repos": 77
+ },
+ {
+  "id": "c00002",
+  "kind": "agent",
+  "file": "corpus/github_awesome-copilot__agents_se-ux-ui-designer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/se-ux-ui-designer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 75
+ },
+ {
+  "id": "c00003",
+  "kind": "agent",
+  "file": "corpus/GammaLabTechnologies_harmonist__agents_design_design-ui-designer.md",
+  "repo": "GammaLabTechnologies/harmonist",
+  "path": "agents/design/design-ui-designer.md",
+  "stars": 2258,
+  "copies_in_repos": 62
+ },
+ {
+  "id": "c00004",
+  "kind": "agent",
+  "file": "corpus/LDJ-creat_video-helper__.github_agents_bmad-bmm-ux-designer.agent.md",
+  "repo": "LDJ-creat/video-helper",
+  "path": ".github/agents/bmad-bmm-ux-designer.agent.md",
+  "stars": 49,
+  "copies_in_repos": 60
+ },
+ {
+  "id": "c00006",
+  "kind": "agent",
+  "file": "corpus/2SSK_dot-files__.claude_agents_ui-designer.md",
+  "repo": "2SSK/dot-files",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 251,
+  "copies_in_repos": 49
+ },
+ {
+  "id": "c00007",
+  "kind": "agent",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_ui-designer_agents_ui-designer.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/ui-designer/agents/ui-designer.md",
+  "stars": 952,
+  "copies_in_repos": 39
+ },
+ {
+  "id": "c00008",
+  "kind": "agent",
+  "file": "corpus/wshobson_agents__plugins_multi-platform-apps_agents_ui-ux-designer.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/multi-platform-apps/agents/ui-ux-designer.md",
+  "stars": 39956,
+  "copies_in_repos": 35
+ },
+ {
+  "id": "c00009",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_development-team_ui-ux-designer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/development-team/ui-ux-designer.md",
+  "stars": 31792,
+  "copies_in_repos": 31
+ },
+ {
+  "id": "c00010",
+  "kind": "agent",
+  "file": "corpus/tjsasakifln_extra-cli__.codex_agents_ux-design-expert.md",
+  "repo": "tjsasakifln/extra-cli",
+  "path": ".codex/agents/ux-design-expert.md",
+  "stars": 1,
+  "copies_in_repos": 28
+ }
+]

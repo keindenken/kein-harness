@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00226",
+  "kind": "agent",
+  "file": "corpus/partme-ai_full-stack-skills__agents_pencil-ui-designer.md",
+  "repo": "partme-ai/full-stack-skills",
+  "path": "agents/pencil-ui-designer.md",
+  "stars": 677,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00228",
+  "kind": "agent",
+  "file": "corpus/vibeeval_vibecosystem__agents_designer.md",
+  "repo": "vibeeval/vibecosystem",
+  "path": "agents/designer.md",
+  "stars": 534,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00230",
+  "kind": "agent",
+  "file": "corpus/me2resh_apexyard__.claude_agents_ux-designer.md",
+  "repo": "me2resh/apexyard",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 513,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00231",
+  "kind": "agent",
+  "file": "corpus/coco-research_coco__agents_ui-ux-designer.md",
+  "repo": "coco-research/coco",
+  "path": "agents/ui-ux-designer.md",
+  "stars": 500,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00232",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__claude_src_agents_design-system-engineer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/src/agents/design-system-engineer.md",
+  "stars": 462,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00233",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__claude_src_agents_ux-designer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/src/agents/ux-designer.md",
+  "stars": 462,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00234",
+  "kind": "agent",
+  "file": "corpus/Ibrahim-3d_orchestrator-supaconductor__agents_ux-designer.md",
+  "repo": "Ibrahim-3d/orchestrator-supaconductor",
+  "path": "agents/ux-designer.md",
+  "stars": 377,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00236",
+  "kind": "agent",
+  "file": "corpus/Owl-Listener_designpowers__agents_design-strategist.md",
+  "repo": "Owl-Listener/designpowers",
+  "path": "agents/design-strategist.md",
+  "stars": 246,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00237",
+  "kind": "agent",
+  "file": "corpus/Garudex-Labs_caracal__.github_agents_integration-ux-critic.agent.md",
+  "repo": "Garudex-Labs/caracal",
+  "path": ".github/agents/integration-ux-critic.agent.md",
+  "stars": 214,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00238",
+  "kind": "agent",
+  "file": "corpus/NicholasSpisak_claude-code-subagents__agents_specialized-agents_ui-ux-analyst.md",
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "path": "agents/specialized-agents/ui-ux-analyst.md",
+  "stars": 213,
+  "copies_in_repos": 2
+ }
+]

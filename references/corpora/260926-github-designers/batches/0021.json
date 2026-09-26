@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00360",
+  "kind": "agent",
+  "file": "corpus/Gowshik-S_DevElan__.claude_agents_Design.agent.md",
+  "repo": "Gowshik-S/DevElan",
+  "path": ".claude/agents/Design.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00361",
+  "kind": "agent",
+  "file": "corpus/Handsomeboy990_craft-suite__agents_design_ui-ux-engineer.md",
+  "repo": "Handsomeboy990/craft-suite",
+  "path": "agents/design/ui-ux-engineer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00362",
+  "kind": "agent",
+  "file": "corpus/Hot-Sweeper_peak-and-peak-studio__.github_agents_ui-ux-perfectionist.agent.md",
+  "repo": "Hot-Sweeper/peak-and-peak-studio",
+  "path": ".github/agents/ui-ux-perfectionist.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00363",
+  "kind": "agent",
+  "file": "corpus/InnoMikitaKutas_accelerator-test-task__.claude_agents_frontend-design-agent.md",
+  "repo": "InnoMikitaKutas/accelerator-test-task",
+  "path": ".claude/agents/frontend-design-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00364",
+  "kind": "agent",
+  "file": "corpus/IslamSolimanInnowise_frontend-accelerator-task__.claude_agents_ui-designer.md",
+  "repo": "IslamSolimanInnowise/frontend-accelerator-task",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00365",
+  "kind": "agent",
+  "file": "corpus/Mandeepthenoncoder_JulyCrm__agents_ui-ux-expert.md",
+  "repo": "Mandeepthenoncoder/JulyCrm",
+  "path": "agents/ui-ux-expert.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00368",
+  "kind": "agent",
+  "file": "corpus/Monsoft-Solutions_monsoft-website__agents_ui-ux-designer.md",
+  "repo": "Monsoft-Solutions/monsoft-website",
+  "path": "agents/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00370",
+  "kind": "agent",
+  "file": "corpus/Smith-Happens_xlightsfpptester__agents_-03-agents_development-architecture_user-experience_ui-ux-designer.md",
+  "repo": "Smith-Happens/xlightsfpptester",
+  "path": "agents/-03-agents/development-architecture/user-experience/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00371",
+  "kind": "agent",
+  "file": "corpus/Tanish-Dev_Ignisia-temporary__.github_agents_frontend-designer.agent.md",
+  "repo": "Tanish-Dev/Ignisia-temporary",
+  "path": ".github/agents/frontend-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00372",
+  "kind": "agent",
+  "file": "corpus/UpStackLabs_nexus-frontend__.claude_agents_design-system-generator.md",
+  "repo": "UpStackLabs/nexus-frontend",
+  "path": ".claude/agents/design-system-generator.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00121",
+  "kind": "agent",
+  "file": "corpus/LilyDesignSystem_lily-design-system-html-css-js-examples__AGENTS_nhs-uk-design-system-references.md",
+  "repo": "LilyDesignSystem/lily-design-system-html-css-js-examples",
+  "path": "AGENTS/nhs-uk-design-system-references.md",
+  "stars": 2,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00123",
+  "kind": "agent",
+  "file": "corpus/osok_claude-code-project-memory-mcp__.claude_agents_ui-ux-design-agent.md",
+  "repo": "osok/claude-code-project-memory-mcp",
+  "path": ".claude/agents/ui-ux-design-agent.md",
+  "stars": 2,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00124",
+  "kind": "agent",
+  "file": "corpus/samuelbonifacio015_Listalico__.claude_agents_ux-ui-designer.md",
+  "repo": "samuelbonifacio015/Listalico",
+  "path": ".claude/agents/ux-ui-designer.md",
+  "stars": 2,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00125",
+  "kind": "agent",
+  "file": "corpus/AISecurity365_syntro__.claude_agents_ui-designer.md",
+  "repo": "AISecurity365/syntro",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00126",
+  "kind": "agent",
+  "file": "corpus/kentonium3_kg-automation__.claude_agents_designer-dagmar.md",
+  "repo": "kentonium3/kg-automation",
+  "path": ".claude/agents/designer-dagmar.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00128",
+  "kind": "agent",
+  "file": "corpus/shyamsridhar123_ATV-AgentSkillsDemo__.github_agents_ux-designer.agent.md",
+  "repo": "shyamsridhar123/ATV-AgentSkillsDemo",
+  "path": ".github/agents/ux-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00130",
+  "kind": "agent",
+  "file": "corpus/Peter-N91_csq-fabric-demo__.github_agents_ux-ui-designer.agent.md",
+  "repo": "Peter-N91/csq-fabric-demo",
+  "path": ".github/agents/ux-ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00131",
+  "kind": "agent",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_product-designer.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/product-designer.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00132",
+  "kind": "agent",
+  "file": "corpus/jmsD3v_Phone-Store-Landing__.claude_agents_ui-ux-designer.md",
+  "repo": "jmsD3v/Phone-Store-Landing",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00133",
+  "kind": "agent",
+  "file": "corpus/gsd-build_get-shit-done__agents_gsd-ui-auditor.md",
+  "repo": "gsd-build/get-shit-done",
+  "path": "agents/gsd-ui-auditor.md",
+  "stars": 64459,
+  "copies_in_repos": 3
+ }
+]

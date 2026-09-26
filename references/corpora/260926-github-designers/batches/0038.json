@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0025",
+  "kind": "skill",
+  "file": "corpus-skills/Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-reference-packs_SKILL.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/SKILL.md",
+  "stars": 1303,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0026",
+  "kind": "skill",
+  "file": "corpus-skills/Owl-Listener_designer-skills__designer-toolkit_skills_design-system-adoption_SKILL.md",
+  "repo": "Owl-Listener/designer-skills",
+  "path": "designer-toolkit/skills/design-system-adoption/SKILL.md",
+  "stars": 2100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0027",
+  "kind": "skill",
+  "file": "corpus-skills/Owl-Listener_designer-skills__interaction-design_skills_error-handling-ux_SKILL.md",
+  "repo": "Owl-Listener/designer-skills",
+  "path": "interaction-design/skills/error-handling-ux/SKILL.md",
+  "stars": 2100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0028",
+  "kind": "skill",
+  "file": "corpus-skills/Owl-Listener_designer-skills__ui-design_skills_typography-scale_SKILL.md",
+  "repo": "Owl-Listener/designer-skills",
+  "path": "ui-design/skills/typography-scale/SKILL.md",
+  "stars": 2100,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0029",
+  "kind": "skill",
+  "file": "corpus-skills/RightNow-AI_openfang__crates_openfang-skills_bundled_css-expert_SKILL.md",
+  "repo": "RightNow-AI/openfang",
+  "path": "crates/openfang-skills/bundled/css-expert/SKILL.md",
+  "stars": 18122,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0030",
+  "kind": "skill",
+  "file": "corpus-skills/SpaceZephyr_design-buddy__space-brand-ui-design_SKILL.md",
+  "repo": "SpaceZephyr/design-buddy",
+  "path": "space-brand-ui-design/SKILL.md",
+  "stars": 141,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0031",
+  "kind": "skill",
+  "file": "corpus-skills/TencentCloudBase_CloudBase-AI-Toolkit__config_.claude_skills_ui-design_SKILL.md",
+  "repo": "TencentCloudBase/CloudBase-AI-Toolkit",
+  "path": "config/.claude/skills/ui-design/SKILL.md",
+  "stars": 1070,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0032",
+  "kind": "skill",
+  "file": "corpus-skills/Uxcel-Lab_product-skills__ux_foundations_color_SKILL.md",
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/color/SKILL.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0033",
+  "kind": "skill",
+  "file": "corpus-skills/Uxcel-Lab_product-skills__ux_foundations_typography_SKILL.md",
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/typography/SKILL.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0034",
+  "kind": "skill",
+  "file": "corpus-skills/Uxcel-Lab_product-skills__ux_screens_landing-page_SKILL.md",
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/screens/landing-page/SKILL.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

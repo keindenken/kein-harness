@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00374",
+  "kind": "agent",
+  "file": "corpus/adriebaselmans_ai-dev-team-core__.github_agents_ux-ui-designer.agent.md",
+  "repo": "adriebaselmans/ai-dev-team-core",
+  "path": ".github/agents/ux-ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00376",
+  "kind": "agent",
+  "file": "corpus/aegidati_agentic-demo-project__.github_agents_ux-navigator.agent.md",
+  "repo": "aegidati/agentic-demo-project",
+  "path": ".github/agents/ux-navigator.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00377",
+  "kind": "agent",
+  "file": "corpus/alvintoh_aether-flow__.claude_agents_design.md",
+  "repo": "alvintoh/aether-flow",
+  "path": ".claude/agents/design.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00380",
+  "kind": "agent",
+  "file": "corpus/arayhan_rocsteer-landing-page__.claude_agents_ui-designer.md",
+  "repo": "arayhan/rocsteer-landing-page",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00382",
+  "kind": "agent",
+  "file": "corpus/bagnascojhoel_bagnascojhoel-blog__.github_agents_Designer.agent.md",
+  "repo": "bagnascojhoel/bagnascojhoel-blog",
+  "path": ".github/agents/Designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00383",
+  "kind": "agent",
+  "file": "corpus/blecx_AI-Agent-Framework__.github_agents_blecs_blecs.ux.review.md",
+  "repo": "blecx/AI-Agent-Framework",
+  "path": ".github/agents/blecs/blecs.ux.review.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00384",
+  "kind": "agent",
+  "file": "corpus/buisihung11_maxai__.github_agents_ui-ux-designer.agent.md",
+  "repo": "buisihung11/maxai",
+  "path": ".github/agents/ui-ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00385",
+  "kind": "agent",
+  "file": "corpus/cmwen_quick-log-app__.github_agents_experience-designer.agent.md",
+  "repo": "cmwen/quick-log-app",
+  "path": ".github/agents/experience-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00387",
+  "kind": "agent",
+  "file": "corpus/dadadan23_world-pulse__.github_agents_ux-designer.agent.md",
+  "repo": "dadadan23/world-pulse",
+  "path": ".github/agents/ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00389",
+  "kind": "agent",
+  "file": "corpus/g-nogueira_BudgedManager__.github_agents_ui-designer.agent.md",
+  "repo": "g-nogueira/BudgedManager",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

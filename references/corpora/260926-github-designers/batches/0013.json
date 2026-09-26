@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00239",
+  "kind": "agent",
+  "file": "corpus/rennf93_roboco__agents_prompts_identities_ux-qa.md",
+  "repo": "rennf93/roboco",
+  "path": "agents/prompts/identities/ux-qa.md",
+  "stars": 176,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00240",
+  "kind": "agent",
+  "file": "corpus/team-attention_hoyeon__agents_ux-reviewer.md",
+  "repo": "team-attention/hoyeon",
+  "path": "agents/ux-reviewer.md",
+  "stars": 174,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00241",
+  "kind": "agent",
+  "file": "corpus/riowang88_tvbox-source-aggregator__.claude_agents_frontend-designer.md",
+  "repo": "riowang88/tvbox-source-aggregator",
+  "path": ".claude/agents/frontend-designer.md",
+  "stars": 162,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00242",
+  "kind": "agent",
+  "file": "corpus/burkeholland_max__agents_designer.agent.md",
+  "repo": "burkeholland/max",
+  "path": "agents/designer.agent.md",
+  "stars": 142,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00247",
+  "kind": "agent",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_visual-design-master.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/visual-design-master.md",
+  "stars": 116,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00249",
+  "kind": "agent",
+  "file": "corpus/HermeticOrmus_LibreUIUX-Claude-Code__plugins_design-mastery_agents_design-master.md",
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "path": "plugins/design-mastery/agents/design-master.md",
+  "stars": 103,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00251",
+  "kind": "agent",
+  "file": "corpus/jjongguet_oh-my-product__agents_designer.md",
+  "repo": "jjongguet/oh-my-product",
+  "path": "agents/designer.md",
+  "stars": 99,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00252",
+  "kind": "agent",
+  "file": "corpus/davidmatousek_tachi__.claude_agents_ux-ui-designer.md",
+  "repo": "davidmatousek/tachi",
+  "path": ".claude/agents/ux-ui-designer.md",
+  "stars": 94,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00253",
+  "kind": "agent",
+  "file": "corpus/flick-git-anhnv_claude__.claude_agents_ui-ux-designer.md",
+  "repo": "flick-git-anhnv/claude",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 90,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00254",
+  "kind": "agent",
+  "file": "corpus/flick-git-anhnv_claude__.claude_agents_ux-ui-reviewer.md",
+  "repo": "flick-git-anhnv/claude",
+  "path": ".claude/agents/ux-ui-reviewer.md",
+  "stars": 90,
+  "copies_in_repos": 2
+ }
+]

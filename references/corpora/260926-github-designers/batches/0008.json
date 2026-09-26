@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00135",
+  "kind": "agent",
+  "file": "corpus/microsoft_hve-core__.github_agents_project-planning_ux-ui-designer.agent.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/agents/project-planning/ux-ui-designer.agent.md",
+  "stars": 1478,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00139",
+  "kind": "agent",
+  "file": "corpus/NYCU-Chung_my-claude-devteam__agents_frontend-designer.md",
+  "repo": "NYCU-Chung/my-claude-devteam",
+  "path": "agents/frontend-designer.md",
+  "stars": 269,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00142",
+  "kind": "agent",
+  "file": "corpus/juliusz-cwiakalski_agentic-delivery-os__.opencode_agent_designer.md",
+  "repo": "juliusz-cwiakalski/agentic-delivery-os",
+  "path": ".opencode/agent/designer.md",
+  "stars": 38,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00150",
+  "kind": "agent",
+  "file": "corpus/bullish0x_GameStudio__.codex_agents_ux-designer.toml",
+  "repo": "bullish0x/GameStudio",
+  "path": ".codex/agents/ux-designer.toml",
+  "stars": 15,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00152",
+  "kind": "agent",
+  "file": "corpus/KimPlaybit_Starcraft-2-Editor-Skills__.github_agents_galaxy-ui-designer.agent.md",
+  "repo": "KimPlaybit/Starcraft-2-Editor-Skills",
+  "path": ".github/agents/galaxy-ui-designer.agent.md",
+  "stars": 10,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00154",
+  "kind": "agent",
+  "file": "corpus/vedanta_the-system__.claude_agents_ux-analyzer.md",
+  "repo": "vedanta/the-system",
+  "path": ".claude/agents/ux-analyzer.md",
+  "stars": 9,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00155",
+  "kind": "agent",
+  "file": "corpus/Yan-Acadenice_BYAN__.claude_agents_bmad-bmm-ux-designer.md",
+  "repo": "Yan-Acadenice/BYAN",
+  "path": ".claude/agents/bmad-bmm-ux-designer.md",
+  "stars": 8,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00158",
+  "kind": "agent",
+  "file": "corpus/LimiNode_kurlyk__.claude_agents_designer.md",
+  "repo": "LimiNode/kurlyk",
+  "path": ".claude/agents/designer.md",
+  "stars": 5,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00159",
+  "kind": "agent",
+  "file": "corpus/tremtec_maestro__.opencode_agent_ux-designer.md",
+  "repo": "tremtec/maestro",
+  "path": ".opencode/agent/ux-designer.md",
+  "stars": 5,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00160",
+  "kind": "agent",
+  "file": "corpus/ambient-code_workflows__agents_steve-ux_designer.md",
+  "repo": "ambient-code/workflows",
+  "path": "agents/steve-ux_designer.md",
+  "stars": 4,
+  "copies_in_repos": 3
+ }
+]

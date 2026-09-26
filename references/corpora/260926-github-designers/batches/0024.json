@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00407",
+  "kind": "agent",
+  "file": "corpus/meetpateldev18_fleet-flow26__.github_agents_ui-ux-agent.md",
+  "repo": "meetpateldev18/fleet-flow26",
+  "path": ".github/agents/ui-ux-agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00408",
+  "kind": "agent",
+  "file": "corpus/micronugget_duccinisv3__.github_agents_ux-ui-designer.agent.md",
+  "repo": "micronugget/duccinisv3",
+  "path": ".github/agents/ux-ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00409",
+  "kind": "agent",
+  "file": "corpus/mikinamateusz-svg_desert__agents_bmad-create-ux-design_steps_step-06-design-system.md",
+  "repo": "mikinamateusz-svg/desert",
+  "path": "agents/bmad-create-ux-design/steps/step-06-design-system.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00410",
+  "kind": "agent",
+  "file": "corpus/min3rd_awesome-agents__.github_agents_ui-ux-designer.agent.md",
+  "repo": "min3rd/awesome-agents",
+  "path": ".github/agents/ui-ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00416",
+  "kind": "agent",
+  "file": "corpus/nige123_go-jmp.nigelhamilton.com__agents_UX_ARIA.md",
+  "repo": "nige123/go-jmp.nigelhamilton.com",
+  "path": "agents/UX_ARIA.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00417",
+  "kind": "agent",
+  "file": "corpus/nogamsung_assetlog__.claude_agents_ui-designer.md",
+  "repo": "nogamsung/assetlog",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00418",
+  "kind": "agent",
+  "file": "corpus/onronder_DuruNotes__.claude_agents_ux-design-systems-expert.md",
+  "repo": "onronder/DuruNotes",
+  "path": ".claude/agents/ux-design-systems-expert.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00419",
+  "kind": "agent",
+  "file": "corpus/polsalarm_negosyonav__.claude_agents_design-system-guard.md",
+  "repo": "polsalarm/negosyonav",
+  "path": ".claude/agents/design-system-guard.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00422",
+  "kind": "agent",
+  "file": "corpus/ryasrk_AgentBrokeTheMatrix-CopilotVersion__.github_agents_ui-ux-auditor.agent.md",
+  "repo": "ryasrk/AgentBrokeTheMatrix-CopilotVersion",
+  "path": ".github/agents/ui-ux-auditor.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00424",
+  "kind": "agent",
+  "file": "corpus/sekka1_Boiler-plate-webapp-cloudflare__.github_agents_frontend-design-expert.agent.md",
+  "repo": "sekka1/Boiler-plate-webapp-cloudflare",
+  "path": ".github/agents/frontend-design-expert.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]

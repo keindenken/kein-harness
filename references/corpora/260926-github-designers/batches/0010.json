@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00182",
+  "kind": "agent",
+  "file": "corpus/artemislab_kerios__.claude_agents_ux-designer.md",
+  "repo": "artemislab/kerios",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00183",
+  "kind": "agent",
+  "file": "corpus/diesaldano_diezproducciones.ar__.github_agents_frontend-designer.agent.md",
+  "repo": "diesaldano/diezproducciones.ar",
+  "path": ".github/agents/frontend-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00184",
+  "kind": "agent",
+  "file": "corpus/dsyorkd_ci-image__.claude_agents_ui-ux-designer.md",
+  "repo": "dsyorkd/ci-image",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00185",
+  "kind": "agent",
+  "file": "corpus/ducanhnguyen223_future-box__.claude_agents_agent-uiux.md",
+  "repo": "ducanhnguyen223/future-box",
+  "path": ".claude/agents/agent-uiux.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00186",
+  "kind": "agent",
+  "file": "corpus/et0175_iwonder__.claude_agents_interface-design.md",
+  "repo": "et0175/iwonder",
+  "path": ".claude/agents/interface-design.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00190",
+  "kind": "agent",
+  "file": "corpus/jechamo_Estructura_inicial_claude__.codex_agents_ux-designer.toml",
+  "repo": "jechamo/Estructura_inicial_claude",
+  "path": ".codex/agents/ux-designer.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00191",
+  "kind": "agent",
+  "file": "corpus/jechamo_Estructura_inicial_claude__.github_agents_ux-designer.agent.md",
+  "repo": "jechamo/Estructura_inicial_claude",
+  "path": ".github/agents/ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00193",
+  "kind": "agent",
+  "file": "corpus/kinncj_MAPLE-claude-code-opus-max__.claude_agents_design-system-author.md",
+  "repo": "kinncj/MAPLE-claude-code-opus-max",
+  "path": ".claude/agents/design-system-author.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00194",
+  "kind": "agent",
+  "file": "corpus/koala-man-64_asset-allocation__.github_agents_frontend-design.agent.md",
+  "repo": "koala-man-64/asset-allocation",
+  "path": ".github/agents/frontend-design.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00196",
+  "kind": "agent",
+  "file": "corpus/pelchers_IDEAS_MANAGEMENT__.codex_agents_deprecated_planning-frontend-design-orchestrator.md",
+  "repo": "pelchers/IDEAS_MANAGEMENT",
+  "path": ".codex/agents/deprecated/planning-frontend-design-orchestrator.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ }
+]

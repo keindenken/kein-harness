@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00449",
+  "kind": "agent",
+  "file": "corpus/github_awesome-copilot__agents_gem-designer.agent.md",
+  "repo": "github/awesome-copilot",
+  "path": "agents/gem-designer.agent.md",
+  "stars": 39388,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00452",
+  "kind": "agent",
+  "file": "corpus/musistudio_claude-code-router__docs_src_content_docs_en_configuration_agents_claude-design.md",
+  "repo": "musistudio/claude-code-router",
+  "path": "docs/src/content/docs/en/configuration/agents/claude-design.md",
+  "stars": 37423,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00453",
+  "kind": "agent",
+  "file": "corpus/musistudio_claude-code-router__docs_src_content_docs_zh_configuration_agents_claude-design.md",
+  "repo": "musistudio/claude-code-router",
+  "path": "docs/src/content/docs/zh/configuration/agents/claude-design.md",
+  "stars": 37423,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00464",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_ui-analysis_screenshot-ui-analyzer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/ui-analysis/screenshot-ui-analyzer.md",
+  "stars": 31792,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00468",
+  "kind": "agent",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__.claude_agents_prototyper.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": ".claude/agents/prototyper.md",
+  "stars": 25438,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00478",
+  "kind": "agent",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_specialists_prototyper.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": "CCGS Skill Testing Framework/agents/specialists/prototyper.md",
+  "stars": 25438,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00481",
+  "kind": "agent",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__CCGS Skill Testing Framework_agents_specialists_ux-designer.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": "CCGS Skill Testing Framework/agents/specialists/ux-designer.md",
+  "stars": 25438,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00483",
+  "kind": "agent",
+  "file": "corpus/MemTensor_MemOS__.claude_agents_design-reviewer.md",
+  "repo": "MemTensor/MemOS",
+  "path": ".claude/agents/design-reviewer.md",
+  "stars": 11583,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00486",
+  "kind": "agent",
+  "file": "corpus/Devin-AXIS_iPolloWork__examples_plugin-packages_figma_agents_design-parity-review-agent.md",
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/agents/design-parity-review-agent.md",
+  "stars": 6699,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00487",
+  "kind": "agent",
+  "file": "corpus/Devin-AXIS_iPolloWork__examples_plugin-packages_figma_agents_design-system-rules-agent.md",
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/agents/design-system-rules-agent.md",
+  "stars": 6699,
+  "copies_in_repos": 1
+ }
+]

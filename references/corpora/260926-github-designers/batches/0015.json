@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00267",
+  "kind": "agent",
+  "file": "corpus/russbeye_claude-memory-bank__agents_ux-design-expert.md",
+  "repo": "russbeye/claude-memory-bank",
+  "path": "agents/ux-design-expert.md",
+  "stars": 19,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00268",
+  "kind": "agent",
+  "file": "corpus/Azure-Samples_tutor__.github_agents_ui-agent.agent.md",
+  "repo": "Azure-Samples/tutor",
+  "path": ".github/agents/ui-agent.agent.md",
+  "stars": 17,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00270",
+  "kind": "agent",
+  "file": "corpus/ajsai47_cofounder__agents_design_ui-designer.md",
+  "repo": "ajsai47/cofounder",
+  "path": "agents/design/ui-designer.md",
+  "stars": 15,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00272",
+  "kind": "agent",
+  "file": "corpus/jlcatonjr_Learn-Python-for-Stats-and-Econ__.github_agents_.agentteams-backups_20260519-223553_visual-designer.agent.md",
+  "repo": "jlcatonjr/Learn-Python-for-Stats-and-Econ",
+  "path": ".github/agents/.agentteams-backups/20260519-223553/visual-designer.agent.md",
+  "stars": 15,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00273",
+  "kind": "agent",
+  "file": "corpus/MarceloClaro_OpenCode_Ecosystem__agents_reversa-design-system.md",
+  "repo": "MarceloClaro/OpenCode_Ecosystem",
+  "path": "agents/reversa-design-system.md",
+  "stars": 12,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00274",
+  "kind": "agent",
+  "file": "corpus/southleft_altitude__.claude_agents_mm_mm-ui-ux-reviewer.md",
+  "repo": "southleft/altitude",
+  "path": ".claude/agents/mm/mm-ui-ux-reviewer.md",
+  "stars": 12,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00275",
+  "kind": "agent",
+  "file": "corpus/Innei_claude-code__agents_ui-designer.md",
+  "repo": "Innei/claude-code",
+  "path": "agents/ui-designer.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00277",
+  "kind": "agent",
+  "file": "corpus/ariobarin_agentic-engineering-101__.claude_agents_ui-ux-designer.md",
+  "repo": "ariobarin/agentic-engineering-101",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00280",
+  "kind": "agent",
+  "file": "corpus/frankxai_agentic-creator-os__.claude_agents_ui-ux-design-guidance.md",
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/agents/ui-ux-design-guidance.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00281",
+  "kind": "agent",
+  "file": "corpus/frankxai_agentic-creator-os__.claude_agents_ux-design-development.md",
+  "repo": "frankxai/agentic-creator-os",
+  "path": ".claude/agents/ux-design-development.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ }
+]

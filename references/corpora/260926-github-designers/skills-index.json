@@ -1,0 +1,2739 @@
+[
+ {
+  "repo": "0xsline/OpenChatCut",
+  "path": "src/agent/skills/create-motion-graphics/SKILL.md",
+  "file": "0xsline_OpenChatCut__src_agent_skills_create-motion-graphics_SKILL.md",
+  "words": 4355,
+  "sha": "b2b08d1d74ace0875a54edd58b9d882e48cdf3ef1f413deda119eb48284e1638"
+ },
+ {
+  "repo": "0xsline/OpenChatCut",
+  "path": "src/agent/skills/motion-graphic-placement/SKILL.md",
+  "file": "0xsline_OpenChatCut__src_agent_skills_motion-graphic-placement_SKILL.md",
+  "words": 605,
+  "sha": "44eace41e3579da54abb19841a1f29ef7f60b2845e6b703c45e89789a54d2140"
+ },
+ {
+  "repo": "24kchengYe/human-skill-tree",
+  "path": "app/content/skills/05-emotional-intelligence/SKILL.md",
+  "file": "24kchengYe_human-skill-tree__app_content_skills_05-emotional-intelligence_SKILL.md",
+  "words": 3240,
+  "sha": "1239ef70c8d0e516bf5f296ae889feb3014af332d509de3403a0884324a693ee"
+ },
+ {
+  "repo": "AIPexStudio/AIPex",
+  "path": "packages/browser-runtime/src/skill/built-in/ux-audit-walkthrough/SKILL.md",
+  "file": "AIPexStudio_AIPex__packages_browser-runtime_src_skill_built-in_ux-audit-walkthrough_SKILL.md",
+  "words": 1098,
+  "sha": "83eec61296e988b4ea5964f13c69934fbecfac8c7c44a67efae223b298ff86b9"
+ },
+ {
+  "repo": "AIPexStudio/AIPex",
+  "path": "packages/browser-runtime/src/skill/built-in/wcag22-a11y-audit/SKILL.md",
+  "file": "AIPexStudio_AIPex__packages_browser-runtime_src_skill_built-in_wcag22-a11y-audit_SKILL.md",
+  "words": 2572,
+  "sha": "452975a8866bd49bb93c8cbd8fe06fe42ca6d3b0a5761794c79b0175459b2b95"
+ },
+ {
+  "repo": "Affitor/affiliate-skills",
+  "path": "skills/landing/landing-page-creator/SKILL.md",
+  "file": "Affitor_affiliate-skills__skills_landing_landing-page-creator_SKILL.md",
+  "words": 2000,
+  "sha": "69ba5e0cc356c0dea74a74c9ae588422a7d84b37d30a4c44f4dce8fab2b87676"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "file": "AgentWorkforce_relay__.agents_skills_emil-design-eng_SKILL.md",
+  "words": 3887,
+  "sha": "7cae333032940e9df7b9a64e1315e2556772b4b5c794fed23c9266f80a454fee"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/review-animations/SKILL.md",
+  "file": "AgentWorkforce_relay__.agents_skills_review-animations_SKILL.md",
+  "words": 1118,
+  "sha": "0a97b08473c6af58fb93c9bfd2d00f6874485dcf3480d6d9943f5dc668510fe3"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "file": "AgentWorkforce_relay__.claude_skills_frontend-design_SKILL.md",
+  "words": 562,
+  "sha": "1bd8de679bba492ee6878482f859397faa227a880d0154d3f8e626c3fe05498e"
+ },
+ {
+  "repo": "Agenta-AI/agenta",
+  "path": ".agents/skills/mobile-motion-patterns/SKILL.md",
+  "file": "Agenta-AI_agenta__.agents_skills_mobile-motion-patterns_SKILL.md",
+  "words": 269,
+  "sha": "037ec18e36bd1e0533302d0bc59690438e4ec41962e36218700ca5a3b4250c93"
+ },
+ {
+  "repo": "Agenta-AI/agenta",
+  "path": ".agents/skills/mobile-shadcn-conventions/SKILL.md",
+  "file": "Agenta-AI_agenta__.agents_skills_mobile-shadcn-conventions_SKILL.md",
+  "words": 463,
+  "sha": "c8f45c12623beb4833f1bcc7a2175b661ba754a4094808360480301075660c28"
+ },
+ {
+  "repo": "Agentchengfeng/chengfeng-videocut-skills",
+  "path": "plugins/chengfeng-videocut/skills/chengfeng-visual/animation-styles/ian-xiaohei-svg-motion/SKILL.md",
+  "file": "Agentchengfeng_chengfeng-videocut-skills__plugins_chengfeng-videocut_skills_chengfeng-visual_animation-styles_ian-xiaohei-svg-motion_SKILL.md",
+  "words": 681,
+  "sha": "84ef6a5d61144432e18444bf4b67661efb8c364b5ea6d56850664977c242d344"
+ },
+ {
+  "repo": "AgnosticUI/agnosticui",
+  "path": ".claude/skills/check-accessibility/SKILL.md",
+  "file": "AgnosticUI_agnosticui__.claude_skills_check-accessibility_SKILL.md",
+  "words": 295,
+  "sha": "bb30afafd3906f5d596f5eecce0956c3ef8e728323bdec2aac448fa2f30809c3"
+ },
+ {
+  "repo": "AgnosticUI/agnosticui",
+  "path": ".claude/skills/update-component-docs/SKILL.md",
+  "file": "AgnosticUI_agnosticui__.claude_skills_update-component-docs_SKILL.md",
+  "words": 298,
+  "sha": "a0ecbaf6d9d232bbe910ea07c170074ea0f3fd10393ad783a859c3d1c406007a"
+ },
+ {
+  "repo": "AgriciDaniel/claude-ads",
+  "path": "skills/ads-landing/SKILL.md",
+  "file": "AgriciDaniel_claude-ads__skills_ads-landing_SKILL.md",
+  "words": 321,
+  "sha": "3411fc6abc824fcff4946809eccf505853910d1433ef3c4d302d60a49ff543a8"
+ },
+ {
+  "repo": "Ar9av/obsidian-wiki",
+  "path": ".skills/graph-colorize/SKILL.md",
+  "file": "Ar9av_obsidian-wiki__.skills_graph-colorize_SKILL.md",
+  "words": 1274,
+  "sha": "ae21761a234d0362771530c0bd6055ea64c5792ec8e17b513645adf49d97d056"
+ },
+ {
+  "repo": "Archive228/loopkit",
+  "path": "skills/a11y-pass/SKILL.md",
+  "file": "Archive228_loopkit__skills_a11y-pass_SKILL.md",
+  "words": 129,
+  "sha": "f85cfe9f8909ed07494078bb0871ff5dcc5c6fb97383dc22071494a6a5db22f3"
+ },
+ {
+  "repo": "Archive228/loopkit",
+  "path": "skills/design-system/SKILL.md",
+  "file": "Archive228_loopkit__skills_design-system_SKILL.md",
+  "words": 154,
+  "sha": "6101d23c6f89269d91d0cdb6b028a234f9755e851b1373fc51a14635fa00b55b"
+ },
+ {
+  "repo": "BankrBot/skills",
+  "path": "ethskills-frontend-ux/SKILL.md",
+  "file": "BankrBot_skills__ethskills-frontend-ux_SKILL.md",
+  "words": 50,
+  "sha": "6e3ae373523d64f692b767738cee35d63e0ccda2a04aa7c2b85b1ca5c6bde6eb"
+ },
+ {
+  "repo": "Besty0728/Unity-Skills",
+  "path": "SkillsForUnity/unity-skills~/skills/component/SKILL.md",
+  "file": "Besty0728_Unity-Skills__SkillsForUnity_unity-skills~_skills_component_SKILL.md",
+  "words": 2604,
+  "sha": "fe510ca34cfc56c767382f7252614bba86f07cf4aeea3dc77ce579dbed99f192"
+ },
+ {
+  "repo": "CharlesWiltgen/Axiom",
+  "path": ".claude-plugin/plugins/axiom/skills/axiom-accessibility/SKILL.md",
+  "file": "CharlesWiltgen_Axiom__.claude-plugin_plugins_axiom_skills_axiom-accessibility_SKILL.md",
+  "words": 1053,
+  "sha": "f89ed543a26199089e2ab3a225aa79bbf56ccc53a5e336223eedeb078eb804f2"
+ },
+ {
+  "repo": "ChrisWiles/claude-code-showcase",
+  "path": ".claude/skills/core-components/SKILL.md",
+  "file": "ChrisWiles_claude-code-showcase__.claude_skills_core-components_SKILL.md",
+  "words": 613,
+  "sha": "9b4325340921e7b1793bebe320a298675a38120d2202a0310831d4643e90d0f2"
+ },
+ {
+  "repo": "ChrisWiles/claude-code-showcase",
+  "path": ".claude/skills/react-ui-patterns/SKILL.md",
+  "file": "ChrisWiles_claude-code-showcase__.claude_skills_react-ui-patterns_SKILL.md",
+  "words": 886,
+  "sha": "ab7d275cbd9a8c91f5f92596988a0df9ddb1116096386ac9474b106a2fa670d1"
+ },
+ {
+  "repo": "CloudAI-X/claude-workflow-v2",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "file": "CloudAI-X_claude-workflow-v2__skills_web-design-guidelines_SKILL.md",
+  "words": 981,
+  "sha": "0f0b4d9af56b6a502f8fcd8f52e4acc0fbc5441a78537a4b1b2a56f47ac2dd86"
+ },
+ {
+  "repo": "ConardLi/garden-skills",
+  "path": "skills/web-design-engineer/SKILL.md",
+  "file": "ConardLi_garden-skills__skills_web-design-engineer_SKILL.md",
+  "words": 5332,
+  "sha": "00633aa430281e9921c35bb181ab233879d2a21e999d605fc330258a54e26df1"
+ },
+ {
+  "repo": "Destynova2/cli-code-skills",
+  "path": "cli-forge-choice-ux/SKILL.md",
+  "file": "Destynova2_cli-code-skills__cli-forge-choice-ux_SKILL.md",
+  "words": 1431,
+  "sha": "2836d4930364f0092b11529fee1baa206895b10d9fb76502578adcce5b6f0e7e"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": ".opencode/skills/shadcn/SKILL.md",
+  "file": "Devin-AXIS_iPolloWork__.opencode_skills_shadcn_SKILL.md",
+  "words": 2262,
+  "sha": "c5a5c3a8e380ab7d49369c68a715b2da6b1bcc449898cfdf787bbab8cb13a5d9"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-code-connect/SKILL.md",
+  "file": "Devin-AXIS_iPolloWork__examples_plugin-packages_figma_skills_figma-code-connect_SKILL.md",
+  "words": 3420,
+  "sha": "206d6db8304704019ee64e23128428af8f8815e2a114a99087ec2a300c194e9f"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-generate-library/SKILL.md",
+  "file": "Devin-AXIS_iPolloWork__examples_plugin-packages_figma_skills_figma-generate-library_SKILL.md",
+  "words": 3237,
+  "sha": "38d9381d4fb089233eec0a9af829a6444fbe7c8413cfcfbb89d1992a5f08b7fc"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-use-figjam/SKILL.md",
+  "file": "Devin-AXIS_iPolloWork__examples_plugin-packages_figma_skills_figma-use-figjam_SKILL.md",
+  "words": 913,
+  "sha": "16b15da304f777e6bdc79bf425da73fa1ce0ea41af726cab8ddd6f40180acd74"
+ },
+ {
+  "repo": "Dimillian/Skills",
+  "path": "react-component-performance/SKILL.md",
+  "file": "Dimillian_Skills__react-component-performance_SKILL.md",
+  "words": 694,
+  "sha": "4d563bd4beca0c67ac85984fc5e05178532307d167c2accfdfc724d7548669de"
+ },
+ {
+  "repo": "Dimillian/Skills",
+  "path": "swiftui-ui-patterns/SKILL.md",
+  "file": "Dimillian_Skills__swiftui-ui-patterns_SKILL.md",
+  "words": 1029,
+  "sha": "adbc12e85a56643b41ee3649d24db37f00fd8163c70727f5947b38f3cb5760f2"
+ },
+ {
+  "repo": "Ed1s0nZ/CyberStrikeAI",
+  "path": "skills/component-vuln-intel/SKILL.md",
+  "file": "Ed1s0nZ_CyberStrikeAI__skills_component-vuln-intel_SKILL.md",
+  "words": 183,
+  "sha": "d00539c4c234d007734ff0909a3a8b9d0b12a0427fe75180c485c26412cc2d0c"
+ },
+ {
+  "repo": "Egonex-AI/Understand-Anything",
+  "path": "understand-anything-plugin/skills/understand-figma/SKILL.md",
+  "file": "Egonex-AI_Understand-Anything__understand-anything-plugin_skills_understand-figma_SKILL.md",
+  "words": 561,
+  "sha": "b8f76ffb75250a265d609d597c218d1884e220618065240748f2256ef10c475d"
+ },
+ {
+  "repo": "Emily2040/seedance-2.0",
+  "path": "skills/seedance-motion/SKILL.md",
+  "file": "Emily2040_seedance-2.0__skills_seedance-motion_SKILL.md",
+  "words": 758,
+  "sha": "b0c9d4bc9b84f34be6180dc4ecdf28725244d0879b309bbd5bc0f24508bf1a05"
+ },
+ {
+  "repo": "EveryInc/compound-engineering-plugin",
+  "path": "skills/ce-prototype/SKILL.md",
+  "file": "EveryInc_compound-engineering-plugin__skills_ce-prototype_SKILL.md",
+  "words": 1257,
+  "sha": "de1b34ef13dffcf882021bc8e600abb64bd9265fb624b35dd9800ce6412c78fb"
+ },
+ {
+  "repo": "Gaku52/software-engineering-universe",
+  "path": "04-web-and-network/web-accessibility/SKILL.md",
+  "file": "Gaku52_software-engineering-universe__04-web-and-network_web-accessibility_SKILL.md",
+  "words": 547,
+  "sha": "8c069dfa0c35857a831cde2ed7d89047db33afd2a943681e32f9f45bed065f58"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/frontend-design/SKILL.md",
+  "file": "Galaxy-Dawn_claude-scholar__skills_frontend-design_SKILL.md",
+  "words": 585,
+  "sha": "7e389e7556f36e983a4b02b710070d3ac54e858e082e7071f2a0378051d654cf"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "file": "Galaxy-Dawn_claude-scholar__skills_ui-ux-pro-max_SKILL.md",
+  "words": 556,
+  "sha": "bfc986f0747554d1078e80e103e5ef9bbd0907efeee26f781e2a404e1763e0ee"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/web-design-reviewer/SKILL.md",
+  "file": "Galaxy-Dawn_claude-scholar__skills_web-design-reviewer_SKILL.md",
+  "words": 1572,
+  "sha": "8d31fcdcfc6ddb813e529cf0b199046c4492ac59264c79aa957d2f679527b02e"
+ },
+ {
+  "repo": "Gentleman-Programming/Gentleman-Skills",
+  "path": "curated/tailwind-4/SKILL.md",
+  "file": "Gentleman-Programming_Gentleman-Skills__curated_tailwind-4_SKILL.md",
+  "words": 570,
+  "sha": "7dbf1477e95ef24f8685a989479ea3b5c525e61d94f2ca496887cecb7ceb4c9c"
+ },
+ {
+  "repo": "HKUDS/DeepCode",
+  "path": "core/skills/builtin/frontend-design/SKILL.md",
+  "file": "HKUDS_DeepCode__core_skills_builtin_frontend-design_SKILL.md",
+  "words": 1336,
+  "sha": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd"
+ },
+ {
+  "repo": "Haohao-end/openagent",
+  "path": "api/internal/core/skills/catalog/figma/SKILL.md",
+  "file": "Haohao-end_openagent__api_internal_core_skills_catalog_figma_SKILL.md",
+  "words": 472,
+  "sha": "5b11f7c8d0ce4c047b401323e7b8fe6559bd3162a3397bf5248634a5444609d5"
+ },
+ {
+  "repo": "Haohao-end/openagent",
+  "path": "api/internal/core/skills/catalog/figma-use/SKILL.md",
+  "file": "Haohao-end_openagent__api_internal_core_skills_catalog_figma-use_SKILL.md",
+  "words": 2487,
+  "sha": "afa9c4ae068a18b93e4914b2d224180ace113db7713dd66f4df397f16ba9c4b4"
+ },
+ {
+  "repo": "IvanMurzak/Unity-MCP",
+  "path": "Unity-MCP-Plugin/.claude/skills/gameobject-component-destroy/SKILL.md",
+  "file": "IvanMurzak_Unity-MCP__Unity-MCP-Plugin_.claude_skills_gameobject-component-destroy_SKILL.md",
+  "words": 762,
+  "sha": "f13b8293965c5be4490aaef46d5d26c696ff3e9582caa868382f3ffb5f550aab"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/kiranism-shadcn-dashboard/SKILL.md",
+  "file": "Kiranism_next-shadcn-dashboard-starter__.agents_skills_kiranism-shadcn-dashboard_SKILL.md",
+  "words": 2573,
+  "sha": "2ab9df216b849f1963f1249dac3bf24d012967abb66a763d4428d86c52b9ddc6"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "file": "Kiranism_next-shadcn-dashboard-starter__.agents_skills_shadcn_SKILL.md",
+  "words": 2409,
+  "sha": "a45cddd4511f8262df05b20506f4d52be8210a9ee05a13d9e36d4ee321bab593"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "file": "Kiranism_next-shadcn-dashboard-starter__.agents_skills_web-design-guidelines_SKILL.md",
+  "words": 176,
+  "sha": "c2bd6243267c97f5a735156649e17422233fe1c081c2556cb398e2362b12e936"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".claude/skills/kiranism-shadcn-dashboard/SKILL.md",
+  "file": "Kiranism_next-shadcn-dashboard-starter__.claude_skills_kiranism-shadcn-dashboard_SKILL.md",
+  "words": 1402,
+  "sha": "503d8005d63ba6034dcf786e441c0bf38614356749f94fd50e3d60c047e497d0"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/brandkit/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_brandkit_SKILL.md",
+  "words": 2600,
+  "sha": "b0c4837e1bd140ca816ae54948754ddd2ac1e2a4d3619363777a80caf00b2ede"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/gpt-tasteskill/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_gpt-tasteskill_SKILL.md",
+  "words": 1134,
+  "sha": "2e64c269953f2656c21bf5a0fa6b4568e82fe0c72b36e8f84758e090349966a5"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/imagegen-frontend-mobile/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_imagegen-frontend-mobile_SKILL.md",
+  "words": 6552,
+  "sha": "8a33389979f3074fa0926678e266ad2eb9234624472254469fc1ad916b9caa24"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/imagegen-frontend-web/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_imagegen-frontend-web_SKILL.md",
+  "words": 5819,
+  "sha": "6b5c2256522fdba1e3313eafa3d743b960a7b13ec029d3e6586e04b23327c1f8"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_taste-skill_SKILL.md",
+  "words": 12853,
+  "sha": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill-v1/SKILL.md",
+  "file": "Leonxlnx_taste-skill__skills_taste-skill-v1_SKILL.md",
+  "words": 2937,
+  "sha": "033d45af1ed23832730642f95f40ab49db7fb5222848489a6c5656144bfc6dae"
+ },
+ {
+  "repo": "Light0305/Light-skills",
+  "path": "skills/light-frontend-design/SKILL.md",
+  "file": "Light0305_Light-skills__skills_light-frontend-design_SKILL.md",
+  "words": 1230,
+  "sha": "13d53e3f6ca1a8a0d2b5ce8bfe245f2febb9c1ca3b28dbe27b82ad301ae330f1"
+ },
+ {
+  "repo": "LottieFiles/motion-design-skill",
+  "path": "skills/motion-design/SKILL.md",
+  "file": "LottieFiles_motion-design-skill__skills_motion-design_SKILL.md",
+  "words": 1714,
+  "sha": "8729ecbc7e5736c1295baaa8ba0384bb4b1aac9cf91b83fcdc64d9548a57bb19"
+ },
+ {
+  "repo": "MengTo/Skills",
+  "path": "agent-skills/web-design/cinematic-gsap-lenis-motion-system/SKILL.md",
+  "file": "MengTo_Skills__agent-skills_web-design_cinematic-gsap-lenis-motion-system_SKILL.md",
+  "words": 1939,
+  "sha": "7b8f5745f34ef4ba507e19fabd6acf9cd3b8d70efda81746d0f4090af0f84e06"
+ },
+ {
+  "repo": "MengTo/Skills",
+  "path": "agent-skills/web-design/css-border-gradient/SKILL.md",
+  "file": "MengTo_Skills__agent-skills_web-design_css-border-gradient_SKILL.md",
+  "words": 387,
+  "sha": "6c5e1924a7ec55044aca52801cd30efb06cb922fa47e4c4b85d16b39471c922a"
+ },
+ {
+  "repo": "Mesh-LLM/mesh-llm",
+  "path": ".agents/skills/plugin-web-ui-extension/SKILL.md",
+  "file": "Mesh-LLM_mesh-llm__.agents_skills_plugin-web-ui-extension_SKILL.md",
+  "words": 1093,
+  "sha": "45458fad2735d01aed76ee358d380499e71bdb2577537994b6209becefd5824a"
+ },
+ {
+  "repo": "MiniMax-AI/MiniMax-H3",
+  "path": "skills/3d-animation-short-generator/SKILL.md",
+  "file": "MiniMax-AI_MiniMax-H3__skills_3d-animation-short-generator_SKILL.md",
+  "words": 2183,
+  "sha": "92f1130ccf456b3e5be2d8aab238a739d26e130ff72061c239e613e4d615f5b4"
+ },
+ {
+  "repo": "MiniMax-AI/MiniMax-H3",
+  "path": "skills/papercraft-stop-motion-explainer/SKILL.md",
+  "file": "MiniMax-AI_MiniMax-H3__skills_papercraft-stop-motion-explainer_SKILL.md",
+  "words": 3477,
+  "sha": "bf8b8e42acd91a0221335d3414abac6c1ad1fd9d8a452b0f7e08f2a973a4fbce"
+ },
+ {
+  "repo": "OpenSenseNova/SenseNova-Skills",
+  "path": "skills/sn-da-excel-workflow/capability/excel-cell-coloring/top-value-coloring/SKILL.md",
+  "file": "OpenSenseNova_SenseNova-Skills__skills_sn-da-excel-workflow_capability_excel-cell-coloring_top-value-coloring_SKILL.md",
+  "words": 300,
+  "sha": "8dce83c3b9e8cd025aeb97b6f206beb139f4fa7504b453df0814a0484ff6e29a"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-craft-checks/SKILL.md",
+  "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-craft-checks_SKILL.md",
+  "words": 1532,
+  "sha": "e0bba6a3597e20cb9a7806274b293b15387a08d7c6ee44fe220a4f616f8cfa29"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-design-source/SKILL.md",
+  "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-design-source_SKILL.md",
+  "words": 2272,
+  "sha": "b81e9c7493125f08c8247f2417eaf0fd7cf49d953c4aee04c6c910c3ff65e0c1"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/SKILL.md",
+  "file": "Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-reference-packs_SKILL.md",
+  "words": 603,
+  "sha": "106817c7ea8b104b3f9b006f455e3fa5c2f2f140fb9653ff94eada1ae706ae29"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "design-systems/skills/accessibility-audit/SKILL.md",
+  "file": "Owl-Listener_designer-skills__design-systems_skills_accessibility-audit_SKILL.md",
+  "words": 185,
+  "sha": "ad2523e066a1a78dd966f3528f619143b16181bb8032cc67c356e93b5c625cff"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "design-systems/skills/motion-system/SKILL.md",
+  "file": "Owl-Listener_designer-skills__design-systems_skills_motion-system_SKILL.md",
+  "words": 676,
+  "sha": "fda71131019ef7bac3a009c754a8283677b94362fc85f46bc2e1a5ce9a63d51e"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "designer-toolkit/skills/design-system-adoption/SKILL.md",
+  "file": "Owl-Listener_designer-skills__designer-toolkit_skills_design-system-adoption_SKILL.md",
+  "words": 332,
+  "sha": "b3d02041af933bd3941bdb408d2b467375f8a44efdcc718aa59a4a76f11fe4cb"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "interaction-design/skills/error-handling-ux/SKILL.md",
+  "file": "Owl-Listener_designer-skills__interaction-design_skills_error-handling-ux_SKILL.md",
+  "words": 307,
+  "sha": "b0bc3af42aa16f23a342de2c885d178c4f5c1102b30d9f95f2cddaa0b43ad14b"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "ui-design/skills/typography-scale/SKILL.md",
+  "file": "Owl-Listener_designer-skills__ui-design_skills_typography-scale_SKILL.md",
+  "words": 247,
+  "sha": "85c9d1aced667b6ef84643bf857c564d996484421e4c027dedd6d160d9f09ed1"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/editorial-collage-motion/SKILL.md",
+  "file": "Pluviobyte_rnskill__skills_editorial-collage-motion_SKILL.md",
+  "words": 336,
+  "sha": "2e180d9b771390c9ec331b130f38f8f75efebb6b9a61b26c67816e304dc069fc"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/rn-motion-director/SKILL.md",
+  "file": "Pluviobyte_rnskill__skills_rn-motion-director_SKILL.md",
+  "words": 961,
+  "sha": "e15e379020bef834c9e0ec7a12d52057b9869a49d6250be2e454c4c4602ab17a"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/rn-motion-replica/SKILL.md",
+  "file": "Pluviobyte_rnskill__skills_rn-motion-replica_SKILL.md",
+  "words": 960,
+  "sha": "2ce0a5d04ec41fdf3117b436f7a3c2362f2a67d52d7d506a1087eb435a6573cd"
+ },
+ {
+  "repo": "Pluviobyte/video-production-skills",
+  "path": "ai-motion-director/SKILL.md",
+  "file": "Pluviobyte_video-production-skills__ai-motion-director_SKILL.md",
+  "words": 961,
+  "sha": "2a632f66c3eb07a75aac4596604ac748b37141f339e7e3c650aec4154a097e78"
+ },
+ {
+  "repo": "Prat011/awesome-llm-skills",
+  "path": "brand-guidelines/SKILL.md",
+  "file": "Prat011_awesome-llm-skills__brand-guidelines_SKILL.md",
+  "words": 329,
+  "sha": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe"
+ },
+ {
+  "repo": "Prat011/awesome-llm-skills",
+  "path": "canvas-design/SKILL.md",
+  "file": "Prat011_awesome-llm-skills__canvas-design_SKILL.md",
+  "words": 1749,
+  "sha": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b"
+ },
+ {
+  "repo": "QwenLM/qwen-code",
+  "path": "packages/desktop/.agents/skills/desktop-brand-builder/SKILL.md",
+  "file": "QwenLM_qwen-code__packages_desktop_.agents_skills_desktop-brand-builder_SKILL.md",
+  "words": 1126,
+  "sha": "be6f24d9f286e8021b5ce08c6f58a5fe76a92e9aeb1e6b30721a1443ac26da2d"
+ },
+ {
+  "repo": "RightNow-AI/openfang",
+  "path": "crates/openfang-skills/bundled/css-expert/SKILL.md",
+  "file": "RightNow-AI_openfang__crates_openfang-skills_bundled_css-expert_SKILL.md",
+  "words": 433,
+  "sha": "ca02c989abdaf8bd2a93b1635a5f25b405257b62bf3243b2fcebcbca99edb4fa"
+ },
+ {
+  "repo": "SpaceZephyr/design-buddy",
+  "path": "space-brand-ui-design/SKILL.md",
+  "file": "SpaceZephyr_design-buddy__space-brand-ui-design_SKILL.md",
+  "words": 700,
+  "sha": "14f135587c6410ccfc095913ce51db3e8997eb89dade33f4e48263ffaf3e1752"
+ },
+ {
+  "repo": "TencentCloudBase/CloudBase-AI-Toolkit",
+  "path": "config/.claude/skills/ui-design/SKILL.md",
+  "file": "TencentCloudBase_CloudBase-AI-Toolkit__config_.claude_skills_ui-design_SKILL.md",
+  "words": 2133,
+  "sha": "74b7746c87e7ec6480b590a0ad4932f9e87348487e282fbb03c83b1cd0030b1a"
+ },
+ {
+  "repo": "ThePrimeagen/99",
+  "path": "scratch/custom_rules/front-end/SKILL.md",
+  "file": "ThePrimeagen_99__scratch_custom_rules_front-end_SKILL.md",
+  "words": 0,
+  "sha": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ {
+  "repo": "ThinkInAIXYZ/deepchat",
+  "path": "resources/skills/frontend-design/SKILL.md",
+  "file": "ThinkInAIXYZ_deepchat__resources_skills_frontend-design_SKILL.md",
+  "words": 583,
+  "sha": "b81e2ff87ed8fa4d6c377ccb127a7254c9e6a77e3ae94f21e6b514f7bb2945a0"
+ },
+ {
+  "repo": "Tom-Babb/ai-marketing-skills-with-by-tom-babb",
+  "path": "skills/brand-from-references/SKILL.md",
+  "file": "Tom-Babb_ai-marketing-skills-with-by-tom-babb__skills_brand-from-references_SKILL.md",
+  "words": 749,
+  "sha": "c59bf6f85fb05ce02505dea75d767ebe36a64b8132bce5a773598b675e12c77d"
+ },
+ {
+  "repo": "Tom-Babb/ai-marketing-skills-with-by-tom-babb",
+  "path": "skills/brand-operating-system/SKILL.md",
+  "file": "Tom-Babb_ai-marketing-skills-with-by-tom-babb__skills_brand-operating-system_SKILL.md",
+  "words": 1025,
+  "sha": "607ad8e8b6504089a062edaea6bcacc6607ee2c774cae910ed1088559ac2ba62"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/audits/accessibility/SKILL.md",
+  "file": "Uxcel-Lab_product-skills__ux_audits_accessibility_SKILL.md",
+  "words": 2219,
+  "sha": "885f9a2cbacc92b95f9f5f6a7cc837419bd603a183b0437c5baa7daaca2f27e5"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/color/SKILL.md",
+  "file": "Uxcel-Lab_product-skills__ux_foundations_color_SKILL.md",
+  "words": 1188,
+  "sha": "a7b03a26325e4f0e0d2c2620d10a954371973ecb416f69552851f4743dafe8fe"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/typography/SKILL.md",
+  "file": "Uxcel-Lab_product-skills__ux_foundations_typography_SKILL.md",
+  "words": 1107,
+  "sha": "717f55ac4d77ec93af8fc1e3aa9005645d696dcf434560b5f270f7ca9fc2eb9c"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/screens/landing-page/SKILL.md",
+  "file": "Uxcel-Lab_product-skills__ux_screens_landing-page_SKILL.md",
+  "words": 1688,
+  "sha": "261154d49fe8f20bafad6735a61dda06879083a52ea931e84eba6c693ea74237"
+ },
+ {
+  "repo": "WorldFlowAI/everything-claude-code",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "file": "WorldFlowAI_everything-claude-code__skills_frontend-patterns_SKILL.md",
+  "words": 1545,
+  "sha": "193bfa61755991340c89e033b860fe7e84dd47ab013c844c09069e6e3543f21a"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/figma-implement-design/SKILL.md",
+  "file": "YuxiaoWang-520_harness-craft__skills_figma-implement-design_SKILL.md",
+  "words": 1588,
+  "sha": "adea0fa5ed0b77a75112f64737f4aa562fcc231d242370f8cbdb25d050be19ad"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "file": "YuxiaoWang-520_harness-craft__skills_frontend-patterns_SKILL.md",
+  "words": 1602,
+  "sha": "d32a3f430d658a8a8adb3d05da56fa1b49ef39cf2d1a6be8f27e5164f2d510df"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/frontend-slides/SKILL.md",
+  "file": "YuxiaoWang-520_harness-craft__skills_frontend-slides_SKILL.md",
+  "words": 986,
+  "sha": "da378954096f51844ab9214d6ae30f317d7f5373af41fbc7e989d20518adb9b8"
+ },
+ {
+  "repo": "a5c-ai/babysitter",
+  "path": "library/specializations/game-development/skills/animation-blending/SKILL.md",
+  "file": "a5c-ai_babysitter__library_specializations_game-development_skills_animation-blending_SKILL.md",
+  "words": 36,
+  "sha": "5b6fe94994371807657a003422207ab7e719a7a4ee56c6ac2d784857af9c6fe7"
+ },
+ {
+  "repo": "aaron-he-zhu/aaron-marketing-skills",
+  "path": "narrative/architect/brand-language-codifier/SKILL.md",
+  "file": "aaron-he-zhu_aaron-marketing-skills__narrative_architect_brand-language-codifier_SKILL.md",
+  "words": 1601,
+  "sha": "b85a647be4055aebb94a55f2332258d61061a248750917e49a1adcbdeea32578"
+ },
+ {
+  "repo": "actionbook/actionbook",
+  "path": "playground/json-ui-skill/SKILL.md",
+  "file": "actionbook_actionbook__playground_json-ui-skill_SKILL.md",
+  "words": 1543,
+  "sha": "3a4162cfd9ff4cec06b0777f67a8712624341b36d2977335da193098fcf76370"
+ },
+ {
+  "repo": "addyosmani/agent-skills",
+  "path": "skills/frontend-ui-engineering/SKILL.md",
+  "file": "addyosmani_agent-skills__skills_frontend-ui-engineering_SKILL.md",
+  "words": 1581,
+  "sha": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e"
+ },
+ {
+  "repo": "addyosmani/web-quality-skills",
+  "path": "skills/accessibility/SKILL.md",
+  "file": "addyosmani_web-quality-skills__skills_accessibility_SKILL.md",
+  "words": 1883,
+  "sha": "267fb2a0707d6142f2871f22688203a42ba21291a2aa200fb740936e41362b5d"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "file": "affaan-m_ECC__skills_frontend-patterns_SKILL.md",
+  "words": 1692,
+  "sha": "a5b971eb9e74cd763c7e3308bfd888e0d9cf69f8b88477659889d77182479740"
+ },
+ {
+  "repo": "anbeime/skill",
+  "path": "skills/frontend-design/frontend-design/SKILL.md",
+  "file": "anbeime_skill__skills_frontend-design_frontend-design_SKILL.md",
+  "words": 531,
+  "sha": "7c56dcbccf6d16bdadfd6ad24c27f0d06ecfb5b87fbe9be96a5efab924495e8f"
+ },
+ {
+  "repo": "anbeime/skill",
+  "path": "skills/web-design-analyzer/web-design-analyzer/SKILL.md",
+  "file": "anbeime_skill__skills_web-design-analyzer_web-design-analyzer_SKILL.md",
+  "words": 292,
+  "sha": "ab55a959a86c7dd78bed21884282c8c000dc75f0ceaf040072bd4c91f567a0f3"
+ },
+ {
+  "repo": "ancoleman/ai-design-components",
+  "path": "skills/assembling-components/SKILL.md",
+  "file": "ancoleman_ai-design-components__skills_assembling-components_SKILL.md",
+  "words": 1532,
+  "sha": "e492701d3fa1b804c1e04f59ee2960c2544d86c37af500d666a40da050efeaac"
+ },
+ {
+  "repo": "anthropics/claude-plugins-official",
+  "path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "file": "anthropics_claude-plugins-official__plugins_frontend-design_skills_frontend-design_SKILL.md",
+  "words": 1516,
+  "sha": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+ },
+ {
+  "repo": "appeeky/stripe-skills",
+  "path": "skills/coupon-promotion-audit/SKILL.md",
+  "file": "appeeky_stripe-skills__skills_coupon-promotion-audit_SKILL.md",
+  "words": 161,
+  "sha": "f3e155b3253255f17d794e247a2a511955531dbd7aaea2afef8de3ddc652824d"
+ },
+ {
+  "repo": "artokun/comfyui-mcp",
+  "path": "plugin/skills/color-correction/SKILL.md",
+  "file": "artokun_comfyui-mcp__plugin_skills_color-correction_SKILL.md",
+  "words": 1434,
+  "sha": "68891fc396ad7794266da9bd2b0eeb9f8fa4d02eaefb1e04d9e895c672922567"
+ },
+ {
+  "repo": "artokun/comfyui-mcp",
+  "path": "plugin/skills/comfyui-frontend-extensions/SKILL.md",
+  "file": "artokun_comfyui-mcp__plugin_skills_comfyui-frontend-extensions_SKILL.md",
+  "words": 2640,
+  "sha": "547062066d0449563cb09b683055262ecf8ce0c9d4a2509d12b6ba42ac6fbfca"
+ },
+ {
+  "repo": "avibebuilder/claude-prime",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "file": "avibebuilder_claude-prime__.claude_skills_frontend-design_SKILL.md",
+  "words": 1111,
+  "sha": "64fc4563c051d10c0a90ae96b61426d44127403368aba3e73a7eb14eafed7b52"
+ },
+ {
+  "repo": "avibebuilder/claude-prime",
+  "path": ".claude/starter-skills/frontend-development/SKILL.md",
+  "file": "avibebuilder_claude-prime__.claude_starter-skills_frontend-development_SKILL.md",
+  "words": 728,
+  "sha": "59424d348131ca033ff0021ebbac127e369a7c7dc0b5c62c9af38574b543088c"
+ },
+ {
+  "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+  "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+  "file": "awesome-dsh-plugin_awesome-dsh-plugin__.agents_skills_ui-ux-pro-max_SKILL.md",
+  "words": 2118,
+  "sha": "ea087c341bfb5b23195c7302027268ede86da802554c18a5c4896a6017b439f9"
+ },
+ {
+  "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "file": "awesome-dsh-plugin_awesome-dsh-plugin__.agents_skills_web-design-guidelines_SKILL.md",
+  "words": 176,
+  "sha": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f"
+ },
+ {
+  "repo": "beshuaxian/higgsfield-seedance2-jineng",
+  "path": "skills/06-motion-design-ad/SKILL.md",
+  "file": "beshuaxian_higgsfield-seedance2-jineng__skills_06-motion-design-ad_SKILL.md",
+  "words": 8453,
+  "sha": "297124ca7e0a6743cbbc79c8de3de4ef722cc81f0d01c1cbfbf05b0ec574d29f"
+ },
+ {
+  "repo": "beshuaxian/higgsfield-seedance2-jineng",
+  "path": "skills/12-brand-story/SKILL.md",
+  "file": "beshuaxian_higgsfield-seedance2-jineng__skills_12-brand-story_SKILL.md",
+  "words": 7356,
+  "sha": "b20cbe6c7051f20cefb6bd5b2557ef5b7ffe4e682086e63c7564d1f9dab54264"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-a11y/SKILL.md",
+  "file": "bitjaru_styleseed__engine_.claude_skills_ss-a11y_SKILL.md",
+  "words": 494,
+  "sha": "1195bf3f694ac08f544093c0ae97787fec232639d811b80859981fc24037ebea"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-component/SKILL.md",
+  "file": "bitjaru_styleseed__engine_.claude_skills_ss-component_SKILL.md",
+  "words": 657,
+  "sha": "b9d0a6d93cedba34bdef40acda8aa1226b0d9fb7ee6a3f9be52d79816095bd44"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-motion/SKILL.md",
+  "file": "bitjaru_styleseed__engine_.claude_skills_ss-motion_SKILL.md",
+  "words": 1594,
+  "sha": "ae559bf99eda4a9e05f8040a77a2d494b021bae5b5c007bd7daf33c75300ebc3"
+ },
+ {
+  "repo": "butterbase-ai/butterbase-skills",
+  "path": "skills/deploy-frontend/SKILL.md",
+  "file": "butterbase-ai_butterbase-skills__skills_deploy-frontend_SKILL.md",
+  "words": 1524,
+  "sha": "ba7f5f2f590d2bff3e038c4f610738525172e298ed934a8829da34a28fea681c"
+ },
+ {
+  "repo": "butterbase-ai/butterbase-skills",
+  "path": "skills/journey-frontend/SKILL.md",
+  "file": "butterbase-ai_butterbase-skills__skills_journey-frontend_SKILL.md",
+  "words": 441,
+  "sha": "df551d4f43b865a2a6f0a76084b477dcfdf249e9f9aaafd14afec2010df704cc"
+ },
+ {
+  "repo": "bytedance/deer-flow",
+  "path": "skills/public/frontend-design/SKILL.md",
+  "file": "bytedance_deer-flow__skills_public_frontend-design_SKILL.md",
+  "words": 994,
+  "sha": "f187caf13081bd3b5509f4c7424b7b507e3140020daaf3454b9181d1af4f61ca"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".agents/skills/hyperframes-animation/SKILL.md",
+  "file": "calesthio_OpenMontage__.agents_skills_hyperframes-animation_SKILL.md",
+  "words": 754,
+  "sha": "785cacfa594627f4f030edda802edbfd2d08f2653811cbce7ab1da8f0e7f93b0"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".agents/skills/svg-character-animation/SKILL.md",
+  "file": "calesthio_OpenMontage__.agents_skills_svg-character-animation_SKILL.md",
+  "words": 219,
+  "sha": "b6c51f692d0afe547ebdda56c19d4e501664c169f42c96b9245c9d4a0bd95c3c"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".claude/skills/threejs-animation/SKILL.md",
+  "file": "calesthio_OpenMontage__.claude_skills_threejs-animation_SKILL.md",
+  "words": 1454,
+  "sha": "b24dc96c7a854ab97fa797a8e20d6bf981f155dfc625fd1ef347042395b7754c"
+ },
+ {
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".claude/skills/team-motion-design/SKILL.md",
+  "file": "catlog22_Claude-Code-Workflow__.claude_skills_team-motion-design_SKILL.md",
+  "words": 607,
+  "sha": "ec8553e9a3cb351666cd0513963c72bd4a182d1c5a1870aa6bf2ba58c3bcb070"
+ },
+ {
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".codex/skills/team-ux-improve/SKILL.md",
+  "file": "catlog22_Claude-Code-Workflow__.codex_skills_team-ux-improve_SKILL.md",
+  "words": 1132,
+  "sha": "4a09a84cbf4b57eb2deccf031597cddd338e9c40395ef900e87095215a92d579"
+ },
+ {
+  "repo": "chrisallenlane/claude-swe-workflows",
+  "path": "skills/review-a11y/SKILL.md",
+  "file": "chrisallenlane_claude-swe-workflows__skills_review-a11y_SKILL.md",
+  "words": 747,
+  "sha": "289a4eb6ff020d10e392bea7938dd17fe909ef7f56d78391c735a9ad1b3ced1c"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design/SKILL.md",
+  "file": "cloudflare_vibesdk__worker_agents_think_skills_frontend-design_SKILL.md",
+  "words": 583,
+  "sha": "6cc26ebc78673680cb3960e10192dcbd7c4dff74e7da9a13f1c343e2cc86121b"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-landing-page/SKILL.md",
+  "file": "cloudflare_vibesdk__worker_agents_think_skills_frontend-design-landing-page_SKILL.md",
+  "words": 11148,
+  "sha": "bb620c71dd6762ca61ee5acb563c710600f961eeb6ccc6eb1f7003359f2aa9aa"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-saas/SKILL.md",
+  "file": "cloudflare_vibesdk__worker_agents_think_skills_frontend-design-saas_SKILL.md",
+  "words": 14232,
+  "sha": "e0283287a2bf95f5659c62c31f4fa27bea9a4df492d7f5f4ad9955d775cb2f9b"
+ },
+ {
+  "repo": "code-yeongyu/lazycodex",
+  "path": "plugins/omo/skills/frontend/SKILL.md",
+  "file": "code-yeongyu_lazycodex__plugins_omo_skills_frontend_SKILL.md",
+  "words": 2983,
+  "sha": "f5c207e2ec5bbc1fe8b91ca3d1f2d42a73168dc6b72aed47a0f5f812411c8055"
+ },
+ {
+  "repo": "coleam00/second-brain-skills",
+  "path": ".claude/skills/brand-voice-generator/SKILL.md",
+  "file": "coleam00_second-brain-skills__.claude_skills_brand-voice-generator_SKILL.md",
+  "words": 1459,
+  "sha": "314651b67eae80ac8f3c48ba951f721d14dbaba4b609cbefdbde679511d90556"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "canvas-design/skills/canvas-design/SKILL.md",
+  "file": "composio-community_awesome-claude-plugins__canvas-design_skills_canvas-design_SKILL.md",
+  "words": 658,
+  "sha": "ce24ba78482b243b1fcf2933a5b9248eef2fc3eecbb1788c528169225e0a97bc"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "frontend-design/skills/frontend-design/SKILL.md",
+  "file": "composio-community_awesome-claude-plugins__frontend-design_skills_frontend-design_SKILL.md",
+  "words": 557,
+  "sha": "8cd2c6dd0b7d9055b999508a464a73971de58219d3ce7ef567bfb3035722c82a"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "senior-frontend/skills/senior-frontend/SKILL.md",
+  "file": "composio-community_awesome-claude-plugins__senior-frontend_skills_senior-frontend_SKILL.md",
+  "words": 637,
+  "sha": "8be04c6277d69016360013b3464b2973cbe9036f0ee21aab3afeb82270980fc7"
+ },
+ {
+  "repo": "composio-community/open-claude-cowork",
+  "path": ".claude/skills/brand-guidelines/SKILL.md",
+  "file": "composio-community_open-claude-cowork__.claude_skills_brand-guidelines_SKILL.md",
+  "words": 329,
+  "sha": "0ef5365ce4ee2233acfb6c6fc0c3227a6944a44f8889400f5e1300611bcfb940"
+ },
+ {
+  "repo": "composio-community/open-claude-cowork",
+  "path": ".claude/skills/remotion-best-practices/SKILL.md",
+  "file": "composio-community_open-claude-cowork__.claude_skills_remotion-best-practices_SKILL.md",
+  "words": 739,
+  "sha": "8a6b33e5d974f8f7f98ee0f87e3d5be7e94856467de51e846eedef00119f562d"
+ },
+ {
+  "repo": "compozy/compozy",
+  "path": ".agents/skills/better-accessibility/SKILL.md",
+  "file": "compozy_compozy__.agents_skills_better-accessibility_SKILL.md",
+  "words": 1238,
+  "sha": "59a0d8ad310be843566a18bfd839a38f46335110aa31673c4468c9e0172c5350"
+ },
+ {
+  "repo": "compozy/compozy",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "file": "compozy_compozy__.agents_skills_shadcn_SKILL.md",
+  "words": 480,
+  "sha": "e66d80e91887da57898c08aebb139e8692f52d6839a9cda6005c0eaa7b9b30da"
+ },
+ {
+  "repo": "countbot-ai/CountBot",
+  "path": "workspace/skills/web-design/SKILL.md",
+  "file": "countbot-ai_CountBot__workspace_skills_web-design_SKILL.md",
+  "words": 317,
+  "sha": "46c88a51f673f6b8cc90552fc3c043201f68ccd0019e3fdf8766bde5e9b8a6c4"
+ },
+ {
+  "repo": "danielmiessler/LifeOS",
+  "path": "LifeOS/install/skills/Remotion/SKILL.md",
+  "file": "danielmiessler_LifeOS__LifeOS_install_skills_Remotion_SKILL.md",
+  "words": 704,
+  "sha": "f7d83108b593647da9c1b1d6df4e807c60d98bb6c6b44e708131cd1fb5b60514"
+ },
+ {
+  "repo": "danielmiessler/LifeOS",
+  "path": "LifeOS/install/skills/Webdesign/SKILL.md",
+  "file": "danielmiessler_LifeOS__LifeOS_install_skills_Webdesign_SKILL.md",
+  "words": 2356,
+  "sha": "73c201e3f91205a6c1cfc7d116ab38bbc4cef9c42802fc8868e2bf360312e362"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/nextjs-expert/skills/server-components/SKILL.md",
+  "file": "davepoon_buildwithclaude__plugins_nextjs-expert_skills_server-components_SKILL.md",
+  "words": 763,
+  "sha": "533197dd15f8fd7dd1b3efba43e9a3d2e7a135296358bf783063133bc815063e"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/video/remotion/SKILL.md",
+  "file": "davila7_claude-code-templates__cli-tool_components_skills_video_remotion_SKILL.md",
+  "words": 699,
+  "sha": "1791fc5190df0bf7ad75f517ebadd4f969e611c0810f3731ee23db889212c33d"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-calling-frontend/SKILL.md",
+  "file": "dchuk_claude-code-tauri-skills__tauri_tauri-calling-frontend_SKILL.md",
+  "words": 1010,
+  "sha": "2896f6c27f8401f0335f0c27e37ac5630afcdd27bd6ff9b3a3b5f50861032ad2"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-events/SKILL.md",
+  "file": "dchuk_claude-code-tauri-skills__tauri_tauri-frontend-events_SKILL.md",
+  "words": 1301,
+  "sha": "c71a0eb84e6fd95c995e3be04af5a0e514c8397338d8f5d75fcbe32f0820cb48"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-js/SKILL.md",
+  "file": "dchuk_claude-code-tauri-skills__tauri_tauri-frontend-js_SKILL.md",
+  "words": 1281,
+  "sha": "1b041124c03df366f549c98056a402b702f3fd6eea20e9275c16820db5b90565"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-rust/SKILL.md",
+  "file": "dchuk_claude-code-tauri-skills__tauri_tauri-frontend-rust_SKILL.md",
+  "words": 1333,
+  "sha": "3140d0a0bb4eaa7bf8ae523f5ca68cfef9cf1ebfeaafed366892041333b7f2ee"
+ },
+ {
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "path": ".agents/skills/frontend-dev-guidelines/SKILL.md",
+  "file": "diet103_claude-code-infrastructure-showcase__.agents_skills_frontend-dev-guidelines_SKILL.md",
+  "words": 1391,
+  "sha": "c5e42323a0bf0a7addd34bd7e3fa1967589b9d812f14e6cbe82d91ee0aff800d"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "file": "digitalsamba_claude-code-video-toolkit__.claude_skills_frontend-design_SKILL.md",
+  "words": 562,
+  "sha": "8bf9905dbcd9b1edb47f2a44cadbb9bb66314f73a8e3631ec7feee913777ceb8"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/remotion/SKILL.md",
+  "file": "digitalsamba_claude-code-video-toolkit__.claude_skills_remotion_SKILL.md",
+  "words": 792,
+  "sha": "507fab86b77b2dcc59584187e364a0162c75026849bf8dafd3b1058db9c6189a"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/remotion-official/SKILL.md",
+  "file": "digitalsamba_claude-code-video-toolkit__.claude_skills_remotion-official_SKILL.md",
+  "words": 306,
+  "sha": "e3ca3756935590167f694fa89b0f789b932512b37a0d2afe53cf4ec17b10dc26"
+ },
+ {
+  "repo": "dp-archive/archive",
+  "path": "seed_skills/brand-identity/SKILL.md",
+  "file": "dp-archive_archive__seed_skills_brand-identity_SKILL.md",
+  "words": 1731,
+  "sha": "0d98f54807d81152390a42bd506891af7a591fd22b87935609331781dca83546"
+ },
+ {
+  "repo": "dp-archive/archive",
+  "path": "seed_skills/remotion-best-practices/SKILL.md",
+  "file": "dp-archive_archive__seed_skills_remotion-best-practices_SKILL.md",
+  "words": 460,
+  "sha": "af627225edda7420907d4f66bc07d9a111ee5e276bd3e45705bf118fb8e7cdbb"
+ },
+ {
+  "repo": "dpearson2699/swift-ios-skills",
+  "path": "skills/swiftui-layout-components/SKILL.md",
+  "file": "dpearson2699_swift-ios-skills__skills_swiftui-layout-components_SKILL.md",
+  "words": 1431,
+  "sha": "7692470cf0964f54ebcdc0c8ac88d469c50032f07d3aac3f55f32032daf555cd"
+ },
+ {
+  "repo": "dstackai/dstack",
+  "path": "skills/dstack-prototyping/SKILL.md",
+  "file": "dstackai_dstack__skills_dstack-prototyping_SKILL.md",
+  "words": 842,
+  "sha": "ba03e0cddb37eac74a71783857c90a6b2454e06624c26848fe91f123b0a3ecb8"
+ },
+ {
+  "repo": "dtsola/xiaoyaosearch",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "file": "dtsola_xiaoyaosearch__.claude_skills_frontend-design_SKILL.md",
+  "words": 562,
+  "sha": "d39adf3a983de7dafc75991590d54f091755f7e4163d5a5ed085ecd719157184"
+ },
+ {
+  "repo": "dtsola/xiaoyaosearch",
+  "path": ".claude/skills/remotion-best-practices/SKILL.md",
+  "file": "dtsola_xiaoyaosearch__.claude_skills_remotion-best-practices_SKILL.md",
+  "words": 399,
+  "sha": "b03b063f350e484c5b56641a4afd2b71e0ee171e082bd73b494ae217fef3805f"
+ },
+ {
+  "repo": "elayadesign/ai-design-skills",
+  "path": "skills/landing-page-design/SKILL.md",
+  "file": "elayadesign_ai-design-skills__skills_landing-page-design_SKILL.md",
+  "words": 2708,
+  "sha": "3aae79f3d33ea293491fe6251f9fee56ee0cbb7aa66d41b3f29cfc662e4bbdd6"
+ },
+ {
+  "repo": "evanca/flutter-ai-rules",
+  "path": "skills/accessibility/SKILL.md",
+  "file": "evanca_flutter-ai-rules__skills_accessibility_SKILL.md",
+  "words": 1157,
+  "sha": "9a45b788199511040b20e431c8b53494e18ce46af582d907ae46c97709373b3d"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-design-system/SKILL.md",
+  "file": "expo_skills__plugins_expo_skills_expo-design-system_SKILL.md",
+  "words": 2767,
+  "sha": "b841a830e70cf06b14ad38f6ccaf7fa1ea60c57b4b7f78de650f3157dbbc3ff0"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-native-ui/SKILL.md",
+  "file": "expo_skills__plugins_expo_skills_expo-native-ui_SKILL.md",
+  "words": 1703,
+  "sha": "52d8c3bdf6d466dda826a89b3d0846b5014233c1e399f01ab193be7b1baccf53"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-ui/SKILL.md",
+  "file": "expo_skills__plugins_expo_skills_expo-ui_SKILL.md",
+  "words": 928,
+  "sha": "3d1bd7004e6556c2aadf1664308ca2a01d983ff3b819b6448ad7e5ffdbd469ca"
+ },
+ {
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/domains/frontend-design/SKILL.md",
+  "file": "fengshao1227_ccg-workflow__templates_skills_domains_frontend-design_SKILL.md",
+  "words": 1806,
+  "sha": "9ca32e75324fac2352d5bdd072c34be3631691bbe0ed882087687512efc8027a"
+ },
+ {
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/impeccable/colorize/SKILL.md",
+  "file": "fengshao1227_ccg-workflow__templates_skills_impeccable_colorize_SKILL.md",
+  "words": 964,
+  "sha": "fb5e2490674802b8c814c9e28482604942e425466b3b417f294f9aadb36a0d54"
+ },
+ {
+  "repo": "first-fluke/oh-my-agent",
+  "path": ".agents/skills/oma-frontend/SKILL.md",
+  "file": "first-fluke_oh-my-agent__.agents_skills_oma-frontend_SKILL.md",
+  "words": 1756,
+  "sha": "a9e18b4f4e4685d1f29cf5cf989da50e5ca842bdaa2a656e7e8bf906da54e7fb"
+ },
+ {
+  "repo": "foru17/neko-master",
+  "path": ".claude/skills/ui-conventions/SKILL.md",
+  "file": "foru17_neko-master__.claude_skills_ui-conventions_SKILL.md",
+  "words": 446,
+  "sha": "2fbab5f3d56fc9808abb2a8f4b9bae37c490106ecc6cc27e25150746e6565915"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/canvas-design/SKILL.md",
+  "file": "freestylefly_wesight__SKILLs_canvas-design_SKILL.md",
+  "words": 1751,
+  "sha": "ef97bb41cedd8e33c4f66938084c1c112f44ccfd32533ac283729a53d8273c77"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/frontend-design/SKILL.md",
+  "file": "freestylefly_wesight__SKILLs_frontend-design_SKILL.md",
+  "words": 585,
+  "sha": "6e0837b3ee51d51fe2fbed8a00496fd1457c1157f6540fd3b56924dcb0b76fcb"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/remotion/SKILL.md",
+  "file": "freestylefly_wesight__SKILLs_remotion_SKILL.md",
+  "words": 400,
+  "sha": "eb655c66b0018604c737a647a31812a29f2e4520c8354af9236fe3938d8d5992"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": ".factory/skills/animated-component-libraries/SKILL.md",
+  "file": "freshtechbro_claudedesignskills__.factory_skills_animated-component-libraries_SKILL.md",
+  "words": 2370,
+  "sha": "d47558883373e7ea40bea8c6d366c8c8196671ebc12436621afa31ebe84a53a4"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/bundles/animation-components/skills/lottie-animations/SKILL.md",
+  "file": "freshtechbro_claudedesignskills__plugins_bundles_animation-components_skills_lottie-animations_SKILL.md",
+  "words": 1959,
+  "sha": "13e64ab83e3fe5af75ce2f2ab730966d89aa5ab6b6a2209a53dc22229525de18"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/bundles/meta-skills/skills/modern-web-design/SKILL.md",
+  "file": "freshtechbro_claudedesignskills__plugins_bundles_meta-skills_skills_modern-web-design_SKILL.md",
+  "words": 3235,
+  "sha": "062b0120b59067744c135ec5d49d71e468b8e16de92ec2dec6fc19c41c4a9a24"
+ },
+ {
+  "repo": "gajjalaashok75-UI/gakrcli-plugins-official",
+  "path": "skill-plugins/stitch-ui-design/skills/stitch-ui-design/SKILL.md",
+  "file": "gajjalaashok75-UI_gakrcli-plugins-official__skill-plugins_stitch-ui-design_skills_stitch-ui-design_SKILL.md",
+  "words": 1560,
+  "sha": "0ee5311760838a9f01f6def6c39af71329aa5f377f704223de7ec7b2a5d0bc4c"
+ },
+ {
+  "repo": "garrytan/gstack",
+  "path": "landing-report/SKILL.md",
+  "file": "garrytan_gstack__landing-report_SKILL.md",
+  "words": 4765,
+  "sha": "56be0f9e7ab2c94bb191f4c2d0e0ba8bc7a50aa5b948aa2501e80145d5e6b85e"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/react-components/SKILL.md",
+  "file": "google-labs-code_stitch-skills__plugins_stitch-build_skills_react-components_SKILL.md",
+  "words": 1252,
+  "sha": "a978bf8fb135c69f944432dfa4166d6a88903c524ed4be51899a226f7daa223e"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/remotion/SKILL.md",
+  "file": "google-labs-code_stitch-skills__plugins_stitch-build_skills_remotion_SKILL.md",
+  "words": 1664,
+  "sha": "7147fc5a627081fceb7b6ab6191426643747e738bb857587de1d3c1b6eecd755"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/shadcn-ui/SKILL.md",
+  "file": "google-labs-code_stitch-skills__plugins_stitch-build_skills_shadcn-ui_SKILL.md",
+  "words": 1190,
+  "sha": "2ddfe599ac2ba631ca019f7b6e37ee5df9cd34f83fc016f6ea9d4ba5bbfa0304"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md",
+  "file": "google-labs-code_stitch-skills__plugins_stitch-design_skills_manage-design-system_SKILL.md",
+  "words": 745,
+  "sha": "5ce0b8adb5261e8a926fc0942d679cda0421ac29e8159a6ee38e5d940bc9658e"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md",
+  "file": "google-labs-code_stitch-skills__plugins_stitch-utilities_skills_taste-design_SKILL.md",
+  "words": 1771,
+  "sha": "e425fdb7ab250764f6229c48941f97e20bd6a7ba9e25a628f1e0ebeb008e8bff"
+ },
+ {
+  "repo": "gooseworks-ai/goose-skills",
+  "path": "skills/brand/capabilities/brand-voice-extractor/SKILL.md",
+  "file": "gooseworks-ai_goose-skills__skills_brand_capabilities_brand-voice-extractor_SKILL.md",
+  "words": 1142,
+  "sha": "8a8638a64b2de7b77bb90f039f44edf8010a16d4447d7f683f7f57c9f4e8442f"
+ },
+ {
+  "repo": "gridaco/grida",
+  "path": ".agents/skills/io-figma/SKILL.md",
+  "file": "gridaco_grida__.agents_skills_io-figma_SKILL.md",
+  "words": 1023,
+  "sha": "5b11702fcb89a4c2435aded4d498d71da4f6f17a1d373488a219883e09587bc9"
+ },
+ {
+  "repo": "gtrabanco/agentic-workflow",
+  "path": "skills/review-a11y/SKILL.md",
+  "file": "gtrabanco_agentic-workflow__skills_review-a11y_SKILL.md",
+  "words": 439,
+  "sha": "cfd5c561f13b50263519472df7b1e3cca7edaf9bfee5b8f7139c4e5668fe46d0"
+ },
+ {
+  "repo": "gtrabanco/agentic-workflow",
+  "path": "skills/review-brand/SKILL.md",
+  "file": "gtrabanco_agentic-workflow__skills_review-brand_SKILL.md",
+  "words": 459,
+  "sha": "d359f6af3dddba8a6d97486e68e37715e8aaefc04e1ce1248a51b501535108b5"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-best-practices/remotion-docs/SKILL.md",
+  "file": "guanyang_open-agent-hub__skills_remotion-best-practices_remotion-docs_SKILL.md",
+  "words": 150,
+  "sha": "e3323b8747a7d5f98de253001e608f592f755979cb8142dd705649f9532d023d"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-docs/SKILL.md",
+  "file": "guanyang_open-agent-hub__skills_remotion-docs_SKILL.md",
+  "words": 143,
+  "sha": "7a8b5d3b988f375d76aabbd335561310710e7cbc1251e87292ef2be20f587c5e"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-upgrade/SKILL.md",
+  "file": "guanyang_open-agent-hub__skills_remotion-upgrade_SKILL.md",
+  "words": 239,
+  "sha": "f2d42e69708c264a079b559d2c37e85ca8da042f3065d3e2066fe3e624922e5a"
+ },
+ {
+  "repo": "guokaigdg/animal-island-ui",
+  "path": "skills/animal-island-ui-style/SKILL.md",
+  "file": "guokaigdg_animal-island-ui__skills_animal-island-ui-style_SKILL.md",
+  "words": 793,
+  "sha": "b4c29a9dbea261253c3fd965e5f298938b6b6a65b2ab619ebe4de35559351d63"
+ },
+ {
+  "repo": "hAcKlyc/MyAgents",
+  "path": "bundled-workspaces/mino/.claude/skills/remotion-best-practices/SKILL.md",
+  "file": "hAcKlyc_MyAgents__bundled-workspaces_mino_.claude_skills_remotion-best-practices_SKILL.md",
+  "words": 403,
+  "sha": "bcd6b934454bcb950b36db0493ecc3af134f19b1f3e605b09eda257b0e14430d"
+ },
+ {
+  "repo": "haydenbleasel/ultracite",
+  "path": "packages/video/.agents/skills/remotion-best-practices/SKILL.md",
+  "file": "haydenbleasel_ultracite__packages_video_.agents_skills_remotion-best-practices_SKILL.md",
+  "words": 1365,
+  "sha": "615bc7ea5fa32a2a9d3c6b0c1778231e0b876452db07ee3090dc44b2fd09d7c4"
+ },
+ {
+  "repo": "himself65/finance-skills",
+  "path": "plugins/ui-tools/skills/generative-ui/SKILL.md",
+  "file": "himself65_finance-skills__plugins_ui-tools_skills_generative-ui_SKILL.md",
+  "words": 1612,
+  "sha": "65a0c18c2deb07fc2661ee765ee9cefd6e0f5d18f9d4ab39f8d593eb821e876a"
+ },
+ {
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/frontend-design/SKILL.md",
+  "file": "holaboss-ai_holaOS__runtime_harnesses_src_embedded-skills_frontend-design_SKILL.md",
+  "words": 1059,
+  "sha": "1281e529c4d7cfc058f3857c493976f1299c87a285f53ebe0cb2afbd4840a71f"
+ },
+ {
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/interface-design/SKILL.md",
+  "file": "holaboss-ai_holaOS__runtime_harnesses_src_embedded-skills_interface-design_SKILL.md",
+  "words": 3769,
+  "sha": "ef72be15bee95fab9a737ee7adc22f3c64755cf32a09a8ab3e13fb12e239af15"
+ },
+ {
+  "repo": "https-deeplearning-ai/sc-agent-skills-files",
+  "path": "L3/brand_guidelines_skill/craftedwell-brand/SKILL.md",
+  "file": "https-deeplearning-ai_sc-agent-skills-files__L3_brand_guidelines_skill_craftedwell-brand_SKILL.md",
+  "words": 688,
+  "sha": "65b0497ea5da07d7d294ab6ba0244996f74b240d74fb4ddd883671ee5ece8c3e"
+ },
+ {
+  "repo": "huytieu/COG-second-brain",
+  "path": ".agents/skills/taste-skill/SKILL.md",
+  "file": "huytieu_COG-second-brain__.agents_skills_taste-skill_SKILL.md",
+  "words": 76,
+  "sha": "d8e4a51ee68afa3404af270d3952ae0f8a01c9ce93b04ebe7e29947cd2518db3"
+ },
+ {
+  "repo": "huytieu/COG-second-brain",
+  "path": ".claude/skills/taste-skill/SKILL.md",
+  "file": "huytieu_COG-second-brain__.claude_skills_taste-skill_SKILL.md",
+  "words": 11209,
+  "sha": "0526619f08040c914dae9d8cdfddc8f30519d59c0482bf63d9629c646ad36161"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/baseline-ui/SKILL.md",
+  "file": "ibelick_ui-skills__skills_baseline-ui_SKILL.md",
+  "words": 508,
+  "sha": "fea3322f36d58fdafafce2aef56e4556dd2ac7b20876b7dff7d8be7f25fa597f"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/fixing-accessibility/SKILL.md",
+  "file": "ibelick_ui-skills__skills_fixing-accessibility_SKILL.md",
+  "words": 734,
+  "sha": "549261e8a53b53a1a20c0ddbf736821e5fc0876ad82eee76e0efab8e9ee9dadf"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/fixing-motion-performance/SKILL.md",
+  "file": "ibelick_ui-skills__skills_fixing-motion-performance_SKILL.md",
+  "words": 832,
+  "sha": "0a2d654902bc04263ce68c8c02967ef03f17b482e855360a5463211d99d7baa9"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/improve-ui/SKILL.md",
+  "file": "ibelick_ui-skills__skills_improve-ui_SKILL.md",
+  "words": 1114,
+  "sha": "fa2ac808f6d9dab7bb3620880b014d2c18e227e5b006102856038096e573e69a"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/ui-skills-root/SKILL.md",
+  "file": "ibelick_ui-skills__skills_ui-skills-root_SKILL.md",
+  "words": 236,
+  "sha": "d4e1033f910467164a9cd3931277c1b309cb87c6d23cb5f184a65bfdf92b1c9c"
+ },
+ {
+  "repo": "iflytek/skillhub",
+  "path": ".agents/skills/frontend-conventions/SKILL.md",
+  "file": "iflytek_skillhub__.agents_skills_frontend-conventions_SKILL.md",
+  "words": 519,
+  "sha": "67613120a75ff555d1cb64788a1f48a6037fa19bb81da0ae132926f87876820a"
+ },
+ {
+  "repo": "iflytek/skillhub",
+  "path": "builtin-skills/skills/frontend-design/SKILL.md",
+  "file": "iflytek_skillhub__builtin-skills_skills_frontend-design_SKILL.md",
+  "words": 1325,
+  "sha": "61609bcde1cb5b279ffb38f5db00afb5e3253016ac781ed831be7974fada6b04"
+ },
+ {
+  "repo": "jakubkrehel/make-interfaces-feel-better",
+  "path": "skills/make-interfaces-feel-better/SKILL.md",
+  "file": "jakubkrehel_make-interfaces-feel-better__skills_make-interfaces-feel-better_SKILL.md",
+  "words": 1842,
+  "sha": "c1d508fa7bef8e47ee682b4f214c7a4ed1416b91d05a97285e555bad1c41a23e"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-colors/SKILL.md",
+  "file": "jakubkrehel_skills__skills_better-colors_SKILL.md",
+  "words": 1260,
+  "sha": "cde9dd40cb183b383514e1a2c76bf74c9d914f5f6722ee6079d3f9cd121862c1"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-interface/SKILL.md",
+  "file": "jakubkrehel_skills__skills_better-interface_SKILL.md",
+  "words": 1554,
+  "sha": "57412a685bd1a654f81def820099481b7df6ddf8f4bc06989a1b875b1d01c036"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-typography/SKILL.md",
+  "file": "jakubkrehel_skills__skills_better-typography_SKILL.md",
+  "words": 1638,
+  "sha": "717f615910470bd2b7c662cce2af2ebd11cd887379a6ea93455c45f3c5ba378d"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-ui/SKILL.md",
+  "file": "jakubkrehel_skills__skills_better-ui_SKILL.md",
+  "words": 1086,
+  "sha": "2482b7b89d851a3128d36edf5367f3223e113a4ef421b7358c7e6de3f2c83faf"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/interface-review/SKILL.md",
+  "file": "jakubkrehel_skills__skills_interface-review_SKILL.md",
+  "words": 1786,
+  "sha": "65783ac261ee1a33da11bbbbdb6e71ab6162fc24a2450f91781457b41b9a6d13"
+ },
+ {
+  "repo": "jame581/GodotPrompter",
+  "path": "skills/godot-ui/SKILL.md",
+  "file": "jame581_GodotPrompter__skills_godot-ui_SKILL.md",
+  "words": 1658,
+  "sha": "b4514cbd13a8d257c761e66843c80214efbfcc9a385672a969789083554aaabf"
+ },
+ {
+  "repo": "jarrodwatts/claude-code-config",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "file": "jarrodwatts_claude-code-config__skills_web-design-guidelines_SKILL.md",
+  "words": 171,
+  "sha": "fc48547ce7b3f384043d0804d823a0c6bd02f4a94a484bc724551d28fcd6b90d"
+ },
+ {
+  "repo": "jd-opensource/taro-ui",
+  "path": "packages/taro-ui-guide/SKILL.md",
+  "file": "jd-opensource_taro-ui__packages_taro-ui-guide_SKILL.md",
+  "words": 578,
+  "sha": "fc1f6551efc4b0492278b4a4426a0e4f7cd7c72308fdd2c9c331c3233f450a4b"
+ },
+ {
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/dev-tools/skills/ux-audit/SKILL.md",
+  "file": "jezweb_claude-skills__plugins_dev-tools_skills_ux-audit_SKILL.md",
+  "words": 4777,
+  "sha": "1d80c3fcd1d18c98f4fef677b2dc8a56ffca6b7f5eb680d310ccc08adc263c95"
+ },
+ {
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/frontend/skills/tailwind-theme-builder/SKILL.md",
+  "file": "jezweb_claude-skills__plugins_frontend_skills_tailwind-theme-builder_SKILL.md",
+  "words": 1725,
+  "sha": "2cac96e01201f0ce8fddf9de8c04f554097ad01901d2e6ec0524d3523f91fb09"
+ },
+ {
+  "repo": "julianoczkowski/designer-skills",
+  "path": "frontend-design/SKILL.md",
+  "file": "julianoczkowski_designer-skills__frontend-design_SKILL.md",
+  "words": 1611,
+  "sha": "6a078fa3e5a5cef2656d621a90c8dff8191bd9d8a3724df1b98760262c88ef60"
+ },
+ {
+  "repo": "kubesphere/kubesphere",
+  "path": "skills/frontend-forge-fe-operations/SKILL.md",
+  "file": "kubesphere_kubesphere__skills_frontend-forge-fe-operations_SKILL.md",
+  "words": 1441,
+  "sha": "46999687508dc0de99c6f56d3007e44a433cda5f1ea65fb0946425990db72700"
+ },
+ {
+  "repo": "kubesphere/kubesphere",
+  "path": "skills/frontend-integration-yaml/SKILL.md",
+  "file": "kubesphere_kubesphere__skills_frontend-integration-yaml_SKILL.md",
+  "words": 319,
+  "sha": "8134900308c615f516cfe3525d51061def43123483a3a1c28460bd9fea11159a"
+ },
+ {
+  "repo": "kylezantos/design-motion-principles",
+  "path": "skills/design-motion-principles/SKILL.md",
+  "file": "kylezantos_design-motion-principles__skills_design-motion-principles_SKILL.md",
+  "words": 957,
+  "sha": "599f42dbf011df38f3fcaf1497533af447d91cf97443b92439455af103c25b2e"
+ },
+ {
+  "repo": "langgenius/dify",
+  "path": ".agents/skills/frontend-code-review/SKILL.md",
+  "file": "langgenius_dify__.agents_skills_frontend-code-review_SKILL.md",
+  "words": 437,
+  "sha": "054cb939c2a870232392f480ad1ccf4b7e5282f69c6906e89335ea4a740e3b84"
+ },
+ {
+  "repo": "langgenius/dify",
+  "path": ".agents/skills/how-to-write-component/SKILL.md",
+  "file": "langgenius_dify__.agents_skills_how-to-write-component_SKILL.md",
+  "words": 292,
+  "sha": "ae2fd9a617cfc6aa7f8049c85b03ce7d9165715bd79120ab59687e7af0f821b8"
+ },
+ {
+  "repo": "limecloud/lime",
+  "path": "lime-rs/resources/default-skills/brand-persona-knowledge-builder/SKILL.md",
+  "file": "limecloud_lime__lime-rs_resources_default-skills_brand-persona-knowledge-builder_SKILL.md",
+  "words": 257,
+  "sha": "1c04a4aaf319cdf17b5ab03494b1c2536a540f9afd757413637d874491d5251d"
+ },
+ {
+  "repo": "limecloud/lime",
+  "path": "lime-rs/resources/default-skills/brand-product-knowledge-builder/SKILL.md",
+  "file": "limecloud_lime__lime-rs_resources_default-skills_brand-product-knowledge-builder_SKILL.md",
+  "words": 237,
+  "sha": "e3a98e7760d8b13eb54e71f50e0fccdebb9126a0736243787156a0471f87f6f0"
+ },
+ {
+  "repo": "lionkiii/claude-seo-skills",
+  "path": "skills/seo-brand-radar/SKILL.md",
+  "file": "lionkiii_claude-seo-skills__skills_seo-brand-radar_SKILL.md",
+  "words": 953,
+  "sha": "e42884ac908cf3623ace75063212e2d3da10fde09bb9f0b1a29105af848efecc"
+ },
+ {
+  "repo": "lionkiii/claude-seo-skills",
+  "path": "skills/seo-gsc-brand-vs-nonbrand/SKILL.md",
+  "file": "lionkiii_claude-seo-skills__skills_seo-gsc-brand-vs-nonbrand_SKILL.md",
+  "words": 773,
+  "sha": "36703f135ba6b6e418074edc16048a929cde61cb0d5ff6ab97049988673566b7"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/debug-frontend-with-browser/SKILL.md",
+  "file": "lobehub_lobehub__.agents_skills_debug-frontend-with-browser_SKILL.md",
+  "words": 922,
+  "sha": "c4e5a7fcdc908d6f9b79166f5f02ec8cd2ce1bb49d11df20eccf1d0e12e95dee"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/design-prototype/SKILL.md",
+  "file": "lobehub_lobehub__.agents_skills_design-prototype_SKILL.md",
+  "words": 813,
+  "sha": "a6d653021c5539ca0fdff545662f4bb3042ad9b12d073702720b065c8b109cee"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux/SKILL.md",
+  "file": "lobehub_lobehub__.agents_skills_ux_SKILL.md",
+  "words": 1537,
+  "sha": "f909e4ebd2d4c1f09fa80a11cc0421c54374deaa76990a1ba2266ae8197eb3f1"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux-audit/SKILL.md",
+  "file": "lobehub_lobehub__.agents_skills_ux-audit_SKILL.md",
+  "words": 2925,
+  "sha": "4e3ccc0f494657bed66765c3718a0e2d6541ae13fad9606c3d20869e35fb3c3e"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/brand-voice/SKILL.md",
+  "file": "luongnv89_claude-howto__03-skills_brand-voice_SKILL.md",
+  "words": 356,
+  "sha": "fa20cc4408b6516e13f827378ec667052cb12b30ed3d90183f222d83463655e2"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "ja/03-skills/brand-voice/SKILL.md",
+  "file": "luongnv89_claude-howto__ja_03-skills_brand-voice_SKILL.md",
+  "words": 184,
+  "sha": "1393c384d2a8706e01bd7674db04eee37bc90fe293a93b339a7d189d0b92f3d5"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "uk/03-skills/brand-voice/SKILL.md",
+  "file": "luongnv89_claude-howto__uk_03-skills_brand-voice_SKILL.md",
+  "words": 327,
+  "sha": "00f3eafc44cf7a68d3acd8859f4ba0786e644d88bcc47c094c03a07512a1abac"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "vi/03-skills/brand-voice/SKILL.md",
+  "file": "luongnv89_claude-howto__vi_03-skills_brand-voice_SKILL.md",
+  "words": 494,
+  "sha": "06ae9a4bf5003c3229b38c26ee530e45a8347eb18ed34cf7abbc23b8b297a226"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "zh/03-skills/brand-voice/SKILL.md",
+  "file": "luongnv89_claude-howto__zh_03-skills_brand-voice_SKILL.md",
+  "words": 133,
+  "sha": "bc6ea32846b4022da34bfe09a07f48157c116e4f87963f2b7f565b1d54ace6c0"
+ },
+ {
+  "repo": "majidmanzarpour/threejs-game-skills",
+  "path": "skills/threejs-game-ui-designer/SKILL.md",
+  "file": "majidmanzarpour_threejs-game-skills__skills_threejs-game-ui-designer_SKILL.md",
+  "words": 346,
+  "sha": "f68b6a0ad4347ed30fb416d3e5d9ee21e63af6c43dc05a3784f3e333f21e4f85"
+ },
+ {
+  "repo": "manusco/resonance",
+  "path": ".agents/skills/engineering/frontend/SKILL.md",
+  "file": "manusco_resonance__.agents_skills_engineering_frontend_SKILL.md",
+  "words": 845,
+  "sha": "ed12dfb9c3ac1750f3e19b087080433d924dcc849924cd6b3ad79b67afaacb6b"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ui-design-review/SKILL.md",
+  "file": "mastepanoski_claude-skills__skills_ui-design-review_SKILL.md",
+  "words": 4259,
+  "sha": "ea4b8f8acb2fb9b41a82c731163271091686ce06f3a6a344e0817da6c3123077"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ux-audit-rethink/SKILL.md",
+  "file": "mastepanoski_claude-skills__skills_ux-audit-rethink_SKILL.md",
+  "words": 4537,
+  "sha": "b08edef5e24d3a1a377ac3710682a593bce744f26a4195269ce2f2f9178b9012"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/wcag-accessibility-audit/SKILL.md",
+  "file": "mastepanoski_claude-skills__skills_wcag-accessibility-audit_SKILL.md",
+  "words": 3895,
+  "sha": "81d504b505c6764edbc25e035cc9b4f53cf37f2a137dffc7826f4ff75faeab59"
+ },
+ {
+  "repo": "mateaix/mateclaw",
+  "path": "mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+  "file": "mateaix_mateclaw__mateclaw-server_src_main_resources_skills_popular-web-designs_SKILL.md",
+  "words": 1403,
+  "sha": "b6aa057df4dd557bcdaa397ea454210dc40e433bb3bf3bfdf0b4c8dee124b7a2"
+ },
+ {
+  "repo": "mattpocock/skills",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "file": "mattpocock_skills__skills_engineering_prototype_SKILL.md",
+  "words": 487,
+  "sha": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3"
+ },
+ {
+  "repo": "mavlink/qgroundcontrol",
+  "path": "tools/skills/qt-ui-design/SKILL.md",
+  "file": "mavlink_qgroundcontrol__tools_skills_qt-ui-design_SKILL.md",
+  "words": 3876,
+  "sha": "e6f6df0ad1d7eb14312daf74c6e7ff429af5e3dae1023c981f4e27c0967560ed"
+ },
+ {
+  "repo": "mejba13/awesome-claude-skills",
+  "path": ".claude/skills/frontend-dev-guidelines/SKILL.md",
+  "file": "mejba13_awesome-claude-skills__.claude_skills_frontend-dev-guidelines_SKILL.md",
+  "words": 1367,
+  "sha": "646f2fb6e25cef87f39de43363f0962d92b3c39f53ffd881fb7959e1338a4ae0"
+ },
+ {
+  "repo": "melandlabs/openloomi",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "file": "melandlabs_openloomi__skills_ui-ux-pro-max_SKILL.md",
+  "words": 6466,
+  "sha": "9bd26c52dfd10dfd613dd3cc85df217dc25a172e380bde41fdfa6fedda288b2a"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "path": ".github/skills/accessibility/accessibility/SKILL.md",
+  "file": "microsoft_hve-core__.github_skills_accessibility_accessibility_SKILL.md",
+  "words": 5218,
+  "sha": "83283a35a15ba6f054410e2b76545f57d499938824adc8f901510117ff473bc4"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "path": ".github/skills/design-thinking/ux-artifacts/SKILL.md",
+  "file": "microsoft_hve-core__.github_skills_design-thinking_ux-artifacts_SKILL.md",
+  "words": 1466,
+  "sha": "5b420e4024ad6b9764f539ddb73064d1b62ef30870843b8c91c45312c27bfff8"
+ },
+ {
+  "repo": "microsoft/power-platform-skills",
+  "path": "plugins/mcp-apps/skills/generate-mcp-app-ui/SKILL.md",
+  "file": "microsoft_power-platform-skills__plugins_mcp-apps_skills_generate-mcp-app-ui_SKILL.md",
+  "words": 1655,
+  "sha": "79ac41013a6e7aad5108f49267e4bc24d6ab01b91f15a732fbd5655690782eb1"
+ },
+ {
+  "repo": "microsoft/skills",
+  "path": ".github/plugins/microsoft-365-agents-toolkit/skills/ui-widget-developer/SKILL.md",
+  "file": "microsoft_skills__.github_plugins_microsoft-365-agents-toolkit_skills_ui-widget-developer_SKILL.md",
+  "words": 3067,
+  "sha": "b24d0babae9e85054d30765abca0043a2c310ba7dc980d1da258c39b87f8cd12"
+ },
+ {
+  "repo": "minhnv0807/ai-business-skills",
+  "path": "modules/personal-branding/vi/23-personal-brand-strategy/SKILL.md",
+  "file": "minhnv0807_ai-business-skills__modules_personal-branding_vi_23-personal-brand-strategy_SKILL.md",
+  "words": 3144,
+  "sha": "ab828aefd0406e6015cf4ee1d963095cd1afec16cb4f868941de135fc2da232b"
+ },
+ {
+  "repo": "minhnv0807/ai-business-skills",
+  "path": "skills/vi/46-brand-guideline/SKILL.md",
+  "file": "minhnv0807_ai-business-skills__skills_vi_46-brand-guideline_SKILL.md",
+  "words": 1945,
+  "sha": "6f13c4070aec9f9241bc7561333123d1ab1e681c5b744c18bf58af85602e2f98"
+ },
+ {
+  "repo": "momozi1996/awesome-ai-persona-skills",
+  "path": "EQ/sel-social-emotional-learning-skill/SKILL.md",
+  "file": "momozi1996_awesome-ai-persona-skills__EQ_sel-social-emotional-learning-skill_SKILL.md",
+  "words": 587,
+  "sha": "f6921121b1778d52daaa318c7f72df548b763aa869a0b9bf1bf33167f2d2cd54"
+ },
+ {
+  "repo": "mrgoonie/claudekit-skills",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "file": "mrgoonie_claudekit-skills__.claude_skills_frontend-design_SKILL.md",
+  "words": 567,
+  "sha": "44bac5b97e359a895287ce5c42c73909c06af93be8710e968a49ce9e0ad83465"
+ },
+ {
+  "repo": "mrgoonie/claudekit-skills",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "file": "mrgoonie_claudekit-skills__.claude_skills_ui-styling_SKILL.md",
+  "words": 1142,
+  "sha": "7f5b4a0ce2a109779d6ca235543ee7755881c53f0258d526e174bd37fd4c8dd8"
+ },
+ {
+  "repo": "mukul975/Anthropic-Cybersecurity-Skills",
+  "path": "skills/exploiting-prototype-pollution-in-javascript/SKILL.md",
+  "file": "mukul975_Anthropic-Cybersecurity-Skills__skills_exploiting-prototype-pollution-in-javascript_SKILL.md",
+  "words": 1200,
+  "sha": "0b1fd5ef31b752fe0ba7975c86250f6b1c56e85aaacbc40d1a1ce0f40e8c0dac"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/accessibility-per-component/SKILL.md",
+  "file": "murphytrueman_design-system-ops__skills_accessibility-per-component_SKILL.md",
+  "words": 3680,
+  "sha": "59d2d1c9ec57139c9d93053764a92f3c9bcf220f823da95c35359cbdd0af8599"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/ai-component-description/SKILL.md",
+  "file": "murphytrueman_design-system-ops__skills_ai-component-description_SKILL.md",
+  "words": 2775,
+  "sha": "c693e04d7e19d0688068719a6924463702ac13c906cb38ba11c535a8af6488ac"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/component-audit/SKILL.md",
+  "file": "murphytrueman_design-system-ops__skills_component-audit_SKILL.md",
+  "words": 4034,
+  "sha": "5e4a1b18cd7c671f451bdf65876bf6365d0eb245b8ad00e5c4e7f8838a93a5ae"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/component-decision-tree/SKILL.md",
+  "file": "murphytrueman_design-system-ops__skills_component-decision-tree_SKILL.md",
+  "words": 2760,
+  "sha": "526aa80b17c20c0708c9896b3e8ce7206d6f9c774e00a9f27fa6af913ab0108f"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/figma-variable-audit/SKILL.md",
+  "file": "murphytrueman_design-system-ops__skills_figma-variable-audit_SKILL.md",
+  "words": 3452,
+  "sha": "28ffbedec4d12c375c04369943076d5178706fabec46e7e9871eac939bd20e85"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "path": "nWave/skills/nw-ux-principles/SKILL.md",
+  "file": "nWave-ai_nWave__nWave_skills_nw-ux-principles_SKILL.md",
+  "words": 1147,
+  "sha": "feb8d25506c463a51ce2aed572e626c26c4bc2ad0163f4b538b451724e86d81a"
+ },
+ {
+  "repo": "nanocoai/nanoclaw",
+  "path": "container/skills/frontend-engineer/SKILL.md",
+  "file": "nanocoai_nanoclaw__container_skills_frontend-engineer_SKILL.md",
+  "words": 924,
+  "sha": "c2cd336aa1c63e9f1a918d192cfe0230dd0ade680856ec3633cf98ebe52049c9"
+ },
+ {
+  "repo": "new-silvermoon/awesome-android-agent-skills",
+  "path": ".github/skills/ui/android-accessibility/SKILL.md",
+  "file": "new-silvermoon_awesome-android-agent-skills__.github_skills_ui_android-accessibility_SKILL.md",
+  "words": 265,
+  "sha": "016110473c04b6b4c097a09ad043013f87a1ffde2c878d41c569b5882684f28c"
+ },
+ {
+  "repo": "new-silvermoon/awesome-android-agent-skills",
+  "path": ".github/skills/ui/compose-ui/SKILL.md",
+  "file": "new-silvermoon_awesome-android-agent-skills__.github_skills_ui_compose-ui_SKILL.md",
+  "words": 349,
+  "sha": "e1d56573ba5f12154a174834ee1d38986d9dc5ed3baf40acebdaa2df3c826ee5"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-analytics/SKILL.md",
+  "file": "nexscope-ai_Amazon-Skills__amazon-brand-analytics_SKILL.md",
+  "words": 1240,
+  "sha": "5cf1a942f21063afdb177b4a6b0b84f4609d30663e740eab8407e3fa15ac63dc"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-registry/SKILL.md",
+  "file": "nexscope-ai_Amazon-Skills__amazon-brand-registry_SKILL.md",
+  "words": 230,
+  "sha": "f95fdbb5a4f5558cd3eef347db2564d5b32bc54bf0cd373cbfc6dca412bf51ea"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-tailored-promotions/SKILL.md",
+  "file": "nexscope-ai_Amazon-Skills__amazon-brand-tailored-promotions_SKILL.md",
+  "words": 228,
+  "sha": "891b09e96a40778faea3288e10f33a6a8caf0545f69ab576afe1abaa91c998e7"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-enhanced-brand-content/SKILL.md",
+  "file": "nexscope-ai_Amazon-Skills__amazon-enhanced-brand-content_SKILL.md",
+  "words": 231,
+  "sha": "b306a1334e3f1459c765312b4b465bc4b26b86a578787d7bbd20814ec15daf9b"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/brand/SKILL.md",
+  "file": "nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_brand_SKILL.md",
+  "words": 489,
+  "sha": "1c24139633e2ebf11da4f97eaeb1c0564f8658a40b3ad779387a5b8c6cb76dbc"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/design-system/SKILL.md",
+  "file": "nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_design-system_SKILL.md",
+  "words": 924,
+  "sha": "8aa5ff93320559a6e5289d37b6b06b3307737dbfb4a6f3fc44135c705613c511"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "file": "nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_ui-styling_SKILL.md",
+  "words": 1277,
+  "sha": "625e302c60ee8f2e22d56cbe638c4a739e2657f566dae42689503ad517c30f1e"
+ },
+ {
+  "repo": "nexu-io/html-anything",
+  "path": "next/src/lib/templates/skills/saas-landing/SKILL.md",
+  "file": "nexu-io_html-anything__next_src_lib_templates_skills_saas-landing_SKILL.md",
+  "words": 109,
+  "sha": "ecf14e72f6011aaabe8a775f7a9132d693ccff413cd82f390653c690fd1ad0d4"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "design-templates/web-prototype-taste-editorial/SKILL.md",
+  "file": "nexu-io_open-design__design-templates_web-prototype-taste-editorial_SKILL.md",
+  "words": 469,
+  "sha": "02a9ffad31dd2e2a25ffbe635a4538cba99aacfe60925323c4ba546d7f0fea2d"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "plugins/_official/examples/mockup-device-3d/SKILL.md",
+  "file": "nexu-io_open-design__plugins__official_examples_mockup-device-3d_SKILL.md",
+  "words": 471,
+  "sha": "76437e765e69ce4574605eccce8503cb189d2a71643b9b2161af55984a144389"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "skills/shadcn-ui/SKILL.md",
+  "file": "nexu-io_open-design__skills_shadcn-ui_SKILL.md",
+  "words": 156,
+  "sha": "369d3a806ba2bac0cf6d670802d70055485a8cda821f382b83a3b950ef37254b"
+ },
+ {
+  "repo": "nimadorostkar/Claude-Skills-collection",
+  "path": "skills/design/visual-design/SKILL.md",
+  "file": "nimadorostkar_Claude-Skills-collection__skills_design_visual-design_SKILL.md",
+  "words": 866,
+  "sha": "0d7222c68ded10e653be021d915dd211c0f458d6acd46de5dfe36d751a06557b"
+ },
+ {
+  "repo": "nowork-studio/notfair-plugin",
+  "path": "google-ads/landing/SKILL.md",
+  "file": "nowork-studio_notfair-plugin__google-ads_landing_SKILL.md",
+  "words": 1545,
+  "sha": "b449a8f43a57dcc3d9bbf4c248902b681d853ec5cc8796e1f8017dc52770516f"
+ },
+ {
+  "repo": "nuxt/ui",
+  "path": "skills/nuxt-ui/SKILL.md",
+  "file": "nuxt_ui__skills_nuxt-ui_SKILL.md",
+  "words": 821,
+  "sha": "98f11149fc566b2826c15f1ce78b031bdd0476413b35b22bd0edb6df02ddb95e"
+ },
+ {
+  "repo": "oracle-devrel/oracle-ai-developer-hub",
+  "path": "workshops/soccer-analytics-agent/.claude/skills/taste-skill/SKILL.md",
+  "file": "oracle-devrel_oracle-ai-developer-hub__workshops_soccer-analytics-agent_.claude_skills_taste-skill_SKILL.md",
+  "words": 2924,
+  "sha": "6f709e140dfbf4be5f341e85c00ce5875ae83c12425a76e25de96f172b854462"
+ },
+ {
+  "repo": "paperclipai/paperclip",
+  "path": ".agents/skills/create-issue-interaction-ui/SKILL.md",
+  "file": "paperclipai_paperclip__.agents_skills_create-issue-interaction-ui_SKILL.md",
+  "words": 1702,
+  "sha": "721819ad168f9b1d3e444bad4df1f95020ae0e55de79faf9671d5f1dc50db2d6"
+ },
+ {
+  "repo": "paperclipai/paperclip",
+  "path": "packages/skills-catalog/catalog/bundled/product/wireframe/SKILL.md",
+  "file": "paperclipai_paperclip__packages_skills-catalog_catalog_bundled_product_wireframe_SKILL.md",
+  "words": 1637,
+  "sha": "6992047cc97b67211cc8c1183718ab9aa26b8afc34c70d54d20558c215daaf48"
+ },
+ {
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-prototype/SKILL.md",
+  "file": "plannotator_effective-html__skills_html-prototype_SKILL.md",
+  "words": 897,
+  "sha": "8987dda45224350254af30cafa72e721c6d91e1972e794e8e839406f77814368"
+ },
+ {
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-wireframe/SKILL.md",
+  "file": "plannotator_effective-html__skills_html-wireframe_SKILL.md",
+  "words": 710,
+  "sha": "b1d649ef9052f2ed8baabaf483ed527208a2e481281ed3925ec8b84ba641d4c1"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/a11y-audit/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_a11y-audit_SKILL.md",
+  "words": 203,
+  "sha": "a0aad044e6afc2975e776707d81cff8cc8c0297c6fae5f18e5af549161bd159a"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/brandkit/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_brandkit_SKILL.md",
+  "words": 311,
+  "sha": "c95d8a4da78b85f27cd7231d6f76b3233ceba170040081e2aa67555e9b27c422"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/design-component/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_design-component_SKILL.md",
+  "words": 1348,
+  "sha": "e35325764a67028e7a92585303dbcd0ee90894933bdf92989e907c2041eb8fd6"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/figma-integration/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_figma-integration_SKILL.md",
+  "words": 256,
+  "sha": "ac58c6f725775458996fcb2fc2d5dc7729298212bcfafc12e3d36ebd86bad367"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/migrate-design-system/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_migrate-design-system_SKILL.md",
+  "words": 222,
+  "sha": "168802c20099cf629f58c67406644a63207370e5f89777e7642df593309612fe"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/prototype/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_prototype_SKILL.md",
+  "words": 238,
+  "sha": "8a3ca88c6dfcf0ebecdbc94e01e019591cdd08cb7f16f07419b65c81884a6fd4"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/ux-writing/SKILL.md",
+  "file": "plugin87_ux-ui-agent-skills__.claude_skills_ux-writing_SKILL.md",
+  "words": 289,
+  "sha": "6713d4c3937891645bd55536574b3c6500b95be4853225b9eb7fa1edb7aa002a"
+ },
+ {
+  "repo": "pulumi/agent-skills",
+  "path": "pulumi/skills/pulumi-component/SKILL.md",
+  "file": "pulumi_agent-skills__pulumi_skills_pulumi-component_SKILL.md",
+  "words": 2990,
+  "sha": "eef36cb66dfcaf062ac2ef97b4ce050b04afa680f3c76c4e536659a686481cac"
+ },
+ {
+  "repo": "rampstackco/claude-skills",
+  "path": "dist/pi/.agents/skills/accessibility-audit/SKILL.md",
+  "file": "rampstackco_claude-skills__dist_pi_.agents_skills_accessibility-audit_SKILL.md",
+  "words": 1601,
+  "sha": "1c599e4a84886f67f9ab1c60ec7d95a9289b17d3a948e5d8c227bdfcb082a1e3"
+ },
+ {
+  "repo": "rampstackco/claude-skills",
+  "path": "dist/pi/.agents/skills/brand-style-guide/SKILL.md",
+  "file": "rampstackco_claude-skills__dist_pi_.agents_skills_brand-style-guide_SKILL.md",
+  "words": 1277,
+  "sha": "e5de2c8ff359f2c6204b3efbceb52e06d980545f50a915af38216e27de5845ff"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-best-practices/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-best-practices_SKILL.md",
+  "words": 306,
+  "sha": "292470f2a0e3bfa72cf2eb4f77ecbb9ef95cd25431fed3df750895ef93b4dbd6"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-captions/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-captions_SKILL.md",
+  "words": 118,
+  "sha": "fc6cd302143a1d18bb3c3fa82317a078f43eed88e51b4307ad8250eb5adafb03"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-create/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-create_SKILL.md",
+  "words": 376,
+  "sha": "e7131b653063a1e43164c48a12ba39d2a72e97d3168613da65df2af42b42e4aa"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-interactivity/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-interactivity_SKILL.md",
+  "words": 1262,
+  "sha": "79d3e63572902185655d8ffaf0c43cea41b0007a9ff0afc587ff2f8cc00ed0e4"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-maps/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-maps_SKILL.md",
+  "words": 139,
+  "sha": "5d1e32add914ab2a8bd63fe814eabd3969f4087cec8573e8805c30635402cc45"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-markup/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-markup_SKILL.md",
+  "words": 1341,
+  "sha": "956381575e9318427da0eca735baafcd8664c903186fc562c25c6ebef5a037c1"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-multimedia/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-multimedia_SKILL.md",
+  "words": 87,
+  "sha": "8d99ba3ceee50986b76b867d54eb2accdc8ca1f04626a089e5bc7030f1d67b6a"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-render/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-render_SKILL.md",
+  "words": 82,
+  "sha": "bac18f3e7d16c525bc7dedb87437c27edaad5842613a167e049b63ac98477fde"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-saas/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-saas_SKILL.md",
+  "words": 155,
+  "sha": "fa59ffaec0b68340cb656f9575d4b8f944cd2c8658745ce1ba36e1f668c3c6a4"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-studio/SKILL.md",
+  "file": "remotion-dev_skills__skills_remotion-studio_SKILL.md",
+  "words": 115,
+  "sha": "719b3440b6d6c127450506146f0c10d15ac501ef0cb04a14169bfed614ed20ed"
+ },
+ {
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/accessibility-compliance-accessibility-audit/SKILL.md",
+  "file": "rmyndharis_antigravity-skills__skills_accessibility-compliance-accessibility-audit_SKILL.md",
+  "words": 250,
+  "sha": "1908ca0d91481d2ae7f1b627d4717196d94d4a0c0afc1d9324dc7bfb7953bfca"
+ },
+ {
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "skills/accessibility-wcag/SKILL.md",
+  "file": "rohitg00_awesome-claude-code-toolkit__skills_accessibility-wcag_SKILL.md",
+  "words": 614,
+  "sha": "aaeb378823f0470b8079a3c3e0a241a03ec43c77afb47a503966d5d0bd154d14"
+ },
+ {
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "skills/frontend-excellence/SKILL.md",
+  "file": "rohitg00_awesome-claude-code-toolkit__skills_frontend-excellence_SKILL.md",
+  "words": 680,
+  "sha": "5b0a832e7e367aead8d5cf46e8985ad7b3e0afa3d85649ec8b4f2f7fc6204d93"
+ },
+ {
+  "repo": "rohitg00/pro-workflow",
+  "path": "skills/design-engineering/SKILL.md",
+  "file": "rohitg00_pro-workflow__skills_design-engineering_SKILL.md",
+  "words": 747,
+  "sha": "1d735e5d49bc65388b9e9bb43299ac0d6395a9e337638c7851a612f8574f13b5"
+ },
+ {
+  "repo": "rorkai/app-store-connect-cli-skills",
+  "path": "skills/asc-app-create-ui/SKILL.md",
+  "file": "rorkai_app-store-connect-cli-skills__skills_asc-app-create-ui_SKILL.md",
+  "words": 964,
+  "sha": "b3afdc3ff50fa47fc7a3d7de4d1ce6759518c503c6c12c8300202fc90ed1d237"
+ },
+ {
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/design/ui-prototyping/SKILL.md",
+  "file": "rshankras_claude-code-apple-skills__skills_design_ui-prototyping_SKILL.md",
+  "words": 1632,
+  "sha": "771ae3453cd618da72346a9f477356ea2900ee6b28230e4cc79941e0d1d0d7af"
+ },
+ {
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/ios/ui-review/SKILL.md",
+  "file": "rshankras_claude-code-apple-skills__skills_ios_ui-review_SKILL.md",
+  "words": 1071,
+  "sha": "b30deda74af3e0fa8e3c74975244e11b5477c3f9bba169929b919a03ffea37bd"
+ },
+ {
+  "repo": "runkids/skillshare",
+  "path": ".skillshare/skills/skillshare-ui-website-style/SKILL.md",
+  "file": "runkids_skillshare__.skillshare_skills_skillshare-ui-website-style_SKILL.md",
+  "words": 2500,
+  "sha": "e566bbdcbb9348b415d29064681959b9bf64b0d071036324cc2468cd21626c0d"
+ },
+ {
+  "repo": "samber/cc-skills-golang",
+  "path": "skills/golang-structs-interfaces/SKILL.md",
+  "file": "samber_cc-skills-golang__skills_golang-structs-interfaces_SKILL.md",
+  "words": 1768,
+  "sha": "0bc93e1e86c3cf24571205b6fdd773a23df1b34366e7f639a9530d6984117601"
+ },
+ {
+  "repo": "samuelclay/NewsBlur",
+  "path": ".claude/skills/make-interfaces-feel-better/SKILL.md",
+  "file": "samuelclay_NewsBlur__.claude_skills_make-interfaces-feel-better_SKILL.md",
+  "words": 908,
+  "sha": "0b8693a52cfb61fbfb60dbbd164b58f36e29c113b19aba502f22e87970876ab9"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "path": "skills/cache-components/SKILL.md",
+  "file": "sangrokjung_claude-forge__skills_cache-components_SKILL.md",
+  "words": 1786,
+  "sha": "067eaa1d937725099d91f3a246e3d8b2a083fb0f928479da92883609792130d0"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "path": "skills/frontend-code-review/SKILL.md",
+  "file": "sangrokjung_claude-forge__skills_frontend-code-review_SKILL.md",
+  "words": 421,
+  "sha": "f4fefe4db6804043a36626f5f6028192f038bacd0c881f0fe6887cc4dd5f43b0"
+ },
+ {
+  "repo": "seaworld008/Commonly-used-high-value-skills",
+  "path": "openclaw-skills/ui-ux-pro-max/SKILL.md",
+  "file": "seaworld008_Commonly-used-high-value-skills__openclaw-skills_ui-ux-pro-max_SKILL.md",
+  "words": 1403,
+  "sha": "41ccf421965450292154081f8a22c99f90eca6109600920e9bc7ddddceb5b7b7"
+ },
+ {
+  "repo": "seaworld008/Commonly-used-high-value-skills",
+  "path": "skills/product-design/canvas-design/SKILL.md",
+  "file": "seaworld008_Commonly-used-high-value-skills__skills_product-design_canvas-design_SKILL.md",
+  "words": 1829,
+  "sha": "24a21ebd36ab3465625c2bbc27e789b31a6acfa1f241cad9eb86a4d996f38284"
+ },
+ {
+  "repo": "shobcoder/shob",
+  "path": "skills/frontend-design/SKILL.md",
+  "file": "shobcoder_shob__skills_frontend-design_SKILL.md",
+  "words": 583,
+  "sha": "8254e377881b60ef6963f035f100976141268915de6c6186f1a0b33ade903719"
+ },
+ {
+  "repo": "shobcoder/shob",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "file": "shobcoder_shob__skills_ui-ux-pro-max_SKILL.md",
+  "words": 2239,
+  "sha": "d688e30643320149eff6f0fca49eb8f3eb295140127f7c8a6cc185d5346f14d5"
+ },
+ {
+  "repo": "sickn33/agentic-awesome-skills",
+  "path": "plugins/agentic-awesome-skills/skills/design-it/brutalist-typography/SKILL.md",
+  "file": "sickn33_agentic-awesome-skills__plugins_agentic-awesome-skills_skills_design-it_brutalist-typography_SKILL.md",
+  "words": 923,
+  "sha": "50810bc17af13bc3b072fffd69b53174b9e8a85b1dcd90f2572ce5d9dc561b54"
+ },
+ {
+  "repo": "snyk/agent-scan",
+  "path": "tests/skills/canvas-design/SKILL.md",
+  "file": "snyk_agent-scan__tests_skills_canvas-design_SKILL.md",
+  "words": 1749,
+  "sha": "7cde52ea9bed7488e035482fb84ba9d1c1dbf06b2dd008655b91ce6b5203c436"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "path": "dist/plugins/design-system-starter/skills/design-system-starter/SKILL.md",
+  "file": "softaworks_agent-toolkit__dist_plugins_design-system-starter_skills_design-system-starter_SKILL.md",
+  "words": 1892,
+  "sha": "f5efbd8477895d0f995359a6236029e8ec26ad90f8040fbc3cf98cf4aa8d3170"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-analyze-component-set/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-analyze-component-set_SKILL.md",
+  "words": 662,
+  "sha": "75a7c9b319aa2724a80ff6dac7b94d21b6d4706389bd4a2761161bea4b02df48"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-annotations/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-annotations_SKILL.md",
+  "words": 515,
+  "sha": "015429e192bc35d6e8cdedb508e9095e3f517bc1b3949f650c974cf67e808f45"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-arrange-component-set/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-arrange-component-set_SKILL.md",
+  "words": 600,
+  "sha": "7f5f05c3e42f8f7c4f9c62a8f767c26669174b1ba3721bc8cdbd3effcba5629d"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-audit-accessibility/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-audit-accessibility_SKILL.md",
+  "words": 498,
+  "sha": "3a5a0707620bdec3807b309010a1b57dbb185739d1b937d76406bd6d3e95041d"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-blame-node/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-blame-node_SKILL.md",
+  "words": 790,
+  "sha": "d625694b4383d983a514a488a5ef7f6d577ba39292700d0abba4ad10c4061a73"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-check-design-parity/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-check-design-parity_SKILL.md",
+  "words": 545,
+  "sha": "f5ca87b31c740b9299359478da4fe60de2ad714d4f285759bd7fea56b2284948"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-comments/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-comments_SKILL.md",
+  "words": 644,
+  "sha": "fe144a0e3061c7c7e1a7c9937fed18aecb82a76405fd0dcc4fcda67834d83029"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-component-properties/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-component-properties_SKILL.md",
+  "words": 637,
+  "sha": "3299bfc9289cb0e73cd44546c97a0efbea095f14abc59540ae22203afa6ff72b"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-deep-component/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-deep-component_SKILL.md",
+  "words": 626,
+  "sha": "10973b4e9a51eec15211a9323a40a049afe30f89e7f6d01517d3d52d976c924e"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-design-system-inventory/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-design-system-inventory_SKILL.md",
+  "words": 562,
+  "sha": "09d5e59f8d172c900ed3168ea0ec0bb4422598fb28323e732038378d4326cbce"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-export-tokens/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-export-tokens_SKILL.md",
+  "words": 676,
+  "sha": "66691caa5d464b1b9ce8c33e2af870e4a5f027c5757a1f083debafd228538bfe"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-extract-design-system/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-extract-design-system_SKILL.md",
+  "words": 1242,
+  "sha": "c18f10671aab70abc3ea5c97758f149d2809a3f0c70a21b08699d8926ee07b82"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-generate-changelog/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-generate-changelog_SKILL.md",
+  "words": 589,
+  "sha": "0f731cd96481f04a103c3ac35df75826a603966503d2c67bcd05df678fbfed29"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-generate-component-doc/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-generate-component-doc_SKILL.md",
+  "words": 739,
+  "sha": "7a9fab5be6d7553ce0577cf0f2a37d03f962ae5f0088a01b279cd7e856cb18b0"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-import-tokens/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-import-tokens_SKILL.md",
+  "words": 518,
+  "sha": "36a627f8ba9dc4e4d4360f105556ada1b2df3654fad53199f76e9c4a96f0c8b4"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-library-variables/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-library-variables_SKILL.md",
+  "words": 337,
+  "sha": "f947c21a729dd84d24eb7fe08784f55fb37a276426f9f602f081414a0e664189"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-lint-design/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-lint-design_SKILL.md",
+  "words": 597,
+  "sha": "595b4d9fefbd6bbf5d343da799c0f820ddab9bcf627312f08898890604a92fb4"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-manage-variables/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-manage-variables_SKILL.md",
+  "words": 380,
+  "sha": "ffd77a055d946646a5000620b1baf178c3cdaf16a5589eb1e60c905d8f0be148"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-scan-code-accessibility/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-scan-code-accessibility_SKILL.md",
+  "words": 577,
+  "sha": "15b80da29fde7cd3ec5789eb51501b1cdcfe2910c78b719716123dce49296eac"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-setup-design-tokens/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-setup-design-tokens_SKILL.md",
+  "words": 410,
+  "sha": "3a8df726bed710ebb2180c649b0f18b652f0bfa9ce3d2d4b7bdb1d56e1a36110"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-slides/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-slides_SKILL.md",
+  "words": 492,
+  "sha": "0448b1d67962a6c40ce9a2753c39e343e67a03fb7e8f2c6892f857429067144c"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-version-history/SKILL.md",
+  "file": "southleft_figma-console-mcp-skills__skills_figma-version-history_SKILL.md",
+  "words": 799,
+  "sha": "8646d04405963b88d4b643c0ab7aea83a617212995c1cc8cf08f39389f07a758"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/animation-vocabulary/SKILL.md",
+  "file": "spree_spree__.agents_skills_animation-vocabulary_SKILL.md",
+  "words": 2159,
+  "sha": "d718b48fe3c7898804d588f050a2e266d82c9f5ef51da256c8cb8b5951527757"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "file": "spree_spree__.agents_skills_emil-design-eng_SKILL.md",
+  "words": 3877,
+  "sha": "e71de849347050c2c573c1cf24d742d5a13459557ecffa6e562f08006f46b5b7"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/find-animation-opportunities/SKILL.md",
+  "file": "spree_spree__.agents_skills_find-animation-opportunities_SKILL.md",
+  "words": 1430,
+  "sha": "91c1243164057fbf824088d12faea937878a757a7ac653e8288b775e8b27b882"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/improve-animations/SKILL.md",
+  "file": "spree_spree__.agents_skills_improve-animations_SKILL.md",
+  "words": 1206,
+  "sha": "68f17bbc4671593d2f43dba26a679243e2153ba5f26965fb7d59df52842534ff"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/pick-ui-library/SKILL.md",
+  "file": "spree_spree__.agents_skills_pick-ui-library_SKILL.md",
+  "words": 658,
+  "sha": "4b889bd6c08358499ac4a7202b8af71ffbd3485d2468f7b09d0613bbe7b24bf4"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/prototype/SKILL.md",
+  "file": "spree_spree__.agents_skills_prototype_SKILL.md",
+  "words": 1220,
+  "sha": "2ad8401c4deaddb54947fb65247f790e7b3d8784e35312bcbedbfb1d59cd89ce"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/review-animations/SKILL.md",
+  "file": "spree_spree__.agents_skills_review-animations_SKILL.md",
+  "words": 1120,
+  "sha": "61cf8ac0c4c8e1f63385298c546b16c65ca9aec34abddcd04e821c16712d671d"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "file": "spree_spree__.agents_skills_shadcn_SKILL.md",
+  "words": 2083,
+  "sha": "2089d0638e494b7f7a2222775945badaa1242f05424e341ef9b1f640093cf8a4"
+ },
+ {
+  "repo": "steipete/agent-scripts",
+  "path": "skills/frontend-design/SKILL.md",
+  "file": "steipete_agent-scripts__skills_frontend-design_SKILL.md",
+  "words": 538,
+  "sha": "cd7c5a02d3426fc81a1454f90057fcbbf49b07ab1363988321e607c7c7f816b3"
+ },
+ {
+  "repo": "stevesolun/ctx",
+  "path": "imported-skills/mattpocock/design-an-interface/SKILL.md",
+  "file": "stevesolun_ctx__imported-skills_mattpocock_design-an-interface_SKILL.md",
+  "words": 493,
+  "sha": "a2596e9fa2d50e23ba014f64a5b8f9df4eb56b846a52cad152899ef5eb97b085"
+ },
+ {
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/design-interface/SKILL.md",
+  "file": "suleimanodetoro_skills__skills_design-interface_SKILL.md",
+  "words": 1237,
+  "sha": "9ae764002f0f01b4cdf14effff2278e3208274044472bb9e09ce93289ecf0369"
+ },
+ {
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/review-interface/SKILL.md",
+  "file": "suleimanodetoro_skills__skills_review-interface_SKILL.md",
+  "words": 1138,
+  "sha": "ac19f2bf5256b8cc40dd189b8a4043312d959ddc1b63d1252812f1e7290d31eb"
+ },
+ {
+  "repo": "tech-leads-club/agent-skills",
+  "path": "packages/skills-catalog/skills/(architecture)/component-common-domain-detection/SKILL.md",
+  "file": "tech-leads-club_agent-skills__packages_skills-catalog_skills_(architecture)_component-common-domain-detection_SKILL.md",
+  "words": 2201,
+  "sha": "aef2c78a1e0a55c937379cb7ce8f7678acec64e55b50c5de452fbdf3a14cebc6"
+ },
+ {
+  "repo": "tech-leads-club/agent-skills",
+  "path": "packages/skills-catalog/skills/(design)/frontend-design/SKILL.md",
+  "file": "tech-leads-club_agent-skills__packages_skills-catalog_skills_(design)_frontend-design_SKILL.md",
+  "words": 1289,
+  "sha": "27c005b5bfdf0a02678f2ade532028b63dc5443791bff28ab63f0b4d857085fb"
+ },
+ {
+  "repo": "thedivergentai/GD-Agentic-Skills",
+  "path": "skills/godot-2d-animation/SKILL.md",
+  "file": "thedivergentai_GD-Agentic-Skills__skills_godot-2d-animation_SKILL.md",
+  "words": 1463,
+  "sha": "db34bb87ddc9a0686a6c7f453bbf65c5823f0c3fc92ff358784c4b6acf3637d6"
+ },
+ {
+  "repo": "tutti-os/tutti",
+  "path": "packages/ui/system/agent/tutti-ui-system/SKILL.md",
+  "file": "tutti-os_tutti__packages_ui_system_agent_tutti-ui-system_SKILL.md",
+  "words": 1486,
+  "sha": "829ebd56e09ef29df89e220c9ab27ca1d950f2301f7920770bd002c7f078fc8e"
+ },
+ {
+  "repo": "tw93/Waza",
+  "path": "plugins/waza/skills/ui/SKILL.md",
+  "file": "tw93_Waza__plugins_waza_skills_ui_SKILL.md",
+  "words": 2233,
+  "sha": "30ac6005c3563d43803c6c40e4ae0e1b35960a0bd9af0b3b388b73914ca8330a"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "disney-animation-rule-skill/SKILL.md",
+  "file": "vibe-motion_skills__disney-animation-rule-skill_SKILL.md",
+  "words": 892,
+  "sha": "abeb405a3271578567dc4d785ed99f94b29f7192fbacc720931083238848924b"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "pixel2motion/SKILL.md",
+  "file": "vibe-motion_skills__pixel2motion_SKILL.md",
+  "words": 3905,
+  "sha": "2ad235160e6030a12bcf66042c4accad7ba89473af0e511698687e5f14a3c7e4"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-3d-ticker/SKILL.md",
+  "file": "vibe-motion_skills__remotion-3d-ticker_SKILL.md",
+  "words": 324,
+  "sha": "44ab9725bc61e6d496c3e725ab60e84d6f5ffbfa987e97b9bcee0ec4e81ec2f9"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-candlestick/SKILL.md",
+  "file": "vibe-motion_skills__remotion-candlestick_SKILL.md",
+  "words": 760,
+  "sha": "a8dc6088db9135446d60585df50e93b1e270cc04b64b77824fb08b894534df4c"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-vinyl-player/SKILL.md",
+  "file": "vibe-motion_skills__remotion-vinyl-player_SKILL.md",
+  "words": 265,
+  "sha": "2772f7e64a4c370bd22bd7702197ad2002e881c804ccdfc50ed4711ce9f1abd3"
+ },
+ {
+  "repo": "vibeeval/vibecosystem",
+  "path": "skills/accessibility-patterns/SKILL.md",
+  "file": "vibeeval_vibecosystem__skills_accessibility-patterns_SKILL.md",
+  "words": 494,
+  "sha": "7150cab9eed29605ed28d180a88f825df361ee72f7d6703a93752d79d5de852c"
+ },
+ {
+  "repo": "vinvcn/mattpocock-skills-zh-CN",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "file": "vinvcn_mattpocock-skills-zh-CN__skills_engineering_prototype_SKILL.md",
+  "words": 181,
+  "sha": "e397520fd089e7df7140732ad6c402e358f6f9afcbeb54eec1a4a2b80fc90415"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/gui-settings-ui/SKILL.md",
+  "file": "warpdotdev_warp__.agents_skills_gui-settings-ui_SKILL.md",
+  "words": 2575,
+  "sha": "a809c616c18cb7857a0bf3e4de5ff0785cb288946422fcae0757058a0b293bc0"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/gui-ui-guidelines/SKILL.md",
+  "file": "warpdotdev_warp__.agents_skills_gui-ui-guidelines_SKILL.md",
+  "words": 553,
+  "sha": "5cd64fa7549527ea337739aae669aa145559d2c87b2fc0488c024a0dacf6af61"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/tui-ui-guidelines/SKILL.md",
+  "file": "warpdotdev_warp__.agents_skills_tui-ui-guidelines_SKILL.md",
+  "words": 897,
+  "sha": "96e028fa9abacea3b7ef7d1c08f28413f7c3d3bcc04de7cd93bcc956be7ec80b"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/edit-figma-design/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_edit-figma-design_SKILL.md",
+  "words": 1520,
+  "sha": "e9d433cbd9eedd600a5f4765a14fd893a273141bd6a69fe5383b290a1e896d1f"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-code-connect-components/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-code-connect-components_SKILL.md",
+  "words": 2233,
+  "sha": "9c76f117502fc9ac43151f52cf1fda917790650a3cb266065164eb21e0b4601e"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-create-design-system-rules/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-create-design-system-rules_SKILL.md",
+  "words": 2550,
+  "sha": "401da565f9882e74fef37e9f08b7afc7530d8f4740734b5b476949d5013a086c"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-create-new-file/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-create-new-file_SKILL.md",
+  "words": 422,
+  "sha": "b3a45dfd8af628262311cfd0bac8dcbc19affc6b873a9c8421a58707b725e349"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-generate-design/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-generate-design_SKILL.md",
+  "words": 2625,
+  "sha": "45d2b97103bdeb31cb2744fca2c79bcefb659c88faca626bea30ec2f9342dcc9"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-generate-library/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-generate-library_SKILL.md",
+  "words": 2420,
+  "sha": "e0dd320f58bde79f4cf7dd1269f5330a55b744f8d5e038425a0b17f90c0ac21e"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-implement-design/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-implement-design_SKILL.md",
+  "words": 1570,
+  "sha": "0ff1a899d0814857733b5dc6734810a872b6a5ef115dc644857ef0536a33b0b7"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-use/SKILL.md",
+  "file": "warpdotdev_warp__resources_bundled_mcp_skills_figma_figma-use_SKILL.md",
+  "words": 2489,
+  "sha": "e49d4a0126c41710640501273da56e5435ba718bfc4b3e824d577a7fd5b99ded"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/channel-gated-skills/dogfood/verify-ui-change-in-cloud/SKILL.md",
+  "file": "warpdotdev_warp__resources_channel-gated-skills_dogfood_verify-ui-change-in-cloud_SKILL.md",
+  "words": 734,
+  "sha": "18ddc8d08a7691aab531a333d7ed142843bea3bcb9a9c40f84a51341151c0c5e"
+ },
+ {
+  "repo": "withkynam/vibecode-pro-max-kit",
+  "path": ".claude/skills/vc-frontend-design/SKILL.md",
+  "file": "withkynam_vibecode-pro-max-kit__.claude_skills_vc-frontend-design_SKILL.md",
+  "words": 1229,
+  "sha": "257faafcf29704d3be4bb3d5f639cac0ba92bf7aa59db988bcd6872bec4c5258"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "hooked-ux/SKILL.md",
+  "file": "wondelai_skills__hooked-ux_SKILL.md",
+  "words": 1998,
+  "sha": "775ae946b15f03d787077c35d166a9addb1e241cb9ffea03ceee3a1be198175e"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "lean-ux/SKILL.md",
+  "file": "wondelai_skills__lean-ux_SKILL.md",
+  "words": 2255,
+  "sha": "4fe0a10132650ad36bc79676b12c8f58b19035a40ac6587c864387d0f808cf04"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "plugins/wondelai-skills/skills/storybrand-messaging/SKILL.md",
+  "file": "wondelai_skills__plugins_wondelai-skills_skills_storybrand-messaging_SKILL.md",
+  "words": 2262,
+  "sha": "a11d015c33e6d5e66c68f6d4da98e4bd0fda6ca32efc805ff4882d0ce0ab6e1c"
+ },
+ {
+  "repo": "wrtnlabs/autobe",
+  "path": "internals/template/realize/.claude/skills/fix-interface/SKILL.md",
+  "file": "wrtnlabs_autobe__internals_template_realize_.claude_skills_fix-interface_SKILL.md",
+  "words": 684,
+  "sha": "ea416952ed6e1ea498c86194f5066feb670a343c424f89e469a6680b9ae93009"
+ },
+ {
+  "repo": "wrtnlabs/autobe",
+  "path": "internals/template/realize/.claude/skills/validate-interface/SKILL.md",
+  "file": "wrtnlabs_autobe__internals_template_realize_.claude_skills_validate-interface_SKILL.md",
+  "words": 522,
+  "sha": "fa7380c08ab47d9e0693c703865209387b4d0d567f6de1dbb4467b36de94f4ac"
+ },
+ {
+  "repo": "wshobson/agents",
+  "path": "plugins/brand-landingpage/skills/brand-landingpage/SKILL.md",
+  "file": "wshobson_agents__plugins_brand-landingpage_skills_brand-landingpage_SKILL.md",
+  "words": 2266,
+  "sha": "ba8245d80e76189d1ed0dfa1d8bab00c47854eb5b55a34ee97bd0319b46cbe3a"
+ },
+ {
+  "repo": "wsimmonds/claude-nextjs-skills",
+  "path": "nextjs-server-client-components/SKILL.md",
+  "file": "wsimmonds_claude-nextjs-skills__nextjs-server-client-components_SKILL.md",
+  "words": 3016,
+  "sha": "695207ec5016446760b7636c90defd94a180f320930ae557d71c41f86a850076"
+ },
+ {
+  "repo": "xjtulyc/MedgeClaw",
+  "path": "skills/svg-ui-templates/SKILL.md",
+  "file": "xjtulyc_MedgeClaw__skills_svg-ui-templates_SKILL.md",
+  "words": 250,
+  "sha": "34498b56517d174cfc1766dff7246cc31e10c84f75f8f78cc395fc304802ce20"
+ },
+ {
+  "repo": "yaklang/hack-skills",
+  "path": "skills/prototype-pollution/SKILL.md",
+  "file": "yaklang_hack-skills__skills_prototype-pollution_SKILL.md",
+  "words": 926,
+  "sha": "6f003280f4c56da1ddd381a9ab9ad776dacc2c1bebd23565ed9c8fb77b34a5ec"
+ },
+ {
+  "repo": "yournextstore/yournextstore",
+  "path": ".agents/skills/frontend-design/SKILL.md",
+  "file": "yournextstore_yournextstore__.agents_skills_frontend-design_SKILL.md",
+  "words": 1059,
+  "sha": "637dc704b5c93562930fedf19d0d97ec4b636ed776438628da7fc7f38eac3aec"
+ },
+ {
+  "repo": "yunshu0909/yunshu_skillshub",
+  "path": "ui-design/SKILL.md",
+  "file": "yunshu0909_yunshu_skillshub__ui-design_SKILL.md",
+  "words": 244,
+  "sha": "d70108ceec4748e1202924f3e6f0839d1eb313cb5feef5fc184b15d466e5ce98"
+ },
+ {
+  "repo": "zarazhangrui/frontend-slides",
+  "path": "plugins/frontend-slides/skills/frontend-slides/SKILL.md",
+  "file": "zarazhangrui_frontend-slides__plugins_frontend-slides_skills_frontend-slides_SKILL.md",
+  "words": 4146,
+  "sha": "832994fe1dfcce2aa7ceca9a1b7b708eca94becef242713999855f4e946cf4d5"
+ },
+ {
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "path": "skills/market-brand/SKILL.md",
+  "file": "zubair-trabzada_ai-marketing-claude__skills_market-brand_SKILL.md",
+  "words": 2401,
+  "sha": "d4dc4754d5935cd9c6ac70ca9accde84d098fb5aefc10fee41a8823c27d972d1"
+ },
+ {
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "path": "skills/market-landing/SKILL.md",
+  "file": "zubair-trabzada_ai-marketing-claude__skills_market-landing_SKILL.md",
+  "words": 2167,
+  "sha": "c3c187ddd9d963ee1f89d21ffd950a75df663e93e7602e8719a06b4706c71350"
+ },
+ {
+  "repo": "zubair-trabzada/geo-seo-claude",
+  "path": "skills/geo-brand-mentions/SKILL.md",
+  "file": "zubair-trabzada_geo-seo-claude__skills_geo-brand-mentions_SKILL.md",
+  "words": 3396,
+  "sha": "6a5d55c3e43e148a262944c33640ad81d99e91b63ac46a9980bda153d69754e8"
+ }
+]

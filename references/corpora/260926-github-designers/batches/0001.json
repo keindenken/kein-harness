@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00012",
+  "kind": "agent",
+  "file": "corpus/mrgoonie_human-mcp__.opencode_agent_ui-ux-developer.md",
+  "repo": "mrgoonie/human-mcp",
+  "path": ".opencode/agent/ui-ux-developer.md",
+  "stars": 293,
+  "copies_in_repos": 26
+ },
+ {
+  "id": "c00013",
+  "kind": "agent",
+  "file": "corpus/zhlhleo_codex-agent-automation__agents_ui-designer.toml",
+  "repo": "zhlhleo/codex-agent-automation",
+  "path": "agents/ui-designer.toml",
+  "stars": 22,
+  "copies_in_repos": 23
+ },
+ {
+  "id": "c00014",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__.claude_agents_cli-ui-designer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": ".claude/agents/cli-ui-designer.md",
+  "stars": 31792,
+  "copies_in_repos": 21
+ },
+ {
+  "id": "c00015",
+  "kind": "agent",
+  "file": "corpus/burkeholland_ultralight__agents_designer.agent.md",
+  "repo": "burkeholland/ultralight",
+  "path": "agents/designer.agent.md",
+  "stars": 30,
+  "copies_in_repos": 21
+ },
+ {
+  "id": "c00017",
+  "kind": "agent",
+  "file": "corpus/Donchitos_Claude-Code-Game-Studios__.claude_agents_ux-designer.md",
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 25438,
+  "copies_in_repos": 18
+ },
+ {
+  "id": "c00020",
+  "kind": "agent",
+  "file": "corpus/zhisheng17_claude_code_settings__agents_wshobson_agent_ui-ux-designer.md",
+  "repo": "zhisheng17/claude_code_settings",
+  "path": "agents/wshobson_agent/ui-ux-designer.md",
+  "stars": 69,
+  "copies_in_repos": 16
+ },
+ {
+  "id": "c00021",
+  "kind": "agent",
+  "file": "corpus/gaahzx_mega-brain__.claude_agents_design-system.md",
+  "repo": "gaahzx/mega-brain",
+  "path": ".claude/agents/design-system.md",
+  "stars": 5,
+  "copies_in_repos": 16
+ },
+ {
+  "id": "c00022",
+  "kind": "agent",
+  "file": "corpus/wshobson_agents__plugins_ui-design_agents_ui-designer.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/ui-design/agents/ui-designer.md",
+  "stars": 39956,
+  "copies_in_repos": 15
+ },
+ {
+  "id": "c00023",
+  "kind": "agent",
+  "file": "corpus/lst97_claude-code-sub-agents__agents_development_ux-designer.md",
+  "repo": "lst97/claude-code-sub-agents",
+  "path": "agents/development/ux-designer.md",
+  "stars": 1689,
+  "copies_in_repos": 15
+ },
+ {
+  "id": "c00024",
+  "kind": "agent",
+  "file": "corpus/poshan0126_dotclaude__agents_frontend-designer_frontend-designer.md",
+  "repo": "poshan0126/dotclaude",
+  "path": "agents/frontend-designer/frontend-designer.md",
+  "stars": 867,
+  "copies_in_repos": 15
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0015",
+  "kind": "skill",
+  "file": "corpus-skills/EveryInc_compound-engineering-plugin__skills_ce-prototype_SKILL.md",
+  "repo": "EveryInc/compound-engineering-plugin",
+  "path": "skills/ce-prototype/SKILL.md",
+  "stars": 24347,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0016",
+  "kind": "skill",
+  "file": "corpus-skills/Galaxy-Dawn_claude-scholar__skills_ui-ux-pro-max_SKILL.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "stars": 5113,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0017",
+  "kind": "skill",
+  "file": "corpus-skills/Galaxy-Dawn_claude-scholar__skills_web-design-reviewer_SKILL.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/web-design-reviewer/SKILL.md",
+  "stars": 5113,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0018",
+  "kind": "skill",
+  "file": "corpus-skills/Leonxlnx_taste-skill__skills_gpt-tasteskill_SKILL.md",
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/gpt-tasteskill/SKILL.md",
+  "stars": 77572,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0019",
+  "kind": "skill",
+  "file": "corpus-skills/Light0305_Light-skills__skills_light-frontend-design_SKILL.md",
+  "repo": "Light0305/Light-skills",
+  "path": "skills/light-frontend-design/SKILL.md",
+  "stars": 531,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0020",
+  "kind": "skill",
+  "file": "corpus-skills/LottieFiles_motion-design-skill__skills_motion-design_SKILL.md",
+  "repo": "LottieFiles/motion-design-skill",
+  "path": "skills/motion-design/SKILL.md",
+  "stars": 1013,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0021",
+  "kind": "skill",
+  "file": "corpus-skills/MengTo_Skills__agent-skills_web-design_css-border-gradient_SKILL.md",
+  "repo": "MengTo/Skills",
+  "path": "agent-skills/web-design/css-border-gradient/SKILL.md",
+  "stars": 4926,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0022",
+  "kind": "skill",
+  "file": "corpus-skills/Mesh-LLM_mesh-llm__.agents_skills_plugin-web-ui-extension_SKILL.md",
+  "repo": "Mesh-LLM/mesh-llm",
+  "path": ".agents/skills/plugin-web-ui-extension/SKILL.md",
+  "stars": 3256,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0023",
+  "kind": "skill",
+  "file": "corpus-skills/Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-craft-checks_SKILL.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-craft-checks/SKILL.md",
+  "stars": 1303,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0024",
+  "kind": "skill",
+  "file": "corpus-skills/Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-design-source_SKILL.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-design-source/SKILL.md",
+  "stars": 1303,
+  "copies_in_repos": 1
+ }
+]

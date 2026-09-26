@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00107",
+  "kind": "agent",
+  "file": "corpus/EveryInc_claude_commands__agents_design-implementation-reviewer.md",
+  "repo": "EveryInc/claude_commands",
+  "path": "agents/design-implementation-reviewer.md",
+  "stars": 536,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00108",
+  "kind": "agent",
+  "file": "corpus/nth5693_gemini-kit__agents_ui-designer.md",
+  "repo": "nth5693/gemini-kit",
+  "path": "agents/ui-designer.md",
+  "stars": 374,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00109",
+  "kind": "agent",
+  "file": "corpus/EricTechPro_match-me__.claude_agents_premium-ui-designer.md",
+  "repo": "EricTechPro/match-me",
+  "path": ".claude/agents/premium-ui-designer.md",
+  "stars": 160,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00112",
+  "kind": "agent",
+  "file": "corpus/LordKuper_rimworld-workmanager__.claude_agents_asd-ux-designer.md",
+  "repo": "LordKuper/rimworld-workmanager",
+  "path": ".claude/agents/asd-ux-designer.md",
+  "stars": 10,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00113",
+  "kind": "agent",
+  "file": "corpus/borgius_kanban-lite__.github_agents_gem-designer.agent.md",
+  "repo": "borgius/kanban-lite",
+  "path": ".github/agents/gem-designer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00114",
+  "kind": "agent",
+  "file": "corpus/ye-lynn-htet_ylh-portfolio__.claude_agents_frontend-design.md",
+  "repo": "ye-lynn-htet/ylh-portfolio",
+  "path": ".claude/agents/frontend-design.md",
+  "stars": 7,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00116",
+  "kind": "agent",
+  "file": "corpus/mazenyassergithub_oh-my-claudecode__agents_designer-high.md",
+  "repo": "mazenyassergithub/oh-my-claudecode",
+  "path": "agents/designer-high.md",
+  "stars": 6,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00117",
+  "kind": "agent",
+  "file": "corpus/slabgorb_gamebox__.claude_agents_ux-designer.md",
+  "repo": "slabgorb/gamebox",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 5,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00118",
+  "kind": "agent",
+  "file": "corpus/byronwade_byronwade.com__.claude_agents_ui-designer.md",
+  "repo": "byronwade/byronwade.com",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 3,
+  "copies_in_repos": 4
+ },
+ {
+  "id": "c00119",
+  "kind": "agent",
+  "file": "corpus/FlojoInc_balustrade__.claude_agents__packs_saas_ui-ux-designer.md",
+  "repo": "FlojoInc/balustrade",
+  "path": ".claude/agents/_packs/saas/ui-ux-designer.md",
+  "stars": 2,
+  "copies_in_repos": 4
+ }
+]

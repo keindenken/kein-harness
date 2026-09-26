@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00255",
+  "kind": "agent",
+  "file": "corpus/0ldh_claude-code-agents-orchestra__agents_design_ui-ux-designer.md",
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "path": "agents/design/ui-ux-designer.md",
+  "stars": 84,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00256",
+  "kind": "agent",
+  "file": "corpus/9thLevelSoftware_legion__agents_design-ui-designer.md",
+  "repo": "9thLevelSoftware/legion",
+  "path": "agents/design-ui-designer.md",
+  "stars": 77,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00257",
+  "kind": "agent",
+  "file": "corpus/cmaneu_entra-local__.github_agents_designer.agent.md",
+  "repo": "cmaneu/entra-local",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 59,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00260",
+  "kind": "agent",
+  "file": "corpus/proflead_codex-agents-library__.codex_agents_uiux_designer.toml",
+  "repo": "proflead/codex-agents-library",
+  "path": ".codex/agents/uiux_designer.toml",
+  "stars": 46,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00261",
+  "kind": "agent",
+  "file": "corpus/TechNickAI_claude_telemetry__.claude_agents_ux-designer.md",
+  "repo": "TechNickAI/claude_telemetry",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 31,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00262",
+  "kind": "agent",
+  "file": "corpus/kinncj_MAPLE__.claude_agents_design-system-author.md",
+  "repo": "kinncj/MAPLE",
+  "path": ".claude/agents/design-system-author.md",
+  "stars": 24,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00263",
+  "kind": "agent",
+  "file": "corpus/Itachi-1824_claude-god-mode__agents_design-critic.md",
+  "repo": "Itachi-1824/claude-god-mode",
+  "path": "agents/design-critic.md",
+  "stars": 20,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00264",
+  "kind": "agent",
+  "file": "corpus/ai-analyst-lab_ai-analyst-plus__agents_north-star_designer.md",
+  "repo": "ai-analyst-lab/ai-analyst-plus",
+  "path": "agents/north-star/designer.md",
+  "stars": 20,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00265",
+  "kind": "agent",
+  "file": "corpus/proflead_copilot-agent-library__agents_design_design-system.agent.md",
+  "repo": "proflead/copilot-agent-library",
+  "path": "agents/design/design-system.agent.md",
+  "stars": 20,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00266",
+  "kind": "agent",
+  "file": "corpus/darktaoist_aura__.claude_agents_ux-designer.md",
+  "repo": "darktaoist/aura",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 19,
+  "copies_in_repos": 2
+ }
+]

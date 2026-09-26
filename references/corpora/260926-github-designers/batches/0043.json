@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0075",
+  "kind": "skill",
+  "file": "corpus-skills/kylezantos_design-motion-principles__skills_design-motion-principles_SKILL.md",
+  "repo": "kylezantos/design-motion-principles",
+  "path": "skills/design-motion-principles/SKILL.md",
+  "stars": 916,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0076",
+  "kind": "skill",
+  "file": "corpus-skills/lobehub_lobehub__.agents_skills_design-prototype_SKILL.md",
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/design-prototype/SKILL.md",
+  "stars": 81797,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0077",
+  "kind": "skill",
+  "file": "corpus-skills/lobehub_lobehub__.agents_skills_ux_SKILL.md",
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux/SKILL.md",
+  "stars": 81797,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0078",
+  "kind": "skill",
+  "file": "corpus-skills/lobehub_lobehub__.agents_skills_ux-audit_SKILL.md",
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux-audit/SKILL.md",
+  "stars": 81797,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0079",
+  "kind": "skill",
+  "file": "corpus-skills/mastepanoski_claude-skills__skills_ui-design-review_SKILL.md",
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ui-design-review/SKILL.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0080",
+  "kind": "skill",
+  "file": "corpus-skills/mastepanoski_claude-skills__skills_ux-audit-rethink_SKILL.md",
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ux-audit-rethink/SKILL.md",
+  "stars": 46,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0081",
+  "kind": "skill",
+  "file": "corpus-skills/mateaix_mateclaw__mateclaw-server_src_main_resources_skills_popular-web-designs_SKILL.md",
+  "repo": "mateaix/mateclaw",
+  "path": "mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+  "stars": 1001,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0082",
+  "kind": "skill",
+  "file": "corpus-skills/mattpocock_skills__skills_engineering_prototype_SKILL.md",
+  "repo": "mattpocock/skills",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "stars": 220895,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0083",
+  "kind": "skill",
+  "file": "corpus-skills/mavlink_qgroundcontrol__tools_skills_qt-ui-design_SKILL.md",
+  "repo": "mavlink/qgroundcontrol",
+  "path": "tools/skills/qt-ui-design/SKILL.md",
+  "stars": 4852,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0084",
+  "kind": "skill",
+  "file": "corpus-skills/melandlabs_openloomi__skills_ui-ux-pro-max_SKILL.md",
+  "repo": "melandlabs/openloomi",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "stars": 1014,
+  "copies_in_repos": 1
+ }
+]

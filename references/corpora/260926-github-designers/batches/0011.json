@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00197",
+  "kind": "agent",
+  "file": "corpus/roman-ryzenadvanced_SuperCharged-Claude-Code-Upgrade__agents_agents_design_ui-ux-pro-max.md",
+  "repo": "roman-ryzenadvanced/SuperCharged-Claude-Code-Upgrade",
+  "path": "agents/agents/design/ui-ux-pro-max.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00198",
+  "kind": "agent",
+  "file": "corpus/sawrus_gemma__.codex_agents_designer.toml",
+  "repo": "sawrus/gemma",
+  "path": ".codex/agents/designer.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00202",
+  "kind": "agent",
+  "file": "corpus/shanraisshan_claude-code-best-practice__development-workflows_rpi_.claude_agents_ux-designer.md",
+  "repo": "shanraisshan/claude-code-best-practice",
+  "path": "development-workflows/rpi/.claude/agents/ux-designer.md",
+  "stars": 66351,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00203",
+  "kind": "agent",
+  "file": "corpus/wshobson_agents__plugins_accessibility-compliance_agents_ui-visual-validator.md",
+  "repo": "wshobson/agents",
+  "path": "plugins/accessibility-compliance/agents/ui-visual-validator.md",
+  "stars": 39956,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00208",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_development-tools_ascii-ui-mockup-generator.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/development-tools/ascii-ui-mockup-generator.md",
+  "stars": 31792,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00214",
+  "kind": "agent",
+  "file": "corpus/microsoft_apm__.apm_agents_devx-ux-expert.agent.md",
+  "repo": "microsoft/apm",
+  "path": ".apm/agents/devx-ux-expert.agent.md",
+  "stars": 3901,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00215",
+  "kind": "agent",
+  "file": "corpus/wesammustafa_Claude-Code-Everything-You-Need-to-Know__.claude_agents_ux-designer.md",
+  "repo": "wesammustafa/Claude-Code-Everything-You-Need-to-Know",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 3049,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00217",
+  "kind": "agent",
+  "file": "corpus/feiskyer_claude-code-settings__agents_ui-engineer.md",
+  "repo": "feiskyer/claude-code-settings",
+  "path": "agents/ui-engineer.md",
+  "stars": 1655,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00218",
+  "kind": "agent",
+  "file": "corpus/amd_gaia__.claude_agents_ui-ux-designer.md",
+  "repo": "amd/gaia",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 1570,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00223",
+  "kind": "agent",
+  "file": "corpus/ccplugins_awesome-claude-code-plugins__plugins_mobile-ux-optimizer_agents_mobile-ux-optimizer.md",
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "path": "plugins/mobile-ux-optimizer/agents/mobile-ux-optimizer.md",
+  "stars": 952,
+  "copies_in_repos": 2
+ }
+]

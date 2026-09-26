@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00283",
+  "kind": "agent",
+  "file": "corpus/rafaelkamimura_claude-tools__agents_ui-ux-designer.md",
+  "repo": "rafaelkamimura/claude-tools",
+  "path": "agents/ui-ux-designer.md",
+  "stars": 10,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00286",
+  "kind": "agent",
+  "file": "corpus/CambridgeMonorail_react-weapons-of-choice__.github_agents_ui-designer.agent.md",
+  "repo": "CambridgeMonorail/react-weapons-of-choice",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 8,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00287",
+  "kind": "agent",
+  "file": "corpus/clafollett_codetriever__.claude_agents_ux-designer.md",
+  "repo": "clafollett/codetriever",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 8,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00290",
+  "kind": "agent",
+  "file": "corpus/Caioohv_ai-workflow__.claude_agents_design-system.md",
+  "repo": "Caioohv/ai-workflow",
+  "path": ".claude/agents/design-system.md",
+  "stars": 7,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00292",
+  "kind": "agent",
+  "file": "corpus/hannsxpeter_godpowers__agents_ui.md",
+  "repo": "hannsxpeter/godpowers",
+  "path": "agents/ui.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00294",
+  "kind": "agent",
+  "file": "corpus/yu-iskw_llmops-demo-ts__.claude_agents_designer.md",
+  "repo": "yu-iskw/llmops-demo-ts",
+  "path": ".claude/agents/designer.md",
+  "stars": 6,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00295",
+  "kind": "agent",
+  "file": "corpus/wespiper_pyresume__.claude_agents_ui-ux-engineer.md",
+  "repo": "wespiper/pyresume",
+  "path": ".claude/agents/ui-ux-engineer.md",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00296",
+  "kind": "agent",
+  "file": "corpus/blue68_artifact-gated-agents__.codex_agents_senior-ui-designer.toml",
+  "repo": "blue68/artifact-gated-agents",
+  "path": ".codex/agents/senior-ui-designer.toml",
+  "stars": 5,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00297",
+  "kind": "agent",
+  "file": "corpus/MakInShort_Hangla-Coders-SIH2026174__.opencode_agent_ui-designer.md",
+  "repo": "MakInShort/Hangla-Coders-SIH2026174",
+  "path": ".opencode/agent/ui-designer.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00298",
+  "kind": "agent",
+  "file": "corpus/navikt_crm-ips__.github_agents_designer.agent.md",
+  "repo": "navikt/crm-ips",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 4,
+  "copies_in_repos": 2
+ }
+]

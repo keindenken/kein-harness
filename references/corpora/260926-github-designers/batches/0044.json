@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0085",
+  "kind": "skill",
+  "file": "corpus-skills/microsoft_hve-core__.github_skills_design-thinking_ux-artifacts_SKILL.md",
+  "repo": "microsoft/hve-core",
+  "path": ".github/skills/design-thinking/ux-artifacts/SKILL.md",
+  "stars": 1345,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0086",
+  "kind": "skill",
+  "file": "corpus-skills/microsoft_power-platform-skills__plugins_mcp-apps_skills_generate-mcp-app-ui_SKILL.md",
+  "repo": "microsoft/power-platform-skills",
+  "path": "plugins/mcp-apps/skills/generate-mcp-app-ui/SKILL.md",
+  "stars": 725,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0087",
+  "kind": "skill",
+  "file": "corpus-skills/nWave-ai_nWave__nWave_skills_nw-ux-principles_SKILL.md",
+  "repo": "nWave-ai/nWave",
+  "path": "nWave/skills/nw-ux-principles/SKILL.md",
+  "stars": 594,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0088",
+  "kind": "skill",
+  "file": "corpus-skills/nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_design-system_SKILL.md",
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/design-system/SKILL.md",
+  "stars": 117788,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0089",
+  "kind": "skill",
+  "file": "corpus-skills/nexu-io_open-design__design-templates_web-prototype-taste-editorial_SKILL.md",
+  "repo": "nexu-io/open-design",
+  "path": "design-templates/web-prototype-taste-editorial/SKILL.md",
+  "stars": 88671,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0090",
+  "kind": "skill",
+  "file": "corpus-skills/nimadorostkar_Claude-Skills-collection__skills_design_visual-design_SKILL.md",
+  "repo": "nimadorostkar/Claude-Skills-collection",
+  "path": "skills/design/visual-design/SKILL.md",
+  "stars": 25,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0091",
+  "kind": "skill",
+  "file": "corpus-skills/paperclipai_paperclip__.agents_skills_create-issue-interaction-ui_SKILL.md",
+  "repo": "paperclipai/paperclip",
+  "path": ".agents/skills/create-issue-interaction-ui/SKILL.md",
+  "stars": 78749,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0092",
+  "kind": "skill",
+  "file": "corpus-skills/paperclipai_paperclip__packages_skills-catalog_catalog_bundled_product_wireframe_SKILL.md",
+  "repo": "paperclipai/paperclip",
+  "path": "packages/skills-catalog/catalog/bundled/product/wireframe/SKILL.md",
+  "stars": 78749,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0093",
+  "kind": "skill",
+  "file": "corpus-skills/plannotator_effective-html__skills_html-prototype_SKILL.md",
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-prototype/SKILL.md",
+  "stars": 1664,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0094",
+  "kind": "skill",
+  "file": "corpus-skills/plannotator_effective-html__skills_html-wireframe_SKILL.md",
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-wireframe/SKILL.md",
+  "stars": 1664,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00550",
+  "kind": "agent",
+  "file": "corpus/notnotype_neuro-book__.omp_agents_designer.md",
+  "repo": "notnotype/neuro-book",
+  "path": ".omp/agents/designer.md",
+  "stars": 698,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00554",
+  "kind": "agent",
+  "file": "corpus/shinpr_claude-code-workflows__agents_design-sync.md",
+  "repo": "shinpr/claude-code-workflows",
+  "path": "agents/design-sync.md",
+  "stars": 684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00559",
+  "kind": "agent",
+  "file": "corpus/shinpr_claude-code-workflows__agents_ui-analyzer.md",
+  "repo": "shinpr/claude-code-workflows",
+  "path": "agents/ui-analyzer.md",
+  "stars": 684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00569",
+  "kind": "agent",
+  "file": "corpus/ZacheryGlass_.claude__agents_ui-ux-consultant.md",
+  "repo": "ZacheryGlass/.claude",
+  "path": "agents/ui-ux-consultant.md",
+  "stars": 599,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00570",
+  "kind": "agent",
+  "file": "corpus/giselles-ai_giselle__.claude_agents_ux-guardian.md",
+  "repo": "giselles-ai/giselle",
+  "path": ".claude/agents/ux-guardian.md",
+  "stars": 554,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00575",
+  "kind": "agent",
+  "file": "corpus/kwakseongjae_oh-my-design__.claude_agents_omd-designer-review.md",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".claude/agents/omd-designer-review.md",
+  "stars": 523,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00576",
+  "kind": "agent",
+  "file": "corpus/kwakseongjae_oh-my-design__.claude_agents_omd-ui-junior.md",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".claude/agents/omd-ui-junior.md",
+  "stars": 523,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00577",
+  "kind": "agent",
+  "file": "corpus/kwakseongjae_oh-my-design__.claude_agents_omd-ux-engineer.md",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".claude/agents/omd-ux-engineer.md",
+  "stars": 523,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00580",
+  "kind": "agent",
+  "file": "corpus/kwakseongjae_oh-my-design__.codex_agents_omd-designer-review.toml",
+  "repo": "kwakseongjae/oh-my-design",
+  "path": ".codex/agents/omd-designer-review.toml",
+  "stars": 523,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00581",
+  "kind": "agent",
+  "file": "corpus/me2resh_apexyard__.claude_agents_ui-designer.md",
+  "repo": "me2resh/apexyard",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 513,
+  "copies_in_repos": 1
+ }
+]

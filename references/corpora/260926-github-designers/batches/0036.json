@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0005",
+  "kind": "skill",
+  "file": "corpus-skills/Leonxlnx_taste-skill__skills_taste-skill_SKILL.md",
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill/SKILL.md",
+  "stars": 77572,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "s0006",
+  "kind": "skill",
+  "file": "corpus-skills/Leonxlnx_taste-skill__skills_taste-skill-v1_SKILL.md",
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill-v1/SKILL.md",
+  "stars": 77572,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "s0007",
+  "kind": "skill",
+  "file": "corpus-skills/nextlevelbuilder_ui-ux-pro-max-skill__.claude_skills_ui-styling_SKILL.md",
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "stars": 117788,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "s0008",
+  "kind": "skill",
+  "file": "corpus-skills/AIPexStudio_AIPex__packages_browser-runtime_src_skill_built-in_ux-audit-walkthrough_SKILL.md",
+  "repo": "AIPexStudio/AIPex",
+  "path": "packages/browser-runtime/src/skill/built-in/ux-audit-walkthrough/SKILL.md",
+  "stars": 1237,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0009",
+  "kind": "skill",
+  "file": "corpus-skills/Affitor_affiliate-skills__skills_landing_landing-page-creator_SKILL.md",
+  "repo": "Affitor/affiliate-skills",
+  "path": "skills/landing/landing-page-creator/SKILL.md",
+  "stars": 612,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0010",
+  "kind": "skill",
+  "file": "corpus-skills/Archive228_loopkit__skills_design-system_SKILL.md",
+  "repo": "Archive228/loopkit",
+  "path": "skills/design-system/SKILL.md",
+  "stars": 749,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0011",
+  "kind": "skill",
+  "file": "corpus-skills/BankrBot_skills__ethskills-frontend-ux_SKILL.md",
+  "repo": "BankrBot/skills",
+  "path": "ethskills-frontend-ux/SKILL.md",
+  "stars": 1184,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0012",
+  "kind": "skill",
+  "file": "corpus-skills/CloudAI-X_claude-workflow-v2__skills_web-design-guidelines_SKILL.md",
+  "repo": "CloudAI-X/claude-workflow-v2",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "stars": 1403,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0013",
+  "kind": "skill",
+  "file": "corpus-skills/ConardLi_garden-skills__skills_web-design-engineer_SKILL.md",
+  "repo": "ConardLi/garden-skills",
+  "path": "skills/web-design-engineer/SKILL.md",
+  "stars": 10402,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0014",
+  "kind": "skill",
+  "file": "corpus-skills/Destynova2_cli-code-skills__cli-forge-choice-ux_SKILL.md",
+  "repo": "Destynova2/cli-code-skills",
+  "path": "cli-forge-choice-ux/SKILL.md",
+  "stars": 5,
+  "copies_in_repos": 1
+ }
+]

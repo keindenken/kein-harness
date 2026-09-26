@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00164",
+  "kind": "agent",
+  "file": "corpus/YanBerdin_YanBerdin__.github_agents_ui-ux-pro-max.agent.md",
+  "repo": "YanBerdin/YanBerdin",
+  "path": ".github/agents/ui-ux-pro-max.agent.md",
+  "stars": 2,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00166",
+  "kind": "agent",
+  "file": "corpus/mashharuki_floci-sample__.codex_agents_apple-style-ui-designer.md",
+  "repo": "mashharuki/floci-sample",
+  "path": ".codex/agents/apple-style-ui-designer.md",
+  "stars": 2,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00170",
+  "kind": "agent",
+  "file": "corpus/danielnogueira2007_site-ar-cerimonial-final__agents_development_ux-designer.agent.md",
+  "repo": "danielnogueira2007/site-ar-cerimonial-final",
+  "path": "agents/development/ux-designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00171",
+  "kind": "agent",
+  "file": "corpus/lifesawesome_GitHubCopilot_Customized__.github_agents_Frontend-Designer.agent.md",
+  "repo": "lifesawesome/GitHubCopilot_Customized",
+  "path": ".github/agents/Frontend-Designer.agent.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00173",
+  "kind": "agent",
+  "file": "corpus/dertder25t-png_FocusDeck__.opencode_agent_bmad-agent-bmm-ux-designer.md",
+  "repo": "dertder25t-png/FocusDeck",
+  "path": ".opencode/agent/bmad-agent-bmm-ux-designer.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00176",
+  "kind": "agent",
+  "file": "corpus/nullmastermind_godot-turnbase__.claude_agents_osf-uiux-designer.md",
+  "repo": "nullmastermind/godot-turnbase",
+  "path": ".claude/agents/osf-uiux-designer.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00177",
+  "kind": "agent",
+  "file": "corpus/svallory_hyper-coding__.claude_agents_ux-design-specialist.md",
+  "repo": "svallory/hyper-coding",
+  "path": ".claude/agents/ux-design-specialist.md",
+  "stars": 1,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00178",
+  "kind": "agent",
+  "file": "corpus/BorderlessBitsLLC_borderlessbits.com__.claude_agents_ux-ui-designer.md",
+  "repo": "BorderlessBitsLLC/borderlessbits.com",
+  "path": ".claude/agents/ux-ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00179",
+  "kind": "agent",
+  "file": "corpus/Brahiamm56_E-commerce-AlgoDiferente__.codex_agents_ui-ux-designer.toml",
+  "repo": "Brahiamm56/E-commerce-AlgoDiferente",
+  "path": ".codex/agents/ui-ux-designer.toml",
+  "stars": 0,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "c00181",
+  "kind": "agent",
+  "file": "corpus/Phloraxx_CodeResidency__.github_agents_Designer.agent.md",
+  "repo": "Phloraxx/CodeResidency",
+  "path": ".github/agents/Designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 3
+ }
+]

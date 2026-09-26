@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0105",
+  "kind": "skill",
+  "file": "corpus-skills/sickn33_agentic-awesome-skills__plugins_agentic-awesome-skills_skills_design-it_brutalist-typography_SKILL.md",
+  "repo": "sickn33/agentic-awesome-skills",
+  "path": "plugins/agentic-awesome-skills/skills/design-it/brutalist-typography/SKILL.md",
+  "stars": 45082,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0106",
+  "kind": "skill",
+  "file": "corpus-skills/softaworks_agent-toolkit__dist_plugins_design-system-starter_skills_design-system-starter_SKILL.md",
+  "repo": "softaworks/agent-toolkit",
+  "path": "dist/plugins/design-system-starter/skills/design-system-starter/SKILL.md",
+  "stars": 2350,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0107",
+  "kind": "skill",
+  "file": "corpus-skills/spree_spree__.agents_skills_pick-ui-library_SKILL.md",
+  "repo": "spree/spree",
+  "path": ".agents/skills/pick-ui-library/SKILL.md",
+  "stars": 15626,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0108",
+  "kind": "skill",
+  "file": "corpus-skills/spree_spree__.agents_skills_prototype_SKILL.md",
+  "repo": "spree/spree",
+  "path": ".agents/skills/prototype/SKILL.md",
+  "stars": 15626,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0109",
+  "kind": "skill",
+  "file": "corpus-skills/suleimanodetoro_skills__skills_design-interface_SKILL.md",
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/design-interface/SKILL.md",
+  "stars": 816,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0110",
+  "kind": "skill",
+  "file": "corpus-skills/suleimanodetoro_skills__skills_review-interface_SKILL.md",
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/review-interface/SKILL.md",
+  "stars": 816,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0111",
+  "kind": "skill",
+  "file": "corpus-skills/tutti-os_tutti__packages_ui_system_agent_tutti-ui-system_SKILL.md",
+  "repo": "tutti-os/tutti",
+  "path": "packages/ui/system/agent/tutti-ui-system/SKILL.md",
+  "stars": 3291,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0112",
+  "kind": "skill",
+  "file": "corpus-skills/tw93_Waza__plugins_waza_skills_ui_SKILL.md",
+  "repo": "tw93/Waza",
+  "path": "plugins/waza/skills/ui/SKILL.md",
+  "stars": 6873,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0113",
+  "kind": "skill",
+  "file": "corpus-skills/vinvcn_mattpocock-skills-zh-CN__skills_engineering_prototype_SKILL.md",
+  "repo": "vinvcn/mattpocock-skills-zh-CN",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "stars": 3401,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0114",
+  "kind": "skill",
+  "file": "corpus-skills/warpdotdev_warp__.agents_skills_gui-ui-guidelines_SKILL.md",
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/gui-ui-guidelines/SKILL.md",
+  "stars": 64308,
+  "copies_in_repos": 1
+ }
+]

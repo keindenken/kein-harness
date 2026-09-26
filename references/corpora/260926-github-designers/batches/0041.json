@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0055",
+  "kind": "skill",
+  "file": "corpus-skills/freshtechbro_claudedesignskills__plugins_bundles_meta-skills_skills_modern-web-design_SKILL.md",
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/bundles/meta-skills/skills/modern-web-design/SKILL.md",
+  "stars": 743,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0056",
+  "kind": "skill",
+  "file": "corpus-skills/gajjalaashok75-UI_gakrcli-plugins-official__skill-plugins_stitch-ui-design_skills_stitch-ui-design_SKILL.md",
+  "repo": "gajjalaashok75-UI/gakrcli-plugins-official",
+  "path": "skill-plugins/stitch-ui-design/skills/stitch-ui-design/SKILL.md",
+  "stars": 3,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0057",
+  "kind": "skill",
+  "file": "corpus-skills/google-labs-code_stitch-skills__plugins_stitch-design_skills_manage-design-system_SKILL.md",
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md",
+  "stars": 8090,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0058",
+  "kind": "skill",
+  "file": "corpus-skills/google-labs-code_stitch-skills__plugins_stitch-utilities_skills_taste-design_SKILL.md",
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md",
+  "stars": 8090,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0059",
+  "kind": "skill",
+  "file": "corpus-skills/guokaigdg_animal-island-ui__skills_animal-island-ui-style_SKILL.md",
+  "repo": "guokaigdg/animal-island-ui",
+  "path": "skills/animal-island-ui-style/SKILL.md",
+  "stars": 4346,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0060",
+  "kind": "skill",
+  "file": "corpus-skills/himself65_finance-skills__plugins_ui-tools_skills_generative-ui_SKILL.md",
+  "repo": "himself65/finance-skills",
+  "path": "plugins/ui-tools/skills/generative-ui/SKILL.md",
+  "stars": 3182,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0061",
+  "kind": "skill",
+  "file": "corpus-skills/holaboss-ai_holaOS__runtime_harnesses_src_embedded-skills_interface-design_SKILL.md",
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/interface-design/SKILL.md",
+  "stars": 9617,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0062",
+  "kind": "skill",
+  "file": "corpus-skills/huytieu_COG-second-brain__.agents_skills_taste-skill_SKILL.md",
+  "repo": "huytieu/COG-second-brain",
+  "path": ".agents/skills/taste-skill/SKILL.md",
+  "stars": 924,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0063",
+  "kind": "skill",
+  "file": "corpus-skills/ibelick_ui-skills__skills_baseline-ui_SKILL.md",
+  "repo": "ibelick/ui-skills",
+  "path": "skills/baseline-ui/SKILL.md",
+  "stars": 7277,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0064",
+  "kind": "skill",
+  "file": "corpus-skills/ibelick_ui-skills__skills_improve-ui_SKILL.md",
+  "repo": "ibelick/ui-skills",
+  "path": "skills/improve-ui/SKILL.md",
+  "stars": 7277,
+  "copies_in_repos": 1
+ }
+]

@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00620",
+  "kind": "agent",
+  "file": "corpus/responsibleai_ASSERT__.github_agents_designer.md",
+  "repo": "responsibleai/ASSERT",
+  "path": ".github/agents/designer.md",
+  "stars": 280,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00621",
+  "kind": "agent",
+  "file": "corpus/avivl_claude-007-agents__.claude_agents_design_ux-designer.md",
+  "repo": "avivl/claude-007-agents",
+  "path": ".claude/agents/design/ux-designer.md",
+  "stars": 270,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00627",
+  "kind": "agent",
+  "file": "corpus/pamirtuna_gamestudio-subagents__agents_ui_ux_agent.md",
+  "repo": "pamirtuna/gamestudio-subagents",
+  "path": "agents/ui_ux_agent.md",
+  "stars": 262,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00628",
+  "kind": "agent",
+  "file": "corpus/Manabu-GT_DebugOverlay-Android__.claude_agents_ui-designer.md",
+  "repo": "Manabu-GT/DebugOverlay-Android",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 246,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00629",
+  "kind": "agent",
+  "file": "corpus/fpindej_netrock__.claude_agents_ux-designer.md",
+  "repo": "fpindej/netrock",
+  "path": ".claude/agents/ux-designer.md",
+  "stars": 234,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00630",
+  "kind": "agent",
+  "file": "corpus/curiositech_some_claude_skills__.github_agents_native_app_designer.md",
+  "repo": "curiositech/some_claude_skills",
+  "path": ".github/agents/native_app_designer.md",
+  "stars": 231,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00631",
+  "kind": "agent",
+  "file": "corpus/curiositech_some_claude_skills__.github_agents_web_design_expert.md",
+  "repo": "curiositech/some_claude_skills",
+  "path": ".github/agents/web_design_expert.md",
+  "stars": 231,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00632",
+  "kind": "agent",
+  "file": "corpus/johnrogers_claude-swift-engineering__plugins_swift-engineering_agents_swift-ui-design.md",
+  "repo": "johnrogers/claude-swift-engineering",
+  "path": "plugins/swift-engineering/agents/swift-ui-design.md",
+  "stars": 231,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00635",
+  "kind": "agent",
+  "file": "corpus/NicholasSpisak_claude-code-subagents__agents_core_frontend-ux-specialist.md",
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "path": "agents/core/frontend-ux-specialist.md",
+  "stars": 213,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00638",
+  "kind": "agent",
+  "file": "corpus/FerroxLabs_ijfw__claude_agents_ijfw-design-critic.md",
+  "repo": "FerroxLabs/ijfw",
+  "path": "claude/agents/ijfw-design-critic.md",
+  "stars": 211,
+  "copies_in_repos": 1
+ }
+]

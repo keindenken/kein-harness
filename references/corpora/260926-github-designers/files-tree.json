@@ -1,0 +1,5410 @@
+[
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/a11y-architect.md",
+  "size": 7339,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "agents/type-design-analyzer.md",
+  "size": 1881,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ja-JP/agents/a11y-architect.md",
+  "size": 10153,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/ja-JP/agents/type-design-analyzer.md",
+  "size": 2622,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "ref": "main",
+  "path": "docs/zh-CN/agents/type-design-analyzer.md",
+  "size": 820,
+  "stars": 267344,
+  "via": "tree"
+ },
+ {
+  "repo": "anomalyco/opencode",
+  "ref": "dev",
+  "path": "packages/console/app/.opencode/agent/css.md",
+  "size": 4284,
+  "stars": 210015,
+  "via": "tree"
+ },
+ {
+  "repo": "anthropics/claude-code",
+  "ref": "main",
+  "path": "plugins/pr-review-toolkit/agents/type-design-analyzer.md",
+  "size": 5368,
+  "stars": 148065,
+  "via": "tree"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "ref": "main",
+  "path": "stack/.claude/agents/design-review.md",
+  "size": 4567,
+  "stars": 130594,
+  "via": "tree"
+ },
+ {
+  "repo": "Egonex-AI/Understand-Anything",
+  "ref": "main",
+  "path": "understand-anything-plugin/agents/design-analyzer.md",
+  "size": 2527,
+  "stars": 84173,
+  "via": "tree"
+ },
+ {
+  "repo": "bytedance/deer-flow",
+  "ref": "main",
+  "path": "docs/agents/maintainer-orchestrator-design.md",
+  "size": 7051,
+  "stars": 82973,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": ".claude/agents/architecture/system-design/arch-system-design.md",
+  "size": 1287,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/architecture/arch-system-design.md",
+  "size": 4900,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/cli/.claude/agents/architecture/system-design/arch-system-design.md",
+  "size": 4792,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/architecture/arch-system-design.md",
+  "size": 4900,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "ruvnet/ruflo",
+  "ref": "main",
+  "path": "v3/@claude-flow/mcp/.claude/agents/architecture/system-design/arch-system-design.md",
+  "size": 4792,
+  "stars": 73257,
+  "via": "tree"
+ },
+ {
+  "repo": "shanraisshan/claude-code-best-practice",
+  "ref": "main",
+  "path": "development-workflows/rpi/.claude/agents/ux-designer.md",
+  "size": 455,
+  "stars": 66351,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-ui-auditor.md",
+  "size": 17157,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-ui-checker.md",
+  "size": 11086,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "gsd-build/get-shit-done",
+  "ref": "main",
+  "path": "agents/gsd-ui-researcher.md",
+  "size": 13910,
+  "stars": 64459,
+  "via": "tree"
+ },
+ {
+  "repo": "Imbad0202/academic-research-skills",
+  "ref": "main",
+  "path": "academic-paper/agents/visualization_agent.md",
+  "size": 17607,
+  "stars": 49461,
+  "via": "tree"
+ },
+ {
+  "repo": "ToolJet/ToolJet",
+  "ref": "main",
+  "path": ".claude/agents/component-config-reader.md",
+  "size": 8349,
+  "stars": 40994,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/accessibility-compliance/agents/ui-visual-validator.md",
+  "size": 9423,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/application-performance/agents/frontend-developer.md",
+  "size": 6784,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/c4-architecture/agents/c4-component.md",
+  "size": 9723,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/frontend-mobile-development/agents/frontend-developer.md",
+  "size": 6788,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/frontend-mobile-security/agents/frontend-developer.md",
+  "size": 6785,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/multi-platform-apps/agents/frontend-developer.md",
+  "size": 6780,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/multi-platform-apps/agents/ui-ux-designer.md",
+  "size": 9038,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/ui-design/agents/accessibility-expert.md",
+  "size": 6862,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/ui-design/agents/design-system-architect.md",
+  "size": 6862,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "wshobson/agents",
+  "ref": "main",
+  "path": "plugins/ui-design/agents/ui-designer.md",
+  "size": 6302,
+  "stars": 39956,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/accessibility.agent.md",
+  "size": 12689,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/aem-frontend-specialist.agent.md",
+  "size": 20085,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/expert-react-frontend-engineer.agent.md",
+  "size": 24970,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/frontend-performance-investigator.agent.md",
+  "size": 5977,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/gem-designer.agent.md",
+  "size": 4211,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/insiders-a11y-tracker.agent.md",
+  "size": 2886,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/markdown-accessibility-assistant.agent.md",
+  "size": 10339,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/power-bi-visualization-expert.agent.md",
+  "size": 15017,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/salesforce-visualforce.agent.md",
+  "size": 6825,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "github/awesome-copilot",
+  "ref": "main",
+  "path": "agents/se-ux-ui-designer.agent.md",
+  "size": 10476,
+  "stars": 39388,
+  "via": "tree"
+ },
+ {
+  "repo": "Yeachan-Heo/oh-my-claudecode",
+  "ref": "main",
+  "path": "agents/designer.md",
+  "size": 9627,
+  "stars": 39353,
+  "via": "tree"
+ },
+ {
+  "repo": "musistudio/claude-code-router",
+  "ref": "main",
+  "path": "docs/src/content/docs/en/configuration/agents/claude-design.md",
+  "size": 2575,
+  "stars": 37423,
+  "via": "tree"
+ },
+ {
+  "repo": "musistudio/claude-code-router",
+  "ref": "main",
+  "path": "docs/src/content/docs/zh/configuration/agents/claude-design.md",
+  "size": 2518,
+  "stars": 37423,
+  "via": "tree"
+ },
+ {
+  "repo": "anthropics/claude-plugins-official",
+  "ref": "main",
+  "path": "plugins/pr-review-toolkit/agents/type-design-analyzer.md",
+  "size": 4999,
+  "stars": 36828,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/cli-ui-designer.md",
+  "size": 10678,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/component-improver.md",
+  "size": 2873,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/component-migrator.md",
+  "size": 10825,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/component-researcher.md",
+  "size": 3591,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/component-reviewer.md",
+  "size": 15477,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": ".claude/agents/frontend-developer.md",
+  "size": 1318,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/api-graphql/api-designer.md",
+  "size": 19636,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/business-marketing/ux-researcher.md",
+  "size": 13870,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-team/cli-ui-designer.md",
+  "size": 10664,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-team/frontend-developer.md",
+  "size": 13987,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-team/ui-designer.md",
+  "size": 8161,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-team/ui-ux-designer.md",
+  "size": 19832,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/development-tools/ascii-ui-mockup-generator.md",
+  "size": 2362,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/expert-advisors/power-bi-visualization-expert.md",
+  "size": 14947,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/expert-advisors/se-ux-ui-designer.md",
+  "size": 10447,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/game-development/game-designer.md",
+  "size": 1254,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ocr-extraction-team/visual-analysis-ocr.md",
+  "size": 2973,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/programming-languages/powershell-ui-architect.md",
+  "size": 8740,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ui-analysis/screenshot-interaction-analyzer.md",
+  "size": 2117,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/ui-analysis/screenshot-ui-analyzer.md",
+  "size": 1808,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/web-tools/accessibility.md",
+  "size": 12617,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/web-tools/aem-frontend-specialist.md",
+  "size": 20047,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/web-tools/expert-react-frontend-engineer.md",
+  "size": 24922,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "ref": "main",
+  "path": "cli-tool/components/agents/web-tools/web-accessibility-checker.md",
+  "size": 1408,
+  "stars": 31792,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "agents/engineering/cs-frontend-engineer.md",
+  "size": 7945,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "agents/product/cs-ux-researcher.md",
+  "size": 24029,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-frontend-engineer.md",
+  "size": 9129,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-landing.md",
+  "size": 9996,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "docs/agents/cs-ux-researcher.md",
+  "size": 25926,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "alirezarezvani/claude-skills",
+  "ref": "main",
+  "path": "marketing/landing/agents/cs-landing.md",
+  "size": 9007,
+  "stars": 26453,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/accessibility-specialist.md",
+  "size": 7635,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/economy-designer.md",
+  "size": 7027,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/game-designer.md",
+  "size": 13194,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/level-designer.md",
+  "size": 5597,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/live-ops-designer.md",
+  "size": 9707,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/prototyper.md",
+  "size": 11992,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/sound-designer.md",
+  "size": 4356,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/systems-designer.md",
+  "size": 7755,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/ui-programmer.md",
+  "size": 5404,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/unity-ui-specialist.md",
+  "size": 10807,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": ".claude/agents/ux-designer.md",
+  "size": 5289,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/engine/unity/unity-ui-specialist.md",
+  "size": 4288,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/leads/game-designer.md",
+  "size": 6789,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/leads/level-designer.md",
+  "size": 7087,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/leads/systems-designer.md",
+  "size": 6838,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/operations/economy-designer.md",
+  "size": 6061,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/operations/live-ops-designer.md",
+  "size": 6162,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/qa/accessibility-specialist.md",
+  "size": 4649,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/specialists/prototyper.md",
+  "size": 6619,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/specialists/sound-designer.md",
+  "size": 4284,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/specialists/ui-programmer.md",
+  "size": 4340,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "Donchitos/Claude-Code-Game-Studios",
+  "ref": "main",
+  "path": "CCGS Skill Testing Framework/agents/specialists/ux-designer.md",
+  "size": 4405,
+  "stars": 25438,
+  "via": "tree"
+ },
+ {
+  "repo": "AgriciDaniel/claude-seo",
+  "ref": "main",
+  "path": "agents/seo-visual.md",
+  "size": 2793,
+  "stars": 17672,
+  "via": "tree"
+ },
+ {
+  "repo": "MemTensor/MemOS",
+  "ref": "main",
+  "path": ".claude/agents/design-reviewer.md",
+  "size": 1703,
+  "stars": 11583,
+  "via": "tree"
+ },
+ {
+  "repo": "MemTensor/MemOS",
+  "ref": "main",
+  "path": ".codex/agents/design-reviewer.toml",
+  "size": 1673,
+  "stars": 11583,
+  "via": "tree"
+ },
+ {
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "ref": "main",
+  "path": ".claude/agents/frontend-error-fixer.md",
+  "size": 5214,
+  "stars": 10029,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/codex/agents/character-designer.toml",
+  "size": 9965,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/opencode/agents/character-designer.md",
+  "size": 9472,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "zenstory-ai/oh-story-claudecode",
+  "ref": "main",
+  "path": "skills/story-setup/references/templates/agents/character-designer.md",
+  "size": 9343,
+  "stars": 7112,
+  "via": "tree"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "ref": "main",
+  "path": "examples/plugin-packages/figma/agents/design-parity-review-agent.md",
+  "size": 485,
+  "stars": 6699,
+  "via": "tree"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "ref": "main",
+  "path": "examples/plugin-packages/figma/agents/design-system-rules-agent.md",
+  "size": 660,
+  "stars": 6699,
+  "via": "tree"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "ref": "main",
+  "path": "examples/plugin-packages/figma/agents/figma-code-connect-agent.md",
+  "size": 644,
+  "stars": 6699,
+  "via": "tree"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "ref": "main",
+  "path": "examples/plugin-packages/figma/agents/figma-implementation-agent.md",
+  "size": 679,
+  "stars": 6699,
+  "via": "tree"
+ },
+ {
+  "repo": "ZSeven-W/openpencil",
+  "ref": "main",
+  "path": "crates/op-ai-skills/skills/phases/agent/design-agent.md",
+  "size": 29291,
+  "stars": 6023,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/subagents/development/frontend-specialist.md",
+  "size": 7002,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": ".opencode/agent/subagents/system-builder/workflow-designer.md",
+  "size": 6570,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "docs/agents/research-backed-prompt-design.md",
+  "size": 11522,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/02-workflow-stages/execute/02-create-component.yaml",
+  "size": 833,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/02-workflow-stages/execute/02-create-component.yaml",
+  "size": 833,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/_archive/developer/create-component.yaml",
+  "size": 816,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/openagent/tests/_archive/developer/create-component.yaml",
+  "size": 833,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/core/opencoder/tests/contextscout-integration/02-ui-patterns-uses-contextscout.yaml",
+  "size": 2127,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "darrenhinde/OpenAgentsControl",
+  "ref": "main",
+  "path": "evals/agents/subagents/core/contextscout/tests/08-ui-development-discovery.yaml",
+  "size": 2497,
+  "stars": 4879,
+  "via": "tree"
+ },
+ {
+  "repo": "JimLiu/baoyu-design",
+  "ref": "main",
+  "path": "skills/baoyu-design/agents/design-system-checker.md",
+  "size": 1961,
+  "stars": 4195,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".apm/agents/devx-ux-expert.agent.md",
+  "size": 5520,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/apm",
+  "ref": "main",
+  "path": ".github/agents/devx-ux-expert.agent.md",
+  "size": 5520,
+  "stars": 3901,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/spec-design.md",
+  "size": 8197,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/validate-design.md",
+  "size": 3983,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/spec-design.md",
+  "size": 1816,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/validate-design.md",
+  "size": 1552,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/spec-design.md",
+  "size": 8867,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/claude-code/commands/validate-design.md",
+  "size": 3872,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-spec-design.md",
+  "size": 9171,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/codex/commands/kiro-validate-design.md",
+  "size": 3918,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/spec-design.md",
+  "size": 8988,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/cursor/commands/validate-design.md",
+  "size": 3850,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/spec-design.toml",
+  "size": 9126,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/gemini-cli/commands/validate-design.toml",
+  "size": 3983,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-spec-design.prompt.md",
+  "size": 9086,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/github-copilot/commands/kiro-validate-design.prompt.md",
+  "size": 3945,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/spec-design.md",
+  "size": 8101,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/agents/validate-design.md",
+  "size": 3917,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-spec-design.md",
+  "size": 1541,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode-agent/commands/kiro-validate-design.md",
+  "size": 1302,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-spec-design.md",
+  "size": 8738,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/opencode/commands/kiro-validate-design.md",
+  "size": 3811,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-spec-design.md",
+  "size": 9090,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "gotalab/cc-sdd",
+  "ref": "main",
+  "path": "tools/cc-sdd/templates/agents/windsurf/commands/kiro-validate-design.md",
+  "size": 3953,
+  "stars": 3684,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-design-experience/agents/accessibility-specialist.md",
+  "size": 2108,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-design-experience/agents/ui-ux-designer.md",
+  "size": 2496,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-development-architecture/agents/frontend-developer.md",
+  "size": 2117,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/agents-media-content/agents/visual-analysis-ocr.md",
+  "size": 1680,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/accessibility-specialist.md",
+  "size": 2108,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/frontend-developer.md",
+  "size": 2117,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/ui-ux-designer.md",
+  "size": 2496,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/all-agents/agents/visual-analysis-ocr.md",
+  "size": 1680,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-ui-auditor.md",
+  "size": 15985,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-ui-checker.md",
+  "size": 11086,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/gsd/agents/gsd-ui-researcher.md",
+  "size": 13902,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/meeting-bots/agents/design-boss.md",
+  "size": 2806,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/meeting-bots/agents/design-cynic.md",
+  "size": 2155,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/meeting-bots/agents/design-pusher.md",
+  "size": 2067,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/meeting-bots/agents/design-rookie.md",
+  "size": 2186,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "ref": "main",
+  "path": "plugins/meeting-bots/agents/design-watcher.md",
+  "size": 2339,
+  "stars": 3542,
+  "via": "tree"
+ },
+ {
+  "repo": "wesammustafa/Claude-Code-Everything-You-Need-to-Know",
+  "ref": "main",
+  "path": ".claude/agents/frontend-engineer.md",
+  "size": 13519,
+  "stars": 3049,
+  "via": "tree"
+ },
+ {
+  "repo": "wesammustafa/Claude-Code-Everything-You-Need-to-Know",
+  "ref": "main",
+  "path": ".claude/agents/ux-designer.md",
+  "size": 16263,
+  "stars": 3049,
+  "via": "tree"
+ },
+ {
+  "repo": "centminmod/my-claude-code-setup",
+  "ref": "master",
+  "path": ".claude/agents/ux-design-expert.md",
+  "size": 6888,
+  "stars": 2644,
+  "via": "tree"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "ref": "main",
+  "path": "agents/ascii-ui-mockup-generator.md",
+  "size": 3294,
+  "stars": 2502,
+  "via": "tree"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "ref": "main",
+  "path": "agents/ui-ux-designer.md",
+  "size": 17644,
+  "stars": 2502,
+  "via": "tree"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "ref": "main",
+  "path": "dist/plugins/agent-ascii-ui-mockup-generator/agents/ascii-ui-mockup-generator.md",
+  "size": 3294,
+  "stars": 2502,
+  "via": "tree"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "ref": "main",
+  "path": "dist/plugins/agent-ui-ux-designer/agents/ui-ux-designer.md",
+  "size": 17644,
+  "stars": 2502,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/commands/agent-design.md",
+  "size": 18007,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "tractorjuice/arc-kit",
+  "ref": "main",
+  "path": "plugins/arckit-claude/plugins/agent/architecture/templates/agent-design-template.md",
+  "size": 11569,
+  "stars": 2246,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/79df9cc89f5f/skills/frontend-design/references/visual-primitives.md",
+  "size": 7930,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/814b61b027f0/skills/image-compose/references/structured-visuals.md",
+  "size": 2800,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "ref": "main",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/references/design-system-packs.md",
+  "size": 6589,
+  "stars": 2124,
+  "via": "tree"
+ },
+ {
+  "repo": "iannuttall/claude-agents",
+  "ref": "main",
+  "path": "agents/frontend-designer.md",
+  "size": 7813,
+  "stars": 2043,
+  "via": "tree"
+ },
+ {
+  "repo": "lst97/claude-code-sub-agents",
+  "ref": "main",
+  "path": "agents/development/frontend-developer.md",
+  "size": 6006,
+  "stars": 1689,
+  "via": "tree"
+ },
+ {
+  "repo": "lst97/claude-code-sub-agents",
+  "ref": "main",
+  "path": "agents/development/ui-designer.md",
+  "size": 7520,
+  "stars": 1689,
+  "via": "tree"
+ },
+ {
+  "repo": "lst97/claude-code-sub-agents",
+  "ref": "main",
+  "path": "agents/development/ux-designer.md",
+  "size": 6564,
+  "stars": 1689,
+  "via": "tree"
+ },
+ {
+  "repo": "feiskyer/claude-code-settings",
+  "ref": "main",
+  "path": "agents/ui-engineer.md",
+  "size": 3303,
+  "stars": 1655,
+  "via": "tree"
+ },
+ {
+  "repo": "cyberpapiii/chipotlai-max",
+  "ref": "master",
+  "path": "packages/console/app/.opencode/agent/css.md",
+  "size": 4284,
+  "stars": 1565,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/accessibility/accessibility-planner.agent.md",
+  "size": 22492,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/accessibility/accessibility-reviewer.agent.md",
+  "size": 10384,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/accessibility/subagents/accessibility-framework-assessor.agent.md",
+  "size": 16859,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/accessibility/subagents/accessibility-surface-inventory.agent.md",
+  "size": 7211,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/experimental/experiment-designer.agent.md",
+  "size": 21362,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": ".github/agents/project-planning/ux-ui-designer.agent.md",
+  "size": 15202,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/agents/accessibility/accessibility-planner.md",
+  "size": 9995,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/agents/accessibility/accessibility-reviewer.md",
+  "size": 7111,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/accessibility/accessibility-planner.md",
+  "size": 3025,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/accessibility/accessibility-reviewer.md",
+  "size": 2561,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/accessibility/subagents/accessibility-framework-assessor.md",
+  "size": 1974,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/accessibility/subagents/accessibility-surface-inventory.md",
+  "size": 1998,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/experimental/experiment-designer.md",
+  "size": 2454,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "ref": "main",
+  "path": "docs/reference/agents/project-planning/ux-ui-designer.md",
+  "size": 3449,
+  "stars": 1478,
+  "via": "tree"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "ref": "main",
+  "path": ".claude/agents/design-critic.md",
+  "size": 4940,
+  "stars": 1471,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/claude/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/codex/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/frontend-build.md",
+  "size": 3428,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/frontend-fix.md",
+  "size": 3574,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/frontend-implement.md",
+  "size": 3400,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/frontend-review.md",
+  "size": 1814,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/plan-design.md",
+  "size": 2903,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/contracts/frameworks/polish.md",
+  "size": 3412,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/deepseek/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/grok/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/hermes/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/kilo/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/omp/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/opencode/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/prime/prompts/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/reasonix/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/frontend-build.md",
+  "size": 5278,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/frontend-fix.md",
+  "size": 6018,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/frontend-implement.md",
+  "size": 5844,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/frontend-review.md",
+  "size": 4258,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/plan-design.md",
+  "size": 5347,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "Spielewoy/autoprompt-skill",
+  "ref": "main",
+  "path": "agents/vscode/frameworks/polish.md",
+  "size": 5856,
+  "stars": 1292,
+  "via": "tree"
+ },
+ {
+  "repo": "hoangsonww/Claude-Code-Agent-Monitor",
+  "ref": "master",
+  "path": ".claude/agents/frontend-reviewer.md",
+  "size": 536,
+  "stars": 1015,
+  "via": "tree"
+ },
+ {
+  "repo": "hoangsonww/Claude-Code-Agent-Monitor",
+  "ref": "master",
+  "path": "plugins/ccam-analytics/agents/token-economist.md",
+  "size": 4728,
+  "stars": 1015,
+  "via": "tree"
+ },
+ {
+  "repo": "0xfurai/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/css-expert.md",
+  "size": 2327,
+  "stars": 1008,
+  "via": "tree"
+ },
+ {
+  "repo": "0xfurai/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/tailwind-expert.md",
+  "size": 2559,
+  "stars": 1008,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/brand-guardian/agents/brand-guardian.md",
+  "size": 9316,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/frontend-developer/agents/frontend-developer.md",
+  "size": 5320,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/mobile-ux-optimizer/agents/mobile-ux-optimizer.md",
+  "size": 3559,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/pr-review-toolkit/agents/type-design-analyzer.md",
+  "size": 5368,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/rapid-prototyper/agents/rapid-prototyper.md",
+  "size": 6816,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/ui-designer/agents/ui-designer.md",
+  "size": 7955,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/ux-researcher/agents/ux-researcher.md",
+  "size": 8443,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "ccplugins/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/visual-storyteller/agents/visual-storyteller.md",
+  "size": 9945,
+  "stars": 952,
+  "via": "tree"
+ },
+ {
+  "repo": "kdlbs/kandev",
+  "ref": "main",
+  "path": "docs/specs/agents/requirements/settings-profile-layout.md",
+  "size": 8615,
+  "stars": 840,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/cs-design-lead.md",
+  "size": 16580,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/engineering/cs-accessibility-engineer.md",
+  "size": 4034,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/engineering/cs-frontend-engineer.md",
+  "size": 4086,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/product/cs-learning-designer.md",
+  "size": 4492,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "borghei/Claude-Skills",
+  "ref": "main",
+  "path": "agents/product/cs-ux-researcher.md",
+  "size": 4177,
+  "stars": 828,
+  "via": "tree"
+ },
+ {
+  "repo": "AgriciDaniel/codex-seo",
+  "ref": "main",
+  "path": "agents/seo-visual.toml",
+  "size": 2232,
+  "stars": 752,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": ".omp/agents/designer.md",
+  "size": 2321,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/reference/agent/rp-tick/rp-writer-interaction.md",
+  "size": 6012,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/workspace/.nbook/agent/skills/novel-setup/phases/03-character-design.md",
+  "size": 9298,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "notnotype/neuro-book",
+  "ref": "master",
+  "path": "packages/neuro-book/assets/workspace/.nbook/agent/skills/novel-writing/phases/01-plot-design.md",
+  "size": 3280,
+  "stars": 698,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/design-sync.md",
+  "size": 12811,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/quality-fixer-frontend.md",
+  "size": 20505,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/task-executor-frontend.md",
+  "size": 22333,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/technical-designer-frontend.md",
+  "size": 12241,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/technical-designer.md",
+  "size": 12589,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/ui-analyzer.md",
+  "size": 4175,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/design-sync.md",
+  "size": 12811,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/quality-fixer-frontend.md",
+  "size": 20505,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/task-executor-frontend.md",
+  "size": 22333,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/technical-designer-frontend.md",
+  "size": 12241,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/ui-analyzer.md",
+  "size": 4175,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-frontend/agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/design-sync.md",
+  "size": 12811,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/quality-fixer-frontend.md",
+  "size": 20505,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/task-executor-frontend.md",
+  "size": 22333,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/technical-designer-frontend.md",
+  "size": 12241,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/technical-designer.md",
+  "size": 12589,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/ui-analyzer.md",
+  "size": 4175,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows-fullstack/agents/ui-spec-designer.md",
+  "size": 8861,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows/agents/design-sync.md",
+  "size": 12811,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "shinpr/claude-code-workflows",
+  "ref": "main",
+  "path": "dev-workflows/agents/technical-designer.md",
+  "size": 12589,
+  "stars": 684,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "docs/reference/agents/nw-acceptance-designer-reviewer.md",
+  "size": 1293,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "docs/reference/agents/nw-acceptance-designer.md",
+  "size": 3497,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "docs/reference/agents/nw-system-designer-reviewer.md",
+  "size": 731,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "docs/reference/agents/nw-system-designer.md",
+  "size": 1389,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "nWave/agents/nw-acceptance-designer-reviewer.md",
+  "size": 9125,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "nWave/agents/nw-acceptance-designer.md",
+  "size": 31924,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "nWave/agents/nw-system-designer-reviewer.md",
+  "size": 5044,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "nWave/agents/nw-system-designer.md",
+  "size": 15111,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "plugins/nw/agents/nw-acceptance-designer-reviewer.md",
+  "size": 9125,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "plugins/nw/agents/nw-acceptance-designer.md",
+  "size": 31924,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "plugins/nw/agents/nw-system-designer-reviewer.md",
+  "size": 5044,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "ref": "main",
+  "path": "plugins/nw/agents/nw-system-designer.md",
+  "size": 15111,
+  "stars": 616,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-a11y-auditor.md",
+  "size": 5302,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-design-system-architect.md",
+  "size": 4736,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-designer-review.md",
+  "size": 1872,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-ui-junior.md",
+  "size": 6083,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-ux-engineer.md",
+  "size": 14554,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-ux-researcher.md",
+  "size": 3967,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".claude/agents/omd-ux-writer.md",
+  "size": 10762,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-a11y-auditor.toml",
+  "size": 5806,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-design-system-architect.toml",
+  "size": 5268,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-designer-review.toml",
+  "size": 2384,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-ui-junior.toml",
+  "size": 6587,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-ux-engineer.toml",
+  "size": 15044,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-ux-researcher.toml",
+  "size": 4454,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": ".codex/agents/omd-ux-writer.toml",
+  "size": 11257,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-a11y-auditor.md",
+  "size": 5270,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-design-system-architect.md",
+  "size": 4708,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-designer-review.md",
+  "size": 1842,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-ui-junior.md",
+  "size": 6051,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-ux-engineer.md",
+  "size": 14538,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-ux-researcher.md",
+  "size": 3933,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "kwakseongjae/oh-my-design",
+  "ref": "main",
+  "path": "agents/omd-ux-writer.md",
+  "size": 10747,
+  "stars": 523,
+  "via": "tree"
+ },
+ {
+  "repo": "proffesor-for-testing/agentic-qe",
+  "ref": "main",
+  "path": ".claude/agents/architecture/arch-system-design.md",
+  "size": 4900,
+  "stars": 485,
+  "via": "tree"
+ },
+ {
+  "repo": "proffesor-for-testing/agentic-qe",
+  "ref": "main",
+  "path": ".claude/agents/architecture/system-design/arch-system-design.md",
+  "size": 4792,
+  "stars": 485,
+  "via": "tree"
+ },
+ {
+  "repo": "proffesor-for-testing/agentic-qe",
+  "ref": "main",
+  "path": ".claude/agents/v3/qe-accessibility-auditor.md",
+  "size": 18305,
+  "stars": 485,
+  "via": "tree"
+ },
+ {
+  "repo": "proffesor-for-testing/agentic-qe",
+  "ref": "main",
+  "path": ".opencode/agents/qe-accessibility-auditor.yaml",
+  "size": 6164,
+  "stars": 485,
+  "via": "tree"
+ },
+ {
+  "repo": "proffesor-for-testing/agentic-qe",
+  "ref": "main",
+  "path": "assets/agents/v3/qe-accessibility-auditor.md",
+  "size": 18305,
+  "stars": 485,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/accessibility_specialist.md",
+  "size": 866,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/api_designer.md",
+  "size": 698,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/design_system_engineer.md",
+  "size": 921,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "agents/ux_designer.md",
+  "size": 769,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/accessibility-specialist.md",
+  "size": 1726,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/api-designer.md",
+  "size": 1433,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/design-system-engineer.md",
+  "size": 1720,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/agents/ux-designer.md",
+  "size": 1555,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/accessibility-specialist.md",
+  "size": 12280,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/api-designer.md",
+  "size": 7245,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/design-system-engineer.md",
+  "size": 17593,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "claude/src/agents/ux-designer.md",
+  "size": 11981,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/accessibility-specialist.md",
+  "size": 12280,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/api-designer.md",
+  "size": 7245,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/design-system-engineer.md",
+  "size": 17593,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "plugins/maestro/src/agents/ux-designer.md",
+  "size": 11981,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/accessibility_specialist.md",
+  "size": 834,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/api_designer.md",
+  "size": 667,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/design_system_engineer.md",
+  "size": 883,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "qwen/agents/ux_designer.md",
+  "size": 735,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/accessibility-specialist.md",
+  "size": 12280,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/api-designer.md",
+  "size": 7245,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/design-system-engineer.md",
+  "size": 17593,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "josstei/maestro-orchestrate",
+  "ref": "main",
+  "path": "src/agents/ux-designer.md",
+  "size": 11981,
+  "stars": 462,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": ".claude/agents/empathy-designer.md",
+  "size": 1207,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": ".claude/agents/title-designer.md",
+  "size": 3717,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "claude-runtime/agents/empathy-designer.md",
+  "size": 1207,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "claude-runtime/agents/title-designer.md",
+  "size": 3753,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "plugins/writing-agent/agents/empathy-designer.md",
+  "size": 1207,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "dongbeixiaohuo/writing-agent",
+  "ref": "main",
+  "path": "plugins/writing-agent/agents/title-designer.md",
+  "size": 3761,
+  "stars": 427,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "agents/a11y-auditor.md",
+  "size": 2463,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "agents/design-reviewer.md",
+  "size": 2363,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "cli/assets/agents/claude/a11y-auditor.md",
+  "size": 2463,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "cli/assets/agents/claude/design-reviewer.md",
+  "size": 2363,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "cli/assets/agents/opencode/a11y-auditor.md",
+  "size": 2413,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "educlopez/ui-craft",
+  "ref": "main",
+  "path": "cli/assets/agents/opencode/design-reviewer.md",
+  "size": 2311,
+  "stars": 357,
+  "via": "tree"
+ },
+ {
+  "repo": "avivl/claude-007-agents",
+  "ref": "main",
+  "path": ".claude/agents/design/ux-designer.md",
+  "size": 24777,
+  "stars": 270,
+  "via": "tree"
+ },
+ {
+  "repo": "avivl/claude-007-agents",
+  "ref": "main",
+  "path": ".claude/agents/frontend/design-system-architect.md",
+  "size": 17611,
+  "stars": 270,
+  "via": "tree"
+ },
+ {
+  "repo": "avivl/claude-007-agents",
+  "ref": "main",
+  "path": ".claude/agents/frontend/micro-frontend-architect.md",
+  "size": 14183,
+  "stars": 270,
+  "via": "tree"
+ },
+ {
+  "repo": "avivl/claude-007-agents",
+  "ref": "main",
+  "path": ".claude/agents/product/rapid-prototyper.md",
+  "size": 8248,
+  "stars": 270,
+  "via": "tree"
+ },
+ {
+  "repo": "NYCU-Chung/my-claude-devteam",
+  "ref": "main",
+  "path": "agents/frontend-designer.md",
+  "size": 8496,
+  "stars": 269,
+  "via": "tree"
+ },
+ {
+  "repo": "pamirtuna/gamestudio-subagents",
+  "ref": "main",
+  "path": "agents/mid_game_designer.md",
+  "size": 2879,
+  "stars": 262,
+  "via": "tree"
+ },
+ {
+  "repo": "pamirtuna/gamestudio-subagents",
+  "ref": "main",
+  "path": "agents/sr_game_designer.md",
+  "size": 1860,
+  "stars": 262,
+  "via": "tree"
+ },
+ {
+  "repo": "pamirtuna/gamestudio-subagents",
+  "ref": "main",
+  "path": "agents/ui_ux_agent.md",
+  "size": 6598,
+  "stars": 262,
+  "via": "tree"
+ },
+ {
+  "repo": "johnrogers/claude-swift-engineering",
+  "ref": "main",
+  "path": "plugins/swift-engineering/agents/swift-ui-design.md",
+  "size": 3425,
+  "stars": 231,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/ai-automation-specialists/ai-workflow-designer-aa.md",
+  "size": 3331,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/core/frontend-ux-specialist.md",
+  "size": 4609,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/design/brand-guardian.md",
+  "size": 9316,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/design/ui-designer.md",
+  "size": 7955,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/design/ux-researcher.md",
+  "size": 8443,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/design/visual-storyteller.md",
+  "size": 9945,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "NicholasSpisak/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/specialized-agents/ui-ux-analyst.md",
+  "size": 4431,
+  "stars": 213,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-accessibility-eng.md",
+  "size": 4123,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-accessibility-reviewer.md",
+  "size": 5578,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-design-critic.md",
+  "size": 5045,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "FerroxLabs/ijfw",
+  "ref": "main",
+  "path": "claude/agents/ijfw-ui-auditor.md",
+  "size": 14160,
+  "stars": 211,
+  "via": "tree"
+ },
+ {
+  "repo": "andrehuang/academic-writing-agents",
+  "ref": "main",
+  "path": "agents/latex-layout-auditor.md",
+  "size": 2421,
+  "stars": 205,
+  "via": "tree"
+ },
+ {
+  "repo": "andrehuang/academic-writing-agents",
+  "ref": "main",
+  "path": "agents/prose-polisher.md",
+  "size": 3222,
+  "stars": 205,
+  "via": "tree"
+ },
+ {
+  "repo": "serpro69/claude-toolbox",
+  "ref": "master",
+  "path": ".codex/agents/design-reviewer.toml",
+  "size": 12023,
+  "stars": 149,
+  "via": "tree"
+ },
+ {
+  "repo": "serpro69/claude-toolbox",
+  "ref": "master",
+  "path": "klaude-plugin/agents/design-reviewer.md",
+  "size": 10663,
+  "stars": 149,
+  "via": "tree"
+ },
+ {
+  "repo": "senaiverse/reactnative-expo-ai-agent-system-workflow",
+  "ref": "main",
+  "path": "ready-to-use/agents/tier-1-daily/a11y-enforcer.md",
+  "size": 2544,
+  "stars": 126,
+  "via": "tree"
+ },
+ {
+  "repo": "senaiverse/reactnative-expo-ai-agent-system-workflow",
+  "ref": "main",
+  "path": "ready-to-use/agents/tier-1-daily/design-token-guardian.md",
+  "size": 3865,
+  "stars": 126,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/benchmarks/suite/acp-project/seed-acp/agent/design/api-design.md",
+  "size": 7909,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/commands/acp.design-create.md",
+  "size": 16431,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/commands/acp.design-reference.md",
+  "size": 17865,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/acp-commands-design.md",
+  "size": 30218,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/design.template.md",
+  "size": 5434,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/local.acp-code-design.md",
+  "size": 22558,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/local.design-reference-system.md",
+  "size": 14119,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/visualizer.requirements.md",
+  "size": 13489,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/design/yaml-parser-design.md",
+  "size": 8658,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/milestones/milestone-16-design-reference-system.md",
+  "size": 4319,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-16-design-reference-system/task-111-design-reference-directive.md",
+  "size": 6739,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-16-design-reference-system/task-112-task-template-design-reference-field.md",
+  "size": 3176,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-16-design-reference-system/task-113-task-create-design-cross-reference.md",
+  "size": 6265,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/milestone-16-design-reference-system/task-114-proceed-design-context-loading.md",
+  "size": 4905,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "prmichaelsen/agent-context-protocol",
+  "ref": "mainline",
+  "path": "agent/tasks/task-19-design-create-command.md",
+  "size": 1175,
+  "stars": 125,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "agents/claude/design-lead.md",
+  "size": 46,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "VKirill/claude-lane-stack",
+  "ref": "main",
+  "path": "plugins/lane-stack/agents/design-lead.md",
+  "size": 6588,
+  "stars": 117,
+  "via": "tree"
+ },
+ {
+  "repo": "solanabr/solana-ai-kit",
+  "ref": "main",
+  "path": ".claude/agents/solana-frontend-engineer.md",
+  "size": 3607,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "solanabr/solana-ai-kit",
+  "ref": "main",
+  "path": ".claude/agents/token-engineer.md",
+  "size": 4906,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/accessibility-compliance/agents/ui-visual-validator.md",
+  "size": 9405,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/application-performance/agents/frontend-developer.md",
+  "size": 6744,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/design-mastery/agents/brand-architect.md",
+  "size": 8541,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/design-mastery/agents/design-master.md",
+  "size": 8056,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/design-mastery/agents/visual-historian.md",
+  "size": 11834,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/frontend-mobile-development/agents/frontend-developer.md",
+  "size": 6744,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/frontend-mobile-security/agents/frontend-developer.md",
+  "size": 6744,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/multi-platform-apps/agents/frontend-developer.md",
+  "size": 6744,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/LibreUIUX-Claude-Code",
+  "ref": "main",
+  "path": "plugins/multi-platform-apps/agents/ui-ux-designer.md",
+  "size": 9019,
+  "stars": 103,
+  "via": "tree"
+ },
+ {
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "ref": "master",
+  "path": "agents/designer.md",
+  "size": 3969,
+  "stars": 102,
+  "via": "tree"
+ },
+ {
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "ref": "master",
+  "path": "agents/frontend.md",
+  "size": 4421,
+  "stars": 102,
+  "via": "tree"
+ },
+ {
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "ref": "master",
+  "path": "agents/res_ux.md",
+  "size": 4259,
+  "stars": 102,
+  "via": "tree"
+ },
+ {
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "ref": "master",
+  "path": "agents/ux_researcher.md",
+  "size": 3068,
+  "stars": 102,
+  "via": "tree"
+ },
+ {
+  "repo": "avelikiy/great_cto",
+  "ref": "main",
+  "path": "agents/design-advisor.md",
+  "size": 18150,
+  "stars": 95,
+  "via": "tree"
+ },
+ {
+  "repo": "josipjelic/orchestrated-project-template",
+  "ref": "main",
+  "path": ".claude/agents/frontend-developer.md",
+  "size": 12906,
+  "stars": 95,
+  "via": "tree"
+ },
+ {
+  "repo": "josipjelic/orchestrated-project-template",
+  "ref": "main",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "size": 27072,
+  "stars": 95,
+  "via": "tree"
+ },
+ {
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "ref": "main",
+  "path": "agents/design/tailwind-css-expert.md",
+  "size": 1231,
+  "stars": 84,
+  "via": "tree"
+ },
+ {
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "ref": "main",
+  "path": "agents/design/ui-ux-designer.md",
+  "size": 1153,
+  "stars": 84,
+  "via": "tree"
+ },
+ {
+  "repo": "0ldh/claude-code-agents-orchestra",
+  "ref": "main",
+  "path": "agents/quality-assurance/accessibility-specialist.md",
+  "size": 1362,
+  "stars": 84,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/design-jarvis.agent.md",
+  "size": 3680,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/design-lead.agent.md",
+  "size": 2381,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/design-ops.agent.md",
+  "size": 2125,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/designer.agent.md",
+  "size": 3035,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/front-end-engineer.agent.md",
+  "size": 2182,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": ".github/agents/ux-researcher.agent.md",
+  "size": 1849,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/design-jarvis.agent.md",
+  "size": 3692,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/design-lead.agent.md",
+  "size": 2381,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/design-ops.agent.md",
+  "size": 2125,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/designer.agent.md",
+  "size": 3035,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/front-end-engineer.agent.md",
+  "size": 2182,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "renfei-design/Design-Jarvis",
+  "ref": "main",
+  "path": "extensions/design-jarvis-pack/assets/workspace/.github/agents/ux-researcher.agent.md",
+  "size": 1849,
+  "stars": 77,
+  "via": "tree"
+ },
+ {
+  "repo": "heggria/taskflow",
+  "ref": "main",
+  "path": "packages/taskflow-core/src/agents/executor-ui.md",
+  "size": 1544,
+  "stars": 74,
+  "via": "tree"
+ },
+ {
+  "repo": "heggria/taskflow",
+  "ref": "main",
+  "path": "packages/taskflow-core/src/agents/visual-explorer.md",
+  "size": 1670,
+  "stars": 74,
+  "via": "tree"
+ },
+ {
+  "repo": "tonone-ai/tonone",
+  "ref": "main",
+  "path": "agents/token.md",
+  "size": 2996,
+  "stars": 73,
+  "via": "tree"
+ },
+ {
+  "repo": "tonone-ai/tonone",
+  "ref": "main",
+  "path": "team/token/agents/token.md",
+  "size": 2996,
+  "stars": 73,
+  "via": "tree"
+ },
+ {
+  "repo": "btspoony/mstar-harness",
+  "ref": "main",
+  "path": "agents/frontend-dev.md",
+  "size": 1097,
+  "stars": 62,
+  "via": "tree"
+ },
+ {
+  "repo": "btspoony/mstar-harness",
+  "ref": "main",
+  "path": "codex/agents/frontend-dev.toml",
+  "size": 684,
+  "stars": 62,
+  "via": "tree"
+ },
+ {
+  "repo": "jonathan-vella/apex-accelerator",
+  "ref": "main",
+  "path": ".github/agents/04-design.agent.md",
+  "size": 11128,
+  "stars": 50,
+  "via": "tree"
+ },
+ {
+  "repo": "qualixar/qualixar-os",
+  "ref": "main",
+  "path": "claude-code-plugin/agents/qos-topology-designer.md",
+  "size": 2460,
+  "stars": 43,
+  "via": "tree"
+ },
+ {
+  "repo": "benjaminr/claude-code-essentials",
+  "ref": "main",
+  "path": ".claude/agents/design-frontend-assistant.md",
+  "size": 15441,
+  "stars": 34,
+  "via": "tree"
+ },
+ {
+  "repo": "mylee04/claude-code-subagents",
+  "ref": "main",
+  "path": "agents/development/frontend-developer.md",
+  "size": 1829,
+  "stars": 33,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/design-expert/agents/design-expert.md",
+  "size": 11132,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/prompt-engineer/skills/prompt-library/templates/agents/api-designer.md",
+  "size": 3218,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/shadcn-expert/agents/shadcn-ui-expert.md",
+  "size": 5632,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "fusengine/agents",
+  "ref": "main",
+  "path": "plugins/tailwindcss/agents/tailwindcss-expert.md",
+  "size": 6686,
+  "stars": 28,
+  "via": "tree"
+ },
+ {
+  "repo": "guataiba/isac-cli",
+  "ref": "main",
+  "path": "agents/animation-detector.md",
+  "size": 4118,
+  "stars": 23,
+  "via": "tree"
+ },
+ {
+  "repo": "guataiba/isac-cli",
+  "ref": "main",
+  "path": "agents/visual-verifier.md",
+  "size": 4296,
+  "stars": 23,
+  "via": "tree"
+ },
+ {
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "ref": "main",
+  "path": "plugins/design-intent/agents/design-reviewer.md",
+  "size": 7172,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "ref": "main",
+  "path": "plugins/design-intent/agents/ui-architect.md",
+  "size": 3564,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "ref": "main",
+  "path": "plugins/design-intent/agents/ui-explorer.md",
+  "size": 2907,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "joaquimscosta/arkhe-claude-plugins",
+  "ref": "main",
+  "path": "plugins/review/agents/design-review.md",
+  "size": 1854,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "joshua-zyy/pi-omo-slim",
+  "ref": "main",
+  "path": "agents/designer.md",
+  "size": 3349,
+  "stars": 21,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/accessibility/accessibility-specialist.md",
+  "size": 13961,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/accessibility/mobile-accessibility-specialist.md",
+  "size": 12628,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/backend/api-design-reviewer.md",
+  "size": 6824,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/backend/api-designer.md",
+  "size": 12211,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/frontend/frontend-designer.md",
+  "size": 21495,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/frontend/frontend-developer.md",
+  "size": 1927,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/mobile/android-designer.md",
+  "size": 16148,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/mobile/ios-designer.md",
+  "size": 12594,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/quality/visual-verification-agent.md",
+  "size": 12160,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/color-palette-specialist.md",
+  "size": 6319,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/data-visualization-designer.md",
+  "size": 7307,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/design-compliance-validator.md",
+  "size": 7705,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/design-drift-detector.md",
+  "size": 8588,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/design-system-architect.md",
+  "size": 19922,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/design-system-orchestrator.md",
+  "size": 3668,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/typography-specialist.md",
+  "size": 6479,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/ui-style-curator.md",
+  "size": 6672,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/ux-specialist-desktop.md",
+  "size": 4914,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/ux-specialist-mobile.md",
+  "size": 4767,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/ux-specialist-web.md",
+  "size": 4505,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "michael-harris/devteam",
+  "ref": "main",
+  "path": "agents/ux/ux-system-coordinator.md",
+  "size": 10035,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/design/design-system.agent.md",
+  "size": 2720,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/design/figma-to-html.agent.md",
+  "size": 10375,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/design/responsive-design.agent.md",
+  "size": 2542,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/design/uiux-designer.agent.md",
+  "size": 2534,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/fullstack/api-designer.agent.md",
+  "size": 2716,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "proflead/copilot-agent-library",
+  "ref": "master",
+  "path": "agents/fullstack/frontend-developer.agent.md",
+  "size": 3770,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "useshape/Shape",
+  "ref": "main",
+  "path": "src-tauri/src/agent/prompts/DESIGN.md",
+  "size": 15039,
+  "stars": 20,
+  "via": "tree"
+ },
+ {
+  "repo": "AndreAlbuquerque/claude-config",
+  "ref": "main",
+  "path": "agents/designer.md",
+  "size": 8294,
+  "stars": 17,
+  "via": "tree"
+ },
+ {
+  "repo": "tan-ex/apex-agent-blueprint",
+  "ref": "main",
+  "path": ".github/agents/04-design.agent.md",
+  "size": 8183,
+  "stars": 16,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-agents/agents/specialized/react/react-component-architect.md",
+  "size": 1980,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-agents/agents/specialized/vue/vue-component-architect.md",
+  "size": 3475,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-agents/agents/universal/frontend-developer.md",
+  "size": 3110,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-agents/agents/universal/tailwind-css-expert.md",
+  "size": 4383,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/awesome-claude-code-agents/agents/ui-engineer.md",
+  "size": 4005,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-agents/agents/frontend-designer.md",
+  "size": 7813,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-sub-agents/development/frontend-developer.md",
+  "size": 4604,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-sub-agents/development/ui-designer.md",
+  "size": 7114,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-sub-agents/development/ux-designer.md",
+  "size": 6843,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-subagents/agents/css-expert.md",
+  "size": 2327,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-code-subagents/agents/tailwind-expert.md",
+  "size": 2559,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/senior-frontend-architect.md",
+  "size": 16523,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/agents/ui-ux-master.md",
+  "size": 16905,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/example/docs/dev-docs/component-library-specification.md",
+  "size": 38743,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/claude-sub-agent/example/docs/dev-docs/ui-design-specification.md",
+  "size": 19002,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/wshobson/frontend-developer.md",
+  "size": 1290,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/agents/wshobson/ui-ux-designer.md",
+  "size": 1192,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/senior-frontend-architect.md",
+  "size": 16523,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "leamas-ai/leamas.sh",
+  "ref": "main",
+  "path": "kits/commands/claude-sub-agent/agents/ui-ux-master.md",
+  "size": 16905,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/design-mastery-claude-code",
+  "ref": "main",
+  "path": "agents/brand-architect.md",
+  "size": 8541,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/design-mastery-claude-code",
+  "ref": "main",
+  "path": "agents/design-master.md",
+  "size": 8056,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "HermeticOrmus/design-mastery-claude-code",
+  "ref": "main",
+  "path": "agents/visual-historian.md",
+  "size": 11834,
+  "stars": 15,
+  "via": "tree"
+ },
+ {
+  "repo": "navox-labs/agents",
+  "ref": "main",
+  "path": ".claude/agents/ux.md",
+  "size": 23816,
+  "stars": 14,
+  "via": "tree"
+ },
+ {
+  "repo": "a-ariff/ariff-claude-plugins",
+  "ref": "main",
+  "path": "plugins/frontend-dev/agents/frontend-dev.md",
+  "size": 9479,
+  "stars": 14,
+  "via": "tree"
+ },
+ {
+  "repo": "waqarahmed-design/Product-Designer-Agent",
+  "ref": "main",
+  "path": "agents/product-designer.md",
+  "size": 25806,
+  "stars": 12,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/brand-guardian/agents/brand-guardian.md",
+  "size": 9316,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/frontend-developer/agents/frontend-developer.md",
+  "size": 5320,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/mobile-ux-optimizer/agents/mobile-ux-optimizer.md",
+  "size": 3559,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/pr-review-toolkit/agents/type-design-analyzer.md",
+  "size": 5368,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/rapid-prototyper/agents/rapid-prototyper.md",
+  "size": 6816,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/ui-designer/agents/ui-designer.md",
+  "size": 7955,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/ux-researcher/agents/ux-researcher.md",
+  "size": 8443,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "xbim08/awesome-claude-code-plugins",
+  "ref": "main",
+  "path": "plugins/visual-storyteller/agents/visual-storyteller.md",
+  "size": 9945,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "dembsky/designagents",
+  "ref": "main",
+  "path": "agents/brand-agent.md",
+  "size": 23716,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "dembsky/designagents",
+  "ref": "main",
+  "path": "agents/ui-agent.md",
+  "size": 18409,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "dembsky/designagents",
+  "ref": "main",
+  "path": "agents/ux-agent.md",
+  "size": 30616,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "dembsky/designagents",
+  "ref": "main",
+  "path": "agents/visual-agent.md",
+  "size": 50622,
+  "stars": 10,
+  "via": "tree"
+ },
+ {
+  "repo": "nonlinear-xyz/factory-kit",
+  "ref": "main",
+  "path": "agents/frontend-engineer.md",
+  "size": 758,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "cguldogan/copilot-scrum-team",
+  "ref": "main",
+  "path": ".github/agents/development-agent-frontend.agent.md",
+  "size": 1924,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "George-RD/design-studio",
+  "ref": "main",
+  "path": "agents/design-agent.md",
+  "size": 317,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "George-RD/design-studio",
+  "ref": "main",
+  "path": "docs/agents/codebase-design.md",
+  "size": 444,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "George-RD/design-studio",
+  "ref": "main",
+  "path": "skills/design-studio/agents/design-agent.md",
+  "size": 8886,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "velloo-design/velloo",
+  "ref": "main",
+  "path": "plugins/claude/velloo/agents/velloo-design-reviewer.md",
+  "size": 1644,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "velloo-design/velloo",
+  "ref": "main",
+  "path": "plugins/claude/velloo/agents/velloo-designer.md",
+  "size": 2191,
+  "stars": 9,
+  "via": "tree"
+ },
+ {
+  "repo": "memyselfandm/cconami",
+  "ref": "main",
+  "path": "apps/dot-claude/agents/frontend-designer/frontend-designer.md",
+  "size": 6744,
+  "stars": 8,
+  "via": "tree"
+ },
+ {
+  "repo": "claude-genasis/genasis",
+  "ref": "main",
+  "path": "tests/golden/blank/expected/.claude/agents/designer.md",
+  "size": 426,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "claude-genasis/genasis",
+  "ref": "main",
+  "path": "tests/golden/blank/expected/.claude/agents/frontend.md",
+  "size": 426,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "claude-genasis/genasis",
+  "ref": "main",
+  "path": "tests/golden/ecc-only/input/.claude/agents/frontend.md",
+  "size": 413,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "claude-genasis/genasis",
+  "ref": "main",
+  "path": "tests/golden/with-ko-locale/expected/.claude/agents/frontend.md",
+  "size": 3077,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "claude-genasis/genasis",
+  "ref": "main",
+  "path": "tests/golden/with-ko-locale/input/.claude/agents/frontend.md",
+  "size": 282,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "viknesh20-20/claude-code-tool-kit",
+  "ref": "master",
+  "path": ".claude/agents/design-system-architect.md",
+  "size": 7577,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "viknesh20-20/claude-code-tool-kit",
+  "ref": "master",
+  "path": ".claude/agents/ux-designer.md",
+  "size": 11471,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "dhar174/custom_github_copilot_agent_builder",
+  "ref": "main",
+  "path": ".github/agents/api-designer.agent.md",
+  "size": 15312,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "JatinChhabra07/animated-frontend-design",
+  "ref": "main",
+  "path": "agents/animation-wirer.md",
+  "size": 5655,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "JatinChhabra07/animated-frontend-design",
+  "ref": "main",
+  "path": "agents/design-system-locker.md",
+  "size": 8749,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "JatinChhabra07/animated-frontend-design",
+  "ref": "main",
+  "path": "agents/seo-polisher.md",
+  "size": 6662,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "rh-uxd/ai-helpers",
+  "ref": "main",
+  "path": "plugins/patternfly/pf-react/agents/pf-component-structure-audit.md",
+  "size": 4393,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/a11y-guardian.md",
+  "size": 4979,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/animation-choreographer.md",
+  "size": 5442,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/brand-keeper.md",
+  "size": 2624,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/chat-ui-craftsman.md",
+  "size": 3137,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/error-recovery-designer.md",
+  "size": 3333,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/reasoning-visualizer.md",
+  "size": 4269,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/token-keeper.md",
+  "size": 3622,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/ui-architect.md",
+  "size": 2292,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/ui-auditor.md",
+  "size": 9507,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "SuanFishXYY/suanfish-design-system",
+  "ref": "main",
+  "path": "agents/wizard-designer.md",
+  "size": 2717,
+  "stars": 7,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/ascii-ui-mockup-generator.md",
+  "size": 3165,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/frontend-react.md",
+  "size": 5337,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "Dannykkh/skill-olympus",
+  "ref": "master",
+  "path": "agents/ui-ux-designer.md",
+  "size": 18819,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "psmon/pencil-creator",
+  "ref": "main",
+  "path": ".agents/skills/pencil-lang-pack/en/harness/agents/design-evaluator.md",
+  "size": 2923,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "psmon/pencil-creator",
+  "ref": "main",
+  "path": ".claude/skills/pencil-lang-pack/en/harness/agents/design-evaluator.md",
+  "size": 2923,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "psmon/pencil-creator",
+  "ref": "main",
+  "path": "harness/agents/design-evaluator.md",
+  "size": 3402,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "psmon/pencil-creator",
+  "ref": "main",
+  "path": "harness/agents/sprite-animator.md",
+  "size": 5348,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "dsaltaren/paper-agent-rules",
+  "ref": "main",
+  "path": "agents/paper-designer.md",
+  "size": 16197,
+  "stars": 6,
+  "via": "tree"
+ },
+ {
+  "repo": "JasonWarrenUK/goblin-mode",
+  "ref": "main",
+  "path": "agents/design-reviewer.md",
+  "size": 5762,
+  "stars": 5,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/01-core-development/api-designer.md",
+  "size": 13638,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/01-core-development/frontend-developer.md",
+  "size": 13586,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/03-infrastructure/golden-path-designer.md",
+  "size": 16966,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/09-meta-orchestration/policy-guardrail-designer.md",
+  "size": 14829,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/brand-strategist.md",
+  "size": 14084,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/graphic-designer.md",
+  "size": 17285,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Caesar-Nexus-Labs/caesar-harness-agent",
+  "ref": "main",
+  "path": "agents/11-marketing/visual-prompt-engineer.md",
+  "size": 9115,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/brand-guardian.md",
+  "size": 704,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/designer.md",
+  "size": 664,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/frontend-developer.md",
+  "size": 716,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/logo-designer.md",
+  "size": 695,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/ui-designer.md",
+  "size": 697,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "easonwang00/Startup-Agents",
+  "ref": "main",
+  "path": ".claude/agents/ux-architect.md",
+  "size": 709,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "Recepay6358/claude-code-best-practice",
+  "ref": "main",
+  "path": "development-workflows/rpi/.claude/agents/ux-designer.md",
+  "size": 455,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/directors/design-director.md",
+  "size": 3550,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/leads/design-lead.md",
+  "size": 10795,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/managers/design-manager.md",
+  "size": 5239,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/design-brand-strategist.md",
+  "size": 1644,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/design-presentation-designer.md",
+  "size": 2745,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/design-ui-designer.md",
+  "size": 3124,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/design-ux-designer.md",
+  "size": 2058,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/design-visual-designer.md",
+  "size": 3412,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/dev-frontend-engineer.md",
+  "size": 1996,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/specialists/marketing-banner-designer.md",
+  "size": 3826,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/accessibility-validator.md",
+  "size": 4425,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/brand-context-researcher.md",
+  "size": 5117,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/design-system-researcher.md",
+  "size": 4879,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "AgentShekel/agentic-workflow",
+  "ref": "main",
+  "path": "agents/validators/ux-review.md",
+  "size": 16017,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/api-designer.agent.eval.yaml",
+  "size": 772,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/azure-landing-zone.agent.eval.yaml",
+  "size": 1049,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-agent-designer.agent.eval.yaml",
+  "size": 1188,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-agent-designer.agent.md",
+  "size": 2518,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-api-designer.agent.eval.yaml",
+  "size": 634,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-api-designer.agent.md",
+  "size": 2976,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-frontend-dev.agent.eval.yaml",
+  "size": 634,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-frontend-dev.agent.md",
+  "size": 2787,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-ux-designer.agent.eval.yaml",
+  "size": 629,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-10-core-ux-designer.agent.md",
+  "size": 2053,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-30-ai-domain-designer.agent.eval.yaml",
+  "size": 645,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-30-ai-domain-designer.agent.md",
+  "size": 2086,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-40-azure-azure-landing-zone.agent.eval.yaml",
+  "size": 666,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/basecoat-40-azure-azure-landing-zone.agent.md",
+  "size": 1929,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/domain-designer.agent.eval.yaml",
+  "size": 998,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/frontend-dev.agent.eval.yaml",
+  "size": 946,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/references/api-designer-detail.md",
+  "size": 4640,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/references/frontend-dev-detail.md",
+  "size": 4135,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/references/ux-designer-detail.md",
+  "size": 2907,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ivegamsft/basecoat",
+  "ref": "main",
+  "path": "agents/ux-designer.agent.eval.yaml",
+  "size": 903,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/accessibility-auditor.md",
+  "size": 1358,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/accessibility-engineer.md",
+  "size": 1245,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/game-ui-reviewer.md",
+  "size": 5614,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/interaction-reviewer.md",
+  "size": 1525,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/ux-auditor.md",
+  "size": 4770,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/ux-engineer.md",
+  "size": 5421,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "SwiggitySwerve/ux-toolkit",
+  "ref": "main",
+  "path": "agents/visual-reviewer.md",
+  "size": 1350,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ardamoustafa1/DesignOS",
+  "ref": "main",
+  "path": "agents/accessibility.md",
+  "size": 2869,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ardamoustafa1/DesignOS",
+  "ref": "main",
+  "path": "agents/frontend-engineer.md",
+  "size": 2738,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ardamoustafa1/DesignOS",
+  "ref": "main",
+  "path": "agents/motion-designer.md",
+  "size": 2861,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ardamoustafa1/DesignOS",
+  "ref": "main",
+  "path": "agents/ui-designer.md",
+  "size": 2513,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ardamoustafa1/DesignOS",
+  "ref": "main",
+  "path": "agents/ux-researcher.md",
+  "size": 2551,
+  "stars": 4,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/claude-code/supervisor/agents/supervisor-accessibility-judge.md",
+  "size": 1175,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/claude-code/supervisor/agents/supervisor-frontend-expert.md",
+  "size": 1179,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/claude-code/supervisor/agents/supervisor-frontend-visual-judge.md",
+  "size": 1213,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/claude-code/supervisor/agents/supervisor-visual.md",
+  "size": 1833,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/cursor/supervisor/agents/supervisor-accessibility-judge.md",
+  "size": 1135,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/cursor/supervisor/agents/supervisor-frontend-expert.md",
+  "size": 1153,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/cursor/supervisor/agents/supervisor-frontend-visual-judge.md",
+  "size": 1173,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/cursor/supervisor/agents/supervisor-visual.md",
+  "size": 1793,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/gemini-cli/supervisor/agents/supervisor-accessibility-judge.md",
+  "size": 1146,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/gemini-cli/supervisor/agents/supervisor-frontend-expert.md",
+  "size": 1179,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/gemini-cli/supervisor/agents/supervisor-frontend-visual-judge.md",
+  "size": 1184,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "platforms/gemini-cli/supervisor/agents/supervisor-visual.md",
+  "size": 1804,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "shared/agents/supervisor-accessibility-judge.md",
+  "size": 1105,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "shared/agents/supervisor-frontend-expert.md",
+  "size": 1138,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "shared/agents/supervisor-frontend-visual-judge.md",
+  "size": 1143,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisorLLM-plugin",
+  "ref": "main",
+  "path": "shared/agents/supervisor-visual.md",
+  "size": 1763,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Byunk/claude-code-toolkit",
+  "ref": "main",
+  "path": "fullstack-dev/agents/frontend-developer.md",
+  "size": 6370,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "ref": "main",
+  "path": "agents/supervisor-accessibility-judge.md",
+  "size": 1175,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "ref": "main",
+  "path": "agents/supervisor-frontend-expert.md",
+  "size": 1179,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "ref": "main",
+  "path": "agents/supervisor-frontend-visual-judge.md",
+  "size": 1213,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "ma-nucho-pro/supervisor-claude-plugin",
+  "ref": "main",
+  "path": "agents/supervisor-visual.md",
+  "size": 1833,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "YousefNabil-SOC/claude-apex",
+  "ref": "master",
+  "path": "agents/seo-visual.md",
+  "size": 2181,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": ".claude/agents/frontend-engineer.md",
+  "size": 35120,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": ".claude/agents/ux-auditor.md",
+  "size": 35860,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": ".claude/agents/ux-designer.md",
+  "size": 33817,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": ".claude/agents/ux-writer.md",
+  "size": 25199,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": "docs/agents/frontend-engineer.md",
+  "size": 7374,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": "docs/agents/ux-auditor.md",
+  "size": 5877,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": "docs/agents/ux-designer.md",
+  "size": 5613,
+  "stars": 3,
+  "via": "tree"
+ },
+ {
+  "repo": "Shehabov/ai-dev-crew",
+  "ref": "main",
+  "path": "docs/agents/ux-writer.md",
+  "size": 5802,
+  "stars": 3,
+  "via": "tree"
+ }
+]

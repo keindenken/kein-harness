@@ -1,0 +1,43 @@
+design roles: all 405 records / 314 owners, agent 308 records / 254 owners, skill 97 records / 68 owners
+specificity: {'all': {1: 15, 2: 48, 3: 52, 4: 116, 5: 174}, 'agent': {1: 14, 2: 45, 3: 43, 4: 90, 5: 116}, 'skill': {1: 1, 2: 3, 3: 9, 4: 26, 5: 58}}
+external_files: {'all': '230/405 (57%)', 'agent': '157/308 (51%)', 'skill': '73/97 (75%)'}
+
+outputs:
+  all    spec-or-handoff 215 (53%), written-critique 165 (41%), design-tokens 160 (40%), design-system-docs 150 (37%), production-code 138 (34%), wireframe 80 (20%), prototype 51 (13%), redesign-existing 48 (12%), html-mockup 28 (7%), other 22 (5%), visual-asset 20 (5%)
+  agent  spec-or-handoff 179 (58%), design-system-docs 130 (42%), design-tokens 124 (40%), written-critique 123 (40%), production-code 82 (27%), wireframe 73 (24%), prototype 40 (13%), redesign-existing 33 (11%), visual-asset 18 (6%), other 18 (6%), html-mockup 15 (5%)
+  skill  production-code 56 (58%), written-critique 42 (43%), design-tokens 36 (37%), spec-or-handoff 36 (37%), design-system-docs 20 (21%), redesign-existing 15 (15%), html-mockup 13 (13%), prototype 11 (11%), wireframe 7 (7%), other 4 (4%), visual-asset 2 (2%)
+
+modes:
+  all    create 318 (79%), review 230 (57%), revise-existing 165 (41%)
+  agent  create 241 (78%), review 173 (56%), revise-existing 125 (41%)
+  skill  create 77 (79%), review 57 (59%), revise-existing 40 (41%)
+
+surfaces:
+  all    web 341 (84%), mobile 136 (34%), desktop 27 (7%), other 23 (6%), cli-tui 10 (2%)
+  agent  web 250 (81%), mobile 108 (35%), desktop 23 (7%), other 20 (6%), cli-tui 9 (3%)
+  skill  web 91 (94%), mobile 28 (29%), desktop 4 (4%), other 3 (3%), cli-tui 1 (1%)
+
+flag                         all              agent            skill           
+  inspects_existing_ui       250/405 (62%)    193/308 (63%)    57/97 (59%)     
+  follows_design_system      258/405 (64%)    201/308 (65%)    57/97 (59%)     
+  renders_and_looks          82/405 (20%)     44/308 (14%)     38/97 (39%)     
+  user_context_first         174/405 (43%)    137/308 (44%)    37/97 (38%)     
+  commits_to_direction       123/405 (30%)    77/308 (25%)     46/97 (47%)     
+  anti_generic               131/405 (32%)    82/308 (27%)     49/97 (51%)     
+  multiple_variants          60/405 (15%)     48/308 (16%)     12/97 (12%)     
+  accessibility              291/405 (72%)    233/308 (76%)    58/97 (60%)     
+  responsive                 231/405 (57%)    183/308 (59%)    48/97 (49%)     
+  states_coverage            232/405 (57%)    180/308 (58%)    52/97 (54%)     
+  concrete_values            238/405 (59%)    171/308 (56%)    67/97 (69%)     
+  references_named           166/405 (41%)    122/308 (40%)    44/97 (45%)     
+  output_contract            310/405 (77%)    243/308 (79%)    67/97 (69%)     
+  self_review_checklist      236/405 (58%)    164/308 (53%)    72/97 (74%)     
+  asks_before_designing      98/405 (24%)     66/308 (21%)     32/97 (33%)     
+  boundary_with_implementer  222/405 (55%)    193/308 (63%)    29/97 (30%)     
+
+flag rate by mode (all kinds):
+  create           n=318 inspects_e=56 follows_de=66 renders_an=16 user_conte=49 commits_to=37 anti_gener=35 multiple_v=18 accessibil=76
+  revise-existing  n=165 inspects_e=78 follows_de=82 renders_an=22 user_conte=50 commits_to=38 anti_gener=38 multiple_v=20 accessibil=81
+  review           n=230 inspects_e=75 follows_de=67 renders_an=29 user_conte=48 commits_to=29 anti_gener=32 multiple_v=15 accessibil=80
+
+not design roles: [('Primary job is converting given wireframes/mockups/screensho', 1), ('Implements pre-specified UI tasks from spec.md/tasks.md by m', 1), ('Implements design systems/components from given specs and Fi', 1), ('A React/React Native code-architecture rule about component ', 1), ('Purely a WCAG accessibility-compliance auditor for design to', 1), ('Writes frontend architecture/dependency design documents (fr', 1), ('UX research role producing Jobs-to-be-Done statements, journ', 1), ('just a bullet list of external links to the NHS UK design sy', 1), ('explicitly a UX research specialist producing JTBD analyses,', 1), ('Implements UI strictly within an existing documented design ', 1), ('A code-pattern reference for implementing dialog/HUD control', 1), ('Implements React/Tailwind components against a fixed brand-g', 1)]

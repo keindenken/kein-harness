@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0095",
+  "kind": "skill",
+  "file": "corpus-skills/plugin87_ux-ui-agent-skills__.claude_skills_design-component_SKILL.md",
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/design-component/SKILL.md",
+  "stars": 503,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0096",
+  "kind": "skill",
+  "file": "corpus-skills/plugin87_ux-ui-agent-skills__.claude_skills_migrate-design-system_SKILL.md",
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/migrate-design-system/SKILL.md",
+  "stars": 503,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0097",
+  "kind": "skill",
+  "file": "corpus-skills/plugin87_ux-ui-agent-skills__.claude_skills_prototype_SKILL.md",
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/prototype/SKILL.md",
+  "stars": 503,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0098",
+  "kind": "skill",
+  "file": "corpus-skills/rohitg00_pro-workflow__skills_design-engineering_SKILL.md",
+  "repo": "rohitg00/pro-workflow",
+  "path": "skills/design-engineering/SKILL.md",
+  "stars": 2776,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0099",
+  "kind": "skill",
+  "file": "corpus-skills/rshankras_claude-code-apple-skills__skills_design_ui-prototyping_SKILL.md",
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/design/ui-prototyping/SKILL.md",
+  "stars": 640,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0100",
+  "kind": "skill",
+  "file": "corpus-skills/rshankras_claude-code-apple-skills__skills_ios_ui-review_SKILL.md",
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/ios/ui-review/SKILL.md",
+  "stars": 640,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0101",
+  "kind": "skill",
+  "file": "corpus-skills/runkids_skillshare__.skillshare_skills_skillshare-ui-website-style_SKILL.md",
+  "repo": "runkids/skillshare",
+  "path": ".skillshare/skills/skillshare-ui-website-style/SKILL.md",
+  "stars": 2554,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0102",
+  "kind": "skill",
+  "file": "corpus-skills/samuelclay_NewsBlur__.claude_skills_make-interfaces-feel-better_SKILL.md",
+  "repo": "samuelclay/NewsBlur",
+  "path": ".claude/skills/make-interfaces-feel-better/SKILL.md",
+  "stars": 7587,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0103",
+  "kind": "skill",
+  "file": "corpus-skills/seaworld008_Commonly-used-high-value-skills__openclaw-skills_ui-ux-pro-max_SKILL.md",
+  "repo": "seaworld008/Commonly-used-high-value-skills",
+  "path": "openclaw-skills/ui-ux-pro-max/SKILL.md",
+  "stars": 65,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0104",
+  "kind": "skill",
+  "file": "corpus-skills/shobcoder_shob__skills_ui-ux-pro-max_SKILL.md",
+  "repo": "shobcoder/shob",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "stars": 583,
+  "copies_in_repos": 1
+ }
+]

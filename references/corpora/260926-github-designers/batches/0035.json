@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00692",
+  "kind": "agent",
+  "file": "corpus/Toskysun_sub-agents__agents_mobile-ui-designer.md",
+  "repo": "Toskysun/sub-agents",
+  "path": "agents/mobile-ui-designer.md",
+  "stars": 111,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00694",
+  "kind": "agent",
+  "file": "corpus/TheBeardedBearSAS_claude-craft__.claude_agents_ui-designer.md",
+  "repo": "TheBeardedBearSAS/claude-craft",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 105,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00697",
+  "kind": "agent",
+  "file": "corpus/TheJacksonCode_Agent-Architecture__agents_designer.md",
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "path": "agents/designer.md",
+  "stars": 102,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00699",
+  "kind": "agent",
+  "file": "corpus/TheJacksonCode_Agent-Architecture__agents_res_ux.md",
+  "repo": "TheJacksonCode/Agent-Architecture",
+  "path": "agents/res_ux.md",
+  "stars": 102,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00701",
+  "kind": "agent",
+  "file": "corpus/xuanbingbingo_claude-standard-dev-team__agents_ui-designer.md",
+  "repo": "xuanbingbingo/claude-standard-dev-team",
+  "path": "agents/ui-designer.md",
+  "stars": 101,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0000",
+  "kind": "skill",
+  "file": "corpus-skills/Galaxy-Dawn_claude-scholar__skills_frontend-design_SKILL.md",
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/frontend-design/SKILL.md",
+  "stars": 5113,
+  "copies_in_repos": 12
+ },
+ {
+  "id": "s0001",
+  "kind": "skill",
+  "file": "corpus-skills/Kiranism_next-shadcn-dashboard-starter__.agents_skills_web-design-guidelines_SKILL.md",
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "stars": 6822,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "s0002",
+  "kind": "skill",
+  "file": "corpus-skills/tech-leads-club_agent-skills__packages_skills-catalog_skills_(design)_frontend-design_SKILL.md",
+  "repo": "tech-leads-club/agent-skills",
+  "path": "packages/skills-catalog/skills/(design)/frontend-design/SKILL.md",
+  "stars": 5041,
+  "copies_in_repos": 3
+ },
+ {
+  "id": "s0003",
+  "kind": "skill",
+  "file": "corpus-skills/AgentWorkforce_relay__.agents_skills_emil-design-eng_SKILL.md",
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "stars": 793,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "s0004",
+  "kind": "skill",
+  "file": "corpus-skills/HKUDS_DeepCode__core_skills_builtin_frontend-design_SKILL.md",
+  "repo": "HKUDS/DeepCode",
+  "path": "core/skills/builtin/frontend-design/SKILL.md",
+  "stars": 16367,
+  "copies_in_repos": 2
+ }
+]

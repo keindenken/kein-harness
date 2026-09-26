@@ -1,0 +1,92 @@
+[
+ {
+  "id": "s0065",
+  "kind": "skill",
+  "file": "corpus-skills/ibelick_ui-skills__skills_ui-skills-root_SKILL.md",
+  "repo": "ibelick/ui-skills",
+  "path": "skills/ui-skills-root/SKILL.md",
+  "stars": 7277,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0066",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_make-interfaces-feel-better__skills_make-interfaces-feel-better_SKILL.md",
+  "repo": "jakubkrehel/make-interfaces-feel-better",
+  "path": "skills/make-interfaces-feel-better/SKILL.md",
+  "stars": 2936,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0067",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_skills__skills_better-colors_SKILL.md",
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-colors/SKILL.md",
+  "stars": 3874,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0068",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_skills__skills_better-interface_SKILL.md",
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-interface/SKILL.md",
+  "stars": 3874,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0069",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_skills__skills_better-typography_SKILL.md",
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-typography/SKILL.md",
+  "stars": 3874,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0070",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_skills__skills_better-ui_SKILL.md",
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-ui/SKILL.md",
+  "stars": 3874,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0071",
+  "kind": "skill",
+  "file": "corpus-skills/jakubkrehel_skills__skills_interface-review_SKILL.md",
+  "repo": "jakubkrehel/skills",
+  "path": "skills/interface-review/SKILL.md",
+  "stars": 3874,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0072",
+  "kind": "skill",
+  "file": "corpus-skills/jezweb_claude-skills__plugins_dev-tools_skills_ux-audit_SKILL.md",
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/dev-tools/skills/ux-audit/SKILL.md",
+  "stars": 969,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0073",
+  "kind": "skill",
+  "file": "corpus-skills/jezweb_claude-skills__plugins_frontend_skills_tailwind-theme-builder_SKILL.md",
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/frontend/skills/tailwind-theme-builder/SKILL.md",
+  "stars": 969,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0074",
+  "kind": "skill",
+  "file": "corpus-skills/julianoczkowski_designer-skills__frontend-design_SKILL.md",
+  "repo": "julianoczkowski/designer-skills",
+  "path": "frontend-design/SKILL.md",
+  "stars": 510,
+  "copies_in_repos": 1
+ }
+]

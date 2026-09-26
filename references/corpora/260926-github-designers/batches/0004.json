@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00065",
+  "kind": "agent",
+  "file": "corpus/EricTechPro_fitbox__.claude_agents_premium-ux-designer.md",
+  "repo": "EricTechPro/fitbox",
+  "path": ".claude/agents/premium-ux-designer.md",
+  "stars": 14,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00067",
+  "kind": "agent",
+  "file": "corpus/osok_claude-code-project-memory-mcp__.claude_agents_frontend-design-agent.md",
+  "repo": "osok/claude-code-project-memory-mcp",
+  "path": ".claude/agents/frontend-design-agent.md",
+  "stars": 2,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00068",
+  "kind": "agent",
+  "file": "corpus/timosur_agentic-coding-starter__.github_agents_03-design-system.agent.md",
+  "repo": "timosur/agentic-coding-starter",
+  "path": ".github/agents/03-design-system.agent.md",
+  "stars": 1,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00069",
+  "kind": "agent",
+  "file": "corpus/ForceMind_AI-Shakedown-Console__agents_content_design_design-ui-designer.md",
+  "repo": "ForceMind/AI-Shakedown-Console",
+  "path": "agents/content/design/design-ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00070",
+  "kind": "agent",
+  "file": "corpus/JoseCortezz25_aura__.claude_agents_ux-ui-designer.md",
+  "repo": "JoseCortezz25/aura",
+  "path": ".claude/agents/ux-ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00071",
+  "kind": "agent",
+  "file": "corpus/Kurdant_BLOCS_ACADENICE_B2__.github_agents_bmad-agent-bmm-ux-designer.md",
+  "repo": "Kurdant/BLOCS_ACADENICE_B2",
+  "path": ".github/agents/bmad-agent-bmm-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00072",
+  "kind": "agent",
+  "file": "corpus/koala-man-64_asset-allocation-contracts__.claude_agents_frontend-design.md",
+  "repo": "koala-man-64/asset-allocation-contracts",
+  "path": ".claude/agents/frontend-design.md",
+  "stars": 0,
+  "copies_in_repos": 6
+ },
+ {
+  "id": "c00074",
+  "kind": "agent",
+  "file": "corpus/davila7_claude-code-templates__cli-tool_components_agents_development-team_ui-designer.md",
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/agents/development-team/ui-designer.md",
+  "stars": 31792,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00077",
+  "kind": "agent",
+  "file": "corpus/zereight_gitlab-mcp__.github_agents_designer.agent.md",
+  "repo": "zereight/gitlab-mcp",
+  "path": ".github/agents/designer.agent.md",
+  "stars": 2004,
+  "copies_in_repos": 5
+ },
+ {
+  "id": "c00079",
+  "kind": "agent",
+  "file": "corpus/maslennikov-ig_claude-code-orchestrator-kit__.claude_agents_frontend_workers_nextjs-ui-designer.md",
+  "repo": "maslennikov-ig/claude-code-orchestrator-kit",
+  "path": ".claude/agents/frontend/workers/nextjs-ui-designer.md",
+  "stars": 253,
+  "copies_in_repos": 5
+ }
+]

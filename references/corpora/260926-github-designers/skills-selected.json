@@ -1,0 +1,2582 @@
+[
+ {
+  "repo": "0xsline/OpenChatCut",
+  "path": "src/agent/skills/create-motion-graphics/SKILL.md",
+  "sha": "efe8831e8045e31e47a56889f5d887be6c226ba7",
+  "size": "29322"
+ },
+ {
+  "repo": "0xsline/OpenChatCut",
+  "path": "src/agent/skills/motion-graphic-placement/SKILL.md",
+  "sha": "7eb3b63b3fecac82e5de889d117c526de2ac4a1e",
+  "size": "4011"
+ },
+ {
+  "repo": "24kchengYe/human-skill-tree",
+  "path": "app/content/skills/05-emotional-intelligence/SKILL.md",
+  "sha": "b8e5eaabc7816e7d1638acf50102b68a2cb0bcaf",
+  "size": "21159"
+ },
+ {
+  "repo": "AIPexStudio/AIPex",
+  "path": "packages/browser-runtime/src/skill/built-in/ux-audit-walkthrough/SKILL.md",
+  "sha": "31c3e72a50d014f3dad54352b83c364f277bac15",
+  "size": "7776"
+ },
+ {
+  "repo": "AIPexStudio/AIPex",
+  "path": "packages/browser-runtime/src/skill/built-in/wcag22-a11y-audit/SKILL.md",
+  "sha": "016600d211852d56b6a655e4d780cec794c701aa",
+  "size": "18921"
+ },
+ {
+  "repo": "Affitor/affiliate-skills",
+  "path": "skills/landing/landing-page-creator/SKILL.md",
+  "sha": "fac3224146014c1a0c6413330c9190321793b407",
+  "size": "14599"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "sha": "49689ec0a550ac9b4ec113ccf8b1418a7f269fba",
+  "size": "28251"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".agents/skills/review-animations/SKILL.md",
+  "sha": "6b1c1074cedc656a5aebc2653006ad2ed87f2a18",
+  "size": "8525"
+ },
+ {
+  "repo": "AgentWorkforce/relay",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "sha": "d5a05e27b85cf428fbd3473a3676beb695395653",
+  "size": "4278"
+ },
+ {
+  "repo": "Agenta-AI/agenta",
+  "path": ".agents/skills/mobile-motion-patterns/SKILL.md",
+  "sha": "28d03e5ae2a90c88f9fe1f4427b64ffe5e48fc82",
+  "size": "2088"
+ },
+ {
+  "repo": "Agenta-AI/agenta",
+  "path": ".agents/skills/mobile-shadcn-conventions/SKILL.md",
+  "sha": "a1e8144e8774586b4d54eb8b410c3fecb386359c",
+  "size": "3052"
+ },
+ {
+  "repo": "Agentchengfeng/chengfeng-videocut-skills",
+  "path": "plugins/chengfeng-videocut/skills/chengfeng-visual/animation-styles/ian-xiaohei-svg-motion/SKILL.md",
+  "sha": "5e90df5dbddcec37090569328ee6339bf55467aa",
+  "size": "4909"
+ },
+ {
+  "repo": "AgnosticUI/agnosticui",
+  "path": ".claude/skills/check-accessibility/SKILL.md",
+  "sha": "791dbcbd7310ddab482bdce29c59d6c888e73d39",
+  "size": "2540"
+ },
+ {
+  "repo": "AgnosticUI/agnosticui",
+  "path": ".claude/skills/update-component-docs/SKILL.md",
+  "sha": "ac04afa471ae95830e5ca66e1e94c371e41d7752",
+  "size": "2425"
+ },
+ {
+  "repo": "AgriciDaniel/claude-ads",
+  "path": "skills/ads-landing/SKILL.md",
+  "sha": "a0b1f492db5f67e7471e6e0b4433395bd5a6e178",
+  "size": "2448"
+ },
+ {
+  "repo": "Ar9av/obsidian-wiki",
+  "path": ".skills/graph-colorize/SKILL.md",
+  "sha": "63bf7f57c38efa195d7df00f33f055e69b8bdfe2",
+  "size": "8462"
+ },
+ {
+  "repo": "Archive228/loopkit",
+  "path": "skills/a11y-pass/SKILL.md",
+  "sha": "e2651dc37080382cef271b2475b27255cfe3299a",
+  "size": "875"
+ },
+ {
+  "repo": "Archive228/loopkit",
+  "path": "skills/design-system/SKILL.md",
+  "sha": "6a5c8e0b51d824917c5b282d2b97280cb3bdaf42",
+  "size": "978"
+ },
+ {
+  "repo": "BankrBot/skills",
+  "path": "ethskills-frontend-ux/SKILL.md",
+  "sha": "9b832d109cc5773ce8b93a547fb17efc07afd70a",
+  "size": "398"
+ },
+ {
+  "repo": "Besty0728/Unity-Skills",
+  "path": "SkillsForUnity/unity-skills~/skills/component/SKILL.md",
+  "sha": "82f66cd42ac704e34a1ba4bc1f79ddebab141a9c",
+  "size": "17100"
+ },
+ {
+  "repo": "CharlesWiltgen/Axiom",
+  "path": ".claude-plugin/plugins/axiom/skills/axiom-accessibility/SKILL.md",
+  "sha": "077ace381baadef1acfffd500f7e79f60721a5b3",
+  "size": "8574"
+ },
+ {
+  "repo": "ChrisWiles/claude-code-showcase",
+  "path": ".claude/skills/core-components/SKILL.md",
+  "sha": "eb54e7ce73aaf6f5e85dcd912a6aabadf24101ff",
+  "size": "4793"
+ },
+ {
+  "repo": "ChrisWiles/claude-code-showcase",
+  "path": ".claude/skills/react-ui-patterns/SKILL.md",
+  "sha": "b33c37680fcec4ad17445d957c678827f231d820",
+  "size": "6488"
+ },
+ {
+  "repo": "CloudAI-X/claude-workflow-v2",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "sha": "bb219458ad81c50e1b9bda1619c8a86a92e48bb1",
+  "size": "6544"
+ },
+ {
+  "repo": "ConardLi/garden-skills",
+  "path": "skills/web-design-engineer/SKILL.md",
+  "sha": "0934e015adc4edc5afe2ce2c87b1eaf2527d8531",
+  "size": "35406"
+ },
+ {
+  "repo": "Destynova2/cli-code-skills",
+  "path": "cli-forge-choice-ux/SKILL.md",
+  "sha": "f1926495910858525a579c2b4731fba351f69257",
+  "size": "9660"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": ".opencode/skills/shadcn/SKILL.md",
+  "sha": "016f824d17974e5715a0e9a6e96af2001ee25e7c",
+  "size": "18114"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-code-connect/SKILL.md",
+  "sha": "a2a4659df361e828e3899e38c98b1878e27d0aed",
+  "size": "25657"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-generate-library/SKILL.md",
+  "sha": "80db1621f429613b3d518582ad9c25b8615f3003",
+  "size": "22877"
+ },
+ {
+  "repo": "Devin-AXIS/iPolloWork",
+  "path": "examples/plugin-packages/figma/skills/figma-use-figjam/SKILL.md",
+  "sha": "846c2897d4e83f1518d32770a47f1ee1c09cf89c",
+  "size": "7089"
+ },
+ {
+  "repo": "Dimillian/Skills",
+  "path": "react-component-performance/SKILL.md",
+  "sha": "558359894716adaca5319959b2d60a93b4f72949",
+  "size": "4693"
+ },
+ {
+  "repo": "Dimillian/Skills",
+  "path": "swiftui-ui-patterns/SKILL.md",
+  "sha": "d7a18c3c67a8479f105ce97db1a497758d434125",
+  "size": "7440"
+ },
+ {
+  "repo": "Ed1s0nZ/CyberStrikeAI",
+  "path": "skills/component-vuln-intel/SKILL.md",
+  "sha": "0a04dee3baf3e547a822edd92dc9fbf5adb07f45",
+  "size": "4574"
+ },
+ {
+  "repo": "Egonex-AI/Understand-Anything",
+  "path": "understand-anything-plugin/skills/understand-figma/SKILL.md",
+  "sha": "4f375c71b43d91b4ab9c942a98fc63582501654b",
+  "size": "4137"
+ },
+ {
+  "repo": "Emily2040/seedance-2.0",
+  "path": "skills/seedance-motion/SKILL.md",
+  "sha": "4e2aadddffe85273bf622b499e8130634302da75",
+  "size": "5326"
+ },
+ {
+  "repo": "EveryInc/compound-engineering-plugin",
+  "path": "skills/ce-prototype/SKILL.md",
+  "sha": "56211e487b89618268b44117119a3d92d7684835",
+  "size": "13900"
+ },
+ {
+  "repo": "Gaku52/software-engineering-universe",
+  "path": "04-web-and-network/web-accessibility/SKILL.md",
+  "sha": "f90330a97f7e6320a56e690e391d1ef54ed983be",
+  "size": "4207"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "f46078f60a6398dc80afab34195ef8f18e28c076",
+  "size": "4455"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "sha": "e85652f27f2da995782e43ebdfab4bf20d8ebdd3",
+  "size": "4268"
+ },
+ {
+  "repo": "Galaxy-Dawn/claude-scholar",
+  "path": "skills/web-design-reviewer/SKILL.md",
+  "sha": "057af1cbe4f61ea3e3661df2fb3d0f884dbcb61d",
+  "size": "10535"
+ },
+ {
+  "repo": "Gentleman-Programming/Gentleman-Skills",
+  "path": "curated/tailwind-4/SKILL.md",
+  "sha": "075a513feed8986e7964c1838947be86c6b16b05",
+  "size": "4705"
+ },
+ {
+  "repo": "HKUDS/DeepCode",
+  "path": "core/skills/builtin/frontend-design/SKILL.md",
+  "sha": "decdff43d05908b4c1fc2cfd2d80fc5743440934",
+  "size": "8260"
+ },
+ {
+  "repo": "Haohao-end/openagent",
+  "path": "api/internal/core/skills/catalog/figma/SKILL.md",
+  "sha": "b4f18d2969fe827778b13b5a0fb08a158ec091b1",
+  "size": "3170"
+ },
+ {
+  "repo": "Haohao-end/openagent",
+  "path": "api/internal/core/skills/catalog/figma-use/SKILL.md",
+  "sha": "4b0e23f53d8160e1623177f518535d1588a53c69",
+  "size": "17799"
+ },
+ {
+  "repo": "IvanMurzak/Unity-MCP",
+  "path": "Unity-MCP-Plugin/.claude/skills/gameobject-component-destroy/SKILL.md",
+  "sha": "0eda858bb73cfa083cb395e83592a66a07422d06",
+  "size": "6667"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/kiranism-shadcn-dashboard/SKILL.md",
+  "sha": "c578cc272760361cc7c114a2f0c0e2ff8886004e",
+  "size": "23308"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "sha": "8c01af929563a687f691ccc7f4eeacb6b3c09d1c",
+  "size": "19415"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "sha": "fcaa33a6a235e703f9adcb5ce3f691b3993062c8",
+  "size": "1232"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".claude/skills/kiranism-shadcn-dashboard/SKILL.md",
+  "sha": "00cdae373a8621843b2758979ad8e8ae2efb379b",
+  "size": "12211"
+ },
+ {
+  "repo": "Kiranism/next-shadcn-dashboard-starter",
+  "path": ".claude/skills/web-design-guidelines/SKILL.md",
+  "sha": "fcaa33a6a235e703f9adcb5ce3f691b3993062c8",
+  "size": "1232"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/brandkit/SKILL.md",
+  "sha": "d76399f666af97ac8c142928e02602d9732e78aa",
+  "size": "15992"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/gpt-tasteskill/SKILL.md",
+  "sha": "03ed209b8fdc0a3cd6bccf8a5b3bfffe56aa4558",
+  "size": "7857"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/imagegen-frontend-mobile/SKILL.md",
+  "sha": "9d8d55f3ca7a77e18329922ea8a67694dee52ebb",
+  "size": "40326"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/imagegen-frontend-web/SKILL.md",
+  "sha": "26b293b8d0088631c41ebefde4a650768d01cf22",
+  "size": "36854"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill/SKILL.md",
+  "sha": "b72132fcd466da605623ffe96e370b3991fc5285",
+  "size": "87253"
+ },
+ {
+  "repo": "Leonxlnx/taste-skill",
+  "path": "skills/taste-skill-v1/SKILL.md",
+  "sha": "4054982cd292c7fe6d01170c2372e986a427d776",
+  "size": "21195"
+ },
+ {
+  "repo": "Light0305/Light-skills",
+  "path": "skills/light-frontend-design/SKILL.md",
+  "sha": "ef42424277991999d634c23b7dfff6bb9190ac26",
+  "size": "21694"
+ },
+ {
+  "repo": "LottieFiles/motion-design-skill",
+  "path": "skills/motion-design/SKILL.md",
+  "sha": "9b5e2df492752a8343f21a6782a16c97ca5d8f9f",
+  "size": "12580"
+ },
+ {
+  "repo": "MengTo/Skills",
+  "path": "agent-skills/web-design/cinematic-gsap-lenis-motion-system/SKILL.md",
+  "sha": "1aa69da8460ce0db325765de5ff14c1d6b92960f",
+  "size": "17600"
+ },
+ {
+  "repo": "MengTo/Skills",
+  "path": "agent-skills/web-design/css-border-gradient/SKILL.md",
+  "sha": "c5287d620e6f64e1e994e7497d4512c864506acc",
+  "size": "2931"
+ },
+ {
+  "repo": "Mesh-LLM/mesh-llm",
+  "path": ".agents/skills/plugin-web-ui-extension/SKILL.md",
+  "sha": "82b2c41c45de2fd04da36ce75c06c422889c38e6",
+  "size": "7978"
+ },
+ {
+  "repo": "MiniMax-AI/MiniMax-H3",
+  "path": "skills/3d-animation-short-generator/SKILL.md",
+  "sha": "6ddc1102a8c353b4be4c939444b24f62e5552cde",
+  "size": "14961"
+ },
+ {
+  "repo": "MiniMax-AI/MiniMax-H3",
+  "path": "skills/papercraft-stop-motion-explainer/SKILL.md",
+  "sha": "536ee4f2ffa3593cf744f85566492ddf270062d9",
+  "size": "22882"
+ },
+ {
+  "repo": "OpenSenseNova/SenseNova-Skills",
+  "path": "skills/sn-da-excel-workflow/capability/excel-cell-coloring/top-value-coloring/SKILL.md",
+  "sha": "9c68aba8e30577d34e367106bf26a7bfd84e3b31",
+  "size": "3802"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-craft-checks/SKILL.md",
+  "sha": "50f9c332f133bd711cb54a602c26357ca64aac54",
+  "size": "10418"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-design-source/SKILL.md",
+  "sha": "e560d162d26946fbab08f8d756f3bce59e58a478",
+  "size": "8463"
+ },
+ {
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/SKILL.md",
+  "sha": "738ef3bb3b339a8ea7a40bbe68f1c379b63fc69e",
+  "size": "4423"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "design-systems/skills/accessibility-audit/SKILL.md",
+  "sha": "8bbd6c39fe5234768b5b69f6207cd9e60b530a93",
+  "size": "1389"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "design-systems/skills/motion-system/SKILL.md",
+  "sha": "93b767da3bf1735c18605a623601d08cefd611a6",
+  "size": "4515"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "designer-toolkit/skills/design-system-adoption/SKILL.md",
+  "sha": "035bb93f11ef1ac22bbdec211e73ba2a55f00e2d",
+  "size": "2186"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "interaction-design/skills/error-handling-ux/SKILL.md",
+  "sha": "ed88017380523be994ab5aaed6030a2ec38bf4e6",
+  "size": "1950"
+ },
+ {
+  "repo": "Owl-Listener/designer-skills",
+  "path": "ui-design/skills/typography-scale/SKILL.md",
+  "sha": "5f65c64b2b565ecad589f6fc7e56a25957e0a9d6",
+  "size": "1542"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/chengfeng-videocut-skills/\u53e3\u64ad\u6210\u7247/\u52a8\u753b/ian-xiaohei-svg-motion/SKILL.md",
+  "sha": "5e90df5dbddcec37090569328ee6339bf55467aa",
+  "size": "4909"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/editorial-collage-motion/SKILL.md",
+  "sha": "731a6b1506d2b82bd54c488a1473b1c344b77aba",
+  "size": "9122"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/rn-motion-director/SKILL.md",
+  "sha": "d7517f12466990f86e28cb1cc48f67b2ba99cb0c",
+  "size": "6370"
+ },
+ {
+  "repo": "Pluviobyte/rnskill",
+  "path": "skills/rn-motion-replica/SKILL.md",
+  "sha": "223b96593074b91d7468fdb1f3e8f058c5a1ff36",
+  "size": "6917"
+ },
+ {
+  "repo": "Pluviobyte/video-production-skills",
+  "path": "ai-motion-director/SKILL.md",
+  "sha": "302fe0d654b9b9d46f29158a6cb5776053e03678",
+  "size": "6402"
+ },
+ {
+  "repo": "Prat011/awesome-llm-skills",
+  "path": "brand-guidelines/SKILL.md",
+  "sha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+  "size": "2235"
+ },
+ {
+  "repo": "Prat011/awesome-llm-skills",
+  "path": "canvas-design/SKILL.md",
+  "sha": "9f63fee82de84cd4230e1d0e322247b61eb4c94c",
+  "size": "11939"
+ },
+ {
+  "repo": "QwenLM/qwen-code",
+  "path": "packages/desktop/.agents/skills/desktop-brand-builder/SKILL.md",
+  "sha": "c22d02305067cb3fa5e9b674577030aab8cbf4e4",
+  "size": "4677"
+ },
+ {
+  "repo": "RightNow-AI/openfang",
+  "path": "crates/openfang-skills/bundled/css-expert/SKILL.md",
+  "sha": "247b7d802bdcfece4866770edb754773fab9b468",
+  "size": "3150"
+ },
+ {
+  "repo": "SpaceZephyr/design-buddy",
+  "path": "space-brand-ui-design/SKILL.md",
+  "sha": "0dcac311a0294417f1577ea9f7a35b5349bfde6b",
+  "size": "6519"
+ },
+ {
+  "repo": "TencentCloudBase/CloudBase-AI-Toolkit",
+  "path": "config/.claude/skills/ui-design/SKILL.md",
+  "sha": "82a219ab108332b4a6081f9092be07c903a20a05",
+  "size": "15996"
+ },
+ {
+  "repo": "TencentCloudBase/CloudBase-AI-Toolkit",
+  "path": "plugin/cloudbase/skills/ui-design/SKILL.md",
+  "sha": "82a219ab108332b4a6081f9092be07c903a20a05",
+  "size": "15996"
+ },
+ {
+  "repo": "ThePrimeagen/99",
+  "path": "scratch/custom_rules/front-end/SKILL.md",
+  "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+  "size": "0"
+ },
+ {
+  "repo": "ThinkInAIXYZ/deepchat",
+  "path": "resources/skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "Tom-Babb/ai-marketing-skills-with-by-tom-babb",
+  "path": "skills/brand-from-references/SKILL.md",
+  "sha": "5831109ab304d02dacb63fa73678dc6717ba2abf",
+  "size": "4418"
+ },
+ {
+  "repo": "Tom-Babb/ai-marketing-skills-with-by-tom-babb",
+  "path": "skills/brand-operating-system/SKILL.md",
+  "sha": "ac2ec56a12d8214e6575201a1806d21eb2cca445",
+  "size": "6135"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/audits/accessibility/SKILL.md",
+  "sha": "dec3184aeadb3e2c11914e91fd628c44e08d123a",
+  "size": "13879"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/color/SKILL.md",
+  "sha": "49acba1c574c0bec5f5f3c11e7de5bc99c480db0",
+  "size": "8350"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/foundations/typography/SKILL.md",
+  "sha": "e80162a918d81e15203a7edac8b22be4d0ad1a09",
+  "size": "7512"
+ },
+ {
+  "repo": "Uxcel-Lab/product-skills",
+  "path": "ux/screens/landing-page/SKILL.md",
+  "sha": "4060b8b2984d4b8036163906c0234cad2434e9ec",
+  "size": "10990"
+ },
+ {
+  "repo": "WorldFlowAI/everything-claude-code",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "sha": "05a796a15ea181643c1a8ee8d014f89c30ecb5f1",
+  "size": "14311"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/canvas-design/SKILL.md",
+  "sha": "9f63fee82de84cd4230e1d0e322247b61eb4c94c",
+  "size": "11939"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/figma/SKILL.md",
+  "sha": "b4f18d2969fe827778b13b5a0fb08a158ec091b1",
+  "size": "3170"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/figma-implement-design/SKILL.md",
+  "sha": "8581cfc2a60e493b43703811db2c98425a6cf25c",
+  "size": "11513"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "sha": "7ce388026ef6f8e96cda5ec9343612b5cb13c98e",
+  "size": "14759"
+ },
+ {
+  "repo": "YuxiaoWang-520/harness-craft",
+  "path": "skills/frontend-slides/SKILL.md",
+  "sha": "3d41eb4fa7a8a16e24161a8d12684223ac0cc42b",
+  "size": "6558"
+ },
+ {
+  "repo": "a5c-ai/babysitter",
+  "path": "library/specializations/game-development/skills/animation-blending/SKILL.md",
+  "sha": "4712fcfc3d90413aecf07bc77a0f7852918a0714",
+  "size": "403"
+ },
+ {
+  "repo": "aaron-he-zhu/aaron-marketing-skills",
+  "path": "narrative/architect/brand-language-codifier/SKILL.md",
+  "sha": "1563a9cb9efd6ab4b71dbc82118f3fdc9a67990e",
+  "size": "13070"
+ },
+ {
+  "repo": "actionbook/actionbook",
+  "path": "playground/json-ui-skill/SKILL.md",
+  "sha": "2e9a6765677ad3a5626540e9dbae7730a7614088",
+  "size": "11141"
+ },
+ {
+  "repo": "addyosmani/agent-skills",
+  "path": "skills/frontend-ui-engineering/SKILL.md",
+  "sha": "837df875900d4d431c6d51a3251bac0d4bd5dfed",
+  "size": "10711"
+ },
+ {
+  "repo": "addyosmani/web-quality-skills",
+  "path": "skills/accessibility/SKILL.md",
+  "sha": "f62cdee9bf7f4da9bf8dbbd65ec1b420c1d57184",
+  "size": "13178"
+ },
+ {
+  "repo": "adriannoes/awesome-agentic-ai",
+  "path": "cursor-claude-codex/skills/taste-skills/skills/imagegen-frontend-web/SKILL.md",
+  "sha": "26b293b8d0088631c41ebefde4a650768d01cf22",
+  "size": "36854"
+ },
+ {
+  "repo": "affaan-m/ECC",
+  "path": "skills/frontend-patterns/SKILL.md",
+  "sha": "a63977a8b0a8896217a884cdf9e6d49fc8771be6",
+  "size": "15432"
+ },
+ {
+  "repo": "aitytech/agentkits-marketing",
+  "path": "skills/brand-building/SKILL.md",
+  "sha": "58b18db0381a0eec8ce2bad3b7a16f6666941291",
+  "size": "6067"
+ },
+ {
+  "repo": "anbeime/skill",
+  "path": "skills/frontend-design/frontend-design/SKILL.md",
+  "sha": "43aec9ae8e8ed6b2e5a4706f811c4c88ffad5e81",
+  "size": "4275"
+ },
+ {
+  "repo": "anbeime/skill",
+  "path": "skills/web-design-analyzer/web-design-analyzer/SKILL.md",
+  "sha": "731ca37940d8e4fc0524be54a310e93ceedf68ab",
+  "size": "4843"
+ },
+ {
+  "repo": "ancoleman/ai-design-components",
+  "path": "skills/assembling-components/SKILL.md",
+  "sha": "b561a5ca84535fb42aea631fd11b6cecc7ed38ff",
+  "size": "14016"
+ },
+ {
+  "repo": "antfu/skills",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "sha": "ceae92ab319216a68274168fba9b63b998b65997",
+  "size": "1231"
+ },
+ {
+  "repo": "anthropics/claude-plugins-official",
+  "path": "plugins/frontend-design/skills/frontend-design/SKILL.md",
+  "sha": "decdff43d05908b4c1fc2cfd2d80fc5743440934",
+  "size": "8260"
+ },
+ {
+  "repo": "anthropics/skills",
+  "path": "skills/brand-guidelines/SKILL.md",
+  "sha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+  "size": "2235"
+ },
+ {
+  "repo": "anthropics/skills",
+  "path": "skills/canvas-design/SKILL.md",
+  "sha": "9f63fee82de84cd4230e1d0e322247b61eb4c94c",
+  "size": "11939"
+ },
+ {
+  "repo": "anthropics/skills",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "decdff43d05908b4c1fc2cfd2d80fc5743440934",
+  "size": "8260"
+ },
+ {
+  "repo": "appeeky/stripe-skills",
+  "path": "skills/coupon-promotion-audit/SKILL.md",
+  "sha": "5e706be87152706f78cad9e9564de654f1d7514f",
+  "size": "1173"
+ },
+ {
+  "repo": "artokun/comfyui-mcp",
+  "path": "plugin/skills/color-correction/SKILL.md",
+  "sha": "3bed3ca727bb3605464218e1a0383ae20f14e974",
+  "size": "9746"
+ },
+ {
+  "repo": "artokun/comfyui-mcp",
+  "path": "plugin/skills/comfyui-frontend-extensions/SKILL.md",
+  "sha": "f2540aeb701b221d76f10859100bedf9b6395780",
+  "size": "21448"
+ },
+ {
+  "repo": "avibebuilder/claude-prime",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "sha": "b8fdde7bfe484619a49018d95874cf4c5038615c",
+  "size": "8428"
+ },
+ {
+  "repo": "avibebuilder/claude-prime",
+  "path": ".claude/starter-skills/frontend-development/SKILL.md",
+  "sha": "02393a0e233340d0b60eec07ce6312ded0151392",
+  "size": "5107"
+ },
+ {
+  "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+  "path": ".agents/skills/ui-ux-pro-max/SKILL.md",
+  "sha": "41f8e2fd7f8c568228d0b55186ebe3f7b4007377",
+  "size": "15969"
+ },
+ {
+  "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "sha": "ceae92ab319216a68274168fba9b63b998b65997",
+  "size": "1231"
+ },
+ {
+  "repo": "beshuaxian/higgsfield-seedance2-jineng",
+  "path": "skills/06-motion-design-ad/SKILL.md",
+  "sha": "e89dd4074d2c752a0a55f8e9b958fff939c54b58",
+  "size": "57407"
+ },
+ {
+  "repo": "beshuaxian/higgsfield-seedance2-jineng",
+  "path": "skills/12-brand-story/SKILL.md",
+  "sha": "63cdbfee1621d8ca08d61e79af54f2ac9959018d",
+  "size": "54805"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-a11y/SKILL.md",
+  "sha": "f70df9296e4036c6bb40dd4b84306349b2b243bb",
+  "size": "3405"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-component/SKILL.md",
+  "sha": "59ecfc319c5016b678f8667c6c224c033b46a7ae",
+  "size": "3060"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "engine/.claude/skills/ss-motion/SKILL.md",
+  "sha": "c035cdf4e972608904bc1adf377bbf912827e5eb",
+  "size": "10417"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "skills/ss-a11y/SKILL.md",
+  "sha": "f70df9296e4036c6bb40dd4b84306349b2b243bb",
+  "size": "3405"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "skills/ss-component/SKILL.md",
+  "sha": "59ecfc319c5016b678f8667c6c224c033b46a7ae",
+  "size": "3060"
+ },
+ {
+  "repo": "bitjaru/styleseed",
+  "path": "skills/ss-motion/SKILL.md",
+  "sha": "c035cdf4e972608904bc1adf377bbf912827e5eb",
+  "size": "10417"
+ },
+ {
+  "repo": "butterbase-ai/butterbase-skills",
+  "path": "skills/deploy-frontend/SKILL.md",
+  "sha": "6aecba1f16ba95bf9ff7808c952fb74430752a24",
+  "size": "11130"
+ },
+ {
+  "repo": "butterbase-ai/butterbase-skills",
+  "path": "skills/journey-frontend/SKILL.md",
+  "sha": "c05684a8d157d17f275155eed085461d97cab3ff",
+  "size": "3560"
+ },
+ {
+  "repo": "bytedance/deer-flow",
+  "path": "skills/public/frontend-design/SKILL.md",
+  "sha": "fceaa830b03617c1406ce45a749c94dac59ef37f",
+  "size": "7409"
+ },
+ {
+  "repo": "bytedance/deer-flow",
+  "path": "skills/public/web-design-guidelines/SKILL.md",
+  "sha": "ceae92ab319216a68274168fba9b63b998b65997",
+  "size": "1231"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".agents/skills/hyperframes-animation/SKILL.md",
+  "sha": "416c7c10a416cd8ac1b428114a2f6573c86fc62f",
+  "size": "7122"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".agents/skills/svg-character-animation/SKILL.md",
+  "sha": "3a0ddaa28483d4f65c234c32079e44c086356f30",
+  "size": "1681"
+ },
+ {
+  "repo": "calesthio/OpenMontage",
+  "path": ".claude/skills/threejs-animation/SKILL.md",
+  "sha": "91742cedece4dadc8f8c54037dd7c85c35906b3b",
+  "size": "12557"
+ },
+ {
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".claude/skills/team-motion-design/SKILL.md",
+  "sha": "3b40ec9fcfd8c21c6197dfbdd14592953b84f2f6",
+  "size": "5666"
+ },
+ {
+  "repo": "catlog22/Claude-Code-Workflow",
+  "path": ".codex/skills/team-ux-improve/SKILL.md",
+  "sha": "03e9843ec39e4768112c0a71e7cd595cb5d3257e",
+  "size": "9120"
+ },
+ {
+  "repo": "chrisallenlane/claude-swe-workflows",
+  "path": "skills/review-a11y/SKILL.md",
+  "sha": "0376b53d318b75ace540d566c498b4119ddd63ff",
+  "size": "5744"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design/SKILL.md",
+  "sha": "1dff30b1d360c9110dfbbbb2f95a08213b64f179",
+  "size": "4439"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-landing-page/SKILL.md",
+  "sha": "b8d38aaa660242368420ce117ec1d91848df034a",
+  "size": "98510"
+ },
+ {
+  "repo": "cloudflare/vibesdk",
+  "path": "worker/agents/think/skills/frontend-design-saas/SKILL.md",
+  "sha": "bf5dc9a4457a2e69cee6d1e6a75dceadf454f62e",
+  "size": "125586"
+ },
+ {
+  "repo": "code-yeongyu/lazycodex",
+  "path": "plugins/omo/skills/frontend/SKILL.md",
+  "sha": "bae2a7ac6fcab15a11f50c86b494ada0187569ec",
+  "size": "19125"
+ },
+ {
+  "repo": "coleam00/second-brain-skills",
+  "path": ".claude/skills/brand-voice-generator/SKILL.md",
+  "sha": "4179f0d3cf36eb06822dbad8437869e471044cea",
+  "size": "9995"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "canvas-design/skills/canvas-design/SKILL.md",
+  "sha": "bd6f0e647a2404fb601e90b5300f89d7d693a0aa",
+  "size": "4474"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "frontend-design/skills/frontend-design/SKILL.md",
+  "sha": "29b61bf8c1c2b21ab90dffe5ed0b3814224d50c8",
+  "size": "4236"
+ },
+ {
+  "repo": "composio-community/awesome-claude-plugins",
+  "path": "senior-frontend/skills/senior-frontend/SKILL.md",
+  "sha": "52f221e25ad174408fd96fa8ad3ba6cc71bf53d3",
+  "size": "4899"
+ },
+ {
+  "repo": "composio-community/open-claude-cowork",
+  "path": ".claude/skills/brand-guidelines/SKILL.md",
+  "sha": "ab0390166cd1e81077e0544d2eda71c92ebcde1a",
+  "size": "2234"
+ },
+ {
+  "repo": "composio-community/open-claude-cowork",
+  "path": ".claude/skills/remotion-best-practices/SKILL.md",
+  "sha": "8df71c07c8b086579b626c3472cc8a7e0ba4e7e7",
+  "size": "5325"
+ },
+ {
+  "repo": "compozy/compozy",
+  "path": ".agents/skills/better-accessibility/SKILL.md",
+  "sha": "4374300bafe1d56aa59d7941217d52b77095dac3",
+  "size": "12293"
+ },
+ {
+  "repo": "compozy/compozy",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "sha": "3d86f352ae206341205464222c2d51323c56739b",
+  "size": "4049"
+ },
+ {
+  "repo": "countbot-ai/CountBot",
+  "path": "workspace/skills/web-design/SKILL.md",
+  "sha": "f2462a156f69a6a57a8a86ac476b3eb3161bd24d",
+  "size": "5621"
+ },
+ {
+  "repo": "danielmiessler/LifeOS",
+  "path": "LifeOS/install/skills/Remotion/SKILL.md",
+  "sha": "c6ad3e2499672a62e43cb7f1cbafd22a54fb1df2",
+  "size": "5350"
+ },
+ {
+  "repo": "danielmiessler/LifeOS",
+  "path": "LifeOS/install/skills/Webdesign/SKILL.md",
+  "sha": "b4b3be8edc4acea563e46e15e3dc4fbab00d9c8d",
+  "size": "17635"
+ },
+ {
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/nextjs-expert/skills/server-components/SKILL.md",
+  "sha": "f1e9a4489487642a3a3ca4ce7694e7e8d9b4d833",
+  "size": "6009"
+ },
+ {
+  "repo": "davila7/claude-code-templates",
+  "path": "cli-tool/components/skills/video/remotion/SKILL.md",
+  "sha": "5b72fa8d93506c18a96a54ee2667561066101ce5",
+  "size": "6323"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-calling-frontend/SKILL.md",
+  "sha": "5dc336b0a4e5faca42019dd86061f2826b7c407f",
+  "size": "9750"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-events/SKILL.md",
+  "sha": "5e6409f44fab03f2ce4d846cd24f4b55a8deacab",
+  "size": "10995"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-js/SKILL.md",
+  "sha": "2d973c369f79d65b40023c1fb08d33c617c15eb9",
+  "size": "10288"
+ },
+ {
+  "repo": "dchuk/claude-code-tauri-skills",
+  "path": "tauri/tauri-frontend-rust/SKILL.md",
+  "sha": "5e62cb3f079baf9eb00008609a27e2f49a1f7a33",
+  "size": "10659"
+ },
+ {
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "path": ".agents/skills/frontend-dev-guidelines/SKILL.md",
+  "sha": "c691f474f3f17f5d55942c522226b94fb32fcdf6",
+  "size": "11487"
+ },
+ {
+  "repo": "diet103/claude-code-infrastructure-showcase",
+  "path": ".claude/skills/frontend-dev-guidelines/SKILL.md",
+  "sha": "c691f474f3f17f5d55942c522226b94fb32fcdf6",
+  "size": "11487"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "sha": "43aec9ae8e8ed6b2e5a4706f811c4c88ffad5e81",
+  "size": "4275"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/remotion/SKILL.md",
+  "sha": "ad487f00cf7b833507a2e2f2d09ca887bd9c31c3",
+  "size": "6179"
+ },
+ {
+  "repo": "digitalsamba/claude-code-video-toolkit",
+  "path": ".claude/skills/remotion-official/SKILL.md",
+  "sha": "829e1fdba37b2682b8c31c00d6770fd7c6f1f6fd",
+  "size": "9676"
+ },
+ {
+  "repo": "dp-archive/archive",
+  "path": "seed_skills/brand-identity/SKILL.md",
+  "sha": "29479019352ad468bc306fd8f39eef5ec9f66203",
+  "size": "11337"
+ },
+ {
+  "repo": "dp-archive/archive",
+  "path": "seed_skills/canvas-design/SKILL.md",
+  "sha": "9f63fee82de84cd4230e1d0e322247b61eb4c94c",
+  "size": "11939"
+ },
+ {
+  "repo": "dp-archive/archive",
+  "path": "seed_skills/remotion-best-practices/SKILL.md",
+  "sha": "2f4684a0defc37b41529443db87a48a78baa19cb",
+  "size": "4097"
+ },
+ {
+  "repo": "dpearson2699/swift-ios-skills",
+  "path": "skills/swiftui-layout-components/SKILL.md",
+  "sha": "8c5de34ae5972dbfb4d08a7507a09d6745e334c2",
+  "size": "11736"
+ },
+ {
+  "repo": "dstackai/dstack",
+  "path": "skills/dstack-prototyping/SKILL.md",
+  "sha": "c41cf24650d8c82eb440ac7fbd787dee441def47",
+  "size": "4593"
+ },
+ {
+  "repo": "dtsola/xiaoyaosearch",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "sha": "600b6db41fac7e2081c7528ec6982960892c819d",
+  "size": "4274"
+ },
+ {
+  "repo": "dtsola/xiaoyaosearch",
+  "path": ".claude/skills/remotion-best-practices/SKILL.md",
+  "sha": "02518ae0538934b87adf6b59506a8beb69113bed",
+  "size": "3592"
+ },
+ {
+  "repo": "elayadesign/ai-design-skills",
+  "path": "skills/landing-page-design/SKILL.md",
+  "sha": "d1f81e4f1142c0369828b14f4d04ccd5b898106a",
+  "size": "16528"
+ },
+ {
+  "repo": "evanca/flutter-ai-rules",
+  "path": "skills/accessibility/SKILL.md",
+  "sha": "2f266c77e23003e2357f8d7d3bd989e18be19340",
+  "size": "8312"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-design-system/SKILL.md",
+  "sha": "9fc4f1e9642f2b85873520353125caf66f278f2e",
+  "size": "16958"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-native-ui/SKILL.md",
+  "sha": "d080e80ce37edc1f0139019299c20cf9815bba9f",
+  "size": "9000"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-tailwind-setup/SKILL.md",
+  "sha": "a9d58222f0029f43d2d7824ea34756037fbbf6a2",
+  "size": "12486"
+ },
+ {
+  "repo": "expo/skills",
+  "path": "plugins/expo/skills/expo-ui/SKILL.md",
+  "sha": "ff356a73db2f5b5cf1bf3b46b5afcf249b11f9ea",
+  "size": "5006"
+ },
+ {
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/domains/frontend-design/SKILL.md",
+  "sha": "fa9f88729b2f2d0ac15428680ff55492c8739c6e",
+  "size": "13104"
+ },
+ {
+  "repo": "fengshao1227/ccg-workflow",
+  "path": "templates/skills/impeccable/colorize/SKILL.md",
+  "sha": "ef1c3b467b4010bababa7272533f732471b3bd50",
+  "size": "6875"
+ },
+ {
+  "repo": "first-fluke/oh-my-agent",
+  "path": ".agents/skills/oma-frontend/SKILL.md",
+  "sha": "05d905ecc0646d2383087166af4f7101af052919",
+  "size": "13435"
+ },
+ {
+  "repo": "foru17/neko-master",
+  "path": ".claude/skills/ui-conventions/SKILL.md",
+  "sha": "8e6e968f85ed0212fe701af36482bd30e1c8bd37",
+  "size": "3388"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/canvas-design/SKILL.md",
+  "sha": "d410f99e895d3489315dbbe6b60495fb6e38f61e",
+  "size": "11954"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/frontend-design/SKILL.md",
+  "sha": "097b58248be043454afa11e82340ec2d60c7d003",
+  "size": "4455"
+ },
+ {
+  "repo": "freestylefly/wesight",
+  "path": "SKILLs/remotion/SKILL.md",
+  "sha": "c810116531a8d4512eba18364051ae835575cdfa",
+  "size": "3562"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": ".factory/skills/animated-component-libraries/SKILL.md",
+  "sha": "50fb0fc992d5cd8f246a279df248523b4b334931",
+  "size": "22597"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/bundles/animation-components/skills/lottie-animations/SKILL.md",
+  "sha": "6d44be9b4f687455ef8416b707eb8442eb4aff52",
+  "size": "17982"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/bundles/meta-skills/skills/modern-web-design/SKILL.md",
+  "sha": "b9edbe203a803654751a5361a7d1294f6d5fa7a0",
+  "size": "26596"
+ },
+ {
+  "repo": "freshtechbro/claudedesignskills",
+  "path": "plugins/individual/modern-web-design/skills/modern-web-design/SKILL.md",
+  "sha": "b9edbe203a803654751a5361a7d1294f6d5fa7a0",
+  "size": "26596"
+ },
+ {
+  "repo": "gajjalaashok75-UI/gakrcli-plugins-official",
+  "path": "skill-plugins/stitch-ui-design/skills/stitch-ui-design/SKILL.md",
+  "sha": "4c7eb4a1545421fae3750f9a1ef9ee504d28d24f",
+  "size": "10845"
+ },
+ {
+  "repo": "garrytan/gstack",
+  "path": "landing-report/SKILL.md",
+  "sha": "93db4f02661c6df365f1aeb8e295c0344bb4564b",
+  "size": "54238"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/react-components/SKILL.md",
+  "sha": "95b6634256aed699fca3f9b80e68f2308d9c07c6",
+  "size": "8769"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/remotion/SKILL.md",
+  "sha": "570fbbf77fb9a5e4bbf8515d9db1ec945783dad3",
+  "size": "12942"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-build/skills/shadcn-ui/SKILL.md",
+  "sha": "0a53d6ca54f46de3a79857fbdc6f84b988e0d692",
+  "size": "9207"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-design/skills/manage-design-system/SKILL.md",
+  "sha": "d45bef7b8c8bd0e1120244c39c0189db787c23b2",
+  "size": "5663"
+ },
+ {
+  "repo": "google-labs-code/stitch-skills",
+  "path": "plugins/stitch-utilities/skills/taste-design/SKILL.md",
+  "sha": "769b545ef84fed01577aa7511a707b7af1315a70",
+  "size": "12568"
+ },
+ {
+  "repo": "gooseworks-ai/goose-skills",
+  "path": "skills/brand/capabilities/brand-voice-extractor/SKILL.md",
+  "sha": "a436a3977740b37b15721187901c7b7af65803ac",
+  "size": "7736"
+ },
+ {
+  "repo": "gridaco/grida",
+  "path": ".agents/skills/io-figma/SKILL.md",
+  "sha": "6d53e3a04aa21fd562037e701f2846056f5be84b",
+  "size": "9054"
+ },
+ {
+  "repo": "gtrabanco/agentic-workflow",
+  "path": "skills/review-a11y/SKILL.md",
+  "sha": "399eabcf053657ad8279356eb23fa910f04d876f",
+  "size": "2504"
+ },
+ {
+  "repo": "gtrabanco/agentic-workflow",
+  "path": "skills/review-brand/SKILL.md",
+  "sha": "9771aaeb71a825bd8b79b13d0ad5127d38c976d1",
+  "size": "2535"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-best-practices/remotion-docs/SKILL.md",
+  "sha": "16cdeb0bae2e23142aa4afd94643ffeb5cb2e54b",
+  "size": "1410"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-docs/SKILL.md",
+  "sha": "136c34467dfb3844c59d634d7f894901d9e15d41",
+  "size": "1379"
+ },
+ {
+  "repo": "guanyang/open-agent-hub",
+  "path": "skills/remotion-upgrade/SKILL.md",
+  "sha": "8633bd192fa693328dad643c5dd4140f6a47a46f",
+  "size": "1880"
+ },
+ {
+  "repo": "guokaigdg/animal-island-ui",
+  "path": "skills/animal-island-ui-style/SKILL.md",
+  "sha": "a641aea37c40118d0d8a378acb30b6067141f3b3",
+  "size": "6259"
+ },
+ {
+  "repo": "hAcKlyc/MyAgents",
+  "path": "bundled-workspaces/mino/.claude/skills/remotion-best-practices/SKILL.md",
+  "sha": "65863300c25e7a1f97638090660ab6db17638317",
+  "size": "3578"
+ },
+ {
+  "repo": "haydenbleasel/ultracite",
+  "path": "packages/video/.agents/skills/remotion-best-practices/SKILL.md",
+  "sha": "e5283e42040fd1d543d4142050cfee9471d0eba8",
+  "size": "11692"
+ },
+ {
+  "repo": "himself65/finance-skills",
+  "path": "plugins/ui-tools/skills/generative-ui/SKILL.md",
+  "sha": "25c2a35bf3e538f04490cd8fcbef2df27c7b4253",
+  "size": "12549"
+ },
+ {
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/frontend-design/SKILL.md",
+  "sha": "d0c1173ca7d084f905e4d1cd6ee431cdc47390b6",
+  "size": "8266"
+ },
+ {
+  "repo": "holaboss-ai/holaOS",
+  "path": "runtime/harnesses/src/embedded-skills/interface-design/SKILL.md",
+  "sha": "d2c77575abf17ad1aa5a64878efd76368ddf385a",
+  "size": "24226"
+ },
+ {
+  "repo": "https-deeplearning-ai/sc-agent-skills-files",
+  "path": "L3/brand_guidelines_skill/craftedwell-brand/SKILL.md",
+  "sha": "3b52fedce309d7be58c22bb50654aa7bb1b77922",
+  "size": "5178"
+ },
+ {
+  "repo": "huytieu/COG-second-brain",
+  "path": ".agents/skills/taste-skill/SKILL.md",
+  "sha": "78d7e8cd3b5372eae4ac8974dc88e7f5e2cf0e91",
+  "size": "626"
+ },
+ {
+  "repo": "huytieu/COG-second-brain",
+  "path": ".claude/skills/taste-skill/SKILL.md",
+  "sha": "e97c72056fe55506e62fb5f0a03882ad0db7fcbc",
+  "size": "73196"
+ },
+ {
+  "repo": "huytieu/COG-second-brain",
+  "path": "skills/taste-skill/SKILL.md",
+  "sha": "e97c72056fe55506e62fb5f0a03882ad0db7fcbc",
+  "size": "73196"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/baseline-ui/SKILL.md",
+  "sha": "98477ee0f2e9cc7506453ee5aa9f88d1d033ab2f",
+  "size": "3419"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/fixing-accessibility/SKILL.md",
+  "sha": "e2dcd7004645277488a142be152878b7310437e1",
+  "size": "4718"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/fixing-motion-performance/SKILL.md",
+  "sha": "7d22f2ecdd3305f73cf202cb9b5a0e4c1d3700e5",
+  "size": "5565"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/improve-ui/SKILL.md",
+  "sha": "c3ed42a578d3c0ca798ddd122fe0886e9c9acbc0",
+  "size": "7830"
+ },
+ {
+  "repo": "ibelick/ui-skills",
+  "path": "skills/ui-skills-root/SKILL.md",
+  "sha": "c40d8458a67aa859d4ce50589d22f36f14123fb9",
+  "size": "1448"
+ },
+ {
+  "repo": "iflytek/skillhub",
+  "path": ".agents/skills/frontend-conventions/SKILL.md",
+  "sha": "be7e647e615bf478ac29bc9e736e376f41052f1b",
+  "size": "4040"
+ },
+ {
+  "repo": "iflytek/skillhub",
+  "path": "builtin-skills/skills/frontend-design/SKILL.md",
+  "sha": "a2ab091766746cae8c2b7893cfe0ee7b7528599a",
+  "size": "8228"
+ },
+ {
+  "repo": "jakubkrehel/make-interfaces-feel-better",
+  "path": "skills/make-interfaces-feel-better/SKILL.md",
+  "sha": "e47b87b369396655fa6bea7240c17f108ea494d5",
+  "size": "11818"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-accessibility/SKILL.md",
+  "sha": "e74b3be5aef375152fa1d89488c146f563e149cf",
+  "size": "9599"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-colors/SKILL.md",
+  "sha": "a4fdda2f6dca6ae752d1c45c0dd658cf2dc7b533",
+  "size": "8557"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-interface/SKILL.md",
+  "sha": "d476d81965731500519ce6160371278c49236602",
+  "size": "13421"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-typography/SKILL.md",
+  "sha": "ababa02fd3c2d60901225861aa1d41862e315447",
+  "size": "12886"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/better-ui/SKILL.md",
+  "sha": "69956531891480b2797afba290f51ad2103298f3",
+  "size": "8269"
+ },
+ {
+  "repo": "jakubkrehel/skills",
+  "path": "skills/interface-review/SKILL.md",
+  "sha": "cf1c61e909961259527f20b6744c68faa55abe67",
+  "size": "10227"
+ },
+ {
+  "repo": "jame581/GodotPrompter",
+  "path": "skills/godot-ui/SKILL.md",
+  "sha": "4564804029396f6c9cd5b27f45cf6581b90c4177",
+  "size": "12853"
+ },
+ {
+  "repo": "jarrodwatts/claude-code-config",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "sha": "83b34c2011e9ce4810cb681abcae3ce9997ee11d",
+  "size": "1183"
+ },
+ {
+  "repo": "jd-opensource/taro-ui",
+  "path": "packages/taro-ui-guide/SKILL.md",
+  "sha": "821ef052bf5a1ad26593e07ad3384038ea094ed0",
+  "size": "6818"
+ },
+ {
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/dev-tools/skills/ux-audit/SKILL.md",
+  "sha": "ee79643c64be05ba7ed15356251e9695094e6ec5",
+  "size": "34972"
+ },
+ {
+  "repo": "jezweb/claude-skills",
+  "path": "plugins/frontend/skills/tailwind-theme-builder/SKILL.md",
+  "sha": "8c825d2c7c12500343107f9694fff4c05787a48b",
+  "size": "12714"
+ },
+ {
+  "repo": "julianoczkowski/designer-skills",
+  "path": "frontend-design/SKILL.md",
+  "sha": "c1c9f01b62ccb591211cc40334e1754e8cadcde7",
+  "size": "11821"
+ },
+ {
+  "repo": "kovrichard/catalyst",
+  "path": ".agents/skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "kubesphere/kubesphere",
+  "path": "skills/frontend-forge-fe-operations/SKILL.md",
+  "sha": "ae4bb2b4bb400f2222247cb7ecfa3af2d3fedb2b",
+  "size": "12656"
+ },
+ {
+  "repo": "kubesphere/kubesphere",
+  "path": "skills/frontend-integration-yaml/SKILL.md",
+  "sha": "dde2c7f5ed8862454d1cdc722defc49f2079f24e",
+  "size": "2280"
+ },
+ {
+  "repo": "kylezantos/design-motion-principles",
+  "path": "skills/design-motion-principles/SKILL.md",
+  "sha": "e4cf1c7825756157872d241e1d349331403226d5",
+  "size": "6838"
+ },
+ {
+  "repo": "langgenius/dify",
+  "path": ".agents/skills/frontend-code-review/SKILL.md",
+  "sha": "b5e262affc703ade83e0d89a12c7a7bdee3e98c9",
+  "size": "3493"
+ },
+ {
+  "repo": "langgenius/dify",
+  "path": ".agents/skills/how-to-write-component/SKILL.md",
+  "sha": "f9c0a2ccc6412a84c8281cba6318dfea40d81713",
+  "size": "2863"
+ },
+ {
+  "repo": "limecloud/lime",
+  "path": "lime-rs/resources/default-skills/brand-persona-knowledge-builder/SKILL.md",
+  "sha": "29666cde37ce7f05c1b3aa6ba6908aa0ac6f7a60",
+  "size": "5156"
+ },
+ {
+  "repo": "limecloud/lime",
+  "path": "lime-rs/resources/default-skills/brand-product-knowledge-builder/SKILL.md",
+  "sha": "3acb0a9ba79bb2ff18ac2f5304ff55f93bb7eab4",
+  "size": "4696"
+ },
+ {
+  "repo": "lionkiii/claude-seo-skills",
+  "path": "skills/seo-brand-radar/SKILL.md",
+  "sha": "594386859d42022d329e075df6f87aea9030346c",
+  "size": "6515"
+ },
+ {
+  "repo": "lionkiii/claude-seo-skills",
+  "path": "skills/seo-gsc-brand-vs-nonbrand/SKILL.md",
+  "sha": "00a01ae0c2f2d53ef8c383063fc4289db278e248",
+  "size": "5315"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/debug-frontend-with-browser/SKILL.md",
+  "sha": "1e9c96ae6747032027241be407b96ad459342b60",
+  "size": "6972"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/design-prototype/SKILL.md",
+  "sha": "6b12a272588fb2bffcb308c85d8795309fed799e",
+  "size": "6452"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux/SKILL.md",
+  "sha": "66c74ffc608094a0c549797f27954df4b5e3000b",
+  "size": "18171"
+ },
+ {
+  "repo": "lobehub/lobehub",
+  "path": ".agents/skills/ux-audit/SKILL.md",
+  "sha": "b9025fca09d8c94c35e3a7e53e4b5c5e2ca42f31",
+  "size": "19891"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "03-skills/brand-voice/SKILL.md",
+  "sha": "66d4dc63999180738c35c304db09ee6263da889d",
+  "size": "2449"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "ja/03-skills/brand-voice/SKILL.md",
+  "sha": "cff3afe3796a7213e16b05189b35f19424c0b635",
+  "size": "3094"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "uk/03-skills/brand-voice/SKILL.md",
+  "sha": "53913770035404d6561321474e58e5ba8a733278",
+  "size": "4322"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "vi/03-skills/brand-voice/SKILL.md",
+  "sha": "741e2d56b99fb8d22a7cdd202645ef5f0d94046d",
+  "size": "3033"
+ },
+ {
+  "repo": "luongnv89/claude-howto",
+  "path": "zh/03-skills/brand-voice/SKILL.md",
+  "sha": "f4304c513bdccf6bc77e5bf3018808bc43ec0aa7",
+  "size": "2261"
+ },
+ {
+  "repo": "majidmanzarpour/threejs-game-skills",
+  "path": "skills/threejs-game-ui-designer/SKILL.md",
+  "sha": "d37c10f2b6bbf8157fa0d7340fc82e0c1f9f1506",
+  "size": "2432"
+ },
+ {
+  "repo": "manusco/resonance",
+  "path": ".agents/skills/engineering/frontend/SKILL.md",
+  "sha": "9f97f4d95282a43b55fd23b8e38f0984194e6d9f",
+  "size": "6331"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ui-design-review/SKILL.md",
+  "sha": "2b811e51c695f63140c1a5c5ae225036204fbd18",
+  "size": "28582"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/ux-audit-rethink/SKILL.md",
+  "sha": "d47147c82070bf142fbbb50029ee438988a7769c",
+  "size": "31468"
+ },
+ {
+  "repo": "mastepanoski/claude-skills",
+  "path": "skills/wcag-accessibility-audit/SKILL.md",
+  "sha": "78b18529275fdc8c7534b4ed7fc1b97c671c3056",
+  "size": "26689"
+ },
+ {
+  "repo": "mateaix/mateclaw",
+  "path": "mateclaw-server/src/main/resources/skills/popular-web-designs/SKILL.md",
+  "sha": "60d9214a3e1b8ff2a3d507013c1467189b0b41b2",
+  "size": "9326"
+ },
+ {
+  "repo": "mattpocock/skills",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "sha": "094571156140f5993cce8557dc31383c82817f3e",
+  "size": "2954"
+ },
+ {
+  "repo": "mavlink/qgroundcontrol",
+  "path": "tools/skills/qt-ui-design/SKILL.md",
+  "sha": "0f107d12c10b88091c36ee644cbd6290eaacc917",
+  "size": "25159"
+ },
+ {
+  "repo": "mejba13/awesome-claude-skills",
+  "path": ".claude/skills/frontend-dev-guidelines/SKILL.md",
+  "sha": "c8585536f293155f8d4377d59ef883229d4ad06e",
+  "size": "11328"
+ },
+ {
+  "repo": "melandlabs/openloomi",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "melandlabs/openloomi",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "sha": "a64d6c233a6293c05ab70f67156cc7e30284232a",
+  "size": "44776"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "path": ".github/skills/accessibility/accessibility/SKILL.md",
+  "sha": "8b5c253bab13f8458c3ebfe8fed0325bae22f5a3",
+  "size": "35216"
+ },
+ {
+  "repo": "microsoft/hve-core",
+  "path": ".github/skills/design-thinking/ux-artifacts/SKILL.md",
+  "sha": "436d3119ac5ccf0782edc6fffb8ab005c997d74a",
+  "size": "12415"
+ },
+ {
+  "repo": "microsoft/power-platform-skills",
+  "path": "plugins/mcp-apps/skills/generate-mcp-app-ui/SKILL.md",
+  "sha": "a49db9a8eae073c1b15c5fe9785d2e344dd91a72",
+  "size": "7599"
+ },
+ {
+  "repo": "microsoft/skills",
+  "path": ".github/plugins/microsoft-365-agents-toolkit/skills/ui-widget-developer/SKILL.md",
+  "sha": "1240df9af50396f6420e83ea7fad62a920edbbb0",
+  "size": "23342"
+ },
+ {
+  "repo": "minhnv0807/ai-business-skills",
+  "path": "modules/personal-branding/vi/23-personal-brand-strategy/SKILL.md",
+  "sha": "e0a6e05e8322e1427cbe04a95cddb3d286ff8374",
+  "size": "16561"
+ },
+ {
+  "repo": "minhnv0807/ai-business-skills",
+  "path": "skills/vi/46-brand-guideline/SKILL.md",
+  "sha": "976fbf60e7a0271b76c4f2ecdc0a19b86e55d43a",
+  "size": "10868"
+ },
+ {
+  "repo": "momozi1996/awesome-ai-persona-skills",
+  "path": "EQ/sel-social-emotional-learning-skill/SKILL.md",
+  "sha": "3447d5c62919bdeb5cf5812e04d678b4938ca2eb",
+  "size": "10254"
+ },
+ {
+  "repo": "mrgoonie/claudekit-skills",
+  "path": ".claude/skills/frontend-design/SKILL.md",
+  "sha": "acc227f02037bd0cdd1df003d8a151f841f2caef",
+  "size": "4333"
+ },
+ {
+  "repo": "mrgoonie/claudekit-skills",
+  "path": ".claude/skills/frontend-development/SKILL.md",
+  "sha": "c8585536f293155f8d4377d59ef883229d4ad06e",
+  "size": "11328"
+ },
+ {
+  "repo": "mrgoonie/claudekit-skills",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "sha": "b96519900cdbddbb5675d64a119ed82e1ea1ae03",
+  "size": "9972"
+ },
+ {
+  "repo": "mukul975/Anthropic-Cybersecurity-Skills",
+  "path": "skills/exploiting-prototype-pollution-in-javascript/SKILL.md",
+  "sha": "89e690a77ea0dcfa536ff903767132fe5d63d75a",
+  "size": "9388"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/accessibility-per-component/SKILL.md",
+  "sha": "2f6f5d0335246e99c7dc5b1d5073c6680951a085",
+  "size": "18683"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/ai-component-description/SKILL.md",
+  "sha": "2be3b666ff35efa6db7760e99623c53b6de4e87f",
+  "size": "22329"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/component-audit/SKILL.md",
+  "sha": "5593263581b8c040f01887e3c9ca51c833a72dfb",
+  "size": "25688"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/component-decision-tree/SKILL.md",
+  "sha": "7afb01d0ba4d24b19ee2853c2e666aaec76fffd9",
+  "size": "16375"
+ },
+ {
+  "repo": "murphytrueman/design-system-ops",
+  "path": "skills/figma-variable-audit/SKILL.md",
+  "sha": "b6ec802a34065aae3534cc246337c7c4078c37c4",
+  "size": "16883"
+ },
+ {
+  "repo": "nWave-ai/nWave",
+  "path": "nWave/skills/nw-ux-principles/SKILL.md",
+  "sha": "50fa427ad411ce7b12fa412baa62e15c6a0236e0",
+  "size": "7556"
+ },
+ {
+  "repo": "nanocoai/nanoclaw",
+  "path": "container/skills/frontend-engineer/SKILL.md",
+  "sha": "0460c107bd250b48d84d5fe5f5b29c2b17dcda89",
+  "size": "6034"
+ },
+ {
+  "repo": "new-silvermoon/awesome-android-agent-skills",
+  "path": ".github/skills/ui/android-accessibility/SKILL.md",
+  "sha": "600bd2d907b49212081d58e956a8e7870cd295bf",
+  "size": "1883"
+ },
+ {
+  "repo": "new-silvermoon/awesome-android-agent-skills",
+  "path": ".github/skills/ui/compose-ui/SKILL.md",
+  "sha": "158b446fb3ab811925099111dee37ea98528abab",
+  "size": "2701"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-analytics/SKILL.md",
+  "sha": "ae7a1f1369818c693b24f7b4040aac90a51e0756",
+  "size": "9346"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-registry/SKILL.md",
+  "sha": "e778757f985c54e5d5a85df4eddc0341be86419a",
+  "size": "1861"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-brand-tailored-promotions/SKILL.md",
+  "sha": "814d41159be7a79a41d3656c4b63390b428767f3",
+  "size": "1910"
+ },
+ {
+  "repo": "nexscope-ai/Amazon-Skills",
+  "path": "amazon-enhanced-brand-content/SKILL.md",
+  "sha": "76098a49dd1253638af4f9c737c23227f26aa8a0",
+  "size": "1862"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/brand/SKILL.md",
+  "sha": "336e8ef934464ecf5f492edfc6814eee48c75d41",
+  "size": "2939"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/design-system/SKILL.md",
+  "sha": "4397c7f8b77fa087dec724900e5bd903d1ea0611",
+  "size": "6875"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/ui-styling/SKILL.md",
+  "sha": "5824efeebe76af135a485f7d2cd67b815121364f",
+  "size": "10045"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": ".claude/skills/ui-ux-pro-max/SKILL.md",
+  "sha": "41f8e2fd7f8c568228d0b55186ebe3f7b4007377",
+  "size": "15969"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": "cli/assets/skills/brand/SKILL.md",
+  "sha": "336e8ef934464ecf5f492edfc6814eee48c75d41",
+  "size": "2939"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": "cli/assets/skills/design-system/SKILL.md",
+  "sha": "4397c7f8b77fa087dec724900e5bd903d1ea0611",
+  "size": "6875"
+ },
+ {
+  "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "path": "cli/assets/skills/ui-styling/SKILL.md",
+  "sha": "5824efeebe76af135a485f7d2cd67b815121364f",
+  "size": "10045"
+ },
+ {
+  "repo": "nexu-io/html-anything",
+  "path": "next/src/lib/templates/skills/saas-landing/SKILL.md",
+  "sha": "3e1d5d4273a00e77290677f855d908fc36bbbe75",
+  "size": "871"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "design-templates/web-prototype-taste-editorial/SKILL.md",
+  "sha": "d69ff36bb35b7812c71c76718953d00def341bcd",
+  "size": "3305"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "plugins/_official/examples/mockup-device-3d/SKILL.md",
+  "sha": "59ecd1968f5e8b03373806c0c78a122be25b5c1b",
+  "size": "4469"
+ },
+ {
+  "repo": "nexu-io/open-design",
+  "path": "skills/shadcn-ui/SKILL.md",
+  "sha": "47cc70ceecfec92e00bf063df33a0e3d72a96185",
+  "size": "1161"
+ },
+ {
+  "repo": "nimadorostkar/Claude-Skills-collection",
+  "path": "skills/design/visual-design/SKILL.md",
+  "sha": "0d2859fce2266bd359ae62708af621a9d6aa4191",
+  "size": "5375"
+ },
+ {
+  "repo": "nowork-studio/notfair-plugin",
+  "path": "google-ads/landing/SKILL.md",
+  "sha": "2b79ec6d74e6a82aeaae0a969fb4c1d47686c6c2",
+  "size": "10811"
+ },
+ {
+  "repo": "nuxt/ui",
+  "path": "skills/nuxt-ui/SKILL.md",
+  "sha": "2ce6e71f4382aa4e09109d06e6ee636f20acbdff",
+  "size": "6405"
+ },
+ {
+  "repo": "oracle-devrel/oracle-ai-developer-hub",
+  "path": "workshops/soccer-analytics-agent/.claude/skills/taste-skill/SKILL.md",
+  "sha": "5c6e7e9c32283caab8602f3e14c19d53e02d05a4",
+  "size": "21136"
+ },
+ {
+  "repo": "paperclipai/paperclip",
+  "path": ".agents/skills/create-issue-interaction-ui/SKILL.md",
+  "sha": "9cebfacc95bb0e687804b4e0f8946e6005d88f88",
+  "size": "13659"
+ },
+ {
+  "repo": "paperclipai/paperclip",
+  "path": "packages/skills-catalog/catalog/bundled/product/wireframe/SKILL.md",
+  "sha": "8058c4d48ee4ddb1b5359cd0c64ada5b6524db4f",
+  "size": "11509"
+ },
+ {
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-prototype/SKILL.md",
+  "sha": "d2678c6d85128d8ada9af16b6bf7da8e77678d84",
+  "size": "6055"
+ },
+ {
+  "repo": "plannotator/effective-html",
+  "path": "skills/html-wireframe/SKILL.md",
+  "sha": "cac48425de548af4bd7897a76df3a175de90149d",
+  "size": "4859"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/a11y-audit/SKILL.md",
+  "sha": "90ded6290b3b89e80defdba3b657856fc18d955d",
+  "size": "1576"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/brandkit/SKILL.md",
+  "sha": "8ebac2100cf683063d67ccee51f54dc28f76cf37",
+  "size": "2320"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/design-component/SKILL.md",
+  "sha": "78544bbadf11e1c2b2112070acfe3baea5c6da99",
+  "size": "10162"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/figma-integration/SKILL.md",
+  "sha": "a358f126121cf8fb020c2cd6ad5e76b44c19b849",
+  "size": "1756"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/migrate-design-system/SKILL.md",
+  "sha": "d33e03705730cc4e41247153e9e8408700fa8147",
+  "size": "1520"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/prototype/SKILL.md",
+  "sha": "178481929408e54cb26cfbc8e1c8a6c8b8231393",
+  "size": "1640"
+ },
+ {
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/skills/ux-writing/SKILL.md",
+  "sha": "1fb8206dee457bd95dce2fe6b2be22b965527757",
+  "size": "2141"
+ },
+ {
+  "repo": "polyuiislab/infiAgent",
+  "path": "skills/brand-guidelines/SKILL.md",
+  "sha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+  "size": "2235"
+ },
+ {
+  "repo": "polyuiislab/infiAgent",
+  "path": "skills/canvas-design/SKILL.md",
+  "sha": "9f63fee82de84cd4230e1d0e322247b61eb4c94c",
+  "size": "11939"
+ },
+ {
+  "repo": "polyuiislab/infiAgent",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "pulumi/agent-skills",
+  "path": "pulumi/skills/pulumi-component/SKILL.md",
+  "sha": "e8e568ea8341d94d235e9d5bda68bc416fae86a0",
+  "size": "27252"
+ },
+ {
+  "repo": "rampstackco/claude-skills",
+  "path": "dist/pi/.agents/skills/accessibility-audit/SKILL.md",
+  "sha": "ba3210bdcd2e76e24fb1cdfc8aa69ed16cf37a38",
+  "size": "11456"
+ },
+ {
+  "repo": "rampstackco/claude-skills",
+  "path": "dist/pi/.agents/skills/brand-style-guide/SKILL.md",
+  "sha": "a852bf308ebd405a641f38f795fecac5578e6d4e",
+  "size": "8441"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-best-practices/SKILL.md",
+  "sha": "facacab0f384ea1b6cff7639a5dc7de89d68bdab",
+  "size": "2483"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-captions/SKILL.md",
+  "sha": "1a37bd993607410405ad9f7a347e2836823aece5",
+  "size": "954"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-create/SKILL.md",
+  "sha": "dc59a1f549a7c549aa1780504901eec76ecd633c",
+  "size": "2077"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-docs/SKILL.md",
+  "sha": "136c34467dfb3844c59d634d7f894901d9e15d41",
+  "size": "1379"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-interactivity/SKILL.md",
+  "sha": "bcc8bc4509bd96aed337a3bd988d3a43384c7951",
+  "size": "7529"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-maps/SKILL.md",
+  "sha": "64053b8d9a09ea119f436bb2c7b017f6418e03f8",
+  "size": "1030"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-markup/SKILL.md",
+  "sha": "4e41a9248bba1923f559f12206fa4361e3e95acb",
+  "size": "11055"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-multimedia/SKILL.md",
+  "sha": "9c9ff2fbc6580106754e54446bea1998fd741e24",
+  "size": "705"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-render/SKILL.md",
+  "sha": "fa5cca4bffb131db606044336d14e7fadc70ecd1",
+  "size": "470"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-saas/SKILL.md",
+  "sha": "fd66f2db89f128958c042f1dc4c1bbf2f0e8afde",
+  "size": "1053"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-studio/SKILL.md",
+  "sha": "6385b71105802183dad21a6d5fa35be2994fc8b0",
+  "size": "958"
+ },
+ {
+  "repo": "remotion-dev/skills",
+  "path": "skills/remotion-upgrade/SKILL.md",
+  "sha": "8633bd192fa693328dad643c5dd4140f6a47a46f",
+  "size": "1880"
+ },
+ {
+  "repo": "rmyndharis/antigravity-skills",
+  "path": "skills/accessibility-compliance-accessibility-audit/SKILL.md",
+  "sha": "db667511e204f0bafeefc03de51e58d74a5056d3",
+  "size": "1904"
+ },
+ {
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "skills/accessibility-wcag/SKILL.md",
+  "sha": "d76a681d020255a47dbff3bd74afa3bf997df1ba",
+  "size": "5544"
+ },
+ {
+  "repo": "rohitg00/awesome-claude-code-toolkit",
+  "path": "skills/frontend-excellence/SKILL.md",
+  "sha": "85dba23e36f962c82570127bcaa12ee3fdc1d086",
+  "size": "5077"
+ },
+ {
+  "repo": "rohitg00/pro-workflow",
+  "path": "skills/design-engineering/SKILL.md",
+  "sha": "25dc6a01e245d718b44d2d467a6b526a3ead9923",
+  "size": "4757"
+ },
+ {
+  "repo": "rorkai/app-store-connect-cli-skills",
+  "path": "skills/asc-app-create-ui/SKILL.md",
+  "sha": "018e7e58197be36c3c618a45429de0b9e0667109",
+  "size": "6138"
+ },
+ {
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/design/ui-prototyping/SKILL.md",
+  "sha": "7ae1c3a80397dec425a3863d1f6efd68964e8d6c",
+  "size": "10591"
+ },
+ {
+  "repo": "rshankras/claude-code-apple-skills",
+  "path": "skills/ios/ui-review/SKILL.md",
+  "sha": "667f58ad7d6e87e7b174a06d2d1596be5cd52739",
+  "size": "7696"
+ },
+ {
+  "repo": "runkids/skillshare",
+  "path": ".skillshare/skills/skillshare-ui-website-style/SKILL.md",
+  "sha": "8dfa389cb1f4eb18417ace9e16d024d191b5c881",
+  "size": "12450"
+ },
+ {
+  "repo": "samber/cc-skills-golang",
+  "path": "skills/golang-structs-interfaces/SKILL.md",
+  "sha": "3c95f10e9170a84f148aaa8d921d4412d66c49d4",
+  "size": "13464"
+ },
+ {
+  "repo": "samuelclay/NewsBlur",
+  "path": ".claude/skills/make-interfaces-feel-better/SKILL.md",
+  "sha": "3a9753a9ff7dc418b03ed896c523d36b6febcded",
+  "size": "6133"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "path": "skills/cache-components/SKILL.md",
+  "sha": "cc59337ab083ca6699a6ce46f25115e11739fadc",
+  "size": "16338"
+ },
+ {
+  "repo": "sangrokjung/claude-forge",
+  "path": "skills/frontend-code-review/SKILL.md",
+  "sha": "6cc23ca1714ad580c531562a432b1e9ff648ed0d",
+  "size": "2848"
+ },
+ {
+  "repo": "seaworld008/Commonly-used-high-value-skills",
+  "path": "openclaw-skills/ui-ux-pro-max/SKILL.md",
+  "sha": "bfa3d32e6579296c80cf04a5cd2182fbb626ad5e",
+  "size": "9931"
+ },
+ {
+  "repo": "seaworld008/Commonly-used-high-value-skills",
+  "path": "skills/product-design/canvas-design/SKILL.md",
+  "sha": "6d7fe3421594aadcfd350c46084c9cdcd7055cbc",
+  "size": "12816"
+ },
+ {
+  "repo": "shobcoder/shob",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "8a5fa03bb45f81a93fedc1fec0d1768512be50b3",
+  "size": "4439"
+ },
+ {
+  "repo": "shobcoder/shob",
+  "path": "skills/ui-ux-pro-max/SKILL.md",
+  "sha": "d9b07cef436a82a76a5f99aac2762d3665e508cb",
+  "size": "14978"
+ },
+ {
+  "repo": "sickn33/agentic-awesome-skills",
+  "path": "plugins/agentic-awesome-skills/skills/design-it/brutalist-typography/SKILL.md",
+  "sha": "f7acab95b7accb9d086e02eb4e002f9517560186",
+  "size": "8739"
+ },
+ {
+  "repo": "snyk/agent-scan",
+  "path": "tests/skills/brand-guidelines/SKILL.md",
+  "sha": "47c72c607bdb5dd81bdea5de2b5e4f3992a5fd59",
+  "size": "2235"
+ },
+ {
+  "repo": "snyk/agent-scan",
+  "path": "tests/skills/canvas-design/SKILL.md",
+  "sha": "cff9115c2de8e3455ba4ff99e98121f03596b5fe",
+  "size": "11938"
+ },
+ {
+  "repo": "snyk/agent-scan",
+  "path": "tests/skills/frontend-design/SKILL.md",
+  "sha": "5be498e2585843c7137bf9a74e262f57415de5ce",
+  "size": "4440"
+ },
+ {
+  "repo": "softaworks/agent-toolkit",
+  "path": "dist/plugins/design-system-starter/skills/design-system-starter/SKILL.md",
+  "sha": "4d37e9b7b0c0cc42307c68391b7a267ae9acefa4",
+  "size": "14918"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-analyze-component-set/SKILL.md",
+  "sha": "d32c59034656347bd6950b116b6294b4bdd144b2",
+  "size": "4905"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-annotations/SKILL.md",
+  "sha": "b6063eaaf62e79d593f1f8c9518d088eb1adeba0",
+  "size": "3773"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-arrange-component-set/SKILL.md",
+  "sha": "69339725fd5b516d44b99382d8f6b581e2acc144",
+  "size": "4093"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-audit-accessibility/SKILL.md",
+  "sha": "5c5522e390cbe67472e08c83bf39196db8ba8398",
+  "size": "3841"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-blame-node/SKILL.md",
+  "sha": "85dc6d46c99759514f9ad0db3323d04d1be4a6ed",
+  "size": "5466"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-check-design-parity/SKILL.md",
+  "sha": "ceff85247ab4d3964325d9dfd31cd14c43c9b98b",
+  "size": "4026"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-comments/SKILL.md",
+  "sha": "9f175b400fa1f903db1b4313649833c894f1fb40",
+  "size": "4725"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-component-properties/SKILL.md",
+  "sha": "03f24349d81ec8d1f9a9c31f920f3d2c777c205d",
+  "size": "4668"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-deep-component/SKILL.md",
+  "sha": "a6bceef819cb75e4bde0ddfdd3dde3475e02df2a",
+  "size": "4869"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-design-system-inventory/SKILL.md",
+  "sha": "d3678a38c2614c247837ca7621bd99785ea2a324",
+  "size": "4331"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-export-tokens/SKILL.md",
+  "sha": "f786c516438f4503926ff8c24989bc12b2074d62",
+  "size": "4908"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-extract-design-system/SKILL.md",
+  "sha": "155da41964d2d17367f7a34e8d1cbca4503d3c48",
+  "size": "9324"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-generate-changelog/SKILL.md",
+  "sha": "8cb5fa5008581be2e7272f1050e11b0622111ce8",
+  "size": "4375"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-generate-component-doc/SKILL.md",
+  "sha": "af18ab5749c452cb1792caa54419cb3ae0ccf5bd",
+  "size": "5528"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-import-tokens/SKILL.md",
+  "sha": "9ffa20b790c31e83127ee87c85859fcbe8deb3e7",
+  "size": "3816"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-library-variables/SKILL.md",
+  "sha": "c7e42cbec44695fea57cfd7e78a8721697e6f284",
+  "size": "2501"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-lint-design/SKILL.md",
+  "sha": "c6152346b3f3552903b9f9b2feb4f3952d39b144",
+  "size": "4353"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-manage-variables/SKILL.md",
+  "sha": "989a6cade7649894c5eca00916b9677b2c114bfe",
+  "size": "3002"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-scan-code-accessibility/SKILL.md",
+  "sha": "56f2aa4c6831e75b52f968dc9323dcd5612e6e4e",
+  "size": "4407"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-setup-design-tokens/SKILL.md",
+  "sha": "27a53fa881b18766a05c47814ea065cbb5306790",
+  "size": "2943"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-slides/SKILL.md",
+  "sha": "9f0599002f4dbd9bb55fc748bfd7d5d93372f022",
+  "size": "3517"
+ },
+ {
+  "repo": "southleft/figma-console-mcp-skills",
+  "path": "skills/figma-version-history/SKILL.md",
+  "sha": "a83cbbfb87317028b22afaf71270a0c387de8183",
+  "size": "6120"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/animation-vocabulary/SKILL.md",
+  "sha": "cd0af50454bfe33a1e8c4ea24cc0c3c737d0f5e0",
+  "size": "13128"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/emil-design-eng/SKILL.md",
+  "sha": "1e14a5013714ee5b00382c210053134a48ae2168",
+  "size": "27226"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/find-animation-opportunities/SKILL.md",
+  "sha": "0f114a2cc4218223832fe0900e2674cca62dd614",
+  "size": "9491"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/improve-animations/SKILL.md",
+  "sha": "fc724697911974322c896ae205c426092261ea1b",
+  "size": "7915"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/pick-ui-library/SKILL.md",
+  "sha": "52ce3fbca3cd891cc9154cf13c72835d699cc7b0",
+  "size": "4514"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/prototype/SKILL.md",
+  "sha": "9fb230a2b8eaaf572f3a40b52cf00790f050b651",
+  "size": "7488"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/review-animations/SKILL.md",
+  "sha": "56f4ed75f11ce7452445ba357d9357cad885c5f9",
+  "size": "8108"
+ },
+ {
+  "repo": "spree/spree",
+  "path": ".agents/skills/shadcn/SKILL.md",
+  "sha": "1351394fbe155cd3f3b5e2ab684d241de602cb6f",
+  "size": "16800"
+ },
+ {
+  "repo": "steipete/agent-scripts",
+  "path": "skills/frontend-design/SKILL.md",
+  "sha": "eb7864d99860c35e1731d68a1f4bf92506e3e225",
+  "size": "4109"
+ },
+ {
+  "repo": "stevesolun/ctx",
+  "path": "imported-skills/mattpocock/design-an-interface/SKILL.md",
+  "sha": "d056bd183229ca93bd41cf1b8c10c6fd1f30e75f",
+  "size": "3366"
+ },
+ {
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/design-interface/SKILL.md",
+  "sha": "997c20f96a980a9d699485601927cb6099418dff",
+  "size": "8733"
+ },
+ {
+  "repo": "suleimanodetoro/skills",
+  "path": "skills/review-interface/SKILL.md",
+  "sha": "edbfb4319696abb1ffa201af30f05a26a5759e79",
+  "size": "7591"
+ },
+ {
+  "repo": "tech-leads-club/agent-skills",
+  "path": "packages/skills-catalog/skills/(architecture)/component-common-domain-detection/SKILL.md",
+  "sha": "05d5919346072e22a679b65fb24e2647dbb0a3d4",
+  "size": "17460"
+ },
+ {
+  "repo": "tech-leads-club/agent-skills",
+  "path": "packages/skills-catalog/skills/(design)/frontend-design/SKILL.md",
+  "sha": "41c03c416b008f9fec31d310ae6316a21965fa2c",
+  "size": "9871"
+ },
+ {
+  "repo": "thedivergentai/GD-Agentic-Skills",
+  "path": "skills/godot-2d-animation/SKILL.md",
+  "sha": "685bf0092646ec4e9d8d98da4bd566ba98c7853a",
+  "size": "14695"
+ },
+ {
+  "repo": "tutti-os/tutti",
+  "path": "packages/ui/system/agent/tutti-ui-system/SKILL.md",
+  "sha": "f5d944c2be33159920e2d8a1ed20fd6132dc0702",
+  "size": "10815"
+ },
+ {
+  "repo": "tw93/Waza",
+  "path": "plugins/waza/skills/ui/SKILL.md",
+  "sha": "74a8a3f06a140d319a170544901713577f80c645",
+  "size": "16725"
+ },
+ {
+  "repo": "tw93/Waza",
+  "path": "skills/ui/SKILL.md",
+  "sha": "74a8a3f06a140d319a170544901713577f80c645",
+  "size": "16725"
+ },
+ {
+  "repo": "vercel-labs/agent-skills",
+  "path": "skills/web-design-guidelines/SKILL.md",
+  "sha": "ceae92ab319216a68274168fba9b63b998b65997",
+  "size": "1231"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "disney-animation-rule-skill/SKILL.md",
+  "sha": "124d080c4dbd86936c2851ea6c4c37f809b1d876",
+  "size": "6022"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "pixel2motion/SKILL.md",
+  "sha": "89171afeb9a1d1e7323c4eef6163204ec88ed61d",
+  "size": "28563"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-3d-ticker/SKILL.md",
+  "sha": "683e7e6fcac3d590ccfc755475df13cfb50a8f6a",
+  "size": "2283"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-candlestick/SKILL.md",
+  "sha": "43c74e4c46f94fe7e3a2cf0c011194ef4d4f5e40",
+  "size": "7513"
+ },
+ {
+  "repo": "vibe-motion/skills",
+  "path": "remotion-vinyl-player/SKILL.md",
+  "sha": "c0697d17e1a7b5f72b27fb03f0be6bb784bf8d19",
+  "size": "1954"
+ },
+ {
+  "repo": "vibeeval/vibecosystem",
+  "path": "skills/accessibility-patterns/SKILL.md",
+  "sha": "af0ef0c06d59d1f052a90f7dcf2ad51abbc79a9f",
+  "size": "3771"
+ },
+ {
+  "repo": "vinvcn/mattpocock-skills-zh-CN",
+  "path": "skills/engineering/prototype/SKILL.md",
+  "sha": "9df744f5ae0bfda5a56db8dbef0bba03e71352d3",
+  "size": "2758"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/gui-settings-ui/SKILL.md",
+  "sha": "997ba04cada201314ee8b4f2938664332e820cb2",
+  "size": "17973"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/gui-ui-guidelines/SKILL.md",
+  "sha": "ce947fb208d2d08d3a464005c77225d9a65368ed",
+  "size": "3800"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/tui-ui-guidelines/SKILL.md",
+  "sha": "b94dfda24ef9b51823c0376ebc83bacc319569c4",
+  "size": "7427"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/edit-figma-design/SKILL.md",
+  "sha": "3d0e4e3ada432529890f7f12648bbd9b24946e1e",
+  "size": "9787"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-code-connect-components/SKILL.md",
+  "sha": "4e963154eb38fe702d358967540c3f7876686424",
+  "size": "16795"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-create-design-system-rules/SKILL.md",
+  "sha": "11b3d9ea205955e8216c38148baf141c39bc1c33",
+  "size": "18253"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-create-new-file/SKILL.md",
+  "sha": "73fa2ee404ee84b9c8a5709f1f2a4e8849f73825",
+  "size": "2762"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-generate-design/SKILL.md",
+  "sha": "f71d7e71600e84e95639ca2b3e2b8578ac50c3ea",
+  "size": "20164"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-generate-library/SKILL.md",
+  "sha": "7449101e1330eaa217c46f3ce82dd561473a055e",
+  "size": "17885"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-implement-design/SKILL.md",
+  "sha": "07b920ec58d2ad28bea7b2463e158c171d560799",
+  "size": "11653"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/bundled/mcp_skills/figma/figma-use/SKILL.md",
+  "sha": "2d24cb43efbca49fc27ce8b04f5c28e5d7726d55",
+  "size": "17831"
+ },
+ {
+  "repo": "warpdotdev/warp",
+  "path": "resources/channel-gated-skills/dogfood/verify-ui-change-in-cloud/SKILL.md",
+  "sha": "f41ba387de59d6fe53382a8e22b374f04b10fe6d",
+  "size": "4334"
+ },
+ {
+  "repo": "withkynam/vibecode-pro-max-kit",
+  "path": ".claude/skills/vc-frontend-design/SKILL.md",
+  "sha": "402e5bba9e24b8f6cfe50a2fe090ed1f1b3a579b",
+  "size": "9808"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "hooked-ux/SKILL.md",
+  "sha": "b7f318268cd380af12627bf7f790b17ac167929f",
+  "size": "14064"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "lean-ux/SKILL.md",
+  "sha": "a130889fce7576cc6d25039f1276f6f4b61f8b34",
+  "size": "16079"
+ },
+ {
+  "repo": "wondelai/skills",
+  "path": "plugins/wondelai-skills/skills/storybrand-messaging/SKILL.md",
+  "sha": "5ae7111aceb9cf25a6a76bcbf88881ac5cb16493",
+  "size": "14858"
+ },
+ {
+  "repo": "wrtnlabs/autobe",
+  "path": "internals/template/realize/.claude/skills/fix-interface/SKILL.md",
+  "sha": "f4195550962487a5cd6d6e5c8a1f913609abec6a",
+  "size": "5805"
+ },
+ {
+  "repo": "wrtnlabs/autobe",
+  "path": "internals/template/realize/.claude/skills/validate-interface/SKILL.md",
+  "sha": "3dbc09c9bfa75251c9ae8c294e7d095188ff23b6",
+  "size": "4703"
+ },
+ {
+  "repo": "wshobson/agents",
+  "path": "plugins/brand-landingpage/skills/brand-landingpage/SKILL.md",
+  "sha": "213b315dd7833ac1206566c494c6e846db535c22",
+  "size": "15642"
+ },
+ {
+  "repo": "wsimmonds/claude-nextjs-skills",
+  "path": "nextjs-server-client-components/SKILL.md",
+  "sha": "80b8f956853c85a3db4d6c98907e9f028afa7cf5",
+  "size": "23964"
+ },
+ {
+  "repo": "xjtulyc/MedgeClaw",
+  "path": "skills/svg-ui-templates/SKILL.md",
+  "sha": "f825662a08ed6406cbdec720267cc0496b16137d",
+  "size": "2270"
+ },
+ {
+  "repo": "yaklang/hack-skills",
+  "path": "skills/prototype-pollution/SKILL.md",
+  "sha": "f67872917dc2d5d50f6627f78a181ecd85e6a8ff",
+  "size": "8994"
+ },
+ {
+  "repo": "yournextstore/yournextstore",
+  "path": ".agents/skills/frontend-design/SKILL.md",
+  "sha": "c78cca7e077cca7b90443f4fd70905a04656a6a2",
+  "size": "8262"
+ },
+ {
+  "repo": "yunshu0909/yunshu_skillshub",
+  "path": "ui-design/SKILL.md",
+  "sha": "9bb8726a10decbd9a593526a19b0a5e6c80c6f9a",
+  "size": "4797"
+ },
+ {
+  "repo": "zarazhangrui/frontend-slides",
+  "path": "plugins/frontend-slides/skills/frontend-slides/SKILL.md",
+  "sha": "9b8374bf128db6d5c18921d170bdc6a230808f82",
+  "size": "28187"
+ },
+ {
+  "repo": "zhukunpenglinyutong/desktop-cc-gui",
+  "path": ".agents/skills/web-design-guidelines/SKILL.md",
+  "sha": "ceae92ab319216a68274168fba9b63b998b65997",
+  "size": "1231"
+ },
+ {
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "path": "skills/market-brand/SKILL.md",
+  "sha": "dcac57c83e33b2ed0c3460f3737ae9907e85264a",
+  "size": "16756"
+ },
+ {
+  "repo": "zubair-trabzada/ai-marketing-claude",
+  "path": "skills/market-landing/SKILL.md",
+  "sha": "c8fc0017f5871d9e47e043a541f9116700d03162",
+  "size": "12984"
+ },
+ {
+  "repo": "zubair-trabzada/geo-seo-claude",
+  "path": "skills/geo-brand-mentions/SKILL.md",
+  "sha": "c3dc909bf829a1290e88811806dd390722ed762c",
+  "size": "23108"
+ }
+]

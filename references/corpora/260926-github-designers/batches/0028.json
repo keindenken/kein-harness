@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00508",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_meeting-bots_agents_design-watcher.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/meeting-bots/agents/design-watcher.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00510",
+  "kind": "agent",
+  "file": "corpus/centminmod_my-claude-code-setup__.claude_agents_ux-design-expert.md",
+  "repo": "centminmod/my-claude-code-setup",
+  "path": ".claude/agents/ux-design-expert.md",
+  "stars": 2644,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00511",
+  "kind": "agent",
+  "file": "corpus/softaworks_agent-toolkit__agents_ascii-ui-mockup-generator.md",
+  "repo": "softaworks/agent-toolkit",
+  "path": "agents/ascii-ui-mockup-generator.md",
+  "stars": 2502,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00517",
+  "kind": "agent",
+  "file": "corpus/Orkas-AI_Orkas__resources_builtin_marketplace_agents_bcfcb4921dce_skills_ui-reference-packs_references_design-system-packs.md",
+  "repo": "Orkas-AI/Orkas",
+  "path": "resources/builtin/marketplace/agents/bcfcb4921dce/skills/ui-reference-packs/references/design-system-packs.md",
+  "stars": 2124,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00519",
+  "kind": "agent",
+  "file": "corpus/DynamoDS_Dynamo__.github_agents_dynamo-ux-designer.agent.md",
+  "repo": "DynamoDS/Dynamo",
+  "path": ".github/agents/dynamo-ux-designer.agent.md",
+  "stars": 2025,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00531",
+  "kind": "agent",
+  "file": "corpus/microsoft_hve-core__docs_reference_agents_project-planning_ux-ui-designer.md",
+  "repo": "microsoft/hve-core",
+  "path": "docs/reference/agents/project-planning/ux-ui-designer.md",
+  "stars": 1478,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00532",
+  "kind": "agent",
+  "file": "corpus/plugin87_ux-ui-agent-skills__.claude_agents_design-critic.md",
+  "repo": "plugin87/ux-ui-agent-skills",
+  "path": ".claude/agents/design-critic.md",
+  "stars": 1471,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00541",
+  "kind": "agent",
+  "file": "corpus/Salomondiei08_oh-my-hermes__agents_designer.md",
+  "repo": "Salomondiei08/oh-my-hermes",
+  "path": "agents/designer.md",
+  "stars": 864,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00544",
+  "kind": "agent",
+  "file": "corpus/borghei_Claude-Skills__agents_cs-design-lead.md",
+  "repo": "borghei/Claude-Skills",
+  "path": "agents/cs-design-lead.md",
+  "stars": 828,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00549",
+  "kind": "agent",
+  "file": "corpus/assistant-ui_tool-ui__.claude_agents_tool-ui-designer.md",
+  "repo": "assistant-ui/tool-ui",
+  "path": ".claude/agents/tool-ui-designer.md",
+  "stars": 780,
+  "copies_in_repos": 1
+ }
+]

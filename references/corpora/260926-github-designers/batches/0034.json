@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00659",
+  "kind": "agent",
+  "file": "corpus/selmakcby_claude-agents-skills__agents_ui-agent.md",
+  "repo": "selmakcby/claude-agents-skills",
+  "path": "agents/ui-agent.md",
+  "stars": 133,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00660",
+  "kind": "agent",
+  "file": "corpus/levu304_claude-code-boilerplate__.claude_agents_uiux-designer.md",
+  "repo": "levu304/claude-code-boilerplate",
+  "path": ".claude/agents/uiux-designer.md",
+  "stars": 130,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00661",
+  "kind": "agent",
+  "file": "corpus/aaddrick_claude-pipeline__.claude_agents_ux-reviewer.md",
+  "repo": "aaddrick/claude-pipeline",
+  "path": ".claude/agents/ux-reviewer.md",
+  "stars": 129,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00664",
+  "kind": "agent",
+  "file": "corpus/senaiverse_reactnative-expo-ai-agent-system-workflow__ready-to-use_agents_tier-1-daily_design-token-guardian.md",
+  "repo": "senaiverse/reactnative-expo-ai-agent-system-workflow",
+  "path": "ready-to-use/agents/tier-1-daily/design-token-guardian.md",
+  "stars": 126,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00680",
+  "kind": "agent",
+  "file": "corpus/Rigos0_superturtle__.claude_agents_ux-reviewer.md",
+  "repo": "Rigos0/superturtle",
+  "path": ".claude/agents/ux-reviewer.md",
+  "stars": 123,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00681",
+  "kind": "agent",
+  "file": "corpus/VKirill_claude-lane-stack__plugins_lane-stack_agents_design-lead.md",
+  "repo": "VKirill/claude-lane-stack",
+  "path": "plugins/lane-stack/agents/design-lead.md",
+  "stars": 117,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00683",
+  "kind": "agent",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_micro-interaction-designer.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/micro-interaction-designer.md",
+  "stars": 116,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00684",
+  "kind": "agent",
+  "file": "corpus/ChrisRoyse_610ClaudeSubagents__agents_performance-ux-optimizer.md",
+  "repo": "ChrisRoyse/610ClaudeSubagents",
+  "path": "agents/performance-ux-optimizer.md",
+  "stars": 116,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00690",
+  "kind": "agent",
+  "file": "corpus/danielmeppiel_awesome-ai-native__.github_agents_gh-pages-designer.chatmode.md",
+  "repo": "danielmeppiel/awesome-ai-native",
+  "path": ".github/agents/gh-pages-designer.chatmode.md",
+  "stars": 112,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00691",
+  "kind": "agent",
+  "file": "corpus/Toskysun_sub-agents__agents_google-ui-designer.md",
+  "repo": "Toskysun/sub-agents",
+  "path": "agents/google-ui-designer.md",
+  "stars": 111,
+  "copies_in_repos": 1
+ }
+]

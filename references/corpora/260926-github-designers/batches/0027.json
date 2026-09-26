@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00490",
+  "kind": "agent",
+  "file": "corpus/ZSeven-W_openpencil__crates_op-ai-skills_skills_phases_agent_design-agent.md",
+  "repo": "ZSeven-W/openpencil",
+  "path": "crates/op-ai-skills/skills/phases/agent/design-agent.md",
+  "stars": 6023,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00495",
+  "kind": "agent",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_core_opencoder_tests_contextscout-integration_02-ui-patterns-uses-contextscout.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/core/opencoder/tests/contextscout-integration/02-ui-patterns-uses-contextscout.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00496",
+  "kind": "agent",
+  "file": "corpus/darrenhinde_OpenAgentsControl__evals_agents_subagents_core_contextscout_tests_08-ui-development-discovery.yaml",
+  "repo": "darrenhinde/OpenAgentsControl",
+  "path": "evals/agents/subagents/core/contextscout/tests/08-ui-development-discovery.yaml",
+  "stars": 4879,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00497",
+  "kind": "agent",
+  "file": "corpus/JimLiu_baoyu-design__skills_baoyu-design_agents_design-system-checker.md",
+  "repo": "JimLiu/baoyu-design",
+  "path": "skills/baoyu-design/agents/design-system-checker.md",
+  "stars": 4195,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00499",
+  "kind": "agent",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_agents_validate-design.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/agents/validate-design.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00501",
+  "kind": "agent",
+  "file": "corpus/gotalab_cc-sdd__tools_cc-sdd_templates_agents_claude-code-agent_commands_validate-design.md",
+  "repo": "gotalab/cc-sdd",
+  "path": "tools/cc-sdd/templates/agents/claude-code-agent/commands/validate-design.md",
+  "stars": 3684,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00504",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_meeting-bots_agents_design-boss.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/meeting-bots/agents/design-boss.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00505",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_meeting-bots_agents_design-cynic.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/meeting-bots/agents/design-cynic.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00506",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_meeting-bots_agents_design-pusher.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/meeting-bots/agents/design-pusher.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00507",
+  "kind": "agent",
+  "file": "corpus/davepoon_buildwithclaude__plugins_meeting-bots_agents_design-rookie.md",
+  "repo": "davepoon/buildwithclaude",
+  "path": "plugins/meeting-bots/agents/design-rookie.md",
+  "stars": 3542,
+  "copies_in_repos": 1
+ }
+]

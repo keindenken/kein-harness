@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00584",
+  "kind": "agent",
+  "file": "corpus/AgentSkillOS_SkillAnything__agents_designer.md",
+  "repo": "AgentSkillOS/SkillAnything",
+  "path": "agents/designer.md",
+  "stars": 471,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00587",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__agents_design_system_engineer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "agents/design_system_engineer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00588",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__agents_ux_designer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "agents/ux_designer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00591",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__claude_agents_design-system-engineer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/agents/design-system-engineer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00592",
+  "kind": "agent",
+  "file": "corpus/josstei_maestro-orchestrate__claude_agents_ux-designer.md",
+  "repo": "josstei/maestro-orchestrate",
+  "path": "claude/agents/ux-designer.md",
+  "stars": 462,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00594",
+  "kind": "agent",
+  "file": "corpus/ccpk1_ChoreOps__.github_agents_dashboard-ux-builder.agent.md",
+  "repo": "ccpk1/ChoreOps",
+  "path": ".github/agents/dashboard-ux-builder.agent.md",
+  "stars": 430,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00596",
+  "kind": "agent",
+  "file": "corpus/dsifry_metaswarm__agents_designer-agent.md",
+  "repo": "dsifry/metaswarm",
+  "path": "agents/designer-agent.md",
+  "stars": 419,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00597",
+  "kind": "agent",
+  "file": "corpus/hezo-ai_hezo__agents_app-dev_ui-designer.md",
+  "repo": "hezo-ai/hezo",
+  "path": "agents/app-dev/ui-designer.md",
+  "stars": 393,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00600",
+  "kind": "agent",
+  "file": "corpus/verifywise-ai_verifywise__agents_brand-designer.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/brand-designer.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "c00601",
+  "kind": "agent",
+  "file": "corpus/verifywise-ai_verifywise__agents_design-systems-lead.md",
+  "repo": "verifywise-ai/verifywise",
+  "path": "agents/design-systems-lead.md",
+  "stars": 358,
+  "copies_in_repos": 1
+ }
+]

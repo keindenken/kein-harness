@@ -1,0 +1,56 @@
+[
+ {
+  "id": "s0115",
+  "kind": "skill",
+  "file": "corpus-skills/warpdotdev_warp__.agents_skills_tui-ui-guidelines_SKILL.md",
+  "repo": "warpdotdev/warp",
+  "path": ".agents/skills/tui-ui-guidelines/SKILL.md",
+  "stars": 64308,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0116",
+  "kind": "skill",
+  "file": "corpus-skills/withkynam_vibecode-pro-max-kit__.claude_skills_vc-frontend-design_SKILL.md",
+  "repo": "withkynam/vibecode-pro-max-kit",
+  "path": ".claude/skills/vc-frontend-design/SKILL.md",
+  "stars": 1073,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0117",
+  "kind": "skill",
+  "file": "corpus-skills/wondelai_skills__hooked-ux_SKILL.md",
+  "repo": "wondelai/skills",
+  "path": "hooked-ux/SKILL.md",
+  "stars": 1951,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0118",
+  "kind": "skill",
+  "file": "corpus-skills/wondelai_skills__lean-ux_SKILL.md",
+  "repo": "wondelai/skills",
+  "path": "lean-ux/SKILL.md",
+  "stars": 1951,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0119",
+  "kind": "skill",
+  "file": "corpus-skills/xjtulyc_MedgeClaw__skills_svg-ui-templates_SKILL.md",
+  "repo": "xjtulyc/MedgeClaw",
+  "path": "skills/svg-ui-templates/SKILL.md",
+  "stars": 640,
+  "copies_in_repos": 1
+ },
+ {
+  "id": "s0120",
+  "kind": "skill",
+  "file": "corpus-skills/yunshu0909_yunshu_skillshub__ui-design_SKILL.md",
+  "repo": "yunshu0909/yunshu_skillshub",
+  "path": "ui-design/SKILL.md",
+  "stars": 744,
+  "copies_in_repos": 1
+ }
+]

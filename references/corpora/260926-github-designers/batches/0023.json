@@ -1,0 +1,92 @@
+[
+ {
+  "id": "c00391",
+  "kind": "agent",
+  "file": "corpus/gpwork4u_google-chat-bot__.claude_agents_ui-designer.md",
+  "repo": "gpwork4u/google-chat-bot",
+  "path": ".claude/agents/ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00392",
+  "kind": "agent",
+  "file": "corpus/hbarbhaya3-a11y_Krogers__agents_ui-designer.md",
+  "repo": "hbarbhaya3-a11y/Krogers",
+  "path": "agents/ui-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00393",
+  "kind": "agent",
+  "file": "corpus/hbarbhaya3-a11y_Krogers__agents_ux-designer.md",
+  "repo": "hbarbhaya3-a11y/Krogers",
+  "path": "agents/ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00394",
+  "kind": "agent",
+  "file": "corpus/hieumh_base-nextjs-app__.github_agents_ui-ux-designer.agent.md",
+  "repo": "hieumh/base-nextjs-app",
+  "path": ".github/agents/ui-ux-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00395",
+  "kind": "agent",
+  "file": "corpus/hoatv2211_hoatv2211.github.io__.github_agents_ui-designer.agent.md",
+  "repo": "hoatv2211/hoatv2211.github.io",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00399",
+  "kind": "agent",
+  "file": "corpus/jagadeesh-profile_InstantDeploy__.claude_agents_ui-ux-designer.md",
+  "repo": "jagadeesh-profile/InstantDeploy",
+  "path": ".claude/agents/ui-ux-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00402",
+  "kind": "agent",
+  "file": "corpus/jmagly_carbonyl-agent__.codex_agents_ux-lead.md",
+  "repo": "jmagly/carbonyl-agent",
+  "path": ".codex/agents/ux-lead.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00403",
+  "kind": "agent",
+  "file": "corpus/josesiqueira_claude-code-template__.claude_agents_frontend-designer.md",
+  "repo": "josesiqueira/claude-code-template",
+  "path": ".claude/agents/frontend-designer.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00405",
+  "kind": "agent",
+  "file": "corpus/mariorivzz_portfolio__.github_agents_ui-designer.agent.md",
+  "repo": "mariorivzz/portfolio",
+  "path": ".github/agents/ui-designer.agent.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ },
+ {
+  "id": "c00406",
+  "kind": "agent",
+  "file": "corpus/mdchosen10_react-next-js-project-typescript-typescript__.claude_agents_design-system.md",
+  "repo": "mdchosen10/react-next-js-project-typescript-typescript",
+  "path": ".claude/agents/design-system.md",
+  "stars": 0,
+  "copies_in_repos": 2
+ }
+]
