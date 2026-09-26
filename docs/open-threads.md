@@ -58,7 +58,7 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 
 An interactive Claude worker that Orca orchestration launches in its own pane would run under `CLAUDE_CODE_ENTRYPOINT=cli`, same as any other interactive session, and would get the lead prompt from `plugin/hooks/lead-prompt.py`. No flow launches one today, since `ocs team` starts Codex, and what tells such a worker apart is unmeasured. `~/.local/bin/claude-kein` sits outside the repository and is the owner's to delete.
 
-## `writer` experiments and wiring, and `designer`
+## `writer` and `designer`: experiments and wiring
 
 Raised 2026-09-23 as two roles meant to consult other material and produce the single best version from it, not to generate from scratch. `writer` now exists (`agents/writer.md`, rendered to `plugin/agents/writer.md`): a general writer whose expected main use is code documentation, not a prompt-writing specialist. Prompt-writing rules stayed out of the role body; they live in `plugin/prompts/standing-prompt.md`, a path-scoped rule injected into a subagent on its first Read of a matching file. The design's evidence is `references/corpora/260926-github-agents/` — read its README and `analysis/synthesis.md` Q6 for the list of experiments E1–E12 — which shows what popular authors write, not what works; no part of the role is measured.
 
@@ -70,7 +70,12 @@ Open:
 - Whether `execute` should route documentation tasks to `writer` instead of handing everything to `executor` is undecided.
 - The owner's original wish — synthesising the single best version from several drafts or outside examples — is covered in the role only as "outside material shapes wording and structure, never facts". Whether a dedicated synthesis mode is needed is untested (E9).
 
-`designer` (UI/UX) is next and not started. The owner said its output cannot be fixed in advance: an HTML mockup, a light prototype, components, design tokens, a redesign of existing UI, or a written opinion.
+`designer` now exists too (`agents/designer.md`), grounded in `references/corpora/260926-github-designers/` (`analysis/synthesis.md` Q6 lists evals 1–13). Its output form is set by the brief, taste comes from project rules or a design skill the brief names, it renders and reads what it made where a renderer exists and labels everything else not verified, and it reports facts rather than quality verdicts. Open:
+
+- The evals its distinctive choices hinge on: 1 (does it follow the no-render rule), 3 (does a loaded taste skill override the product's design system), 7 (skill self-critique in the designer versus a separate reviewer), 9 (an ambiguous brief with nobody to ask), and 12, which is cheap and settles runtime beliefs several readings rest on (MCP tools reaching a subagent, reading a PNG back).
+- No design reviewer exists. The role refuses to approve its own work and leaves the pick among variants to the brief, so a verdict currently falls to the lead or the owner. Whether `critic` can carry design review, or a reviewer role is needed, is undecided.
+- The harness ships no design skill, so craft comes only from what the project or the session already has. Whether to ship one (Anthropic's `frontend-design` is the corpus's best base) is undecided.
+- With claude-in-chrome as the session's browser, exercising controls runs in the owner's signed-in Chrome, and permission prompts could stall an unattended run. Unmeasured.
 
 ## Per-directory `AGENTS.md` for subagents
 

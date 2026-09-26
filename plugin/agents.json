@@ -29,6 +29,11 @@
     "sandbox_mode": "read-only",
     "tier": "standard"
   },
+  "designer": {
+    "description": "UI/UX design grounded in the existing product \u2014 mockups, prototypes, components, tokens, redesigns, design diagnosis \u2014 with what was rendered and what was not stated plainly.",
+    "sandbox_mode": "workspace-write",
+    "tier": "deep"
+  },
   "document-specialist": {
     "description": "Read-only authoritative documentation and version-aware reference research.",
     "sandbox_mode": "read-only",
