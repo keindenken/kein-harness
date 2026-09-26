@@ -8,11 +8,14 @@ HOOK="${KEIN_ROOT:?}/hooks/lead-prompt.py"
 failures=0
 marker="$(head -1 "$KEIN_ROOT/prompts/lead.md")"
 
-run() { env -u CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS -u KEIN_LEAD_PROMPT "$@" python3 "$HOOK" </dev/null; }
+tmp=$(mktemp -d); trap 'chmod -R u+rwx "$tmp" 2>/dev/null; rm -rf "$tmp"' EXIT
+mkdir -p "$tmp/home" "$tmp/proj"
+# The operator's own layers must not leak into the cases, so every run gets an empty home and an empty project.
+run() { env -u CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS -u KEIN_LEAD_PROMPT -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" "$@" "${PY:-python3}" "$HOOK" </dev/null; }
 fail() { printf 'check-lead-prompt: %s\n' "$1" >&2; failures=$((failures + 1)); }
 field() { python3 -c 'import json,sys; d=json.loads(sys.stdin.read() or "{}"); print(d.get("hookSpecificOutput",{}).get("additionalContext","") if sys.argv[1]=="context" else d.get("systemMessage",""))' "$1"; }
 
-out=$(run CLAUDE_CODE_ENTRYPOINT=cli)
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli || true)
 printf '%s' "$out" | field context | grep -qF "$marker" || fail "an interactive session did not get the lead prompt"
 [ -z "$(printf '%s' "$out" | field notice)" ] || fail "an interactive session without agent teams got a notice"
 
@@ -23,17 +26,54 @@ done
 
 [ -z "$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none)" ] || fail "KEIN_LEAD_PROMPT=none still injected"
 
-tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
 printf 'PINNED_MARKER\n' > "$tmp/pinned.md"
 run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/pinned.md" | field context | grep -qx PINNED_MARKER || fail "a pinned KEIN_LEAD_PROMPT was not used"
 
-out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md")
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md" || true)
 printf '%s' "$out" | field notice | grep -q 'no lead prompt' || fail "a missing prompt file was not reported"
 [ -z "$(printf '%s' "$out" | field context)" ] || fail "a missing prompt file still produced context"
 
-out=$(run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 || true)
 printf '%s' "$out" | field notice | grep -q 'AGENT_TEAMS' || fail "agent teams on produced no notice"
 printf '%s' "$out" | field context | grep -qF "$marker" || fail "agent teams on dropped the prompt"
+
+layer() { mkdir -p "$1/.agents/kein/prompts" && printf '%s\n' "$2" > "$1/.agents/kein/prompts/lead.md"; }
+layer "$tmp/home" USER_LAYER_MARKER
+layer "$tmp/proj" PROJECT_LAYER_MARKER
+ctx=$(run CLAUDE_CODE_ENTRYPOINT=cli | field context)
+order=$(printf '%s\n' "$ctx" | grep -nF -e "$marker" -e USER_LAYER_MARKER -e PROJECT_LAYER_MARKER | cut -d: -f2- | tr '\n' ' ')
+[ "$order" = "$marker USER_LAYER_MARKER PROJECT_LAYER_MARKER " ] || fail "layers did not follow the core in user-then-project order (got: $order)"
+[ -z "$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none)" ] || fail "KEIN_LEAD_PROMPT=none still injected a layer"
+run CLAUDE_CODE_ENTRYPOINT=sdk-cli | grep -q LAYER_MARKER && fail "a headless session got a layer"
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md" || true)
+printf '%s' "$out" | field context | grep -q USER_LAYER_MARKER || fail "a missing core file dropped the layers"
+printf '%s' "$out" | field notice | grep -q 'no lead prompt' || fail "a missing core file beside layers was not reported"
+n=$(run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_PROJECT_DIR="$tmp/home" | field context | grep -c USER_LAYER_MARKER || true)
+[ "$n" -eq 1 ] || fail "a project rooted at home got the user layer $n times"
+rm -rf "$tmp/proj/.agents"
+mkdir -p "$tmp/git/sub" && git -C "$tmp/git" init -q && layer "$tmp/git" GIT_LAYER_MARKER
+printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u CLAUDE_PROJECT_DIR -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" | field context | grep -q GIT_LAYER_MARKER || fail "without CLAUDE_PROJECT_DIR the project layer was not found from the hook's cwd"
+run CLAUDE_CODE_ENTRYPOINT=cli KEIN_STATE_ROOT="$tmp/git" | field context | grep -q GIT_LAYER_MARKER || fail "KEIN_STATE_ROOT did not pick the project layer"
+printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" | field context | grep -q GIT_LAYER_MARKER && fail "the hook's cwd beat CLAUDE_PROJECT_DIR"
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md" CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 || true)
+printf '%s' "$out" | field notice | grep -q 'AGENT_TEAMS' || fail "agent teams on with only layers injected produced no notice"
+
+# A broken layer is reported and skipped, and the core still arrives.
+printf '\377\376\n' > "$tmp/home/.agents/kein/prompts/lead.md"
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli || true)
+printf '%s' "$out" | field notice | grep -q 'unreadable' || fail "a layer that is not UTF-8 was not reported"
+printf '%s' "$out" | field context | grep -qF "$marker" || fail "a layer that is not UTF-8 cost the core"
+layer "$tmp/home" USER_LAYER_MARKER
+chmod 000 "$tmp/home/.agents/kein"
+out=$(run CLAUDE_CODE_ENTRYPOINT=cli || true)
+chmod 755 "$tmp/home/.agents/kein"
+printf '%s' "$out" | field notice | grep -q 'unreadable' || fail "a layer behind an unreadable directory was not reported"
+printf '%s' "$out" | field context | grep -qF "$marker" || fail "a layer behind an unreadable directory cost the core"
+
+# Plain `python3` on PATH is what hooks.json runs, and on stock macOS that is 3.9.
+if [ -x /usr/bin/python3 ]; then
+  PY=/usr/bin/python3 run CLAUDE_CODE_ENTRYPOINT=cli | field context | grep -q USER_LAYER_MARKER || fail "the hook failed under /usr/bin/python3 ($(/usr/bin/python3 --version 2>&1))"
+fi
 
 if [ "$failures" -ne 0 ]; then
   printf 'check-lead-prompt: %d case(s) failed\n' "$failures" >&2

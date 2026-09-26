@@ -38,8 +38,11 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        refuses a subagent's git writes. The `fsd` skill's hooks
                        are not here: they sit in its SKILL.md frontmatter and
                        are armed only while `/kein:fsd` runs.
-  prompts/lead.md      the lead's standing prompt; `KEIN_LEAD_PROMPT` pins
-                       another file or `none` turns it off
+  prompts/lead.md      the core of the lead's standing prompt; the hook appends
+                       `~/.agents/kein/prompts/lead.md`, then the project's
+                       `.agents/kein/prompts/lead.md`, when they exist.
+                       `KEIN_LEAD_PROMPT` pins another core file or `none` turns
+                       all of it off
   prompts/standing-prompt.md
                        the rule for editing any agent instruction file,
                        linked into the config home by `onboard`
