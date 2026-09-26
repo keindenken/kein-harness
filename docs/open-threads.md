@@ -80,3 +80,16 @@ What is known: Claude Code loads a subdirectory's `CLAUDE.md` on its own but not
 
 Open: how omc's hook chose the file and when it fired (the source is worth reading before designing anything); whether generated per-directory docs stay accurate or become one more thing to keep up to date; and whether this belongs in the `instructions` skill, which already writes the root `AGENTS.md`.
 
+
+## The global no-hard-wrap rule is followed late, not missed
+
+Reported by the owner 2026-09-26 from recent descvi `execute` traces: near the end of a task, executors often write comments hard-wrapped and then, partway through, go back and unwrap them — the work is done twice. The rule sits in `~/.claude/CLAUDE.md` and is not ambiguous; it even says already-wrapped comments in a file are not a convention to match.
+
+The owner is considering moving it to a user-level rule, `~/.claude/rules/` (not the plugin — it has nothing to do with kein), where `kein-standing-prompt.md` already lives. The hard part is `paths:`: comments can be in almost any file.
+
+Worth settling before choosing globs:
+
+- A rule without `paths:` loads at session start exactly as `CLAUDE.md` does, so it would change placement and nothing else. The only mechanism that differs is path-scoping, which injects the rule next to a Read result. That is also recorded in this file (the `writer` thread) as firing on a subagent's first Read of a matching file — i.e. early in the task, while the observed slip is at the end. Whether a path-scoped rule re-fires later in a session is unmeasured; if it does not, a broad glob mostly reproduces what `CLAUDE.md` already does.
+- Check which vendor the lanes in those traces ran on. An `ocs team` lane is Codex and reads neither `~/.claude/CLAUDE.md` nor `~/.claude/rules/`; if any of the slips were there, the fix is in the lane package, not in a rule.
+- Check whether the unwrapping is self-correction or a reviewer finding. If it is a reviewer, the rule is reaching review but not authorship, which points at what the executor is imitating (the wrapped comments already in descvi files) more than at where the rule lives.
+- A mechanism would hold it regardless of placement: a `PostToolUse` hook on `Edit`/`Write` that flags a comment block of consecutive lines broken mid-sentence. Crude, but it fires at the moment of writing, which neither `CLAUDE.md` nor a rule does.
