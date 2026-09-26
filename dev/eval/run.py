@@ -598,7 +598,7 @@ def resolve_lead_prompt(value):
 
     Two things to know before turning it on, neither of which is a reason not to:
 
-    `plugin/prompts/lead.md` ends with a rule to talk to the user in Korean, which is there precisely because a `CLAUDE.md` would carry it into every headless `claude -p`. An arm *is* a headless `claude -p`, with no user and an artifact as its output, and `graded.py`'s judge has already been seen obeying a language instruction over its own reply format. Watch what the arms write, not only what they do.
+    `plugin/prompts/lead.md` is only the core. A real lead also gets whatever layers the hook appends from `~/.agents/kein/prompts/lead.md` and the project's `.agents/kein/prompts/lead.md`, so to measure what a particular operator runs, pass a file that concatenates them. A layer may carry a language rule — the owner's does — and an arm is a headless `claude -p` with no user and an artifact as its output; `graded.py`'s judge has already been seen obeying a language instruction over its own reply format. Watch what the arms write, not only what they do.
 
     Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin the control arm does not have. That is the harness's own recorded failure mode — an instruction naming an ungranted capability fails silently and reads as disobedience. Against `--variant` arms, where both sides carry the plugin, neither concern applies.
     """
