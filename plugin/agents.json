@@ -68,5 +68,10 @@
     "description": "Read-only evaluation of whether evidence proves completion claims.",
     "sandbox_mode": "read-only",
     "tier": "standard"
+  },
+  "writer": {
+    "description": "Documentation and prose from source evidence \u2014 READMEs, reference docs, code comments, changelogs, agent instruction files, reports \u2014 with unverified claims reported rather than smoothed over.",
+    "sandbox_mode": "workspace-write",
+    "tier": "standard"
   }
 }

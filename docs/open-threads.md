@@ -58,14 +58,19 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 
 An interactive Claude worker that Orca orchestration launches in its own pane would run under `CLAUDE_CODE_ENTRYPOINT=cli`, same as any other interactive session, and would get the lead prompt from `plugin/hooks/lead-prompt.py`. No flow launches one today, since `ocs team` starts Codex, and what tells such a worker apart is unmeasured. `~/.local/bin/claude-kein` sits outside the repository and is the owner's to delete.
 
-## `writer` and `designer` roles
+## `writer` experiments and wiring, and `designer`
 
-Two roles to add, raised 2026-09-23. Both are meant to consult other material and produce the single best version from it, not to generate from scratch.
+Raised 2026-09-23 as two roles meant to consult other material and produce the single best version from it, not to generate from scratch. `writer` now exists (`agents/writer.md`, rendered to `plugin/agents/writer.md`): a general writer whose expected main use is code documentation, not a prompt-writing specialist. Prompt-writing rules stayed out of the role body; they live in `plugin/prompts/standing-prompt.md`, a path-scoped rule injected into a subagent on its first Read of a matching file. The design's evidence is `references/corpora/260926-github-agents/` — read its README and `analysis/synthesis.md` Q6 for the list of experiments E1–E12 — which shows what popular authors write, not what works; no part of the role is measured.
 
-- `writer`: tuned for now to writing prompts, where "prompt" covers skills, `AGENTS.md` and every other instruction file. The rules it would work to already exist: `plugin/rules/standing-prompt.md`, `docs/project/prompt-edit-rules/`, and the `instructions`, `deliberate` and `sharpen` skills. A general prose-writing role may come later, and whether it shares this prompt is open.
-- `designer`: UI/UX.
+Open:
 
-The route is the usual one: body and its `description`, `tier` and `sandbox_mode` frontmatter in `agents/<name>.md`, then `dev/kein-dev render-agents` and `check-agents`. Settle each role's reason to exist with `/kein:deliberate` before writing it, above all what `writer` does that a lead running `instructions` or `sharpen` does not.
+- Which experiments to run first, since no eval case exists for `writer` yet: E2 (does the path-scoped rule reach a writer that creates a new file without first reading a matching one, and is it followed), E4 (edit mode: preserve-by-default vs. cut), E7 (missing input: stop and ask vs. assume and disclose), E8 (writer or eval runs the mechanical checks) — the four the role's own choices hinge on.
+- `standing-prompt.md`'s `paths:` do not match role files such as `agents/*.md` or `.claude/agents/**`, so a writer editing a role prompt gets no rule injected. Whether to widen `paths:` is undecided.
+- Cross-vendor dispatch (`ocs team`/`ocs ask` with `--agent writer`) sends only the role body; no rule is injected on the other vendor, so the brief must name the rule file. Nothing does this automatically.
+- Whether `execute` should route documentation tasks to `writer` instead of handing everything to `executor` is undecided.
+- The owner's original wish — synthesising the single best version from several drafts or outside examples — is covered in the role only as "outside material shapes wording and structure, never facts". Whether a dedicated synthesis mode is needed is untested (E9).
+
+`designer` (UI/UX) is next and not started. The owner said its output cannot be fixed in advance: an HTML mockup, a light prototype, components, design tokens, a redesign of existing UI, or a written opinion.
 
 ## Per-directory `AGENTS.md` for subagents
 
