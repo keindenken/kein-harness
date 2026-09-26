@@ -36,11 +36,18 @@ HALT_FIELDS = frozenset({"reason"})
 ASSUMPTION_FIELDS = frozenset({"id", "stage", "decision", "chosen", "alternatives", "reversal_cost", "where"})
 QUESTION_FIELDS = frozenset({"id", "stage", "question", "options", "recommended", "why_irreversible", "parks", "answer"})
 LESSON_FIELDS = frozenset({"id", "line", "why"})
+CHAIN_FIELDS = frozenset({"previous", "slice"})
+CONTINUED_FIELDS = frozenset({"covered", "reason", "next"})
+COVERED_ID_PATTERN = re.compile(r"^AC[1-9][0-9]*$")
 FSD_FIELDS = frozenset({
     "schema_version", "workflow", "run_id", "lifecycle", "worktree", "entry", "input",
     "agents_md", "halt", "stages", "assumptions", "questions", "lessons",
     "retrospective", "next_action",
 })
+# Optional: `chain` and `continued` chain one whole fsd state into the next without moving `schema_version` -- `validate_transition` refuses any change to it, so a version bump could never continue a slice already written as version 1.
+# `chain` names the state's predecessor; `continued` records what the state that closes a slice handed off, and why, written only by `continue`.
+# A state carrying neither key validates, reads, and prints with nothing here ever touching it.
+FSD_OPTIONAL = frozenset({"chain", "continued"})
 ID_PATTERNS = {
     "assumptions": re.compile(r"^A\d+$"),
     "questions": re.compile(r"^Q\d+$"),
@@ -93,10 +100,10 @@ def _read_agents_md_hash(root: Path) -> Optional[str]:
     return _sha256_bytes(path.read_bytes())
 
 
-def _field_set_error(label: str, actual: Any, expected: frozenset) -> str:
+def _field_set_error(label: str, actual: Any, expected: frozenset, optional: frozenset = frozenset()) -> str:
     keys = set(actual) if isinstance(actual, dict) else set()
     missing = sorted(expected - keys)
-    unexpected = sorted(keys - expected)
+    unexpected = sorted(keys - expected - optional)
     return (label
             + (f"; missing {missing}" if missing else "")
             + (f"; unexpected {unexpected}" if unexpected else ""))
@@ -318,11 +325,68 @@ def _validate_lessons(value: Any) -> List[str]:
     return errors
 
 
+def _validate_chain(payload: Dict[str, Any]) -> List[str]:
+    """`chain` names the state's predecessor, written only by `continue` when it mints a slice's successor: entry `ralplan`, an input kind of `requirements`, and `stages.interview.status` `skipped`, the shape `start` already builds for any other requirements-entry state.
+    A state with no `chain` key at all is untouched by any of this; the key must actually be present, not merely absent-or-null, since a present `null` is not a dict and is refused below by the same field-set check every other malformed shape hits."""
+    if "chain" not in payload:
+        return []
+    value = payload["chain"]
+    if not isinstance(value, dict) or set(value) != CHAIN_FIELDS:
+        return [_field_set_error("chain must use the exact field set", value, CHAIN_FIELDS)]
+    errors: List[str] = []
+    previous = value.get("previous")
+    if not isinstance(previous, str) or not previous or not Path(previous).is_absolute():
+        errors.append("chain previous must be a non-empty absolute path")
+    slice_number = value.get("slice")
+    if isinstance(slice_number, bool) or not isinstance(slice_number, int) or slice_number < 2:
+        errors.append("chain slice must be an integer of at least 2")
+    input_value = payload.get("input")
+    stages_value = payload.get("stages")
+    interview_stage = stages_value.get("interview") if isinstance(stages_value, dict) else None
+    interview_skipped = isinstance(interview_stage, dict) and interview_stage.get("status") == "skipped"
+    requirements_kind = isinstance(input_value, dict) and input_value.get("kind") == "requirements"
+    if payload.get("entry") != "ralplan" or not requirements_kind or not interview_skipped:
+        errors.append("chain requires entry ralplan, an input kind of requirements, and stages.interview.status skipped")
+    return errors
+
+
+def _validate_continued(payload: Dict[str, Any]) -> List[str]:
+    """`continued` records what the state that closes a slice handed off, and why, written only by `continue`: present only once that state is `completed` with its own `retrospective` still null, a mid-chain close, never the chain's own last state, which carries a real retrospective instead.
+    `covered` names, in strictly ascending order and with no repeat, which of the requirements' `- [ ]` or `- [x]` criteria (`AC<n>`, in document order) this slice took.
+    A state with no `continued` key at all is untouched, the same as `_validate_chain`; a present `null` is refused the same way, by the field-set check below."""
+    if "continued" not in payload:
+        return []
+    value = payload["continued"]
+    errors: List[str] = []
+    if payload.get("lifecycle") != "completed" or payload.get("retrospective") is not None:
+        errors.append("continued requires a completed lifecycle and a null retrospective")
+    if not isinstance(value, dict) or set(value) != CONTINUED_FIELDS:
+        errors.append(_field_set_error("continued must use the exact field set", value, CONTINUED_FIELDS))
+        return errors
+    covered = value.get("covered")
+    if not isinstance(covered, list) or not covered:
+        errors.append("continued covered must be a non-empty list of acceptance criterion ids")
+    elif not all(isinstance(item, str) and COVERED_ID_PATTERN.fullmatch(item) for item in covered):
+        errors.append(f"continued covered ids must match {COVERED_ID_PATTERN.pattern}")
+    elif len(set(covered)) != len(covered):
+        errors.append("continued covered ids must not repeat")
+    else:
+        numbers = [int(item[2:]) for item in covered]
+        if any(numbers[index] >= numbers[index + 1] for index in range(len(numbers) - 1)):
+            errors.append("continued covered ids must be in strictly ascending number order")
+    if not isinstance(value.get("reason"), str) or not value["reason"].strip():
+        errors.append("continued reason must be non-empty")
+    next_path = value.get("next")
+    if not isinstance(next_path, str) or not next_path or not Path(next_path).is_absolute():
+        errors.append("continued next must be a non-empty absolute path")
+    return errors
+
+
 def validate_state(payload: Any) -> List[str]:
     if not isinstance(payload, dict):
         return ["State must be a JSON object"]
-    if set(payload) != FSD_FIELDS:
-        return [_field_set_error("State must use the exact fsd field set", payload, FSD_FIELDS)]
+    if not (FSD_FIELDS <= set(payload) <= FSD_FIELDS | FSD_OPTIONAL):
+        return [_field_set_error("State must use the exact fsd field set", payload, FSD_FIELDS, FSD_OPTIONAL)]
     errors: List[str] = []
     if payload.get("schema_version") != SCHEMA_VERSION:
         errors.append("State schema_version must be 1")
@@ -345,6 +409,8 @@ def validate_state(payload: Any) -> List[str]:
     errors.extend(_validate_assumptions(payload.get("assumptions")))
     errors.extend(_validate_questions(payload.get("questions")))
     errors.extend(_validate_lessons(payload.get("lessons")))
+    errors.extend(_validate_chain(payload))
+    errors.extend(_validate_continued(payload))
     retrospective = payload.get("retrospective")
     if retrospective is not None and (not isinstance(retrospective, str) or not retrospective):
         errors.append("State retrospective must be null or a non-empty path")
@@ -395,6 +461,11 @@ LIFECYCLE_TRANSITIONS = {
 }
 
 
+def _optional_field_changed(previous: Dict[str, Any], candidate: Dict[str, Any], key: str) -> bool:
+    """Whether an optional top-level key differs between two states, counting a key's presence as part of its value: a plain `previous.get(key) != candidate.get(key)` cannot tell a key that is absent from one that is present and explicitly `null`, so a candidate could otherwise smuggle `"chain": null` past this comparison onto a state that never had a `chain` key at all."""
+    return (key in previous) != (key in candidate) or previous.get(key) != candidate.get(key)
+
+
 def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str, Any]) -> List[str]:
     errors = validate_state(candidate)
     if previous is None:
@@ -409,11 +480,16 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     for key in ("schema_version", "workflow", "run_id", "worktree", "entry"):
         if previous.get(key) != candidate.get(key):
             errors.append(f"Transition cannot change {key}")
+    if _optional_field_changed(previous, candidate, "chain"):
+        errors.append("Transition cannot change chain")
     if previous.get("input") != candidate.get("input"):
         errors.append("Transition cannot change input identity")
     if previous.get("lifecycle") in TERMINAL_LIFECYCLES:
         errors.append("Terminal state cannot transition")
         return errors
+    if _optional_field_changed(previous, candidate, "continued"):
+        if previous.get("lifecycle") != "active" or candidate.get("lifecycle") != "completed":
+            errors.append("continued may only appear on an active -> completed transition")
     allowed = LIFECYCLE_TRANSITIONS.get(previous.get("lifecycle"), frozenset())
     if candidate.get("lifecycle") not in allowed:
         errors.append(f"Lifecycle transition {previous.get('lifecycle')} -> {candidate.get('lifecycle')} is not allowed")
@@ -478,6 +554,13 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
                 f"checkpoint cannot change stage {stage}'s run or resolved_reference; a kept link changes "
                 "only through attach, the post-bash hook, or enter, never through a hand-authored checkpoint candidate"
             )
+    if _optional_field_changed(previous, candidate, "continued"):
+        # `continued` has exactly one writer, `continue`, closing the slice it describes in the same call that mints its successor -- never this escape hatch, however the candidate is shaped, and however `validate_transition`'s own active -> completed rule would read it standing alone.
+        # Refusing it here, ahead of `_commit`, keeps that one-writer rule true regardless of what `continue` is built to accept.
+        raise ValueError(
+            "checkpoint cannot write continued; continued is recorded only by continue closing a slice, "
+            "never through a hand-authored checkpoint candidate"
+        )
     _commit(destination, candidate)
 
 

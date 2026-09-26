@@ -2536,6 +2536,249 @@ def _section_scenario41_checkpoint_refuses_new_destination_with_run():
             failures.append("checkpoint created a new destination it should have refused to create")
 
 # ---------------------------------------------------------------------------
+# Section "chain-schema": `chain` and `continued` are optional FSD_FIELDS keys that a state carrying neither validates, reads, and prints exactly as before, and that a hand-authored `checkpoint` candidate -- the escape hatch -- can never forge.
+# This section drives no `continue` command; it proves the schema itself accepts and refuses these two fields on their own.
+
+def _chain_schema_base_state(work, requirements_path, run_id="260101-000000-chain-schema"):
+    # Shaped exactly the way `start` already builds a state for an approved-requirements input: entry ralplan, interview skipped, ralplan pending -- the shape `chain`'s own cross-field rule requires.
+    agents_md_hash = hashlib.sha256((work / "AGENTS.md").read_bytes()).hexdigest()
+    return {
+        "schema_version": 1, "workflow": "fsd", "run_id": run_id,
+        "lifecycle": "active", "worktree": str(work), "entry": "ralplan",
+        "input": {"kind": "requirements", "reference": str(requirements_path), "summary": "check"},
+        "agents_md": [{"span_started_at": STAMP, "sha256": agents_md_hash}],
+        "halt": None,
+        "stages": {
+            "interview": {"status": "skipped", "run": None, "resolved_reference": None},
+            "ralplan": {"status": "pending", "run": None, "resolved_reference": None},
+            "execute": {"status": "pending", "run": None, "resolved_reference": None},
+            "closeout": {"status": "pending", "run": None, "resolved_reference": None},
+        },
+        "assumptions": [], "questions": [], "lessons": [],
+        "retrospective": None,
+        "next_action": f"invoke /kein:ralplan {requirements_path}",
+    }
+
+
+def _section_chain_schema():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-schema.md"
+        write_requirements(requirements_path, "Approved")
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        # Completion condition 1: a hand-written current-schema state -- exactly the 15 FSD_FIELDS keys, shaped like a live run's file -- validates, and status/gap/report on it are exactly what they were before this story: it carries neither `chain` nor `continued` for any of them to read.
+        base_state = _chain_schema_base_state(work, requirements_path)
+        base_path = work / "base-state.json"
+        write(base_path, base_state)
+        if set(base_state) != {
+            "schema_version", "workflow", "run_id", "lifecycle", "worktree", "entry", "input",
+            "agents_md", "halt", "stages", "assumptions", "questions", "lessons",
+            "retrospective", "next_action",
+        }:
+            failures.append("the chain-schema fixture's own base state does not carry exactly the 15 FSD_FIELDS keys; this case proves nothing")
+        must("validating a hand-written current-schema state", fsd(work, "validate", str(base_path)))
+
+        status_payload = json.loads(fsd(work, "status", str(base_path)).stdout)
+        expected_status_keys = {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}
+        if set(status_payload) != expected_status_keys:
+            failures.append(f"status on a current-schema state gained or lost a key: {sorted(status_payload)}")
+
+        expected_action = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+        gap_payload = json.loads(fsd(work, "gap", str(base_path)).stdout)
+        if gap_payload["action"] != expected_action:
+            failures.append(f"gap's entry-row action on a current-schema state changed: {gap_payload['action']!r}")
+
+        report_text = fsd(work, "report", str(base_path)).stdout
+        if "## Slices" in report_text:
+            failures.append("report printed a ## Slices section for a state with no chain")
+
+        # Completion condition 2: a well-formed `chain`, written into a copy of a state `start` actually produced for an approved-requirements input, validates.
+        result = must("starting the chain-schema condition-2 fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "condition2",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        condition2_state_path = require_path(result)
+        condition2_chained = read_json(condition2_state_path)
+        condition2_chained["chain"] = {"previous": str(work / "previous-state.json"), "slice": 2}
+        condition2_chained_path = condition2_state_path.parent / "chained-copy.json"
+        write(condition2_chained_path, condition2_chained)
+        must("validating a start-produced state with a well-formed chain written into a copy",
+             fsd(work, "validate", str(condition2_chained_path)))
+        must("aborting the chain-schema condition-2 fixture", fsd(work, "abort", str(condition2_state_path), "--reason", "onto the next chain-schema case"))
+
+        # Completion condition 3: each way `chain` can be malformed, refused with `chain` named.
+        def refuse_chain(label, chain_value, mutate_base=None):
+            candidate = json.loads(json.dumps(base_state))
+            if mutate_base is not None:
+                mutate_base(candidate)
+            candidate["chain"] = chain_value
+            candidate_path = work / f"chain-bad-{label}.json"
+            write(candidate_path, candidate)
+            refuse(f"validating chain malformed by {label}", fsd(work, "validate", str(candidate_path)), reason="chain")
+
+        refuse_chain("missing-slice", {"previous": str(work / "p.json")})
+        refuse_chain("slice-1", {"previous": str(work / "p.json"), "slice": 1})
+        refuse_chain("slice-true", {"previous": str(work / "p.json"), "slice": True})
+        refuse_chain("relative-previous", {"previous": "relative/p.json", "slice": 2})
+        refuse_chain("empty-previous", {"previous": "", "slice": 2})
+        refuse_chain("extra-key", {"previous": str(work / "p.json"), "slice": 2, "extra": "x"})
+        refuse_chain("null", None)
+
+        def execute_entry(candidate):
+            execute_entry_plan = work / "plan-chain-schema.md"
+            if not execute_entry_plan.exists():
+                write_plan(execute_entry_plan, "Approved")
+            candidate["entry"] = "execute"
+            candidate["input"] = {"kind": "plan", "reference": str(execute_entry_plan), "summary": "check"}
+            candidate["stages"]["ralplan"]["status"] = "skipped"
+            candidate["stages"]["execute"]["status"] = "pending"
+        refuse_chain("execute-entry", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=execute_entry)
+
+        # Each cross-field conjunct isolated on its own, the other two left exactly as the base state already has them: entry ralplan and interview skipped while the input kind is wrong; entry ralplan and the input kind requirements while interview is not skipped; the input kind requirements and interview skipped while entry is not ralplan.
+        # Isolating each conjunct is what a mutant that drops one of the three from the cross-field check, while leaving the other two, would need to survive -- the `execute-entry` case above changes entry and the input kind together and would not catch a mutant that drops only one of the three.
+        def kind_idea(candidate):
+            candidate["input"] = {"kind": "idea", "reference": None, "summary": "an idea"}
+        refuse_chain("kind-not-requirements", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=kind_idea)
+
+        def interview_not_skipped(candidate):
+            candidate["stages"]["interview"]["status"] = "entered"
+        refuse_chain("interview-not-skipped", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=interview_not_skipped)
+
+        def entry_not_ralplan(candidate):
+            candidate["entry"] = "interview"
+        refuse_chain("entry-not-ralplan", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=entry_not_ralplan)
+
+        # Completion condition 4: each way `continued` can be malformed, refused with `continued` named.
+        valid_continued = {"covered": ["AC1"], "reason": "the next slice needs more time", "next": str(work / "next-state.json")}
+
+        def refuse_continued(label, continued_value, lifecycle="completed", retrospective=None):
+            candidate = json.loads(json.dumps(base_state))
+            candidate["lifecycle"] = lifecycle
+            candidate["retrospective"] = retrospective
+            candidate["continued"] = continued_value
+            candidate_path = work / f"continued-bad-{label}.json"
+            write(candidate_path, candidate)
+            refuse(f"validating continued malformed by {label}", fsd(work, "validate", str(candidate_path)), reason="continued")
+
+        refuse_continued("active-lifecycle", valid_continued, lifecycle="active")
+        refuse_continued("non-null-retrospective", valid_continued, retrospective=str(work / "retro.md"))
+        refuse_continued("empty-covered", {**valid_continued, "covered": []})
+        refuse_continued("bad-id", {**valid_continued, "covered": ["X1"]})
+        refuse_continued("duplicate-id", {**valid_continued, "covered": ["AC1", "AC1"]})
+        refuse_continued("out-of-order", {**valid_continued, "covered": ["AC2", "AC1"]})
+        refuse_continued("trailing-newline-id", {**valid_continued, "covered": ["AC1", "AC1\n"]})
+        refuse_continued("leading-zero-id", {**valid_continued, "covered": ["AC01"]})
+        refuse_continued("numeric-out-of-order", {**valid_continued, "covered": ["AC10", "AC2"]})
+        refuse_continued("relative-next", {**valid_continued, "next": "relative/next-state.json"})
+        refuse_continued("empty-next", {**valid_continued, "next": ""})
+        refuse_continued("empty-reason", {**valid_continued, "reason": ""})
+        refuse_continued("whitespace-reason", {**valid_continued, "reason": "   "})
+        refuse_continued("extra-key", {**valid_continued, "extra": "x"})
+        refuse_continued("null", None)
+
+        # `covered`'s order check is numeric, not a string comparison: "AC2", "AC10" is ascending by number even though "AC10" sorts before "AC2" as text.
+        covered_numeric_order = json.loads(json.dumps(base_state))
+        covered_numeric_order["lifecycle"] = "completed"
+        covered_numeric_order["retrospective"] = None
+        covered_numeric_order["continued"] = {**valid_continued, "covered": ["AC2", "AC10"]}
+        covered_numeric_order_path = work / "continued-numeric-order.json"
+        write(covered_numeric_order_path, covered_numeric_order)
+        must("validating continued covered in numeric ascending order despite descending string order",
+             fsd(work, "validate", str(covered_numeric_order_path)))
+
+        # Completion condition 5: an unknown top-level key is refused with `unexpected` named.
+        unknown_key_state = json.loads(json.dumps(base_state))
+        unknown_key_state["chains"] = {}
+        unknown_key_path = work / "unknown-key.json"
+        write(unknown_key_path, unknown_key_state)
+        refuse("validating a state with an unknown top-level key", fsd(work, "validate", str(unknown_key_path)), reason="unexpected")
+
+        # Completion condition 6: `checkpoint`, the hand-authored escape hatch, can forge neither fact, whether the candidate adds it, changes it, or removes it from what the file already stores.
+        result = must("starting the chain-schema checkpoint fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-schema-checkpoint",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        checkpoint_state_path = require_path(result)
+        checkpoint_state = read_json(checkpoint_state_path)
+        before_bytes = checkpoint_state_path.read_bytes()
+
+        continued_candidate = json.loads(json.dumps(checkpoint_state))
+        continued_candidate["lifecycle"] = "completed"
+        continued_candidate["retrospective"] = None
+        continued_candidate["continued"] = dict(valid_continued)
+        continued_candidate_path = checkpoint_state_path.parent / "candidate-continued.json"
+        write(continued_candidate_path, continued_candidate)
+        refuse("checkpointing a candidate that moves active to completed with continued added",
+               fsd(work, "checkpoint", str(checkpoint_state_path), str(continued_candidate_path)), reason="continued")
+        if checkpoint_state_path.read_bytes() != before_bytes:
+            failures.append("checkpoint applied a continued addition it should have refused")
+
+        chain_added = json.loads(json.dumps(checkpoint_state))
+        chain_added["chain"] = {"previous": str(work / "p.json"), "slice": 2}
+        chain_added_path = checkpoint_state_path.parent / "candidate-chain-added.json"
+        write(chain_added_path, chain_added)
+        refuse("checkpointing a candidate that adds chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_added_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes:
+            failures.append("checkpoint applied a chain addition it should have refused")
+
+        # A state that already carries a chain -- written directly into the file, the condition-2 method, since `continue` is the only builder that would ever commit one through the ordinary path -- proves the other two directions: a candidate cannot change it or remove it either.
+        with_chain = json.loads(json.dumps(checkpoint_state))
+        with_chain["chain"] = {"previous": str(work / "p.json"), "slice": 2}
+        write(checkpoint_state_path, with_chain)
+        before_bytes_with_chain = checkpoint_state_path.read_bytes()
+
+        chain_changed = json.loads(json.dumps(with_chain))
+        chain_changed["chain"]["slice"] = 3
+        chain_changed_path = checkpoint_state_path.parent / "candidate-chain-changed.json"
+        write(chain_changed_path, chain_changed)
+        refuse("checkpointing a candidate that changes chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_changed_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes_with_chain:
+            failures.append("checkpoint applied a chain change it should have refused")
+
+        chain_removed = json.loads(json.dumps(with_chain))
+        del chain_removed["chain"]
+        chain_removed_path = checkpoint_state_path.parent / "candidate-chain-removed.json"
+        write(chain_removed_path, chain_removed)
+        refuse("checkpointing a candidate that removes chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_removed_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes_with_chain:
+            failures.append("checkpoint applied a chain removal it should have refused")
+        must("aborting the chain-schema checkpoint fixture", fsd(work, "abort", str(checkpoint_state_path), "--reason", "onto the continued checkpoint case"))
+
+        # A state that already carries a `continued` -- written directly into the file, the same way -- proves the identical two directions for `continued`: a candidate cannot change it or remove it either.
+        result = must("starting the chain-schema continued-checkpoint fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-schema-continued-checkpoint",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        continued_state_path = require_path(result)
+        continued_state = read_json(continued_state_path)
+        with_continued = json.loads(json.dumps(continued_state))
+        with_continued["lifecycle"] = "completed"
+        with_continued["retrospective"] = None
+        with_continued["continued"] = dict(valid_continued)
+        write(continued_state_path, with_continued)
+        before_bytes_with_continued = continued_state_path.read_bytes()
+
+        continued_changed = json.loads(json.dumps(with_continued))
+        continued_changed["continued"] = {**valid_continued, "reason": "a different reason"}
+        continued_changed_path = continued_state_path.parent / "candidate-continued-changed.json"
+        write(continued_changed_path, continued_changed)
+        refuse("checkpointing a candidate that changes continued", fsd(work, "checkpoint", str(continued_state_path), str(continued_changed_path)),
+               reason="continued")
+        if continued_state_path.read_bytes() != before_bytes_with_continued:
+            failures.append("checkpoint applied a continued change it should have refused")
+
+        continued_removed = json.loads(json.dumps(with_continued))
+        del continued_removed["continued"]
+        continued_removed_path = continued_state_path.parent / "candidate-continued-removed.json"
+        write(continued_removed_path, continued_removed)
+        refuse("checkpointing a candidate that removes continued", fsd(work, "checkpoint", str(continued_state_path), str(continued_removed_path)),
+               reason="continued")
+        if continued_state_path.read_bytes() != before_bytes_with_continued:
+            failures.append("checkpoint applied a continued removal it should have refused")
+
+# ---------------------------------------------------------------------------
 # Section "gap" (issue 1a): an entered stage whose association still reads "none" now carries a diagnosis on gap's own no-gap result -- the stage's name paired with the identical reason text `status` already shows beside it (`_none_association_reason`, read once and reused, never re-derived) -- so a lead no longer has to read `status` by hand to learn what `gap` itself could already see. `gap` still reports no gap throughout: a stage that is merely still running, with its ledger not yet completed, must never read as a gap of its own. Once the only entered stage is linked, the diagnosis clears to null. Registered under the literal name "gap" so `--only gap` runs just this section.
 
 def _section_gap_diagnosis_field():
@@ -3195,6 +3438,7 @@ SECTIONS = [
     ("scenario39-execute-refused-while-ralplan-live", (), _section_scenario39_execute_refused_while_ralplan_live),
     ("scenario40-ralplan-refused-while-interview-active", (), _section_scenario40_ralplan_refused_while_interview_active),
     ("scenario41-checkpoint-refuses-new-destination-with-run", (), _section_scenario41_checkpoint_refuses_new_destination_with_run),
+    ("chain-schema", (), _section_chain_schema),
     ("gap", (), _section_gap_diagnosis_field),
     ("attach", (), _section_attach_terminal_candidate_message),
     ("occupant", (), _section_occupant_facts),
