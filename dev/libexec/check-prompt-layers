@@ -1,18 +1,18 @@
 #!/usr/bin/env sh
-#: Run the lead-prompt hook under each entrypoint and override, and fail if the prompt reaches a session it must not or misses one it must.
+#: Run the prompt-layer hook for the lead and the worker under each entrypoint and override, and fail if a prompt reaches a session it must not or misses one it must.
 #
 # The hook decides from the environment alone, so every case is a synthetic environment. What it cannot cover is whether Claude Code still sets `CLAUDE_CODE_ENTRYPOINT` to `cli` and `sdk-cli`; that is a live measurement, recorded in the findings store.
 set -eu
 
-HOOK="${KEIN_ROOT:?}/hooks/lead-prompt.py"
+HOOK="${KEIN_ROOT:?}/hooks/prompt-layers.py"
 failures=0
 marker="$(head -1 "$KEIN_ROOT/prompts/lead.md")"
 
 tmp=$(mktemp -d); trap 'chmod -R u+rwx "$tmp" 2>/dev/null; rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/home" "$tmp/proj"
 # The operator's own layers must not leak into the cases, so every run gets an empty home and an empty project.
-run() { env -u CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS -u KEIN_LEAD_PROMPT -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" "$@" "${PY:-python3}" "$HOOK" </dev/null; }
-fail() { printf 'check-lead-prompt: %s\n' "$1" >&2; failures=$((failures + 1)); }
+run() { env -u CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS -u KEIN_LEAD_PROMPT -u KEIN_WORKER_PROMPT -u KEIN_STATE_ROOT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" "$@" "${PY:-python3}" "$HOOK" "${ROLE:-lead}" </dev/null; }
+fail() { printf 'check-prompt-layers: %s\n' "$1" >&2; failures=$((failures + 1)); }
 field() { python3 -c 'import json,sys; d=json.loads(sys.stdin.read() or "{}"); print(d.get("hookSpecificOutput",{}).get("additionalContext","") if sys.argv[1]=="context" else d.get("systemMessage",""))' "$1"; }
 
 out=$(run CLAUDE_CODE_ENTRYPOINT=cli || true)
@@ -22,7 +22,7 @@ printf '%s' "$out" | field context | grep -qF "$marker" || fail "an interactive 
 for entry in sdk-cli sdk-ts sdk-py claude-vscode ""; do
   [ -z "$(run CLAUDE_CODE_ENTRYPOINT="$entry")" ] || fail "entrypoint '$entry' got output and must get none"
 done
-[ -z "$(env -u CLAUDE_CODE_ENTRYPOINT -u KEIN_LEAD_PROMPT python3 "$HOOK" </dev/null)" ] || fail "an unset entrypoint got output"
+[ -z "$(env -u CLAUDE_CODE_ENTRYPOINT -u KEIN_LEAD_PROMPT python3 "$HOOK" lead </dev/null)" ] || fail "an unset entrypoint got output"
 
 [ -z "$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none)" ] || fail "KEIN_LEAD_PROMPT=none still injected"
 
@@ -52,9 +52,9 @@ n=$(run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_PROJECT_DIR="$tmp/home" | field contex
 [ "$n" -eq 1 ] || fail "a project rooted at home got the user layer $n times"
 rm -rf "$tmp/proj/.agents"
 mkdir -p "$tmp/git/sub" && git -C "$tmp/git" init -q && layer "$tmp/git" GIT_LAYER_MARKER
-printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u CLAUDE_PROJECT_DIR -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" | field context | grep -q GIT_LAYER_MARKER || fail "without CLAUDE_PROJECT_DIR the project layer was not found from the hook's cwd"
+printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u CLAUDE_PROJECT_DIR -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" lead | field context | grep -q GIT_LAYER_MARKER || fail "without CLAUDE_PROJECT_DIR the project layer was not found from the hook's cwd"
 run CLAUDE_CODE_ENTRYPOINT=cli KEIN_STATE_ROOT="$tmp/git" | field context | grep -q GIT_LAYER_MARKER || fail "KEIN_STATE_ROOT did not pick the project layer"
-printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" | field context | grep -q GIT_LAYER_MARKER && fail "the hook's cwd beat CLAUDE_PROJECT_DIR"
+printf '{"cwd": "%s"}' "$tmp/git/sub" | env -u KEIN_STATE_ROOT -u KEIN_LEAD_PROMPT HOME="$tmp/home" CLAUDE_PROJECT_DIR="$tmp/proj" CLAUDE_CODE_ENTRYPOINT=cli python3 "$HOOK" lead | field context | grep -q GIT_LAYER_MARKER && fail "the hook's cwd beat CLAUDE_PROJECT_DIR"
 out=$(run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT="$tmp/absent.md" CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 || true)
 printf '%s' "$out" | field notice | grep -q 'AGENT_TEAMS' || fail "agent teams on with only layers injected produced no notice"
 
@@ -75,8 +75,39 @@ if [ -x /usr/bin/python3 ]; then
   PY=/usr/bin/python3 run CLAUDE_CODE_ENTRYPOINT=cli | field context | grep -q USER_LAYER_MARKER || fail "the hook failed under /usr/bin/python3 ($(/usr/bin/python3 --version 2>&1))"
 fi
 
+# The worker role: its own core, its own layers, its own event name, and nothing of the lead's.
+rm -rf "$tmp/home/.agents" "$tmp/proj/.agents"
+wmarker="$(head -1 "$KEIN_ROOT/prompts/worker.md")"
+layer "$tmp/home" LEAD_ONLY_MARKER
+wlayer() { mkdir -p "$1/.agents/kein/prompts" && printf '%s\n' "$2" > "$1/.agents/kein/prompts/worker.md"; }
+wlayer "$tmp/home" USER_WORKER_MARKER
+wlayer "$tmp/proj" PROJECT_WORKER_MARKER
+out=$(ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli || true)
+ctx=$(printf '%s' "$out" | field context)
+order=$(printf '%s\n' "$ctx" | grep -nF -e "$wmarker" -e USER_WORKER_MARKER -e PROJECT_WORKER_MARKER | cut -d: -f2- | tr '\n' ' ')
+[ "$order" = "$wmarker USER_WORKER_MARKER PROJECT_WORKER_MARKER " ] || fail "the worker did not get its core and layers in order (got: $order)"
+printf '%s' "$ctx" | grep -q -e LEAD_ONLY_MARKER -e "^$marker\$" && fail "the worker got the lead's prompt or layer"
+printf '%s' "$out" | python3 -c 'import json,sys; sys.exit(json.load(sys.stdin)["hookSpecificOutput"]["hookEventName"] != "SubagentStart")' || fail "the worker's output was not named SubagentStart"
+run CLAUDE_CODE_ENTRYPOINT=cli | field context | grep -q WORKER_MARKER && fail "the lead got a worker layer"
+[ -z "$(ROLE=worker run CLAUDE_CODE_ENTRYPOINT=sdk-cli)" ] || fail "a headless session's subagent got the worker prompt"
+[ -z "$(ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_WORKER_PROMPT=none)" ] || fail "KEIN_WORKER_PROMPT=none still injected"
+ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_LEAD_PROMPT=none | field context | grep -qF "$wmarker" || fail "KEIN_LEAD_PROMPT=none turned the worker prompt off"
+[ -z "$(ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 | field notice)" ] || fail "the worker got the lead's agent-teams notice"
+[ -z "$(ROLE=nobody run CLAUDE_CODE_ENTRYPOINT=cli)" ] || fail "an unknown role got output"
+ROLE=worker run CLAUDE_CODE_ENTRYPOINT=cli KEIN_WORKER_PROMPT="$tmp/pinned.md" | field context | grep -qx PINNED_MARKER || fail "a pinned KEIN_WORKER_PROMPT was not used"
+
+# Each event must run its own role, or each hook names the wrong event and injects the wrong prompt.
+python3 - "$KEIN_ROOT/hooks/hooks.json" <<'PY' || fail "hooks.json does not run prompt-layers.py lead on SessionStart and worker on SubagentStart"
+import json, sys
+hooks = json.load(open(sys.argv[1]))["hooks"]
+def commands(event):
+    return [h["command"] for group in hooks.get(event, []) for h in group["hooks"] if "prompt-layers.py" in h["command"]]
+sys.exit(not (commands("SessionStart") and all(c.endswith('prompt-layers.py" lead') for c in commands("SessionStart"))
+              and commands("SubagentStart") and all(c.endswith('prompt-layers.py" worker') for c in commands("SubagentStart"))))
+PY
+
 if [ "$failures" -ne 0 ]; then
-  printf 'check-lead-prompt: %d case(s) failed\n' "$failures" >&2
+  printf 'check-prompt-layers: %d case(s) failed\n' "$failures" >&2
   exit 1
 fi
-echo "check-lead-prompt: ok"
+echo "check-prompt-layers: ok"

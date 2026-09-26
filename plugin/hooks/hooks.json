@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/lead-prompt.py\""
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/prompt-layers.py\" lead"
           }
         ]
       },
@@ -16,6 +16,16 @@
             "type": "command",
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/libexec/ocs-home-run\" --hook",
             "timeout": 20
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/prompt-layers.py\" worker"
           }
         ]
       }

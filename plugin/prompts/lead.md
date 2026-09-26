@@ -20,7 +20,7 @@ A worker's final message reaches you; text it merely prints does not. So a deliv
 
 A worker sees only the agents that existed when it started. It cannot reach one you opened later, so coordination between workers stays yours to carry.
 
-`SendMessage` is often not preloaded. A worker whose brief tells it to message anyone needs `ToolSearch("select:SendMessage")` in that same brief, or it will find the instruction unexecutable and say nothing about it.
+A Claude subagent starts with a worker prompt of its own: the plugin's, then `~/.agents/kein/prompts/worker.md` and the project's `.agents/kein/prompts/worker.md` when they exist. It already knows the limits the plugin enforces and how to reach you, so a brief need not repeat any of that. A worker through `ocs` gets none of it.
 
 ## Commands
 

@@ -32,7 +32,7 @@ plugin/                everything Claude Code loads. The symlink points HERE,
   skills/              <name>/SKILL.md              -> /kein:<name>
   workflows/           workflow scripts
   hooks/hooks.json     SessionStart hands prompts/lead.md to an interactive main
-                       session (never a subagent or a `claude -p`) and, on
+                       session (never a subagent or a `claude -p`), SubagentStart hands prompts/worker.md to that session's subagents, and, on
                        startup or resume in an Orca pane, binds the pane to its
                        home Run (`ocs home-run`), UserPromptSubmit keeps the HUD alive, PreToolUse on Bash
                        refuses a subagent's git writes, and on Agent, Skill, Workflow and Bash refuses a subagent starting a worker of its own (a read-only lookup still passes). The `fsd` skill's hooks
@@ -43,6 +43,7 @@ plugin/                everything Claude Code loads. The symlink points HERE,
                        `.agents/kein/prompts/lead.md`, when they exist.
                        `KEIN_LEAD_PROMPT` pins another core file or `none` turns
                        all of it off
+  prompts/worker.md    the same for every subagent, with `worker.md` layers and `KEIN_WORKER_PROMPT`
   prompts/standing-prompt.md
                        the rule for editing any agent instruction file,
                        linked into the config home by `onboard`

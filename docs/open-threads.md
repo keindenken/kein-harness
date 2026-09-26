@@ -40,7 +40,7 @@ Two measurements it makes possible, neither taken:
 
 And the plainer one: whether any of the plan-quality results move when the lead is not bare. Every number in the programme was produced under a lead with no standing prompt at all, which is not the configuration anyone actually works in.
 
-Two things to expect when turning it on, both recorded in `resolve_lead_prompt`. `plugin/prompts/lead.md` is now only the core; the owner's Korean-language rule moved to the user layer `~/.agents/kein/prompts/lead.md`, so a run meant to reproduce the owner's lead needs a file that concatenates the two — and that language rule then lands on a headless `claude -p`. Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin that arm does not have. Neither applies to a `--variant` pair, which is the cleaner place to take the first reading.
+Two things to expect when turning it on, both recorded in `resolve_lead_prompt`. `plugin/prompts/lead.md` is now only the core; the owner's Korean-language rule moved to the user layer `~/.agents/kein/prompts/lead.md`, so a run meant to reproduce the owner's lead needs a file that concatenates the two — and that language rule then lands on a headless `claude -p`. Against the built-in `with-skill`/`without-skill` pair it also hands the control arm instructions naming `ocs ask` and `ocs team`, which are on PATH only through the plugin that arm does not have. Neither applies to a `--variant` pair, which is the cleaner place to take the first reading. A third: the lead prompt now leaves `SendMessage` loading to the worker prompt, which reaches only an interactive session's subagents, so an arm's workers never get it.
 
 ## A default eval run's plugin copy could now be dropped
 
@@ -56,7 +56,7 @@ The findings drain of 2026-09-19 (`~/Documents/wiki` commit `639dd30`, plan `.ag
 
 ## An Orca-launched interactive Claude worker would get the lead prompt
 
-An interactive Claude worker that Orca orchestration launches in its own pane would run under `CLAUDE_CODE_ENTRYPOINT=cli`, same as any other interactive session, and would get the lead prompt from `plugin/hooks/lead-prompt.py`. No flow launches one today, since `ocs team` starts Codex, and what tells such a worker apart is unmeasured. `~/.local/bin/claude-kein` sits outside the repository and is the owner's to delete.
+An interactive Claude worker that Orca orchestration launches in its own pane would run under `CLAUDE_CODE_ENTRYPOINT=cli`, same as any other interactive session, and would get the lead prompt from `plugin/hooks/prompt-layers.py`, and not the worker prompt, which only SubagentStart delivers. No flow launches one today, since `ocs team` starts Codex, and what tells such a worker apart is unmeasured. `~/.local/bin/claude-kein` sits outside the repository and is the owner's to delete.
 
 ## `writer` and `designer`: experiments and wiring
 
