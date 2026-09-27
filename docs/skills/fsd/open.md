@@ -23,6 +23,12 @@ Not an accepted risk, but a thing no run has yet exercised, so nothing here has 
 
 - No live chained run (`ocs state fsd continue`) has gone end to end yet. Its first real use should measure: whether the lead actually continues rather than closes when acceptance criteria remain; whether ralplan's own planner uses the remaining criteria and earlier slices' receipts that `gap`'s chained action hands it; whether a later slice's plan lands at a path of its own rather than overwriting an earlier one; whether ralplan's review lanes approve a slice plan that deliberately covers only part of the acceptance criteria, since the first slice's own action carries no remaining-criteria suffix to say so; whether the lead passes `gap`'s multi-line action as the whole `/kein:ralplan` argument rather than only its first line, and which path it then gives `ocs state ralplan start --input`; and whether the requirements' acceptance criteria stayed unedited across slices, since `AC<n>` ids are positional.
 
+## Observed, not yet diagnosed: the hooks did not see a run started in a worktree
+
+In the 260926 slice-chain run the lead moved the flow into a linked git worktree with Claude Code's EnterWorktree, then started the fsd run there. `post-skill` did not enter `ralplan` and `post-bash` did not link the ralplan or execute runs, so the lead entered and attached every stage by hand, and the Stop hook never blocked. `hook.py` resolves the worktree from `CLAUDE_PROJECT_DIR` before the payload's `cwd`; the likely cause is that `CLAUDE_PROJECT_DIR` still named the main checkout, but the variable was not visible to the lead's own Bash and nothing measured what the hook process saw. The same run also found that a worktree-isolated session refuses Bash commands it cannot prove stay in the worktree (pipelines, `$VAR` expansion, heredocs), so every step had to be a plain command.
+
+**Reopen when** an fsd run is started in a worktree: log the hook payload's `cwd` and the hook's `CLAUDE_PROJECT_DIR` first, then decide whether `cwd` should win.
+
 ## What would reopen the design
 
 The run went through three association designs before this one held: inference after the fact, then a strict-only rule that lost the flow's own runs, then linking at creation. If a live run (U6) shows the flow's own stage run going unlinked on the ordinary path, the first thing to check is whether the lead followed the U5 list above, and the second is post-bash's spelling coverage, before touching the belonging rule.
