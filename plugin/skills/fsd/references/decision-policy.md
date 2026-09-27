@@ -58,7 +58,7 @@ When the standing grounds keep coming from one story while the others have settl
 
 The prohibition on `block` below belongs to the round-5 exit alone, where the point is to reach `approve` without another round. Here another round is the price, so `block` is the right first step.
 
-The split story goes back through its own requirements-and-plan pass after this run rather than holding the settled ones behind it.
+The split story's criteria stay uncovered by this slice, so closeout's continue branch carries them into the next slice's `ralplan` rather than a separate pass after the run.
 
 That is a different situation from grounds that move across stories as each is fixed. Those are what the round count is for, and the exit below applies to them.
 

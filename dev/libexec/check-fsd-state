@@ -3,7 +3,10 @@
 #
 # fsd chains three workflows it does not own, so this check builds fixtures the same way a live run would produce them: an interview ledger written by hand (interview has no state.py to call), a ralplan run driven through its own CLI, and an execute run driven through its own CLI plus a few hand-authored checkpoints for the transitions execute has no builder for.
 # Nothing here weakens a case to make it pass; a failure here means `state.py` is wrong, not the fixture. Every scenario below is an independent, self-contained function -- its own fixture, its own worktree -- registered in the `SECTIONS` list near the end of this file, so `--only` never needs a dependency to name.
+import contextlib
 import hashlib
+import importlib.util
+import io
 import json
 import os
 import re
@@ -21,6 +24,9 @@ RALPLAN = ROOT / "skills" / "ralplan" / "scripts" / "state.py"
 INTERVIEW_VALIDATE = ROOT / "skills" / "interview" / "scripts" / "validate_artifacts.py"
 failures = []
 STAMP = "2026-01-01T00:00:00+09:00"
+
+# A second, in-process import of fsd's own state.py, used only by `run_fsd_continue_inprocess` below: the chain sections that must patch the `datetime` `_execute`'s own module namespace holds -- the same one `mint_run_dir` reads -- to prove `continue`'s own re-mint of its next slice's directory without a real wall-clock wait. Every other fsd call in this file still runs as an ordinary subprocess through `fsd(...)`; this second instance is never used for anything else, so patching its `_execute.datetime` can never affect a subprocess call.
+_FSD_INPROCESS_MODULE = None
 
 REQUIREMENTS_HEADINGS = (
     "## Context", "## Desired outcome", "## Scope", "### In scope", "### Out of scope",
@@ -228,6 +234,160 @@ def execute_to_final_audit(work, state_path):
         state["latest_verification"] = [verification("true", state["current_round"])]
         state["final_audit"] = [verdict("code-reviewer", "PASS", "whole-change", state["current_round"])]
     return execute_checkpoint(work, state_path, mutate)
+
+
+def write_requirements_with_criteria(path, status, criteria, deferred=()):
+    # Every other heading gets `write_requirements`'s own plain `- item` placeholder; `## Acceptance criteria` and `## Deferred items` instead get one real `- [ ] <text>` checkbox per entry, so `_acceptance_criteria` can number the ones under Acceptance criteria as AC1, AC2, ... while a checkbox sitting under Deferred items -- read by nothing here -- never earns an id at all.
+    lines = ["# Check requirements", "", f"Status: {status}", "Date: 2026-01-01", ""]
+    for heading in REQUIREMENTS_HEADINGS:
+        lines += [heading, ""]
+        if heading == "## Acceptance criteria":
+            lines += [f"- [ ] {item}" for item in criteria]
+        elif heading == "## Deferred items":
+            lines += [f"- [ ] {item}" for item in deferred] or ["- item"]
+        else:
+            lines.append("- item")
+        lines.append("")
+    if status == "Draft":
+        lines += ["## Blocking gaps", "", "- something unresolved", ""]
+    Path(path).write_text("\n".join(lines) + "\n")
+
+
+def drive_slice_through_ralplan(work, fsd_state, slug, requirements_path, plan_path):
+    # The ralplan half of a chain slice's own drive: entered, started against this slice's own requirements and plan paths, attached while still live, opened, approved once the plan reads Approved, and closed to a completed receipt -- the identical steps scenario2 already proves end to end, generalized over a slug so more than one slice can share a worktree across the same section.
+    must(f"entering ralplan for {slug}", fsd(work, "enter", str(fsd_state), "ralplan"))
+    write_plan(plan_path, "Draft", "first cut", "v0")
+    ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / f"260101-000000-{slug}" / "state.json"
+    must(f"starting the ralplan run for {slug}",
+         ralplan(work, "start", str(ralplan_dest), "--input", str(requirements_path), "--plan", str(plan_path),
+                 "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+    must(f"attaching the ralplan run for {slug}", fsd(work, "attach", str(fsd_state), "ralplan", str(ralplan_dest)))
+    must(f"opening ralplan round 1 for {slug}", ralplan(work, "open", str(ralplan_dest)))
+    write_plan(plan_path, "Approved", "good", "v0")
+    must(f"approving ralplan round 1 for {slug}", ralplan(work, "approve", str(ralplan_dest)))
+    must(f"completing ralplan for {slug}", ralplan(work, "close", str(ralplan_dest)))
+    return ralplan_dest
+
+
+def drive_slice_through_execute(work, fsd_state, slug, requirements_path, plan_path, task_id="task-001", scope=None):
+    # The whole slice drive a chained state needs before it can be continued: ralplan through to a completed receipt (`drive_slice_through_ralplan`), then execute entered, started against the same plan, attached, driven to acceptance, and completed -- the identical shape scenario2 drives by hand, generalized here so the chain sections can produce as many completed slices as a case needs without repeating it.
+    if scope is None:
+        scope = ["README.md"]
+    ralplan_dest = drive_slice_through_ralplan(work, fsd_state, slug, requirements_path, plan_path)
+    must(f"entering execute for {slug}", fsd(work, "enter", str(fsd_state), "execute"))
+    execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+    execute_state = execute_start(work, execute_run_root, slug, [execute_task(task_id, scope)], plan_path=plan_path)
+    must(f"attaching the execute run for {slug}", fsd(work, "attach", str(fsd_state), "execute", str(execute_state)))
+    drive_task_to_acceptance(work, execute_state, task_id)
+    must(f"entering final_audit for {slug}", execute_to_final_audit(work, execute_state))
+    must(f"completing the execute run for {slug}", execute_complete(work, execute_state, [task_id]))
+    return ralplan_dest, execute_state
+
+
+def _listing(run_root):
+    if not run_root.exists():
+        return []
+    return sorted(str(p.relative_to(run_root)) for p in run_root.rglob("*"))
+
+
+def _find_line_starting_with(text, prefix):
+    # The one line in a multi-line block of text (a gap action, a report) that starts with `prefix`, or None -- used to pull out a single chain slice's own line so its content can be checked exactly, distinct from every other slice's own line.
+    for line in text.splitlines():
+        if line.startswith(prefix):
+            return line
+    return None
+
+
+def _section_between(text, start_heading, end_heading):
+    # The substring from `start_heading` up to (not including) the next occurrence of `end_heading` after it, or None when either heading is missing -- so a check for a phrase can be scoped to the one section it is supposed to appear under, rather than the whole document.
+    start = text.find(start_heading)
+    if start == -1:
+        return None
+    end = text.find(end_heading, start)
+    if end == -1:
+        return None
+    return text[start:end]
+
+
+def _collapse_whitespace(text):
+    return " ".join(text.split())
+
+
+def _expected_gap_earlier_line(slice_number, plan, ralplan, execute, reason):
+    # A chained state's own gap action names an earlier slice's receipts and reason together on the one line that names its own slice number, never another slice's -- built here independently of `state.py`'s own formatting so a mutation that shifted which slice's receipts land on which line still has an exact string to fail against.
+    return (f"- slice {slice_number}: plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}, "
+            f"continued because: {_collapse_whitespace(reason)}")
+
+
+def _expected_report_earlier_line(slice_number, plan, ralplan, execute, covered, reason):
+    return (f"- slice {slice_number}: plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}, "
+            f"covered {', '.join(covered)}, continued because: {_collapse_whitespace(reason)}")
+
+
+def _expected_report_current_line(slice_number, plan, ralplan, execute):
+    return (f"- slice {slice_number} (this state): plan {plan or 'none linked'}, "
+            f"ralplan receipt {ralplan or 'none linked'}, "
+            f"execute receipt {execute or 'none linked'}")
+
+
+def assert_refusal_untouched(label, work, state_path, run_root, argv, reason):
+    # The shape every refusal fixture in this file shares: refused, for the named reason, with the targeted state file's own bytes and the whole run root's own directory listing identical before and after the call -- a refusal that changed either would mean `continue` wrote something before the check that refused it.
+    before_bytes = state_path.read_bytes()
+    before_listing = _listing(run_root)
+    result = refuse(label, fsd(work, *argv), reason=reason)
+    if state_path.read_bytes() != before_bytes:
+        failures.append(f"{label}: the state file's bytes changed on a refusal that should have left them alone")
+    if _listing(run_root) != before_listing:
+        failures.append(f"{label}: the run root's own listing changed on a refusal that should have left it alone")
+    return result
+
+
+def _fsd_module():
+    # A second, independent load of fsd's own state.py (see the module-level comment above `_FSD_INPROCESS_MODULE`): cached so every in-process call in a run of this file shares one instance, since only one thing is ever patched on it (`_execute.datetime`) and each call restores it afterward.
+    global _FSD_INPROCESS_MODULE
+    if _FSD_INPROCESS_MODULE is None:
+        spec = importlib.util.spec_from_file_location("_kein_check_fsd_state_inprocess", str(FSD))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _FSD_INPROCESS_MODULE = module
+    return _FSD_INPROCESS_MODULE
+
+
+def run_fsd_continue_inprocess(work, argv, t0, precreate_dirs=()):
+    """Runs an fsd `state.py` subcommand in this same process, with the `datetime` `_execute`'s own module namespace holds -- the same one `mint_run_dir` itself reads -- replaced by a subclass whose `now()` returns `t0` on its very first call and `t0` plus one second on every call after. `continue`'s own re-mint of its next slice's directory then lands exactly one second later with no real wall-clock wait, the same clock driving both the first mint and the wait for the next one. `precreate_dirs`, each an absolute path, are created empty before the call; nothing here removes them, so a caller proving the collision path sees them exactly as it left them once this returns. Restores the real `datetime`, `sys.argv`, and the process's own cwd once the call returns or raises, so this can run any number of times in one process. Returns `(returncode, stdout, stderr)`."""
+    module = _fsd_module()
+    original_datetime = module._execute.datetime
+    original_argv = sys.argv
+    original_cwd = os.getcwd()
+    calls = {"count": 0}
+
+    class _FixedClock(original_datetime):
+        @classmethod
+        def now(cls, tz=None):
+            calls["count"] += 1
+            value = t0 if calls["count"] == 1 else t0 + timedelta(seconds=1)
+            return value.astimezone(tz) if tz is not None else value
+
+    for directory in precreate_dirs:
+        Path(directory).mkdir(parents=True, exist_ok=True)
+
+    module._execute.datetime = _FixedClock
+    sys.argv = ["state.py", *argv]
+    stdout_buffer = io.StringIO()
+    stderr_buffer = io.StringIO()
+    try:
+        os.chdir(work)
+        with contextlib.redirect_stdout(stdout_buffer), contextlib.redirect_stderr(stderr_buffer):
+            returncode = module.main()
+    finally:
+        module._execute.datetime = original_datetime
+        sys.argv = original_argv
+        os.chdir(original_cwd)
+    return returncode, stdout_buffer.getvalue(), stderr_buffer.getvalue()
 
 
 # ---------------------------------------------------------------------------
@@ -2536,6 +2696,1278 @@ def _section_scenario41_checkpoint_refuses_new_destination_with_run():
             failures.append("checkpoint created a new destination it should have refused to create")
 
 # ---------------------------------------------------------------------------
+# Section "chain-continue": `ocs state fsd continue` ends a slice and starts its successor in one call. This drives a real slice to a completed execute receipt (`drive_slice_through_execute`), then continues it in process with the mint clock patched, so the collision-and-re-mint path runs without a real wall-clock wait.
+
+def _section_chain_continue():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-continue.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"], deferred=["a deferred criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-continue slice 1",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-continue",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        if read_json(slice1_state)["entry"] != "ralplan":
+            failures.append("chain-continue's own slice 1 fixture did not classify to ralplan; this case proves nothing")
+
+        plan_path = work / "plan-chain-continue.md"
+        drive_slice_through_execute(work, slice1_state, "chain-continue", requirements_path, plan_path)
+
+        must("recording an assumption on chain-continue slice 1", fsd(work, "assume", str(slice1_state),
+             "--stage", "execute", "--decision", "log format", "--chosen", "json lines", "--alternatives", "csv",
+             "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+        must("recording a lesson on chain-continue slice 1", fsd(work, "lesson", str(slice1_state),
+             "--line", "always drive a slice through a real execute run before continuing it",
+             "--why", "nothing else here exercises the chain"))
+
+        before_payload = read_json(slice1_state)
+        reason_text = "the next slice needs the rest of the acceptance criteria"
+
+        # A re-mint one second later, in process, with the collision directory left untouched and empty.
+        t0 = datetime(2026, 6, 1, 12, 0, 0).astimezone()
+        stamp0 = f"{t0:%y%m%d-%H%M%S}"
+        stamp1 = f"{(t0 + timedelta(seconds=1)):%y%m%d-%H%M%S}"
+        precreated = run_root / f"{stamp0}-chain-continue"
+        returncode, stdout, stderr = run_fsd_continue_inprocess(
+            work, ["continue", str(slice1_state), "--covered", "AC1,AC1", "--reason", reason_text],
+            t0, precreate_dirs=[precreated])
+        if returncode != 0:
+            failures.append(f"chain-continue's own continue call was refused and should not be: {stderr.strip()}")
+        next_state_path = Path(stdout.strip())
+        if not next_state_path.is_absolute():
+            failures.append(f"chain-continue's continue did not print an absolute path: {stdout!r}")
+        expected_run_id = f"{stamp1}-chain-continue"
+        if next_state_path.parent.name != expected_run_id:
+            failures.append(f"chain-continue's continue did not re-mint one second later after the collision: {next_state_path}")
+        if not precreated.is_dir() or list(precreated.iterdir()):
+            failures.append("chain-continue's own pre-created collision directory was touched or removed")
+
+        # Slice 1 afterward: completed, retrospective null, continued recorded, and every other key unchanged.
+        after_payload = read_json(slice1_state)
+        if after_payload["lifecycle"] != "completed" or after_payload["retrospective"] is not None:
+            failures.append(f"chain-continue's continue did not close slice 1 cleanly: lifecycle={after_payload['lifecycle']!r}, retrospective={after_payload['retrospective']!r}")
+        expected_continued = {"covered": ["AC1"], "reason": reason_text, "next": str(next_state_path)}
+        if after_payload.get("continued") != expected_continued:
+            failures.append(f"chain-continue's continued did not match: {after_payload.get('continued')}")
+        if after_payload.get("next_action") != f"continued in {next_state_path}":
+            failures.append(f"chain-continue's next_action did not match: {after_payload.get('next_action')!r}")
+        for key in before_payload:
+            if key in ("lifecycle", "retrospective", "continued", "next_action"):
+                continue
+            if after_payload.get(key) != before_payload.get(key):
+                failures.append(f"chain-continue's continue changed {key} on the slice it closed: {before_payload.get(key)!r} -> {after_payload.get(key)!r}")
+
+        must("validating the closed slice after chain-continue", fsd(work, "validate", str(slice1_state)))
+        must("validating the next slice after chain-continue", fsd(work, "validate", str(next_state_path)))
+
+        # status and report on the slice `continue` just closed name its successor (`continued.next`), unconditionally on `chain`: slice 1 carries no `chain` of its own, only `continued`, so this is the one fixture that proves the successor still surfaces without it.
+        status_after_continue = json.loads(fsd(work, "status", str(slice1_state)).stdout)
+        if status_after_continue.get("continued") != expected_continued:
+            failures.append(f"chain-continue's status did not name its successor via continued: {status_after_continue.get('continued')!r} != {expected_continued!r}")
+        report_after_continue = fsd(work, "report", str(slice1_state)).stdout
+        expected_continued_line = f"successor {next_state_path}, covering AC1, because: {reason_text}"
+        if "## Continued" not in report_after_continue or expected_continued_line not in report_after_continue:
+            failures.append(f"chain-continue's report did not name its successor under ## Continued: {report_after_continue!r}")
+        if "## Slices" in report_after_continue:
+            failures.append("chain-continue's report printed ## Slices for slice 1, which carries no chain of its own")
+
+        # The next state's own shape.
+        next_payload = read_json(next_state_path)
+        expected_next = {
+            "lifecycle": "active", "entry": "ralplan",
+            "input": {"kind": "requirements", "reference": str(requirements_path), "summary": before_payload["input"]["summary"]},
+            "chain": {"previous": str(slice1_state), "slice": 2},
+            "stages": {
+                "interview": {"status": "skipped", "run": None, "resolved_reference": None},
+                "ralplan": {"status": "pending", "run": None, "resolved_reference": None},
+                "execute": {"status": "pending", "run": None, "resolved_reference": None},
+                "closeout": {"status": "pending", "run": None, "resolved_reference": None},
+            },
+            "assumptions": before_payload["assumptions"], "questions": before_payload["questions"], "lessons": before_payload["lessons"],
+            "halt": None, "retrospective": None,
+        }
+        for key, expected_value in expected_next.items():
+            if next_payload.get(key) != expected_value:
+                failures.append(f"chain-continue's next state's {key} did not match: {next_payload.get(key)!r} != {expected_value!r}")
+        next_spans = next_payload.get("agents_md", [])
+        if len(next_spans) != 1:
+            failures.append(f"chain-continue's next state did not open exactly one agents_md span: {next_spans}")
+        expected_sha256 = hashlib.sha256((work / "AGENTS.md").read_bytes()).hexdigest()
+        if not next_spans or next_spans[0].get("sha256") != expected_sha256:
+            failures.append(f"chain-continue's next state's own agents_md span did not hash AGENTS.md's current bytes: {next_spans}")
+
+        # Start refused for the same worktree, naming the next state's path; assume/lesson ids continue past slice 1's.
+        second_start = refuse("starting a new fsd run for the same worktree after continue",
+            fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-continue-second",
+                "--input", "another idea", "--worktree", str(work)),
+            reason="a nonterminal fsd run already exists")
+        if str(next_state_path) not in second_start.stderr:
+            failures.append(f"starting after continue did not name the next state's own path: {second_start.stderr!r}")
+
+        assume_result = must("recording an assumption on the next slice", fsd(work, "assume", str(next_state_path),
+             "--stage", "ralplan", "--decision", "d", "--chosen", "c", "--reversal-cost", "rc", "--where", "w"))
+        if assume_result.stdout.strip() != "A2":
+            failures.append(f"the next slice's assumption ids did not continue past slice 1's: {assume_result.stdout!r}")
+        lesson_result = must("recording a lesson on the next slice", fsd(work, "lesson", str(next_state_path), "--line", "l", "--why", "w"))
+        if lesson_result.stdout.strip() != "L2":
+            failures.append(f"the next slice's lesson ids did not continue past slice 1's: {lesson_result.stdout!r}")
+
+        # A checkbox with nothing after it on its own line is skipped rather than swallowing the following criterion's own text: three items where the middle one is empty, read directly through the in-process module so this asserts the exact `(id, text)` pairs `_acceptance_criteria` itself returns, not only an indirect result through `--covered`.
+        checkbox_requirements = work / "req-chain-continue-empty-checkbox.md"
+        write_requirements_with_criteria(checkbox_requirements, "Approved", ["first criterion", "", "third criterion"])
+        empty_checkbox_criteria = _fsd_module()._acceptance_criteria(checkbox_requirements)
+        if empty_checkbox_criteria != [("AC1", "first criterion"), ("AC2", "third criterion")]:
+            failures.append(f"an empty checkbox line was not skipped cleanly, or corrupted a neighboring line's own text: {empty_checkbox_criteria}")
+
+        # A requirements path this state already carries can go missing between when it was recorded and when continue reads it again: moved away for the call, restored right after, refused the same way as no approved document at all rather than raising the read's own OSError uncaught.
+        next_before_bytes = next_state_path.read_bytes()
+        moved_requirements = work / "req-chain-continue-moved-away.md"
+        requirements_path.replace(moved_requirements)
+        refuse("continuing while its own requirements file is unreadable", fsd(work, "continue", str(next_state_path), "--covered", "AC1", "--reason", "r"),
+               reason="no approved requirements document")
+        moved_requirements.replace(requirements_path)
+        if next_state_path.read_bytes() != next_before_bytes:
+            failures.append("continuing with an unreadable requirements file changed the state file's bytes")
+
+# ---------------------------------------------------------------------------
+# Section "chain-continue-from-interview": the chain requirements path when an idea led here, read from the interview ledger's own `resolved_reference` (pinned live, at attach time) or, once that field is missing, from the worktree joined with the completed ledger's own relative `requirements_path` -- the identical reading `gap`'s own interview row already uses.
+
+def _section_chain_continue_from_interview():
+    for null_resolved_reference in (False, True):
+        with tempfile.TemporaryDirectory() as tmp:
+            work = (Path(tmp) / "repo").resolve()
+            init_repo(work)
+            run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+            result = must("starting chain-continue-from-interview slice 1",
+                          fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-ci",
+                              "--input", "do the thing", "--worktree", str(work)))
+            slice1_state = require_path(result)
+            must("entering interview for chain-continue-from-interview", fsd(work, "enter", str(slice1_state), "interview"))
+
+            interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-chain-ci"
+            interview_dir.mkdir(parents=True)
+            ledger = interview_dir / "ledger.md"
+            requirements_relative = Path(".agents") / "kein" / "requirements" / "chain-ci.md"
+            requirements_path = work / requirements_relative
+            requirements_path.parent.mkdir(parents=True)
+            write_active_ledger(ledger, "260101-000000-chain-ci", work, work, requirements_path)
+            must("attaching the interview ledger for chain-continue-from-interview", fsd(work, "attach", str(slice1_state), "interview", str(ledger)))
+            write_requirements_with_criteria(requirements_path, "Approved", ["first criterion", "second criterion"])
+            write_completed_ledger(ledger, str(requirements_relative))
+
+            gap_after_interview = json.loads(fsd(work, "gap", str(slice1_state)).stdout)
+            if not gap_after_interview["gap"] or gap_after_interview["next"] != "ralplan":
+                failures.append(f"chain-continue-from-interview did not reach the ralplan row: {gap_after_interview}")
+
+            plan_path = work / "plan-chain-ci.md"
+            drive_slice_through_execute(work, slice1_state, "chain-ci", requirements_path, plan_path)
+
+            stored_resolved_reference = read_json(slice1_state)["stages"]["interview"]["resolved_reference"]
+            if not stored_resolved_reference:
+                failures.append("chain-continue-from-interview's own fixture stored no interview resolved_reference; this case proves nothing")
+
+            if null_resolved_reference:
+                payload = read_json(slice1_state)
+                payload["stages"]["interview"]["resolved_reference"] = None
+                write(slice1_state, payload)
+                expected_reference = str(work / requirements_relative)
+            else:
+                expected_reference = stored_resolved_reference
+
+            result = must(f"continuing chain-continue-from-interview slice 1 (null_resolved_reference={null_resolved_reference})",
+                          fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs another slice"))
+            next_state_path = require_path(result)
+            next_payload = read_json(next_state_path)
+            if next_payload["input"]["reference"] != expected_reference:
+                failures.append(f"chain-continue-from-interview's next input.reference did not match (null_resolved_reference={null_resolved_reference}): {next_payload['input']['reference']!r} != {expected_reference!r}")
+            if not Path(next_payload["input"]["reference"]).is_absolute():
+                failures.append("chain-continue-from-interview's next input.reference was not absolute")
+
+            gap_next = json.loads(fsd(work, "gap", str(next_state_path)).stdout)
+            expected_action_first_line = f"invoke /kein:ralplan {shlex.quote(expected_reference)}"
+            action_first_line = gap_next["action"].split("\n", 1)[0]
+            if action_first_line != expected_action_first_line:
+                failures.append(f"chain-continue-from-interview's next gap action did not name the expected requirements path: {action_first_line!r} != {expected_action_first_line!r}")
+
+# ---------------------------------------------------------------------------
+# Section "chain-continue-from-draft-requirements": a Draft requirements document as `--input` classifies to entry `interview`, `input.kind` `requirements` -- `classify_input` reads a requirements-shaped document's own `Status` line before choosing between `ralplan` and `interview`, and a still-Draft one enters `interview` exactly as an idea input does. `_chain_requirements_path` has to decide this on `entry`, not on `input.kind` first: this slice's own `input.reference` names the Draft, never the Approved document the interview goes on to write at a path of its own, so `continue` must read the interview's own `resolved_reference` here, the same as it would for an idea-entry run.
+
+def _section_chain_continue_from_draft_requirements():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        draft_requirements = work / "req-chain-ci-draft.md"
+        write_requirements_with_criteria(draft_requirements, "Draft", ["a draft criterion"])
+
+        result = must("starting chain-continue-from-draft-requirements slice 1",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-ci-draft",
+                          "--input", str(draft_requirements), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        slice1_payload = read_json(slice1_state)
+        if slice1_payload["entry"] != "interview" or slice1_payload["input"]["kind"] != "requirements":
+            failures.append(f"chain-continue-from-draft-requirements's own fixture did not classify to entry interview, kind requirements; this case proves nothing: entry {slice1_payload['entry']!r}, kind {slice1_payload['input']['kind']!r}")
+
+        must("entering interview for chain-continue-from-draft-requirements", fsd(work, "enter", str(slice1_state), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-chain-ci-draft"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        approved_relative = Path(".agents") / "kein" / "requirements" / "chain-ci-draft-approved.md"
+        approved_requirements = work / approved_relative
+        approved_requirements.parent.mkdir(parents=True)
+        write_active_ledger(ledger, "260101-000000-chain-ci-draft", work, work, approved_requirements)
+        must("attaching the interview ledger for chain-continue-from-draft-requirements",
+             fsd(work, "attach", str(slice1_state), "interview", str(ledger)))
+        write_requirements_with_criteria(approved_requirements, "Approved", ["first criterion", "second criterion"])
+        write_completed_ledger(ledger, str(approved_relative))
+
+        stored_resolved_reference = read_json(slice1_state)["stages"]["interview"]["resolved_reference"]
+        if not stored_resolved_reference or Path(stored_resolved_reference) == draft_requirements:
+            failures.append(f"chain-continue-from-draft-requirements's own fixture stored no interview resolved_reference at a path of its own; this case proves nothing: {stored_resolved_reference!r}")
+
+        plan_path = work / "plan-chain-ci-draft.md"
+        drive_slice_through_execute(work, slice1_state, "chain-ci-draft", approved_requirements, plan_path)
+
+        result = must("continuing chain-continue-from-draft-requirements slice 1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs another slice"))
+        next_state_path = require_path(result)
+        next_payload = read_json(next_state_path)
+        if next_payload["input"]["reference"] != stored_resolved_reference:
+            failures.append(f"chain-continue-from-draft-requirements's next input.reference did not equal the interview's own resolved_reference: {next_payload['input']['reference']!r} != {stored_resolved_reference!r}")
+        if next_payload["input"]["reference"] == str(draft_requirements):
+            failures.append("chain-continue-from-draft-requirements's next input.reference wrongly named the Draft input this slice started from, instead of the interview's own approved output")
+
+# ---------------------------------------------------------------------------
+# Section "chain-continue-after-pause": a slice that paused (an unanswered question, `close`'s own draft retrospective kept under the run's own directory) still carries a non-null `retrospective` once resumed; `continue` must still write `retrospective: null` onto the slice it closes, and must leave the draft file exactly where it is -- only the final `close` ever moves a retrospective to its durable path.
+
+def _section_chain_continue_after_pause():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-pause.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion", "second criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-continue-after-pause slice 1",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-pause",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan_path = work / "plan-chain-pause.md"
+        drive_slice_through_execute(work, slice1_state, "chain-pause", requirements_path, plan_path)
+
+        q_result = must("recording a question on chain-continue-after-pause", fsd(work, "question", str(slice1_state),
+                        "--stage", "execute", "--question", "which format?", "--options", "json,csv",
+                        "--recommended", "json", "--why-irreversible", "affects downstream readers", "--parks", "whole run"))
+        question_id = q_result.stdout.strip()
+
+        before_refusal_bytes = slice1_state.read_bytes()
+        refuse("continuing chain-continue-after-pause while a question is unanswered",
+               fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "r"),
+               reason="cannot continue while a question is unanswered")
+        if slice1_state.read_bytes() != before_refusal_bytes:
+            failures.append("chain-continue-after-pause's own row-4 refusal changed the state file's bytes")
+
+        must("entering closeout for chain-continue-after-pause", fsd(work, "closeout", str(slice1_state)))
+        fsd_run_dir = slice1_state.parent
+        draft_retro = fsd_run_dir / "retro-draft.md"
+        draft_retro.write_text(f"# Retrospective\n\n{question_id}: which format? Parked.\n")
+        must("closing chain-continue-after-pause while the question is unanswered", fsd(work, "close", str(slice1_state), "--retro", str(draft_retro)))
+        paused_payload = read_json(slice1_state)
+        if paused_payload["lifecycle"] != "paused" or paused_payload["retrospective"] != str(draft_retro):
+            failures.append(f"chain-continue-after-pause's own close did not pause with the draft retrospective set: lifecycle={paused_payload['lifecycle']!r}, retrospective={paused_payload['retrospective']!r}")
+
+        must("answering the question for chain-continue-after-pause", fsd(work, "answer", str(slice1_state), question_id, "--text", "json"))
+        must("resuming chain-continue-after-pause", fsd(work, "resume", str(slice1_state)))
+        if read_json(slice1_state)["retrospective"] != str(draft_retro):
+            failures.append("chain-continue-after-pause's own resume cleared the paused-in retrospective; this case proves nothing")
+
+        must("re-entering closeout after resume for chain-continue-after-pause", fsd(work, "closeout", str(slice1_state)))
+        if read_json(slice1_state)["stages"]["closeout"]["status"] != "entered":
+            failures.append("chain-continue-after-pause's own closeout was not entered before continuing; this case proves nothing")
+
+        result = must("continuing chain-continue-after-pause once answered, resumed, and closed out again",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs another slice"))
+        next_state_path = require_path(result)
+        closed_payload = read_json(slice1_state)
+        if closed_payload["lifecycle"] != "completed" or closed_payload["retrospective"] is not None:
+            failures.append(f"chain-continue-after-pause's own continue did not close cleanly: lifecycle={closed_payload['lifecycle']!r}, retrospective={closed_payload['retrospective']!r}")
+        expected_continued = {"covered": ["AC1"], "reason": "needs another slice", "next": str(next_state_path)}
+        if closed_payload.get("continued") != expected_continued:
+            failures.append(f"chain-continue-after-pause's own continued did not match: {closed_payload.get('continued')}")
+        if not draft_retro.is_file():
+            failures.append("chain-continue-after-pause's own continue removed the draft retrospective file")
+
+        must("validating the closed slice after chain-continue-after-pause", fsd(work, "validate", str(slice1_state)))
+        must("validating the next slice after chain-continue-after-pause", fsd(work, "validate", str(next_state_path)))
+
+# ---------------------------------------------------------------------------
+# Section "chain-refusals": each of `continue_chain`'s refusal conditions -- a paused (not active) run, an execute-entry run with no requirements document to continue from, a readable but not-Approved requirements document, execute not yet a completed receipt, AGENTS.md drift, an unreadable predecessor, an empty `--covered`, an id naming no criterion, `--covered` adding nothing not already covered by some earlier slice in the whole chain, nothing left for the next slice, a second nonterminal run for the worktree, and a minted destination that already exists -- triggered by a fixture where only that condition fails, leaving the targeted state file's bytes and the run root's own listing exactly as they were (`assert_refusal_untouched`). A paused run, an execute-entry run, a not-Approved requirements document, and a run before/while execute itself is nonterminal each need a fixture no other check shares and so run on their own; a three-slice chain proves the already-covered check aggregates every earlier slice, not only the immediate predecessor; the rest share one slice driven to a completed execute receipt, continued once for real partway through so the unreadable-predecessor and already-covered-elsewhere checks have an actual earlier slice to read, and once more at the end with a mixed already-covered-and-new `--covered` that must succeed.
+
+def _section_chain_refusals():
+    # Lifecycle is not active.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-row1.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the paused-run fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "paused",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        plan_path = work / "plan-paused.md"
+        drive_slice_through_execute(work, state_path, "paused", requirements_path, plan_path)
+        q = must("recording a question for the paused-run fixture", fsd(work, "question", str(state_path), "--stage", "execute",
+                  "--question", "q?", "--options", "a,b", "--recommended", "a", "--why-irreversible", "irreversible",
+                  "--parks", "whole run"))
+        question_id = q.stdout.strip()
+        must("entering closeout for the paused-run fixture", fsd(work, "closeout", str(state_path)))
+        draft_retro = state_path.parent / "retro-draft.md"
+        draft_retro.write_text(f"# Retrospective\n\n{question_id}: parked.\n")
+        must("closing the paused-run fixture while unanswered", fsd(work, "close", str(state_path), "--retro", str(draft_retro)))
+        if read_json(state_path)["lifecycle"] != "paused":
+            failures.append("the paused-run fixture did not pause; this case proves nothing")
+        assert_refusal_untouched("continuing a paused run", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
+            "continue requires an active run")
+
+    # An execute-entry run whose execute completed -- an execute-entry run never has a requirements document to continue from at all.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        plan_path = work / "plan-execute-entry.md"
+        write_plan(plan_path, "Approved")
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the execute-entry fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "execentry",
+                      "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        if read_json(state_path)["entry"] != "execute":
+            failures.append("the execute-entry fixture did not classify to execute; this case proves nothing")
+        must("entering execute for the execute-entry fixture", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "execentry", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching execute for the execute-entry fixture", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for the execute-entry fixture", execute_to_final_audit(work, execute_state))
+        must("completing execute for the execute-entry fixture", execute_complete(work, execute_state, ["task-001"]))
+        assert_refusal_untouched("continuing an execute-entry run", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
+            "no approved requirements document")
+
+    # A ralplan-entry run over a plan document -- `input.kind` is `plan`, not `requirements`, so `_chain_requirements_path`'s ralplan branch, gated on `kind == "requirements"`, must still return `None` here, distinct from the execute-entry case above, which `entry == "ralplan"` alone -- with the kind check dropped -- would never catch. `continue`'s own refusal text cannot tell the two disjuncts of the approved-requirements check apart: a plan document's own Status line reads `Approved — <reason>` once approved (ralplan's own validator requires the reason), never the bare `Approved` `_requirements_status` compares against, so a dropped kind check would still read this plan document as "not Approved" and print the identical refusal text -- the drop shows only in `_chain_requirements_path`'s own return value, called directly below rather than inferred from the refusal message.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        plan_path = work / "plan-ralplan-entry-plan.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the ralplan-entry-over-plan fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "ralplanplan",
+                      "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        state_payload = read_json(state_path)
+        if state_payload["entry"] != "ralplan" or state_payload["input"]["kind"] != "plan":
+            failures.append(f"the ralplan-entry-over-plan fixture did not classify to entry ralplan, kind plan; this case proves nothing: entry {state_payload['entry']!r}, kind {state_payload['input']['kind']!r}")
+        direct_chain_reference = _fsd_module()._chain_requirements_path(state_payload)
+        if direct_chain_reference is not None:
+            failures.append(f"_chain_requirements_path wrongly named a requirements document for a ralplan-entry run over a plan document: {direct_chain_reference!r}")
+        must("entering ralplan for the ralplan-entry-over-plan fixture", fsd(work, "enter", str(state_path), "ralplan"))
+        ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-ralplanplan" / "state.json"
+        must("starting the ralplan run for the ralplan-entry-over-plan fixture",
+             ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
+                     "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("attaching the ralplan run for the ralplan-entry-over-plan fixture", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+        must("opening ralplan round 1 for the ralplan-entry-over-plan fixture", ralplan(work, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for the ralplan-entry-over-plan fixture", ralplan(work, "approve", str(ralplan_dest)))
+        must("completing ralplan for the ralplan-entry-over-plan fixture", ralplan(work, "close", str(ralplan_dest)))
+        must("entering execute for the ralplan-entry-over-plan fixture", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "ralplanplan", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching execute for the ralplan-entry-over-plan fixture", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for the ralplan-entry-over-plan fixture", execute_to_final_audit(work, execute_state))
+        must("completing execute for the ralplan-entry-over-plan fixture", execute_complete(work, execute_state, ["task-001"]))
+        assert_refusal_untouched("continuing a ralplan-entry run over a plan document", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
+            "no approved requirements document")
+
+    # A readable, well-formed requirements document whose own Status reads Draft: `_chain_requirements_path` returns a real path here, so this isolates the second disjunct of the approved-requirements check from the first (a missing path entirely, proven just above).
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-draft-status.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the draft-status fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "draftstatus",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        plan_path = work / "plan-draft-status.md"
+        drive_slice_through_execute(work, state_path, "draftstatus", requirements_path, plan_path)
+        write_requirements_with_criteria(requirements_path, "Draft", ["first criterion"])
+        assert_refusal_untouched("continuing once the requirements document reads Draft again", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
+            "no approved requirements document")
+
+    # The execute kept link is not a completed receipt -- before execute is started, and again while it is active.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-execute-not-completed.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the execute-not-completed fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "notdone",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        plan_path = work / "plan-execute-not-completed.md"
+        drive_slice_through_ralplan(work, state_path, "notdone", requirements_path, plan_path)
+
+        assert_refusal_untouched("continuing before execute is started", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"], "not completed")
+
+        must("entering execute for the still-active-execute fixture", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "notdone", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching execute for the still-active-execute fixture", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        must("dispatching task-001 for the still-active-execute fixture", execute(work, "dispatch", str(execute_state), "task-001"))
+
+        assert_refusal_untouched("continuing while execute is still active", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"], "not completed")
+
+    # The blank-reason, unanswered-question, AGENTS.md-drift, empty-covered, unknown-id, and everything-covered checks against one shared slice, then a genuine continue into slice 2 for the already-covered-elsewhere, unreadable-predecessor, mint-collision, and mixed-ids checks.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-refusals.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"], deferred=["a deferred criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting chain-refusals slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-refusals",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan_path = work / "plan-chain-refusals.md"
+        drive_slice_through_execute(work, slice1_state, "chain-refusals", requirements_path, plan_path)
+
+        # --reason empty after strip.
+        assert_refusal_untouched("continuing with a blank --reason", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1", "--reason", "   "], "continue needs --reason")
+
+        # Two questions, only one of which is answered: `continue` must still refuse for the one unanswered question, not accept once some question has been answered.
+        q1 = must("recording the first of two questions", fsd(work, "question", str(slice1_state), "--stage", "execute",
+                  "--question", "which format?", "--options", "json,csv", "--recommended", "json",
+                  "--why-irreversible", "affects downstream readers", "--parks", "whole run"))
+        question_id_1 = q1.stdout.strip()
+        q2 = must("recording the second of two questions", fsd(work, "question", str(slice1_state), "--stage", "execute",
+                  "--question", "which encoding?", "--options", "utf-8,latin-1", "--recommended", "utf-8",
+                  "--why-irreversible", "affects downstream readers too", "--parks", "whole run"))
+        question_id_2 = q2.stdout.strip()
+        must("answering the first of two questions", fsd(work, "answer", str(slice1_state), question_id_1, "--text", "json"))
+        assert_refusal_untouched("continuing with one of two questions still unanswered", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1", "--reason", "r"],
+            "cannot continue while a question is unanswered")
+        must("answering the second of two questions", fsd(work, "answer", str(slice1_state), question_id_2, "--text", "json"))
+
+        # AGENTS.md drifted since the current span began, restored right after.
+        agents_md_path = work / "AGENTS.md"
+        original_agents_md = agents_md_path.read_bytes()
+        agents_md_path.write_bytes(original_agents_md + b"\nmore\n")
+        assert_refusal_untouched("continuing after AGENTS.md drifted", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1", "--reason", "r"],
+            "AGENTS.md changed since the current span began")
+        agents_md_path.write_bytes(original_agents_md)
+
+        # --covered names nothing.
+        assert_refusal_untouched("continuing with an empty --covered", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "", "--reason", "r"], "names no acceptance criterion")
+
+        # A named id is not a criterion -- the fourth checkbox lives under Deferred items, a malformed id, and one valid id named together with one invalid id so a quantifier that only checks whether every named id is invalid cannot stand in for checking each one.
+        assert_refusal_untouched("continuing with AC4, a checkbox under Deferred items", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC4", "--reason", "r"], "no such acceptance criterion")
+        assert_refusal_untouched("continuing with a malformed id", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "X1", "--reason", "r"], "no such acceptance criterion")
+        assert_refusal_untouched("continuing with one valid id and one invalid id together", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1,AC4", "--reason", "r"], "no such acceptance criterion")
+
+        # --covered names every criterion, leaving nothing for the next slice.
+        assert_refusal_untouched("continuing with every criterion named", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1,AC2,AC3", "--reason", "r"],
+            "no acceptance criterion would remain")
+
+        # A second nonterminal fsd state for the same worktree, written by hand into a new run directory, removed after the call.
+        stray_dir = run_root / "260101-999999-stray"
+        stray_dir.mkdir(parents=True)
+        stray_state = stray_dir / "state.json"
+        stray_payload = json.loads(json.dumps(read_json(slice1_state)))
+        stray_payload["run_id"] = "260101-999999-stray"
+        write(stray_state, stray_payload)
+        assert_refusal_untouched("continuing while another nonterminal fsd run exists", work, slice1_state, run_root,
+            ["continue", str(slice1_state), "--covered", "AC1", "--reason", "r"],
+            "a nonterminal fsd run already exists")
+        stray_state.unlink()
+        stray_dir.rmdir()
+
+        # A genuine continue into slice 2, needed so the unreadable-predecessor and already-covered-elsewhere checks below have an actual earlier slice to read.
+        result = must("continuing chain-refusals into slice 2",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "the rest needs another pass"))
+        slice2_state = require_path(result)
+        plan2_path = work / "plan-chain-refusals-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-refusals-2", requirements_path, plan2_path)
+
+        # Every named id is already covered by an earlier slice.
+        assert_refusal_untouched("continuing slice 2 re-claiming AC1", work, slice2_state, run_root,
+            ["continue", str(slice2_state), "--covered", "AC1", "--reason", "r"],
+            "adds no acceptance criterion not already covered")
+
+        # An earlier slice cannot be read -- slice 1's own file moved away for the call, restored after it.
+        moved_slice1 = work / "slice1-moved-away.json"
+        slice1_state.replace(moved_slice1)
+        assert_refusal_untouched("continuing slice 2 while slice 1 is unreadable", work, slice2_state, run_root,
+            ["continue", str(slice2_state), "--covered", "AC2", "--reason", "r"],
+            "earlier slice could not be read")
+        moved_slice1.replace(slice1_state)
+
+        # Both minted destinations already exist -- t0 and t0-plus-one-second pre-created before the call, through the in-process wrapper.
+        t0 = datetime(2026, 6, 2, 8, 0, 0).astimezone()
+        stamp0 = f"{t0:%y%m%d-%H%M%S}"
+        stamp1 = f"{(t0 + timedelta(seconds=1)):%y%m%d-%H%M%S}"
+        slug = read_json(slice2_state)["run_id"].split("-", 2)[2]
+        collision_a = run_root / f"{stamp0}-{slug}"
+        collision_b = run_root / f"{stamp1}-{slug}"
+        collision_a.mkdir(parents=True)
+        collision_b.mkdir(parents=True)
+        before_bytes = slice2_state.read_bytes()
+        before_listing = _listing(run_root)
+        returncode, stdout, stderr = run_fsd_continue_inprocess(
+            work, ["continue", str(slice2_state), "--covered", "AC2", "--reason", "r"], t0, precreate_dirs=[])
+        if returncode == 0:
+            failures.append("continue was accepted although both minted destinations already existed")
+        elif "already exists" not in stderr:
+            failures.append(f"the mint-collision refusal was for the wrong reason: {stderr!r}")
+        if slice2_state.read_bytes() != before_bytes:
+            failures.append("the mint-collision refusal changed slice 2's own bytes")
+        if _listing(run_root) != before_listing:
+            failures.append(f"the mint-collision refusal changed the run root's own listing: {_listing(run_root)} != {before_listing}")
+
+        # A --covered naming one id already covered by an earlier slice and one still open succeeds -- `all(...)` over the named ids must not stand in for `any(...)` -- and the recorded `covered` keeps both named ids, not only the new one.
+        mixed_result = must("continuing slice 2 with one already-covered id and one new id",
+                            fsd(work, "continue", str(slice2_state), "--covered", "AC1,AC2", "--reason", "AC2 is the new one; AC1 is named again alongside it"))
+        slice3_state = require_path(mixed_result)
+        slice2_after_mixed = read_json(slice2_state)
+        expected_mixed_continued = {"covered": ["AC1", "AC2"], "reason": "AC2 is the new one; AC1 is named again alongside it", "next": str(slice3_state)}
+        if slice2_after_mixed.get("continued") != expected_mixed_continued:
+            failures.append(f"continuing with one already-covered id and one new id did not record both named ids: {slice2_after_mixed.get('continued')}")
+
+    # A three-slice chain: slice 1 covers AC1, slice 2 covers AC2 (not AC1), and slice 3 then names only AC1 -- a criterion no slice but slice 1 itself ever covered. The already-covered check must aggregate every earlier slice in the whole chain, not only the immediate predecessor, so this refuses the same way the single-hop cases above do; a predecessor walk that stopped after one hop would see only slice 2's own AC2 and wrongly accept it.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-multi-hop.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the multi-hop chain's slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "multihop",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan1_path = work / "plan-multi-hop-1.md"
+        drive_slice_through_execute(work, slice1_state, "multihop", requirements_path, plan1_path)
+        result = must("continuing the multi-hop chain's slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "AC2 and AC3 need another slice"))
+        slice2_state = require_path(result)
+
+        plan2_path = work / "plan-multi-hop-2.md"
+        drive_slice_through_execute(work, slice2_state, "multihop-2", requirements_path, plan2_path)
+        result = must("continuing the multi-hop chain's slice 2, covering AC2 (not AC1)",
+                      fsd(work, "continue", str(slice2_state), "--covered", "AC2", "--reason", "AC3 needs another slice"))
+        slice3_state = require_path(result)
+
+        plan3_path = work / "plan-multi-hop-3.md"
+        drive_slice_through_execute(work, slice3_state, "multihop-3", requirements_path, plan3_path)
+
+        assert_refusal_untouched("continuing slice 3 naming only AC1, which slice 1 covered two slices back", work, slice3_state, run_root,
+            ["continue", str(slice3_state), "--covered", "AC1", "--reason", "r"],
+            "adds no acceptance criterion not already covered")
+
+# ---------------------------------------------------------------------------
+# Section "chain-create-failure": the write-order rollback under two real permission-denied injections, each proven to actually take effect before it is trusted, and each restored so the same `continue` call succeeds once permissions are back.
+
+def _section_chain_create_failure():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-create-failure.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion", "second criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-create-failure slice 1", fsd(work, "start", "--run-root", str(run_root),
+                      "--slug", "chain-create-failure", "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan_path = work / "plan-chain-create-failure.md"
+        drive_slice_through_execute(work, slice1_state, "chain-create-failure", requirements_path, plan_path)
+
+        before_bytes = slice1_state.read_bytes()
+        before_listing = _listing(run_root)
+        continue_args = ["continue", str(slice1_state), "--covered", "AC1", "--reason", "needs another slice"]
+
+        # Injection A: the run root itself made read-only, so continue can mint nothing at all under it -- the first commit fails, and nothing was written.
+        run_root_mode = run_root.stat().st_mode
+        os.chmod(run_root, 0o555)
+        try:
+            probe = run_root / "probe-injection-a"
+            took_effect = False
+            try:
+                probe.mkdir()
+            except PermissionError:
+                took_effect = True
+            else:
+                probe.rmdir()
+            if not took_effect:
+                failures.append("chain-create-failure's read-only run root did not actually take effect; injection A proves nothing")
+
+            injection_a_result = fsd(work, *continue_args)
+            if injection_a_result.returncode == 0:
+                failures.append("continue was accepted while the run root was read-only and must not be")
+        finally:
+            os.chmod(run_root, run_root_mode)
+
+        if slice1_state.read_bytes() != before_bytes:
+            failures.append("chain-create-failure's injection A changed slice 1's own bytes")
+        if read_json(slice1_state)["lifecycle"] != "active":
+            failures.append("chain-create-failure's injection A left slice 1 not active")
+        if _listing(run_root) != before_listing:
+            failures.append("chain-create-failure's injection A left a new directory behind")
+
+        # Injection B: slice 1's own run directory made read-only -- the next state's own directory (a sibling under run_root) still mints and commits, but closing slice 1 itself then fails, and the rollback removes what the first commit wrote.
+        slice1_dir = slice1_state.parent
+        slice1_dir_mode = slice1_dir.stat().st_mode
+        os.chmod(slice1_dir, 0o555)
+        try:
+            probe = slice1_dir / "probe-injection-b"
+            took_effect = False
+            try:
+                probe.write_text("x")
+            except PermissionError:
+                took_effect = True
+            else:
+                probe.unlink()
+            if not took_effect:
+                failures.append("chain-create-failure's read-only run directory did not actually take effect; injection B proves nothing")
+
+            injection_b_result = fsd(work, *continue_args)
+            if injection_b_result.returncode == 0:
+                failures.append("continue was accepted while slice 1's own run directory was read-only and must not be")
+        finally:
+            os.chmod(slice1_dir, slice1_dir_mode)
+
+        if slice1_state.read_bytes() != before_bytes:
+            failures.append("chain-create-failure's injection B changed slice 1's own bytes")
+        if _listing(run_root) != before_listing:
+            failures.append(f"chain-create-failure's injection B left the next state's own directory behind after rollback: {_listing(run_root)} != {before_listing}")
+
+        must("continuing chain-create-failure once permissions are restored", fsd(work, *continue_args))
+
+# ---------------------------------------------------------------------------
+# Section "chain-schema": `chain` and `continued` are optional FSD_FIELDS keys that a state carrying neither validates, reads, and prints exactly as before, and that a hand-authored `checkpoint` candidate -- the escape hatch -- can never forge.
+# This section drives no `continue` command; it proves the schema itself accepts and refuses these two fields on their own.
+
+def _chain_schema_base_state(work, requirements_path, run_id="260101-000000-chain-schema"):
+    # Shaped exactly the way `start` already builds a state for an approved-requirements input: entry ralplan, interview skipped, ralplan pending -- the shape `chain`'s own cross-field rule requires.
+    agents_md_hash = hashlib.sha256((work / "AGENTS.md").read_bytes()).hexdigest()
+    return {
+        "schema_version": 1, "workflow": "fsd", "run_id": run_id,
+        "lifecycle": "active", "worktree": str(work), "entry": "ralplan",
+        "input": {"kind": "requirements", "reference": str(requirements_path), "summary": "check"},
+        "agents_md": [{"span_started_at": STAMP, "sha256": agents_md_hash}],
+        "halt": None,
+        "stages": {
+            "interview": {"status": "skipped", "run": None, "resolved_reference": None},
+            "ralplan": {"status": "pending", "run": None, "resolved_reference": None},
+            "execute": {"status": "pending", "run": None, "resolved_reference": None},
+            "closeout": {"status": "pending", "run": None, "resolved_reference": None},
+        },
+        "assumptions": [], "questions": [], "lessons": [],
+        "retrospective": None,
+        "next_action": f"invoke /kein:ralplan {requirements_path}",
+    }
+
+
+def _section_chain_schema():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-schema.md"
+        write_requirements(requirements_path, "Approved")
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        # Completion condition 1: a hand-written current-schema state -- exactly the 15 FSD_FIELDS keys, shaped like a live run's file -- validates, and status/gap/report on it are exactly what they were before this story: it carries neither `chain` nor `continued` for any of them to read.
+        base_state = _chain_schema_base_state(work, requirements_path)
+        base_path = work / "base-state.json"
+        write(base_path, base_state)
+        if set(base_state) != {
+            "schema_version", "workflow", "run_id", "lifecycle", "worktree", "entry", "input",
+            "agents_md", "halt", "stages", "assumptions", "questions", "lessons",
+            "retrospective", "next_action",
+        }:
+            failures.append("the chain-schema fixture's own base state does not carry exactly the 15 FSD_FIELDS keys; this case proves nothing")
+        must("validating a hand-written current-schema state", fsd(work, "validate", str(base_path)))
+
+        status_payload = json.loads(fsd(work, "status", str(base_path)).stdout)
+        expected_status_keys = {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}
+        if set(status_payload) != expected_status_keys:
+            failures.append(f"status on a current-schema state gained or lost a key: {sorted(status_payload)}")
+
+        expected_action = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+        gap_payload = json.loads(fsd(work, "gap", str(base_path)).stdout)
+        if gap_payload["action"] != expected_action:
+            failures.append(f"gap's entry-row action on a current-schema state changed: {gap_payload['action']!r}")
+
+        report_text = fsd(work, "report", str(base_path)).stdout
+        if "## Slices" in report_text:
+            failures.append("report printed a ## Slices section for a state with no chain")
+
+        # Completion condition 2: a well-formed `chain`, written into a copy of a state `start` actually produced for an approved-requirements input, validates.
+        result = must("starting the chain-schema condition-2 fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "condition2",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        condition2_state_path = require_path(result)
+        condition2_chained = read_json(condition2_state_path)
+        condition2_chained["chain"] = {"previous": str(work / "previous-state.json"), "slice": 2}
+        condition2_chained_path = condition2_state_path.parent / "chained-copy.json"
+        write(condition2_chained_path, condition2_chained)
+        must("validating a start-produced state with a well-formed chain written into a copy",
+             fsd(work, "validate", str(condition2_chained_path)))
+        must("aborting the chain-schema condition-2 fixture", fsd(work, "abort", str(condition2_state_path), "--reason", "onto the next chain-schema case"))
+
+        # Completion condition 3: each way `chain` can be malformed, refused with `chain` named.
+        def refuse_chain(label, chain_value, mutate_base=None):
+            candidate = json.loads(json.dumps(base_state))
+            if mutate_base is not None:
+                mutate_base(candidate)
+            candidate["chain"] = chain_value
+            candidate_path = work / f"chain-bad-{label}.json"
+            write(candidate_path, candidate)
+            refuse(f"validating chain malformed by {label}", fsd(work, "validate", str(candidate_path)), reason="chain")
+
+        refuse_chain("missing-slice", {"previous": str(work / "p.json")})
+        refuse_chain("slice-1", {"previous": str(work / "p.json"), "slice": 1})
+        refuse_chain("slice-true", {"previous": str(work / "p.json"), "slice": True})
+        refuse_chain("relative-previous", {"previous": "relative/p.json", "slice": 2})
+        refuse_chain("empty-previous", {"previous": "", "slice": 2})
+        refuse_chain("extra-key", {"previous": str(work / "p.json"), "slice": 2, "extra": "x"})
+        refuse_chain("null", None)
+
+        def execute_entry(candidate):
+            execute_entry_plan = work / "plan-chain-schema.md"
+            if not execute_entry_plan.exists():
+                write_plan(execute_entry_plan, "Approved")
+            candidate["entry"] = "execute"
+            candidate["input"] = {"kind": "plan", "reference": str(execute_entry_plan), "summary": "check"}
+            candidate["stages"]["ralplan"]["status"] = "skipped"
+            candidate["stages"]["execute"]["status"] = "pending"
+        refuse_chain("execute-entry", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=execute_entry)
+
+        # Each cross-field conjunct isolated on its own, the other two left exactly as the base state already has them: entry ralplan and interview skipped while the input kind is wrong; entry ralplan and the input kind requirements while interview is not skipped; the input kind requirements and interview skipped while entry is not ralplan.
+        # Isolating each conjunct is what a mutant that drops one of the three from the cross-field check, while leaving the other two, would need to survive -- the `execute-entry` case above changes entry and the input kind together and would not catch a mutant that drops only one of the three.
+        def kind_idea(candidate):
+            candidate["input"] = {"kind": "idea", "reference": None, "summary": "an idea"}
+        refuse_chain("kind-not-requirements", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=kind_idea)
+
+        def interview_not_skipped(candidate):
+            candidate["stages"]["interview"]["status"] = "entered"
+        refuse_chain("interview-not-skipped", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=interview_not_skipped)
+
+        def entry_not_ralplan(candidate):
+            candidate["entry"] = "interview"
+        refuse_chain("entry-not-ralplan", {"previous": str(work / "p.json"), "slice": 2}, mutate_base=entry_not_ralplan)
+
+        # Completion condition 4: each way `continued` can be malformed, refused with `continued` named.
+        valid_continued = {"covered": ["AC1"], "reason": "the next slice needs more time", "next": str(work / "next-state.json")}
+
+        def refuse_continued(label, continued_value, lifecycle="completed", retrospective=None):
+            candidate = json.loads(json.dumps(base_state))
+            candidate["lifecycle"] = lifecycle
+            candidate["retrospective"] = retrospective
+            candidate["continued"] = continued_value
+            candidate_path = work / f"continued-bad-{label}.json"
+            write(candidate_path, candidate)
+            refuse(f"validating continued malformed by {label}", fsd(work, "validate", str(candidate_path)), reason="continued")
+
+        refuse_continued("active-lifecycle", valid_continued, lifecycle="active")
+        refuse_continued("non-null-retrospective", valid_continued, retrospective=str(work / "retro.md"))
+        refuse_continued("empty-covered", {**valid_continued, "covered": []})
+        refuse_continued("bad-id", {**valid_continued, "covered": ["X1"]})
+        refuse_continued("duplicate-id", {**valid_continued, "covered": ["AC1", "AC1"]})
+        refuse_continued("out-of-order", {**valid_continued, "covered": ["AC2", "AC1"]})
+        refuse_continued("trailing-newline-id", {**valid_continued, "covered": ["AC1", "AC1\n"]})
+        refuse_continued("leading-zero-id", {**valid_continued, "covered": ["AC01"]})
+        refuse_continued("numeric-out-of-order", {**valid_continued, "covered": ["AC10", "AC2"]})
+        refuse_continued("relative-next", {**valid_continued, "next": "relative/next-state.json"})
+        refuse_continued("empty-next", {**valid_continued, "next": ""})
+        refuse_continued("empty-reason", {**valid_continued, "reason": ""})
+        refuse_continued("whitespace-reason", {**valid_continued, "reason": "   "})
+        refuse_continued("extra-key", {**valid_continued, "extra": "x"})
+        refuse_continued("null", None)
+
+        # `covered`'s order check is numeric, not a string comparison: "AC2", "AC10" is ascending by number even though "AC10" sorts before "AC2" as text.
+        covered_numeric_order = json.loads(json.dumps(base_state))
+        covered_numeric_order["lifecycle"] = "completed"
+        covered_numeric_order["retrospective"] = None
+        covered_numeric_order["continued"] = {**valid_continued, "covered": ["AC2", "AC10"]}
+        covered_numeric_order_path = work / "continued-numeric-order.json"
+        write(covered_numeric_order_path, covered_numeric_order)
+        must("validating continued covered in numeric ascending order despite descending string order",
+             fsd(work, "validate", str(covered_numeric_order_path)))
+
+        # Completion condition 5: an unknown top-level key is refused with `unexpected` named.
+        unknown_key_state = json.loads(json.dumps(base_state))
+        unknown_key_state["chains"] = {}
+        unknown_key_path = work / "unknown-key.json"
+        write(unknown_key_path, unknown_key_state)
+        refuse("validating a state with an unknown top-level key", fsd(work, "validate", str(unknown_key_path)), reason="unexpected")
+
+        # Completion condition 6: `checkpoint`, the hand-authored escape hatch, can forge neither fact, whether the candidate adds it, changes it, or removes it from what the file already stores.
+        result = must("starting the chain-schema checkpoint fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-schema-checkpoint",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        checkpoint_state_path = require_path(result)
+        checkpoint_state = read_json(checkpoint_state_path)
+        before_bytes = checkpoint_state_path.read_bytes()
+
+        continued_candidate = json.loads(json.dumps(checkpoint_state))
+        continued_candidate["lifecycle"] = "completed"
+        continued_candidate["retrospective"] = None
+        continued_candidate["continued"] = dict(valid_continued)
+        continued_candidate_path = checkpoint_state_path.parent / "candidate-continued.json"
+        write(continued_candidate_path, continued_candidate)
+        refuse("checkpointing a candidate that moves active to completed with continued added",
+               fsd(work, "checkpoint", str(checkpoint_state_path), str(continued_candidate_path)), reason="continued")
+        if checkpoint_state_path.read_bytes() != before_bytes:
+            failures.append("checkpoint applied a continued addition it should have refused")
+
+        chain_added = json.loads(json.dumps(checkpoint_state))
+        chain_added["chain"] = {"previous": str(work / "p.json"), "slice": 2}
+        chain_added_path = checkpoint_state_path.parent / "candidate-chain-added.json"
+        write(chain_added_path, chain_added)
+        refuse("checkpointing a candidate that adds chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_added_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes:
+            failures.append("checkpoint applied a chain addition it should have refused")
+
+        # A state that already carries a chain -- written directly into the file, the condition-2 method, since `continue` is the only builder that would ever commit one through the ordinary path -- proves the other two directions: a candidate cannot change it or remove it either.
+        with_chain = json.loads(json.dumps(checkpoint_state))
+        with_chain["chain"] = {"previous": str(work / "p.json"), "slice": 2}
+        write(checkpoint_state_path, with_chain)
+        before_bytes_with_chain = checkpoint_state_path.read_bytes()
+
+        chain_changed = json.loads(json.dumps(with_chain))
+        chain_changed["chain"]["slice"] = 3
+        chain_changed_path = checkpoint_state_path.parent / "candidate-chain-changed.json"
+        write(chain_changed_path, chain_changed)
+        refuse("checkpointing a candidate that changes chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_changed_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes_with_chain:
+            failures.append("checkpoint applied a chain change it should have refused")
+
+        chain_removed = json.loads(json.dumps(with_chain))
+        del chain_removed["chain"]
+        chain_removed_path = checkpoint_state_path.parent / "candidate-chain-removed.json"
+        write(chain_removed_path, chain_removed)
+        refuse("checkpointing a candidate that removes chain", fsd(work, "checkpoint", str(checkpoint_state_path), str(chain_removed_path)),
+               reason="Transition cannot change chain")
+        if checkpoint_state_path.read_bytes() != before_bytes_with_chain:
+            failures.append("checkpoint applied a chain removal it should have refused")
+        must("aborting the chain-schema checkpoint fixture", fsd(work, "abort", str(checkpoint_state_path), "--reason", "onto the continued checkpoint case"))
+
+        # A state that already carries a `continued` -- written directly into the file, the same way -- proves the identical two directions for `continued`: a candidate cannot change it or remove it either.
+        result = must("starting the chain-schema continued-checkpoint fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-schema-continued-checkpoint",
+                          "--input", str(requirements_path), "--worktree", str(work)))
+        continued_state_path = require_path(result)
+        continued_state = read_json(continued_state_path)
+        with_continued = json.loads(json.dumps(continued_state))
+        with_continued["lifecycle"] = "completed"
+        with_continued["retrospective"] = None
+        with_continued["continued"] = dict(valid_continued)
+        write(continued_state_path, with_continued)
+        before_bytes_with_continued = continued_state_path.read_bytes()
+
+        continued_changed = json.loads(json.dumps(with_continued))
+        continued_changed["continued"] = {**valid_continued, "reason": "a different reason"}
+        continued_changed_path = continued_state_path.parent / "candidate-continued-changed.json"
+        write(continued_changed_path, continued_changed)
+        refuse("checkpointing a candidate that changes continued", fsd(work, "checkpoint", str(continued_state_path), str(continued_changed_path)),
+               reason="continued")
+        if continued_state_path.read_bytes() != before_bytes_with_continued:
+            failures.append("checkpoint applied a continued change it should have refused")
+
+        continued_removed = json.loads(json.dumps(with_continued))
+        del continued_removed["continued"]
+        continued_removed_path = continued_state_path.parent / "candidate-continued-removed.json"
+        write(continued_removed_path, continued_removed)
+        refuse("checkpointing a candidate that removes continued", fsd(work, "checkpoint", str(continued_state_path), str(continued_removed_path)),
+               reason="continued")
+        if continued_state_path.read_bytes() != before_bytes_with_continued:
+            failures.append("checkpoint applied a continued removal it should have refused")
+
+# ---------------------------------------------------------------------------
+# Section "chain-gap-status": a chained state's own ralplan-pending row hands its planner the acceptance criteria still remaining and every earlier slice's own plan, ralplan receipt, execute receipt, and continue reason, never a criterion an earlier slice already covered; `status`'s own `chain` key carries the identical facts in structured form, present only once this state actually carries a `chain`; both tolerate an earlier slice that cannot be read.
+
+def _section_chain_gap_status():
+    # A dedicated proof that the unchained path is untouched, independent of chain-schema's own fixture shape: a plain, unchained ralplan-pending state's own action stays exactly `invoke /kein:ralplan <path>` and its own status key set stays exactly the unchained shape.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        unchained_requirements = work / "req-chain-gap-status-unchained.md"
+        write_requirements_with_criteria(unchained_requirements, "Approved", ["only criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the chain-gap-status unchained fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "unchained",
+                      "--input", str(unchained_requirements), "--worktree", str(work)))
+        unchained_state = require_path(result)
+        expected_unchained_action = f"invoke /kein:ralplan {shlex.quote(str(unchained_requirements))}"
+        gap_unchained = json.loads(fsd(work, "gap", str(unchained_state)).stdout)
+        if gap_unchained["action"] != expected_unchained_action:
+            failures.append(f"chain-gap-status's dedicated unchained fixture action did not match exactly: {gap_unchained['action']!r} != {expected_unchained_action!r}")
+        status_unchained = json.loads(fsd(work, "status", str(unchained_state)).stdout)
+        if set(status_unchained) != {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}:
+            failures.append(f"chain-gap-status's dedicated unchained fixture status key set changed: {sorted(status_unchained)}")
+
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-gap-status.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-gap-status slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-gap-status",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+
+        # Before slice 1 is ever continued, status is exactly the unchained key set (no chain key at all).
+        status_before_continue = json.loads(fsd(work, "status", str(slice1_state)).stdout)
+        if set(status_before_continue) != {"lifecycle", "entry", "stages", "gap", "completed", "next", "action", "diagnosis"}:
+            failures.append(f"chain-gap-status's status on slice 1 before continuing did not have the exact unchained key set: {sorted(status_before_continue)}")
+
+        plan1_path = work / "plan-chain-gap-status-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-gap-status", requirements_path, plan1_path)
+        must("recording an assumption on chain-gap-status slice 1", fsd(work, "assume", str(slice1_state), "--stage", "execute",
+             "--decision", "log format", "--chosen", "json lines", "--alternatives", "csv,xml",
+             "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+        must("recording a lesson on chain-gap-status slice 1", fsd(work, "lesson", str(slice1_state),
+             "--line", "run check-fsd-state before every fsd change", "--why", "nothing else exercises this file"))
+        slice1_before_continue = read_json(slice1_state)
+        expected_plan1 = slice1_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan1 = slice1_before_continue["stages"]["ralplan"]["run"]
+        expected_execute1 = slice1_before_continue["stages"]["execute"]["run"]
+        if not expected_plan1 or not expected_ralplan1 or not expected_execute1:
+            failures.append("chain-gap-status's slice 1 fixture did not link ralplan and execute; this case proves nothing")
+
+        reason1 = "the rest needs more design work before it can be planned"
+        result = must("continuing chain-gap-status slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", reason1))
+        slice2_state = require_path(result)
+
+        # Slice 2's own ralplan-pending gap row names the criteria slice 1 left uncovered and slice 1's own receipts, never AC1 or its text; slice 1's own line carries its own receipts and reason together, not merely somewhere in the action.
+        gap2 = json.loads(fsd(work, "gap", str(slice2_state)).stdout)
+        if gap2 != {"gap": True, "completed": None, "next": "ralplan", "action": gap2["action"], "diagnosis": None}:
+            failures.append(f"chain-gap-status's slice 2 gap row did not match the exact ralplan-pending shape: {gap2}")
+        expected_head = f"invoke /kein:ralplan {shlex.quote(str(requirements_path))}"
+        action2 = gap2["action"]
+        head2 = action2.split("\n", 1)[0]
+        if head2 != expected_head:
+            failures.append(f"chain-gap-status's slice 2 gap action head did not match: {head2!r} != {expected_head!r}")
+        expected_action2_slice1_line = _expected_gap_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, reason1)
+        actual_action2_slice1_line = _find_line_starting_with(action2, "- slice 1:")
+        if actual_action2_slice1_line != expected_action2_slice1_line:
+            failures.append(f"chain-gap-status's slice 2 gap action's own slice 1 line did not match exactly: {actual_action2_slice1_line!r} != {expected_action2_slice1_line!r}")
+        for needed in ("AC2", "second criterion", "AC3", "third criterion", "a path of its own"):
+            if needed not in action2:
+                failures.append(f"chain-gap-status's slice 2 gap action is missing {needed!r}: {action2!r}")
+        if re.search(r"\bAC1\b", action2):
+            failures.append(f"chain-gap-status's slice 2 gap action named AC1, which slice 1 already covered: {action2!r}")
+        if "first criterion" in action2:
+            failures.append(f"chain-gap-status's slice 2 gap action named AC1's own text, which slice 1 already covered: {action2!r}")
+
+        slice2_payload = read_json(slice2_state)
+        if slice2_payload["next_action"] != action2:
+            failures.append(f"chain-gap-status's slice 2 next_action did not match its own gap action: {slice2_payload['next_action']!r} != {action2!r}")
+
+        # status's own chain key carries the same facts in structured form, present before and unchanged after entering ralplan.
+        expected_chain = {
+            "slice": 2, "previous": str(slice1_state), "requirements": str(requirements_path),
+            "covered_by_earlier_slices": ["AC1"],
+            "remaining": [{"id": "AC2", "text": "second criterion"}, {"id": "AC3", "text": "third criterion"}],
+            "earlier_slices": [{
+                "slice": 1, "state": str(slice1_state), "plan": expected_plan1,
+                "ralplan": expected_ralplan1, "execute": expected_execute1,
+                "covered": ["AC1"], "reason": reason1,
+            }],
+        }
+        status2 = json.loads(fsd(work, "status", str(slice2_state)).stdout)
+        if status2.get("chain") != expected_chain:
+            failures.append(f"chain-gap-status's status chain key did not match: {status2.get('chain')!r} != {expected_chain!r}")
+
+        # An unreadable predecessor: gap, status, and report on slice 2 each exit 0 and tolerate it. Run here, before ralplan is entered, so slice 2's own entry-stage row is still the one gap fires.
+        moved_slice1 = work / "chain-gap-status-slice1-moved-away.json"
+        slice1_state.replace(moved_slice1)
+        gap2_after_move = must("gap on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "gap", str(slice2_state)))
+        gap2_after_move_payload = json.loads(gap2_after_move.stdout)
+        if not gap2_after_move_payload["gap"] or gap2_after_move_payload["next"] != "ralplan":
+            failures.append(f"chain-gap-status's gap did not still fire the ralplan row once slice 1 became unreadable: {gap2_after_move_payload}")
+        action2_after_move = gap2_after_move_payload["action"]
+        head2_after_move = action2_after_move.split("\n", 1)[0]
+        if head2_after_move != expected_head:
+            failures.append(f"chain-gap-status's gap action head changed once slice 1 became unreadable: {head2_after_move!r} != {expected_head!r}")
+        if "could not be read" not in action2_after_move:
+            failures.append(f"chain-gap-status's gap action did not tolerate the unreadable predecessor: {action2_after_move!r}")
+        status2_after_move = must("status on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "status", str(slice2_state)))
+        status2_after_move_payload = json.loads(status2_after_move.stdout)
+        if "error" not in status2_after_move_payload.get("chain", {}):
+            failures.append(f"chain-gap-status's status chain key carried no error once slice 1 became unreadable: {status2_after_move_payload.get('chain')!r}")
+        report2_after_move = must("report on chain-gap-status slice 2 while slice 1 is unreadable", fsd(work, "report", str(slice2_state)))
+        slices_section2_after_move = _section_between(report2_after_move.stdout, "## Slices", "## Assumptions")
+        if slices_section2_after_move is None or "could not be read" not in slices_section2_after_move:
+            failures.append(f"chain-gap-status's report did not say could not be read between ## Slices and ## Assumptions: {report2_after_move.stdout!r}")
+        moved_slice1.replace(slice1_state)
+
+        must("entering ralplan for chain-gap-status slice 2", fsd(work, "enter", str(slice2_state), "ralplan"))
+        status2b = json.loads(fsd(work, "status", str(slice2_state)).stdout)
+        if status2b.get("chain") != expected_chain:
+            failures.append(f"chain-gap-status's status chain key changed once ralplan was entered: {status2b.get('chain')!r} != {expected_chain!r}")
+
+        # Continuing slice 2, covering AC2, with a two-line reason: it must still read as one line per slice in the gap suffix and in report, and its own second line must not surface as a bullet a reader could mistake for a remaining criterion.
+        plan2_path = work / "plan-chain-gap-status-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-gap-status-2", requirements_path, plan2_path)
+        slice2_before_continue = read_json(slice2_state)
+        expected_plan2 = slice2_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan2 = slice2_before_continue["stages"]["ralplan"]["run"]
+        expected_execute2 = slice2_before_continue["stages"]["execute"]["run"]
+
+        reason2 = "the last of the three needs its own slice\n- AC1: not actually a criterion"
+        result = must("continuing chain-gap-status slice 2, covering AC2",
+                      fsd(work, "continue", str(slice2_state), "--covered", "AC2", "--reason", reason2))
+        slice3_state = require_path(result)
+
+        # On this three-slice chain, each earlier slice's own line in slice 3's gap action must carry its own receipts and reason together, not another slice's: a mutation shifting receipts by one slice would still pass a check that only asks whether every path appears somewhere in the whole action.
+        gap3 = json.loads(fsd(work, "gap", str(slice3_state)).stdout)
+        action3 = gap3["action"]
+        expected_action3_slice1_line = _expected_gap_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, reason1)
+        expected_action3_slice2_line = _expected_gap_earlier_line(2, expected_plan2, expected_ralplan2, expected_execute2, reason2)
+        actual_action3_slice1_line = _find_line_starting_with(action3, "- slice 1:")
+        actual_action3_slice2_line = _find_line_starting_with(action3, "- slice 2:")
+        if actual_action3_slice1_line != expected_action3_slice1_line:
+            failures.append(f"chain-gap-status's slice 3 gap action's own slice 1 line did not match exactly: {actual_action3_slice1_line!r} != {expected_action3_slice1_line!r}")
+        if actual_action3_slice2_line != expected_action3_slice2_line:
+            failures.append(f"chain-gap-status's slice 3 gap action's own slice 2 line did not match exactly: {actual_action3_slice2_line!r} != {expected_action3_slice2_line!r}")
+        # The remaining-criteria bullets -- not the whole action, which now deliberately carries "AC1" inside slice 2's own free-text reason -- must name exactly the one criterion still open: a covered criterion offered again here, or a leaked line from slice 2's own two-line reason, would both show up as an extra or wrong bullet.
+        ac_bullet_lines = [line for line in action3.splitlines() if re.match(r"^- AC\d+:", line)]
+        if ac_bullet_lines != ["- AC3: third criterion"]:
+            failures.append(f"chain-gap-status's slice 3 gap action's own remaining-criteria bullets were not exactly AC3, so slice 2's own two-line reason leaked a line that reads as a criterion: {ac_bullet_lines!r}")
+
+        # status.chain on slice 3, with two earlier slices, carries each slice's own receipts and reason as its own entry, in order, reason 2 kept verbatim (not collapsed).
+        expected_chain3 = {
+            "slice": 3, "previous": str(slice2_state), "requirements": str(requirements_path),
+            "covered_by_earlier_slices": ["AC1", "AC2"],
+            "remaining": [{"id": "AC3", "text": "third criterion"}],
+            "earlier_slices": [
+                {"slice": 1, "state": str(slice1_state), "plan": expected_plan1,
+                 "ralplan": expected_ralplan1, "execute": expected_execute1,
+                 "covered": ["AC1"], "reason": reason1},
+                {"slice": 2, "state": str(slice2_state), "plan": expected_plan2,
+                 "ralplan": expected_ralplan2, "execute": expected_execute2,
+                 "covered": ["AC2"], "reason": reason2},
+            ],
+        }
+        status3 = json.loads(fsd(work, "status", str(slice3_state)).stdout)
+        if status3.get("chain") != expected_chain3:
+            failures.append(f"chain-gap-status's status chain key on slice 3 did not match: {status3.get('chain')!r} != {expected_chain3!r}")
+
+        # report on slice 3 carries the identical two earlier-slice lines, each exact, and the current-slice line for slice 3 itself, checked separately.
+        report3 = fsd(work, "report", str(slice3_state)).stdout
+        slices_section3 = _section_between(report3, "## Slices", "## Assumptions")
+        if slices_section3 is None:
+            failures.append(f"chain-gap-status's report on slice 3 printed no ## Slices section before ## Assumptions: {report3!r}")
+        else:
+            expected_report3_slice1_line = _expected_report_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, ["AC1"], reason1)
+            expected_report3_slice2_line = _expected_report_earlier_line(2, expected_plan2, expected_ralplan2, expected_execute2, ["AC2"], reason2)
+            expected_report3_current_line = _expected_report_current_line(3, None, None, None)
+            actual_report3_slice1_line = _find_line_starting_with(slices_section3, "- slice 1:")
+            actual_report3_slice2_line = _find_line_starting_with(slices_section3, "- slice 2:")
+            actual_report3_current_line = _find_line_starting_with(slices_section3, "- slice 3 (this state):")
+            if actual_report3_slice1_line != expected_report3_slice1_line:
+                failures.append(f"chain-gap-status's report slice 1 line did not match exactly: {actual_report3_slice1_line!r} != {expected_report3_slice1_line!r}")
+            if actual_report3_slice2_line != expected_report3_slice2_line:
+                failures.append(f"chain-gap-status's report slice 2 line did not match exactly: {actual_report3_slice2_line!r} != {expected_report3_slice2_line!r}")
+            if actual_report3_current_line != expected_report3_current_line:
+                failures.append(f"chain-gap-status's report current-slice line did not match exactly: {actual_report3_current_line!r} != {expected_report3_current_line!r}")
+
+        # An unreadable requirements document: status.chain.error and the ## Slices fallback line both say "could not be read", not a raw OS error string, and the fallback is itself a list line.
+        moved_requirements = work / "chain-gap-status-requirements-moved-away.md"
+        requirements_path.replace(moved_requirements)
+        status3_requirements_moved = must("status on chain-gap-status slice 3 while the requirements document is unreadable", fsd(work, "status", str(slice3_state)))
+        status3_requirements_moved_payload = json.loads(status3_requirements_moved.stdout)
+        requirements_error = status3_requirements_moved_payload.get("chain", {}).get("error", "")
+        if "could not be read" not in requirements_error:
+            failures.append(f"chain-gap-status's status chain error did not say the requirements document could not be read: {requirements_error!r}")
+        report3_requirements_moved = must("report on chain-gap-status slice 3 while the requirements document is unreadable", fsd(work, "report", str(slice3_state)))
+        slices_section3_requirements_moved = _section_between(report3_requirements_moved.stdout, "## Slices", "## Assumptions")
+        if slices_section3_requirements_moved is None or "could not be read" not in slices_section3_requirements_moved:
+            failures.append(f"chain-gap-status's report did not say could not be read between ## Slices and ## Assumptions once the requirements document was unreadable: {report3_requirements_moved.stdout!r}")
+        elif not any(line.startswith("- ") and "could not be read" in line for line in slices_section3_requirements_moved.splitlines()):
+            failures.append(f"chain-gap-status's report's could-not-be-read fallback was not its own list line: {slices_section3_requirements_moved!r}")
+        moved_requirements.replace(requirements_path)
+
+    # A separate, small three-slice chain whose own continue reasons never mention an AC id, so the "no already-covered criterion" check can hold cleanly here: the main fixture above's own reason 2 deliberately contains the text "AC1", to prove a two-line reason collapses onto one line instead of leaking a bullet, and that text alone would defeat a `\bAC1\b`/`\bAC2\b` absence check run against it.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-gap-status-clean-reasons.md"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", "third criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting the chain-gap-status clean-reasons slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-gap-status-clean",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan1_path = work / "plan-chain-gap-status-clean-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-gap-status-clean", requirements_path, plan1_path)
+        result = must("continuing the chain-gap-status clean-reasons slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs more design work"))
+        slice2_state = require_path(result)
+
+        plan2_path = work / "plan-chain-gap-status-clean-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-gap-status-clean-2", requirements_path, plan2_path)
+        result = must("continuing the chain-gap-status clean-reasons slice 2, covering AC2",
+                      fsd(work, "continue", str(slice2_state), "--covered", "AC2", "--reason", "needs its own slice"))
+        slice3_state = require_path(result)
+
+        gap3_clean = json.loads(fsd(work, "gap", str(slice3_state)).stdout)
+        action3_clean = gap3_clean["action"]
+        if re.search(r"\bAC1\b", action3_clean) or re.search(r"\bAC2\b", action3_clean):
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action named an already-covered criterion: {action3_clean!r}")
+        if "first criterion" in action3_clean or "second criterion" in action3_clean:
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action named an already-covered criterion's own text: {action3_clean!r}")
+        if "AC3" not in action3_clean or "third criterion" not in action3_clean:
+            failures.append(f"chain-gap-status's clean-reasons slice 3 gap action is missing the one remaining criterion: {action3_clean!r}")
+
+# ---------------------------------------------------------------------------
+# Section "chain-final-close-report": the last slice's own `close` still requires every id the whole chain recorded, including one copied forward from an earlier slice untouched since; `report` on a chained state prints `## Slices` right before `## Assumptions`, one line per earlier slice plus one for the current slice, and prints no such section for a state that carries no `chain`.
+
+def _section_chain_final_close_report():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        requirements_path = work / "req-chain-final-close-report.md"
+        write_requirements_with_criteria(requirements_path, "Approved", ["first criterion", "second criterion"])
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        result = must("starting chain-final-close-report slice 1", fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-final",
+                      "--input", str(requirements_path), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        plan1_path = work / "plan-chain-final-1.md"
+        drive_slice_through_execute(work, slice1_state, "chain-final", requirements_path, plan1_path)
+        must("recording an assumption on chain-final-close-report slice 1", fsd(work, "assume", str(slice1_state), "--stage", "execute",
+             "--decision", "log format", "--chosen", "json lines", "--alternatives", "csv,xml",
+             "--reversal-cost", "rewrite one module", "--where", "src/thing.py"))
+        must("recording a lesson on chain-final-close-report slice 1", fsd(work, "lesson", str(slice1_state),
+             "--line", "run check-fsd-state before every fsd change", "--why", "nothing else exercises this file"))
+        slice1_before_continue = read_json(slice1_state)
+        expected_plan1 = slice1_before_continue["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan1 = slice1_before_continue["stages"]["ralplan"]["run"]
+        expected_execute1 = slice1_before_continue["stages"]["execute"]["run"]
+
+        reason1 = "second criterion needs its own slice"
+        result = must("continuing chain-final-close-report slice 1, covering AC1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", reason1))
+        slice2_state = require_path(result)
+
+        plan2_path = work / "plan-chain-final-2.md"
+        drive_slice_through_execute(work, slice2_state, "chain-final-2", requirements_path, plan2_path)
+        assumption2 = must("recording a second assumption on chain-final-close-report slice 2", fsd(work, "assume", str(slice2_state), "--stage", "execute",
+             "--decision", "retry policy", "--chosen", "exponential backoff", "--alternatives", "fixed delay,no retry",
+             "--reversal-cost", "rewrite the retry loop", "--where", "src/other.py"))
+        assumption2_id = assumption2.stdout.strip()
+        if assumption2_id != "A2":
+            failures.append(f"chain-final-close-report's second assumption was not minted A2, so slice 1's own A1 did not copy forward: {assumption2_id!r}")
+
+        slice2_before_close = read_json(slice2_state)
+        expected_plan2 = slice2_before_close["stages"]["ralplan"]["resolved_reference"]
+        expected_ralplan2 = slice2_before_close["stages"]["ralplan"]["run"]
+        expected_execute2 = slice2_before_close["stages"]["execute"]["run"]
+
+        must("entering closeout for chain-final-close-report slice 2", fsd(work, "closeout", str(slice2_state)))
+        run_dir2 = slice2_state.parent
+
+        # A retrospective citing A2 and L1 but not A1 -- copied forward from slice 1 -- is refused, naming A1.
+        bad_retro = run_dir2 / "retro-missing-a1.md"
+        bad_retro.write_text("# Retrospective\n\nA2 and L1 are both covered here.\n")
+        refuse("closing chain-final-close-report slice 2 without citing A1", fsd(work, "close", str(slice2_state), "--retro", str(bad_retro)),
+               reason="missing A1")
+
+        # A retrospective citing every id completes the run and relocates to the chain's own durable path, named from the literal slug this fixture chose (`--slug chain-final`), not derived from either slice's own run id.
+        good_retro = run_dir2 / "retro-final.md"
+        good_retro.write_text("# Retrospective\n\nA1, A2, and L1 are all covered here.\n")
+        must("closing chain-final-close-report slice 2 citing every id", fsd(work, "close", str(slice2_state), "--retro", str(good_retro)))
+        completed_slice2 = read_json(slice2_state)
+        if completed_slice2["lifecycle"] != "completed":
+            failures.append(f"chain-final-close-report's final close did not complete the run: {completed_slice2['lifecycle']!r}")
+        today = datetime.now().astimezone().strftime("%y%m%d")
+        expected_retro_path = work / ".agents" / "kein" / "retros" / f"{today}-chain-final.md"
+        if completed_slice2["retrospective"] != str(expected_retro_path):
+            failures.append(f"chain-final-close-report's close did not move the retrospective to the chain's own durable path: {completed_slice2['retrospective']!r} != {str(expected_retro_path)!r}")
+        if not expected_retro_path.is_file():
+            failures.append("chain-final-close-report's durable retrospective file does not exist")
+
+        # report on the completed slice 2 prints ## Slices before ## Assumptions, slice 1's own line and the current-slice line each exact and checked separately.
+        report_text = fsd(work, "report", str(slice2_state)).stdout
+        slices_section = _section_between(report_text, "## Slices", "## Assumptions")
+        if slices_section is None:
+            failures.append(f"chain-final-close-report's report did not print ## Slices before ## Assumptions: {report_text!r}")
+        else:
+            expected_slice1_line = _expected_report_earlier_line(1, expected_plan1, expected_ralplan1, expected_execute1, ["AC1"], reason1)
+            expected_current_line = _expected_report_current_line(2, expected_plan2, expected_ralplan2, expected_execute2)
+            actual_slice1_line = _find_line_starting_with(slices_section, "- slice 1:")
+            actual_current_line = _find_line_starting_with(slices_section, "- slice 2 (this state):")
+            if actual_slice1_line != expected_slice1_line:
+                failures.append(f"chain-final-close-report's report slice 1 line did not match exactly: {actual_slice1_line!r} != {expected_slice1_line!r}")
+            if actual_current_line != expected_current_line:
+                failures.append(f"chain-final-close-report's report current-slice line did not match exactly: {actual_current_line!r} != {expected_current_line!r}")
+        for needed in ("A1", "A2", "L1"):
+            if needed not in report_text:
+                failures.append(f"chain-final-close-report's report is missing {needed!r}: {report_text!r}")
+
+        unchained_report = fsd(work, "report", str(slice1_state)).stdout
+        if "## Slices" in unchained_report:
+            failures.append("chain-final-close-report's report printed ## Slices for slice 1, which carries no chain of its own")
+
+# ---------------------------------------------------------------------------
+# Section "report-without-continued": a state carrying neither `chain` nor `continued` prints exactly the report it always did -- compared here against the report's full expected text, not only checked for `## Continued`'s absence, so an unconditional `_continued_lines` emit (or any other unrelated addition) shows up regardless of which substring a narrower check happened to name.
+
+def _section_report_without_continued():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the report-without-continued fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "reportplain",
+                          "--input", "do the thing", "--worktree", str(work)))
+        state_path = require_path(result)
+        report_text = fsd(work, "report", str(state_path)).stdout
+        expected_report_text = (
+            "## Assumptions\n\nNone.\n\n"
+            "## Parked questions\n\nNone.\n\n"
+            "## Lesson proposals\n\nNone.\n\n"
+            "## Retrospective\n\nNone.\n"
+        )
+        if report_text != expected_report_text:
+            failures.append(f"report on a state carrying neither chain nor continued did not match its full expected text: {report_text!r} != {expected_report_text!r}")
+
+# ---------------------------------------------------------------------------
 # Section "gap" (issue 1a): an entered stage whose association still reads "none" now carries a diagnosis on gap's own no-gap result -- the stage's name paired with the identical reason text `status` already shows beside it (`_none_association_reason`, read once and reused, never re-derived) -- so a lead no longer has to read `status` by hand to learn what `gap` itself could already see. `gap` still reports no gap throughout: a stage that is merely still running, with its ledger not yet completed, must never read as a gap of its own. Once the only entered stage is linked, the diagnosis clears to null. Registered under the literal name "gap" so `--only gap` runs just this section.
 
 def _section_gap_diagnosis_field():
@@ -3195,6 +4627,16 @@ SECTIONS = [
     ("scenario39-execute-refused-while-ralplan-live", (), _section_scenario39_execute_refused_while_ralplan_live),
     ("scenario40-ralplan-refused-while-interview-active", (), _section_scenario40_ralplan_refused_while_interview_active),
     ("scenario41-checkpoint-refuses-new-destination-with-run", (), _section_scenario41_checkpoint_refuses_new_destination_with_run),
+    ("chain-schema", (), _section_chain_schema),
+    ("chain-continue", (), _section_chain_continue),
+    ("chain-continue-from-interview", (), _section_chain_continue_from_interview),
+    ("chain-continue-from-draft-requirements", (), _section_chain_continue_from_draft_requirements),
+    ("report-without-continued", (), _section_report_without_continued),
+    ("chain-continue-after-pause", (), _section_chain_continue_after_pause),
+    ("chain-refusals", (), _section_chain_refusals),
+    ("chain-create-failure", (), _section_chain_create_failure),
+    ("chain-gap-status", (), _section_chain_gap_status),
+    ("chain-final-close-report", (), _section_chain_final_close_report),
     ("gap", (), _section_gap_diagnosis_field),
     ("attach", (), _section_attach_terminal_candidate_message),
     ("occupant", (), _section_occupant_facts),
@@ -3262,7 +4704,9 @@ def main():
     else:
         print("check-fsd-state: classification, gap, guard, close/resume precedence over an unanswered "
       "question and a still-blocked execute run, the retrospective staying out of execute's "
-      "fingerprint until completion, and the ralplan non-convergence exit all hold")
+      "fingerprint until completion, the ralplan non-convergence exit, and a chain's own continue "
+      "-- its requirements-path precedence by entry, its refusal table, and status/report naming "
+      "a continued state's successor and a chained state's earlier slices -- all hold")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,13 @@
 # `execute`: what is still open
 
+## The lead reads the clock before every checkpoint
+
+Every verification entry carries `observed_at` and every verdict `reviewed_at`, and `checkpoint` fills fingerprints and the revision from `"auto"` but not these two times. After the 260923 run's ledger carried invented round-minute and future times, the lead of the 260926 slice-chain run ran `date -u` before every checkpoint instead: dozens of calls in one run, noticed and questioned by the user. The value is still only an upper bound for `reviewed_at`, which should be when the lane judged, not when the lead recorded it.
+
+Options, not yet decided: `checkpoint` accepts `"auto"` for `observed_at` and `reviewed_at` and stamps its own clock (removes the calls and the future-time risk; `reviewed_at` stays an upper bound); the lane's response format carries its own time and the lead copies it (exact, but the lane can invent it too); or a single `ocs state execute` step that records the lead's verification run together with its time.
+
+**Reopen when** `checkpoint` is next changed, or a ledger again carries a time nobody read from a clock.
+
 ## A completion condition's own wording cannot be corrected inside a run
 
 `state.py` refuses any change to an existing task's `scope` or `completion_condition`, and `amend` moves only the plan. So when measurement falsifies the literal words a condition was ledgered with, the only exit is `blocked`, then abort and a new run. oh-my-claudecode 5.x gave ralph the opposite route: a criterion is replaced or superseded, the original kept verbatim with reason, evidence, authority and time, and every completion claim and approval bound to the criteria revision it was made under.

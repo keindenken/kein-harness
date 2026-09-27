@@ -4,6 +4,7 @@
 # `hook.py` reads a live `fsd` `state.json` and calls `fsd`'s own `gap()`; nothing here re-derives what counts as a gap (`check-fsd-state` already owns that). This check drives real fixtures the way a live run would produce them -- `fsd start`/`enter`, `execute`'s CLI, `ralplan`'s CLI, and a couple of hand-authored ledgers for shapes neither CLI builds -- then pipes synthetic hook stdin into `hook.py` as a subprocess (never by importing it: a hook only ever runs as a subprocess, and its own top-level exception guard is part of what this check has to prove). `CLAUDE_PROJECT_DIR` and `CLAUDE_CONFIG_DIR` are pinned into each subprocess's environment so the check never reads or writes this machine's real `~/.claude`, and every fixture is disposed of with its own `tempfile.TemporaryDirectory()` -- every scratch path this file creates, including `run_hook`'s default config directory and `execute_start`/`execute_checkpoint`'s candidate files, is minted under that same enclosing directory rather than the system temp root, so nothing here leaks. Nothing here weakens a case to make it pass; a failure here means `hook.py` is wrong, not the fixture. Every case below is an independent, self-contained function -- its own fixture, its own worktree -- registered in the `SECTIONS` list near the end of this file, so `--only` never needs a dependency to name.
 import json
 import os
+import re
 import shlex
 import subprocess
 import sys
@@ -15,6 +16,7 @@ FSD = ROOT / "skills" / "fsd" / "scripts" / "state.py"
 EXECUTE = ROOT / "skills" / "execute" / "scripts" / "state.py"
 RALPLAN = ROOT / "skills" / "ralplan" / "scripts" / "state.py"
 HOOK = ROOT / "skills" / "fsd" / "scripts" / "hook.py"
+CLOSEOUT_MD = (ROOT / "skills" / "fsd" / "references" / "closeout.md").resolve()
 failures = []
 STAMP = "2026-01-01T00:00:00+09:00"
 
@@ -86,6 +88,21 @@ def write_requirements(path, status):
     lines = ["# Check requirements", "", f"Status: {status}", "Date: 2026-01-01", ""]
     for heading in REQUIREMENTS_HEADINGS:
         lines += [heading, "", "- item", ""]
+    if status == "Draft":
+        lines += ["## Blocking gaps", "", "- something unresolved", ""]
+    Path(path).write_text("\n".join(lines) + "\n")
+
+
+def write_requirements_with_criteria(path, status, criteria):
+    # Local to this file, the same shape `check-fsd-state`'s own helper of the same name writes and for the same reason -- neither `dev/libexec/check-*` script imports another. Every other heading keeps `write_requirements`'s plain `- item` placeholder; only `## Acceptance criteria` gets one real `- [ ] <text>` checkbox per entry, so `state.py`'s own `_acceptance_criteria` numbers them AC1, AC2, ... in document order.
+    lines = ["# Check requirements", "", f"Status: {status}", "Date: 2026-01-01", ""]
+    for heading in REQUIREMENTS_HEADINGS:
+        lines += [heading, ""]
+        if heading == "## Acceptance criteria":
+            lines += [f"- [ ] {item}" for item in criteria]
+        else:
+            lines.append("- item")
+        lines.append("")
     if status == "Draft":
         lines += ["## Blocking gaps", "", "- something unresolved", ""]
     Path(path).write_text("\n".join(lines) + "\n")
@@ -290,6 +307,30 @@ def assert_stop_allows(label, work, stop_hook_active=False, config_dir=None):
         failures.append(f"{label}: stop hook did not allow: exit={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
 
 
+def assert_new_no_gap_reason_property(label, work, quoted_state, running_stage, forbidden_substrings=()):
+    """Property checks for the Stop hook's active-no-gap block reason (`_expected_active_no_gap_reason` covers the full text by exact equality elsewhere; this is for a fixture that asserts only a piece of the reason by substring): the running-stage sentence is present, `ocs ` appears exactly once, as `ocs state fsd gap <state>` -- the only command this reason ever prints, since it carries neither `next_action` nor `gap()`'s own diagnosis -- and none of `forbidden_substrings` (a fixture's own stale `next_action`, or `gap`'s own "no run linked yet" diagnosis) leaked into it."""
+    result = run_hook(work, "stop", stop_payload(work))
+    if result.returncode != 0:
+        failures.append(f"{label}: stop hook exited {result.returncode} instead of blocking: {result.stderr!r}")
+        return
+    try:
+        out = json.loads(result.stdout)
+    except (ValueError, json.JSONDecodeError):
+        failures.append(f"{label}: stop hook did not block: stdout={result.stdout!r} stderr={result.stderr!r}")
+        return
+    if out.get("decision") != "block":
+        failures.append(f"{label}: stop hook did not block: {out}")
+        return
+    reason = out.get("reason", "")
+    if f"{running_stage} is the stage running" not in reason:
+        failures.append(f"{label}: stop block reason did not name {running_stage} as the stage running: {reason!r}")
+    if reason.count("ocs ") != 1 or f"ocs state fsd gap {quoted_state}" not in reason:
+        failures.append(f"{label}: stop block reason must carry 'ocs ' exactly once, as 'ocs state fsd gap {quoted_state}': {reason!r}")
+    for forbidden in forbidden_substrings:
+        if forbidden in reason:
+            failures.append(f"{label}: stop block reason wrongly carried {forbidden!r}: {reason!r}")
+
+
 def assert_pretool_denies(label, work, expected_action_substring, tool_name="Write"):
     result = run_hook(work, "pre-write", pretool_payload(work, tool_name))
     if result.returncode != 0:
@@ -334,43 +375,14 @@ def assert_postbash_silent(label, work, command, stdout="", config_dir=None):
         failures.append(f"{label}: post-bash did not allow silently for {command!r}: exit={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
 
 
-def _expected_active_no_gap_closing(quoted_state, running_stage):
-    """The exact text `_active_no_gap_reason` prints from "Do not end this turn here" on, for `running_stage` genuinely running and `quoted_state` -- `shlex.quote(str(state_path))` -- already resolved, mirroring `hook.py`'s own construction verbatim. Round 7, finding 3: two mutations survived every earlier check on this section -- a prose off-switch offer with no backticks and no literal marker name, and the marker name in a different casing -- because a whitelist of backticked commands or a blacklist of known spellings can only ever catch spellings someone thought to list. Comparing the real reason's closing section against this exact string instead catches any added sentence, dropped clause, or reworded exit by inequality, whatever it says."""
-    closeout_step = "" if running_stage == "closeout" else f"`ocs state fsd closeout {quoted_state}`, then "
+def _expected_active_no_gap_reason(quoted_state, running_stage):
+    """The full exact `"fsd: ..."` reason text `_active_no_gap_reason` prints for `running_stage` genuinely running and `quoted_state` -- `shlex.quote(str(state_path))` -- already resolved, hand-typed here, never derived from or imported through `hook.py`, so a mutation in `hook.py` cannot move both sides of a comparison together. `CLOSEOUT_MD` mirrors `hook.py`'s own resolution of the same reference file from its own location, computed once at import time since it is the same absolute path regardless of which fixture is asking. This is the whole reason, not merely a closing section, compared for exact equality wherever it is used -- catching an added sentence, dropped clause, or reworded exit anywhere in the message by inequality, whatever it says: comparing the whole reason rather than only a piece of it is what makes that guarantee hold regardless of which fields the reason happens to carry."""
     return (
-        f"Do not end this turn here for its own sake: keep the running stage moving -- if you are waiting on "
-        f"another lane, check it is still alive before anything else, then ending this turn to wait for its "
-        f"notification is fine and is not the same as ending it unresolved. If the run should not continue for "
-        f"any other reason, bring it to rest on the record instead of ending it unresolved -- two exits that "
-        f"share one tail, differing only in whether a question is recorded first. To pause it for the user: "
-        f"first record the open question (`ocs state fsd question "
-        f"{quoted_state} --stage {running_stage} --question <text> --recommended <text> --why-irreversible <text> "
-        f"--parks 'whole run'`), unless a question parking the whole run is already unanswered. To end it "
-        f"outright: skip that. Then, either way: {closeout_step}`ocs state fsd close {quoted_state} --retro "
-        f"<path>` with the retrospective placed under this run's own directory and citing every assumption, "
-        f"question, and lesson id. If close refuses, run `ocs state fsd halt {quoted_state} --reason <text>` "
-        f"naming close's own refusal as the reason; if halt itself says close would succeed, fix whatever close's "
-        f"own message named and close again. Ending changes only this run's own state: a stage run still live "
-        f"underneath it -- execute's own worktree claim, most concretely -- stays active and keeps occupying the "
-        f"worktree for the next flow, so prefer pausing while a stage run is genuinely live."
+        f"fsd: this run ({quoted_state}) is active and {running_stage} is the stage running. "
+        f"If you are waiting on another lane, confirm it is still alive; ending this turn to wait for its notification is then fine. "
+        f"Otherwise keep {running_stage} moving: `ocs state fsd gap {quoted_state}` says why it is stuck. "
+        f"To pause or end the run instead, follow \"Bringing the run to rest\" in {CLOSEOUT_MD}."
     )
-
-
-def _expected_active_no_gap_reason(quoted_state, running_stage, next_action, diagnosis_named=None):
-    """The full exact `"fsd: ..."` reason text `_active_no_gap_reason` prints, not only its closing section -- `running_stage` and `next_action` already known from the fixture, and `diagnosis_named` the fully-formed `"stage: text"` diagnosis clause with `<state>` already resolved to `quoted_state`, or `None` when the running stage carries no diagnosis at all. Built the same way `_expected_active_no_gap_closing` already is: hand-typed here, never derived from or imported through `hook.py`, so a mutation in `hook.py` cannot move both sides of a comparison together. Round 8, finding 1: comparing only `reason[reason.find("Do not end this turn here"):]` left the leading clause and the diagnosis clause open to a mutation that inserted an extra way out earlier in the string -- a third exit folded into the leading sentence, say -- since nothing compared that span at all. Comparing the whole reason against this whole expected string closes that window; every fixture that already asserts a piece of this reason by substring keeps doing so alongside this equality check, since a substring check and an equality check catch different mutations and neither subsumes the other for the pieces this function does not itself rebuild independently (the substring checks still prove a mutation could not have produced this exact text by coincidence)."""
-    leading = (
-        f"this run is active and {running_stage} is the stage genuinely running; its next_action is the run's "
-        f"last recorded intent, which may already be done: {next_action}."
-    )
-    diagnosis_clause = ""
-    if diagnosis_named is not None:
-        diagnosis_clause = (
-            f" Diagnosis, explaining why that stage has no run linked yet rather than naming a step to run as "
-            f"printed -- it can carry its own unresolved argument template, or name a command another flow's own "
-            f"claim would refuse outright while this stage is the one genuinely running: {diagnosis_named}."
-        )
-    closing = _expected_active_no_gap_closing(quoted_state, running_stage)
-    return f"fsd: {leading}{diagnosis_clause} {closing}"
 
 
 # ---------------------------------------------------------------------------
@@ -482,7 +494,7 @@ def _section_interview_aborted():
         assert_stop_blocks("row4 interview aborted", work, f"run ocs state fsd closeout {state_path}")
 
 # ---------------------------------------------------------------------------
-# Case: execute blocked with a parked, unanswered task (gap row 5) blocks Stop naming closeout, with the same `<state>` substitution. Then closeout, pause, answer, resume, and a post-skill `kein:execute` call: the execute run is still blocked, since its lead has not yet written the checkpoint that leaves it, so `gap()` itself reports no gap -- but the run is still `active` and `execute`, not `interview`, is the stage that is running, so the new no-gap block (S1) fires here too: Stop blocks once, naming `next_action`, and pre-write still allows Write, since `mode_pre_write` reads only the existing gap check and this row never was one.
+# Case: execute blocked with a parked, unanswered task (gap row 5) blocks Stop naming closeout, with the same `<state>` substitution. Then closeout, pause, answer, resume, and a post-skill `kein:execute` call: the execute run is still blocked, since its lead has not yet written the checkpoint that leaves it, so `gap()` itself reports no gap -- but the run is still `active` and `execute`, not `interview`, is the stage that is running, so the active-no-gap block fires here too: Stop blocks once, naming `execute` as the stage running (not the fixture's own `next_action`, and not `gap`'s own diagnosis), and pre-write still allows Write, since `mode_pre_write` reads only the existing gap check and this row never was one.
 
 def _section_execute_blocked_parked():
     with tempfile.TemporaryDirectory() as tmp:
@@ -521,7 +533,9 @@ def _section_execute_blocked_parked():
         if after_post_skill["stages"]["execute"]["status"] != "entered" or after_post_skill["stages"]["execute"]["run"] != str(execute_state):
             failures.append("post-skill kein:execute after resume did not re-enter execute with the kept association")
 
-        assert_stop_blocks("row5 post-resume, execute still blocked, no gap -- the new no-gap block fires for a running non-interview stage", work, "reassess the current stage's gap")
+        assert_new_no_gap_reason_property(
+            "row5 post-resume, execute still blocked, no gap -- the active-no-gap block names the running stage, not next_action or a diagnosis clause",
+            work, shlex.quote(str(state_path)), "execute", (after_post_skill["next_action"], "no run linked yet"))
         assert_pretool_allows("row5 pre-write allows the lead's checkpoint candidate", work, "Write")
 
 # ---------------------------------------------------------------------------
@@ -656,7 +670,7 @@ def _section_occupant_block_action_runs_with_space_in_repository_path():
             failures.append(f"occupant-block-action-space: the printed action did not actually abort the occupant: {occupant_after}")
 
 # ---------------------------------------------------------------------------
-# Case: post-skill for `kein:ralplan` records the stage entry, and the next Stop blocks again -- ralplan, not interview, is the stage now running, so S1's no-gap block picks the run right back up and names next_action. Run twice -- the qualified form and the bare form -- since a real Skill-tool call was measured to leave either one verbatim in the hook's `tool_input.skill` (docs/skills/fsd/260919-hook-probe.md).
+# Case: post-skill for `kein:ralplan` records the stage entry, and the next Stop blocks again -- ralplan, not interview, is the stage running, so the active-no-gap block picks the run right back up and names ralplan as the stage running, not the fixture's own `next_action`. Run twice -- the qualified form and the bare form -- since a real Skill-tool call was measured to leave either one verbatim in the hook's `tool_input.skill` (docs/skills/fsd/260919-hook-probe.md).
 
 def _section_postskill_ralplan_forms():
     for slug, skill_name in (("ps-ralplan-qualified", "kein:ralplan"), ("ps-ralplan-bare", "ralplan")):
@@ -685,11 +699,13 @@ def _section_postskill_ralplan_forms():
             if after["stages"]["ralplan"]["status"] != "entered":
                 failures.append(f"{slug}: post-skill {skill_name!r} did not record the ralplan stage entry")
 
-            # ralplan is now the stage running -- interview's own `status` is still `entered` too, from before, but `ralplan` is the *later* entered stage, so it is the one `_running_stage` reads as current -- and ralplan is not `interview`, so the new no-gap block fires: Stop blocks again, naming next_action.
-            assert_stop_blocks(f"{slug} next stop after post-skill -- ralplan is now running, not interview", work, after["next_action"])
+            # ralplan is the stage running -- interview's own `status` is still `entered` too, from before, but `ralplan` is the *later* entered stage, so it is the one `_running_stage` reads as current -- and ralplan is not `interview`, so the block fires: Stop blocks again, naming ralplan as the stage running rather than the fixture's own `next_action`.
+            assert_new_no_gap_reason_property(
+                f"{slug} next stop after post-skill -- ralplan is running, not interview", work,
+                shlex.quote(str(state_path)), "ralplan", (after["next_action"], "no run linked yet"))
 
 # ---------------------------------------------------------------------------
-# Case: three genuinely live, running stages -- not merely "entered with no association yet" the way row1's second half is, but a real nonterminal run sitting in the stage's own run root -- all give no gap, and none of the three ever calls `attach`: no association is ever formed here at all, which is the point -- `gap`'s own reading of a genuinely running stage does not depend on anything having attached it. Since S1, "no gap" while the run is still `active` no longer means Stop stays quiet on its own: `execute` and `ralplan` genuinely running now block Stop once, naming the run's own `next_action` and `gap`'s own `diagnosis` for the unlinked stage (both present here, since none of the three ever attaches); pre-write is unaffected either way, since `mode_pre_write` never grew this check. `interview` stays the one exception -- a turn ending there is still correct, so it keeps allowing outright. Together these are what "blocks in a running non-interview stage, allows in a running interview" means for a stage that already has a live run behind it, as opposed to one that was just entered pending (covered in entry-stage-pending above).
+# Case: three genuinely live, running stages -- not merely "entered with no association yet" the way row1's second half is, but a real nonterminal run sitting in the stage's own run root -- all give no gap, and none of the three ever calls `attach`: no association is ever formed here at all, which is the point -- `gap`'s own reading of a genuinely running stage does not depend on anything having attached it. "No gap" while the run is still `active` does not mean Stop stays quiet on its own: `execute` and `ralplan` genuinely running still block Stop once, naming the running stage itself rather than the run's own `next_action` or `gap`'s own `diagnosis` for the unlinked stage (both present here, since none of the three ever attaches, so both must stay absent from the reason); pre-write is unaffected either way, since `mode_pre_write` never grew this check. `interview` stays the one exception -- a turn ending there is still correct, so it keeps allowing outright. Together these are what "blocks in a running non-interview stage, allows in a running interview" means for a stage that already has a live run behind it, as opposed to one that was just entered pending (covered in entry-stage-pending above).
 
 def _section_live_running_stages():
     with tempfile.TemporaryDirectory() as tmp:
@@ -705,8 +721,9 @@ def _section_live_running_stages():
         must("dispatching task-001 for live-execute", execute(work, "dispatch", str(execute_state), "task-001"))
 
         next_action = read_json(state_path)["next_action"]
-        assert_stop_blocks("live-execute: active run, task-001 implementing, no gap -- execute is running and not interview, so the new block fires", work, next_action)
-        assert_stop_blocks("live-execute: the same block also names gap's own diagnosis for the unlinked stage", work, "execute: no run linked yet")
+        assert_new_no_gap_reason_property(
+            "live-execute: active run, task-001 implementing, no gap -- execute is running and not interview, so the block fires",
+            work, shlex.quote(str(state_path)), "execute", (next_action, "no run linked yet"))
         assert_pretool_allows("live-execute: pre-write still allows Write while execute is genuinely running (mode_pre_write is unchanged)", work, "Write")
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -726,8 +743,9 @@ def _section_live_running_stages():
         must("opening ralplan round 1 for live-ralplan", ralplan(work, "open", str(ralplan_dest)))
 
         next_action = read_json(state_path)["next_action"]
-        assert_stop_blocks("live-ralplan: active run, phase reviewing, no gap -- ralplan is running and not interview, so the new block fires", work, next_action)
-        assert_stop_blocks("live-ralplan: the same block also names gap's own diagnosis for the unlinked stage", work, "ralplan: no run linked yet")
+        assert_new_no_gap_reason_property(
+            "live-ralplan: active run, phase reviewing, no gap -- ralplan is running and not interview, so the block fires",
+            work, shlex.quote(str(state_path)), "ralplan", (next_action, "no run linked yet"))
         assert_pretool_allows("live-ralplan: pre-write still allows Write while ralplan is genuinely running (mode_pre_write is unchanged)", work, "Write")
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -906,7 +924,7 @@ def _section_postskill_interview_forms():
             assert_stop_allows(f"{slug} next stop after post-skill", work)
 
 # ---------------------------------------------------------------------------
-# Case: the closeout path end to end. A completed execute receipt (the other half of the closeout row -- row5 above covers the blocked-with-parked-task half) blocks Stop and denies pre-write Write, both naming the same substituted closeout command; entering closeout then clears that gap row, but closeout is itself a running non-interview stage, so the new no-gap block (S1) picks the run straight back up and Stop still blocks -- naming `next_action` this time, not the old gap action. Pre-write keeps allowing Write regardless, since `mode_pre_write` never grew this check.
+# Case: the closeout path end to end. A completed execute receipt (the other half of the closeout row -- row5 above covers the blocked-with-parked-task half) blocks Stop and denies pre-write Write, both naming the same substituted closeout command; entering closeout then clears that gap row, but closeout is itself a running non-interview stage, so the active-no-gap block picks the run straight back up and Stop still blocks -- naming closeout as the stage running this time, never the gap action that already cleared. Pre-write keeps allowing Write regardless, since `mode_pre_write` never grew this check.
 
 def _section_closeout_path_end_to_end():
     with tempfile.TemporaryDirectory() as tmp:
@@ -931,23 +949,17 @@ def _section_closeout_path_end_to_end():
         assert_pretool_denies("closeout-path: execute completed, pre-write denies Write naming closeout", work, closeout_action, "Write")
 
         must("entering closeout for closeout-path", fsd(work, "closeout", str(state_path)))
-        next_action = read_json(state_path)["next_action"]
-        # closeout is the stage genuinely running now, so the reason must not tell the reader to enter closeout again -- that command, run a second time, returns False without writing and would be the one fully resolved, runnable step in the message, yet a no-op. The last two required substrings prove the reason names closeout itself, not a hardcoded literal, as the stage genuinely running, and keeps the staleness framing `_active_no_gap_reason`'s own docstring names for next_action.
-        assert_stop_blocks("closeout-path: after entering closeout, stop blocks again -- closeout is running and not interview", work, next_action,
-                            forbidden_substring="ocs state fsd closeout",
-                            required_substrings=("closeout is the stage genuinely running", "last recorded intent, which may already be done"))
-        assert_pretool_allows("closeout-path: after entering closeout, pre-write still allows Write", work, "Write")
-
-        # Round 8, finding 1: the whole reason is asserted against its exact expected text here, not only its closing section -- with `running_stage` substituted as `closeout` (the one case that drops the leading `closeout` step from the closing entirely) and no diagnosis clause, since execute is fully attached and completed by this point and closeout itself is never scanned for a diagnosis (`_gap_diagnosis`'s own docstring). Comparing the whole string, not merely `reason[reason.find("Do not end this turn here"):]`, is what would have caught a mutation that inserted an extra way out into the leading clause instead of the closing.
+        # closeout is the stage genuinely running, and the reason never prints an `ocs state fsd closeout` step at all -- only `ocs state fsd gap <state>` -- so the whole reason is asserted against its exact expected text here: comparing the whole string, not a substring, is what catches an added sentence, dropped clause, or reworded exit anywhere in the message.
         closeout_result = run_hook(work, "stop", stop_payload(work))
         closeout_reason = json.loads(closeout_result.stdout).get("reason", "") if closeout_result.returncode == 0 else ""
-        expected_closeout_reason = _expected_active_no_gap_reason(shlex.quote(str(state_path)), "closeout", next_action)
+        expected_closeout_reason = _expected_active_no_gap_reason(shlex.quote(str(state_path)), "closeout")
         if closeout_reason != expected_closeout_reason:
             failures.append(
                 "closeout-path: block reason (closeout running) did not match its expected text exactly.\n"
                 f"  got:      {closeout_reason!r}\n"
                 f"  expected: {expected_closeout_reason!r}"
             )
+        assert_pretool_allows("closeout-path: after entering closeout, pre-write still allows Write", work, "Write")
 
 # ---------------------------------------------------------------------------
 # Case: the ordinary interview -> ralplan -> execute path associates every stage's run purely from the post-bash hook watching the real start/validate commands and their own real stdout -- no manual `attach` call anywhere -- and the flow reaches closeout, then `completed`. Also proves, along the way, that a completed ralplan (a receipt with no `input` field left) stays associated once post-bash has pinned it, and that a `completed` fsd lifecycle allows Stop regardless of the stage evidence underneath -- the S1 no-gap block only ever applies to an `active` run. Required cases.
@@ -1415,11 +1427,11 @@ def _section_paused_lifecycle():
         assert_pretool_allows("paused-case: lifecycle paused allows Write regardless of the evidence underneath", work, "Write")
 
 # ---------------------------------------------------------------------------
-# Case: the S1 no-gap block itself, isolated from the fixtures above that exercise it along the way. An active run with `execute` entered and no association at all (so `gap()` reports no gap, with a `diagnosis`) blocks Stop exactly once: the block itself, naming `next_action`, the diagnosis, the demand to keep the running stage moving with its lane-liveness check, and the two ways to bring a run that should not continue to rest on the record instead -- pause it for the user (a question parked against the whole run) or end it outright, each sharing one `closeout`/`close`/`halt` tail rather than predicting its own refusal (round 7, finding 1); the machine-wide off-switch is deliberately not offered, since it silently disables every hook mode for every fsd run -- then the identical payload with `stop_hook_active: true` allows, which is the guarantee that keeps the block from looping (`mode_stop` checks `stop_hook_active` before either block, and a comment beside the new one says so). The off-switch marker allows outright too, over the same no-gap active state. `halted` and `aborted` -- the two terminal lifecycles `paused-lifecycle` above does not already cover -- allow regardless of which stage is entered, the same as `completed` (proved in postbash-ordinary-path-associates-without-attach) and `paused` (proved just above): all four are `_find_nonterminal_fsd_run`'s job to keep out of `_resolve` in the first place, `paused` aside, which is why the new block's own `lifecycle == "active"` guard never even has cause to fire for them. Three further fixtures below walk the real CLI to rest along that shared tail: a structural refusal (a task scoped to AGENTS.md) where `close` refuses and `halt` succeeds, ending `halted`; a fixable refusal (a retrospective missing an id) where `halt` itself answers that `close` would succeed, and fixing the retrospective -- not halting -- is what actually pauses the run; and the end exit with no question at all, where `close` refuses because execute is still live and `halt` ends it.
+# Case: the active-no-gap block itself, isolated from the fixtures above that exercise it along the way. An active run with `execute` entered and no association at all (so `gap()` reports no gap, with a `diagnosis`) blocks Stop exactly once: the block itself, naming the running stage rather than the run's own stale `next_action` or `gap`'s own diagnosis, the demand to keep it moving with its lane-liveness check, its own `ocs state fsd gap <state>` pointer, and where the rest procedure lives (`closeout.md`'s "Bringing the run to rest"); the machine-wide off-switch is deliberately not offered, since it silently disables every hook mode for every fsd run -- then the identical payload with `stop_hook_active: true` allows, which is the guarantee that keeps the block from looping (`mode_stop` checks `stop_hook_active` before either block, and a comment beside this one says so). The off-switch marker allows outright too, over the same no-gap active state. `halted` and `aborted` -- the two terminal lifecycles `paused-lifecycle` above does not already cover -- allow regardless of which stage is entered, the same as `completed` (proved in postbash-ordinary-path-associates-without-attach) and `paused` (proved just above): all four are `_find_nonterminal_fsd_run`'s job to keep out of `_resolve` in the first place, `paused` aside, which is why this block's own `lifecycle == "active"` guard never even has cause to fire for them. Three further fixtures below walk the real CLI to rest along that shared tail: a structural refusal (a task scoped to AGENTS.md) where `close` refuses and `halt` succeeds, ending `halted`; a fixable refusal (a retrospective missing an id) where `halt` itself answers that `close` would succeed, and fixing the retrospective -- not halting -- is what actually pauses the run; and the end exit with no question at all, where `close` refuses because execute is still live and `halt` ends it.
 
 def _section_active_no_gap_block():
     with tempfile.TemporaryDirectory() as tmp:
-        # Round 8, finding 2: this fixture's own repository lives at a path containing a space, so the reason's `shlex.quote`d state path -- otherwise unexercised by any fixture feeding `_active_no_gap_reason` -- actually appears in its quoted form below, in both the diagnosis clause and the closing.
+        # This fixture's own repository lives at a path containing a space, so the reason's `shlex.quote`d state path -- otherwise unexercised by any fixture feeding `_active_no_gap_reason` -- actually appears in its quoted form below, both where the reason names the run and inside `ocs state fsd gap <state>`.
         work = (Path(tmp) / "repo with space").resolve()
         init_repo(work)
         run_root = work / ".agents" / "kein" / "runs" / "fsd"
@@ -1428,10 +1440,7 @@ def _section_active_no_gap_block():
         state_path = fsd_start(work, run_root, "active-no-gap", str(approved_plan))
         must("entering execute for active-no-gap", fsd(work, "enter", str(state_path), "execute"))
         next_action = read_json(state_path)["next_action"]
-        # `fsd`'s own `gap()`, read through the real CLI exactly as the running hook subprocess reads it -- the ground truth this check already trusts for what counts as a gap -- rather than this file re-deriving `_none_association_reason`'s own text for the `execute` stage by hand, which would duplicate `state.py`'s own wording and drift the moment that wording changes for a reason unrelated to `hook.py`.
-        gap_before = json.loads(fsd(work, "gap", str(state_path)).stdout)
         quoted_state = shlex.quote(str(state_path))
-        diagnosis_named = f"execute: {gap_before['diagnosis']['execute'].replace('<state>', quoted_state)}"
 
         result = run_hook(work, "stop", stop_payload(work))
         if result.returncode != 0:
@@ -1447,22 +1456,19 @@ def _section_active_no_gap_block():
                 reason = out.get("reason", "")
                 if not reason.startswith("fsd:"):
                     failures.append(f"active-no-gap: block reason is missing the 'fsd:' prefix: {reason!r}")
-                if next_action not in reason:
-                    failures.append(f"active-no-gap: block reason did not name next_action ({next_action!r} not in {reason!r})")
-                if "execute: no run linked yet" not in reason:
-                    failures.append(f"active-no-gap: block reason did not carry gap()'s own diagnosis for the unlinked running stage: {reason!r}")
-                if "ocs state fsd closeout" not in reason:
-                    failures.append(f"active-no-gap: block reason did not name the closeout step of the terminal-outcome way out: {reason!r}")
+                if next_action in reason:
+                    failures.append(f"active-no-gap: block reason wrongly carried the fixture's own stale next_action ({next_action!r} in {reason!r})")
+                if "no run linked yet" in reason:
+                    failures.append(f"active-no-gap: block reason wrongly carried gap()'s own diagnosis, which this reason never carries: {reason!r}")
                 if "<state>" in reason:
-                    failures.append(f"active-no-gap: block reason left the literal <state> placeholder unresolved inside the joined diagnosis text: {reason!r}")
-                # The running stage's own name, not a hardcoded literal -- a mutation that swaps `running_stage` for a bogus literal in `_active_no_gap_reason`'s leading clause must fail this, even though the diagnosis clause elsewhere in the same reason already carries the literal word "execute" regardless.
-                if "execute is the stage genuinely running" not in reason:
-                    failures.append(f"active-no-gap: block reason did not name execute as the stage genuinely running: {reason!r}")
-                # The staleness framing `_active_no_gap_reason`'s own docstring names for next_action -- a mutation that deletes the leading clause outright, or replaces this framing with a bare `next_action: ...` label, must fail this.
-                if "last recorded intent, which may already be done" not in reason:
-                    failures.append(f"active-no-gap: block reason dropped the staleness framing around next_action: {reason!r}")
-                # Round 7, finding 3 checked only the closing section -- everything from "Do not end this turn here" on -- against its own exact expected text, rather than a whitelist of allowed backticked commands or a blacklist of known off-switch phrasings, both of which a paraphrased or differently-cased off-switch offer survived that round. Round 8, finding 1: that window left the leading clause and the diagnosis clause open to a mutation that inserted an extra way out earlier in the string -- a third exit folded into the leading sentence, say -- since nothing compared that span at all. Comparing the whole reason against its own hand-typed expected text, not only the closing, is what catches an added sentence, dropped clause, or reworded exit anywhere in the message, by inequality against `_expected_active_no_gap_reason`.
-                expected_reason = _expected_active_no_gap_reason(quoted_state, "execute", next_action, diagnosis_named)
+                    failures.append(f"active-no-gap: block reason left the literal <state> placeholder unresolved: {reason!r}")
+                # The running stage's own name, not a hardcoded literal -- a mutation that swaps `running_stage` for a bogus literal must fail this.
+                if "execute is the stage running" not in reason:
+                    failures.append(f"active-no-gap: block reason did not name execute as the stage running: {reason!r}")
+                if reason.count("ocs ") != 1 or f"ocs state fsd gap {quoted_state}" not in reason:
+                    failures.append(f"active-no-gap: block reason must carry 'ocs ' exactly once, as 'ocs state fsd gap {quoted_state}': {reason!r}")
+                # Comparing the whole reason, by inequality against `_expected_active_no_gap_reason`, rather than only a closing section or a whitelist of allowed phrasings, is what catches an added sentence, dropped clause, or reworded exit anywhere in the message.
+                expected_reason = _expected_active_no_gap_reason(quoted_state, "execute")
                 if reason != expected_reason:
                     failures.append(
                         "active-no-gap: block reason did not match its expected text exactly.\n"
@@ -1524,7 +1530,7 @@ def _section_active_no_gap_block():
         must("dispatching task-001 for pause-exit", execute(work, "dispatch", str(execute_state), "task-001"))
 
         assert_stop_blocks("pause-exit: active run, execute running and linked, no gap -- the block fires before its own pause exit is followed", work,
-                            read_json(state_path)["next_action"])
+                            "execute is the stage running")
 
         q = must("recording the whole-run question for pause-exit",
                  fsd(work, "question", str(state_path), "--stage", "execute", "--question", "does this change the release date?",
@@ -1542,7 +1548,7 @@ def _section_active_no_gap_block():
 
         assert_stop_allows("pause-exit: following the block's own pause exit to the letter reaches a Stop that allows", work)
 
-    # Case: the running stage (execute) is already linked, but another entered stage (interview) is not -- `gap_result["diagnosis"]` names every entered-but-unlinked stage, not only the one running, so this is the one shape that actually distinguishes "diagnosis filtered to running_stage" from "diagnosis left as gap() returns it": the two readings only ever differ once the running stage itself has no diagnosis of its own to carry. The fsd run enters at `execute` directly (an approved plan input), which leaves interview `skipped`, not `entered` -- `enter` itself refuses a skipped stage, so interview's own `entered` status here is hand-authored, the same way the all-`skipped` shape below is, to reach a shape `enter`'s own ordering has no way to produce live: an entered-but-unlinked interview sitting beside an entered-and-linked execute, the stage `_running_stage` reports as running since it is the last one entered.
+    # Case: the running stage (execute) is already linked, but another entered stage (interview) is not. The reason carries `gap`'s own diagnosis for neither stage, so what is worth proving here is only that `_running_stage` still reports `execute`, not `interview`, as running, and that the reason never carries a diagnosis for either stage regardless. The fsd run enters at `execute` directly (an approved plan input), which leaves interview `skipped`, not `entered` -- `enter` itself refuses a skipped stage, so interview's own `entered` status here is hand-authored, the same way the all-`skipped` shape below is, to reach a shape `enter`'s own ordering has no way to produce live: an entered-but-unlinked interview sitting beside an entered-and-linked execute, the stage `_running_stage` reports as running since it is the last one entered.
     with tempfile.TemporaryDirectory() as tmp:
         work = (Path(tmp) / "repo").resolve()
         init_repo(work)
@@ -1571,10 +1577,10 @@ def _section_active_no_gap_block():
             failures.append(f"active-no-gap-running-linked fixture's own gap() did not report no-gap with interview named in its diagnosis, so this case does not actually exercise the two-reading difference: {status_after}")
 
         assert_stop_blocks("active-no-gap-running-linked: execute is running and already linked, interview is entered but unlinked", work,
-                            "execute is the stage genuinely running",
-                            forbidden_substring="interview: no run linked yet")
+                            "execute is the stage running",
+                            forbidden_substring="no run linked yet")
 
-    # Case: `running_stage` genuinely `None` -- every stage `skipped`, `lifecycle` still `active`, `gap()` reporting no gap. No builder writes this: `start`'s own entry-index rule only skips a stage strictly earlier than `entry`, and nothing marks `entry` itself `skipped`. Hand-authored, the same way the unparseable- and gap()-raises cases above are, to reach `mode_stop` with a shape no live run can produce (issue: `None != "interview"` would otherwise admit this past the interview exception and call `_active_no_gap_reason` with a `None` `running_stage`, which reads back as "None is the stage genuinely running").
+    # Case: `running_stage` genuinely `None` -- every stage `skipped`, `lifecycle` still `active`, `gap()` reporting no gap. No builder writes this: `start`'s own entry-index rule only skips a stage strictly earlier than `entry`, and nothing marks `entry` itself `skipped`. Hand-authored, the same way the unparseable- and gap()-raises cases above are, to reach `mode_stop` with a shape no live run can produce (issue: `None != "interview"` would otherwise admit this past the interview exception and call `_active_no_gap_reason` with a `None` `running_stage`, which reads back as "None is the stage running").
     with tempfile.TemporaryDirectory() as tmp:
         work = (Path(tmp) / "repo").resolve()
         init_repo(work)
@@ -1688,6 +1694,219 @@ def _section_active_no_gap_block():
         assert_stop_allows("halt-end: run ends halted via the end exit with no question recorded", work)
 
 # ---------------------------------------------------------------------------
+# Case: `closeout.md` carries the rest procedure `_active_no_gap_reason`'s own printed text only points at, rather than spelling out inline. Checks the section exists under its own exact heading, and that its body carries every piece of that procedure: the pause exit's full `question` command, the "already unanswered" skip condition, the closeout/close/halt tail, the retrospective's own path and id-citing requirement, the halt-vs-close refusal signal, and the residue warning about a stage run staying active underneath an ended fsd run.
+
+def _section_rest_procedure_in_closeout():
+    text = CLOSEOUT_MD.read_text()
+    heading = "## Bringing the run to rest"
+    if heading not in text.splitlines():
+        failures.append(f"rest-procedure-in-closeout: closeout.md is missing the exact heading {heading!r}: {CLOSEOUT_MD}")
+        return
+    rest = text.split(heading, 1)[1]
+    section = re.split(r"^## ", rest, maxsplit=1, flags=re.M)[0]
+    required = (
+        "ocs state fsd question", "--stage", "--why-irreversible", "--parks 'whole run'",
+        "already unanswered", "ocs state fsd closeout", "ocs state fsd close <state> --retro",
+        "under this run's own directory", "every assumption, question, and lesson id",
+        "ocs state fsd halt", "close would succeed", "stays active",
+    )
+    for phrase in required:
+        if phrase not in section:
+            failures.append(f"rest-procedure-in-closeout: {heading!r} is missing {phrase!r}")
+
+# ---------------------------------------------------------------------------
+# Case: the hooks on a chained state work exactly as they do on any other state. Slice 1 is linked purely by `post-bash` watching its own real `ocs state ralplan start` and `ocs state execute start` commands and their own real stdout, never `attach`, then driven to a completed execute receipt and continued -- before any hook call on slice 2, a probe right there asserts slice 1 reads back `completed` and that a fresh `ocs state fsd start` for the same worktree already refuses on slice 2's own state path alone, never slice 1's. Slice 2's own ralplan-pending row is then checked: Stop blocks and pre-write denies naming the ordinary ralplan invocation and the requirements path, both remaining criteria (AC2 and the one whose own text carries a literal `<state>`) appear as their own exact list-entry line in each reason, `<state>` included verbatim -- `_gap_action` substitutes `<state>` only before the chain suffix separator -- and AC1, which slice 1 already covered, is named in neither reason. The continue reason driving this itself names no criterion id, so that last check cannot pass by accident. From there, post-skill and post-bash enter and link slice 2's own ralplan and execute runs the identical way slice 1's were, and the section ends on the no-gap block firing with its fixed reason text on slice 2's own state path once execute is genuinely running. Slice 1's own file is captured right after `continue` closes it and compared unchanged twice more: once post-skill has entered slice 2's ralplan, and again at the very end.
+
+def _section_chain_hooks():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        requirements_path = work / "req-chain-hooks.md"
+        state_criterion_text = "keep the <state> placeholder untouched in slice two's own plan"
+        write_requirements_with_criteria(requirements_path, "Approved",
+            ["first criterion", "second criterion", state_criterion_text])
+
+        # Approved requirements as the whole run's own input classify straight to entry `ralplan`, interview skipped -- the shape a chained state requires.
+        state_path = fsd_start(work, run_root, "chain-hooks", str(requirements_path))
+
+        # Slice 1: ralplan and execute each started for real, attached from nothing but post-bash watching their own start commands and stdout -- the same association path a live run takes, proving the gate's claim against it rather than against a shortcut `attach` fixture.
+        must("entering ralplan for chain-hooks slice 1", fsd(work, "enter", str(state_path), "ralplan"))
+        plan1_path = work / "plan-chain-hooks-1.md"
+        write_plan(plan1_path, "Draft", "first cut", "v0")
+        ralplan_run_root = work / ".agents" / "kein" / "runs" / "ralplan"
+        ralplan1_result = must("starting the ralplan run for chain-hooks slice 1",
+                               ralplan(work, "start", "--run-root", str(ralplan_run_root), "--slug", "chain-hooks",
+                                       "--input", str(requirements_path), "--plan", str(plan1_path), "--summary", "check",
+                                       "--lanes", "architect@claude,critic@claude"))
+        ralplan1_dest = Path(ralplan1_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 1: ocs state ralplan start", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug chain-hooks "
+                                f"--input {requirements_path} --plan {plan1_path} --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan1_result.stdout)
+        after_ralplan1_start = read_json(state_path)
+        if after_ralplan1_start["stages"]["ralplan"]["run"] != str(ralplan1_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 1's ralplan run from ocs state ralplan start's own stdout: {after_ralplan1_start['stages']['ralplan']}")
+
+        must("opening ralplan round 1 for chain-hooks slice 1", ralplan(work, "open", str(ralplan1_dest)))
+        write_plan(plan1_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for chain-hooks slice 1", ralplan(work, "approve", str(ralplan1_dest)))
+        must("completing ralplan for chain-hooks slice 1", ralplan(work, "close", str(ralplan1_dest)))
+
+        must("entering execute for chain-hooks slice 1", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        tasks1_path = Path(tmp) / "chain-hooks-1-tasks.json"
+        tasks1_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        execute1_result = must("starting the execute run for chain-hooks slice 1",
+                               execute(work, "start", "--run-root", str(execute_run_root), "--slug", "chain-hooks",
+                                       "--kind", "plan", "--input", str(plan1_path), "--worktree", str(work), "--tasks", str(tasks1_path)))
+        execute1_dest = Path(execute1_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 1: ocs state execute start", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug chain-hooks "
+                                f"--kind plan --input {plan1_path} --worktree {work} --tasks {tasks1_path}",
+                                stdout=execute1_result.stdout)
+        after_execute1_start = read_json(state_path)
+        if after_execute1_start["stages"]["execute"]["run"] != str(execute1_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 1's execute run from ocs state execute start's own stdout: {after_execute1_start['stages']['execute']}")
+
+        drive_task_to_acceptance(work, execute1_dest, "task-001")
+        must("entering final_audit for chain-hooks slice 1", execute_to_final_audit(work, execute1_dest))
+        must("completing execute for chain-hooks slice 1", execute_complete(work, execute1_dest, ["task-001"]))
+
+        reason1 = "the rest still needs its own planning pass before either of us can size it"
+        continue1_result = must("continuing chain-hooks slice 1, covering AC1",
+                                 fsd(work, "continue", str(state_path), "--covered", "AC1", "--reason", reason1))
+        state2_path = Path(continue1_result.stdout.strip())
+        slice1_bytes_after_continue = state_path.read_bytes()
+
+        # Gate probe, before any hook call on slice 2: `hook.py`'s own state lookup (`_find_active_state_path`) needs no change on a chained state only if slice 1 already reads back terminal and a fresh `ocs state fsd start` for the very same worktree already refuses on slice 2 alone, with no `attach` or hook call against slice 2 yet.
+        slice1_after_continue = read_json(state_path)
+        if slice1_after_continue["lifecycle"] != "completed":
+            failures.append(f"chain-hooks gate probe: slice 1's own lifecycle was not completed right after continue: {slice1_after_continue['lifecycle']!r}")
+        probe_start = fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-hooks-gate-probe",
+                           "--input", str(requirements_path), "--worktree", str(work))
+        if probe_start.returncode == 0:
+            failures.append("chain-hooks gate probe: ocs state fsd start was accepted for a worktree a chained, still-active slice 2 already occupies")
+        if str(state2_path) not in probe_start.stderr:
+            failures.append(f"chain-hooks gate probe: ocs state fsd start's refusal did not name slice 2's own state path: {probe_start.stderr!r}")
+        if str(state_path) in probe_start.stderr:
+            failures.append(f"chain-hooks gate probe: ocs state fsd start's refusal named slice 1's own (completed, non-occupying) state path instead of slice 2's: {probe_start.stderr!r}")
+
+        quoted_requirements = shlex.quote(str(requirements_path))
+        expected_remaining_line_ac2 = "- AC2: second criterion"
+        expected_remaining_line_ac3 = f"- AC3: {state_criterion_text}"
+
+        # Slice 2's own ralplan-pending row blocks Stop and denies pre-write Write, each reason naming the ordinary ralplan invocation and the requirements path; `reason1` above names no criterion id at all, so a later exact-line check below cannot pass merely because the continue reason happened to mention one.
+        assert_stop_blocks("chain-hooks: slice 2 ralplan-pending, stop blocks naming the ordinary ralplan invocation and the requirements path",
+                            work, "invoke /kein:ralplan", required_substrings=(quoted_requirements,))
+        assert_pretool_denies("chain-hooks: slice 2 ralplan-pending, pre-write denies naming the ralplan invocation", work, "invoke /kein:ralplan")
+        assert_pretool_denies("chain-hooks: slice 2 ralplan-pending, pre-write denies naming the requirements path", work, quoted_requirements)
+
+        # Both remaining criteria reach the Stop reason and the pre-write reason as their own exact list-entry line (`- AC<n>: <text>`), not merely as a bare id a mutation dropping the line itself could still leave lying around in some other sentence; the literal `<state>` inside AC3's own text survives verbatim as part of that same exact line, since `_gap_action` substitutes `<state>` only before the chain suffix separator; and AC1, which slice 1 already covered, is named nowhere in either reason.
+        stop_row1 = run_hook(work, "stop", stop_payload(work))
+        stop_reason_row1 = ""
+        if stop_row1.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's stop hook exited {stop_row1.returncode} instead of blocking: {stop_row1.stderr!r}")
+        else:
+            try:
+                stop_reason_row1 = json.loads(stop_row1.stdout).get("reason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's stop hook did not block: stdout={stop_row1.stdout!r} stderr={stop_row1.stderr!r}")
+        prewrite_row1 = run_hook(work, "pre-write", pretool_payload(work, "Write"))
+        prewrite_reason_row1 = ""
+        if prewrite_row1.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's pre-write hook exited {prewrite_row1.returncode} instead of denying: {prewrite_row1.stderr!r}")
+        else:
+            try:
+                prewrite_reason_row1 = (json.loads(prewrite_row1.stdout).get("hookSpecificOutput") or {}).get("permissionDecisionReason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's pre-write hook did not deny: stdout={prewrite_row1.stdout!r} stderr={prewrite_row1.stderr!r}")
+        if expected_remaining_line_ac2 not in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason did not carry AC2's own exact list-entry line: {stop_reason_row1!r}")
+        if expected_remaining_line_ac2 not in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason did not carry AC2's own exact list-entry line: {prewrite_reason_row1!r}")
+        if expected_remaining_line_ac3 not in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason did not carry AC3's own exact list-entry line, <state> included verbatim: {stop_reason_row1!r}")
+        if expected_remaining_line_ac3 not in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason did not carry AC3's own exact list-entry line, <state> included verbatim: {prewrite_reason_row1!r}")
+        if "AC1" in stop_reason_row1:
+            failures.append(f"chain-hooks: slice 2's stop reason named AC1, which slice 1 already covered: {stop_reason_row1!r}")
+        if "AC1" in prewrite_reason_row1:
+            failures.append(f"chain-hooks: slice 2's pre-write reason named AC1, which slice 1 already covered: {prewrite_reason_row1!r}")
+
+        # Post-skill for `kein:ralplan` marks slice 2's own ralplan stage entered, and slice 1's file is untouched by it.
+        assert_postskill_silent("chain-hooks: post-skill kein:ralplan enters slice 2's ralplan stage", work, "kein:ralplan")
+        after_postskill2 = read_json(state2_path)
+        if after_postskill2["stages"]["ralplan"]["status"] != "entered":
+            failures.append(f"chain-hooks: post-skill kein:ralplan did not mark slice 2's ralplan stage entered: {after_postskill2['stages']['ralplan']}")
+        if state_path.read_bytes() != slice1_bytes_after_continue:
+            failures.append("chain-hooks: post-skill kein:ralplan for slice 2 changed slice 1's own file")
+
+        # Post-bash fed slice 2's own real `ocs state ralplan start` command and its own real stdout sets slice 2's own ralplan run link, the identical association path slice 1 took.
+        plan2_path = work / "plan-chain-hooks-2.md"
+        write_plan(plan2_path, "Draft", "first cut", "v0")
+        ralplan2_result = must("starting the ralplan run for chain-hooks slice 2",
+                               ralplan(work, "start", "--run-root", str(ralplan_run_root), "--slug", "chain-hooks-2",
+                                       "--input", str(requirements_path), "--plan", str(plan2_path), "--summary", "check",
+                                       "--lanes", "architect@claude,critic@claude"))
+        ralplan2_dest = Path(ralplan2_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 2: ocs state ralplan start", work,
+                                f"ocs state ralplan start --run-root {ralplan_run_root} --slug chain-hooks-2 "
+                                f"--input {requirements_path} --plan {plan2_path} --summary check --lanes architect@claude,critic@claude",
+                                stdout=ralplan2_result.stdout)
+        after_ralplan2_start = read_json(state2_path)
+        if after_ralplan2_start["stages"]["ralplan"]["run"] != str(ralplan2_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 2's ralplan run from ocs state ralplan start's own stdout: {after_ralplan2_start['stages']['ralplan']}")
+
+        must("opening ralplan round 1 for chain-hooks slice 2", ralplan(work, "open", str(ralplan2_dest)))
+        write_plan(plan2_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for chain-hooks slice 2", ralplan(work, "approve", str(ralplan2_dest)))
+        must("completing ralplan for chain-hooks slice 2", ralplan(work, "close", str(ralplan2_dest)))
+
+        # With slice 2's own ralplan run completed, stop blocks naming the ordinary execute invocation and slice 2's own plan path -- the ordinary unchained ralplan-completed row, since the chain suffix belongs only to the ralplan-pending row. Post-bash then sets slice 2's own execute run link from its own real `ocs state execute start` command and stdout.
+        quoted_plan2 = shlex.quote(str(plan2_path))
+        assert_stop_blocks("chain-hooks: slice 2 ralplan completed, stop blocks naming execute and slice 2's own plan",
+                            work, "invoke /kein:execute", required_substrings=(quoted_plan2,))
+
+        must("entering execute for chain-hooks slice 2", fsd(work, "enter", str(state2_path), "execute"))
+        tasks2_path = Path(tmp) / "chain-hooks-2-tasks.json"
+        tasks2_path.write_text(json.dumps([execute_task("task-001", ["README.md"])]))
+        execute2_result = must("starting the execute run for chain-hooks slice 2",
+                               execute(work, "start", "--run-root", str(execute_run_root), "--slug", "chain-hooks-2",
+                                       "--kind", "plan", "--input", str(plan2_path), "--worktree", str(work), "--tasks", str(tasks2_path)))
+        execute2_dest = Path(execute2_result.stdout.strip())
+        assert_postbash_silent("chain-hooks slice 2: ocs state execute start", work,
+                                f"ocs state execute start --run-root {execute_run_root} --slug chain-hooks-2 "
+                                f"--kind plan --input {plan2_path} --worktree {work} --tasks {tasks2_path}",
+                                stdout=execute2_result.stdout)
+        after_execute2_start = read_json(state2_path)
+        if after_execute2_start["stages"]["execute"]["run"] != str(execute2_dest):
+            failures.append(f"chain-hooks: post-bash did not attach slice 2's execute run from ocs state execute start's own stdout: {after_execute2_start['stages']['execute']}")
+
+        # With slice 2's own execute run genuinely running and linked, stop blocks with the fixed no-gap text, named against slice 2's own state path.
+        quoted_state2 = shlex.quote(str(state2_path))
+        expected_reason_slice2 = _expected_active_no_gap_reason(quoted_state2, "execute")
+        stop_result_slice2_execute = run_hook(work, "stop", stop_payload(work))
+        if stop_result_slice2_execute.returncode != 0:
+            failures.append(f"chain-hooks: slice 2's stop hook exited {stop_result_slice2_execute.returncode} instead of blocking: {stop_result_slice2_execute.stderr!r}")
+        else:
+            try:
+                reason_slice2_execute = json.loads(stop_result_slice2_execute.stdout).get("reason", "")
+            except (ValueError, json.JSONDecodeError):
+                failures.append(f"chain-hooks: slice 2's stop hook did not block: stdout={stop_result_slice2_execute.stdout!r} stderr={stop_result_slice2_execute.stderr!r}")
+                reason_slice2_execute = None
+            if reason_slice2_execute is not None and reason_slice2_execute != expected_reason_slice2:
+                failures.append(
+                    "chain-hooks: slice 2's block reason (execute running) did not match its expected text exactly.\n"
+                    f"  got:      {reason_slice2_execute!r}\n"
+                    f"  expected: {expected_reason_slice2!r}"
+                )
+
+        # Slice 1's own file is unchanged from just after `continue` closed it to the end of this section.
+        if state_path.read_bytes() != slice1_bytes_after_continue:
+            failures.append("chain-hooks: slice 1's own file changed somewhere between continue and the end of the section")
+
+# ---------------------------------------------------------------------------
 # Section registry and CLI driver -- `--list` prints the section names below in the order they run; `--only <name>[,<name>...]` runs just those sections (plus whatever earlier ones a dependency map names, though every section here is self-contained and needs none); neither flag runs every section in order exactly as running this file always has.
 
 SECTIONS = [
@@ -1725,6 +1944,8 @@ SECTIONS = [
     ("postbash-heredoc-indented-false-terminator-not-attached", (), _section_postbash_heredoc_indented_false_terminator_not_attached),
     ("paused-lifecycle", (), _section_paused_lifecycle),
     ("active-no-gap-block", (), _section_active_no_gap_block),
+    ("rest-procedure-in-closeout", (), _section_rest_procedure_in_closeout),
+    ("chain-hooks", (), _section_chain_hooks),
 ]
 SECTION_NAMES = [name for name, _, _ in SECTIONS]
 SECTION_DEPS = {name: deps for name, deps, _ in SECTIONS}
@@ -1787,7 +2008,7 @@ def main():
     if mode == "only":
         print(f"{SCRIPT_NAME}: ran {', '.join(run_order)}")
     else:
-        print("check-fsd-hooks: stop blocks on every gap row -- both flavors of the closeout row, execute completed and execute blocked with a parked task -- with the resolved state path substituted into the reason; once a run is active with no gap, stop blocks again on whichever stage is genuinely running -- ralplan, execute, or closeout -- naming next_action, gap's own diagnosis when the stage has no run linked yet, the demand to keep that stage moving and check a waited-on lane is still alive, and the two ways to bring the run to rest on the record instead -- pause it for the user or end it outright, except while interview is the one running, which still allows outright, the same as a freshly entered stage still pending, a paused lifecycle, and a completed, halted, or aborted one, regardless of the evidence underneath; stop_hook_active and the off-switch both allow through either block, old or new, and neither block ever loops; unparseable or non-object stdin allows outright rather than falling through to an under-specified payload; pre-write denies only the write tools on the existing gap and names the same gap action the paired Stop assertion does, is never touched by the new active-no-gap block, and its own off-switch allows a Write despite a real gap; post-skill records both the qualified and bare skill-name forms for both the entry stage and a downstream one, never blocks including through a skipped stage, and its own off-switch leaves state.json untouched; and the pause -> answer -> resume -> post-skill(execute) sequence with the run still blocked now blocks Stop too, naming next_action, since execute is the stage genuinely running")
+        print("check-fsd-hooks: stop blocks on every gap row -- both flavors of the closeout row, execute completed and execute blocked with a parked task -- with the resolved state path substituted into the reason; once a run is active with no gap, stop blocks again on whichever stage is genuinely running -- ralplan, execute, or closeout -- naming that running stage, the demand to keep it moving and check a waited-on lane is still alive, its own `ocs state fsd gap <state>` pointer, and where the rest procedure lives in closeout.md's own \"Bringing the run to rest\", never the run's own stale next_action or gap's own diagnosis, except while interview is the one running, which still allows outright, the same as a freshly entered stage still pending, a paused lifecycle, and a completed, halted, or aborted one, regardless of the evidence underneath; stop_hook_active and the off-switch both allow through either block, and neither block ever loops; unparseable or non-object stdin allows outright rather than falling through to an under-specified payload; pre-write denies only the write tools on the existing gap and names the same gap action the paired Stop assertion does, is never touched by the active-no-gap block, and its own off-switch allows a Write despite a real gap; post-skill records both the qualified and bare skill-name forms for both the entry stage and a downstream one, never blocks including through a skipped stage, and its own off-switch leaves state.json untouched; the pause -> answer -> resume -> post-skill(execute) sequence, with the run still blocked, also blocks Stop, naming execute as the stage running; and a chained state's own ralplan-pending row blocks Stop and denies pre-write, both naming the ordinary ralplan invocation and the requirements path, with every remaining acceptance criterion appearing as its own exact list line, an already-covered one appearing in neither, and `<state>` substituted only in the part of the action before the chain suffix separator")
 
 
 if __name__ == "__main__":

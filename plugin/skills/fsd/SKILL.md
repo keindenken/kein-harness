@@ -53,6 +53,8 @@ Once the interview's requirements are approved, do not ask the user anything unt
 
 A stage ending is not a place to stop. When the interview's requirements are approved, when `ralplan` approves, when `execute` completes, invoke the next stage in the same turn. `ocs state fsd gap` names it.
 
+When `execute` completes and acceptance criteria remain that this slice could not take, because their plan needed what this slice revealed or because [decision-policy.md](references/decision-policy.md)'s split route removed their story from this slice's plan, follow closeout's continue branch (`ocs state fsd continue`) instead of ending the run.
+
 If `execute` aborts, `gap` names nothing, by design. Decide whether to restart it or give it up; to give it up, run `ocs state fsd closeout <state>`, and closeout ends in `halt`.
 
 `interview`'s "stops without a downstream handoff" and `ralplan`'s "grants no execution authority" end those skills, not this flow. This flow is the authority that carries the work on. An approval or a receipt is a checkpoint inside the run, not a moment to summarise and wait for acknowledgement.
