@@ -1310,6 +1310,9 @@ def status(state: Dict[str, Any]) -> Dict[str, Any]:
     result.update(gap(state))
     if "chain" in state:
         result["chain"] = _chain_status(state)
+    if "continued" in state:
+        # Named unconditionally on `chain`: slice 1 of a chain carries `continued` once it hands off to slice 2, but no `chain` of its own -- the same reason `report`'s own `_continued_lines` does not gate this on `"chain" in state` either.
+        result["continued"] = state["continued"]
     return result
 
 
@@ -1648,12 +1651,23 @@ def _chain_slices_lines(state: Dict[str, Any]) -> List[str]:
     return lines
 
 
+def _continued_lines(state: Dict[str, Any]) -> List[str]:
+    """`report`'s own `## Continued` section, present on any state carrying `continued` -- a slice `continue` has already closed, whether or not that same state also carries `chain`: slice 1 of a chain carries `continued` once it hands off to slice 2, but no `chain` of its own, so `_chain_slices_lines`'s own current-slice line, gated on `"chain" in state`, never runs for it and never names a successor either. This is the one place a state's own successor is named unconditionally on `chain`, rather than folded into `_chain_slices_lines`'s own current-slice line, which deliberately withholds covered ids and reason for a state that has not necessarily continued as of that report -- once it has, this section names them instead, the reason collapsed to one line with `_one_line` for the identical reason `_chain_slices_lines` already collapses one. Empty on a state carrying no `continued` at all, so a caller can simply extend `lines` with this unconditionally."""
+    continued = state.get("continued")
+    if continued is None:
+        return []
+    return ["## Continued", "",
+            f"successor {continued['next']}, covering {', '.join(continued['covered'])}, because: {_one_line(continued['reason'])}",
+            ""]
+
+
 def report(state: Dict[str, Any]) -> str:
     lines: List[str] = []
     if state["lifecycle"] == "halted":
         lines += ["## Halted", "", (state.get("halt") or {}).get("reason", ""), ""]
     if "chain" in state:
         lines += _chain_slices_lines(state)
+    lines += _continued_lines(state)
     lines += ["## Assumptions", ""]
     if state["assumptions"]:
         for item in state["assumptions"]:
@@ -1836,10 +1850,8 @@ def _acceptance_criteria(path: Path) -> List[Tuple[str, str]]:
 
 
 def _chain_requirements_path(state: Dict[str, Any]) -> Optional[Path]:
-    """The requirements document a chained state's `continue` reads criteria from, and stores as its successor's own `input.reference`: this state's own `input.reference` when its input is already a requirements document (an entry of `ralplan`, or a still-Draft one at entry `interview`); otherwise, when an idea led here, `stages.interview.resolved_reference` or the completed ledger's own `requirements_path` -- the identical reading `gap`'s own interview row already uses, gated the same way on the kept ledger's current `status` reading `completed` before the stored value is ever trusted. `None` for an execute-entry run, or a ralplan-entry run over a plan document -- neither ever names a requirements document to continue from. Always an absolute path: a relative value is joined onto `state["worktree"]` with the same plain join `classify_input` applies, with no further `.resolve()`."""
-    if state["input"].get("kind") == "requirements":
-        raw = state["input"].get("reference")
-    elif state["entry"] == "interview":
+    """The requirements document a chained state's `continue` reads criteria from, and stores as its successor's own `input.reference`: decided on this state's own `entry`, the same way `_expected_ralplan_reference` decides which reference `ralplan` has to match -- never on `input.kind` first. At entry `interview`, `stages.interview.resolved_reference` or the completed ledger's own `requirements_path` -- the identical reading `gap`'s own interview row already uses, gated the same way on the kept ledger's current `status` reading `completed` before the stored value is ever trusted -- whatever `input.kind` this run started with: a still-Draft requirements document classifies to `interview` too (`classify_input`), and its own `input.reference` names that Draft, never the Approved document the interview goes on to produce, so checking `input.kind` first would read the Draft's own path back as though it were already the interview's output. At entry `ralplan` over a requirements input, this state's own `input.reference` directly -- the only entry that can name a requirements document itself, with no interview between it and this run's own start. `None` for an execute-entry run, or a ralplan-entry run over a plan document -- neither ever names a requirements document to continue from. Always an absolute path: a relative value is joined onto `state["worktree"]` with the same plain join `classify_input` applies, with no further `.resolve()`."""
+    if state["entry"] == "interview":
         run_path = _resolve_association(state, "interview")
         if run_path is None:
             return None
@@ -1850,6 +1862,8 @@ def _chain_requirements_path(state: Dict[str, Any]) -> Optional[Path]:
         if ledger.get("status") != "completed":
             return None
         raw = state["stages"]["interview"].get("resolved_reference") or ledger.get("requirements_path")
+    elif state["entry"] == "ralplan" and state["input"].get("kind") == "requirements":
+        raw = state["input"].get("reference")
     else:
         return None
     if not raw:

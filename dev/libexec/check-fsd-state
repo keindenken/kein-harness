@@ -2764,6 +2764,17 @@ def _section_chain_continue():
         must("validating the closed slice after chain-continue", fsd(work, "validate", str(slice1_state)))
         must("validating the next slice after chain-continue", fsd(work, "validate", str(next_state_path)))
 
+        # status and report on the slice `continue` just closed name its successor (`continued.next`), unconditionally on `chain`: slice 1 carries no `chain` of its own, only `continued`, so this is the one fixture that proves the successor still surfaces without it.
+        status_after_continue = json.loads(fsd(work, "status", str(slice1_state)).stdout)
+        if status_after_continue.get("continued") != expected_continued:
+            failures.append(f"chain-continue's status did not name its successor via continued: {status_after_continue.get('continued')!r} != {expected_continued!r}")
+        report_after_continue = fsd(work, "report", str(slice1_state)).stdout
+        expected_continued_line = f"successor {next_state_path}, covering AC1, because: {reason_text}"
+        if "## Continued" not in report_after_continue or expected_continued_line not in report_after_continue:
+            failures.append(f"chain-continue's report did not name its successor under ## Continued: {report_after_continue!r}")
+        if "## Slices" in report_after_continue:
+            failures.append("chain-continue's report printed ## Slices for slice 1, which carries no chain of its own")
+
         # The next state's own shape.
         next_payload = read_json(next_state_path)
         expected_next = {
@@ -2884,6 +2895,56 @@ def _section_chain_continue_from_interview():
                 failures.append(f"chain-continue-from-interview's next gap action did not name the expected requirements path: {action_first_line!r} != {expected_action_first_line!r}")
 
 # ---------------------------------------------------------------------------
+# Section "chain-continue-from-draft-requirements": a Draft requirements document as `--input` classifies to entry `interview`, `input.kind` `requirements` -- `classify_input` reads a requirements-shaped document's own `Status` line before choosing between `ralplan` and `interview`, and a still-Draft one enters `interview` exactly as an idea input does. `_chain_requirements_path` has to decide this on `entry`, not on `input.kind` first: this slice's own `input.reference` names the Draft, never the Approved document the interview goes on to write at a path of its own, so `continue` must read the interview's own `resolved_reference` here, the same as it would for an idea-entry run.
+
+def _section_chain_continue_from_draft_requirements():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+
+        draft_requirements = work / "req-chain-ci-draft.md"
+        write_requirements_with_criteria(draft_requirements, "Draft", ["a draft criterion"])
+
+        result = must("starting chain-continue-from-draft-requirements slice 1",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "chain-ci-draft",
+                          "--input", str(draft_requirements), "--worktree", str(work)))
+        slice1_state = require_path(result)
+        slice1_payload = read_json(slice1_state)
+        if slice1_payload["entry"] != "interview" or slice1_payload["input"]["kind"] != "requirements":
+            failures.append(f"chain-continue-from-draft-requirements's own fixture did not classify to entry interview, kind requirements; this case proves nothing: entry {slice1_payload['entry']!r}, kind {slice1_payload['input']['kind']!r}")
+
+        must("entering interview for chain-continue-from-draft-requirements", fsd(work, "enter", str(slice1_state), "interview"))
+
+        interview_dir = work / ".agents" / "kein" / "runs" / "interview" / "260101-000000-chain-ci-draft"
+        interview_dir.mkdir(parents=True)
+        ledger = interview_dir / "ledger.md"
+        approved_relative = Path(".agents") / "kein" / "requirements" / "chain-ci-draft-approved.md"
+        approved_requirements = work / approved_relative
+        approved_requirements.parent.mkdir(parents=True)
+        write_active_ledger(ledger, "260101-000000-chain-ci-draft", work, work, approved_requirements)
+        must("attaching the interview ledger for chain-continue-from-draft-requirements",
+             fsd(work, "attach", str(slice1_state), "interview", str(ledger)))
+        write_requirements_with_criteria(approved_requirements, "Approved", ["first criterion", "second criterion"])
+        write_completed_ledger(ledger, str(approved_relative))
+
+        stored_resolved_reference = read_json(slice1_state)["stages"]["interview"]["resolved_reference"]
+        if not stored_resolved_reference or Path(stored_resolved_reference) == draft_requirements:
+            failures.append(f"chain-continue-from-draft-requirements's own fixture stored no interview resolved_reference at a path of its own; this case proves nothing: {stored_resolved_reference!r}")
+
+        plan_path = work / "plan-chain-ci-draft.md"
+        drive_slice_through_execute(work, slice1_state, "chain-ci-draft", approved_requirements, plan_path)
+
+        result = must("continuing chain-continue-from-draft-requirements slice 1",
+                      fsd(work, "continue", str(slice1_state), "--covered", "AC1", "--reason", "needs another slice"))
+        next_state_path = require_path(result)
+        next_payload = read_json(next_state_path)
+        if next_payload["input"]["reference"] != stored_resolved_reference:
+            failures.append(f"chain-continue-from-draft-requirements's next input.reference did not equal the interview's own resolved_reference: {next_payload['input']['reference']!r} != {stored_resolved_reference!r}")
+        if next_payload["input"]["reference"] == str(draft_requirements):
+            failures.append("chain-continue-from-draft-requirements's next input.reference wrongly named the Draft input this slice started from, instead of the interview's own approved output")
+
+# ---------------------------------------------------------------------------
 # Section "chain-continue-after-pause": a slice that paused (an unanswered question, `close`'s own draft retrospective kept under the run's own directory) still carries a non-null `retrospective` once resumed; `continue` must still write `retrospective: null` onto the slice it closes, and must leave the draft file exactly where it is -- only the final `close` ever moves a retrospective to its durable path.
 
 def _section_chain_continue_after_pause():
@@ -2996,6 +3057,43 @@ def _section_chain_refusals():
         must("entering final_audit for the execute-entry fixture", execute_to_final_audit(work, execute_state))
         must("completing execute for the execute-entry fixture", execute_complete(work, execute_state, ["task-001"]))
         assert_refusal_untouched("continuing an execute-entry run", work, state_path, run_root,
+            ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
+            "no approved requirements document")
+
+    # A ralplan-entry run over a plan document -- `input.kind` is `plan`, not `requirements`, so `_chain_requirements_path`'s ralplan branch, gated on `kind == "requirements"`, must still return `None` here, distinct from the execute-entry case above, which `entry == "ralplan"` alone -- with the kind check dropped -- would never catch. `continue`'s own refusal text cannot tell the two disjuncts of the approved-requirements check apart: a plan document's own Status line reads `Approved — <reason>` once approved (ralplan's own validator requires the reason), never the bare `Approved` `_requirements_status` compares against, so a dropped kind check would still read this plan document as "not Approved" and print the identical refusal text -- the drop shows only in `_chain_requirements_path`'s own return value, called directly below rather than inferred from the refusal message.
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        plan_path = work / "plan-ralplan-entry-plan.md"
+        write_plan(plan_path, "Draft", "first cut", "v0")
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the ralplan-entry-over-plan fixture", fsd(work, "start", "--run-root", str(run_root), "--slug", "ralplanplan",
+                      "--input", str(plan_path), "--worktree", str(work)))
+        state_path = require_path(result)
+        state_payload = read_json(state_path)
+        if state_payload["entry"] != "ralplan" or state_payload["input"]["kind"] != "plan":
+            failures.append(f"the ralplan-entry-over-plan fixture did not classify to entry ralplan, kind plan; this case proves nothing: entry {state_payload['entry']!r}, kind {state_payload['input']['kind']!r}")
+        direct_chain_reference = _fsd_module()._chain_requirements_path(state_payload)
+        if direct_chain_reference is not None:
+            failures.append(f"_chain_requirements_path wrongly named a requirements document for a ralplan-entry run over a plan document: {direct_chain_reference!r}")
+        must("entering ralplan for the ralplan-entry-over-plan fixture", fsd(work, "enter", str(state_path), "ralplan"))
+        ralplan_dest = work / ".agents" / "kein" / "runs" / "ralplan" / "260101-000000-ralplanplan" / "state.json"
+        must("starting the ralplan run for the ralplan-entry-over-plan fixture",
+             ralplan(work, "start", str(ralplan_dest), "--plan", str(plan_path),
+                     "--summary", "check", "--lanes", "architect@claude,critic@claude"))
+        must("attaching the ralplan run for the ralplan-entry-over-plan fixture", fsd(work, "attach", str(state_path), "ralplan", str(ralplan_dest)))
+        must("opening ralplan round 1 for the ralplan-entry-over-plan fixture", ralplan(work, "open", str(ralplan_dest)))
+        write_plan(plan_path, "Approved", "good", "v0")
+        must("approving ralplan round 1 for the ralplan-entry-over-plan fixture", ralplan(work, "approve", str(ralplan_dest)))
+        must("completing ralplan for the ralplan-entry-over-plan fixture", ralplan(work, "close", str(ralplan_dest)))
+        must("entering execute for the ralplan-entry-over-plan fixture", fsd(work, "enter", str(state_path), "execute"))
+        execute_run_root = work / ".agents" / "kein" / "runs" / "execute"
+        execute_state = execute_start(work, execute_run_root, "ralplanplan", [execute_task("task-001", ["README.md"])], plan_path=plan_path)
+        must("attaching execute for the ralplan-entry-over-plan fixture", fsd(work, "attach", str(state_path), "execute", str(execute_state)))
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for the ralplan-entry-over-plan fixture", execute_to_final_audit(work, execute_state))
+        must("completing execute for the ralplan-entry-over-plan fixture", execute_complete(work, execute_state, ["task-001"]))
+        assert_refusal_untouched("continuing a ralplan-entry run over a plan document", work, state_path, run_root,
             ["continue", str(state_path), "--covered", "AC1", "--reason", "r"],
             "no approved requirements document")
 
@@ -3848,6 +3946,28 @@ def _section_chain_final_close_report():
             failures.append("chain-final-close-report's report printed ## Slices for slice 1, which carries no chain of its own")
 
 # ---------------------------------------------------------------------------
+# Section "report-without-continued": a state carrying neither `chain` nor `continued` prints exactly the report it always did -- compared here against the report's full expected text, not only checked for `## Continued`'s absence, so an unconditional `_continued_lines` emit (or any other unrelated addition) shows up regardless of which substring a narrower check happened to name.
+
+def _section_report_without_continued():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        result = must("starting the report-without-continued fixture",
+                      fsd(work, "start", "--run-root", str(run_root), "--slug", "reportplain",
+                          "--input", "do the thing", "--worktree", str(work)))
+        state_path = require_path(result)
+        report_text = fsd(work, "report", str(state_path)).stdout
+        expected_report_text = (
+            "## Assumptions\n\nNone.\n\n"
+            "## Parked questions\n\nNone.\n\n"
+            "## Lesson proposals\n\nNone.\n\n"
+            "## Retrospective\n\nNone.\n"
+        )
+        if report_text != expected_report_text:
+            failures.append(f"report on a state carrying neither chain nor continued did not match its full expected text: {report_text!r} != {expected_report_text!r}")
+
+# ---------------------------------------------------------------------------
 # Section "gap" (issue 1a): an entered stage whose association still reads "none" now carries a diagnosis on gap's own no-gap result -- the stage's name paired with the identical reason text `status` already shows beside it (`_none_association_reason`, read once and reused, never re-derived) -- so a lead no longer has to read `status` by hand to learn what `gap` itself could already see. `gap` still reports no gap throughout: a stage that is merely still running, with its ledger not yet completed, must never read as a gap of its own. Once the only entered stage is linked, the diagnosis clears to null. Registered under the literal name "gap" so `--only gap` runs just this section.
 
 def _section_gap_diagnosis_field():
@@ -4510,6 +4630,8 @@ SECTIONS = [
     ("chain-schema", (), _section_chain_schema),
     ("chain-continue", (), _section_chain_continue),
     ("chain-continue-from-interview", (), _section_chain_continue_from_interview),
+    ("chain-continue-from-draft-requirements", (), _section_chain_continue_from_draft_requirements),
+    ("report-without-continued", (), _section_report_without_continued),
     ("chain-continue-after-pause", (), _section_chain_continue_after_pause),
     ("chain-refusals", (), _section_chain_refusals),
     ("chain-create-failure", (), _section_chain_create_failure),
@@ -4582,7 +4704,9 @@ def main():
     else:
         print("check-fsd-state: classification, gap, guard, close/resume precedence over an unanswered "
       "question and a still-blocked execute run, the retrospective staying out of execute's "
-      "fingerprint until completion, and the ralplan non-convergence exit all hold")
+      "fingerprint until completion, the ralplan non-convergence exit, and a chain's own continue "
+      "-- its requirements-path precedence by entry, its refusal table, and status/report naming "
+      "a continued state's successor and a chained state's earlier slices -- all hold")
 
 
 if __name__ == "__main__":

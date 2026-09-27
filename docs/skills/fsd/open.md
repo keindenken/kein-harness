@@ -15,6 +15,7 @@ Each of these fails open (a missing link, so no hook fires) or needs someone to 
 - fsd states written before `resolved_reference` existed are no longer writable; runs are temporary.
 - Interview's `output_path` and its completed `requirements_path` are assumed equal.
 - execute: a `parked → parked` checkpoint can rewrite the park record; the reference's wording about the seal on `parked → pending` is looser than the code; a root-scoped task's `scope_fingerprint` starts covering untracked files for runs in flight; parking a reopened `accepted → correcting` task means undoing its accepted content.
+- `continue` commits its successor before it commits the slice it is closing; a process killed between those two commits leaves both active -- the slice never marked `completed`, and its already-minted successor orphaned alongside it, with no `continued` on either to say they were ever meant to link. Nothing here repairs that automatically: `checkpoint` refuses to write `continued` onto the unclosed slice by hand, so the only recovery is `continue`'s own row-12 refusal (`a nonterminal fsd run already exists`) naming the orphan's own path on the next `continue` attempt, followed by aborting it and continuing again (closeout.md's own continue branch).
 
 ## Deferred measurement
 

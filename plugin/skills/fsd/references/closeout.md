@@ -17,7 +17,9 @@ In this order:
    - From here on, use the path `continue` prints, and invoke the stage its own `gap` names exactly as printed.
    - Give that slice's own plan a path of its own, never one an earlier slice's plan already used.
    - If `continue` refuses because a question is unanswered, close this slice with steps 2-5 below instead -- lessons, the retrospective, `close`, and `report`. The run pauses; once the question is answered and the run resumed, `gap` names closeout again, so run step 1 and take this branch again.
-   - If `continue` refuses because no approved requirements document is linked to this run to continue from -- an execute-entry run, or one whose requirements are not yet Approved -- this run cannot chain: fall back to steps 2-5 below.
+   - If `continue` refuses because no approved requirements document is linked to this run to continue from -- an execute-entry run, a ralplan-entry run over a plan document, or a requirements document that is no longer Approved -- this run cannot chain: fall back to steps 2-5 below.
+   - If `continue` refuses because no acceptance criterion would remain for the next slice, every criterion is already covered: the chain is done, not merely unable to continue, and steps 2-5 below close this run the same as any other run's own.
+   - If `continue` refuses because another nonterminal fsd run already exists for this worktree, that run is the successor a previous `continue` call minted before the process running it was killed between its two commits, leaving this slice active and its own already-minted successor orphaned alongside it. The refusal names that orphan's own path: abort it with `ocs state fsd abort <that path> --reason <name the interrupted continue that orphaned it>`, then run `continue` again on this slice.
 2. Propose lessons for AGENTS.md: what this run taught that the next run in this repository should know and could not find by looking. Record each with `ocs state fsd lesson <state> --line <the proposed line> --why <what happened>`, and never edit AGENTS.md. If nothing was learned, record no lesson and write "no new lessons" in the retrospective. A lesson made up so that the list is not empty is worse than none.
 3. Write the retrospective under this run's own directory, next to its `state.json`. `close` moves it to `ocs state-dir retros/` once the run completes. It has these sections:
    - **Outcome:** the requirements, plan and `execute` receipt paths.
@@ -34,7 +36,7 @@ In this order:
 
 ## Bringing the run to rest
 
-The Stop hook's no-gap block fires on every no-gap Stop over an active run whose running stage is not `interview`. `ocs state fsd gap <state>` shows a diagnosis only when the running stage itself still has no run linked yet; otherwise it reports no gap, since `gap()` never raises a row for a stage that is merely still going. This section is what to do once a run in that shape should stop rather than keep going -- waiting on the user, or on a lead's own judgment that it should not continue.
+The Stop hook's no-gap block fires on every no-gap Stop over an active run whose running stage is not `interview`. `ocs state fsd gap <state>` carries a diagnosis naming any entered stage that still has no run linked yet -- not only the stage this run is currently running -- and reports no gap regardless, since `gap()` never raises a row for a stage that is merely still going. This section is what to do once a run in that shape should stop rather than keep going -- waiting on the user, or on a lead's own judgment that it should not continue.
 
 There are two exits, sharing one tail, differing only in whether a question is recorded first:
 
