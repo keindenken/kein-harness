@@ -2559,7 +2559,7 @@ def _section_scenario37_checkpoint_refuses_run_change():
             failures.append("checkpoint applied a run change it should have refused")
 
 # ---------------------------------------------------------------------------
-# Scenario 38: `ocs state fsd checkpoint` refuses a candidate that appends an `agents_md` span on a transition other than `paused -> active` -- an active -> active checkpoint here, the ordinary shape of every other fsd write -- so a hand-authored candidate cannot fabricate a span with a hash `close`'s own AGENTS.md comparison would then trust. Required case: checkpoint refuses an added span on active -> active.
+# Scenario 38: `ocs state fsd checkpoint` refuses a candidate that appends an `agents_md` span on any transition -- an active -> active checkpoint here, the ordinary shape of every other fsd write -- so a hand-authored candidate cannot fabricate a span with a hash `close`'s own AGENTS.md comparison would then trust. Required case: checkpoint refuses an added span on active -> active.
 
 def _section_scenario38_checkpoint_refuses_added_span_not_paused_to_active():
     with tempfile.TemporaryDirectory() as tmp:
@@ -2577,7 +2577,7 @@ def _section_scenario38_checkpoint_refuses_added_span_not_paused_to_active():
         write(candidate_path, candidate)
 
         refuse("checkpointing a candidate that appends an agents_md span on an active -> active transition",
-               fsd(work, "checkpoint", str(state_path), str(candidate_path)), reason="paused -> active")
+               fsd(work, "checkpoint", str(state_path), str(candidate_path)), reason="checkpoint cannot open an agents_md span")
         unchanged = read_json(state_path)
         if len(unchanged["agents_md"]) != 1:
             failures.append("checkpoint applied an agents_md span addition it should have refused")
@@ -2697,6 +2697,126 @@ def _section_scenario41_checkpoint_refuses_new_destination_with_run():
 
 # ---------------------------------------------------------------------------
 # Section "chain-continue": `ocs state fsd continue` ends a slice and starts its successor in one call. This drives a real slice to a completed execute receipt (`drive_slice_through_execute`), then continues it in process with the mint clock patched, so the collision-and-re-mint path runs without a real wall-clock wait.
+
+# Respan: an active run whose AGENTS.md changed because its branch was rebased onto a commit that changed it opens a new span with `respan --from <that ref>` -- even after that ref moves on -- then closes; an uncommitted edit, the branch's own edit, and the branch's own deletion all still refuse; checkpoint can neither forge a span nor pause a run for `resume` to span over; and `validate_transition` admits a respan span only as the one span appended on active -> active.
+
+def _section_respan():
+    with tempfile.TemporaryDirectory() as tmp:
+        work = (Path(tmp) / "repo").resolve()
+        init_repo(work)
+        git(work, "branch", "-M", "main")
+        git(work, "checkout", "-q", "-b", "run")
+        (work / "README.md").write_text("hello from the run\n")
+        git(work, "commit", "-qam", "run work")
+
+        fsd_run_root = work / ".agents" / "kein" / "runs" / "fsd"
+        approved_plan = work / "plan-respan.md"
+        write_plan(approved_plan, "Approved")
+        state = require_path(must("starting respan", fsd(work, "start", "--run-root", str(fsd_run_root), "--slug", "respan",
+                                                        "--input", str(approved_plan), "--worktree", str(work))))
+        must("entering execute for respan", fsd(work, "enter", str(state), "execute"))
+        execute_state = execute_start(work, work / ".agents" / "kein" / "runs" / "execute", "respan",
+                                      [execute_task("task-001", ["README.md"])], plan_path=approved_plan)
+        must("attaching respan's execute run", fsd(work, "attach", str(state), "execute", str(execute_state)))
+        drive_task_to_acceptance(work, execute_state, "task-001")
+        must("entering final_audit for respan", execute_to_final_audit(work, execute_state))
+        must("completing respan's execute run", execute_complete(work, execute_state, ["task-001"]))
+
+        refuse("respan with AGENTS.md unchanged", fsd(work, "respan", str(state), "--from", "main", "--reason", "r"),
+               reason="nothing to respan")
+
+        # A sibling branch carrying the same AGENTS.md bytes main will get, never merged into this branch.
+        git(work, "checkout", "-q", "-b", "sibling", "main")
+        (work / "AGENTS.md").write_text("# AGENTS\n\nlanded upstream\n")
+        git(work, "commit", "-qam", "sibling agents")
+        git(work, "checkout", "-q", "main")
+        (work / "AGENTS.md").write_text("# AGENTS\n\nlanded upstream\n")
+        git(work, "commit", "-qam", "upstream agents")
+        git(work, "checkout", "-q", "run")
+        git(work, "rebase", "-q", "main")
+
+        refuse("closing respan after the rebase", fsd(work, "close", str(state), "--retro", str(state.parent / "retro.md")),
+               reason="AGENTS.md changed")
+        refuse("respan from HEAD itself", fsd(work, "respan", str(state), "--from", "HEAD", "--reason", "r"),
+               reason="already contains HEAD")
+        refuse("respan from a ref that names nothing", fsd(work, "respan", str(state), "--from", "no-such-ref", "--reason", "r"),
+               reason="does not name a commit")
+        refuse("respan from a ref this branch does not contain", fsd(work, "respan", str(state), "--from", "sibling", "--reason", "r"),
+               reason="changed AGENTS.md after it last shared history with sibling")
+        refuse("respan with an empty reason", fsd(work, "respan", str(state), "--from", "main", "--reason", " "),
+               reason="respan needs --reason")
+
+        agents_md = work / "AGENTS.md"
+        upstream_bytes = agents_md.read_bytes()
+        agents_md.write_bytes(upstream_bytes + b"uncommitted\n")
+        refuse("respan over an uncommitted AGENTS.md edit", fsd(work, "respan", str(state), "--from", "main", "--reason", "r"),
+               reason="differs from HEAD's")
+        git(work, "commit", "-qam", "the run edits AGENTS.md itself")
+        refuse("respan over an AGENTS.md edit the branch made itself", fsd(work, "respan", str(state), "--from", "main", "--reason", "r"),
+               reason="changed AGENTS.md after it last shared history with main")
+        git(work, "reset", "-q", "--hard", "HEAD~1")
+        root_commit = subprocess.run(["git", "rev-list", "--max-parents=0", "HEAD"], cwd=str(work), capture_output=True, text=True).stdout.strip()
+        git(work, "rm", "-q", "AGENTS.md")
+        git(work, "commit", "-qm", "the run deletes AGENTS.md")
+        refuse("respan over the branch deleting AGENTS.md", fsd(work, "respan", str(state), "--from", root_commit, "--reason", "r"),
+               reason="changed AGENTS.md after it last shared history with")
+        git(work, "reset", "-q", "--hard", "HEAD~1")
+        if len(read_json(state)["agents_md"]) != 1:
+            failures.append("a refused respan still appended an agents_md span")
+
+        forged = read_json(state)
+        forged["agents_md"] = list(forged["agents_md"]) + [{"span_started_at": STAMP, "sha256": hashlib.sha256(upstream_bytes).hexdigest(),
+                                                             "respan": {"from": "main", "commit": "0" * 40, "reason": "forged"}}]
+        forged_path = Path(tmp) / "forged.json"
+        write(forged_path, forged)
+        refuse("checkpointing a hand-authored respan span", fsd(work, "checkpoint", str(state), str(forged_path)),
+               reason="checkpoint cannot open an agents_md span")
+        paused = read_json(state)
+        paused["lifecycle"] = "paused"
+        paused_path = Path(tmp) / "paused.json"
+        write(paused_path, paused)
+        refuse("checkpointing a pause no question called for", fsd(work, "checkpoint", str(state), str(paused_path)),
+               reason="checkpoint cannot pause a run")
+
+        module = _fsd_module()
+        previous = read_json(state)
+        span = {"span_started_at": STAMP, "sha256": hashlib.sha256(upstream_bytes).hexdigest(),
+                "respan": {"from": "main", "commit": "0" * 40, "reason": "r"}}
+        one = dict(previous, agents_md=previous["agents_md"] + [span])
+        if module.validate_transition(previous, one):
+            failures.append(f"validate_transition refused one respan span on active -> active: {module.validate_transition(previous, one)}")
+        two = dict(previous, agents_md=previous["agents_md"] + [span, span])
+        if not module.validate_transition(previous, two):
+            failures.append("validate_transition admitted two respan spans on one active -> active transition")
+        resumed = dict(one, lifecycle="active")
+        if not module.validate_transition(dict(previous, lifecycle="paused"), resumed):
+            failures.append("validate_transition admitted a respan span on paused -> active")
+
+        # The change respan accepts is the one this branch shares with main; main moving on afterwards does not refuse it.
+        main_commit = subprocess.run(["git", "rev-parse", "main"], cwd=str(work), capture_output=True, text=True).stdout.strip()
+        git(work, "checkout", "-q", "main")
+        (work / "OTHER.md").write_text("main moved on\n")
+        git(work, "add", "OTHER.md")
+        git(work, "commit", "-qm", "main moves on after the rebase")
+        git(work, "checkout", "-q", "run")
+        must("respan from main after the rebase", fsd(work, "respan", str(state), "--from", "main", "--reason", "rebased onto main's AGENTS.md change"))
+        spans = read_json(state)["agents_md"]
+        expected = {"from": "main", "commit": main_commit, "reason": "rebased onto main's AGENTS.md change"}
+        if len(spans) != 2 or spans[1].get("respan") != expected or spans[1].get("sha256") != hashlib.sha256(upstream_bytes).hexdigest():
+            failures.append(f"respan did not append one span over the rebased AGENTS.md with its provenance: {spans}")
+        if read_json(state)["lifecycle"] != "active":
+            failures.append("respan moved the run out of active")
+        must("validating the respanned state", fsd(work, "validate", str(state)))
+
+        must("entering closeout for respan", fsd(work, "closeout", str(state)))
+        retro = state.parent / "retro.md"
+        retro.write_text("no new lessons\n")
+        must("closing respan after respan", fsd(work, "close", str(state), "--retro", str(retro)))
+        if read_json(state)["lifecycle"] != "completed":
+            failures.append("respan's run did not complete once respanned")
+        refuse("respan on a completed run", fsd(work, "respan", str(state), "--from", "main", "--reason", "r"),
+               reason="respan requires an active run")
+
 
 def _section_chain_continue():
     with tempfile.TemporaryDirectory() as tmp:
@@ -4627,6 +4747,7 @@ SECTIONS = [
     ("scenario39-execute-refused-while-ralplan-live", (), _section_scenario39_execute_refused_while_ralplan_live),
     ("scenario40-ralplan-refused-while-interview-active", (), _section_scenario40_ralplan_refused_while_interview_active),
     ("scenario41-checkpoint-refuses-new-destination-with-run", (), _section_scenario41_checkpoint_refuses_new_destination_with_run),
+    ("respan", (), _section_respan),
     ("chain-schema", (), _section_chain_schema),
     ("chain-continue", (), _section_chain_continue),
     ("chain-continue-from-interview", (), _section_chain_continue_from_interview),

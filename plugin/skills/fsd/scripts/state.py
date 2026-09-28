@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 import re
 import shlex
+import subprocess
 import sys
 import tempfile
 import time
@@ -33,6 +34,8 @@ ENTRY_VALUES = frozenset({"interview", "ralplan", "execute"})
 INPUT_FIELDS = frozenset({"kind", "reference", "summary"})
 INPUT_KIND_VALUES = frozenset({"idea", "requirements", "plan"})
 AGENTS_MD_SPAN_FIELDS = frozenset({"span_started_at", "sha256"})
+AGENTS_MD_SPAN_OPTIONAL = frozenset({"respan"})
+RESPAN_FIELDS = frozenset({"from", "commit", "reason"})
 HALT_FIELDS = frozenset({"reason"})
 ASSUMPTION_FIELDS = frozenset({"id", "stage", "decision", "chosen", "alternatives", "reversal_cost", "where"})
 QUESTION_FIELDS = frozenset({"id", "stage", "question", "options", "recommended", "why_irreversible", "parks", "answer"})
@@ -210,9 +213,15 @@ def _validate_agents_md(value: Any) -> List[str]:
         return ["agents_md requires at least one span"]
     errors: List[str] = []
     for index, span in enumerate(value):
-        if not isinstance(span, dict) or set(span) != AGENTS_MD_SPAN_FIELDS:
-            errors.append(_field_set_error(f"agents_md span {index} must use the exact field set", span, AGENTS_MD_SPAN_FIELDS))
+        if not isinstance(span, dict) or not AGENTS_MD_SPAN_FIELDS <= set(span) <= AGENTS_MD_SPAN_FIELDS | AGENTS_MD_SPAN_OPTIONAL:
+            errors.append(_field_set_error(f"agents_md span {index} must use the exact field set", span, AGENTS_MD_SPAN_FIELDS, AGENTS_MD_SPAN_OPTIONAL))
             continue
+        if "respan" in span:
+            provenance = span["respan"]
+            if not isinstance(provenance, dict) or set(provenance) != RESPAN_FIELDS:
+                errors.append(_field_set_error(f"agents_md span {index} respan must use the exact field set", provenance, RESPAN_FIELDS))
+            elif not all(isinstance(provenance[key], str) and provenance[key].strip() for key in RESPAN_FIELDS):
+                errors.append(f"agents_md span {index} respan requires non-empty from, commit, and reason")
         if not _valid_time(span.get("span_started_at")):
             errors.append(f"agents_md span {index} requires a timezone-aware span_started_at")
         sha = span.get("sha256")
@@ -503,11 +512,14 @@ def validate_transition(previous: Optional[Dict[str, Any]], candidate: Dict[str,
     candidate_spans = candidate.get("agents_md") or []
     if candidate_spans[: len(previous_spans)] != previous_spans:
         errors.append("agents_md spans cannot change or be removed, only appended")
-    elif len(candidate_spans) > len(previous_spans) and not (
-        previous.get("lifecycle") == "paused" and candidate.get("lifecycle") == "active"
-    ):
-        # `resume` is the only builder that ever opens a new span, and it only ever does so on the one transition it makes, paused -> active; a hand-authored checkpoint candidate that appends a span anywhere else -- including active -> active -- would let a fabricated hash stand in for `close`'s own comparison against AGENTS.md's current bytes, so this refuses it outright rather than trusting a span's own shape to prove when it was legitimately opened.
-        errors.append("a new agents_md span may only be appended on a paused -> active transition")
+    elif len(candidate_spans) > len(previous_spans):
+        # Two builders open a span, each on its own transition: `resume` on paused -> active, and `respan` on active -> active with exactly one span carrying the `respan` provenance it checked against git. Any other append would let a fabricated hash stand in for `close`'s own comparison against AGENTS.md's current bytes. `checkpoint` refuses a `respan` span outright before reaching here, so this shape alone never admits a hand-authored one.
+        appended = candidate_spans[len(previous_spans):]
+        lifecycles = (previous.get("lifecycle"), candidate.get("lifecycle"))
+        resumed = lifecycles == ("paused", "active") and not any("respan" in span for span in appended)
+        respanned = lifecycles == ("active", "active") and len(appended) == 1 and "respan" in appended[0]
+        if not (resumed or respanned):
+            errors.append("a new agents_md span may only be appended on a paused -> active transition, or by respan on an active run")
     if previous.get("halt") is not None and candidate.get("halt") != previous.get("halt"):
         errors.append("halt facts cannot change once recorded")
     if candidate.get("lifecycle") == "halted" and candidate.get("halt") is None:
@@ -560,6 +572,15 @@ def checkpoint(destination: Path, candidate_path: Path) -> None:
                 f"checkpoint cannot change stage {stage}'s run or resolved_reference; a kept link changes "
                 "only through attach, the post-bash hook, or enter, never through a hand-authored checkpoint candidate"
             )
+    if len(candidate.get("agents_md") or []) > len(previous.get("agents_md") or []):
+        # A span is trusted because a builder read its hash from AGENTS.md: `resume` on paused -> active, `respan` after checking the change against git. A candidate's span was written by hand, so its hash is unverified whatever transition carries it.
+        raise ValueError(
+            "checkpoint cannot open an agents_md span; `resume` opens one on a paused run, and "
+            "`ocs state fsd respan <state> --from <ref> --reason <text>` on an active one whose AGENTS.md came from another ref"
+        )
+    if candidate.get("lifecycle") == "paused" and previous.get("lifecycle") != "paused":
+        # `close` is the one builder of `paused`, and only over an unanswered question. A hand-authored pause would let `resume` open a span over any AGENTS.md at all, the run's own edit included.
+        raise ValueError("checkpoint cannot pause a run; `close` pauses one when a question is unanswered")
     if _optional_field_changed(previous, candidate, "continued"):
         # `continued` has exactly one writer, `continue`, closing the slice it describes in the same call that mints its successor -- never this escape hatch, however the candidate is shaped, and however `validate_transition`'s own active -> completed rule would read it standing alone.
         # Refusing it here, ahead of `_commit`, keeps that one-writer rule true regardless of what `continue` is built to accept.
@@ -1612,6 +1633,63 @@ def resume(destination: Path, next_action: Optional[str]) -> None:
     _commit(destination, candidate)
 
 
+def _git_output(root: Path, *args: str) -> Optional[bytes]:
+    result = subprocess.run(["git", "-C", str(root), *args], capture_output=True)
+    return result.stdout if result.returncode == 0 else None
+
+
+def _agents_md_hash_at(root: Path, commit: str) -> Optional[str]:
+    """AGENTS.md's hash in `commit`'s tree, or `None` when that tree has no AGENTS.md -- the same `None` `_read_agents_md_hash` gives an absent file."""
+    content = _git_output(root, "cat-file", "blob", f"{commit}:AGENTS.md")
+    return None if content is None else _sha256_bytes(content)
+
+
+def respan(destination: Path, from_ref: str, reason: str, next_action: Optional[str]) -> None:
+    """Opens a new `agents_md` span on an active run whose AGENTS.md changed because the branch took a commit from elsewhere -- a rebase onto, or a merge of, `from_ref` -- rather than because the run edited it.
+    Without it such a run has only `halt`: `close` and `continue` both refuse on the drift before anything else, and `resume`, the other span builder, needs a paused run that `close` can no longer produce.
+    Checked against the commit where this branch last shared history with `from_ref` (their merge-base), so `from_ref` moving on after the rebase does not refuse: the worktree's AGENTS.md is exactly HEAD's, no commit between that base and HEAD touched AGENTS.md, and the base's AGENTS.md is those same bytes. An edit, revert, or deletion the run made in an ordinary commit after the base is refused.
+    What git cannot show is whether the base itself belongs to someone else: `--from HEAD~1` over the run's own earlier commit passes, and so does a merge whose resolution sets AGENTS.md back to an older base's bytes, since `rev-list`'s history simplification follows the parent that matches. The span records the ref as given, the commit the check used, and the reason, so either choice is on the record."""
+    state = _load(destination)
+    if state["lifecycle"] != "active":
+        raise ValueError(f"respan requires an active run; lifecycle is {state['lifecycle']}")
+    if not reason or not reason.strip():
+        raise ValueError("respan needs --reason <text>")
+    if not from_ref or not from_ref.strip() or from_ref.startswith("-"):
+        raise ValueError("respan needs --from <ref>, the branch or commit the AGENTS.md change came from")
+    root = Path(state["worktree"])
+    current_hash = _read_agents_md_hash(root)
+    if state["agents_md"][-1].get("sha256") == current_hash:
+        raise ValueError("AGENTS.md has not changed since the current span began; there is nothing to respan")
+    head = _git_output(root, "rev-parse", "--verify", "--quiet", "HEAD^{commit}")
+    ref_commit = _git_output(root, "rev-parse", "--verify", "--quiet", f"{from_ref}^{{commit}}")
+    if head is None:
+        raise ValueError(f"{root} has no HEAD commit to check AGENTS.md against")
+    if ref_commit is None:
+        raise ValueError(f"--from {from_ref} does not name a commit in {root}")
+    head = head.decode().strip()
+    base = _git_output(root, "merge-base", ref_commit.decode().strip(), head)
+    if base is None:
+        raise ValueError(f"--from {from_ref} shares no history with HEAD")
+    base = base.decode().strip()
+    if base == head:
+        raise ValueError(f"--from {from_ref} already contains HEAD; name the branch or commit this branch took the AGENTS.md change from, such as the one it was rebased onto")
+    if _agents_md_hash_at(root, head) != current_hash:
+        raise ValueError("AGENTS.md differs from HEAD's; respan accepts only a committed AGENTS.md")
+    touched = _git_output(root, "rev-list", f"{base}..{head}", "--", "AGENTS.md")
+    if touched is None or touched.strip():
+        raise ValueError(f"this branch changed AGENTS.md after it last shared history with {from_ref}; respan accepts only an AGENTS.md this branch took from {from_ref} unchanged")
+    if _agents_md_hash_at(root, base) != current_hash:
+        raise ValueError(f"AGENTS.md differs from {from_ref}'s; respan accepts only an AGENTS.md this branch took from {from_ref} unchanged")
+    candidate = copy.deepcopy(state)
+    candidate["agents_md"] = list(candidate["agents_md"]) + [{
+        "span_started_at": _now(), "sha256": current_hash,
+        "respan": {"from": from_ref, "commit": base, "reason": reason.strip()},
+    }]
+    if next_action:
+        candidate["next_action"] = next_action
+    _commit(destination, candidate)
+
+
 def abort(destination: Path, reason: str, next_action: Optional[str]) -> None:
     state = _load(destination)
     if state["lifecycle"] in TERMINAL_LIFECYCLES:
@@ -2260,6 +2338,12 @@ def main() -> int:
     resume_parser.add_argument("state", type=Path)
     resume_parser.add_argument("--next", dest="next_action", default=None)
 
+    respan_parser = commands.add_parser("respan", help="open a new AGENTS.md span on an active run whose AGENTS.md came, unchanged, from --from's history")
+    respan_parser.add_argument("state", type=Path)
+    respan_parser.add_argument("--from", required=True, dest="from_ref", help="the branch or commit this branch took the AGENTS.md change from")
+    respan_parser.add_argument("--reason", required=True)
+    respan_parser.add_argument("--next", dest="next_action", default=None)
+
     abort_parser = commands.add_parser("abort", help="set the terminal aborted lifecycle")
     abort_parser.add_argument("state", type=Path)
     abort_parser.add_argument("--reason", required=True)
@@ -2341,6 +2425,10 @@ def main() -> int:
             return 0
         if args.command == "resume":
             resume(args.state, args.next_action)
+            print(args.state)
+            return 0
+        if args.command == "respan":
+            respan(args.state, args.from_ref, args.reason, args.next_action)
             print(args.state)
             return 0
         if args.command == "abort":
