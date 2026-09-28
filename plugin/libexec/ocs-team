@@ -32,7 +32,7 @@ PROVIDERS='codex'
 TIER_DEEP_MODEL='gpt-5.6-sol'
 TIER_STANDARD_MODEL='gpt-5.6-terra'
 TIER_FAST_MODEL='gpt-5.6-luna'
-DEFAULT_EFFORT='medium'
+DEFAULT_EFFORT='high'
 GENERAL_TIER='deep'
 
 # A worker reports by calling Orca from inside its own sandbox.
