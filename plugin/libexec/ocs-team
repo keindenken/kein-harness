@@ -263,13 +263,59 @@ lane_worktree_notice() {
     printf 'ocs team: this lane created %s and stopped before recording it; remove it with orca worktree rm --worktree path:%s --force\n' "$created_worktree" "$created_worktree" >&2
   fi
 }
-# `run-create` below binds this terminal to the lane's Run, which is over once the lane is. Every exit after it rebinds the terminal to its home Run (`ocs home-run`), so the lead stays reachable by mail whichever way this command ends.
-run_id=''
-rebind_home() {
-  [ -n "$run_id" ] || return 0
-  "$KEIN_ROOT/libexec/ocs-home-run" >/dev/null 2>&1 || true
+# A pane is bound to one Run at a time, and `worker-start --run` is refused as `consumer_fenced` unless the calling pane is still bound to that Run.
+# So every stretch that moves the binding and relies on it holds this pane's lock: several lanes backgrounded from one lead otherwise rebind the pane under each other, and on 2026-09-29 five lanes started two seconds apart were all fenced, each by the next one's `run-create` or by the one before's rebind home on exit.
+# `flock` on an fd the shell keeps open, so a lane killed outright releases it with its process rather than leaving a lock to go stale.
+bind_lockfile=${XDG_STATE_HOME:-$HOME/.local/state}/kein/orca-bind/${ORCA_TERMINAL_HANDLE:-none}
+bind_held=0
+bind_acquire() {
+  [ "$bind_held" -eq 0 ] || return 0
+  mkdir -p "${bind_lockfile%/*}" || return 1
+  exec 9>>"$bind_lockfile"
+  python3 -c 'import fcntl, sys, time
+end = time.time() + float(sys.argv[1])
+while True:
+    try:
+        fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        break
+    except BlockingIOError:
+        if time.time() > end:
+            sys.exit(1)
+        time.sleep(0.5)' 600 || { exec 9>&-; return 1; }
+  bind_held=1
 }
-on_exit() { lane_worktree_notice; rebind_home; }
+bind_release() {
+  [ "$bind_held" -eq 1 ] || return 0
+  python3 -c 'import fcntl; fcntl.flock(9, fcntl.LOCK_UN)' 2>/dev/null || true
+  exec 9>&-
+  bind_held=0
+}
+
+# `run-create` below binds this terminal to the lane's Run, which is over once the lane is. Every exit after it rebinds the terminal to its home Run (`ocs home-run`), so the lead stays reachable by mail whichever way this command ends.
+# Rebinding is itself a move another lane's start can be fenced by, so it waits for the lock; a lane that cannot get it in time rebinds anyway rather than leave the lead on a finished Run.
+run_id=''
+bound_away=0
+rebind_home() {
+  [ "$bound_away" -eq 1 ] || return 0
+  bind_acquire || true
+  "$KEIN_ROOT/libexec/ocs-home-run" >/dev/null 2>&1 || true
+  bound_away=0
+  bind_release
+}
+# A worker terminal that never got a dispatch is closed on the way out, which covers a lane stopped while it queues for the lock as well as an Orca call that fails; `worker_pending` is cleared once a dispatch owns the terminal, and on the one path that leaves it up on purpose.
+# A run directory claimed before anything was launched into it is removed, so a refusal leaves no empty trace behind for a reader or the eval to count as a lane.
+worker_pending=0
+claimed_dir=''
+close_worker() {
+  [ "$worker_pending" -eq 1 ] || return 0
+  orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+  worker_pending=0
+}
+drop_unlaunched_dir() {
+  [ -n "$claimed_dir" ] && [ ! -e "$claimed_dir/command.txt" ] || return 0
+  rm -rf "$claimed_dir"
+}
+on_exit() { close_worker || true; lane_worktree_notice || true; drop_unlaunched_dir || true; rebind_home; }
 trap on_exit EXIT
 
 case "$worktree_arg" in
@@ -360,14 +406,28 @@ orca status --json >/dev/null 2>&1 || { printf 'ocs team: the Orca app is not re
 
 # Resolved from the worker's worktree, not the lead's: `workspace-write` is scoped to the tree the worker
 # holds, so a report path anywhere else is one the worker cannot write and the lane would complete silently.
-dir="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)/$stamp-$lane"
+runs_root="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" runs/team)"
+# The stamp is to the second, and lanes backgrounded together land in the same one: on 2026-09-29 three started at once shared one directory and one report path, and all three printed whichever report was written last.
+# So the name is claimed with `mkdir`, which only one of them can win, and a loser takes the next free suffix. `--check` creates nothing, so it only names the first candidate.
+run_name=$stamp-$lane
+if [ "$check" -eq 0 ]; then
+  mkdir -p "$runs_root"
+  n=1
+  until mkdir "$runs_root/$run_name" 2>/dev/null; do
+    n=$((n + 1))
+    [ "$n" -le 50 ] || { printf 'ocs team: could not claim a run directory under %s\n' "$runs_root" >&2; exit 1; }
+    run_name=$stamp-$n-$lane
+  done
+  claimed_dir=$runs_root/$run_name
+fi
+dir="$runs_root/$run_name"
 
 # The report is the deliverable and does not belong in the tree the repository ignores. `runs/` is
 # declared transient in `.gitignore` and everything else under `.agents/kein/` is a kept record, so a
 # report written into `runs/` is the one file there worth keeping -- and the only reason the directory
 # cannot simply be deleted when it looks cluttered.
 reports="$(cd "$worktree" && "$KEIN_ROOT/libexec/ocs-state-dir" reports)"
-report="$reports/$stamp-$lane.md"
+report="$reports/$run_name.md"
 
 # The role is a file the worker's shell reads at launch, so a multi-kilobyte prompt never has to survive being typed into a terminal.
 role_file="$dir/role.md"
@@ -413,7 +473,11 @@ codex_verb=codex
 [ -z "$resume_session" ] || codex_verb="codex resume $resume_session"
 launch="CODEX_HOME=$codex_home KEIN_STATE_ROOT=$worktree $codex_verb -m $model -c model_reasoning_effort=$effort -s $SANDBOX -c $SANDBOX_CONFIG -c $UPDATE_CHECK -c 'sandbox_workspace_write.writable_roots=[\"$worktree/$STATE_DIRNAME\"]'$vanilla_flags$role_flag"
 
-json_field() { python3 -c 'import json,sys; d=json.load(sys.stdin); v=d.get("result") or {}
+# Empty or non-JSON output reads as an empty field rather than failing: under `set -e` a failing substitution exits on the spot, past the guard after it that names the cause and closes the worker terminal.
+json_field() { python3 -c 'import json,sys
+try: d=json.load(sys.stdin)
+except Exception: d={}
+v=d.get("result") or {} if isinstance(d, dict) else {}
 for k in sys.argv[1].split("."):
     v = (v or {}).get(k) if isinstance(v, dict) else None
 print(v or "")' "$1"; }
@@ -495,12 +559,6 @@ fail() { printf 'ocs team: %s\n' "$1" >&2; exit 1; }
 # deleting the Executor-vendor requirement: written by the mechanism rather than by a lead who forgets.
 printf '%s' "$spec" > "$dir/spec.txt"
 
-run_id=$(orca orchestration run-create --objective "kein $lane lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
-[ -n "$run_id" ] || fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'
-
-task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2>/dev/null | json_field task.id)
-[ -n "$task_id" ] || fail 'could not create the Orca task'
-
 # The terminal must land where the caller is, not where the operator's Orca window happens to be focused.
 # `--worktree current` reads Orca's own selection, so a lead working in one checkout could dispatch a worker into another: the sandbox roots and KEIN_STATE_ROOT above are built from $PWD and would then describe a directory the worker is not in.
 # That is the same defect shape as the model and CODEX_HOME ones — a value that looks pinned and is actually inherited from the environment.
@@ -526,15 +584,27 @@ if [ -z "$handle" ]; then
   printf '  Check `orca worktree list`, and open the directory in Orca once if it is absent.\n' >&2
   exit 1
 fi
+worker_pending=1
 
 # The wait answers in its JSON, not its exit code: a TUI Orca will not attach to comes back `ok` with `satisfied=false` and the reason named.
 # Refusing here is what turns "failed after 0s" into the reason, and leaves the screen up for the caller to read instead of a dispatch that never bound to a process.
 blocked=$(orca terminal wait --terminal "$handle" --for tui-idle --timeout-ms 120000 --json 2>/dev/null | json_field wait.blockedReason)
 if [ -n "$blocked" ]; then
+  worker_pending=0
   printf 'ocs team: the worker terminal never became ready (%s), so no dispatch was attached.\n' "$blocked" >&2
   printf '  terminal=%s left open: read it with orca terminal read --terminal %s, then orca terminal close --terminal %s\n' "$handle" "$handle" "$handle" >&2
   exit 1
 fi
+
+# The worker terminal is up before the binding moves, so the locked stretch is three Orca calls rather than a TUI start that can take two minutes.
+bind_acquire || { close_worker; fail 'another ocs team in this pane held its Orca binding for 600s; no Run was created.'; }
+
+bound_away=1
+run_id=$(orca orchestration run-create --objective "kein $lane lane: $(printf '%s' "$task" | cut -c1-80)" --json 2>/dev/null | json_field run.id)
+[ -n "$run_id" ] || { close_worker; fail 'could not create an Orca run. Is orchestration enabled in Settings > Experimental?'; }
+
+task_id=$(orca orchestration task-create --spec "$spec" --run "$run_id" --json 2>/dev/null | json_field task.id)
+[ -n "$task_id" ] || { close_worker; fail 'could not create the Orca task'; }
 
 # `--worktree` names the terminal's tree, because Orca otherwise checks a reused terminal against the coordinator pane's worktree and refuses any other with `terminal_worktree_mismatch`.
 # Measured 2026-09-19: without it, every `--worktree <path>` and `--worktree new` lane stopped here, since both put the terminal outside the pane's tree; `$PWD` does not move the check, because the pane's identity comes from Orca and not from the shell.
@@ -542,6 +612,7 @@ started=$(orca orchestration worker-start --task "$task_id" --terminal "$handle"
 # Kept whole: its `state` and `turnStart` are Orca's own account of whether the brief was submitted, and the one lane that stalled with its brief unsent left nothing to read afterwards.
 printf '%s' "$started" > "$dir/worker-start.json"
 dispatch=$(printf '%s' "$started" | json_field dispatchId)
+[ -z "$dispatch" ] || worker_pending=0
 if [ -z "$dispatch" ]; then
   # The refusal is in the JSON body, and it is the only line that names the cause. Dropping it made this read like a transient hiccup, and the retry it invited stranded a second terminal and task.
   reason=$(printf '%s' "$started" | python3 -c 'import json,sys
@@ -555,7 +626,7 @@ print(" ".join(x for x in (e.get("code"), e.get("message")) if x))' 2>/dev/null)
     printf '  task=%s marked failed.\n' "$task_id"
     printf '  terminal=%s closed.\n' "$handle"
   } | tee -a "$dir/command.txt" >&2
-  orca terminal close --terminal "$handle" --json >/dev/null 2>&1 || true
+  close_worker
   exit 1
 fi
 
@@ -565,8 +636,8 @@ fi
 # the case it was for.
 printf 'run=%s\ntask=%s\ndispatch=%s\nterminal=%s\nturn_start=%s\n' "$run_id" "$task_id" "$dispatch" "$handle" "$(printf '%s' "$started" | json_field turnStart)" >> "$dir/command.txt"
 
-# `run-create` moved this terminal onto the lane's Run, and completion is polled by dispatch id below, so nothing here needs the binding. Back on the home Run at once, mail sent to the lead while the lane runs lands where the lead reads it.
-"$KEIN_ROOT/libexec/ocs-home-run" >/dev/null 2>&1 || true
+# `run-create` moved this terminal onto the lane's Run, and completion is polled by dispatch id below, so nothing here needs the binding. Back on the home Run at once, mail sent to the lead while the lane runs lands where the lead reads it, and the lock goes with it.
+rebind_home
 
 # Orca pastes the brief into the worker's composer and presses Enter separately, and the Enter can be lost: a lane on 2026-09-19 sat 14 minutes with its brief unsent until the operator pressed it by hand. Orca's own receipt names this state ("holding the task unsent in its composer") but can also miss it.
 # `terminal read --screen` reports the composer's unsent text as `draft`, and nobody types into a worker's composer, so a draft still there one poll later is stuck input rather than input in flight. Enter alone submits it (measured the same day on a codex TUI holding a typed prompt).
@@ -649,20 +720,25 @@ while [ "$elapsed" -lt "$timeout" ]; do
 done
 
 # The same `worker_done` that settled the dispatch also lands in this lane's Run inbox, and Orca later nudges the lead's terminal with "You have 1 orchestration message" for a lane that is already over.
-# Consumed here so the nudge never comes. `check` only reads the Run the calling terminal is currently bound to, and the terminal went back to its home Run once the dispatch attached, so this binds to the lane's Run for the ack and the EXIT trap returns it home.
+# Consumed here so the nudge never comes. `check` only reads the Run the calling terminal is currently bound to, and the terminal went back to its home Run once the dispatch attached, so this binds to the lane's Run for the ack, under the lock, and returns it home straight after.
 # Acknowledged only when every message in the delivery is this dispatch's `worker_done`: a delivery is acked whole. Mail for the lead reached the home Run while the lane ran, so nothing else should be here.
 case "$status" in
   completed|failed)
-    orca orchestration run-use --id "$run_id" --json >/dev/null 2>&1 || true
-    delivery=$(orca orchestration check --run "$run_id" --types worker_done --json 2>/dev/null | python3 -c 'import json,sys
+    # Without the lock the ack is skipped rather than risk fencing a lane that is starting: an unconsumed `worker_done` costs one stray nudge, and the pane never left home.
+    if bind_acquire; then
+      bound_away=1
+      orca orchestration run-use --id "$run_id" --json >/dev/null 2>&1 || true
+      delivery=$(orca orchestration check --run "$run_id" --types worker_done --json 2>/dev/null | python3 -c 'import json,sys
 try: r=json.load(sys.stdin).get("result") or {}
 except Exception: r={}
 msgs=r.get("messages") or []
 def own(m):
-    try: return json.loads(m.get("payload") or "{}").get("dispatchId")==sys.argv[1]
-    except Exception: return False
+      try: return json.loads(m.get("payload") or "{}").get("dispatchId")==sys.argv[1]
+      except Exception: return False
 print(r.get("deliveryId") or "" if msgs and all(own(m) for m in msgs) else "")' "$dispatch" 2>/dev/null)
-    [ -z "$delivery" ] || orca orchestration check --run "$run_id" --ack "$delivery" --json >/dev/null 2>&1 || true ;;
+      [ -z "$delivery" ] || orca orchestration check --run "$run_id" --ack "$delivery" --json >/dev/null 2>&1 || true
+      rebind_home
+    fi ;;
 esac
 
 if [ "$status" != "completed" ]; then
