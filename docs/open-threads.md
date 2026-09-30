@@ -116,3 +116,11 @@ Left open by bdf2030, which serialized the Orca binding for parallel `ocs team` 
 - **SessionStart `ocs home-run --hook` takes no lock.** The `ocs team` binding lock (`~/.local/state/kein/orca-bind/<terminal handle>`) does not cover it. It matters only when a new or resumed `claude` starts in a pane while one of its lanes is inside the few-second locked stretch, which needs lanes that outlive their session. A cheap fix is for `--hook` to try the lock once without waiting and skip when it is held, since a held lock means a lane will return the pane home itself. Not observed.
 
 **Reopen when** either shows up: a lost `runs/ask` trace, or a lane fenced right after a session start in the same pane.
+
+## `ocs team codex --resume` of a large session delivered no brief — raised 2026-10-01
+
+In the descvi `text-canvas` worktree, `--resume` of run `261001-002014-executor` (a 2.4 MB codex session, 329 events, whose first dispatch ended `worker_report outcome=failed` after 480 s) started a dispatch that stayed `ready` with `turn_start=unsupported`. The session file was not written after the resume, so no turn was taken; the lead stopped the lane by hand after four minutes and started a fresh worker. The terminal was closed before its screen could be read.
+
+Not reproduced: resuming a fresh small session from the harness pane worked, including a resumed task that ran past 90 s, and `turn_start=unsupported` also appears there, so it does not tell the two apart. The likeliest cause is the resumed TUI still loading a long history when the brief was typed, so the input was lost, but nothing measured supports it over another. `ocs team`'s existing composer-draft nudge presses Enter only when Orca reports a draft in the composer.
+
+`ocs team` now warns once after 90 s when a resumed worker's session file has not been written since launch (this thread's commit). **Reopen when** that warning appears: the terminal it leaves open holds the screen, and `orca terminal read --terminal <handle> --screen` says what the resumed TUI was showing.
