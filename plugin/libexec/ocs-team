@@ -613,6 +613,18 @@ started=$(orca orchestration worker-start --task "$task_id" --terminal "$handle"
 printf '%s' "$started" > "$dir/worker-start.json"
 dispatch=$(printf '%s' "$started" | json_field dispatchId)
 [ -z "$dispatch" ] || worker_pending=0
+# A failed start still answers with a dispatch id and `ok`: on 2026-09-29 a worker that never became ready came back `state=failed, stage=agent_readiness, lastError=timeout` after three minutes, and taking the id as attached made the poll below report "failed after 0s". The terminal is left open, since its screen is the only account of what the agent was showing.
+start_state=$(printf '%s' "$started" | json_field state)
+case "$start_state" in
+  failed|outcome_unknown)
+    orca orchestration task-update --id "$task_id" --status failed --json >/dev/null 2>&1 || true
+    {
+      printf 'ocs team: Orca did not start the worker (state=%s, stage=%s): %s\n' "$start_state" "$(printf '%s' "$started" | json_field stage)" "$(printf '%s' "$started" | json_field lastError)"
+      printf '  task=%s marked failed; no brief was delivered.\n' "$task_id"
+      printf '  terminal=%s left open: read it with orca terminal read --terminal %s --screen, then orca terminal close --terminal %s\n' "$handle" "$handle" "$handle"
+    } | tee -a "$dir/command.txt" >&2
+    exit 1 ;;
+esac
 if [ -z "$dispatch" ]; then
   # The refusal is in the JSON body, and it is the only line that names the cause. Dropping it made this read like a transient hiccup, and the retry it invited stranded a second terminal and task.
   reason=$(printf '%s' "$started" | python3 -c 'import json,sys
