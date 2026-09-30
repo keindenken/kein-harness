@@ -97,3 +97,22 @@ What is established: user-level path-scoped rules reach Claude subagents, inject
 Moved 2026-09-26: `~/.claude/rules/no-hard-wrap.md`, `paths:` listing common source extensions plus `**/*.md` (the old line covered documents too), and the line removed from `~/.claude/CLAUDE.md`. A probe session confirmed one `nested_memory` injection in the main session and one in a subagent, each on its own read of a source file.
 
 Still open: whether it works — compare comment rewrites in descvi executor transcripts before and after the move. Whether `paths:` accepts brace expansion (`**/*.{ts,tsx,py}`) is unmeasured, which is why the file lists extensions one per line.
+
+## `ocs team codex` failed to start a worker twice in one descvi session, then worked — raised 2026-09-29
+
+In a descvi `text-canvas` session (launched in the descvi checkout, moved into a worktree with EnterWorktree) `ocs team codex --agent executor` failed twice on 2026-09-29 (~09:27 and ~09:30), then worked on the retry the next day with the same package and flags. The first failure's `worker-start.json` reads `state=failed, stage=agent_readiness, lastError=timeout` after about three minutes, on a reused terminal; `ocs team` took the returned dispatch id as attached and reported "failed after 0s". The second attempt left no `worker-start.json`, and its terminal sat idle on codex's welcome screen with the brief unsent until the session ended.
+
+What is established: the misreport (0d600e2 now stops on `failed`/`outcome_unknown`, names the state and stage, and leaves the terminal open). What is not: the cause. Not reproduced from the harness pane with the same role, model (`gpt-5.6-terra`), effort, a 6.4 KB brief, a target worktree other than the pane's, or codex 0.158.0 (auto-updated 2026-09-29 07:51, before both failures). The remaining difference is the session's launch checkout plus EnterWorktree, and Orca's app state at the time (it restarted afterwards, so no live state was left to read).
+
+**Reopen when** a lane fails again with the new message; the terminal it leaves open and `worker-start.json` are the evidence.
+
+Related: the same session's fsd hooks also missed its worktree run (`docs/skills/fsd/open.md`, "The hooks do not see a run started in a worktree"), which points at the same launch-checkout versus worktree split.
+
+## `ocs ask` traces and the SessionStart home-run are not covered by the `ocs team` lane fixes — raised 2026-09-29
+
+Left open by bdf2030, which serialized the Orca binding for parallel `ocs team` lanes from one pane and made their run directories unique.
+
+- **`ocs ask` trace names.** `ocs-ask` names its trace directory `runs/ask/<YYMMDD-HHMMSS>-<role>` and creates it with `mkdir -p`, so two calls with the same role finishing in the same second share one directory and overwrite each other's `prompt.txt`, `command.txt`, `response.txt` and `stderr.txt`. The answer itself goes to stdout, so only the trace is lost. Not observed in a real run. `ocs team` claims its name with `mkdir` and takes a numeric suffix on a collision; `ocs ask` would take the same.
+- **SessionStart `ocs home-run --hook` takes no lock.** The `ocs team` binding lock (`~/.local/state/kein/orca-bind/<terminal handle>`) does not cover it. It matters only when a new or resumed `claude` starts in a pane while one of its lanes is inside the few-second locked stretch, which needs lanes that outlive their session. A cheap fix is for `--hook` to try the lock once without waiting and skip when it is held, since a held lock means a lane will return the pane home itself. Not observed.
+
+**Reopen when** either shows up: a lost `runs/ask` trace, or a lane fenced right after a session start in the same pane.

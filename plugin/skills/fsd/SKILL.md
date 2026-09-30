@@ -68,7 +68,7 @@ The hooks read the Bash commands you run and their output, so they see only what
 - Run `ocs state ralplan start`, `ocs state execute start` and `ocs validate interview ledger` each as its own Bash call, with the path written out literally.
 - Run `ocs state execute dispatch <state> <task>` before starting that task's executor.
 
-When `status` shows a stage with no association, its `association_reason` names the command that would have linked it. `ocs state fsd attach <state> <stage> <run>` links a run of this flow that is still live.
+When `status` shows a stage with no association, its `association_reason` names the command that would have linked it. `ocs state fsd attach <state> <stage> <run>` links a run of this flow that is still live, or, when the stage has no link, one of this flow's own that started after this fsd run did.
 
 A command printed inside a block reason is not, by that alone, a command to run: the reason says whether to run it, and when. Read that.
 

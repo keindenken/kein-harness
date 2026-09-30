@@ -18,3 +18,7 @@ Carried in that run's receipt; the run record is `docs/skills/execute/260923-aud
 - **A halted run's report invites an answer nothing can accept.** When a structural refusal ends a pause attempt in `halt`, `report` still lists the recorded question with "Answer by re-invoking /kein:fsd", and `answer` then refuses a terminal state.
 - **Whether `claude --resume` re-arms frontmatter hooks is unmeasured.** The 2026-09-19 probe measured only a `-c -p` continuation, where they did not fire.
 - **`closeout.md` step 4 states `halt`'s refusal as one case.** `halt` is also refused on a run that is not active and on an empty reason; neither is reachable from the step as written, so this is wording.
+
+## A hand-authored checkpoint could open a span with a made-up hash
+
+Closed 2026-09-29: 1d21b12 — `checkpoint` now refuses any appended `agents_md` span on any transition and any move into `paused`, so a span's hash always comes from `resume` or `respan`. The same commit added `respan`, which opens a span on an active run whose AGENTS.md reached the branch from another ref, so a rebase onto an owner commit no longer ends in `halt`.

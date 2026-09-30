@@ -10,7 +10,7 @@ Each of these fails open (a missing link, so no hook fires) or needs someone to 
 - Whether `PostToolUse` fires for a Bash call that exits nonzero is unmeasured.
 - The fsd state file has no lock; a concurrent write can drop a link.
 - `guard` checks nothing on a completed execute receipt; close's AGENTS.md hash is the backstop.
-- A hand-authored checkpoint can still open a span on paused→active with a made-up hash.
+- `attach` links a completed ralplan run over a requirements input on place and time alone: the completed receipt keeps no `input`, so two runs completed after the flow began cannot be told apart. Only one nonterminal fsd run exists per worktree, which bounds it.
 - Occupant lookup reads `<worktree>/.agents/kein/runs` and ignores `KEIN_STATE_ROOT` or a subdirectory `CLAUDE_PROJECT_DIR`.
 - fsd states written before `resolved_reference` existed are no longer writable; runs are temporary.
 - Interview's `output_path` and its completed `requirements_path` are assumed equal.
@@ -31,7 +31,9 @@ It happened again on 2026-09-28 in a descvi run (`260928-210336-e3-v4-remaining`
 
 Measured on 2026-09-28 with a headless session in a scratch repository whose `PostToolUse` and `Stop` hooks logged their environment: after EnterWorktree, the hook process's `CLAUDE_PROJECT_DIR` still names the checkout the session was launched in, while the payload's `cwd` and the hook's own working directory name the worktree. The lead's Bash has no `CLAUDE_PROJECT_DIR` at all, before or after, so `ocs state-dir` in Bash falls through to the git top level of its `cwd` and writes the run under the worktree. `hook.py`'s `_state_dir_root` and `_reference_dir` take `CLAUDE_PROJECT_DIR` first, so the hook searches the launch checkout's `runs/fsd`, finds nothing nonterminal there, and allows silently. The hook's docstring says it mirrors `ocs state-dir`, and it does line for line, but the two run with different environments, so they resolve different roots.
 
-Not yet decided: whether the hook should take the payload `cwd`'s git top level before `CLAUDE_PROJECT_DIR` (which matches where Bash's `ocs` writes), or search both; whether `ocs-state-dir`, `prompt-layers.py`, `agent-layers.sh` and `ocs-doctor`, which also read `CLAUDE_PROJECT_DIR`, have the same split; and whether `attach` should accept a completed ralplan run whose plan matches, so one missed link does not strand execute. Landing the resolution fix also turns the Stop guard on, mid-run, for any fsd run already live in a worktree, whose unlinked stages would then read as a gap on every turn end.
+Third occurrence: 2026-09-29, a descvi run (`text-canvas-2-token-editor`, EnterWorktree then `/kein:fsd`). The lead ran `ocs state ralplan start` while the stage was still `pending`, the hook did not link it, and once ralplan completed `attach` refused it and the live execute run could not attach either. `attach` now accepts a completed run of this flow's own when the stage has no kept link and the run started after this fsd run did (state-schema.md, `attach`), so one missed link no longer strands the stages after it. That does not fix the hook.
+
+Still not decided: whether the hook should take the payload `cwd`'s git top level before `CLAUDE_PROJECT_DIR` (which matches where Bash's `ocs` writes), or search both; and whether `ocs-state-dir`, `prompt-layers.py`, `agent-layers.sh` and `ocs-doctor`, which also read `CLAUDE_PROJECT_DIR`, have the same split. Landing the resolution fix also turns the Stop guard on, mid-run, for any fsd run already live in a worktree, whose unlinked stages would then read as a gap on every turn end.
 
 **Reopen when** that fix is taken up; the probe is a scratch repository, a linked worktree, and a `--settings` file whose hooks append `$CLAUDE_PROJECT_DIR`, the payload `cwd` and `pwd` to a log.
 
