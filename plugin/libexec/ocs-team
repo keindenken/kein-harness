@@ -697,6 +697,7 @@ elapsed=0
 status=''
 said_unsignalled=0
 report_seen=''
+said_no_turn=0
 draft_seen=0
 nudges=0
 while [ "$elapsed" -lt "$timeout" ]; do
@@ -711,6 +712,18 @@ while [ "$elapsed" -lt "$timeout" ]; do
   # once when it happens: no further waiting can settle a dispatch the worker never signalled.
   # Only after the report has sat unsettled for 30 s: a worker writes the report and then signals, so a poll landing between the two is the normal path, and warning on it made every successful lane look like a failure (measured 2026-09-19, twice in a row).
   if [ -s "$report" ] && [ -z "$report_seen" ]; then report_seen=$elapsed; fi
+  # A resumed session appends to the rollout it already has, so a rollout no newer than the launch marker after 90 s means the worker never took a turn. Measured 2026-10-01: a 2.4 MB session resumed in a descvi worktree took none, the dispatch stayed `ready`, and nothing else said so until the timeout. The worker terminal is left as it is; the caller reads its screen.
+  if [ -n "$resume_session" ] && [ "$said_no_turn" -eq 0 ] && [ "$elapsed" -ge 90 ] && [ ! -s "$report" ]; then
+    rollout=$(find "$codex_home/sessions" -name "*$resume_session*.jsonl" 2>/dev/null | head -1)
+    if [ -n "$rollout" ] && [ ! "$rollout" -nt "$dir/.launched" ]; then
+      said_no_turn=1
+      {
+        printf 'ocs team: the resumed worker has taken no turn after %ss: its session file has not been written since launch.\n' "$elapsed"
+        printf '  read its screen: orca terminal read --terminal %s --screen\n' "$handle"
+        printf '  a stuck one can be stopped with orca terminal close --terminal %s, then resumed again or replaced by a fresh worker.\n' "$handle"
+      } | tee -a "$dir/command.txt" >&2
+    fi
+  fi
   if [ "$said_unsignalled" -eq 0 ] && [ -n "$report_seen" ] && [ $((elapsed - report_seen)) -ge 30 ]; then
     said_unsignalled=1
     printf 'ocs team: the report exists and the dispatch has not settled.\n' >&2
