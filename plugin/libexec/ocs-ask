@@ -10,6 +10,10 @@
 # Repository instructions are NOT injected: `ask` cannot know whether a repository's conventions bear on a given question, and the caller can.
 # Put them in the task brief.
 set -eu
+# The whole script is one function, parsed before anything runs: a shell reads its script as it goes, and this file is a live symlink target, so an edit while a lane is running otherwise moves the shell's place in it
+# (measured 2026-10-01: a lane that ended with `unexpected EOF while looking for matching` after the file was rewritten under it).
+# The call and its `exit` share the last line for the same reason: nothing is left for the shell to read once the function returns.
+ocs_main() {
 
 # Adding a provider is one entry here and no change at any call site.
 PROVIDERS='codex'
@@ -199,3 +203,5 @@ else
   cat "$work/stderr.txt" >&2
   exit 1
 fi
+}
+ocs_main "$@"; exit $?

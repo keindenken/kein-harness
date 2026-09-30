@@ -17,6 +17,10 @@
 # What this command owns is the execution environment: which model, which reasoning effort, which sandbox, and which vendor home.
 # Orca's own agent launch cannot vary any of those per dispatch — they come from one global setting in its client — so composing the terminal ourselves is the only way a role's tier can decide its model.
 set -eu
+# The whole script is one function, parsed before anything runs: a shell reads its script as it goes, and this file is a live symlink target, so an edit while a lane is running otherwise moves the shell's place in it
+# (measured 2026-10-01: a lane that ended with `unexpected EOF while looking for matching` after the file was rewritten under it).
+# The call and its `exit` share the last line for the same reason: nothing is left for the shell to read once the function returns.
+ocs_main() {
 
 # The worktree a lane created is this command's to remove, and removing it takes a check Orca does not make, so it lives beside the command that made it.
 if [ "${1:-}" = close ]; then
@@ -719,9 +723,14 @@ while [ "$elapsed" -lt "$timeout" ]; do
       said_no_turn=1
       {
         printf 'ocs team: the resumed worker has taken no turn after %ss: its session file has not been written since launch.\n' "$elapsed"
-        printf '  read its screen: orca terminal read --terminal %s --screen\n' "$handle"
+        printf '  its screen is saved to %s; read it live with orca terminal read --terminal %s --screen\n' "$dir/stalled-screen.txt" "$handle"
         printf '  a stuck one can be stopped with orca terminal close --terminal %s, then resumed again or replaced by a fresh worker.\n' "$handle"
       } | tee -a "$dir/command.txt" >&2
+      # Kept beside the run: the terminal is usually closed before anyone reads it, and its screen is the only account of what the resumed TUI was showing (2026-10-01: a fork notice, a usage warning and an empty prompt).
+      orca terminal read --terminal "$handle" --screen --json 2>/dev/null | python3 -c 'import json,sys
+try: t=(json.load(sys.stdin).get("result") or {}).get("terminal") or {}
+except Exception: t={}
+print("\n".join(t.get("tail") or []))' > "$dir/stalled-screen.txt" 2>/dev/null || true
     fi
   fi
   if [ "$said_unsignalled" -eq 0 ] && [ -n "$report_seen" ] && [ $((elapsed - report_seen)) -ge 30 ]; then
@@ -796,3 +805,5 @@ fi
 printf 'report: %s\n' "$report"
 printf 'trace: %s\n' "$dir" >&2
 cat "$report"
+}
+ocs_main "$@"; exit $?
